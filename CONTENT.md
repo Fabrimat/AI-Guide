@@ -35,10 +35,12 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
    (IA specializzate vs conversazionali). Quattro miti da chiarire subito.
 
-2. ⏳ **Cos'è un prompt?** (`fondamenti/cos-e-un-prompt`)
+2. ✅ **Cos'è un prompt?** (`fondamenti/cos-e-un-prompt`)
    La parola "prompt" e il modello mentale "è come scrivere un messaggio
-   chiaro a qualcuno che vuole aiutarti". Esempio prima/dopo di una richiesta
-   vaga vs una chiara. Propedeutica alla lezione 3.
+   chiaro a qualcuno che vuole aiutarti". Esempio prima/dopo con `<ChatDemo>`
+   (vago vs chiaro). Quattro ingredienti di un prompt chiaro, avvertimento
+   sui "prompt magici". Revisione (`analyze-lesson` + `integrate-questions`)
+   ancora da fare.
 
 3. ⏳ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
    La lezione più pratica del modulo. `<ChatDemo>` come anteprima di cosa
@@ -57,9 +59,11 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 1 su 5 pubblicata. La vecchia `cos-e-un-llm.mdx` resta in
-sidebar a `order: 10` come placeholder, sarà sostituita dalla lezione 4
-quando ci arriveremo.
+**Stato attuale**: 2 su 5 pubblicate. Entrambe hanno revisione (ciclo
+`analyze-lesson` + `integrate-questions` + `style-checker`) ancora aperta,
+da fare in un giro dedicato. La vecchia `cos-e-un-llm.mdx` resta in sidebar
+a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
+arriveremo.
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -130,7 +134,13 @@ tradurre una pagina alla volta senza rompere il sito.
 
 ## Prossima sessione
 
-- **Lezione 1** (*Ma cos'è l'IA?*): curare le domande in
-  `analysis/cos-e-l-ia.questions.md` e lanciare `/integrate-questions`
-  per integrarle.
-- **Poi**: bozza della lezione 2, *"Cos'è un prompt?"*.
+Due filoni aperti, scegliere in che ordine attaccarli:
+
+**Revisioni pendenti (lezioni 1 e 2)**:
+- Lezione 1: domande già generate in `analysis/cos-e-l-ia.questions.md`,
+  da curare e integrare con `/integrate-questions`.
+- Lezione 2: da lanciare `/analyze-lesson` e poi stesso giro della 1.
+
+**Prossima bozza**: lezione 3, *"La tua prima conversazione"*. È la più
+pratica del modulo, richiede `<ChatDemo>` per l'anteprima e un nuovo
+prompt in `public/skills/` per l'`<EsercizioLLM>`.

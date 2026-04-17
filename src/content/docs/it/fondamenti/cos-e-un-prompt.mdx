@@ -1,0 +1,110 @@
+---
+title: Cos'è un prompt?
+description: La parola "prompt" spiegata senza giri. È quello che scrivi all'IA per ottenere una risposta, e come lo scrivi conta più di quanto pensi.
+livello: principiante
+prerequisiti: [cos-e-l-ia]
+sidebar:
+  order: 2
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+
+Un **prompt** è quello che scrivi all'IA per ottenere una risposta. Può essere
+una domanda, una richiesta, un'istruzione, un paragrafo intero di contesto.
+In italiano funzionerebbero benissimo "richiesta" o "messaggio", ma ormai
+"prompt" è la parola che usano tutti. Meglio familiarizzarsi.
+
+## Perché ti interessa
+
+La risposta che ottieni dipende molto da come hai formulato il prompt. Non
+esistono "parole magiche" che sbloccano l'IA. Esiste invece una differenza
+grossa fra un prompt vago e un prompt chiaro, e la vedrai fra poco.
+
+## Il modello mentale: è come mandare un messaggio
+
+Immagina di mandare un messaggio a una persona sconosciuta, molto brava in
+tante cose. Non sa chi sei né in che situazione ti trovi, e non sa cosa
+vuoi davvero. Se le scrivi "aiutami", la risposta sarà generica. Se le
+scrivi "sto scrivendo una mail al condominio per lamentarmi del rumore,
+puoi aiutarmi a essere gentile ma fermo?", la risposta sarà utile.
+
+Con l'IA vale lo stesso principio. Non ti conosce, non sa niente della tua
+situazione. Ogni volta parte da zero.
+
+## Vago contro chiaro: vedi la differenza
+
+Due richieste sullo stesso argomento, stesso modello di IA. Ma il risultato
+non c'entra niente.
+
+### Prompt vago
+
+<ChatDemo
+  user="Parlami della seconda guerra mondiale"
+  ai={`La seconda guerra mondiale è stato un conflitto globale durato dal 1939 al 1945 che ha coinvolto la maggior parte dei paesi del mondo. È iniziata con l'invasione tedesca della Polonia e si è conclusa con la resa di Germania e Giappone. Si stimano oltre 50 milioni di vittime civili e militari, e il conflitto ha avuto conseguenze su scala globale…`}
+/>
+
+Non è sbagliato. Ma sembra Wikipedia. Non ti aiuta a fare niente di concreto.
+
+### Prompt chiaro
+
+<ChatDemo
+  user={`Sto preparando mio figlio di 11 anni a un compito di storia sulla seconda guerra mondiale. Mi spieghi le cause principali in tre punti, ognuno con un esempio concreto, usando parole adatte alla sua età?`}
+  ai={`Certo. Ecco le tre cause principali.
+
+1. Il Trattato di Versailles era troppo duro con la Germania. Dopo la prima guerra mondiale, la Germania doveva pagare danni enormi e non poteva più avere un esercito vero. Una situazione che fece crescere tanta rabbia.
+
+2. La crisi economica del 1929 lasciò milioni di persone senza lavoro in tutto il mondo. In Germania in tanti cercarono "un uomo forte" che promettesse di risolvere tutto, anche con le cattive.
+
+3. Hitler voleva allargare la Germania e iniziò a invadere i paesi vicini, dicendo che tanto lì si parlava tedesco e quindi "erano già casa sua".`}
+/>
+
+Stessa IA, stessa storia. Ma ora la risposta è utile **per te**.
+
+## Gli ingredienti di un prompt chiaro
+
+Quando una risposta generica non basta, il prompt tipicamente contiene queste
+quattro cose:
+
+1. **Cosa vuoi**: "spiegami", "riscrivi", "traduci", "fai un elenco di".
+2. **Per chi è la risposta**: un bambino di 11 anni, il tuo capo, un amico.
+   Cambia tono e profondità.
+3. **Contesto**: chi sei, cosa stai facendo, cosa hai già provato. Più
+   informazioni rilevanti dai, meno l'IA deve indovinare.
+4. **Formato atteso**: "in tre punti", "massimo cento parole", "come una
+   mail", "in forma di tabella".
+
+Non servono sempre tutte e quattro. Il minimo che fa la differenza è **cosa
+vuoi**. Il resto è carburante che migliora la qualità.
+
+## Quando il prompt non funziona
+
+Capita spesso. La prima formulazione che ti viene in mente è quasi sempre la
+peggiore. Se la risposta non è quella che cercavi, hai due strade:
+
+- **Riformulare** il prompt aggiungendo contesto, specificando il tono o il
+  formato, togliendo ambiguità.
+- **Rispondere** all'IA come in una conversazione: "troppo lunga, dammela in
+  metà parole", oppure "non mi interessa la storia, mi interessa l'impatto
+  economico". L'IA è fatta per essere corretta in corsa.
+
+Non c'è limite a quante volte puoi iterare. L'IA non si stanca e non si
+offende.
+
+:::tip[La regola di una frase]
+Prima di premere "invio", rileggi il prompt e chiediti: *una persona che
+non mi conosce riuscirebbe a capire cosa voglio da questa frase?* Se la
+risposta è no, aggiungi una riga di contesto.
+:::
+
+## Quello che NON è un prompt (e diffida)
+
+Girano online "prompt magici" che promettono di "sbloccare" l'IA, farle
+dire la verità, farle rivelare cose nascoste. Non esistono. L'IA non ha cose
+nascoste né poteri segreti: risponde in base a quello che le chiedi e a
+quello che ha imparato. Un buon prompt è un prompt **chiaro**, non un prompt
+furbo.
+
+## Cosa viene dopo
+
+- **La tua prima conversazione**: apri un'IA e metti in pratica tutto questo,
+  con un esercizio guidato.
