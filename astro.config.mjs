@@ -31,10 +31,12 @@ export default defineConfig({
       // - Head:         lock palette su light + view transitions
       // - ThemeSelect:  rimosso (sito ha una sola palette, "Pastello")
       // - PageSidebar:  TOC laterale rimosso (rumore visivo non utile)
+      // - Pagination:   "Prossima lezione" come card singola, niente Prev
       components: {
         Head: './src/components/Head.astro',
         ThemeSelect: './src/components/ThemeSelect.astro',
         PageSidebar: './src/components/PageSidebar.astro',
+        Pagination: './src/components/Pagination.astro',
       },
 
       // Sidebar: `slug` è locale-aware (si risolve automaticamente al file

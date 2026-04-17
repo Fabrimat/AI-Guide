@@ -122,6 +122,49 @@ staticamente.
 />
 ```
 
+### `<HomeCards>`
+
+Griglia di card visive per la landing. Sostituisce le liste a punti
+"da docs". Ogni card ha icona, titolo, descrizione, e link opzionale.
+Le card non ancora pronte si segnalano con `comingSoon: true`: niente
+link, badge "Presto" in alto a destra.
+
+| Prop              | Tipo            | Default   | Note                                                |
+|-------------------|-----------------|-----------|------------------------------------------------------|
+| `heading`         | `string`        | —         | opzionale, titolo di sezione sopra le card           |
+| `cards`           | `HomeCard[]`    | —         | obbligatorio, almeno una card                        |
+| `comingSoonLabel` | `string`        | `'Presto'`| testo del badge per le card `comingSoon`             |
+
+`HomeCard`:
+
+| Campo         | Tipo       | Default | Note                                          |
+|---------------|------------|---------|------------------------------------------------|
+| `icon`        | `string`   | —       | obbligatorio, tipicamente un emoji            |
+| `title`       | `string`   | —       | obbligatorio                                  |
+| `description` | `string`   | —       | obbligatorio                                  |
+| `href`        | `string`   | —       | opzionale, URL della pagina target            |
+| `comingSoon`  | `boolean`  | `false` | se true: card non cliccabile, badge "Presto"  |
+
+```mdx
+<HomeCards
+  heading="Da dove parti?"
+  cards={[
+    {
+      icon: '🌱',
+      title: 'Fondamenti',
+      description: "Cos'è un'IA, come parlarci, cosa aspettarti.",
+      href: '/it/fondamenti/cos-e-un-llm/',
+    },
+    {
+      icon: '✍️',
+      title: 'Uso quotidiano',
+      description: 'Scrivere, riassumere, imparare cose nuove.',
+      comingSoon: true,
+    },
+  ]}
+/>
+```
+
 ### `<ChatDemo>`
 
 Conversazione utente/IA animata (typewriter + dots di "thinking"). Sostituisce

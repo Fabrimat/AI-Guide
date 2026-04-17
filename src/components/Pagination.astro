@@ -1,0 +1,106 @@
+---
+/**
+ * Override del componente Pagination di Starlight.
+ *
+ * Mostra solo la "Prossima lezione" come card grande coral-bordered
+ * (niente "Precedente"), in linea con la direzione "manuale guidato":
+ * il lettore non-tecnico segue un percorso lineare in avanti, raramente
+ * torna indietro tramite paginazione (ha la sidebar per quello).
+ *
+ * Etichette localizzate per IT/EN. Il path della prossima pagina viene
+ * preso da Starlight (`Astro.locals.starlightRoute.pagination`).
+ */
+
+const route = Astro.locals.starlightRoute;
+const next = route?.pagination?.next;
+
+const locale = Astro.currentLocale ?? 'it';
+const LABELS: Record<string, { meta: string; arrowAria: string }> = {
+  it: { meta: 'Prossima lezione', arrowAria: 'Vai alla lezione successiva' },
+  en: { meta: 'Next lesson', arrowAria: 'Go to next lesson' },
+};
+const labels = LABELS[locale] ?? LABELS.it;
+---
+
+{next && (
+  <a class="next-lesson not-content" href={next.href} aria-label={labels.arrowAria}>
+    <div class="next-lesson-text">
+      <span class="next-lesson-meta">{labels.meta}</span>
+      <span class="next-lesson-title">{next.label}</span>
+    </div>
+    <span class="next-lesson-arrow" aria-hidden="true">→</span>
+  </a>
+)}
+
+<style>
+  .next-lesson {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 3rem 0 0;
+    padding: 1.4rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--sl-color-text);
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 6px 18px rgba(42, 36, 71, 0.05);
+    transition:
+      background 150ms ease,
+      transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .next-lesson:hover {
+    background: var(--sl-color-accent-low);
+    transform: translateY(-1px);
+    box-shadow:
+      0 4px 10px rgba(42, 36, 71, 0.06),
+      0 12px 28px rgba(42, 36, 71, 0.08);
+  }
+
+  .next-lesson:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 3px;
+  }
+
+  .next-lesson-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  .next-lesson-meta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .next-lesson-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .next-lesson-arrow {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--sl-color-accent);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .next-lesson {
+      padding: 1.1rem 1.2rem;
+    }
+    .next-lesson-title {
+      font-size: 1.05rem;
+    }
+  }
+</style>

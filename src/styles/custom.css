@@ -122,3 +122,46 @@
 .starlight-aside {
   border-radius: 0.75rem;
 }
+
+/* ------------------------------------------------------------
+   Splash hero (landing): tipografia più grande, CTA pill
+   ------------------------------------------------------------ */
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  max-width: 22ch;
+}
+
+.hero .tagline {
+  font-size: 1.15rem;
+  color: var(--sl-color-gray-3);
+  line-height: 1.55;
+  max-width: 50ch;
+}
+
+.hero .actions .sl-link-button {
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 500;
+}
+
+.hero .actions .sl-link-button.primary {
+  background: var(--sl-color-accent);
+  color: var(--sl-color-white);
+  border-color: var(--sl-color-accent);
+}
+
+.hero .actions .sl-link-button.primary:hover {
+  background: var(--sl-color-accent-high);
+  border-color: var(--sl-color-accent-high);
+}
+
+.hero .actions .sl-link-button.minimal {
+  color: var(--sl-color-text);
+  border: 1px solid var(--sl-color-hairline);
+}
+
+.hero .actions .sl-link-button.minimal:hover {
+  background: rgba(42, 36, 71, 0.04);
+}

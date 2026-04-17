@@ -1,0 +1,162 @@
+---
+/**
+ * HomeCards: griglia di card visive per la landing.
+ *
+ * Sostituisce la lista a punti delle homepage "da docs" con tre card
+ * grandi, ognuna con icona, titolo, frase. Pensato come orientamento
+ * per il pubblico non-tecnico: "da dove parti?".
+ *
+ * Uso in un file .mdx (tipicamente index.mdx con `template: splash`):
+ *
+ *   <HomeCards
+ *     heading="Da dove parti?"
+ *     cards={[
+ *       {
+ *         icon: '🌱',
+ *         title: 'Fondamenti',
+ *         description: "Cos'è un'IA, come parlarci…",
+ *         href: '/it/fondamenti/cos-e-un-llm/',
+ *       },
+ *       {
+ *         icon: '✍️',
+ *         title: 'Uso quotidiano',
+ *         description: 'Scrivere, riassumere, imparare.',
+ *         comingSoon: true,
+ *       },
+ *     ]}
+ *   />
+ *
+ * Se `comingSoon` è true, la card non è cliccabile e mostra un badge
+ * "Presto". Se `href` è assente e `comingSoon` non è true, la card
+ * resta non-cliccabile (senza badge).
+ */
+export interface HomeCard {
+  icon: string;
+  title: string;
+  description: string;
+  href?: string;
+  comingSoon?: boolean;
+}
+
+interface Props {
+  heading?: string;
+  cards: HomeCard[];
+  comingSoonLabel?: string;
+}
+
+const { heading, cards, comingSoonLabel = 'Presto' } = Astro.props;
+---
+
+<section class="home-cards not-content">
+  {heading && <h2 class="home-cards-heading">{heading}</h2>}
+  <div class="home-cards-grid">
+    {cards.map((card) => {
+      const isLink = !!card.href && !card.comingSoon;
+      const Tag = isLink ? 'a' : 'div';
+      const props = isLink ? { href: card.href } : {};
+      return (
+        <Tag class:list={['home-card', { 'is-coming': card.comingSoon }]} {...props}>
+          <span class="home-card-icon" aria-hidden="true">{card.icon}</span>
+          <h3 class="home-card-title">{card.title}</h3>
+          <p class="home-card-desc">{card.description}</p>
+          {card.comingSoon && (
+            <span class="home-card-badge">{comingSoonLabel}</span>
+          )}
+        </Tag>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .home-cards {
+    margin: 3rem auto 1rem;
+    max-width: 1000px;
+    padding: 0 1rem;
+  }
+
+  .home-cards-heading {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--sl-color-gray-3);
+    font-weight: 500;
+    margin: 0 0 2rem;
+  }
+
+  .home-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .home-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    padding: 1.5rem 1.4rem;
+    text-decoration: none;
+    color: var(--sl-color-text);
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 8px 24px rgba(42, 36, 71, 0.06);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+    display: block;
+  }
+
+  /* Solo le card cliccabili reagiscono all'hover */
+  a.home-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 4px 12px rgba(42, 36, 71, 0.05),
+      0 14px 32px rgba(42, 36, 71, 0.09);
+  }
+
+  .home-card.is-coming {
+    opacity: 0.85;
+  }
+
+  .home-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .home-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: var(--sl-color-text);
+  }
+
+  .home-card-desc {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .home-card-badge {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.95rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+  }
+
+  @media (max-width: 600px) {
+    .home-cards-heading {
+      font-size: 1.1rem;
+    }
+    .home-card {
+      padding: 1.25rem 1.15rem;
+    }
+  }
+</style>
