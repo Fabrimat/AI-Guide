@@ -7,10 +7,18 @@ sidebar:
 ---
 
 import EsercizioLLM from '../../../../components/EsercizioLLM.astro';
+import ChatDemo from '../../../../components/ChatDemo.astro';
 
 **LLM** sta per *Large Language Model*, ovvero "modello linguistico di grandi dimensioni".
 Tradotto: è un programma che ha letto enormi quantità di testo e ha imparato a
 **prevedere la parola successiva** in una frase.
+
+Una conversazione con un LLM, in pratica, funziona così:
+
+<ChatDemo
+  user="Mi spieghi in due frasi cos'è un buco nero?"
+  ai={`Un buco nero è una regione dello spaziotempo dove la gravità è così forte che nulla, nemmeno la luce, può sfuggirle. Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa sotto il proprio peso.`}
+/>
 
 Sembra semplice, ma questa capacità, portata su scala enorme, permette a un LLM di:
 

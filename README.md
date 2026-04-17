@@ -34,6 +34,7 @@ src/
 │       └── en/                     # inglese: servito sotto /en/
 │           └── ...                 # attualmente vuoto: fallback automatico all'italiano
 ├── components/
+│   ├── ChatDemo.astro              # demo animata di una conversazione utente/IA
 │   ├── EsercizioLLM.astro          # riquadro "esercizio con la tua IA"
 │   └── Head.astro                  # override per abilitare le view transitions
 ├── styles/custom.css
@@ -67,6 +68,34 @@ fa redirect verso la lingua di default (`/it/`).
      ```
    Il numero di `../` dipende dalla profondità della lezione. Per una lezione a
    due livelli di profondità (`docs/it/sezione/lezione.mdx`) sono quattro.
+
+## Componenti riutilizzabili
+
+### `<ChatDemo>`
+
+Mostra una conversazione utente/IA animata (typewriter + dots di "thinking").
+Sostituisce le GIF di esempio.
+
+```mdx
+import ChatDemo from '../../../../components/ChatDemo.astro';
+
+<ChatDemo
+  user="La tua domanda all'IA"
+  ai={`La risposta dell'IA. Supporta più paragrafi
+con i normali a-capo nel template literal.`}
+/>
+```
+
+Props opzionali: `typingSpeed` (ms/char, default 28), `thinkingTime` (ms,
+default 900), `autoPlay` (default true), `loop` (default false), `loopDelay`
+(default 3500), `userLabel` ("Tu"), `aiLabel` ("IA"), `showReplay` (default
+true). L'animazione parte quando il componente entra in viewport. Rispetta
+`prefers-reduced-motion` (rendering statico) ed è no-JS friendly (mostra il
+testo finale).
+
+### `<EsercizioLLM>`
+
+Già documentato sopra ("Aggiungere una lezione", punto 3).
 
 ## Tradurre una lezione
 

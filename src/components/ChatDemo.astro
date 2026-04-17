@@ -1,0 +1,503 @@
+---
+/**
+ * ChatDemo: esempio animato di una conversazione fra utente e IA.
+ *
+ * Sostituisce le GIF "finte conversazioni". L'utente fittizio scrive il
+ * proprio messaggio a macchina (typewriter), lo "invia", l'IA pensa (dots
+ * animati) e poi risponde a macchina anch'essa.
+ *
+ * Uso in una pagina .mdx:
+ *
+ *   <ChatDemo
+ *     user="Spiegami i buchi neri in due frasi"
+ *     ai={`Un buco nero è una regione dello spaziotempo dove la gravità è
+ *     così forte che nulla, nemmeno la luce, può sfuggire.
+ *
+ *     Si forma quando una stella molto massiccia collassa su se stessa.`}
+ *   />
+ *
+ * Accessibilità:
+ *  - `prefers-reduced-motion: reduce` -> rendering statico, niente animazione.
+ *  - Senza JS -> la conversazione è visibile staticamente (fallback HTML).
+ *  - `IntersectionObserver` fa partire l'animazione solo quando il componente
+ *    entra in viewport.
+ */
+export interface Props {
+  user: string;
+  ai: string;
+  typingSpeed?: number;
+  thinkingTime?: number;
+  autoPlay?: boolean;
+  loop?: boolean;
+  loopDelay?: number;
+  userLabel?: string;
+  aiLabel?: string;
+  showReplay?: boolean;
+}
+
+const {
+  user,
+  ai,
+  typingSpeed = 28,
+  thinkingTime = 900,
+  autoPlay = true,
+  loop = false,
+  loopDelay = 3500,
+  userLabel = 'Tu',
+  aiLabel = 'IA',
+  showReplay = true,
+} = Astro.props;
+---
+
+<figure
+  class="chat-demo not-content"
+  data-user-text={user}
+  data-ai-text={ai}
+  data-typing-speed={typingSpeed}
+  data-thinking-time={thinkingTime}
+  data-autoplay={String(autoPlay)}
+  data-loop={String(loop)}
+  data-loop-delay={loopDelay}
+  role="group"
+  aria-label={`Esempio di conversazione: "${user.slice(0, 80)}"`}
+>
+  <div class="chat-stage">
+    <div class="message message-user" data-role="user">
+      <div class="avatar" aria-hidden="true">👤</div>
+      <div class="bubble">
+        <div class="label">{userLabel}</div>
+        <div class="thinking" data-thinking aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="text" data-text>
+          <span class="text-content">{user}</span><span class="caret" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="message message-ai" data-role="ai">
+      <div class="avatar" aria-hidden="true">🤖</div>
+      <div class="bubble">
+        <div class="label">{aiLabel}</div>
+        <div class="thinking" data-thinking aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="text" data-text>
+          <span class="text-content">{ai}</span><span class="caret" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {showReplay && (
+    <div class="chat-controls">
+      <button type="button" class="btn-replay" data-action="replay" aria-label="Riavvia l'animazione della conversazione">
+        Riavvia
+      </button>
+    </div>
+  )}
+</figure>
+
+<script>
+  class ChatDemoPlayer {
+    el: HTMLElement;
+    typingSpeed: number;
+    thinkingTime: number;
+    autoPlay: boolean;
+    loop: boolean;
+    loopDelay: number;
+    userMsg: HTMLElement;
+    aiMsg: HTMLElement;
+    userText: string;
+    aiText: string;
+    replayBtn: HTMLButtonElement | null;
+    running = false;
+    cancelled = false;
+    reducedMotion: boolean;
+    observer: IntersectionObserver | null = null;
+
+    constructor(el: HTMLElement) {
+      this.el = el;
+      this.typingSpeed = parseInt(el.dataset.typingSpeed || '28', 10);
+      this.thinkingTime = parseInt(el.dataset.thinkingTime || '900', 10);
+      this.autoPlay = el.dataset.autoplay === 'true';
+      this.loop = el.dataset.loop === 'true';
+      this.loopDelay = parseInt(el.dataset.loopDelay || '3500', 10);
+      this.userText = el.dataset.userText || '';
+      this.aiText = el.dataset.aiText || '';
+      this.userMsg = el.querySelector('[data-role="user"]') as HTMLElement;
+      this.aiMsg = el.querySelector('[data-role="ai"]') as HTMLElement;
+      this.replayBtn = el.querySelector('[data-action="replay"]') as HTMLButtonElement | null;
+      this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      this.replayBtn?.addEventListener('click', () => this.replay());
+
+      // Segnala al CSS che JS è attivo: da qui in poi controlliamo noi
+      // la visibilità delle bolle e dei dots.
+      el.classList.add('is-enhanced');
+
+      if (this.reducedMotion) {
+        this.renderStatic();
+        return;
+      }
+
+      this.prime();
+
+      if (this.autoPlay) {
+        this.observe();
+      }
+    }
+
+    /** Porta il componente nello stato iniziale dell'animazione. */
+    prime() {
+      this.userMsg.classList.add('is-hidden');
+      this.aiMsg.classList.add('is-hidden');
+
+      const userText = this.userMsg.querySelector('[data-text]') as HTMLElement;
+      const userThinking = this.userMsg.querySelector('[data-thinking]') as HTMLElement;
+      const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
+      const userCaret = this.userMsg.querySelector('.caret') as HTMLElement;
+
+      const aiText = this.aiMsg.querySelector('[data-text]') as HTMLElement;
+      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
+      const aiContent = this.aiMsg.querySelector('.text-content') as HTMLElement;
+      const aiCaret = this.aiMsg.querySelector('.caret') as HTMLElement;
+
+      userText.classList.remove('is-hidden');
+      userThinking.classList.add('is-hidden');
+      userContent.textContent = '';
+      userCaret.classList.remove('is-done');
+
+      aiText.classList.add('is-hidden');
+      aiThinking.classList.remove('is-hidden');
+      aiContent.textContent = '';
+      aiCaret.classList.remove('is-done');
+    }
+
+    observe() {
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              this.observer?.disconnect();
+              this.observer = null;
+              void this.play();
+            }
+          }
+        },
+        { threshold: 0.35 },
+      );
+      this.observer.observe(this.el);
+    }
+
+    async play() {
+      if (this.running) return;
+      this.running = true;
+      this.cancelled = false;
+
+      this.prime();
+
+      // 1. Entra la bolla utente
+      await this.sleep(120);
+      if (this.cancelled) return this.finish();
+      this.userMsg.classList.remove('is-hidden');
+
+      // 2. Typewriter sul messaggio utente
+      const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
+      await this.typeInto(userContent, this.userText);
+      if (this.cancelled) return this.finish();
+      this.userMsg.querySelector('.caret')?.classList.add('is-done');
+
+      // 3. Pausa breve: messaggio "inviato"
+      await this.sleep(380);
+      if (this.cancelled) return this.finish();
+
+      // 4. Entra la bolla IA con i dots
+      this.aiMsg.classList.remove('is-hidden');
+      await this.sleep(this.thinkingTime);
+      if (this.cancelled) return this.finish();
+
+      // 5. Nascondi dots, mostra text, typewriter sulla risposta
+      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
+      const aiTextBlock = this.aiMsg.querySelector('[data-text]') as HTMLElement;
+      aiThinking.classList.add('is-hidden');
+      aiTextBlock.classList.remove('is-hidden');
+
+      const aiContent = this.aiMsg.querySelector('.text-content') as HTMLElement;
+      await this.typeInto(aiContent, this.aiText);
+      if (this.cancelled) return this.finish();
+      this.aiMsg.querySelector('.caret')?.classList.add('is-done');
+
+      this.running = false;
+
+      if (this.loop && !this.cancelled) {
+        await this.sleep(this.loopDelay);
+        if (!this.cancelled) void this.play();
+      }
+    }
+
+    finish() {
+      this.running = false;
+    }
+
+    async typeInto(el: HTMLElement, text: string) {
+      el.textContent = '';
+      for (let i = 0; i < text.length; i++) {
+        if (this.cancelled) return;
+        el.textContent = text.slice(0, i + 1);
+        await this.sleep(this.typingSpeed);
+      }
+    }
+
+    renderStatic() {
+      // Stato finale senza animazione.
+      this.userMsg.classList.remove('is-hidden');
+      this.aiMsg.classList.remove('is-hidden');
+      (this.userMsg.querySelector('[data-thinking]') as HTMLElement).classList.add('is-hidden');
+      (this.aiMsg.querySelector('[data-thinking]') as HTMLElement).classList.add('is-hidden');
+      (this.userMsg.querySelector('[data-text]') as HTMLElement).classList.remove('is-hidden');
+      (this.aiMsg.querySelector('[data-text]') as HTMLElement).classList.remove('is-hidden');
+      (this.userMsg.querySelector('.text-content') as HTMLElement).textContent = this.userText;
+      (this.aiMsg.querySelector('.text-content') as HTMLElement).textContent = this.aiText;
+      this.userMsg.querySelector('.caret')?.classList.add('is-done');
+      this.aiMsg.querySelector('.caret')?.classList.add('is-done');
+    }
+
+    replay() {
+      this.cancelled = true;
+      window.setTimeout(() => {
+        this.cancelled = false;
+        this.running = false;
+        if (this.reducedMotion) {
+          this.renderStatic();
+        } else {
+          void this.play();
+        }
+      }, 60);
+    }
+
+    sleep(ms: number): Promise<void> {
+      return new Promise((resolve) => {
+        window.setTimeout(resolve, ms);
+      });
+    }
+  }
+
+  const initialized = new WeakSet<HTMLElement>();
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('.chat-demo').forEach((el) => {
+      if (initialized.has(el)) return;
+      initialized.add(el);
+      new ChatDemoPlayer(el);
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .chat-demo {
+    margin: 1.75rem 0;
+    padding: 1rem 1rem 0.85rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.85rem;
+    background: var(--sl-color-bg-nav, var(--sl-color-bg));
+    font-family: var(--sl-font);
+  }
+
+  .chat-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    transition:
+      opacity 240ms ease-out,
+      transform 240ms ease-out;
+  }
+
+  /* Stato iniziale gestito dal JS. Senza JS, le bolle sono visibili. */
+  .chat-demo.is-enhanced .message.is-hidden {
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+
+  .message-user {
+    flex-direction: row-reverse;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--sl-color-gray-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+
+  .message-user .avatar {
+    background: var(--sl-color-accent-low);
+  }
+
+  .bubble {
+    max-width: min(78%, 520px);
+    padding: 0.55rem 0.85rem;
+    border-radius: 0.9rem;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-text);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  .message-user .bubble {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white, #fff);
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  .message-ai .bubble {
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+  }
+
+  .text {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .text.is-hidden {
+    display: none;
+  }
+
+  /* Caret lampeggiante: mostrato solo durante la digitazione, nascosto a fine. */
+  .caret {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1em;
+    margin-left: 1px;
+    background: currentColor;
+    vertical-align: text-bottom;
+    opacity: 0.85;
+    animation: chat-demo-blink 900ms steps(2, start) infinite;
+  }
+
+  .caret.is-done,
+  .chat-demo:not(.is-enhanced) .caret {
+    display: none;
+  }
+
+  @keyframes chat-demo-blink {
+    0%, 49% {
+      opacity: 0.85;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  /* Thinking dots: mostrati solo in modalità animata, nascosti per default. */
+  .thinking {
+    display: none;
+    gap: 0.3rem;
+    padding: 0.3rem 0 0.1rem;
+  }
+
+  .chat-demo.is-enhanced .thinking {
+    display: flex;
+  }
+
+  .chat-demo.is-enhanced .thinking.is-hidden {
+    display: none;
+  }
+
+  .dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--sl-color-gray-3);
+    animation: chat-demo-dot 1200ms infinite ease-in-out;
+  }
+
+  .message-user .dot {
+    background: var(--sl-color-white, #fff);
+    opacity: 0.8;
+  }
+
+  .dot:nth-child(2) {
+    animation-delay: 150ms;
+  }
+  .dot:nth-child(3) {
+    animation-delay: 300ms;
+  }
+
+  @keyframes chat-demo-dot {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.45;
+    }
+    30% {
+      transform: translateY(-0.28rem);
+      opacity: 1;
+    }
+  }
+
+  .chat-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.65rem;
+  }
+
+  .btn-replay {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.4rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    cursor: pointer;
+    transition: background 120ms ease;
+  }
+
+  .btn-replay:hover {
+    background: var(--sl-color-gray-6);
+  }
+
+  .btn-replay:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .message {
+      transition: none;
+    }
+    .caret,
+    .dot {
+      animation: none;
+    }
+  }
+</style>

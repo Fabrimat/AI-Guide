@@ -56,8 +56,77 @@ Lo schema è validato in `src/content.config.ts`.
 - **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/<lingua>/`.
 - **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
-- **`EsercizioLLM.astro`**: componente usato nelle pagine `.mdx` per esporre un prompt scaricabile/copiabile. Il file `.md` del prompt vive in `public/skills/` ed è servito staticamente.
+- **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
 - **Custom CSS**: `src/styles/custom.css` (caricato da Starlight via `customCss`).
+
+## Componenti del progetto
+
+Catalogo dei componenti riutilizzabili nei file `.mdx` delle lezioni. Mantenere
+sincronizzato: **ogni nuovo componente che può essere usato in una pagina deve
+avere una voce qui, aggiornata nello stesso commit che lo introduce o lo modifica.**
+
+I componenti **interni** (override di Starlight, layout, helper non destinati ai
+file `.mdx`) NON vanno catalogati qui: vivono solo in `src/components/`.
+
+Per importare un componente in una lezione `.mdx`, calcolare la profondità relativa.
+Per una lezione standard a `src/content/docs/it/<sezione>/<lezione>.mdx`:
+
+```mdx
+import NomeComponente from '../../../../components/NomeComponente.astro';
+```
+
+### `<EsercizioLLM>`
+
+Riquadro che propone un esercizio pratico da fare con il proprio LLM. Mostra
+titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file `.md` con
+il prompt dell'esercizio. Il file vive in `public/skills/<nome>.md` ed è servito
+staticamente.
+
+| Prop          | Tipo     | Default | Note                                                  |
+|---------------|----------|---------|-------------------------------------------------------|
+| `titolo`      | `string` | —       | obbligatorio                                          |
+| `file`        | `string` | —       | nome del file in `public/skills/`, es. `mio-es.md`    |
+| `descrizione` | `string` | —       | opzionale, breve descrizione sotto il titolo         |
+
+```mdx
+<EsercizioLLM
+  titolo="La tua prima conversazione consapevole"
+  file="primo-esercizio.md"
+  descrizione="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
+/>
+```
+
+### `<ChatDemo>`
+
+Conversazione utente/IA animata (typewriter + dots di "thinking"). Sostituisce
+le GIF di esempio. No-JS friendly (mostra il testo finale statico). Rispetta
+`prefers-reduced-motion: reduce` (rendering statico). Parte solo quando entra
+in viewport (`IntersectionObserver`).
+
+| Prop            | Tipo      | Default | Note                                              |
+|-----------------|-----------|---------|---------------------------------------------------|
+| `user`          | `string`  | —       | obbligatorio: il messaggio dell'utente            |
+| `ai`            | `string`  | —       | obbligatorio: la risposta dell'IA                 |
+| `typingSpeed`   | `number`  | `28`    | ms per carattere                                  |
+| `thinkingTime`  | `number`  | `900`   | ms di pausa fra invio utente e risposta IA       |
+| `autoPlay`      | `boolean` | `true`  | parte automaticamente al viewport                 |
+| `loop`          | `boolean` | `false` | riavvia in loop                                   |
+| `loopDelay`     | `number`  | `3500`  | ms di pausa tra un ciclo e il successivo          |
+| `userLabel`     | `string`  | `'Tu'`  | etichetta sopra la bolla utente                   |
+| `aiLabel`       | `string`  | `'IA'`  | etichetta sopra la bolla IA                       |
+| `showReplay`    | `boolean` | `true`  | mostra il pulsante "Riavvia"                      |
+
+```mdx
+<ChatDemo
+  user="Mi spieghi in due frasi cos'è un buco nero?"
+  ai={`Un buco nero è una regione dello spaziotempo dove la gravità è così forte che nulla, nemmeno la luce, può sfuggirle.
+
+Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa.`}
+/>
+```
+
+I newline dentro la stringa `ai` (uso del template literal con backtick) vengono
+preservati e renderizzati come a-capo grazie a `white-space: pre-wrap`.
 
 ## Skill e agent del progetto
 
