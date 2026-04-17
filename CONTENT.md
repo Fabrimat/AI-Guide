@@ -42,11 +42,11 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    sui "prompt magici". Revisione (`analyze-lesson` + `integrate-questions`)
    ancora da fare.
 
-3. ⏳ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
-   La lezione più pratica del modulo. `<ChatDemo>` come anteprima di cosa
-   aspettarsi, poi `<EsercizioLLM>` con prompt guidato per far partire la
-   prima vera conversazione sul proprio LLM. Il lettore deve uscire dalla
-   pagina avendo parlato davvero con un'IA.
+3. ✅ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
+   La lezione più pratica del modulo. Lista delle IA conversazionali
+   principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
+   riusa `public/skills/primo-esercizio.md` per il primo dialogo guidato.
+   Revisione ancora da fare.
 
 4. ⏳ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
    Riscrittura alleggerita dell'attuale `fondamenti/cos-e-un-llm`. Indovina
@@ -59,7 +59,7 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 2 su 5 pubblicate. Entrambe hanno revisione (ciclo
+**Stato attuale**: 3 su 5 pubblicate. Tutte e tre hanno revisione (ciclo
 `analyze-lesson` + `integrate-questions` + `style-checker`) ancora aperta,
 da fare in un giro dedicato. La vecchia `cos-e-un-llm.mdx` resta in sidebar
 a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
@@ -136,11 +136,12 @@ tradurre una pagina alla volta senza rompere il sito.
 
 Due filoni aperti, scegliere in che ordine attaccarli:
 
-**Revisioni pendenti (lezioni 1 e 2)**:
-- Lezione 1: domande già generate in `analysis/cos-e-l-ia.questions.md`,
-  da curare e integrare con `/integrate-questions`.
-- Lezione 2: da lanciare `/analyze-lesson` e poi stesso giro della 1.
+**Revisioni pendenti (lezioni 1, 2, 3)**:
+- Lezione 1: domande già in `analysis/cos-e-l-ia.questions.md`, da curare
+  e integrare con `/integrate-questions`.
+- Lezione 2: da lanciare `/analyze-lesson`, poi stesso giro della 1.
+- Lezione 3: stesso giro, `/analyze-lesson` + `/integrate-questions`.
 
-**Prossima bozza**: lezione 3, *"La tua prima conversazione"*. È la più
-pratica del modulo, richiede `<ChatDemo>` per l'anteprima e un nuovo
-prompt in `public/skills/` per l'`<EsercizioLLM>`.
+**Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
+alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
+file (slug a `come-capisce-l-ia`) e ridaremo `sidebar.order: 4`.
