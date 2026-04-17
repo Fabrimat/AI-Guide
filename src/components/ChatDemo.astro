@@ -3,24 +3,37 @@
  * ChatDemo: esempio animato di una conversazione fra utente e IA.
  *
  * Sostituisce le GIF "finte conversazioni". L'utente fittizio scrive il
- * proprio messaggio a macchina (typewriter), lo "invia", l'IA pensa (dots
- * animati) e poi risponde a macchina anch'essa.
+ * proprio messaggio a macchina (typewriter), c'è una breve pausa di
+ * "pensiero" lato IA (dots animati), poi l'IA risponde a macchina.
  *
  * Uso in una pagina .mdx:
  *
  *   <ChatDemo
  *     user="Spiegami i buchi neri in due frasi"
- *     ai={`Un buco nero è una regione dello spaziotempo dove la gravità è
- *     così forte che nulla, nemmeno la luce, può sfuggire.
+ *     ai={`Un buco nero è una regione dello spaziotempo dove la gravità
+ *     è così forte che nulla, nemmeno la luce, può sfuggire.
  *
  *     Si forma quando una stella molto massiccia collassa su se stessa.`}
  *   />
  *
- * Accessibilità:
- *  - `prefers-reduced-motion: reduce` -> rendering statico, niente animazione.
- *  - Senza JS -> la conversazione è visibile staticamente (fallback HTML).
- *  - `IntersectionObserver` fa partire l'animazione solo quando il componente
- *    entra in viewport.
+ * ## Accessibilità: niente layout shift
+ *
+ * Ogni bolla e il contenitore intero hanno la dimensione finale fin dal
+ * primo render. Tecnicamente: in ogni bolla c'è un "ghost" (`text-ghost`)
+ * con il testo completo, reso invisibile via `color: transparent`, in
+ * grid stacking con il layer visibile. Il ghost riserva lo spazio; il
+ * layer visibile ci scrive sopra il typewriter senza far cambiare le
+ * dimensioni del contenitore.
+ *
+ * Il ghost resta accessibile agli screen reader (mentre il layer visibile
+ * animato è marcato `aria-hidden`), così l'utente SR riceve la
+ * conversazione completa una volta sola.
+ *
+ *  - `prefers-reduced-motion: reduce` -> render statico, zero animazione.
+ *  - Senza JS                         -> render statico (HTML iniziale è
+ *                                        già lo stato finale).
+ *  - `IntersectionObserver`           -> l'animazione parte solo quando
+ *                                        il componente entra in viewport.
  */
 export interface Props {
   user: string;
@@ -66,11 +79,11 @@ const {
       <div class="avatar" aria-hidden="true">👤</div>
       <div class="bubble">
         <div class="label">{userLabel}</div>
-        <div class="thinking" data-thinking aria-hidden="true">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </div>
-        <div class="text" data-text>
-          <span class="text-content">{user}</span><span class="caret" aria-hidden="true"></span>
+        <div class="text">
+          <span class="text-ghost">{user}</span>
+          <span class="text-visible" aria-hidden="true">
+            <span class="text-content">{user}</span><span class="caret"></span>
+          </span>
         </div>
       </div>
     </div>
@@ -79,11 +92,14 @@ const {
       <div class="avatar" aria-hidden="true">🤖</div>
       <div class="bubble">
         <div class="label">{aiLabel}</div>
-        <div class="thinking" data-thinking aria-hidden="true">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </div>
-        <div class="text" data-text>
-          <span class="text-content">{ai}</span><span class="caret" aria-hidden="true"></span>
+        <div class="text">
+          <span class="text-ghost">{ai}</span>
+          <span class="text-visible" aria-hidden="true">
+            <span class="thinking" data-thinking>
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+            <span class="text-content">{ai}</span><span class="caret"></span>
+          </span>
         </div>
       </div>
     </div>
@@ -132,8 +148,9 @@ const {
 
       this.replayBtn?.addEventListener('click', () => this.replay());
 
-      // Segnala al CSS che JS è attivo: da qui in poi controlliamo noi
-      // la visibilità delle bolle e dei dots.
+      // Segnala al CSS che JS è attivo: da qui in poi gestiamo noi
+      // contenuto visibile, dots e caret. Senza questa classe il
+      // componente resta in stato statico (HTML iniziale = stato finale).
       el.classList.add('is-enhanced');
 
       if (this.reducedMotion) {
@@ -148,30 +165,23 @@ const {
       }
     }
 
-    /** Porta il componente nello stato iniziale dell'animazione. */
+    /**
+     * Stato iniziale dell'animazione. NON tocca le dimensioni:
+     * il ghost resta a riservare lo spazio, cambiamo solo il layer
+     * visibile (svuotiamo il testo, mostriamo i dots dell'IA, nascondiamo i caret).
+     */
     prime() {
-      this.userMsg.classList.add('is-hidden');
-      this.aiMsg.classList.add('is-hidden');
-
-      const userText = this.userMsg.querySelector('[data-text]') as HTMLElement;
-      const userThinking = this.userMsg.querySelector('[data-thinking]') as HTMLElement;
       const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
       const userCaret = this.userMsg.querySelector('.caret') as HTMLElement;
-
-      const aiText = this.aiMsg.querySelector('[data-text]') as HTMLElement;
-      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
       const aiContent = this.aiMsg.querySelector('.text-content') as HTMLElement;
       const aiCaret = this.aiMsg.querySelector('.caret') as HTMLElement;
+      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
 
-      userText.classList.remove('is-hidden');
-      userThinking.classList.add('is-hidden');
       userContent.textContent = '';
-      userCaret.classList.remove('is-done');
-
-      aiText.classList.add('is-hidden');
-      aiThinking.classList.remove('is-hidden');
+      userCaret.classList.remove('is-active');
       aiContent.textContent = '';
-      aiCaret.classList.remove('is-done');
+      aiCaret.classList.remove('is-active');
+      aiThinking.classList.remove('is-hidden');
     }
 
     observe() {
@@ -197,36 +207,35 @@ const {
 
       this.prime();
 
-      // 1. Entra la bolla utente
-      await this.sleep(120);
+      // Piccolo delay per dare percezione del "before" stabile.
+      await this.sleep(180);
       if (this.cancelled) return this.finish();
-      this.userMsg.classList.remove('is-hidden');
 
-      // 2. Typewriter sul messaggio utente
+      // 1. Typewriter sul messaggio utente (con caret attivo).
       const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
+      const userCaret = this.userMsg.querySelector('.caret') as HTMLElement;
+      userCaret.classList.add('is-active');
       await this.typeInto(userContent, this.userText);
       if (this.cancelled) return this.finish();
-      this.userMsg.querySelector('.caret')?.classList.add('is-done');
+      userCaret.classList.remove('is-active');
 
-      // 3. Pausa breve: messaggio "inviato"
+      // 2. Pausa breve: messaggio "inviato".
       await this.sleep(380);
       if (this.cancelled) return this.finish();
 
-      // 4. Entra la bolla IA con i dots
-      this.aiMsg.classList.remove('is-hidden');
+      // 3. Pausa "thinking": i dots dell'IA continuano ad animarsi.
       await this.sleep(this.thinkingTime);
       if (this.cancelled) return this.finish();
 
-      // 5. Nascondi dots, mostra text, typewriter sulla risposta
-      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
-      const aiTextBlock = this.aiMsg.querySelector('[data-text]') as HTMLElement;
-      aiThinking.classList.add('is-hidden');
-      aiTextBlock.classList.remove('is-hidden');
-
+      // 4. Nascondi i dots, abilita caret IA, typewriter sulla risposta.
       const aiContent = this.aiMsg.querySelector('.text-content') as HTMLElement;
+      const aiCaret = this.aiMsg.querySelector('.caret') as HTMLElement;
+      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
+      aiThinking.classList.add('is-hidden');
+      aiCaret.classList.add('is-active');
       await this.typeInto(aiContent, this.aiText);
       if (this.cancelled) return this.finish();
-      this.aiMsg.querySelector('.caret')?.classList.add('is-done');
+      aiCaret.classList.remove('is-active');
 
       this.running = false;
 
@@ -249,18 +258,19 @@ const {
       }
     }
 
+    /** Stato finale senza animazione (reduced motion / replay-finale). */
     renderStatic() {
-      // Stato finale senza animazione.
-      this.userMsg.classList.remove('is-hidden');
-      this.aiMsg.classList.remove('is-hidden');
-      (this.userMsg.querySelector('[data-thinking]') as HTMLElement).classList.add('is-hidden');
-      (this.aiMsg.querySelector('[data-thinking]') as HTMLElement).classList.add('is-hidden');
-      (this.userMsg.querySelector('[data-text]') as HTMLElement).classList.remove('is-hidden');
-      (this.aiMsg.querySelector('[data-text]') as HTMLElement).classList.remove('is-hidden');
-      (this.userMsg.querySelector('.text-content') as HTMLElement).textContent = this.userText;
-      (this.aiMsg.querySelector('.text-content') as HTMLElement).textContent = this.aiText;
-      this.userMsg.querySelector('.caret')?.classList.add('is-done');
-      this.aiMsg.querySelector('.caret')?.classList.add('is-done');
+      const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
+      const userCaret = this.userMsg.querySelector('.caret') as HTMLElement;
+      const aiContent = this.aiMsg.querySelector('.text-content') as HTMLElement;
+      const aiCaret = this.aiMsg.querySelector('.caret') as HTMLElement;
+      const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
+
+      userContent.textContent = this.userText;
+      userCaret.classList.remove('is-active');
+      aiContent.textContent = this.aiText;
+      aiCaret.classList.remove('is-active');
+      aiThinking.classList.add('is-hidden');
     }
 
     replay() {
@@ -317,16 +327,6 @@ const {
     display: flex;
     align-items: flex-start;
     gap: 0.55rem;
-    transition:
-      opacity 240ms ease-out,
-      transform 240ms ease-out;
-  }
-
-  /* Stato iniziale gestito dal JS. Senza JS, le bolle sono visibili. */
-  .chat-demo.is-enhanced .message.is-hidden {
-    opacity: 0;
-    transform: translateY(8px);
-    pointer-events: none;
   }
 
   .message-user {
@@ -358,7 +358,6 @@ const {
     color: var(--sl-color-text);
     line-height: 1.5;
     font-size: 0.95rem;
-    position: relative;
   }
 
   .message-user .bubble {
@@ -381,50 +380,74 @@ const {
     margin-bottom: 0.2rem;
   }
 
+  /* ----- Stacking ghost + visible nello stesso grid cell -----
+     Il ghost ha il testo completo (resta a riservare lo spazio) ma è
+     visivamente trasparente. Il layer visibile ci scrive sopra. Risultato:
+     la bolla ha sempre la dimensione finale, indipendentemente dalla
+     porzione di testo che è stata "digitata". */
   .text {
-    white-space: pre-wrap;
+    display: grid;
+    grid-template-areas: 'stack';
+    line-height: 1.5;
     word-break: break-word;
   }
 
-  .text.is-hidden {
-    display: none;
+  .text > * {
+    grid-area: stack;
+    min-width: 0;
   }
 
-  /* Caret lampeggiante: mostrato solo durante la digitazione, nascosto a fine. */
+  .text-ghost {
+    color: transparent;
+    user-select: none;
+    pointer-events: none;
+    white-space: pre-wrap;
+    /* `visibility: visible` esplicito così resta accessibile a screen reader.
+       (color: transparent non lo rimuove dall'accessibility tree.) */
+    visibility: visible;
+  }
+
+  .text-visible {
+    white-space: pre-wrap;
+  }
+
+  .text-content {
+    /* Vuoto fino a quando JS non scrive il typewriter. Senza JS resta
+       valorizzato dal SSR (= stato finale visibile). */
+  }
+
+  /* ----- Caret blinking (visibile solo durante la digitazione) ----- */
   .caret {
-    display: inline-block;
+    display: none;
     width: 0.55ch;
     height: 1em;
     margin-left: 1px;
     background: currentColor;
     vertical-align: text-bottom;
     opacity: 0.85;
+  }
+
+  .chat-demo.is-enhanced .caret.is-active {
+    display: inline-block;
     animation: chat-demo-blink 900ms steps(2, start) infinite;
   }
 
-  .caret.is-done,
-  .chat-demo:not(.is-enhanced) .caret {
-    display: none;
-  }
-
   @keyframes chat-demo-blink {
-    0%, 49% {
-      opacity: 0.85;
-    }
-    50%, 100% {
-      opacity: 0;
-    }
+    0%, 49% { opacity: 0.85; }
+    50%, 100% { opacity: 0; }
   }
 
-  /* Thinking dots: mostrati solo in modalità animata, nascosti per default. */
+  /* ----- Thinking dots (visibili solo in modalità animata) ----- */
   .thinking {
     display: none;
     gap: 0.3rem;
-    padding: 0.3rem 0 0.1rem;
+    padding: 0.05rem 0;
+    /* Inline-flex per non rompere il flow del text-content che segue. */
+    vertical-align: middle;
   }
 
   .chat-demo.is-enhanced .thinking {
-    display: flex;
+    display: inline-flex;
   }
 
   .chat-demo.is-enhanced .thinking.is-hidden {
@@ -444,26 +467,26 @@ const {
     opacity: 0.8;
   }
 
-  .dot:nth-child(2) {
-    animation-delay: 150ms;
-  }
-  .dot:nth-child(3) {
-    animation-delay: 300ms;
-  }
+  .dot:nth-child(2) { animation-delay: 150ms; }
+  .dot:nth-child(3) { animation-delay: 300ms; }
 
   @keyframes chat-demo-dot {
-    0%,
-    60%,
-    100% {
-      transform: translateY(0);
-      opacity: 0.45;
-    }
-    30% {
-      transform: translateY(-0.28rem);
-      opacity: 1;
-    }
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+    30%           { transform: translateY(-0.28rem); opacity: 1; }
   }
 
+  /* ----- Stato statico (no JS, no animazione) -----
+     Senza .is-enhanced, il layer visibile mostra il SSR (testo completo),
+     dots e caret restano nascosti. La bolla è alla dimensione finale. */
+  .chat-demo:not(.is-enhanced) .caret {
+    display: none;
+  }
+
+  .chat-demo:not(.is-enhanced) .thinking {
+    display: none;
+  }
+
+  /* ----- Controlli ----- */
   .chat-controls {
     display: flex;
     justify-content: flex-end;
@@ -492,9 +515,6 @@ const {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .message {
-      transition: none;
-    }
     .caret,
     .dot {
       animation: none;
