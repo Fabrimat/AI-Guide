@@ -1,0 +1,48 @@
+---
+title: Cos'è un LLM?
+description: Una spiegazione semplice di cosa sono i modelli linguistici e come "pensano".
+sidebar:
+  order: 1
+---
+
+import EsercizioLLM from '../../../components/EsercizioLLM.astro';
+
+**LLM** sta per *Large Language Model* — "modello linguistico di grandi dimensioni".
+Tradotto: è un programma che ha letto enormi quantità di testo e ha imparato a
+**prevedere la parola successiva** in una frase.
+
+Sembra semplice, ma questa capacità, portata su scala enorme, permette a un LLM di:
+
+- rispondere a domande,
+- scrivere testi,
+- riassumere documenti,
+- tradurre, programmare, ragionare.
+
+## Come "pensa" un LLM (in modo pratico)
+
+Un LLM **non ha memoria** tra una conversazione e l'altra (salvo funzioni specifiche del
+prodotto che usi). Quando gli parli, legge tutto quello che gli hai scritto fino a quel
+momento e genera la risposta **una parola alla volta**, scegliendo ogni volta la più
+probabile dato il contesto.
+
+Questo ha tre conseguenze importanti che vedremo lungo la guida:
+
+1. **Il contesto conta.** Più informazioni utili dai, meglio risponde.
+2. **Può sbagliarsi.** Non "sa" davvero le cose: stima cosa è probabile.
+3. **Non ti conosce.** A meno che non glielo dica tu.
+
+## Provalo adesso
+
+Il modo migliore per capire un LLM è parlarci. Apri la tua IA preferita (Claude,
+ChatGPT, Gemini…) e usa il prompt qui sotto per fare pratica.
+
+<EsercizioLLM
+  titolo="La tua prima conversazione consapevole"
+  file="primo-esercizio.md"
+  descrizione="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
+/>
+
+## Cosa viene dopo
+
+- *Il tuo primo prompt* — come chiedere bene per ottenere risposte migliori. (In arrivo)
+- *Limiti e trucchi* — cosa un LLM fa bene, cosa fa male. (In arrivo)

@@ -1,0 +1,145 @@
+---
+/**
+ * Componente per proporre un esercizio da fare con il proprio LLM.
+ * Mostra titolo, descrizione, e pulsanti per copiare / scaricare / aprire
+ * il prompt (servito come file .md statico da /public/skills/).
+ *
+ * Uso (in un file .mdx):
+ *   <EsercizioLLM
+ *     titolo="Titolo esercizio"
+ *     file="nome-file.md"
+ *     descrizione="Breve descrizione opzionale"
+ *   />
+ */
+interface Props {
+  titolo: string;
+  file: string;
+  descrizione?: string;
+}
+
+const { titolo, file, descrizione } = Astro.props;
+const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/');
+---
+
+<aside class="esercizio-llm not-content">
+  <header>
+    <span class="badge">🤖 Esercizio con la tua IA</span>
+    <h3>{titolo}</h3>
+  </header>
+
+  {descrizione && <p class="desc">{descrizione}</p>}
+
+  <p class="howto">
+    Copia il prompt e incollalo in <strong>Claude</strong>, <strong>ChatGPT</strong>,
+    <strong>Gemini</strong> o qualsiasi altro LLM. In alternativa scarica il file
+    <code>.md</code> e dallo come contesto.
+  </p>
+
+  <div class="actions">
+    <button type="button" class="btn btn-primary" data-copy-src={fileUrl}>
+      Copia prompt
+    </button>
+    <a class="btn" href={fileUrl} download>
+      Scarica .md
+    </a>
+    <a class="btn btn-ghost" href={fileUrl} target="_blank" rel="noopener">
+      Apri
+    </a>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener('click', async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement) || !target.matches('button[data-copy-src]')) {
+      return;
+    }
+    const src = target.getAttribute('data-copy-src');
+    if (!src) return;
+
+    const original = target.textContent ?? '';
+    try {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      await navigator.clipboard.writeText(text);
+      target.textContent = '✅ Copiato!';
+    } catch (err) {
+      console.error('[EsercizioLLM] copy failed:', err);
+      target.textContent = '❌ Errore, riprova';
+    } finally {
+      window.setTimeout(() => {
+        target.textContent = original;
+      }, 2000);
+    }
+  });
+</script>
+
+<style>
+  .esercizio-llm {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--sl-color-accent);
+    border-left-width: 4px;
+    border-radius: 0.5rem;
+    background: var(--sl-color-accent-low);
+  }
+  .esercizio-llm header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sl-color-accent-high);
+  }
+  .esercizio-llm h3 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  .desc {
+    margin: 0.5rem 0 0;
+  }
+  .howto {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-2);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.375rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: var(--sl-color-gray-6);
+  }
+  .btn-primary {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-accent);
+  }
+  .btn-primary:hover {
+    background: var(--sl-color-accent-high);
+  }
+  .btn-ghost {
+    background: transparent;
+  }
+</style>
