@@ -57,6 +57,32 @@ Lo schema è validato in `src/content.config.ts`.
 - **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
 - **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
+
+## Direzione visiva — Pastello
+
+Il sito usa **una sola palette warm** ("Pastello") pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
+
+**Palette (CSS vars in `src/styles/custom.css`)**:
+
+| Token                       | Valore     | Uso                          |
+|-----------------------------|------------|------------------------------|
+| `--sl-color-bg`             | `#FCEEE3`  | sfondo pagina (pesca)        |
+| `--sl-color-text`           | `#2A2447`  | testo principale (indigo)    |
+| `--sl-color-text-accent`    | `#C25A3F`  | link nel corpo (coral scuro) |
+| `--sl-color-accent`         | `#E07A5F`  | accento, CTA (coral)         |
+| `--sl-color-accent-low`     | `#FAD0C2`  | accento soffuso              |
+| `--sl-color-accent-high`    | `#B85D44`  | hover su accento             |
+| `--sl-color-hairline`       | `#F0DCC9`  | bordi                        |
+
+**Tipografia**: [Outfit Variable](https://fonts.google.com/specimen/Outfit) via `@fontsource-variable/outfit`. Base 17px, line-height 1.7, heading tracking `-0.005em`.
+
+**Vincoli**:
+
+- **Niente dark mode.** `ThemeSelect.astro` è override-vuoto, `Head.astro` blocca `data-theme="light"` prima del rendering. Non rimuovere queste cose senza decisione esplicita.
+- **Niente TOC laterale.** `PageSidebar.astro` è override-vuoto. Le lezioni sono brevi e auto-contenute.
+- **Niente blu/cyber/neri puri/densità "da docs".** Quando aggiungi UI: usa le CSS vars di Starlight già sovrascritte, non hardcodare colori.
+- **Outfit è la voce dominante.** Aggiungere font solo con discussione esplicita.
+- **Riferimenti mentali**: NYT Cooking, Brain Pickings, guide illustrate di carta. NON: Stripe / Linear / Vercel docs.
 - **Custom CSS**: `src/styles/custom.css` (caricato da Starlight via `customCss`).
 
 ## Componenti del progetto
