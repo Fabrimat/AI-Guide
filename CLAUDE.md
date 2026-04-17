@@ -197,6 +197,13 @@ Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa.`
 I newline dentro la stringa `ai` (uso del template literal con backtick) vengono
 preservati e renderizzati come a-capo grazie a `white-space: pre-wrap`.
 
+## Piano dei contenuti
+
+La roadmap editoriale vive in **`CONTENT.md`** al root: moduli previsti, stato
+di ogni lezione, lezioni in arrivo, workflow per scriverne una nuova.
+Aggiornare `CONTENT.md` **nello stesso commit** in cui una lezione viene
+scritta, rinominata, o eliminata.
+
 ## Skill e agent del progetto
 
 Invocabili da Claude Code:
