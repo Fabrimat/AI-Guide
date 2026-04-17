@@ -4,33 +4,41 @@ import starlight from '@astrojs/starlight';
 
 export default defineConfig({
   site: 'https://example.com', // TODO: sostituire con il dominio reale quando sarà pronto
+
+  // Redirect della root alla lingua di default (coerente con le altre lingue
+  // che hanno prefisso). In un sito statico Astro emette un meta refresh.
+  redirects: {
+    '/': '/it/',
+  },
+
   integrations: [
     starlight({
       title: 'AI-Guide',
       description: "Impara a usare l'IA, dalle basi al livello avanzato.",
 
       // --- Localizzazione ---
-      // - `root` = lingua di default (italiano), servita alla root "/"
-      // - `en`   = inglese, servito sotto "/en/"
-      // Per tradurre una pagina basta creare un file con lo STESSO percorso
-      // all'interno di `src/content/docs/en/`. Le pagine non tradotte
-      // ricadono automaticamente sul contenuto in italiano (fallback).
-      defaultLocale: 'root',
+      // Tutte le lingue hanno prefisso URL uniforme: /it/..., /en/..., etc.
+      // Per aggiungere una lingua: aggiungere la voce in `locales` e creare
+      // i file sotto `src/content/docs/<codice-lingua>/`.
+      // Le pagine non tradotte ricadono automaticamente sulla lingua di default.
+      defaultLocale: 'it',
       locales: {
-        root: { label: 'Italiano', lang: 'it' },
+        it: { label: 'Italiano', lang: 'it' },
         en: { label: 'English', lang: 'en' },
       },
 
-      // Transizioni SPA-like (niente flash quando cambi lingua/pagina)
+      // View transitions: niente flash/reset visivo al cambio lingua o pagina.
       components: {
         Head: './src/components/Head.astro',
       },
 
+      // Sidebar: `slug` è locale-aware (si risolve automaticamente al file
+      // giusto nella lingua corrente).
       sidebar: [
         {
           label: 'Inizia qui',
           translations: { en: 'Start here' },
-          link: '/inizia-qui/',
+          slug: 'inizia-qui',
         },
         {
           label: 'Fondamenti',

@@ -12,7 +12,7 @@ tuo livello attuale.
 
 Parti da qui. Sono 3-4 lezioni da 5 minuti ciascuna.
 
-1. [Cos'è un LLM?](/fondamenti/cos-e-un-llm/): capire cosa c'è dietro a un'IA conversazionale.
+1. [Cos'è un LLM?](/it/fondamenti/cos-e-un-llm/): capire cosa c'è dietro a un'IA conversazionale.
 2. *Il tuo primo prompt* (in arrivo)
 3. *Come leggere una risposta dell'IA* (in arrivo)
 
@@ -21,7 +21,7 @@ Parti da qui. Sono 3-4 lezioni da 5 minuti ciascuna.
 Vai direttamente ai **Fondamenti** se vuoi ripassare le basi solide, oppure salta
 al livello intermedio per tecniche più efficaci.
 
-- [Fondamenti](/fondamenti/cos-e-un-llm/)
+- [Fondamenti](/it/fondamenti/cos-e-un-llm/)
 - *Livello intermedio* (in arrivo)
 
 ## Sono uno sviluppatore / professionista

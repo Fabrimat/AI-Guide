@@ -53,8 +53,8 @@ Lo schema è validato in `src/content.config.ts`.
 
 ## Architettura (alto livello)
 
-- **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/`.
-- **i18n nativo Starlight**: italiano alla root (`src/content/docs/...`), inglese sotto `src/content/docs/en/...` (attualmente vuoto: fallback automatico all'italiano). Configurato in `astro.config.mjs`.
+- **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/<lingua>/`.
+- **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
 - **`EsercizioLLM.astro`**: componente usato nelle pagine `.mdx` per esporre un prompt scaricabile/copiabile. Il file `.md` del prompt vive in `public/skills/` ed è servito staticamente.
 - **Custom CSS**: `src/styles/custom.css` (caricato da Starlight via `customCss`).
@@ -70,7 +70,7 @@ Invocabili da Claude Code:
 
 Workflow tipico per una nuova lezione:
 
-1. Scrivo la bozza in `src/content/docs/<sezione>/<slug>.mdx`.
+1. Scrivo la bozza in `src/content/docs/it/<sezione>/<slug>.mdx`.
 2. Lancio `/analyze-lesson <path>` per vedere cosa un lettore non capirebbe.
 3. Curo le domande nel file `analysis/<slug>.questions.md`.
 4. Lancio `/integrate-questions <path>` per integrarle.
@@ -78,7 +78,7 @@ Workflow tipico per una nuova lezione:
 
 ## Traduzione
 
-Mirror dell'albero sotto `src/content/docs/en/`. Stesso slug, stesso percorso. Le pagine senza traduzione ricadono automaticamente sull'italiano (nessun errore di build). Per aggiungere una terza lingua, aggiungere la voce in `astro.config.mjs > locales`.
+Mirror dell'albero sotto `src/content/docs/en/`. Stesso slug, stesso percorso. Le pagine senza traduzione ricadono automaticamente sulla lingua di default (nessun errore di build). Per aggiungere una terza lingua, aggiungere la voce in `astro.config.mjs > locales`.
 
 ## Preferenze di commit
 

@@ -26,12 +26,13 @@ npm run preview   # serve localmente ./dist (per verificare la build)
 src/
 ├── content/
 │   └── docs/
-│       ├── index.mdx               # landing (italiano)
-│       ├── inizia-qui.md           # pagina di orientamento
-│       ├── fondamenti/             # sezione "Fondamenti"
-│       │   └── cos-e-un-llm.mdx
-│       └── en/                     # traduzioni inglesi (stesso albero)
-│           └── ...                 # attualmente vuoto: fallback automatico in italiano
+│       ├── it/                     # italiano: servito sotto /it/
+│       │   ├── index.mdx
+│       │   ├── inizia-qui.md
+│       │   └── fondamenti/
+│       │       └── cos-e-un-llm.mdx
+│       └── en/                     # inglese: servito sotto /en/
+│           └── ...                 # attualmente vuoto: fallback automatico all'italiano
 ├── components/
 │   ├── EsercizioLLM.astro          # riquadro "esercizio con la tua IA"
 │   └── Head.astro                  # override per abilitare le view transitions
@@ -42,39 +43,43 @@ public/
     └── primo-esercizio.md
 ```
 
+Tutte le lingue hanno prefisso URL uniforme (`/it/...`, `/en/...`). La root `/`
+fa redirect verso la lingua di default (`/it/`).
+
 ## Aggiungere una lezione
 
-1. Crea un file `.md` (o `.mdx` se vuoi usare componenti) dentro `src/content/docs/<sezione>/`.
+1. Crea un file `.md` (o `.mdx` se vuoi usare componenti) dentro `src/content/docs/it/<sezione>/`.
 2. Frontmatter minimo:
    ```yaml
    ---
    title: Titolo della lezione
    description: Una frase che descrive la lezione
+   livello: principiante   # oppure: intermedio | avanzato
    ---
    ```
 3. Se la lezione ha un esercizio pratico:
    - crea il prompt in `public/skills/nome-esercizio.md`
    - nel file `.mdx` della lezione, importa e usa il componente:
      ```mdx
-     import EsercizioLLM from '../../../components/EsercizioLLM.astro';
+     import EsercizioLLM from '../../../../components/EsercizioLLM.astro';
 
      <EsercizioLLM titolo="..." file="nome-esercizio.md" descrizione="..." />
      ```
+   Il numero di `../` dipende dalla profondità della lezione. Per una lezione a
+   due livelli di profondità (`docs/it/sezione/lezione.mdx`) sono quattro.
 
 ## Tradurre una lezione
-
-Il sito è multilingua (attualmente italiano + inglese configurato, traduzioni da fare).
 
 Per tradurre una pagina, replica il percorso sotto `src/content/docs/en/`:
 
 ```
-src/content/docs/inizia-qui.md           → src/content/docs/en/inizia-qui.md
-src/content/docs/fondamenti/cos-e-un-llm.mdx → src/content/docs/en/fondamenti/cos-e-un-llm.mdx
+src/content/docs/it/inizia-qui.md               → src/content/docs/en/inizia-qui.md
+src/content/docs/it/fondamenti/cos-e-un-llm.mdx → src/content/docs/en/fondamenti/cos-e-un-llm.mdx
 ```
 
-Le pagine non tradotte ricadono automaticamente sul contenuto in italiano: nessun
-errore di build, nessun link rotto. Il selettore di lingua appare nell'header e
-preserva la pagina corrente al cambio di lingua.
+Le pagine non tradotte ricadono automaticamente sul contenuto nella lingua di
+default (italiano): nessun errore di build, nessun link rotto. Il selettore di
+lingua appare nell'header e preserva la pagina corrente al cambio.
 
-Per aggiungere una nuova lingua: aggiungere la voce in `astro.config.mjs > locales` e
-creare la cartella corrispondente in `src/content/docs/<codice-lingua>/`.
+Per aggiungere una nuova lingua: aggiungere la voce in `astro.config.mjs > locales`
+e creare la cartella corrispondente in `src/content/docs/<codice-lingua>/`.
