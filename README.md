@@ -1,6 +1,6 @@
 # AI-Guide
 
-Sito pubblico che insegna a usare l'IA — dalle basi al livello avanzato, in modo semplice e lineare.
+Sito pubblico che insegna a usare l'IA, dalle basi al livello avanzato, in modo semplice e lineare.
 
 Integrazione con l'IA lato utente: ogni esercizio pratico è un file `.md` che l'utente
 copia/scarica e incolla nel proprio LLM (Claude, ChatGPT, Gemini, ecc.). Niente backend LLM.
@@ -72,7 +72,7 @@ src/content/docs/inizia-qui.md           → src/content/docs/en/inizia-qui.md
 src/content/docs/fondamenti/cos-e-un-llm.mdx → src/content/docs/en/fondamenti/cos-e-un-llm.mdx
 ```
 
-Le pagine non tradotte ricadono automaticamente sul contenuto in italiano — nessun
+Le pagine non tradotte ricadono automaticamente sul contenuto in italiano: nessun
 errore di build, nessun link rotto. Il selettore di lingua appare nell'header e
 preserva la pagina corrente al cambio di lingua.
 

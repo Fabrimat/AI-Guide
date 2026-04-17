@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'AI-Guide',
-      description: "Impara a usare l'IA — dalle basi al livello avanzato.",
+      description: "Impara a usare l'IA, dalle basi al livello avanzato.",
 
       // --- Localizzazione ---
       // - `root` = lingua di default (italiano), servita alla root "/"

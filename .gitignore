@@ -24,7 +24,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Claude Code — le impostazioni locali sono per-utente e non vanno versionate.
+# Claude Code: le impostazioni locali sono per-utente e non vanno versionate.
 # Invece `.claude/settings.json` (condivise) e `.claude/skills/` (repo skills)
 # vanno committate.
 .claude/settings.local.json
+
+# Output della skill `analyze-lesson` (artefatti di lavoro, non sorgente).
+# Rimuovi questa riga se vuoi versionare le domande generate.
+analysis/
