@@ -1,0 +1,39 @@
+---
+title: Inizia qui
+description: Scegli il percorso più adatto al tuo livello. Arriva dove ti serve nel modo più rapido.
+livello: principiante
+---
+
+import HomeCards from '../../../components/HomeCards.astro';
+
+L'obiettivo di questa pagina è farti arrivare **velocemente** al punto che ti
+interessa. Non serve leggere la guida in ordine: scegli il punto di partenza
+in base al tuo livello.
+
+<HomeCards
+  cards={[
+    {
+      icon: '🌱',
+      title: "Non ho mai usato un'IA",
+      description: "Partiamo dalle basi. Tre lezioni da cinque minuti per capire cos'è, come ci si parla, cosa aspettarti.",
+      href: '/it/fondamenti/cos-e-un-llm/',
+    },
+    {
+      icon: '💬',
+      title: 'Uso già ChatGPT, Claude o Gemini',
+      description: 'Tecniche per scrivere prompt migliori, riconoscere gli errori, farsi aiutare sul lavoro quotidiano.',
+      comingSoon: true,
+    },
+    {
+      icon: '🛠️',
+      title: 'Sono developer o professionista',
+      description: 'API, automazioni, prompting avanzato, pattern come RAG e agenti.',
+      comingSoon: true,
+    },
+  ]}
+/>
+
+:::tip[Suggerimento]
+Ogni pagina è pensata per essere **autonoma**. Puoi leggerle in qualsiasi
+ordine e tornare indietro quando serve.
+:::

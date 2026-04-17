@@ -174,3 +174,55 @@
 .hero .actions .sl-link-button.minimal:hover {
   background: rgba(42, 36, 71, 0.04);
 }
+
+/* ------------------------------------------------------------
+   Header: search ridotto a icona (il pubblico non-tech non usa
+   scorciatoie da tastiera né cerca "Cerca" scritto sul bottone).
+   ------------------------------------------------------------ */
+site-search button[data-open-modal] > span,
+site-search button[data-open-modal] > kbd {
+  display: none !important;
+}
+
+site-search button[data-open-modal] {
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--sl-color-hairline);
+  background: transparent;
+  color: var(--sl-color-text);
+}
+
+site-search button[data-open-modal]:hover {
+  background: var(--sl-color-accent-low);
+  border-color: var(--sl-color-accent-low);
+  color: var(--sl-color-text);
+}
+
+/* ------------------------------------------------------------
+   Mobile polish difensivo
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+  :root {
+    /* Abbassa leggermente l'h1 hero, Outfit grande occupa troppo */
+    --sl-text-h1: 2rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+  }
+  .hero .tagline {
+    font-size: 1.05rem;
+  }
+  .hero .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero .actions .sl-link-button {
+    justify-content: center;
+    text-align: center;
+  }
+}
