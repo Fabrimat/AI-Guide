@@ -126,9 +126,43 @@
   border-color: var(--sl-color-hairline);
 }
 
-/* Callout (asides di Starlight): toni warm coordinati con la palette */
+/* ------------------------------------------------------------
+   Callout (asides di Starlight)
+   Le quattro varianti di default usano colori "semaforo"
+   (blu/viola/arancio/rosso) che stridono con la palette Pastello.
+   Le rimappiamo su toni warm coordinati: la struttura resta quella
+   di Starlight (icona + titolo + contenuto), cambiano solo i colori.
+   ------------------------------------------------------------ */
 .starlight-aside {
   border-radius: 0.75rem;
+}
+
+/* `:::tip` -> coral, l'accento del sito. Per i suggerimenti positivi. */
+.starlight-aside--tip {
+  --sl-color-asides-text-accent: var(--sl-color-accent-high);
+  --sl-color-asides-border: var(--sl-color-accent);
+  background-color: #ffffff;
+}
+
+/* `:::note` -> neutro warm. Per informazioni di contesto. */
+.starlight-aside--note {
+  --sl-color-asides-text-accent: var(--sl-color-text);
+  --sl-color-asides-border: var(--sl-color-gray-4);
+  background-color: #fffaf1;
+}
+
+/* `:::caution` -> ocra. Per attirare l'attenzione su un dettaglio. */
+.starlight-aside--caution {
+  --sl-color-asides-text-accent: #8a5a18;
+  --sl-color-asides-border: #d4a248;
+  background-color: #fbe9c0;
+}
+
+/* `:::danger` -> coral scuro. Per errori comuni o cose da non fare. */
+.starlight-aside--danger {
+  --sl-color-asides-text-accent: #8a2f1a;
+  --sl-color-asides-border: #b5483a;
+  background-color: #f7c8bc;
 }
 
 /* ------------------------------------------------------------
