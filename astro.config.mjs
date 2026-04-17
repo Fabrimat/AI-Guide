@@ -27,9 +27,14 @@ export default defineConfig({
         en: { label: 'English', lang: 'en' },
       },
 
-      // View transitions: niente flash/reset visivo al cambio lingua o pagina.
+      // Override dei componenti di Starlight:
+      // - Head:         lock palette su light + view transitions
+      // - ThemeSelect:  rimosso (sito ha una sola palette, "Pastello")
+      // - PageSidebar:  TOC laterale rimosso (rumore visivo non utile)
       components: {
         Head: './src/components/Head.astro',
+        ThemeSelect: './src/components/ThemeSelect.astro',
+        PageSidebar: './src/components/PageSidebar.astro',
       },
 
       // Sidebar: `slug` è locale-aware (si risolve automaticamente al file

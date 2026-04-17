@@ -1,11 +1,29 @@
 ---
 /**
- * Override del componente Head di Starlight per attivare le View Transitions
- * di Astro (ClientRouter). Effetto: navigazione SPA-like fra pagine e lingue,
- * senza "flash bianco" né reset dello stato della pagina.
+ * Override del componente Head di Starlight.
+ *
+ * Fa due cose:
+ *  1. Blocca il tema su "light" prima che il resto del JS si carichi
+ *     (il sito ha una sola palette, "Pastello", quindi non ha senso
+ *     persistere o offrire dark mode).
+ *  2. Attiva le View Transitions di Astro (ClientRouter) per avere
+ *     navigazione SPA-like fra pagine e fra lingue, senza flash bianco
+ *     né reset dello stato della pagina.
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
 ---
+
+<script is:inline>
+  // Lock palette to light. Eseguito inline nel head così è la prima cosa
+  // che gira: niente flash di un tema diverso prima del nostro CSS.
+  document.documentElement.dataset.theme = 'light';
+  try {
+    localStorage.setItem('starlight-theme', 'light');
+  } catch (_) {
+    /* localStorage non disponibile (browser privato): ignora. */
+  }
+</script>
+
 <Default><slot /></Default>
 <ClientRouter />

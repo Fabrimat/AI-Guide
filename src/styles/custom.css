@@ -1,5 +1,124 @@
-/* Stili globali del sito. Qui si personalizza il look & feel di Starlight. */
+/* ============================================================
+   AI-Guide · stili globali
+   Direzione visiva: "Pastello" (palette warm, una sola modalità).
+   I token sono override delle CSS variables di Starlight.
+   ============================================================ */
 
-:root {
-  --sl-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+@import '@fontsource-variable/outfit';
+
+/* ------------------------------------------------------------
+   Design tokens · Pastello
+   - Sfondo pesca (#FCEEE3), testo indigo profondo (#2A2447),
+     accento coral (#E07A5F).
+   - Sito bloccato su tema light: tutti gli override sono
+     applicati anche a [data-theme='dark'] per evitare flash
+     di palette se qualcosa la imposta.
+   ------------------------------------------------------------ */
+:root,
+:root[data-theme='light'],
+:root[data-theme='dark'] {
+  /* Background */
+  --sl-color-bg: #fceee3;
+  --sl-color-bg-nav: #fceee3;
+  --sl-color-bg-sidebar: #fceee3;
+  --sl-color-bg-inline-code: #fae3d2;
+  --sl-color-bg-accent: #e07a5f;
+
+  /* Text */
+  --sl-color-text: #2a2447;
+  --sl-color-text-accent: #c25a3f;
+  --sl-color-text-invert: #ffffff;
+  --sl-color-white: #ffffff;
+  --sl-color-black: #2a2447;
+
+  /* Accent (coral) */
+  --sl-color-accent: #e07a5f;
+  --sl-color-accent-low: #fad0c2;
+  --sl-color-accent-high: #b85d44;
+
+  /* Scala di grigi: tinta warm/violacea per integrarsi con la palette */
+  --sl-color-gray-1: #2a2447;
+  --sl-color-gray-2: #3f3661;
+  --sl-color-gray-3: #6b5c8c;
+  --sl-color-gray-4: #a998c2;
+  --sl-color-gray-5: #f0dcc9;
+  --sl-color-gray-6: #faf4ed;
+  --sl-color-gray-7: #ffffff;
+
+  /* Hairlines / bordi */
+  --sl-color-hairline: #f0dcc9;
+  --sl-color-hairline-light: #f8e8d9;
+  --sl-color-hairline-shade: #e5d2be;
+
+  /* Tipografia */
+  --sl-font:
+    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-system:
+    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Ritmo tipografico più ariosa rispetto al default */
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.25;
+
+  /* Sizing del corpo lezione (chrome resta a default) */
+  --sl-text-base: 1.0625rem; /* ~17px */
+  --sl-text-h1: 2.4rem;
+  --sl-text-h2: 1.65rem;
+  --sl-text-h3: 1.3rem;
+  --sl-text-h4: 1.1rem;
+  --sl-text-h5: 1rem;
+
+  /* Forza color-scheme light anche se l'attributo è "dark" */
+  color-scheme: light;
+}
+
+/* Outfit beneficia di un tracking leggermente stretto sui titoli */
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+.sl-markdown-content :is(h2, h3) {
+  margin-top: 2.2em;
+}
+
+/* Body più ariose */
+.sl-markdown-content p,
+.sl-markdown-content li {
+  line-height: 1.7;
+}
+.sl-markdown-content p + p {
+  margin-top: 0.9em;
+}
+
+/* Link nel corpo testo: coral discreto, sottolineatura sempre attiva */
+.sl-markdown-content a:not(:where(.not-content, .not-content *)) {
+  color: var(--sl-color-text-accent);
+  text-decoration-color: var(--sl-color-accent-low);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+.sl-markdown-content a:not(:where(.not-content, .not-content *)):hover {
+  text-decoration-color: var(--sl-color-accent);
+}
+
+/* Inline code: warm bg, indigo text */
+.sl-markdown-content :not(pre) > code {
+  background: var(--sl-color-bg-inline-code);
+  color: var(--sl-color-text);
+  border-radius: 0.35rem;
+  padding: 0.12em 0.4em;
+  font-size: 0.92em;
+}
+
+/* Bordi più morbidi sulle card / box */
+.sl-card,
+.card,
+:where(starlight-card-grid, .sl-link-card) {
+  border-radius: 1rem;
+  border-color: var(--sl-color-hairline);
+}
+
+/* Callout (asides di Starlight): toni warm coordinati con la palette */
+.starlight-aside {
+  border-radius: 0.75rem;
 }
