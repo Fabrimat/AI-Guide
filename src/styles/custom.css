@@ -28,8 +28,16 @@
   --sl-color-text: #2a2447;
   --sl-color-text-accent: #c25a3f;
   --sl-color-text-invert: #ffffff;
-  --sl-color-white: #ffffff;
-  --sl-color-black: #2a2447;
+
+  /* ATTENZIONE ai nomi delle variabili di Starlight:
+     - `--sl-color-white` NON è "bianco letterale": è il colore
+       "strong text" (max contrasto contro lo sfondo). In light mode
+       vale il colore scuro della palette (indigo).
+     - `--sl-color-black` è il colore "light bg" (usato come sfondo
+       del modale Pagefind, del bottone menu mobile, ecc.).
+     Invertire questi due causa testo bianco su fondo chiaro ovunque. */
+  --sl-color-white: #2a2447;
+  --sl-color-black: #ffffff;
 
   /* Accent (coral) */
   --sl-color-accent: #e07a5f;
@@ -148,7 +156,7 @@
 
 .hero .actions .sl-link-button.primary {
   background: var(--sl-color-accent);
-  color: var(--sl-color-white);
+  color: var(--sl-color-text-invert);
   border-color: var(--sl-color-accent);
 }
 
@@ -159,6 +167,7 @@
 
 .hero .actions .sl-link-button.minimal {
   color: var(--sl-color-text);
+  background: transparent;
   border: 1px solid var(--sl-color-hairline);
 }
 
