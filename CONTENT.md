@@ -49,8 +49,11 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    La lezione più pratica del modulo. Lista delle IA conversazionali
    principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
    riusa `public/skills/primo-esercizio.md` per il primo dialogo guidato.
-   Revisione `analyze-lesson` + `integrate-questions` completata
-   (2026-04-18). Manca solo il pass `style-checker`.
+   **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-18). Style-checker ha catturato una
+   incoerenza fattuale residua dopo l'integrazione delle domande
+   ("Tre situazioni tipiche" mentre la lista era cresciuta a quattro
+   bullet), corretta in "Le situazioni più comuni".
 
 4. ⏳ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
    Riscrittura alleggerita dell'attuale `fondamenti/cos-e-un-llm`. Indovina
@@ -63,9 +66,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 3 su 5 pubblicate. Lezioni 1 e 2 hanno completato l'intero
-ciclo di revisione; lezione 3 ha integrate-questions fatto, manca il pass
-finale dello `style-checker`. La vecchia `cos-e-un-llm.mdx` resta in sidebar
+**Stato attuale**: 3 su 5 pubblicate. Lezioni 1, 2 e 3 hanno completato
+l'intero ciclo di revisione. La vecchia `cos-e-un-llm.mdx` resta in sidebar
 a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
 arriveremo.
 
@@ -140,8 +142,8 @@ tradurre una pagina alla volta senza rompere il sito.
 
 Due filoni aperti, scegliere in che ordine attaccarli:
 
-**Revisioni pendenti**:
-- Lezione 3: integrazione fatta, manca pass finale dello `style-checker`.
+**Revisioni pendenti**: nessuna. Le tre lezioni pubblicate hanno chiuso
+l'intero ciclo `analyze-lesson` + `integrate-questions` + `style-checker`.
 
 **Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
 alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
