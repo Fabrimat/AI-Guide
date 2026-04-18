@@ -78,10 +78,24 @@ const ui = t(Astro.currentLocale);
 <script>
   const STORAGE_KEY = 'aiguide:progress:v1';
 
+  // Mirror di astro.config.mjs > locales e di src/pages/index.astro.
+  const LOCALES = ['en', 'it'];
+  const LOCALE_RE = /^\/([a-z]{2})\//;
+
   type Lesson = { url: string; title: string };
 
   function humanize(title: string): string {
     return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
+  }
+
+  function detectCurrentLocale(): string | null {
+    const m = window.location.pathname.match(LOCALE_RE);
+    return m && LOCALES.indexOf(m[1]) !== -1 ? m[1] : null;
+  }
+
+  function rewriteToLocale(url: string, locale: string | null): string {
+    if (!locale) return url;
+    return url.replace(LOCALE_RE, `/${locale}/`);
   }
 
   function loadCompletedLessons(): Lesson[] {
@@ -90,17 +104,36 @@ const ui = t(Astro.currentLocale);
       if (!raw) return [];
       const state = JSON.parse(raw);
       if (!state?.pages) return [];
+
+      // Re-route every completed lesson URL to the locale of the current
+      // page. If the same lesson was completed in multiple locales, dedupe:
+      // the user reads the recap in one language at a time, so showing
+      // each lesson twice would be noise. The summary lookup later keys
+      // on the rewritten URL, so the prompt also speaks the right language.
+      const currentLocale = detectCurrentLocale();
+      const seen = new Set<string>();
       const completed: Lesson[] = [];
+
       for (const url in state.pages) {
-        // Solo pagine dentro un modulo (locale + modulo + slug). Esclude
-        // homepage `/it/` e pagine di orientamento `/it/inizia-qui/`.
+        // Only pages inside a module (locale + module + slug). Excludes
+        // homepage `/it/` and orientation pages like `/en/start-here/`.
         const parts = url.split('/').filter(Boolean);
         if (parts.length < 3) continue;
-        if (parts[0] !== 'it' && parts[0] !== 'en') continue;
+        if (LOCALES.indexOf(parts[0]) === -1) continue;
         const page = state.pages[url];
-        if (page?.read && page.title) {
-          completed.push({ url, title: humanize(page.title) });
-        }
+        if (!page?.read || !page.title) continue;
+
+        const targetUrl = rewriteToLocale(url, currentLocale);
+        if (seen.has(targetUrl)) continue;
+        seen.add(targetUrl);
+
+        // Prefer the title of the page in the current locale (if the
+        // user has visited it); fall back to the title actually read.
+        const localizedTitle = state.pages[targetUrl]?.title;
+        completed.push({
+          url: targetUrl,
+          title: humanize(localizedTitle || page.title),
+        });
       }
       return completed;
     } catch {

@@ -55,9 +55,24 @@ const ui = t(Astro.currentLocale);
 <script>
   const STORAGE_KEY = 'aiguide:progress:v1';
 
+  // Locales the site is currently translated into. Mirrors `locales` in
+  // astro.config.mjs and SUPPORTED in src/pages/index.astro.
+  const LOCALES = ['en', 'it'];
+  const LOCALE_RE = /^\/([a-z]{2})\//;
+
   function humanizeTitle(title: string): string {
     // Rimuove il suffisso "| AI-Guide" che Starlight aggiunge ai title.
     return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
+  }
+
+  function detectCurrentLocale(): string | null {
+    const m = window.location.pathname.match(LOCALE_RE);
+    return m && LOCALES.indexOf(m[1]) !== -1 ? m[1] : null;
+  }
+
+  function rewriteToLocale(url: string, locale: string | null): string {
+    if (!locale) return url;
+    return url.replace(LOCALE_RE, `/${locale}/`);
   }
 
   function applyVisibility(card: HTMLElement) {
@@ -73,20 +88,37 @@ const ui = t(Astro.currentLocale);
     const linkEl = card.querySelector<HTMLAnchorElement>('[data-resume-link]');
 
     if (
-      state?.lastUrl &&
-      state.lastUrl !== window.location.pathname &&
-      state.pages?.[state.lastUrl] &&
-      titleEl &&
-      linkEl
+      !state?.lastUrl ||
+      !state.pages?.[state.lastUrl] ||
+      !titleEl ||
+      !linkEl
     ) {
-      const page = state.pages[state.lastUrl];
-      const fallback = card.dataset.i18nFallbackTitle || '';
-      titleEl.textContent = humanizeTitle(page.title || '') || fallback;
-      linkEl.setAttribute('href', state.lastUrl);
-      card.removeAttribute('hidden');
-    } else {
       card.setAttribute('hidden', '');
+      return;
     }
+
+    // Re-route the last URL to the locale of the current page, so an IT
+    // reader who last left in EN gets sent to the IT counterpart (and
+    // vice versa). Slugs are identical across locales (English-only),
+    // so a prefix swap is all we need.
+    const currentLocale = detectCurrentLocale();
+    const targetUrl = rewriteToLocale(state.lastUrl, currentLocale);
+
+    if (targetUrl === window.location.pathname) {
+      card.setAttribute('hidden', '');
+      return;
+    }
+
+    // Title preference: if the user has already visited the localized
+    // counterpart, use that title (it's in their current language).
+    // Otherwise fall back to the title of the page they actually read.
+    const localizedPage = state.pages[targetUrl];
+    const sourcePage = state.pages[state.lastUrl];
+    const rawTitle = localizedPage?.title || sourcePage?.title || '';
+    const fallback = card.dataset.i18nFallbackTitle || '';
+    titleEl.textContent = humanizeTitle(rawTitle) || fallback;
+    linkEl.setAttribute('href', targetUrl);
+    card.removeAttribute('hidden');
   }
 
   function wire(card: HTMLElement) {
