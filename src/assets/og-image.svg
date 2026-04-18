@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#FCEEE3"/>
+
+  <!-- Decorative sprout icon in top-left -->
+  <g transform="translate(90 90) scale(5)" stroke="#B85D44" stroke-width="1.8"
+     fill="#FAD0C2" fill-opacity="0.9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 20h10" fill="none"/>
+    <path d="M10 20c5.5-2.5.8-6.4 3-10" fill="none"/>
+    <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+    <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+  </g>
+
+  <!-- Title -->
+  <text x="90" y="390" font-family="'Outfit', system-ui, sans-serif"
+        font-size="136" font-weight="700" fill="#2A2447" letter-spacing="-2">AI-Guide</text>
+
+  <!-- Tagline -->
+  <text x="90" y="470" font-family="'Outfit', system-ui, sans-serif"
+        font-size="44" font-weight="400" fill="#6B5C8C">Impara a usare l'IA, passo dopo passo.</text>
+
+  <!-- Author line -->
+  <text x="90" y="560" font-family="'Outfit', system-ui, sans-serif"
+        font-size="28" font-weight="500" fill="#C25A3F">di Fabrizio La Rosa · ai-guide.larosa.work</text>
+</svg>
