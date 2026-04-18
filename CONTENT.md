@@ -41,8 +41,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    La parola "prompt" e il modello mentale "è come scrivere un messaggio
    chiaro a qualcuno che vuole aiutarti". Esempio prima/dopo con `<ChatDemo>`
    (vago vs chiaro). Quattro ingredienti di un prompt chiaro, avvertimento
-   sui "prompt magici". Revisione (`analyze-lesson` + `integrate-questions`)
-   ancora da fare.
+   sui "prompt magici". Revisione `analyze-lesson` + `integrate-questions`
+   completata (2026-04-18). Manca solo il pass `style-checker`.
 
 3. ✅ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
    La lezione più pratica del modulo. Lista delle IA conversazionali
@@ -62,7 +62,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    operativo per il rapporto con l'IA.
 
 **Stato attuale**: 3 su 5 pubblicate. Lezione 1 ha completato l'intero ciclo
-di revisione; lezioni 2 e 3 hanno la revisione ancora aperta. La vecchia
+di revisione; lezione 2 ha integrate-questions fatto, manca style-checker;
+lezione 3 ha la revisione ancora interamente aperta. La vecchia
 `cos-e-un-llm.mdx` resta in sidebar a `order: 10` come placeholder, sarà
 sostituita dalla lezione 4 quando ci arriveremo.
 
@@ -138,8 +139,8 @@ tradurre una pagina alla volta senza rompere il sito.
 Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
-- Lezione 2: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
-- Lezione 3: stesso giro.
+- Lezione 2: integrazione fatta, manca pass finale dello `style-checker`.
+- Lezione 3: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
 
 **Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
 alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
