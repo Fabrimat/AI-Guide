@@ -168,6 +168,15 @@
 /* ------------------------------------------------------------
    Splash hero (landing): tipografia più grande, CTA pill
    ------------------------------------------------------------ */
+
+/* Lo splash hero di Starlight ha `padding-block: clamp(2.5rem, ..., 10rem)`,
+   che su desktop diventa ~150px in basso. Quando subito sotto c'è
+   contenuto (HomeCards), il salto è eccessivo. Riduciamo il padding-bottom
+   tenendo il top generoso. */
+.hero {
+  padding-bottom: clamp(1.25rem, 3vmin, 2.5rem);
+}
+
 .hero h1 {
   font-size: clamp(2rem, 4.5vw, 3rem);
   letter-spacing: -0.01em;
