@@ -17,6 +17,7 @@ import { t, getLocale } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 const locale = getLocale(Astro.currentLocale);
 const aboutHref = `/${locale}/about/`;
+const currentYear = new Date().getFullYear();
 
 const LINKEDIN_URL = 'https://linkedin.com/in/fabriziolarosa';
 const SITE_URL = 'https://larosa.work';
@@ -35,6 +36,8 @@ const MAIL_DOMAIN = 'larosa.work';
     <a class="agf-about" href={aboutHref}>{ui.footerAbout}</a>
     <span class="agf-tagline">{ui.footerTagline}</span>
   </div>
+
+  <small class="agf-copyright">{ui.footerCopyright(currentYear)}</small>
 
   <ul class="agf-socials" aria-label={ui.footerAbout}>
     <li>
@@ -140,6 +143,11 @@ const MAIL_DOMAIN = 'larosa.work';
   .agf-tagline {
     color: var(--sl-color-gray-3);
     font-size: 0.88rem;
+  }
+
+  .agf-copyright {
+    color: var(--sl-color-gray-3);
+    font-size: 0.82rem;
   }
 
   .agf-socials {
