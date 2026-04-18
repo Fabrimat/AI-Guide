@@ -124,6 +124,30 @@ import Resume from '../../../components/Resume.astro';
 <Resume />
 ```
 
+### `<RecapWithAi>`
+
+Card che trasforma la tua IA in un tutor delle lezioni che hai
+effettivamente letto. Legge `localStorage` (chiave
+`aiguide:progress:v1`), filtra le pagine con `read: true` dentro un
+modulo (es. `/it/fondamenti/...`), e al click di "Genera prompt di
+ripasso" assembla un prompt che contiene la lista delle lezioni
+completate + istruzioni per ripasso socratico. Mostrato in un
+`<dialog>` con bottone copia.
+
+Quando 0 lezioni sono state completate il bottone è disabilitato e
+una riga di stato lo spiega ("Completa almeno una lezione…"). Reagisce
+all'evento `aiguide:progress-cleared` per aggiornarsi quando l'utente
+cancella i progressi.
+
+Pensato per pagine di orientamento e fine modulo. Nessun prop, si
+include come `<RecapWithAi />`.
+
+```mdx
+import RecapWithAi from '../../../components/RecapWithAi.astro';
+
+<RecapWithAi />
+```
+
 ### `<PromptBuilder>`
 
 Widget interattivo che porta la lettrice step-by-step a costruire un

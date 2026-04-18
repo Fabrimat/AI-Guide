@@ -1,0 +1,346 @@
+---
+/**
+ * RecapWithAi: trasforma la tua IA in un tutor sulle lezioni che hai
+ * effettivamente letto.
+ *
+ * Legge `localStorage` (chiave `aiguide:progress:v1`, popolata da
+ * `src/scripts/progress.ts`), trova le pagine lezione con `read: true`,
+ * e al click di "Genera prompt di ripasso" assembla un prompt che
+ * istruisce l'IA a fare ripasso socratico SU QUELLE lezioni. Il prompt
+ * viene mostrato in un `<dialog>` con bottone copia.
+ *
+ * Se l'utente non ha ancora completato nessuna lezione, il bottone è
+ * disabilitato e la card mostra una riga di stato che lo spiega.
+ *
+ * Da posizionare su pagine di orientamento (homepage, `inizia-qui`) e
+ * a fine modulo. Niente prop, si include come `<RecapWithAi />`.
+ */
+---
+
+<div class="recap-with-ai not-content" data-recap hidden>
+  <header>
+    <span class="recap-badge">🎓 Ripasso con la tua IA</span>
+    <h3>Trasforma la tua IA in un tutor</h3>
+  </header>
+
+  <p class="recap-desc">
+    Generiamo un prompt che fa diventare la tua IA un tutor delle lezioni
+    che hai completato. Ti farà domande socratiche per rievocare quello
+    che hai imparato.
+  </p>
+
+  <p class="recap-status" data-recap-status></p>
+
+  <div class="recap-actions">
+    <button type="button" class="recap-btn" data-recap-generate>
+      Genera prompt di ripasso
+    </button>
+  </div>
+
+  <dialog
+    class="recap-dialog"
+    data-recap-dialog
+    aria-labelledby="recap-dialog-title"
+  >
+    <h4 id="recap-dialog-title">Ecco il tuo prompt di ripasso</h4>
+    <p class="recap-dialog-hint">
+      Copialo e incollalo nella tua IA. Si calibrerà sulle lezioni che
+      hai effettivamente completato.
+    </p>
+    <pre class="recap-output" data-recap-output></pre>
+    <div class="recap-dialog-actions">
+      <button
+        type="button"
+        class="recap-btn recap-btn-primary"
+        data-recap-copy
+      >
+        Copia il prompt
+      </button>
+      <button
+        type="button"
+        class="recap-btn recap-btn-ghost"
+        data-recap-close
+      >
+        Chiudi
+      </button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  const STORAGE_KEY = 'aiguide:progress:v1';
+
+  type Lesson = { url: string; title: string };
+
+  function humanize(title: string): string {
+    return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
+  }
+
+  function loadCompletedLessons(): Lesson[] {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const state = JSON.parse(raw);
+      if (!state?.pages) return [];
+      const completed: Lesson[] = [];
+      for (const url in state.pages) {
+        // Solo pagine dentro un modulo (locale + modulo + slug). Esclude
+        // homepage `/it/` e pagine di orientamento `/it/inizia-qui/`.
+        const parts = url.split('/').filter(Boolean);
+        if (parts.length < 3) continue;
+        if (parts[0] !== 'it' && parts[0] !== 'en') continue;
+        const page = state.pages[url];
+        if (page?.read && page.title) {
+          completed.push({ url, title: humanize(page.title) });
+        }
+      }
+      return completed;
+    } catch {
+      return [];
+    }
+  }
+
+  function buildPrompt(lessons: Lesson[]): string {
+    const list = lessons.map((l) => `- ${l.title}`).join('\n');
+    return `Sei un tutor amichevole. Sto studiando il manuale AI-Guide e ho completato queste lezioni:
+
+${list}
+
+Aiutami a fare un ripasso usando il metodo socratico: fammi domande progressive che mi obblighino a rievocare cosa ho imparato. Una domanda alla volta. Per ogni mia risposta, dammi un feedback breve e poi passa alla prossima.
+
+Alla fine fai una sintesi in tre punti: cosa è chiaro, cosa vale la pena ripassare, e una piccola sfida pratica per la prossima conversazione con un'IA.
+
+Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda che sono alle prime armi.`;
+  }
+
+  function applyState(root: HTMLElement) {
+    const lessons = loadCompletedLessons();
+    const status = root.querySelector<HTMLElement>('[data-recap-status]');
+    const btn = root.querySelector<HTMLButtonElement>('[data-recap-generate]');
+    if (!status || !btn) return;
+
+    if (lessons.length === 0) {
+      status.textContent =
+        'Completa almeno una lezione per attivare il ripasso.';
+      btn.disabled = true;
+    } else {
+      const word = lessons.length === 1 ? 'lezione completata' : 'lezioni completate';
+      status.textContent = `${lessons.length} ${word} finora.`;
+      btn.disabled = false;
+    }
+
+    root.removeAttribute('hidden');
+  }
+
+  function wire(root: HTMLElement) {
+    const generateBtn = root.querySelector<HTMLButtonElement>(
+      '[data-recap-generate]',
+    );
+    const dialog = root.querySelector<HTMLDialogElement>('[data-recap-dialog]');
+    const output = root.querySelector<HTMLElement>('[data-recap-output]');
+    const copyBtn = root.querySelector<HTMLButtonElement>('[data-recap-copy]');
+    const closeBtn = root.querySelector<HTMLButtonElement>('[data-recap-close]');
+
+    if (!generateBtn || !dialog || !output || !copyBtn || !closeBtn) return;
+
+    generateBtn.addEventListener('click', () => {
+      const lessons = loadCompletedLessons();
+      if (lessons.length === 0) return;
+      output.textContent = buildPrompt(lessons);
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      }
+    });
+
+    closeBtn.addEventListener('click', () => dialog.close());
+
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = output.textContent || '';
+      if (!text) return;
+      const original = copyBtn.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = '✅ Copiato!';
+      } catch {
+        copyBtn.textContent = '❌ Errore, riprova';
+      }
+      window.setTimeout(() => {
+        copyBtn.textContent = original;
+      }, 2000);
+    });
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-recap]').forEach((root) => {
+      if (root.dataset.recapWired !== 'true') {
+        root.dataset.recapWired = 'true';
+        wire(root);
+      }
+      applyState(root);
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+  // Quando l'utente clicca "Cancella progressi" nel widget Resume, il
+  // conteggio torna a zero: aggiorniamo la card subito.
+  window.addEventListener('aiguide:progress-cleared', () => {
+    document.querySelectorAll<HTMLElement>('[data-recap]').forEach(applyState);
+  });
+</script>
+
+<style>
+  .recap-with-ai {
+    margin: 1.75rem auto;
+    padding: 1.25rem 1.25rem 1rem;
+    max-width: 900px;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 6px 18px rgba(42, 36, 71, 0.05);
+  }
+
+  .recap-with-ai[hidden] {
+    display: none;
+  }
+
+  .recap-with-ai header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .recap-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .recap-with-ai h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .recap-desc {
+    margin: 0.25rem 0 0.5rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .recap-status {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .recap-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .recap-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sl-color-accent);
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  .recap-btn:hover:not(:disabled) {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .recap-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .recap-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .recap-dialog {
+    margin: auto;
+    padding: 1.5rem;
+    max-width: 36rem;
+    width: calc(100% - 2rem);
+    background: #ffffff;
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow: 0 12px 36px rgba(42, 36, 71, 0.18);
+    font-family: var(--sl-font);
+  }
+
+  .recap-dialog::backdrop {
+    background: rgba(42, 36, 71, 0.45);
+  }
+
+  .recap-dialog h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .recap-dialog-hint {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .recap-output {
+    margin: 0 0 1rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 1px dashed var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    font-family: var(--sl-font);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .recap-dialog-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .recap-btn-ghost {
+    background: transparent;
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-hairline);
+  }
+
+  .recap-btn-ghost:hover {
+    background: rgba(42, 36, 71, 0.04);
+  }
+</style>
