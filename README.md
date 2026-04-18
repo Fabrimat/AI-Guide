@@ -41,8 +41,8 @@ src/
 ├── styles/custom.css
 └── content.config.ts
 public/
-└── skills/                         # file .md serviti staticamente (prompt per gli LLM)
-    └── primo-esercizio.md
+└── skills/                         # file .txt serviti staticamente (istruzioni per gli LLM)
+    └── primo-esercizio.txt
 ```
 
 Tutte le lingue hanno prefisso URL uniforme (`/it/...`, `/en/...`). La root `/`
@@ -60,7 +60,7 @@ fa redirect verso la lingua di default (`/it/`).
    ---
    ```
 3. Se la lezione ha un esercizio pratico:
-   - crea il prompt in `public/skills/nome-esercizio.md`
+   - crea il file di istruzioni in `public/skills/nome-esercizio.txt` (plain text, niente markdown)
    - nel file `.mdx` della lezione, importa e usa il componente:
      ```mdx
      import EsercizioLLM from '../../../../components/EsercizioLLM.astro';

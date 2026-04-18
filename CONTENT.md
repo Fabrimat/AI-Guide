@@ -48,7 +48,7 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
 3. ✅ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
    La lezione più pratica del modulo. Lista delle IA conversazionali
    principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
-   riusa `public/skills/primo-esercizio.md` per il primo dialogo guidato.
+   riusa `public/skills/primo-esercizio.txt` per il primo dialogo guidato.
    **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
    `style-checker`, 2026-04-18). Style-checker ha catturato una
    incoerenza fattuale residua dopo l'integrazione delle domande

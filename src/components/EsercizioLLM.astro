@@ -2,7 +2,9 @@
 /**
  * Componente per proporre alla lettrice un'attività da fare con il proprio LLM.
  * Mostra titolo, descrizione e pulsanti per copiare/scaricare/aprire un file
- * `.md` con il prompt (servito staticamente da `/public/skills/`).
+ * `.txt` di istruzioni (servito staticamente da `/public/skills/`). Plain
+ * text deliberato: niente markdown grezzo nel testo che viene incollato
+ * nell'IA o aperto in un editor (vale anche per il pubblico non-tecnico).
  *
  * Due varianti:
  *  - `variant="esercizio"` (default): pratica guidata. Accento coral.

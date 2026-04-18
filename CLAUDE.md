@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Cos'è questo progetto
 
-**AI-Guide** è un sito pubblico (Astro + Starlight) che insegna a usare l'IA in italiano, dai fondamenti al livello avanzato. I contenuti sono file Markdown/MDX didattici. L'integrazione con l'IA avviene lato lettore: ogni esercizio pratico è un file `.md` in `public/skills/` che il lettore copia e incolla nel proprio LLM (Claude, ChatGPT, Gemini, ecc.).
+**AI-Guide** è un sito pubblico (Astro + Starlight) che insegna a usare l'IA in italiano, dai fondamenti al livello avanzato. I contenuti sono file Markdown/MDX didattici. L'integrazione con l'IA avviene lato lettore: ogni esercizio o verifica è un file `.txt` in `public/skills/` (plain text, niente markdown) che il lettore copia e incolla nel proprio LLM (Claude, ChatGPT, Gemini, ecc.).
 
 ## Comandi
 
@@ -105,8 +105,8 @@ import NomeComponente from '../../../../components/NomeComponente.astro';
 
 Riquadro che propone alla lettrice un'attività da fare con il proprio LLM:
 mostra titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file
-`.md` con il prompt. Il file vive in `public/skills/<nome>.md` ed è servito
-staticamente.
+`.txt` con le istruzioni. Il file vive in `public/skills/<nome>.txt` (plain
+text, niente markdown) ed è servito staticamente.
 
 Due varianti, scelte con `variant`:
 
@@ -122,7 +122,7 @@ varianti. Convenzione: i file di verifica si chiamano
 | Prop          | Tipo                            | Default       | Note                                              |
 |---------------|---------------------------------|---------------|---------------------------------------------------|
 | `titolo`      | `string`                        | —             | obbligatorio                                      |
-| `file`        | `string`                        | —             | nome del file in `public/skills/`, es. `mio.md`   |
+| `file`        | `string`                        | —             | nome del file in `public/skills/`, es. `mio.txt`  |
 | `descrizione` | `string`                        | —             | opzionale, breve descrizione sotto il titolo      |
 | `variant`     | `'esercizio' \| 'verifica'`     | `'esercizio'` | scegli il framing visivo                          |
 
@@ -130,7 +130,7 @@ varianti. Convenzione: i file di verifica si chiamano
 {/* Esercizio pratico nel corpo della lezione */}
 <EsercizioLLM
   titolo="La tua prima conversazione consapevole"
-  file="primo-esercizio.md"
+  file="primo-esercizio.txt"
   descrizione="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
 />
 
@@ -138,7 +138,7 @@ varianti. Convenzione: i file di verifica si chiamano
 <EsercizioLLM
   variant="verifica"
   titolo="Quattro domande per fissare le idee"
-  file="verifica-cos-e-l-ia.md"
+  file="verifica-cos-e-l-ia.txt"
   descrizione="Incolla il prompt nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
 />
 ```
