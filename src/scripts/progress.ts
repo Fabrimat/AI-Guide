@@ -44,7 +44,7 @@ interface ProgressState {
 }
 
 const STORAGE_KEY = 'aiguide:progress:v1';
-const READ_TIME_MS = 30_000;
+const READ_TIME_MS = 15_000;
 const READ_SCROLL_RATIO = 0.8;
 const TICK_INTERVAL_MS = 5_000;
 
