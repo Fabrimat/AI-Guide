@@ -34,6 +34,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
 1. ✅ **Ma cos'è l'IA?** (`fondamenti/cos-e-l-ia`)
    Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
    (IA specializzate vs conversazionali). Quattro miti da chiarire subito.
+   Revisione `analyze-lesson` + `integrate-questions` completata
+   (2026-04-18). Manca solo il pass finale dello `style-checker`.
 
 2. ✅ **Cos'è un prompt?** (`fondamenti/cos-e-un-prompt`)
    La parola "prompt" e il modello mentale "è come scrivere un messaggio
@@ -59,11 +61,11 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 3 su 5 pubblicate. Tutte e tre hanno revisione (ciclo
-`analyze-lesson` + `integrate-questions` + `style-checker`) ancora aperta,
-da fare in un giro dedicato. La vecchia `cos-e-un-llm.mdx` resta in sidebar
-a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
-arriveremo.
+**Stato attuale**: 3 su 5 pubblicate. La lezione 1 ha completato il ciclo
+`analyze-lesson` + `integrate-questions` (manca solo `style-checker`); le
+lezioni 2 e 3 hanno la revisione ancora interamente aperta. La vecchia
+`cos-e-un-llm.mdx` resta in sidebar a `order: 10` come placeholder, sarà
+sostituita dalla lezione 4 quando ci arriveremo.
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -136,11 +138,10 @@ tradurre una pagina alla volta senza rompere il sito.
 
 Due filoni aperti, scegliere in che ordine attaccarli:
 
-**Revisioni pendenti (lezioni 1, 2, 3)**:
-- Lezione 1: domande già in `analysis/cos-e-l-ia.questions.md`, da curare
-  e integrare con `/integrate-questions`.
-- Lezione 2: da lanciare `/analyze-lesson`, poi stesso giro della 1.
-- Lezione 3: stesso giro, `/analyze-lesson` + `/integrate-questions`.
+**Revisioni pendenti**:
+- Lezione 1: integrazione fatta, manca pass finale dello `style-checker`.
+- Lezione 2: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
+- Lezione 3: stesso giro, `/analyze-lesson` + `/integrate-questions` + `style-checker`.
 
 **Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
 alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
