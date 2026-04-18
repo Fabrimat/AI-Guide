@@ -21,6 +21,12 @@ const currentYear = new Date().getFullYear();
 
 const LINKEDIN_URL = 'https://linkedin.com/in/fabriziolarosa';
 const SITE_URL = 'https://larosa.work';
+// P.IVA esposta perché il sito rafforza la brand awareness di
+// larosa.work (attività economica). Direttiva UE e-Commerce e Code
+// de Droit Économique belga richiedono trasparenza sull'operatore
+// quando un sito fa parte di un'attività commerciale, anche se il
+// contenuto in sé è gratuito.
+const VAT = 'BE1031214819';
 // Mail split in user/domain per obfuscation: il DOM statico non
 // contiene mai la stringa `user@domain` unita, i crawler spam che
 // scansionano HTML grezzo non trovano una mail leggibile. Lo script
@@ -37,7 +43,13 @@ const MAIL_DOMAIN = 'larosa.work';
     <span class="agf-tagline">{ui.footerTagline}</span>
   </div>
 
-  <small class="agf-copyright">{ui.footerCopyright(currentYear)}</small>
+  <small class="agf-copyright">
+    {ui.footerCopyright(currentYear)}
+    <span class="agf-sep" aria-hidden="true">·</span>
+    {ui.footerLocation}
+    <span class="agf-sep" aria-hidden="true">·</span>
+    {ui.footerVatLabel} {VAT}
+  </small>
 
   <ul class="agf-socials" aria-label={ui.footerAbout}>
     <li>
@@ -148,6 +160,11 @@ const MAIL_DOMAIN = 'larosa.work';
   .agf-copyright {
     color: var(--sl-color-gray-3);
     font-size: 0.82rem;
+  }
+
+  .agf-sep {
+    margin: 0 0.45em;
+    color: var(--sl-color-gray-4);
   }
 
   .agf-socials {

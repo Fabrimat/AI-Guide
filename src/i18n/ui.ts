@@ -117,6 +117,8 @@ export interface UIStrings {
   footerSiteAria: string;
   footerTagline: string;
   footerCopyright: (year: number) => string;
+  footerLocation: string;
+  footerVatLabel: string;
 }
 
 const it: UIStrings = {
@@ -234,6 +236,8 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   footerSiteAria: 'Sito personale di Fabrizio La Rosa',
   footerTagline: 'Manuale aperto, scritto da una persona vera.',
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
+  footerLocation: 'Gent, Belgio',
+  footerVatLabel: 'P.IVA',
 };
 
 const en: UIStrings = {
@@ -351,6 +355,8 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   footerSiteAria: "Fabrizio La Rosa's personal site",
   footerTagline: 'Open manual, written by a real person.',
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
+  footerLocation: 'Ghent, Belgium',
+  footerVatLabel: 'VAT',
 };
 
 const STRINGS: Record<Locale, UIStrings> = { it, en };
