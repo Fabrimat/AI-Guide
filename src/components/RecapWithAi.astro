@@ -100,15 +100,62 @@
     }
   }
 
+  // Concetti chiave per lezione (URL → bullet list dei punti coperti).
+  // Quando aggiungi una lezione nuova, aggiungi una voce qui così il
+  // recap include il suo contesto. Le lezioni non mappate vengono
+  // elencate solo per titolo (degradation graceful).
+  const LESSON_SUMMARIES: Record<string, string> = {
+    '/it/fondamenti/cos-e-l-ia/': `  - L'IA è un'etichetta che mette insieme cose molto diverse fra loro.
+  - Due grandi famiglie: IA che fanno una cosa sola (filtro antispam, Siri, autocomplete) e IA che parlano (ChatGPT, Claude, Gemini).
+  - Quattro miti chiariti: non pensa come una persona, non è sempre giusta, non vuole niente, non è magica.
+  - "I miei dati dove vanno" è un tema separato dal "il programma non ha intenzioni": riguarda l'azienda dietro l'IA.`,
+
+    '/it/fondamenti/cos-e-un-prompt/': `  - Il prompt è quello che scrivi all'IA per ottenere una risposta.
+  - Modello mentale: stai scrivendo a una persona competente che non sa nulla di te.
+  - Quattro ingredienti di un prompt chiaro: cosa vuoi, contesto, destinatario, formato.
+  - L'IA non è Google: per "fai X per me" il prompt chiaro fa la differenza.
+  - Non esistono "prompt magici": si itera, l'IA non si offende.`,
+
+    '/it/fondamenti/prima-conversazione/': `  - Tre IA principali per cominciare: ChatGPT, Claude, Gemini (per la prima volta una vale l'altra).
+  - UX di base: barra di scrittura, risposta una parola alla volta, conversazioni salvate nell'account.
+  - Recovery se qualcosa non va: troppo lunga, non capisci, off-topic → chiedere all'IA di aggiustare.
+  - Niente è irreversibile: si può sempre ricominciare, l'IA non si offende.`,
+
+    '/it/fondamenti/come-capisce-l-ia/': `  - Meccanismo "una parola alla volta": l'IA prevede la parola successiva, ripetuto.
+  - Allenata leggendo enormi quantità di testo (centinaia di miliardi di parole, in larga parte da fonti pubbliche).
+  - Non memorizza i testi: ha imparato schemi (la "musica" del linguaggio), ricostruisce ogni volta.
+  - Tre conseguenze: non sa stima, più contesto = meglio, memoria solo dentro la stessa chat.
+  - Esiste un limite alla "finestra di contesto" in chat molto lunghe.
+  - Termine tecnico per queste IA: LLM (Large Language Model).`,
+
+    '/it/fondamenti/fidarsi/': `  - "Allucinazione": l'IA produce testo che suona vero ma non si basa su nulla di reale.
+  - Per come è fatta non si rende conto di inventare: sceglie sempre la parola più probabile.
+  - Va bene per: spiegare concetti generali, riformulare testi dati, generare strutture, brainstorming, traduzioni.
+  - Va male per: fatti specifici verificabili, cose recenti, conti complicati, casi specifici dell'utente, consulenza medica/legale/finanziaria.
+  - Tre mosse di verifica a sforzo crescente: motore di ricerca, chiedere la fonte e cercarla, persona competente per decisioni importanti.
+  - Mentalità: assistente brillante ma incostante. In dubbio, verifica.`,
+  };
+
   function buildPrompt(lessons: Lesson[]): string {
-    const list = lessons.map((l) => `- ${l.title}`).join('\n');
-    return `Sei un tutor amichevole. Sto studiando il manuale AI-Guide e ho completato queste lezioni:
+    const sections = lessons
+      .map((l) => {
+        const summary = LESSON_SUMMARIES[l.url];
+        if (summary) {
+          return `**${l.title}**\n${summary}`;
+        }
+        return `**${l.title}**\n  (concetti non mappati)`;
+      })
+      .join('\n\n');
 
-${list}
+    return `Sei un tutor amichevole. Sto studiando il manuale AI-Guide e ho completato queste lezioni, di cui ti elenco i concetti chiave:
 
-Aiutami a fare un ripasso usando il metodo socratico: fammi domande progressive che mi obblighino a rievocare cosa ho imparato. Una domanda alla volta. Per ogni mia risposta, dammi un feedback breve e poi passa alla prossima.
+${sections}
 
-Alla fine fai una sintesi in tre punti: cosa è chiaro, cosa vale la pena ripassare, e una piccola sfida pratica per la prossima conversazione con un'IA.
+Aiutami a fare un ripasso usando il metodo socratico. Fammi domande progressive che mi obblighino a rievocare e collegare i concetti delle diverse lezioni. Una domanda alla volta. Per ogni mia risposta, dammi un feedback breve (cosa ho centrato, cosa potrei precisare) e poi passa alla prossima.
+
+Mescola le domande fra le lezioni che ho fatto, non procedere strettamente in ordine. Inserisci almeno una domanda di "applicazione" (es. uno scenario realistico in cui devo decidere cosa fare con l'IA) verso metà ripasso.
+
+Alla fine fai una sintesi in tre punti: cosa ho ben presente, cosa vale la pena ripassare, e una piccola sfida pratica per la prossima conversazione con un'IA.
 
 Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda che sono alle prime armi.`;
   }
