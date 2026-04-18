@@ -124,6 +124,32 @@ import Resume from '../../../components/Resume.astro';
 <Resume />
 ```
 
+### `<GlossaryTerm>`
+
+Voce singola di un glossario: nome del termine come prop, definizione
+come slot (puoi usare `<em>`, `<strong>`, link, ecc. dentro la
+definizione). Aggiunge un bottone "Spiegamelo meglio con la tua IA"
+che, al click, copia nel clipboard un prompt calibrato sul termine
+specifico, pronto da incollare nella propria IA.
+
+| Prop  | Tipo     | Default | Note                                 |
+|-------|----------|---------|--------------------------------------|
+| `name`| `string` | —       | obbligatorio, nome del termine       |
+
+L'`id` dell'elemento viene generato dal nome (slugificato), così è
+linkabile via ancora.
+
+```mdx
+import GlossaryTerm from '../../../components/GlossaryTerm.astro';
+
+<GlossaryTerm name="Allucinazione">
+  Quando l'IA produce un testo che suona vero ma non si basa su nessun
+  fatto reale.
+</GlossaryTerm>
+```
+
+Pagina di riferimento: `src/content/docs/it/glossario.mdx`.
+
 ### `<RecapWithAi>`
 
 Card che trasforma la tua IA in un tutor delle lezioni che hai

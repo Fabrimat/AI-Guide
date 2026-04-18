@@ -54,6 +54,11 @@ export default defineConfig({
           translations: { en: 'Fundamentals' },
           autogenerate: { directory: 'fondamenti' },
         },
+        {
+          label: 'Glossario',
+          translations: { en: 'Glossary' },
+          slug: 'glossario',
+        },
       ],
 
       customCss: ['./src/styles/custom.css'],

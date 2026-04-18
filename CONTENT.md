@@ -128,7 +128,10 @@ pattern (RAG: spiegazione concettuale o tutorial con codice?).
 
 ## Pagine trasversali (fuori dai moduli)
 
-- 🆕 **Glossario** — termini tecnici con definizione breve, ordine alfabetico.
+- ✅ **Glossario** (`/it/glossario/`) — termini tecnici (Allenamento,
+  Allucinazione, Contesto, Freemium, IA, LLM, Memoria, Modello, Prompt)
+  con definizione breve e bottone "Spiegamelo meglio con la tua IA"
+  che genera un prompt calibrato sul termine.
 - 🆕 **FAQ** — privacy, costi, quale IA scegliere, cosa succede se l'IA sbaglia.
 - 🆕 **Chi fa AI-Guide / Contribuisci** — about + come proporre modifiche.
 - 🆕 **Cronologia** (opzionale) — breve storia di come siamo arrivati qui.
