@@ -256,32 +256,54 @@ link, badge "Presto" in alto a destra.
 
 `HomeCard`:
 
-| Campo         | Tipo       | Default | Note                                          |
-|---------------|------------|---------|------------------------------------------------|
-| `icon`        | `string`   | —       | obbligatorio, tipicamente un emoji            |
-| `title`       | `string`   | —       | obbligatorio                                  |
-| `description` | `string`   | —       | obbligatorio                                  |
-| `href`        | `string`   | —       | opzionale, URL della pagina target            |
-| `comingSoon`  | `boolean`  | `false` | se true: card non cliccabile, badge "Presto"  |
+| Campo         | Tipo       | Default | Note                                                                       |
+|---------------|------------|---------|----------------------------------------------------------------------------|
+| `icon`        | `IconName` | —       | obbligatorio, id di un'icona del set `Icon.astro` (es. `'sprout'`)         |
+| `title`       | `string`   | —       | obbligatorio                                                               |
+| `description` | `string`   | —       | obbligatorio                                                               |
+| `href`        | `string`   | —       | opzionale, URL della pagina target                                         |
+| `comingSoon`  | `boolean`  | `false` | se true: card non cliccabile, badge "Presto"                               |
 
 ```mdx
 <HomeCards
   heading="Da dove parti?"
   cards={[
     {
-      icon: '🌱',
+      icon: 'sprout',
       title: 'Fondamenti',
       description: "Cos'è un'IA, come parlarci, cosa aspettarti.",
       href: '/it/fundamentals/what-is-ai/',
     },
     {
-      icon: '✍️',
+      icon: 'pencil',
       title: 'Uso quotidiano',
       description: 'Scrivere, riassumere, imparare cose nuove.',
       comingSoon: true,
     },
   ]}
 />
+```
+
+### `<Icon>`
+
+Set curato di icone SVG inline usate dalle card di navigazione
+(`HomeCards`). Stile duotone: stroke coral scuro + fill coral chiaro,
+wrapper squircle con sfondo `--sl-color-accent-low`. Palette Pastello
+rispettata, aspetto stabile tra OS (a differenza delle emoji).
+
+Icone disponibili (`IconName`): `sprout`, `pencil`, `briefcase`,
+`graduation-cap`, `users`, `wrench`, `message-circle`. Aggiungerne
+una significa estendere l'union type e aggiungere il blocco SVG in
+`Icon.astro`.
+
+Generalmente non serve importarlo direttamente dall'`.mdx`: le card
+prendono `icon: IconName` e `HomeCards` lo monta da solo. Se in
+futuro serve un'icona standalone fuori dalle card, importalo così:
+
+```mdx
+import Icon from '../../../components/Icon.astro';
+
+<Icon name="graduation-cap" />
 ```
 
 ### `<ChatDemo>`

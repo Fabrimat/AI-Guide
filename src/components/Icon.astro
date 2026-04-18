@@ -1,0 +1,98 @@
+---
+/**
+ * Icon: set curato di icone SVG inline usate nelle card di navigazione
+ * (HomeCards). Stile "duotone": stroke coral scuro + fill coral chiaro.
+ *
+ * Le icone sono Lucide (MIT) ridipinte nella palette Pastello. Tutte
+ * 24x24 viewBox, tratto 1.8px.
+ *
+ * Per aggiungere un'icona nuova: aggiungerla a `IconName` e al render
+ * qui sotto. Mantenere `viewBox="0 0 24 24"` e omettere stroke/fill
+ * sul <svg> root (vengono dal CSS).
+ */
+
+export type IconName = 'sprout' | 'pencil' | 'briefcase' | 'graduation-cap' | 'users' | 'wrench' | 'message-circle';
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+
+<span class:list={['aig-icon', className]} aria-hidden="true">
+  {name === 'sprout' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 20h10" />
+      <path d="M10 20c5.5-2.5.8-6.4 3-10" />
+      <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z" />
+      <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z" />
+    </svg>
+  )}
+  {name === 'pencil' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
+    </svg>
+  )}
+  {name === 'briefcase' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      <rect width="20" height="14" x="2" y="6" rx="2" />
+    </svg>
+  )}
+  {name === 'graduation-cap' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0Z" />
+      <path d="M22 10v6" />
+      <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+    </svg>
+  )}
+  {name === 'users' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  )}
+  {name === 'wrench' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z" />
+    </svg>
+  )}
+  {name === 'message-circle' && (
+    <svg viewBox="0 0 24 24" width="32" height="32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+    </svg>
+  )}
+</span>
+
+<style>
+  .aig-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--sl-color-accent-low);
+    flex-shrink: 0;
+  }
+
+  /* Stile duotone: stroke coral scuro + fill coral chiaro sulle
+     forme chiuse. Le linee semplici (path senza forma chiusa)
+     restano solo tratto. */
+  .aig-icon svg {
+    color: var(--sl-color-accent-high);
+    stroke: currentColor;
+    fill: none;
+  }
+  .aig-icon svg path,
+  .aig-icon svg circle,
+  .aig-icon svg rect {
+    fill: var(--sl-color-accent-low);
+    fill-opacity: 0.9;
+  }
+</style>

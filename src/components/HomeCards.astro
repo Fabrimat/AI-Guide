@@ -6,19 +6,22 @@
  * grandi, ognuna con icona, titolo, frase. Pensato come orientamento
  * per il pubblico non-tecnico: "da dove parti?".
  *
+ * L'icona è un `IconName` (vedi Icon.astro), non un emoji: stile
+ * duotone coral, coerente con la palette Pastello e stabile tra OS.
+ *
  * Uso in un file .mdx (tipicamente index.mdx con `template: splash`):
  *
  *   <HomeCards
  *     heading="Da dove parti?"
  *     cards={[
  *       {
- *         icon: '🌱',
+ *         icon: 'sprout',
  *         title: 'Fondamenti',
  *         description: "Cos'è un'IA, come parlarci…",
- *         href: '/it/fondamenti/cos-e-l-ia/',
+ *         href: '/it/fundamentals/what-is-ai/',
  *       },
  *       {
- *         icon: '✍️',
+ *         icon: 'pencil',
  *         title: 'Uso quotidiano',
  *         description: 'Scrivere, riassumere, imparare.',
  *         comingSoon: true,
@@ -30,8 +33,11 @@
  * "Presto". Se `href` è assente e `comingSoon` non è true, la card
  * resta non-cliccabile (senza badge).
  */
+import Icon, { type IconName } from './Icon.astro';
+import { t } from '../i18n/ui';
+
 export interface HomeCard {
-  icon: string;
+  icon: IconName;
   title: string;
   description: string;
   href?: string;
@@ -44,7 +50,6 @@ interface Props {
   comingSoonLabel?: string;
 }
 
-import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 
 const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
@@ -59,7 +64,7 @@ const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
       const props = isLink ? { href: card.href } : {};
       return (
         <Tag class:list={['home-card', { 'is-coming': card.comingSoon }]} {...props}>
-          <span class="home-card-icon" aria-hidden="true">{card.icon}</span>
+          <Icon name={card.icon} class="home-card-icon" />
           <h3 class="home-card-title">{card.title}</h3>
           <p class="home-card-desc">{card.description}</p>
           {card.comingSoon && (
@@ -120,10 +125,7 @@ const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
   }
 
   .home-card-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.6rem;
-    display: block;
-    line-height: 1;
+    margin-bottom: 0.7rem;
   }
 
   .home-card-title {
