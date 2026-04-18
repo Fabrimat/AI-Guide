@@ -79,10 +79,12 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    all'esempio del libro inventato.
 
 **Stato attuale**: 5 su 5 pubblicate, **modulo Fondamenti completo, ciclo
-di revisione chiuso su tutte le lezioni**. La vecchia `cos-e-un-llm.mdx`
-è stata rinominata `come-capisce-l-ia.mdx` e riscritta da capo: il vecchio
-URL `/it/fondamenti/cos-e-un-llm/` non esiste più (per ora non è un
-problema, il sito non è ancora pubblicato).
+di revisione chiuso su tutte le lezioni, verifica dell'apprendimento attiva
+su tutte e cinque** (sezione `<EsercizioLLM variant="verifica">` prima di
+"Cosa viene dopo", con prompt dedicato in `public/skills/verifica-<slug>.txt`).
+La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx` e
+riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non esiste
+più (per ora non è un problema, il sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
