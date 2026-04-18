@@ -9,8 +9,9 @@ ogni momento cosa c'è, cosa manca, e cosa arriva dopo.
 AI-Guide insegna a usare l'IA in modo pratico e consapevole, con priorità al
 pubblico italiano **non tecnico**. Il percorso va dal "non so cosa sia"
 ("Fondamenti") al "so usarla ogni giorno" ("Uso quotidiano") al "la uso
-sul lavoro" ("Sul lavoro"), con un modulo avanzato finale per developer e
-chi vuole integrarla in strumenti propri ("Per chi vuole di più").
+sul lavoro" ("Sul lavoro"), con due moduli dedicati al mondo della scuola
+("Per studenti" e "Per docenti") e un modulo avanzato finale per developer
+e chi vuole integrarla in strumenti propri ("Per chi vuole di più").
 
 Principi editoriali:
 
@@ -127,7 +128,48 @@ Elenco provvisorio, da validare prima di scrivere:
 Da decidere: ordine, taglio (orizzontale per professione vs trasversale),
 quanti use case professionali coprire prima di passare al modulo avanzato.
 
-## Modulo 4: Per chi vuole di più (livello `avanzato`)
+## Modulo 4: Per studenti (livello `intermedio`)
+
+Target: studenti dalle superiori all'università (più adulti in
+riqualificazione), che vogliono usare l'IA come supporto allo studio
+senza cadere nel "fammi i compiti". Tono pratico, attento al rischio
+plagio e al confine fra studio e sostituzione.
+
+Elenco provvisorio, da validare prima di scrivere:
+
+1. 🆕 Studiare un argomento nuovo con l'IA (dal capire al verificare)
+2. 🆕 Ripassare prima di un esame (interrogazioni simulate, mappe mentali)
+3. 🆕 Scrivere una tesi senza farsela scrivere
+4. 🆕 Prendere appunti da lezioni registrate o testi lunghi
+5. 🆕 Tradurre e confrontare testi in lingue straniere
+6. 🆕 Quando l'IA ti imbroglia: riconoscere risposte plausibili ma sbagliate
+7. 🆕 Etica dello studio: dove finisce l'aiuto e inizia il copiato
+
+Da decidere: target di età prevalente (liceo vs università), peso della
+componente etica vs operativa, se includere l'uso dell'IA nei test/esami
+proctored.
+
+## Modulo 5: Per docenti (livello `intermedio`)
+
+Target: insegnanti di scuola primaria, secondaria e università, più
+formatori aziendali e divulgatori. Pubblico non tecnico ma con
+competenza didattica propria. Tono pratico, casi d'uso da classe.
+
+Elenco provvisorio, da validare prima di scrivere:
+
+1. 🆕 Progettare una lezione con l'IA (dal piano alla pratica)
+2. 🆕 Materiali differenziati: stesso argomento, più livelli di difficoltà
+3. 🆕 Generare domande per verifiche e interrogazioni
+4. 🆕 Correggere con criterio: l'IA come assistente, non come giudice
+5. 🆕 Spiegare la stessa cosa in cinque modi diversi
+6. 🆕 Quando lo studente usa l'IA: riconoscere, non demonizzare
+7. 🆕 Etica del docente: onestà, privacy degli studenti, valutazione
+
+Da decidere: taglio (generalista vs per disciplina), peso della parte
+"riconoscere l'uso dell'IA da parte degli studenti", relazione con il
+modulo 4 (riferimenti reciproci vs autonomia).
+
+## Modulo 6: Per chi vuole di più (livello `avanzato`)
 
 Target: developer e professionisti che vogliono integrare l'IA in strumenti
 propri. Pubblico tecnico: tono più diretto, meno propedeutico.
