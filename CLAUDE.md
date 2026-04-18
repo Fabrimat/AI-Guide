@@ -106,7 +106,7 @@ import NomeComponente from '../../../../components/NomeComponente.astro';
 ### `<Resume>`
 
 Card "Riprendi da dove hai lasciato". Da posizionare su pagine di
-orientamento (homepage, `inizia-qui`). Legge `localStorage`
+orientamento (homepage, `start-here`). Legge `localStorage`
 (`aiguide:progress:v1`, popolata da `src/scripts/progress.ts`) e mostra
 l'ultima pagina leggibile che l'utente ha lasciato in una sessione
 precedente.
@@ -148,17 +148,17 @@ import GlossaryTerm from '../../../components/GlossaryTerm.astro';
 </GlossaryTerm>
 ```
 
-Pagina di riferimento: `src/content/docs/it/glossario.mdx`.
+Pagina di riferimento: `src/content/docs/it/glossary.mdx`.
 
 ### `<RecapWithAi>`
 
 Card che trasforma la tua IA in un tutor delle lezioni che hai
 effettivamente letto. Legge `localStorage` (chiave
 `aiguide:progress:v1`), filtra le pagine con `read: true` dentro un
-modulo (es. `/it/fondamenti/...`), e al click di "Genera prompt di
-ripasso" assembla un prompt che contiene la lista delle lezioni
-completate + istruzioni per ripasso socratico. Mostrato in un
-`<dialog>` con bottone copia.
+modulo (es. `/it/fundamentals/...` o `/en/fundamentals/...`), e al
+click di "Genera prompt di ripasso" assembla un prompt che contiene
+la lista delle lezioni completate + istruzioni per ripasso socratico.
+Mostrato in un `<dialog>` con bottone copia.
 
 Quando 0 lezioni sono state completate il bottone è disabilitato e
 una riga di stato lo spiega ("Completa almeno una lezione…"). Reagisce
@@ -198,24 +198,26 @@ import PromptBuilder from '../../../../components/PromptBuilder.astro';
 
 Card che propone alla lettrice un'attività da svolgere con il proprio LLM:
 mostra titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file
-`.txt` di istruzioni. Il file vive in `public/skills/<nome>.txt` (plain
-text, niente markdown) ed è servito staticamente.
+`.txt` di istruzioni. Il file vive in `public/skills/<name>.txt` per IT e
+in `public/skills/en/<name>.txt` per EN (plain text, niente markdown). Il
+componente risolve il path automaticamente in base al locale corrente: il
+prop `file` resta uguale fra le due lingue.
 
 Due varianti, scelte con `variant`:
 
 - `practice` (default): pratica guidata. Accento coral. Badge "🤖 Esercizio
-  con la tua IA".
+  con la tua IA" / "🤖 Exercise with your AI".
 - `review`: verifica dell'apprendimento a fine lezione. Accento ocra.
-  Badge "📝 Verifica con la tua IA".
+  Badge "📝 Verifica con la tua IA" / "📝 Check-in with your AI".
 
 Il meccanismo (file scaricabile + copia + apri) è identico nelle due
 varianti. Convenzione: i file di review si chiamano
-`verifica-<slug-lezione>.txt`.
+`review-<slug-lezione>.txt`. Le label visibili sono in `src/i18n/ui.ts`.
 
 | Prop          | Tipo                          | Default      | Note                                                                              |
 |---------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
 | `title`       | `string`                      | —            | obbligatorio                                                                      |
-| `file`        | `string`                      | —            | nome del file in `public/skills/`, es. `mio.txt`                                  |
+| `file`        | `string`                      | —            | nome del file in `public/skills/<locale>/`, es. `review-what-is-ai.txt`           |
 | `description` | `string`                      | —            | opzionale, breve descrizione sotto il titolo                                      |
 | `duration`    | `string`                      | —            | opzionale, formato `"X min"` o `"X-Y min"` (es. `"5-7 min"`). Mostrato sotto il titolo come "X min di esercizio" o "X min di verifica" a seconda del variant. |
 | `variant`     | `'practice' \| 'review'`      | `'practice'` | scegli il framing visivo                                                          |
@@ -224,7 +226,7 @@ varianti. Convenzione: i file di review si chiamano
 {/* Esercizio pratico nel corpo della lezione */}
 <LlmExercise
   title="La tua prima conversazione consapevole"
-  file="primo-esercizio.txt"
+  file="first-exercise.txt"
   duration="10 min"
   description="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
 />
@@ -233,7 +235,7 @@ varianti. Convenzione: i file di review si chiamano
 <LlmExercise
   variant="review"
   title="Quattro domande per fissare le idee"
-  file="verifica-cos-e-l-ia.txt"
+  file="review-what-is-ai.txt"
   duration="5-7 min"
   description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
 />
@@ -270,7 +272,7 @@ link, badge "Presto" in alto a destra.
       icon: '🌱',
       title: 'Fondamenti',
       description: "Cos'è un'IA, come parlarci, cosa aspettarti.",
-      href: '/it/fondamenti/cos-e-l-ia/',
+      href: '/it/fundamentals/what-is-ai/',
     },
     {
       icon: '✍️',
@@ -338,9 +340,28 @@ Workflow tipico per una nuova lezione:
 4. Lancio `/integrate-questions <path>` per integrarle.
 5. Lancio l'agent `style-checker` per un QA finale.
 
-## Traduzione
+## Traduzione e i18n
 
-Mirror dell'albero sotto `src/content/docs/en/`. Stesso slug, stesso percorso. Le pagine senza traduzione ricadono automaticamente sulla lingua di default (nessun errore di build). Per aggiungere una terza lingua, aggiungere la voce in `astro.config.mjs > locales`.
+**Slug in inglese ovunque.** Anche le pagine in italiano vivono a path
+inglesi (`/it/start-here/`, `/it/fundamentals/what-is-ai/`). Lo slug è un
+"code identifier", non testo per il lettore: tenerlo in inglese permette
+di riusare la stessa sidebar config e gli stessi sidebar `slug:` per
+tutti i locale, senza override e senza redirect.
+
+**Mirror EN sotto `src/content/docs/en/`.** Stesso path file della
+controparte IT (es. `en/fundamentals/what-is-ai.mdx`). Le pagine senza
+traduzione ricadono automaticamente sulla lingua di default.
+
+**File `.txt` di skill in `public/skills/<locale>/`.** Convenzione:
+`public/skills/<name>.txt` (IT, root del default-locale) e
+`public/skills/en/<name>.txt`. Il componente `<LlmExercise>` risolve
+il path corretto in base al locale.
+
+**Stringhe UI dei componenti in `src/i18n/ui.ts`.** Dizionario tipato
+`UIStrings` per ogni locale. Componenti server: `t(Astro.currentLocale)`.
+Script client: ricevono le stringhe via `data-*` attributes pre-renderizzati
+server-side. Aggiungere una lingua = aggiungere una voce in `STRINGS` e
+in `Locale` (TypeScript forza la copertura completa di tutte le chiavi).
 
 ## Preferenze di commit
 

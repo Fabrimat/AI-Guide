@@ -31,13 +31,13 @@ Principi editoriali:
 Target: chi non ha mai usato ChatGPT o un'IA conversazionale. Zero gergo.
 Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
 
-1. ✅ **Ma cos'è l'IA?** (`fondamenti/cos-e-l-ia`)
+1. ✅ **Ma cos'è l'IA?** (`fundamentals/what-is-ai`)
    Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
    (IA specializzate vs conversazionali). Quattro miti da chiarire subito.
    **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
    `style-checker`, 2026-04-18).
 
-2. ✅ **Cos'è un prompt?** (`fondamenti/cos-e-un-prompt`)
+2. ✅ **Cos'è un prompt?** (`fundamentals/what-is-a-prompt`)
    La parola "prompt" e il modello mentale "è come scrivere un messaggio
    chiaro a qualcuno che vuole aiutarti". Esempio prima/dopo con `<ChatDemo>`
    (vago vs chiaro). Quattro ingredienti di un prompt chiaro, avvertimento
@@ -45,7 +45,7 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    `integrate-questions` + `style-checker`, 2026-04-18). Style-checker ha
    restituito OK senza richiedere modifiche.
 
-3. ✅ **La tua prima conversazione** (`fondamenti/prima-conversazione`)
+3. ✅ **La tua prima conversazione** (`fundamentals/first-conversation`)
    La lezione più pratica del modulo. Lista delle IA conversazionali
    principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
    riusa `public/skills/primo-esercizio.txt` per il primo dialogo guidato.
@@ -55,7 +55,7 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    ("Tre situazioni tipiche" mentre la lista era cresciuta a quattro
    bullet), corretta in "Le situazioni più comuni".
 
-4. ✅ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
+4. ✅ **Come fa l'IA a "capire"?** (`fundamentals/how-ai-understands`)
    Spiegazione del meccanismo "una parola alla volta", come ha imparato
    (testo enorme, schemi non memorie), tre conseguenze pratiche per il
    lettore (non sa, contesto conta, memoria solo nella stessa chat),
@@ -65,7 +65,7 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    `integrate-questions` + `style-checker`, 2026-04-18). Style-checker ha
    restituito OK senza richiedere modifiche.
 
-5. ✅ **Quando fidarsi e quando no** (`fondamenti/fidarsi`)
+5. ✅ **Quando fidarsi e quando no** (`fundamentals/when-to-trust-it`)
    Apre con il problema del "convincente anche quando sbaglia". `<ChatDemo>`
    con riassunto di un libro inventato per mostrare un'allucinazione in
    atto. Mappa "dove va bene / dove va male" pratica, tre mosse per
@@ -128,7 +128,7 @@ pattern (RAG: spiegazione concettuale o tutorial con codice?).
 
 ## Pagine trasversali (fuori dai moduli)
 
-- ✅ **Glossario** (`/it/glossario/`) — termini tecnici (Allenamento,
+- ✅ **Glossario** (`/it/glossary/`) — termini tecnici (Allenamento,
   Allucinazione, Contesto, Freemium, IA, LLM, Memoria, Modello, Prompt)
   con definizione breve e bottone "Spiegamelo meglio con la tua IA"
   che genera un prompt calibrato sul termine.
@@ -138,10 +138,12 @@ pattern (RAG: spiegazione concettuale o tutorial con codice?).
 
 ## Traduzione
 
-Mirror completo in inglese sotto `src/content/docs/en/`. Da avviare quando il
-**modulo 1 italiano è stabile** (5 su 5 lezioni pubblicate e passate in QA).
-Le pagine non tradotte ricadono automaticamente sull'italiano, quindi si può
-tradurre una pagina alla volta senza rompere il sito.
+**Inglese live al 100% per il modulo Fondamenti** (8 pagine totali: index,
+start-here, glossary, 5 lezioni). Cataloghi tradotti, file `.txt` di skill
+mirror in `public/skills/en/`, stringhe UI dei componenti in
+`src/i18n/ui.ts`. Per aggiungere una terza lingua: aggiungere la voce in
+`astro.config.mjs > locales` e in `src/i18n/ui.ts > STRINGS`, mirrorare
+`src/content/docs/<lang>/` e `public/skills/<lang>/`.
 
 ## Workflow per scrivere una lezione
 

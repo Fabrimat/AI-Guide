@@ -1,0 +1,45 @@
+---
+title: AI-Guide
+description: A practical guide for people who have never used an AI. Plain explanations, concrete examples, no impenetrable jargon.
+template: splash
+hero:
+  title: Make sense of artificial intelligence, in plain words.
+  tagline: A practical guide for people who have never used an AI. Plain explanations, concrete examples, no impenetrable jargon.
+  actions:
+    - text: Start from zero
+      link: /en/fundamentals/what-is-ai/
+      icon: right-arrow
+      variant: primary
+    - text: I already know a bit, skip ahead
+      link: /en/start-here/
+      variant: minimal
+---
+
+import HomeCards from '../../../components/HomeCards.astro';
+import Resume from '../../../components/Resume.astro';
+
+<Resume />
+
+<HomeCards
+  heading="Where do you start?"
+  cards={[
+    {
+      icon: '🌱',
+      title: 'Fundamentals',
+      description: "What an AI is, how to talk to it, what you can (and cannot) expect. For people who have never used one.",
+      href: '/en/fundamentals/what-is-ai/',
+    },
+    {
+      icon: '✍️',
+      title: 'Everyday use',
+      description: 'Writing better, summarizing documents, organizing information, learning new things.',
+      comingSoon: true,
+    },
+    {
+      icon: '🛠️',
+      title: 'For people who want more',
+      description: 'Advanced tools, automations, integrations. For when the basics are not enough.',
+      comingSoon: true,
+    },
+  ]}
+/>

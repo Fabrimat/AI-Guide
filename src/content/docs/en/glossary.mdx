@@ -1,0 +1,81 @@
+---
+title: Glossary
+description: The technical words you meet in the lessons, explained in two sentences. With a button to ask your AI to go deeper.
+---
+
+import GlossaryTerm from '../../../components/GlossaryTerm.astro';
+
+The words you meet across the manual, explained in two sentences. For each
+term you also get a button that generates a prompt to paste into your AI
+to dig deeper.
+
+In alphabetical order.
+
+<GlossaryTerm name="AI (artificial intelligence)">
+A label that lumps together programs able to do things that used to require
+a person: understand a piece of text, recognize a voice, suggest the next
+word. There are two big families: **single-task AI** (spam filter, voice
+recognition, autocomplete) and **conversational AI** (ChatGPT, Claude,
+Gemini). The manual focuses on the second.
+</GlossaryTerm>
+
+<GlossaryTerm name="Context">
+Everything the AI has "in front of it" while it generates the answer:
+your question, the previous answers in the same chat, any documents you
+have given it. The more useful context you provide, the better it
+answers. There is a limit to how much context it can re-read at once
+(called the *context window*): in recent products it is huge, but in
+very long conversations it can run out.
+</GlossaryTerm>
+
+<GlossaryTerm name="Freemium">
+The business model of ChatGPT, Claude, Gemini and similar products: a
+free basic version and paid versions that are more capable. The
+companies make money from subscribers and from investors who are
+betting on the future of the product.
+</GlossaryTerm>
+
+<GlossaryTerm name="Hallucination">
+When the AI produces text that sounds true but isn't grounded in any
+real fact (made-up dates, citations that never existed, books that
+don't exist). It isn't a glitch: it is an effect of the "pick the most
+probable word" mechanism, not the truest word.
+</GlossaryTerm>
+
+<GlossaryTerm name="LLM (Large Language Model)">
+The technical term for conversational AIs. *Large* because it has read
+a huge amount of text during training, and because the mathematical
+program that runs it is enormous. When you hear "LLM" referring to
+ChatGPT/Claude/Gemini, this is what they mean.
+</GlossaryTerm>
+
+<GlossaryTerm name="Memory">
+By default, the AI **does not remember you between one chat and the
+next**: every new conversation starts from zero. Within the same chat
+it remembers everything you have said, because it re-reads it every
+time as part of the "question" it bases the next answer on. Some
+products add an optional "memory" feature that persists across chats
+too: you can turn it on and off.
+</GlossaryTerm>
+
+<GlossaryTerm name="Model">
+The mathematical program (a huge collection of formulas) that powers
+an AI. When people say ChatGPT, Claude, Gemini "use different models",
+they mean each product is built on a mathematical program that's been
+put together differently, with different traits: speed, answer
+quality, cost to run.
+</GlossaryTerm>
+
+<GlossaryTerm name="Prompt">
+What you write to the AI to get an answer: a question, a request, an
+instruction, a whole paragraph of context. The word would translate to
+"request" or "message", but "prompt" is the term everyone uses now.
+The clearer the prompt, the better the AI answers.
+</GlossaryTerm>
+
+<GlossaryTerm name="Training">
+The phase in which an AI "learns" by reading huge amounts of text:
+books, web pages, conversations, code. From all that material it picks
+up patterns about how sentences are built and how arguments are made
+on a topic.
+</GlossaryTerm>

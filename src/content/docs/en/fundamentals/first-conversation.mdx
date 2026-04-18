@@ -1,0 +1,116 @@
+---
+title: Your first conversation
+description: "Open an AI and put what you've read into practice. No theory: a guided exercise for your first conversation."
+livello: principiante
+prerequisiti: [what-is-ai, what-is-a-prompt]
+sidebar:
+  order: 3
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+This is the lesson where you actually open an AI. Little theory: you'll
+find a guided exercise to copy and paste, and by the time you finish
+reading you'll know how to interact with it.
+
+## Where you open the AI
+
+You can pick one of these (or another that you already use). All are free
+for basic use, you just need to sign up with an email.
+
+- **[claude.ai](https://claude.ai)**: the AI from Anthropic. Strong at
+  writing and articulate reasoning.
+- **[chatgpt.com](https://chatgpt.com)**: ChatGPT, from OpenAI. The most
+  well-known, solid for general tasks.
+- **[gemini.google.com](https://gemini.google.com)**: Gemini, from Google.
+  Integrates well with the other Google services if you use them.
+
+For your first time it doesn't make much difference which you pick. The
+concepts you learn here work everywhere.
+
+:::note[What about the limits of the free plan?]
+They exist, but for your first round they won't get in the way. In
+practice you can send dozens of messages a day without hitting any
+block. If you do, usually you can wait a few hours or try one of the
+other AIs listed above. Paid versions (around 20 USD/month) remove the
+limits and give you access to the more capable models.
+:::
+
+## What to expect
+
+When you open a conversational AI, you see a text bar where you write.
+You type a prompt, press send, wait a few seconds, and the answer appears
+one word after another (as if it were typing live). Then you can write
+another reply, and so on: it's a conversation like any normal back and
+forth of messages.
+
+<ChatDemo
+  user="Hi! I've never used an AI. How do I use you?"
+  ai={`Hi! Welcome. Using me is easy: write what you want to know or ask, the way you would in a message to a friend.
+
+Let's try it concretely right now: tell me one thing you'd like to understand or do today, and we'll figure out together how I can help.`}
+/>
+
+A conversation can last one question or a hundred. You don't have to
+"close" anything: when you've got what you wanted, just close the browser
+tab. Conversations stay saved in your account: next time you come back,
+you'll find them all in the side panel.
+
+## Try it now, with a guide
+
+I've prepared a prompt that gives the AI the role of a patient tutor. It
+introduces itself, asks you for a topic of any kind, helps you turn it
+into a clear request, and shows you live the difference between a vague
+question and one with context.
+
+How to do it: copy the prompt below, open your chosen AI, paste it into
+the same bar where you'd write a normal message, and press send. From
+there it's a conversation like any other. No prep needed.
+
+<LlmExercise
+  title="Your first conscious conversation"
+  file="first-exercise.txt"
+  duration="10 min"
+  description="A guided exercise where the AI helps you understand how to phrase a request that works."
+/>
+
+## What to do if something feels off
+
+The most common situations.
+
+- **The answer is too long**: tell the AI. Write "shorter" or "give it to
+  me in half the words", press send. It redoes it shorter.
+- **You don't understand the answer because it uses words you don't know**:
+  tell the AI. Write "explain it in plain English, no jargon" or "explain
+  it like to a twelve-year-old". It redoes it at a more accessible level.
+- **The answer doesn't match what you wanted**: rephrase. Explain better
+  what you needed, or give an example of an answer that would work for
+  you.
+- **The AI is making things up**: it happens. For your first round it
+  isn't a problem, but in the lesson *When to trust it (and when not)*
+  we'll see how to spot it and what to do.
+
+:::tip[One thing to know]
+The AI doesn't take offense and doesn't get tired. You can ask it to
+redo an answer ten times, you can tell it "I didn't like that one", you
+can wipe everything and start over. Nothing is irreversible.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions about your first experience"
+  file="review-first-conversation.txt"
+  duration="5 min"
+  description="Paste the text into your AI, after doing the exercise above. Four reflective questions, not conceptual ones."
+/>
+
+## What comes next
+
+- **How does the AI "understand"?**: a look behind the scenes, to grasp
+  why it answers the way it does and why every now and then it gets
+  things wrong.
+- **When to trust it (and when not)**: spotting when it's making things
+  up and how to verify.

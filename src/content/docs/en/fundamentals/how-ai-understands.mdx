@@ -1,0 +1,119 @@
+---
+title: How does the AI "understand"?
+description: "A look behind the scenes. The AI doesn't really understand: it guesses the next word, one at a time. But it guesses so well that sometimes it feels like magic."
+livello: principiante
+prerequisiti: [what-is-ai, what-is-a-prompt, first-conversation]
+sidebar:
+  order: 4
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+You've opened an AI, you've written to it, it answered you in a sensible
+way. The natural question is: how? Under the hood there is no one
+thinking, no intelligence in the human sense. There is a mechanism that
+is fairly easy to understand, but surprisingly powerful.
+
+## One word at a time
+
+The heart of a conversational AI is one single operation: **predict what
+the next word will be**.
+
+When you write it a question, the AI reads everything you wrote and picks
+which word to put first in the answer. Then it rereads everything (your
+question plus its first word) and picks the second. Then the third. One
+word at a time, until it closes the answer.
+
+<ChatDemo
+  user="Can you explain in two sentences what a black hole is?"
+  ai={`A black hole is a region of spacetime where gravity is so strong that nothing, not even light, can escape it. It forms when a very massive star, at the end of its life, collapses on itself under its own weight.`}
+/>
+
+Seen from the outside it's an articulate answer. Seen from the inside
+it's the same choice repeated word after word: "Given all these words,
+which one makes the most sense to put now?"
+
+## How it learned to guess well
+
+To pick the right word, the AI was trained by reading **enormous amounts
+of text**: books, articles, web pages, code, conversations. Hundreds of
+billions of words. Its developers fed them to it, automatically gathering
+material largely from public sources on the internet. From all that
+material it picked up patterns: how English sentences are built, which
+words typically appear next to each other, how arguments are made on a
+topic, how to answer politely, what the most frequent answers to a math
+question are.
+
+It hasn't memorized the texts: they are not inside it like in a database.
+To put it concretely: it doesn't have the Wikipedia page about black
+holes filed away. It learned how an encyclopedia about black holes is
+written, and when you ask, it rebuilds one on the spot. This difference
+explains why it often nails the general content but can get a specific
+detail wrong (we'll come back to this in the next lesson).
+
+## Three consequences that change how you'll use it
+
+Knowing what's behind the scenes helps you understand why it behaves the
+way it does.
+
+1. **It doesn't "know" anything, it estimates.** When it answers, it
+   isn't consulting an archive of truths. It is picking the most probable
+   words given your question and what it has learned. Often it nails it.
+   When it gets it wrong, it does so with the same confidence.
+
+2. **The more context you give it, the better it answers.** Every useful
+   piece of information you add to the prompt narrows the field of
+   probable words and pushes it toward an answer that fits you better.
+   That is why a clear prompt works better than a vague one, as you saw
+   in the previous lesson.
+
+3. **It doesn't remember you between one chat and the next.** Every new
+   conversation starts from zero. Within the same chat, however, it
+   remembers everything you've said, because it rereads it every time as
+   part of the "question" it bases the next word on.
+
+:::note[What if the chat gets really long?]
+At a certain point yes, there is a limit. Each AI has a "window" of how
+many words it can reread at any one time. It is huge: many thousands of
+words, and in recent products even hundreds of thousands. But if a
+conversation goes past it, the AI starts to "forget" what you said at
+the beginning. For everyday conversations this isn't a problem; for long
+projects it's worth knowing.
+:::
+
+## So why does it feel so intelligent?
+
+Because what it was trained for, picking the next word well, is very
+close to "writing well". And the texts it was made to read were, mostly,
+written by people who had figured something out. The AI itself doesn't
+understand, but it recycles the patterns of those who had. So its
+reasoning, on the surface, has the shape of solid reasoning.
+
+Sometimes it really is. Sometimes it is words that link together nicely
+but that, if you check, turn out to be wrong. Telling the two cases
+apart is the topic of the next lesson.
+
+## A technical word, in case you hear it
+
+The conversational AIs we've described are called, in jargon, **LLMs**,
+short for *Large Language Model*. "Model" here means the mathematical
+program (a huge collection of formulas) that powers them. "Large"
+because it has read a vast amount of text during training and because
+that program is genuinely huge. When you hear "LLM" referring to ChatGPT
+or Claude or Gemini, this is what they mean.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-how-ai-understands.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+- **When to trust it (and when not)**: how to recognize when the AI is
+  making things up, and how to verify the answers that matter.

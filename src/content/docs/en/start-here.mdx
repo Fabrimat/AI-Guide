@@ -1,0 +1,45 @@
+---
+title: Start here
+description: Pick the path that fits your level. Get to where you need to go in the fastest way.
+livello: principiante
+---
+
+import HomeCards from '../../../components/HomeCards.astro';
+import Resume from '../../../components/Resume.astro';
+import RecapWithAi from '../../../components/RecapWithAi.astro';
+
+<Resume />
+
+The point of this page is to get you **quickly** to where you actually want
+to be. You don't have to read the guide in order: pick a starting point that
+fits your level.
+
+<HomeCards
+  cards={[
+    {
+      icon: '🌱',
+      title: "I have never used an AI",
+      description: "Five short lessons to go from zero experience to using an AI with confidence.",
+      href: '/en/fundamentals/what-is-ai/',
+    },
+    {
+      icon: '💬',
+      title: 'I already use ChatGPT, Claude, or Gemini',
+      description: 'Techniques for writing better prompts, spotting mistakes, getting help with everyday work.',
+      comingSoon: true,
+    },
+    {
+      icon: '🛠️',
+      title: 'I am a developer or professional',
+      description: 'APIs, automations, advanced prompting, patterns like RAG and agents.',
+      comingSoon: true,
+    },
+  ]}
+/>
+
+:::tip[Tip]
+Each page is meant to stand on its own. You can read them in any order
+and come back when you need to.
+:::
+
+<RecapWithAi />

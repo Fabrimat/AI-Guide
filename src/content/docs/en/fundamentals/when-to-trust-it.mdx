@@ -1,0 +1,136 @@
+---
+title: When to trust it (and when not)
+description: "The AI is wrong with the same confidence as when it's right. Learning to recognize the cases and to verify is the difference between using it well and getting fooled."
+livello: principiante
+prerequisiti: [what-is-ai, what-is-a-prompt, first-conversation, how-ai-understands]
+sidebar:
+  order: 5
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import RecapWithAi from '../../../../components/RecapWithAi.astro';
+
+The AI is convincing. When it answers you, it sounds like a person who
+knows what they're saying: it writes fluently and articulately, without
+hesitation. That's the problem: when it's wrong, it does so in the exact
+same tone as when it's right. You can't tell from how the answer feels.
+
+In this lesson we look at where it tends to go wrong, how to spot those
+cases, and what to do to verify when it matters.
+
+## When the AI makes things up
+
+You saw in the previous lesson that the AI predicts the next word based
+on what it has read. If you ask it something for which it doesn't have
+precise information, it fills the gaps **with what is probable, not with
+what is true**.
+
+A classic example: asking it for a summary of a book that doesn't exist.
+
+<ChatDemo
+  user="Summarize 'The Edinburgh Watchmaker' by Mark Castagnoli for me."
+  ai={`"The Edinburgh Watchmaker" is a historical novel by Mark Castagnoli published in 2017. The story follows Aldo Bensi, a young Italian apprentice watchmaker who moves to Edinburgh in the early 1900s to study under a Scottish master. Through compelling dialogue and personal trials, the book explores themes of talent, perseverance and identity.`}
+/>
+
+That book doesn't exist. The author doesn't exist. The plot was made up
+out of thin air. And yet the AI didn't hesitate: it wrote a perfectly
+plausible summary, with dates, names, themes.
+
+It's called, in jargon, **"hallucination"**. That's the term you'll
+probably hear around. It doesn't mean the AI has a glitch: it means it
+is producing text that sounds true but isn't grounded in anything real.
+
+So why doesn't it notice and tell you "I don't know"? By design, it
+can't. It always picks the most probable word, not the truest word: for
+its mechanism they are the same thing. It has no inner bell that rings
+"I'm improvising here". The most recent products add some checks
+(searching the web, flagging uncertainty) but it's a patch, not a
+structural fix.
+
+## Where it tends to go right
+
+The AI is generally reliable when:
+
+- You ask it to explain general, well-established concepts (what
+  photosynthesis is, how an engine works, the basics of a language).
+- You give it a text to rework (summarize an email, translate a
+  paragraph, rewrite something more formally).
+- You ask it to generate a structure (an outline for a presentation, a
+  draft email, a list of ideas).
+- You ask it to brainstorm (give me ten different angles on a problem).
+- You ask it to translate between common languages.
+
+In these cases it is working with material it has seen many times
+during training. The probability that picking the right word leads to a
+useful answer is high.
+
+## Where it tends to go wrong
+
+The AI tends to slip up when:
+
+- **You ask it for specific, verifiable facts**: proper names, dates,
+  numbers, quotes, sources. It often makes them up out of thin air, like
+  that book that doesn't exist.
+- **You ask it about recent things**: the AI was trained up to a certain
+  date, and about what happened after, it knows nothing (or has partial
+  information from a web search, if the product does one for it). To
+  find out how up to date it is, you can ask it directly ("up to what
+  date is your information current?") or check the product's website.
+- **You ask it to do tricky math**: for math beyond trivial arithmetic,
+  it often gets confused. It feels strange ("it's still a computer"),
+  but the AI doesn't *calculate*: it guesses the most probable answer
+  word by word, the way it does with everything else. For serious math
+  use a calculator, or ask the AI to explain the method instead of doing
+  the calculation for you.
+- **You ask it about specific things in your case it cannot know**:
+  your finances, your health, your emails, your contract. If you didn't
+  give it the information yourself, it doesn't know.
+- **You ask it for advice where the cost of being wrong is serious**:
+  medical, legal, financial. Here the AI can be a tool for exploration,
+  not a substitute for a professional. In practice: you can ask it
+  "what questions should I ask my doctor about these symptoms?" or
+  "what kinds of contract cover my case?", not "diagnose this pain" or
+  "tell me whether I can sign this contract".
+
+## How to verify when it counts
+
+Three practical moves, in order of effort.
+
+1. **For specific facts**: copy the statement into a search engine and
+   check. Thirty seconds that save you from a bad moment.
+2. **For quotes and sources**: ask the AI to give you the exact source.
+   Then look that source up: if it doesn't exist, the quote was made up.
+   If it exists, read it to see whether it really says what the AI
+   reported.
+3. **For important decisions**: the AI helps you structure your
+   thinking, gives you different angles, drafts texts for you. For the
+   final decision, talk to a competent person.
+
+## A mindset more than a rule
+
+The best way to sum it all up: use the AI as a brilliant but
+inconsistent assistant. It helps you a lot with almost everything, and
+every now and then it tells you convincing things that turn out to be
+wrong. Knowing when you're in that "every now and then" is the
+difference between using it well and getting fooled.
+
+When in doubt, verify. Verifying is fast for almost everything.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to close the module"
+  file="review-when-to-trust-it.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. Four progressive questions to make sure you take home the key message of the Fundamentals module."
+/>
+
+## What comes next
+
+You've finished the *Fundamentals* module. From here on, the manual moves
+into the *Everyday use* module: how to use the AI to write better,
+summarize documents, learn new things, plan.
+
+<RecapWithAi />
