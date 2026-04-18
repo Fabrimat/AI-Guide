@@ -1,0 +1,205 @@
+---
+/**
+ * Resume: card "Riprendi da dove hai lasciato".
+ *
+ * Da posizionare sulla homepage e su pagine di orientamento (es.
+ * `inizia-qui`). Legge `localStorage` (chiave `aiguide:progress:v1`,
+ * popolata da `src/scripts/progress.ts`) e mostra l'ultima pagina
+ * leggibile che l'utente ha lasciato.
+ *
+ * Si nasconde da sola se:
+ *  - localStorage non ha dati (prima visita),
+ *  - oppure l'ultima pagina coincide con quella corrente.
+ *
+ * Include un pulsante "Cancella progressi" che svuota la chiave dopo
+ * conferma. Gesto di trasparenza richiesto dalla scelta privacy-first.
+ */
+---
+
+<div class="resume-card not-content" data-resume-card hidden>
+  <div class="resume-text">
+    <span class="resume-meta">Riprendi da dove hai lasciato</span>
+    <span class="resume-title" data-resume-title></span>
+    <span class="resume-privacy">
+      I tuoi progressi sono salvati solo sul tuo browser, mai inviati
+      altrove.
+    </span>
+  </div>
+  <div class="resume-actions">
+    <a class="resume-link" data-resume-link>Continua</a>
+    <button type="button" class="resume-reset" data-resume-reset>
+      Cancella progressi
+    </button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'aiguide:progress:v1';
+
+  function humanizeTitle(title: string): string {
+    // Rimuove il suffisso "| AI-Guide" che Starlight aggiunge ai title.
+    return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
+  }
+
+  function init() {
+    const card = document.querySelector<HTMLElement>('[data-resume-card]');
+    if (!card) return;
+
+    let state: any = null;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      state = raw ? JSON.parse(raw) : null;
+    } catch {
+      state = null;
+    }
+
+    const titleEl = card.querySelector<HTMLElement>('[data-resume-title]');
+    const linkEl = card.querySelector<HTMLAnchorElement>('[data-resume-link]');
+    const resetBtn = card.querySelector<HTMLButtonElement>('[data-resume-reset]');
+
+    if (
+      state?.lastUrl &&
+      state.lastUrl !== window.location.pathname &&
+      state.pages?.[state.lastUrl] &&
+      titleEl &&
+      linkEl
+    ) {
+      const page = state.pages[state.lastUrl];
+      titleEl.textContent =
+        humanizeTitle(page.title || '') || 'la lezione precedente';
+      linkEl.setAttribute('href', state.lastUrl);
+      card.removeAttribute('hidden');
+    } else {
+      card.setAttribute('hidden', '');
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        const ok = window.confirm(
+          'Cancellare i progressi salvati su questo browser? Non si può annullare.'
+        );
+        if (!ok) return;
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch {
+          /* ignore */
+        }
+        card.setAttribute('hidden', '');
+      });
+    }
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .resume-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin: 2rem auto;
+    padding: 1rem 1.25rem;
+    max-width: 900px;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 6px 18px rgba(42, 36, 71, 0.05);
+    flex-wrap: wrap;
+  }
+
+  .resume-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .resume-meta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .resume-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+    line-height: 1.3;
+  }
+
+  .resume-privacy {
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3);
+    margin-top: 0.35rem;
+  }
+
+  .resume-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .resume-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--sl-color-accent);
+  }
+
+  .resume-link::after {
+    content: '→';
+  }
+
+  .resume-link:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .resume-link:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .resume-reset {
+    background: transparent;
+    border: none;
+    color: var(--sl-color-gray-3);
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--sl-color-hairline);
+    text-underline-offset: 3px;
+    padding: 0.4rem 0.5rem;
+    font-family: inherit;
+  }
+
+  .resume-reset:hover {
+    color: var(--sl-color-text);
+    text-decoration-color: currentColor;
+  }
+
+  @media (max-width: 600px) {
+    .resume-card {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .resume-actions {
+      justify-content: space-between;
+    }
+  }
+</style>

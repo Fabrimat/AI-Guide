@@ -57,6 +57,7 @@ Lo schema è validato in `src/content.config.ts`.
 - **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
 - **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
+- **Tracker dei progressi** (`src/scripts/progress.ts`): caricato via `Head.astro` su ogni pagina. Registra in `localStorage` (chiave `aiguide:progress:v1`) visite/tempo/scroll/letture/click sui pulsanti. **Niente backend, niente cookie, niente analytics terze: tutto resta sul browser dell'utente.** Il componente `<Resume>` (vedi catalogo sotto) lo consuma per mostrare "Riprendi da dove hai lasciato".
 
 ## Direzione visiva — Pastello
 
@@ -99,6 +100,27 @@ Per una lezione standard a `src/content/docs/it/<sezione>/<lezione>.mdx`:
 
 ```mdx
 import NomeComponente from '../../../../components/NomeComponente.astro';
+```
+
+### `<Resume>`
+
+Card "Riprendi da dove hai lasciato". Da posizionare su pagine di
+orientamento (homepage, `inizia-qui`). Legge `localStorage`
+(`aiguide:progress:v1`, popolata da `src/scripts/progress.ts`) e mostra
+l'ultima pagina leggibile che l'utente ha lasciato in una sessione
+precedente.
+
+Si nasconde da sola se non c'è cronologia (prima visita) o se l'ultima
+pagina coincide con quella corrente. Include la riga di privacy ("salvati
+solo sul tuo browser, mai inviati altrove") e un pulsante "Cancella
+progressi" che svuota `localStorage` con conferma.
+
+Nessun prop. Si include come `<Resume />`.
+
+```mdx
+import Resume from '../../../components/Resume.astro';
+
+<Resume />
 ```
 
 ### `<EsercizioLLM>`

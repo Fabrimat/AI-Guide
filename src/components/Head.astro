@@ -2,13 +2,16 @@
 /**
  * Override del componente Head di Starlight.
  *
- * Fa due cose:
+ * Fa tre cose:
  *  1. Blocca il tema su "light" prima che il resto del JS si carichi
  *     (il sito ha una sola palette, "Pastello", quindi non ha senso
  *     persistere o offrire dark mode).
  *  2. Attiva le View Transitions di Astro (ClientRouter) per avere
  *     navigazione SPA-like fra pagine e fra lingue, senza flash bianco
  *     né reset dello stato della pagina.
+ *  3. Carica il tracker di progresso (vedi `src/scripts/progress.ts`).
+ *     Tutto in localStorage, nessun dato lascia il browser. Serve
+ *     al componente `<Resume>` per il "riprendi da dove hai lasciato".
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -27,3 +30,7 @@ import { ClientRouter } from 'astro:transitions';
 
 <Default><slot /></Default>
 <ClientRouter />
+
+<script>
+  import '../scripts/progress.ts';
+</script>
