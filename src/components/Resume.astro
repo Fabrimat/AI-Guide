@@ -111,6 +111,15 @@
     flex-wrap: wrap;
   }
 
+  /* `display: flex` qui sopra sovrascrive il default del browser per
+     l'attributo `hidden`. Ripristiniamo la nascosta esplicitamente,
+     altrimenti la card resta visibile alla prima visita (quando
+     localStorage è vuoto e l'attributo hidden non è ancora stato
+     rimosso dal JS). */
+  .resume-card[hidden] {
+    display: none;
+  }
+
   .resume-text {
     display: flex;
     flex-direction: column;
