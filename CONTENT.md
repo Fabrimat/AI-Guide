@@ -61,7 +61,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    lettore (non sa, contesto conta, memoria solo nella stessa chat),
    perché sembra intelligente, e infine il termine "LLM" come etichetta
    tecnica a fine pagina. Riusa il `<ChatDemo>` dei buchi neri come ancora
-   visiva. Revisione ancora da fare.
+   visiva. Revisione `analyze-lesson` + `integrate-questions` completata
+   (2026-04-18). Manca solo il pass `style-checker`.
 
 5. ✅ **Quando fidarsi e quando no** (`fondamenti/fidarsi`)
    Apre con il problema del "convincente anche quando sbaglia". `<ChatDemo>`
@@ -73,9 +74,10 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    quotidiano*. Revisione ancora da fare.
 
 **Stato attuale**: 5 su 5 pubblicate. **Modulo Fondamenti completo come bozza**.
-Lezioni 1, 2 e 3 hanno completato l'intero ciclo di revisione; lezioni 4 e 5
-hanno la revisione ancora aperta. La vecchia `cos-e-un-llm.mdx` è stata
-rinominata `come-capisce-l-ia.mdx` e riscritta da capo: il vecchio URL
+Lezioni 1, 2, 3 e 4 (ultima senza ancora il pass style-checker) hanno
+completato il ciclo di integrate-questions; lezione 5 ha la revisione
+ancora aperta. La vecchia `cos-e-un-llm.mdx` è stata rinominata
+`come-capisce-l-ia.mdx` e riscritta da capo: il vecchio URL
 `/it/fondamenti/cos-e-un-llm/` non esiste più (per ora non è un problema, il
 sito non è ancora pubblicato).
 
@@ -151,8 +153,8 @@ tradurre una pagina alla volta senza rompere il sito.
 Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
-- Lezione 4: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
-- Lezione 5: stesso giro.
+- Lezione 4: integrazione fatta, manca pass finale dello `style-checker`.
+- Lezione 5: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
 
 **Prossima bozza**: nessuna nel modulo Fondamenti, è completo. Dopo le
 revisioni di 4 e 5, decidere se aprire il **modulo 2 (Uso quotidiano)** o
