@@ -34,8 +34,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
 1. ✅ **Ma cos'è l'IA?** (`fondamenti/cos-e-l-ia`)
    Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
    (IA specializzate vs conversazionali). Quattro miti da chiarire subito.
-   Revisione `analyze-lesson` + `integrate-questions` completata
-   (2026-04-18). Manca solo il pass finale dello `style-checker`.
+   **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-18).
 
 2. ✅ **Cos'è un prompt?** (`fondamenti/cos-e-un-prompt`)
    La parola "prompt" e il modello mentale "è come scrivere un messaggio
@@ -61,9 +61,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 3 su 5 pubblicate. La lezione 1 ha completato il ciclo
-`analyze-lesson` + `integrate-questions` (manca solo `style-checker`); le
-lezioni 2 e 3 hanno la revisione ancora interamente aperta. La vecchia
+**Stato attuale**: 3 su 5 pubblicate. Lezione 1 ha completato l'intero ciclo
+di revisione; lezioni 2 e 3 hanno la revisione ancora aperta. La vecchia
 `cos-e-un-llm.mdx` resta in sidebar a `order: 10` come placeholder, sarà
 sostituita dalla lezione 4 quando ci arriveremo.
 
@@ -139,9 +138,8 @@ tradurre una pagina alla volta senza rompere il sito.
 Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
-- Lezione 1: integrazione fatta, manca pass finale dello `style-checker`.
 - Lezione 2: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
-- Lezione 3: stesso giro, `/analyze-lesson` + `/integrate-questions` + `style-checker`.
+- Lezione 3: stesso giro.
 
 **Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
 alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
