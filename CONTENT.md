@@ -49,7 +49,8 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    La lezione più pratica del modulo. Lista delle IA conversazionali
    principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
    riusa `public/skills/primo-esercizio.md` per il primo dialogo guidato.
-   Revisione ancora da fare.
+   Revisione `analyze-lesson` + `integrate-questions` completata
+   (2026-04-18). Manca solo il pass `style-checker`.
 
 4. ⏳ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
    Riscrittura alleggerita dell'attuale `fondamenti/cos-e-un-llm`. Indovina
@@ -63,9 +64,10 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    operativo per il rapporto con l'IA.
 
 **Stato attuale**: 3 su 5 pubblicate. Lezioni 1 e 2 hanno completato l'intero
-ciclo di revisione; lezione 3 ha la revisione ancora aperta. La vecchia
-`cos-e-un-llm.mdx` resta in sidebar a `order: 10` come placeholder, sarà
-sostituita dalla lezione 4 quando ci arriveremo.
+ciclo di revisione; lezione 3 ha integrate-questions fatto, manca il pass
+finale dello `style-checker`. La vecchia `cos-e-un-llm.mdx` resta in sidebar
+a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
+arriveremo.
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -139,7 +141,7 @@ tradurre una pagina alla volta senza rompere il sito.
 Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
-- Lezione 3: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
+- Lezione 3: integrazione fatta, manca pass finale dello `style-checker`.
 
 **Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
 alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
