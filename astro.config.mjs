@@ -31,12 +31,14 @@ export default defineConfig({
       // - PageSidebar:  TOC laterale rimosso (rumore visivo non utile)
       // - Pagination:   "Prossima lezione" come card singola, niente Prev
       // - PageTitle:    aggiunge "X min di lettura" sotto l'H1 sulle lezioni
+      // - Footer:       wrappa il default + aggiunge link About + social
       components: {
         Head: './src/components/Head.astro',
         ThemeSelect: './src/components/ThemeSelect.astro',
         PageSidebar: './src/components/PageSidebar.astro',
         Pagination: './src/components/Pagination.astro',
         PageTitle: './src/components/PageTitle.astro',
+        Footer: './src/components/Footer.astro',
       },
 
       // Sidebar: `slug` è locale-aware (si risolve automaticamente al file

@@ -1,0 +1,209 @@
+---
+/**
+ * MailtoComposer: textarea + bottone che apre il client di posta
+ * dell'utente con `mailto:` precompilato. Niente backend, niente fetch:
+ * il messaggio parte dalla mail dell'utente.
+ *
+ * Pensato per pagine "scrivimi" tipo About: raccolta feedback a costo
+ * zero, coerente con la postura privacy del sito.
+ */
+import { t } from '../i18n/ui';
+
+interface Props {
+  to: string;
+  subject?: string;
+  placeholder?: string;
+  buttonLabel?: string;
+}
+
+const { to, subject, placeholder, buttonLabel } = Astro.props;
+const ui = t(Astro.currentLocale);
+
+const finalSubject = subject ?? ui.composerSubject;
+const finalPlaceholder = placeholder ?? ui.composerPlaceholder;
+const finalButtonLabel = buttonLabel ?? ui.composerButton;
+---
+
+<section
+  class="mailto-composer not-content"
+  data-mailto-composer
+  data-to={to}
+  data-subject={finalSubject}
+  data-i18n-empty={ui.composerEmpty}
+  data-i18n-error={ui.composerOpenError}
+>
+  <header>
+    <span class="mc-badge">{ui.composerBadge}</span>
+    <h3>{ui.composerTitle}</h3>
+  </header>
+
+  <p class="mc-hint">{ui.composerHint}</p>
+
+  <textarea
+    class="mc-textarea"
+    data-field="body"
+    rows="4"
+    placeholder={finalPlaceholder}
+    aria-label={ui.composerTitle}
+  ></textarea>
+
+  <p class="mc-status" data-status aria-live="polite"></p>
+
+  <div class="mc-actions">
+    <button type="button" class="mc-btn" data-action="send">
+      {finalButtonLabel}
+    </button>
+  </div>
+</section>
+
+<script>
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-mailto-composer]')
+      .forEach((root) => {
+        if (root.dataset.mcWired === 'true') return;
+        root.dataset.mcWired = 'true';
+
+        const textarea = root.querySelector<HTMLTextAreaElement>(
+          'textarea[data-field="body"]',
+        );
+        const sendBtn = root.querySelector<HTMLButtonElement>(
+          'button[data-action="send"]',
+        );
+        const status = root.querySelector<HTMLElement>('[data-status]');
+        if (!textarea || !sendBtn || !status) return;
+
+        const to = root.dataset.to ?? '';
+        const subject = root.dataset.subject ?? '';
+        const emptyMsg = root.dataset.i18nEmpty ?? '';
+        const errorMsg = root.dataset.i18nError ?? '';
+
+        const clearStatus = () => {
+          status.textContent = '';
+          status.classList.remove('is-error');
+        };
+
+        textarea.addEventListener('input', clearStatus);
+
+        sendBtn.addEventListener('click', () => {
+          const body = textarea.value.trim();
+          if (!body) {
+            status.textContent = emptyMsg;
+            status.classList.add('is-error');
+            textarea.focus();
+            return;
+          }
+
+          const url = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          try {
+            window.location.href = url;
+          } catch {
+            status.textContent = errorMsg;
+            status.classList.add('is-error');
+          }
+        });
+      });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .mailto-composer {
+    margin: 1.75rem 0;
+    padding: 1.25rem 1.25rem 1.1rem;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 6px 18px rgba(42, 36, 71, 0.05);
+  }
+
+  .mailto-composer header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .mc-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .mailto-composer h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .mc-hint {
+    margin: 0 0 0.85rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .mc-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.65rem 0.75rem;
+    resize: vertical;
+    line-height: 1.5;
+    min-height: 6rem;
+  }
+
+  .mc-textarea:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+
+  .mc-status {
+    min-height: 1.2em;
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .mc-status.is-error {
+    color: var(--sl-color-accent-high);
+  }
+
+  .mc-actions {
+    margin-top: 0.6rem;
+    display: flex;
+  }
+
+  .mc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border: 1px solid var(--sl-color-accent);
+  }
+
+  .mc-btn:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+</style>

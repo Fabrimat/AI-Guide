@@ -154,8 +154,12 @@ pattern (RAG: spiegazione concettuale o tutorial con codice?).
   Allucinazione, Contesto, Freemium, IA, LLM, Memoria, Modello, Prompt)
   con definizione breve e bottone "Spiegamelo meglio con la tua IA"
   che genera un prompt calibrato sul termine.
+- ✅ **Chi sono / About** (`/it/about/`, `/en/about/`) — pagina autoriale
+  in prima persona: cosa faccio, da dove vengo, perché AI-Guide. Include
+  `<MailtoComposer>` verso `aiguide@larosa.work` per raccolta feedback e
+  link a LinkedIn + sito personale. Linkata dal footer (override
+  `Footer.astro`) su tutte le pagine.
 - 🆕 **FAQ** — privacy, costi, quale IA scegliere, cosa succede se l'IA sbaglia.
-- 🆕 **Chi fa AI-Guide / Contribuisci** — about + come proporre modifiche.
 - 🆕 **Cronologia** (opzionale) — breve storia di come siamo arrivati qui.
 
 ## Traduzione

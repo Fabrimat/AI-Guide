@@ -316,6 +316,30 @@ Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa.`
 I newline dentro la stringa `ai` (uso del template literal con backtick) vengono
 preservati e renderizzati come a-capo grazie a `white-space: pre-wrap`.
 
+### `<MailtoComposer>`
+
+Textarea + bottone "Apri email" che lancia un `mailto:` precompilato con
+oggetto e corpo. Niente backend, niente fetch: il messaggio parte dal client
+di posta dell'utente, coerente con la postura privacy del sito (vedi
+`src/scripts/progress.ts`).
+
+Pensato per pagine "scrivimi" tipo About, raccolta feedback a costo zero. Le
+label visibili (badge, titolo, hint, bottone, messaggi di errore) sono in
+`src/i18n/ui.ts` sotto le chiavi `composer*`.
+
+| Prop            | Tipo     | Default                        | Note                                                            |
+|-----------------|----------|--------------------------------|------------------------------------------------------------------|
+| `to`            | `string` | —                              | obbligatorio: indirizzo destinatario                            |
+| `subject`       | `string` | `ui.composerSubject`           | oggetto della mail (default localizzato)                        |
+| `placeholder`   | `string` | `ui.composerPlaceholder`       | placeholder della textarea                                      |
+| `buttonLabel`   | `string` | `ui.composerButton`            | testo del bottone (default "Apri email" / "Open email")         |
+
+```mdx
+import MailtoComposer from '../../../components/MailtoComposer.astro';
+
+<MailtoComposer to="aiguide@larosa.work" />
+```
+
 ## Piano dei contenuti
 
 La roadmap editoriale vive in **`CONTENT.md`** al root: moduli previsti, stato

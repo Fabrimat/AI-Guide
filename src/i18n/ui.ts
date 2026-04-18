@@ -99,6 +99,23 @@ export interface UIStrings {
   builderPromptContext: string;
   builderPromptAudience: string;
   builderPromptFormat: string;
+
+  // MailtoComposer
+  composerBadge: string;
+  composerTitle: string;
+  composerHint: string;
+  composerPlaceholder: string;
+  composerSubject: string;
+  composerButton: string;
+  composerEmpty: string;
+  composerOpenError: string;
+
+  // Footer
+  footerAbout: string;
+  footerLinkedinAria: string;
+  footerEmailAria: string;
+  footerSiteAria: string;
+  footerTagline: string;
 }
 
 const it: UIStrings = {
@@ -197,6 +214,23 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   builderPromptContext: 'Contesto',
   builderPromptAudience: 'Per chi è la risposta',
   builderPromptFormat: 'Formato',
+
+  composerBadge: '💌 Scrivimi',
+  composerTitle: "Hai un'idea o una correzione?",
+  composerHint:
+    'Scrivi qui sotto e si aprirà il tuo client di posta con il messaggio già pronto. Niente form, niente backend: il messaggio parte dalla tua email.',
+  composerPlaceholder:
+    "Es. Mi piacerebbe una lezione sull'IA per la scuola, oppure: nella lezione X manca un esempio di…",
+  composerSubject: 'AI-Guide: idea o correzione',
+  composerButton: 'Apri email',
+  composerEmpty: 'Scrivi qualcosa prima di aprire la mail.',
+  composerOpenError: "Non sono riuscito ad aprire il client di posta. Scrivi direttamente a aiguide@larosa.work.",
+
+  footerAbout: 'Chi sono',
+  footerLinkedinAria: 'Profilo LinkedIn di Fabrizio La Rosa',
+  footerEmailAria: 'Scrivi una mail ad AI-Guide',
+  footerSiteAria: 'Sito personale di Fabrizio La Rosa',
+  footerTagline: 'Manuale aperto, scritto da una persona vera.',
 };
 
 const en: UIStrings = {
@@ -295,6 +329,23 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   builderPromptContext: 'Context',
   builderPromptAudience: 'Who the answer is for',
   builderPromptFormat: 'Format',
+
+  composerBadge: '💌 Drop me a line',
+  composerTitle: 'Got an idea or a correction?',
+  composerHint:
+    "Type below and your email client will open with the message ready to send. No form, no backend: the message goes from your own inbox.",
+  composerPlaceholder:
+    "E.g. I'd love a lesson on using AI in the classroom, or: lesson X is missing an example of…",
+  composerSubject: 'AI-Guide: idea or correction',
+  composerButton: 'Open email',
+  composerEmpty: 'Write something before opening the email.',
+  composerOpenError: "Couldn't open your email client. Write directly to aiguide@larosa.work.",
+
+  footerAbout: 'About',
+  footerLinkedinAria: "Fabrizio La Rosa's LinkedIn profile",
+  footerEmailAria: 'Send an email to AI-Guide',
+  footerSiteAria: "Fabrizio La Rosa's personal site",
+  footerTagline: 'Open manual, written by a real person.',
 };
 
 const STRINGS: Record<Locale, UIStrings> = { it, en };
