@@ -48,6 +48,9 @@ export interface Props {
   showReplay?: boolean;
 }
 
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+
 const {
   user,
   ai,
@@ -56,8 +59,8 @@ const {
   autoPlay = true,
   loop = false,
   loopDelay = 3500,
-  userLabel = 'Tu',
-  aiLabel = 'IA',
+  userLabel = ui.chatUserLabel,
+  aiLabel = ui.chatAiLabel,
   showReplay = true,
 } = Astro.props;
 ---
@@ -72,7 +75,7 @@ const {
   data-loop={String(loop)}
   data-loop-delay={loopDelay}
   role="group"
-  aria-label={`Esempio di conversazione: "${user.slice(0, 80)}"`}
+  aria-label={ui.chatExampleAria(user.slice(0, 80))}
 >
   <div class="chat-stage">
     <div class="message message-user" data-role="user">
@@ -107,8 +110,8 @@ const {
 
   {showReplay && (
     <div class="chat-controls">
-      <button type="button" class="btn-replay" data-action="replay" aria-label="Riavvia l'animazione della conversazione">
-        Riavvia
+      <button type="button" class="btn-replay" data-action="replay" aria-label={ui.chatReplayAria}>
+        {ui.chatReplay}
       </button>
     </div>
   )}

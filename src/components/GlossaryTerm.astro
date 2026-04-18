@@ -16,6 +16,9 @@ interface Props {
   name: string;
 }
 
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+
 const { name } = Astro.props;
 const slug = name
   .toLowerCase()
@@ -23,6 +26,10 @@ const slug = name
   .replace(/[\u0300-\u036f]/g, '')
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
+
+// Pre-render the prompt and feedback strings server-side per locale,
+// then ship them to the client via data-* attributes.
+const prompt = ui.glossaryPrompt(name);
 ---
 
 <article class="glossary-term not-content" id={slug}>
@@ -33,35 +40,33 @@ const slug = name
   <button
     type="button"
     class="gt-explain"
-    data-glossary-term={name}
+    data-glossary-prompt={prompt}
+    data-i18n-copied={ui.glossaryCopied}
+    data-i18n-error={ui.glossaryError}
   >
-    Approfondisci con la tua IA
+    {ui.glossaryButton}
   </button>
 </article>
 
 <script>
-  function buildPrompt(term: string): string {
-    return `Sei un tutor amichevole di un manuale di IA per principianti. Spiegami con parole semplici cosa significa "${term}" nel contesto delle IA conversazionali (ChatGPT, Claude, Gemini). Usa un esempio concreto preso dalla vita di tutti i giorni. Tono incoraggiante, niente gergo. Massimo 200 parole.
-
-Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con la stessa accessibilità.`;
-  }
-
   function init() {
     document
-      .querySelectorAll<HTMLButtonElement>('button[data-glossary-term]')
+      .querySelectorAll<HTMLButtonElement>('button[data-glossary-prompt]')
       .forEach((btn) => {
         if (btn.dataset.gtWired === 'true') return;
         btn.dataset.gtWired = 'true';
 
         btn.addEventListener('click', async () => {
-          const term = btn.getAttribute('data-glossary-term');
-          if (!term) return;
+          const prompt = btn.getAttribute('data-glossary-prompt') || '';
+          if (!prompt) return;
           const original = btn.textContent ?? '';
+          const copied = btn.dataset.i18nCopied || '';
+          const error = btn.dataset.i18nError || '';
           try {
-            await navigator.clipboard.writeText(buildPrompt(term));
-            btn.textContent = '✅ Prompt copiato! Incollalo nella tua IA';
+            await navigator.clipboard.writeText(prompt);
+            btn.textContent = copied;
           } catch {
-            btn.textContent = '❌ Errore, riprova';
+            btn.textContent = error;
           }
           window.setTimeout(() => {
             btn.textContent = original;

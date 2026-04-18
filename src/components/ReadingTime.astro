@@ -8,10 +8,12 @@
  * Pensato per essere iniettato dall'override di `PageTitle` solo
  * sulle pagine "lezione" (quelle con `livello` nel frontmatter).
  */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
 ---
 
-<p class="reading-time" data-reading-time aria-label="Tempo di lettura stimato">
-  <span data-reading-minutes>~</span> min di lettura
+<p class="reading-time" data-reading-time aria-label={ui.readingTimeAria}>
+  <span data-reading-minutes>~</span> {ui.readingTimeSuffix}
 </p>
 
 <script>

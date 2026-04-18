@@ -10,95 +10,99 @@
  * sul SUO problema. Il prompt assemblato è plain text, etichetta-style,
  * pronto da incollare in Claude/ChatGPT/Gemini.
  */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
 ---
 
-<section class="prompt-builder not-content" data-prompt-builder>
+<section
+  class="prompt-builder not-content"
+  data-prompt-builder
+  data-i18n-placeholder={ui.builderPlaceholder}
+  data-i18n-copied={ui.builderCopied}
+  data-i18n-error={ui.builderError}
+  data-i18n-label-task={ui.builderPromptTask}
+  data-i18n-label-context={ui.builderPromptContext}
+  data-i18n-label-audience={ui.builderPromptAudience}
+  data-i18n-label-format={ui.builderPromptFormat}
+>
   <header>
-    <span class="pb-badge">🛠️ Costruisci il tuo prompt</span>
-    <h3>Mettiti alla prova: scrivi un prompt che funziona</h3>
+    <span class="pb-badge">{ui.builderBadge}</span>
+    <h3>{ui.builderTitle}</h3>
   </header>
 
-  <p class="pb-hint">
-    Compila i quattro campi qui sotto pensando a una richiesta vera che
-    vuoi fare a un'IA. Mentre scrivi vedi il prompt prendere forma a
-    destra. Quando sei pronto, copialo e incollalo nella tua IA preferita.
-  </p>
+  <p class="pb-hint">{ui.builderHint}</p>
 
   <div class="pb-grid">
     <div class="pb-fields">
       <div class="pb-field">
         <label for="pb-task">
-          1. Cosa vuoi che l'IA faccia?
-          <span class="pb-example">
-            es. "scrivimi una mail al mio capo per chiedere tre giorni di ferie"
-          </span>
+          {ui.builderTaskLabel}
+          <span class="pb-example">{ui.builderTaskExample}</span>
         </label>
         <textarea id="pb-task" data-field="task" rows="2"></textarea>
       </div>
 
       <div class="pb-field">
         <label for="pb-context">
-          2. Contesto: chi sei, cosa stai facendo
-          <span class="pb-example">
-            es. "lavoro come grafica freelance, non ho ferie da 4 mesi"
-          </span>
+          {ui.builderContextLabel}
+          <span class="pb-example">{ui.builderContextExample}</span>
         </label>
         <textarea id="pb-context" data-field="context" rows="2"></textarea>
       </div>
 
       <div class="pb-field">
         <label for="pb-audience">
-          3. Per chi è la risposta?
-          <span class="pb-example">
-            es. "il mio capo, rigido ma ragionevole"
-          </span>
+          {ui.builderAudienceLabel}
+          <span class="pb-example">{ui.builderAudienceExample}</span>
         </label>
         <textarea id="pb-audience" data-field="audience" rows="1"></textarea>
       </div>
 
       <div class="pb-field">
         <label for="pb-format">
-          4. Come la vuoi (formato, lunghezza, tono)
-          <span class="pb-example">
-            es. "una mail breve, tono professionale ma cordiale, max 100 parole"
-          </span>
+          {ui.builderFormatLabel}
+          <span class="pb-example">{ui.builderFormatExample}</span>
         </label>
         <textarea id="pb-format" data-field="format" rows="1"></textarea>
       </div>
     </div>
 
     <div class="pb-preview-wrap">
-      <span class="pb-preview-label">Prompt generato</span>
-      <pre class="pb-preview" data-preview aria-live="polite">{`Compila i campi a sinistra e il prompt apparirà qui.`}</pre>
+      <span class="pb-preview-label">{ui.builderPreviewLabel}</span>
+      <pre class="pb-preview" data-preview aria-live="polite">{ui.builderPlaceholder}</pre>
     </div>
   </div>
 
   <div class="pb-actions">
     <button type="button" class="pb-btn pb-btn-primary" data-action="copy">
-      Copia il prompt
+      {ui.builderCopy}
     </button>
     <button type="button" class="pb-btn pb-btn-ghost" data-action="reset">
-      Ripulisci tutto
+      {ui.builderReset}
     </button>
   </div>
 </section>
 
 <script>
-  const PLACEHOLDER = 'Compila i campi a sinistra e il prompt apparirà qui.';
-
-  function assemble(state: Record<string, string>): string {
+  function assemble(root: HTMLElement, state: Record<string, string>): string {
+    const labels = {
+      task: root.dataset.i18nLabelTask || '',
+      context: root.dataset.i18nLabelContext || '',
+      audience: root.dataset.i18nLabelAudience || '',
+      format: root.dataset.i18nLabelFormat || '',
+    };
     const parts: string[] = [];
     if (state.context?.trim()) {
-      parts.push(`Contesto: ${state.context.trim()}`);
+      parts.push(`${labels.context}: ${state.context.trim()}`);
     }
     if (state.task?.trim()) {
-      parts.push(`Cosa mi serve: ${state.task.trim()}`);
+      parts.push(`${labels.task}: ${state.task.trim()}`);
     }
     if (state.audience?.trim()) {
-      parts.push(`Per chi è la risposta: ${state.audience.trim()}`);
+      parts.push(`${labels.audience}: ${state.audience.trim()}`);
     }
     if (state.format?.trim()) {
-      parts.push(`Formato: ${state.format.trim()}`);
+      parts.push(`${labels.format}: ${state.format.trim()}`);
     }
     return parts.join('\n\n');
   }
@@ -117,8 +121,8 @@
   function update(root: HTMLElement) {
     const preview = root.querySelector<HTMLElement>('[data-preview]');
     if (!preview) return;
-    const text = assemble(readState(root));
-    preview.textContent = text || PLACEHOLDER;
+    const text = assemble(root, readState(root));
+    preview.textContent = text || root.dataset.i18nPlaceholder || '';
   }
 
   function init() {
@@ -153,16 +157,18 @@
           }
 
           if (action === 'copy') {
-            const text = assemble(readState(root));
+            const text = assemble(root, readState(root));
             if (!text) return;
             const btn = target.closest<HTMLButtonElement>('button[data-action="copy"]');
             if (!btn) return;
             const original = btn.textContent ?? '';
+            const copied = root.dataset.i18nCopied || '';
+            const error = root.dataset.i18nError || '';
             try {
               await navigator.clipboard.writeText(text);
-              btn.textContent = '✅ Copiato!';
+              btn.textContent = copied;
             } catch {
-              btn.textContent = '❌ Errore, riprova';
+              btn.textContent = error;
             }
             window.setTimeout(() => {
               btn.textContent = original;

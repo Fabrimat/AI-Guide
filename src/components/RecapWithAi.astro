@@ -12,28 +12,39 @@
  * Se l'utente non ha ancora completato nessuna lezione, il bottone è
  * disabilitato e la card mostra una riga di stato che lo spiega.
  *
- * Da posizionare su pagine di orientamento (homepage, `inizia-qui`) e
+ * Da posizionare su pagine di orientamento (homepage, `start-here`) e
  * a fine modulo. Niente prop, si include come `<RecapWithAi />`.
  */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
 ---
 
-<div class="recap-with-ai not-content" data-recap hidden>
+<div
+  class="recap-with-ai not-content"
+  data-recap
+  data-i18n-empty={ui.recapEmpty}
+  data-i18n-count-one={ui.recapCountOne}
+  data-i18n-count-many-template={ui.recapCountMany(0).replace('0', '__N__')}
+  data-i18n-copied={ui.recapCopied}
+  data-i18n-copy={ui.recapCopy}
+  data-i18n-error={ui.recapCopyError}
+  data-i18n-prompt-intro={ui.recapPromptIntro}
+  data-i18n-prompt-instructions={ui.recapPromptInstructions}
+  data-i18n-unmapped={ui.recapUnmappedConcepts}
+  hidden
+>
   <header>
-    <span class="recap-badge">🎓 Ripasso con la tua IA</span>
-    <h3>Trasforma la tua IA in un tutor</h3>
+    <span class="recap-badge">{ui.recapBadge}</span>
+    <h3>{ui.recapTitle}</h3>
   </header>
 
-  <p class="recap-desc">
-    Generiamo un prompt che fa diventare la tua IA un tutor delle lezioni
-    che hai completato. Ti farà domande socratiche per rievocare quello
-    che hai imparato.
-  </p>
+  <p class="recap-desc">{ui.recapDesc}</p>
 
   <p class="recap-status" data-recap-status></p>
 
   <div class="recap-actions">
     <button type="button" class="recap-btn" data-recap-generate>
-      Genera prompt di ripasso
+      {ui.recapGenerate}
     </button>
   </div>
 
@@ -42,11 +53,8 @@
     data-recap-dialog
     aria-labelledby="recap-dialog-title"
   >
-    <h4 id="recap-dialog-title">Ecco il tuo prompt di ripasso</h4>
-    <p class="recap-dialog-hint">
-      Copialo e incollalo nella tua IA. Si calibrerà sulle lezioni che
-      hai effettivamente completato.
-    </p>
+    <h4 id="recap-dialog-title">{ui.recapDialogTitle}</h4>
+    <p class="recap-dialog-hint">{ui.recapDialogHint}</p>
     <pre class="recap-output" data-recap-output></pre>
     <div class="recap-dialog-actions">
       <button
@@ -54,14 +62,14 @@
         class="recap-btn recap-btn-primary"
         data-recap-copy
       >
-        Copia il prompt
+        {ui.recapCopy}
       </button>
       <button
         type="button"
         class="recap-btn recap-btn-ghost"
         data-recap-close
       >
-        Chiudi
+        {ui.recapClose}
       </button>
     </div>
   </dialog>
@@ -101,8 +109,9 @@
   }
 
   // Concetti chiave per lezione (URL → bullet list dei punti coperti).
-  // Quando aggiungi una lezione nuova, aggiungi una voce qui così il
-  // recap include il suo contesto. Le lezioni non mappate vengono
+  // Indicizzato per locale (it/en) per restare coerente con la lingua
+  // dell'utente. Quando aggiungi una lezione nuova, aggiungi una voce
+  // QUI per ogni locale tradotto. Le lezioni non mappate vengono
   // elencate solo per titolo (degradation graceful).
   const LESSON_SUMMARIES: Record<string, string> = {
     '/it/fundamentals/what-is-ai/': `  - L'IA è un'etichetta che mette insieme cose molto diverse fra loro.
@@ -134,30 +143,58 @@
   - Va male per: fatti specifici verificabili, cose recenti, conti complicati, casi specifici dell'utente, consulenza medica/legale/finanziaria.
   - Tre mosse di verifica a sforzo crescente: motore di ricerca, chiedere la fonte e cercarla, persona competente per decisioni importanti.
   - Mentalità: assistente brillante ma incostante. In dubbio, verifica.`,
+
+    '/en/fundamentals/what-is-ai/': `  - "AI" is a label that lumps together very different things.
+  - Two big families: single-task AI (spam filter, Siri, autocomplete) and conversational AI (ChatGPT, Claude, Gemini).
+  - Four myths debunked: it doesn't think like a person, it isn't always right, it doesn't want anything, it isn't magic.
+  - "Where does my data go" is a separate concern from "the program has no intentions": it's about the company behind the AI.`,
+
+    '/en/fundamentals/what-is-a-prompt/': `  - A prompt is what you write to the AI to get a response.
+  - Mental model: you're writing to a competent person who knows nothing about you.
+  - Four ingredients of a clear prompt: what you want, context, audience, format.
+  - The AI isn't Google: for "do X for me" tasks, a clear prompt makes the difference.
+  - There are no "magic prompts": iterate, the AI doesn't take offense.`,
+
+    '/en/fundamentals/first-conversation/': `  - Three main AIs to start with: ChatGPT, Claude, Gemini (for the first time, one is as good as the other).
+  - Basic UX: text input, response one word at a time, conversations saved to your account.
+  - Recovery if something goes wrong: too long, you don't understand, off-topic → ask the AI to adjust.
+  - Nothing is irreversible: you can always start over, the AI doesn't take offense.`,
+
+    '/en/fundamentals/how-ai-understands/': `  - "One word at a time" mechanism: the AI predicts the next word, repeated.
+  - Trained by reading enormous amounts of text (hundreds of billions of words, largely from public sources).
+  - It doesn't store the texts: it learned patterns (the "music" of language), and rebuilds every time.
+  - Three consequences: no real-time knowledge, more context = better, memory only within the same chat.
+  - There is a "context window" limit in very long chats.
+  - Technical term for these AIs: LLM (Large Language Model).`,
+
+    '/en/fundamentals/when-to-trust-it/': `  - "Hallucination": the AI produces text that sounds true but isn't grounded in anything real.
+  - By design, it doesn't realize it's making things up: it always picks the most probable word.
+  - Good for: explaining general concepts, rephrasing text you provide, generating structures, brainstorming, translations.
+  - Bad for: specific verifiable facts, recent events, complex math, your own specific case, medical/legal/financial advice.
+  - Three verification moves with increasing effort: a search engine, asking for sources and looking them up, a competent person for important decisions.
+  - Mindset: brilliant but inconsistent assistant. When in doubt, verify.`,
   };
 
-  function buildPrompt(lessons: Lesson[]): string {
+  function buildPrompt(root: HTMLElement, lessons: Lesson[]): string {
+    const intro = root.dataset.i18nPromptIntro || '';
+    const instructions = root.dataset.i18nPromptInstructions || '';
+    const unmapped = root.dataset.i18nUnmapped || '';
+
     const sections = lessons
       .map((l) => {
         const summary = LESSON_SUMMARIES[l.url];
         if (summary) {
           return `**${l.title}**\n${summary}`;
         }
-        return `**${l.title}**\n  (concetti non mappati)`;
+        return `**${l.title}**\n  ${unmapped}`;
       })
       .join('\n\n');
 
-    return `Sei un tutor amichevole. Sto studiando il manuale AI-Guide e ho completato queste lezioni, di cui ti elenco i concetti chiave:
+    return `${intro}
 
 ${sections}
 
-Aiutami a fare un ripasso usando il metodo socratico. Fammi domande progressive che mi obblighino a rievocare e collegare i concetti delle diverse lezioni. Una domanda alla volta. Per ogni mia risposta, dammi un feedback breve (cosa ho centrato, cosa potrei precisare) e poi passa alla prossima.
-
-Mescola le domande fra le lezioni che ho fatto, non procedere strettamente in ordine. Inserisci almeno una domanda di "applicazione" (es. uno scenario realistico in cui devo decidere cosa fare con l'IA) verso metà ripasso.
-
-Alla fine fai una sintesi in tre punti: cosa ho ben presente, cosa vale la pena ripassare, e una piccola sfida pratica per la prossima conversazione con un'IA.
-
-Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda che sono alle prime armi.`;
+${instructions}`;
   }
 
   function applyState(root: HTMLElement) {
@@ -167,12 +204,14 @@ Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda ch
     if (!status || !btn) return;
 
     if (lessons.length === 0) {
-      status.textContent =
-        'Completa almeno una lezione per attivare il ripasso.';
+      status.textContent = root.dataset.i18nEmpty || '';
       btn.disabled = true;
+    } else if (lessons.length === 1) {
+      status.textContent = root.dataset.i18nCountOne || '';
+      btn.disabled = false;
     } else {
-      const word = lessons.length === 1 ? 'lezione completata' : 'lezioni completate';
-      status.textContent = `${lessons.length} ${word} finora.`;
+      const template = root.dataset.i18nCountManyTemplate || '';
+      status.textContent = template.replace('__N__', String(lessons.length));
       btn.disabled = false;
     }
 
@@ -193,7 +232,7 @@ Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda ch
     generateBtn.addEventListener('click', () => {
       const lessons = loadCompletedLessons();
       if (lessons.length === 0) return;
-      output.textContent = buildPrompt(lessons);
+      output.textContent = buildPrompt(root, lessons);
       if (typeof dialog.showModal === 'function') {
         dialog.showModal();
       }
@@ -209,11 +248,13 @@ Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda ch
       const text = output.textContent || '';
       if (!text) return;
       const original = copyBtn.textContent ?? '';
+      const copied = root.dataset.i18nCopied || '';
+      const error = root.dataset.i18nError || '';
       try {
         await navigator.clipboard.writeText(text);
-        copyBtn.textContent = '✅ Copiato!';
+        copyBtn.textContent = copied;
       } catch {
-        copyBtn.textContent = '❌ Errore, riprova';
+        copyBtn.textContent = error;
       }
       window.setTimeout(() => {
         copyBtn.textContent = original;

@@ -37,17 +37,30 @@ interface Props {
   variant?: 'practice' | 'review';
 }
 
+import { t, getLocale, DEFAULT_LOCALE } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const locale = getLocale(Astro.currentLocale);
+
 const { title, file, description, duration, variant = 'practice' } = Astro.props;
-const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/');
+
+// Skill file path: IT files live under /skills/, EN files under /skills/en/.
+// The same `file` prop (e.g. "review-what-is-ai.txt") resolves to the right
+// path per locale, so authors don't have to know about the convention.
+const skillsBase = locale === DEFAULT_LOCALE ? 'skills' : `skills/${locale}`;
+const fileUrl = `${import.meta.env.BASE_URL}${skillsBase}/${file}`.replace(/\/+/g, '/');
 
 const labels = {
-  practice: { icon: '🤖', badge: 'Esercizio con la tua IA', durationSuffix: 'di esercizio' },
-  review: { icon: '📝', badge: 'Verifica con la tua IA', durationSuffix: 'di verifica' },
+  practice: { icon: '🤖', badge: ui.practiceBadge, durationSuffix: ui.practiceDuration },
+  review: { icon: '📝', badge: ui.reviewBadge, durationSuffix: ui.reviewDuration },
 } as const;
 const { icon, badge, durationSuffix } = labels[variant];
 ---
 
-<aside class:list={['llm-exercise', 'not-content', `is-${variant}`]}>
+<aside
+  class:list={['llm-exercise', 'not-content', `is-${variant}`]}
+  data-i18n-copied={ui.llmExerciseCopied}
+  data-i18n-error={ui.llmExerciseError}
+>
   <header>
     <span class="badge">{icon} {badge}</span>
     <h3>{title}</h3>
@@ -57,21 +70,17 @@ const { icon, badge, durationSuffix } = labels[variant];
 
   {description && <p class="desc">{description}</p>}
 
-  <p class="howto">
-    Copia il testo qui sotto e incollalo nella tua IA preferita
-    (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>
-    o un'altra). In alternativa scarica il file e dallo all'IA come allegato.
-  </p>
+  <p class="howto" set:html={ui.llmExerciseHowTo}></p>
 
   <div class="actions">
     <button type="button" class="btn btn-primary" data-copy-src={fileUrl}>
-      Copia il testo
+      {ui.llmExerciseCopy}
     </button>
     <a class="btn" href={fileUrl} download>
-      Scarica
+      {ui.llmExerciseDownload}
     </a>
     <a class="btn btn-ghost" href={fileUrl} target="_blank" rel="noopener">
-      Apri
+      {ui.llmExerciseOpen}
     </a>
   </div>
 </aside>
@@ -85,16 +94,21 @@ const { icon, badge, durationSuffix } = labels[variant];
     const src = target.getAttribute('data-copy-src');
     if (!src) return;
 
+    // Localized feedback strings come from the nearest .llm-exercise wrapper.
+    const wrapper = target.closest<HTMLElement>('.llm-exercise');
+    const copied = wrapper?.dataset.i18nCopied || '';
+    const error = wrapper?.dataset.i18nError || '';
     const original = target.textContent ?? '';
+
     try {
       const res = await fetch(src);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       await navigator.clipboard.writeText(text);
-      target.textContent = '✅ Copiato!';
+      target.textContent = copied;
     } catch (err) {
       console.error('[LlmExercise] copy failed:', err);
-      target.textContent = '❌ Errore, riprova';
+      target.textContent = error;
     } finally {
       window.setTimeout(() => {
         target.textContent = original;

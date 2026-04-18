@@ -44,7 +44,10 @@ interface Props {
   comingSoonLabel?: string;
 }
 
-const { heading, cards, comingSoonLabel = 'Presto' } = Astro.props;
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+
+const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
 ---
 
 <section class="home-cards not-content">

@@ -3,7 +3,7 @@
  * Resume: card "Riprendi da dove hai lasciato".
  *
  * Da posizionare sulla homepage e su pagine di orientamento (es.
- * `inizia-qui`). Legge `localStorage` (chiave `aiguide:progress:v1`,
+ * `start-here`). Legge `localStorage` (chiave `aiguide:progress:v1`,
  * popolata da `src/scripts/progress.ts`) e mostra l'ultima pagina
  * leggibile che l'utente ha lasciato.
  *
@@ -15,36 +15,38 @@
  * conferma (`<dialog>` nativo, stilizzato Pastello). Niente
  * `window.confirm()`.
  */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
 ---
 
-<div class="resume-card not-content" data-resume-card hidden>
+<div
+  class="resume-card not-content"
+  data-resume-card
+  data-i18n-fallback-title={ui.resumeFallbackTitle}
+  data-i18n-confirm-fallback={ui.resumeConfirmFallback}
+  hidden
+>
   <div class="resume-text">
-    <span class="resume-meta">Riprendi da dove hai lasciato</span>
+    <span class="resume-meta">{ui.resumeMeta}</span>
     <span class="resume-title" data-resume-title></span>
-    <span class="resume-privacy">
-      I tuoi progressi sono salvati solo sul tuo browser, mai inviati
-      altrove.
-    </span>
+    <span class="resume-privacy">{ui.resumePrivacy}</span>
   </div>
   <div class="resume-actions">
-    <a class="resume-link" data-resume-link>Continua</a>
+    <a class="resume-link" data-resume-link>{ui.resumeContinue}</a>
     <button type="button" class="resume-reset" data-resume-reset>
-      Cancella progressi
+      {ui.resumeReset}
     </button>
   </div>
 
   <dialog class="resume-confirm" data-resume-confirm aria-labelledby="resume-confirm-title">
-    <h2 id="resume-confirm-title">Cancellare i progressi?</h2>
-    <p>
-      Tutti i progressi salvati su questo browser verranno rimossi.
-      L'azione non si può annullare.
-    </p>
+    <h2 id="resume-confirm-title">{ui.resumeConfirmTitle}</h2>
+    <p>{ui.resumeConfirmBody}</p>
     <div class="resume-confirm-actions">
       <button type="button" class="btn-cancel" data-resume-cancel>
-        Annulla
+        {ui.resumeCancel}
       </button>
       <button type="button" class="btn-confirm" data-resume-confirm-yes>
-        Sì, cancella
+        {ui.resumeYes}
       </button>
     </div>
   </dialog>
@@ -78,8 +80,8 @@
       linkEl
     ) {
       const page = state.pages[state.lastUrl];
-      titleEl.textContent =
-        humanizeTitle(page.title || '') || 'la lezione precedente';
+      const fallback = card.dataset.i18nFallbackTitle || '';
+      titleEl.textContent = humanizeTitle(page.title || '') || fallback;
       linkEl.setAttribute('href', state.lastUrl);
       card.removeAttribute('hidden');
     } else {
@@ -106,7 +108,8 @@
     resetBtn.addEventListener('click', () => {
       // Fallback per browser molto vecchi senza <dialog>.
       if (typeof dialog.showModal !== 'function') {
-        if (window.confirm('Cancellare i progressi salvati su questo browser?')) {
+        const confirmText = card.dataset.i18nConfirmFallback || '';
+        if (window.confirm(confirmText)) {
           doReset(card);
         }
         return;
