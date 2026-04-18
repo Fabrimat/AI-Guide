@@ -1,6 +1,6 @@
 # Verifica dell'apprendimento: Ma cos'è l'IA?
 
-> Incolla questo prompt nella tua IA. Ti farà quattro domande per
+> Incolla questo testo nella tua IA. Ti farà quattro domande per
 > verificare cosa hai capito della lezione. Non è un esame: rispondi
 > con quello che ti viene, e l'IA ti aiuta a chiarire dove serve.
 

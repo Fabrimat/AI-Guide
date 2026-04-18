@@ -1,7 +1,7 @@
 # Esercizio guidato: la tua prima conversazione consapevole
 
-> Incolla tutto questo prompt nella tua IA (Claude, ChatGPT, Gemini, ecc.) e poi
-> segui le indicazioni che ti darà.
+> Incolla tutto questo testo nella tua IA (Claude, ChatGPT, Gemini, ecc.) e
+> poi segui le indicazioni che ti darà.
 
 ## Ruolo dell'IA
 

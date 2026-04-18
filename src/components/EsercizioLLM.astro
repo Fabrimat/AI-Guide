@@ -48,17 +48,17 @@ const { icon, badge } = labels[variant];
   {descrizione && <p class="desc">{descrizione}</p>}
 
   <p class="howto">
-    Copia il prompt e incollalo in <strong>Claude</strong>, <strong>ChatGPT</strong>,
-    <strong>Gemini</strong> o qualsiasi altro LLM. In alternativa scarica il file
-    <code>.md</code> e dallo come contesto.
+    Copia il testo qui sotto e incollalo nella tua IA preferita
+    (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>
+    o un'altra). In alternativa scarica il file e dallo all'IA come allegato.
   </p>
 
   <div class="actions">
     <button type="button" class="btn btn-primary" data-copy-src={fileUrl}>
-      Copia prompt
+      Copia il testo
     </button>
     <a class="btn" href={fileUrl} download>
-      Scarica .md
+      Scarica
     </a>
     <a class="btn btn-ghost" href={fileUrl} target="_blank" rel="noopener">
       Apri
