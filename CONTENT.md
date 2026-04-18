@@ -7,9 +7,10 @@ ogni momento cosa c'è, cosa manca, e cosa arriva dopo.
 ## Obiettivo e pubblico
 
 AI-Guide insegna a usare l'IA in modo pratico e consapevole, con priorità al
-pubblico italiano **non tecnico**. Il percorso va dal "non so cosa sia" al
-"so usarla ogni giorno", con un modulo avanzato per chi vuole integrarla nel
-proprio lavoro (developer, professionisti).
+pubblico italiano **non tecnico**. Il percorso va dal "non so cosa sia"
+("Fondamenti") al "so usarla ogni giorno" ("Uso quotidiano") al "la uso
+sul lavoro" ("Sul lavoro"), con un modulo avanzato finale per developer e
+chi vuole integrarla in strumenti propri ("Per chi vuole di più").
 
 Principi editoriali:
 
@@ -105,7 +106,28 @@ Elenco provvisorio, da validare prima di scrivere:
 
 Da decidere: ordine definitivo, eventuali accorpamenti, numero finale.
 
-## Modulo 3: Per chi vuole di più (livello `avanzato`)
+## Modulo 3: Sul lavoro (livello `intermedio`)
+
+Target: chi sa già usare l'IA per cose personali e vuole portarla nel
+proprio lavoro. Non developer: tipicamente knowledge worker (project
+manager, marketing, HR, consulenza, didattica, sales, design,
+comunicazione). Tono pratico, ogni lezione un caso d'uso da ufficio.
+
+Elenco provvisorio, da validare prima di scrivere:
+
+1. 🆕 Bozze di documenti professionali (proposte, brief, report)
+2. 🆕 Preparare una riunione (ordine del giorno, riassunto, follow-up)
+3. 🆕 Email che funzionano (negoziare, chiedere, dire di no, gestire conflitti)
+4. 🆕 Ricerca per il lavoro (raccogliere informazioni, sintetizzare fonti)
+5. 🆕 L'IA come "collega che ti aiuta a pensare" (challenge, devil's advocate, brainstorming)
+6. 🆕 Riformulare comunicazioni difficili (cliente irritato, feedback delicato)
+7. 🆕 Privacy e dati aziendali: cosa NON dare in pasto a un'IA pubblica
+8. 🆕 Quando creare un GPT/Project/Claude Project per riciclare contesto
+
+Da decidere: ordine, taglio (orizzontale per professione vs trasversale),
+quanti use case professionali coprire prima di passare al modulo avanzato.
+
+## Modulo 4: Per chi vuole di più (livello `avanzato`)
 
 Target: developer e professionisti che vogliono integrare l'IA in strumenti
 propri. Pubblico tecnico: tono più diretto, meno propedeutico.
