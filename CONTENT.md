@@ -72,15 +72,17 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    verificare a sforzo crescente, e una mentalità di chiusura ("assistente
    brillante ma incostante"). Termine "allucinazione" introdotto a metà
    come etichetta. Chiude il modulo Fondamenti e ponte verso *Uso
-   quotidiano*. Revisione `analyze-lesson` + `integrate-questions`
-   completata (2026-04-18). Manca solo il pass `style-checker`.
+   quotidiano*. **Ciclo di revisione completo** (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker
+   ha catturato "come hai visto sopra" (vietato dalla regola "vedi
+   sopra/sotto" della voice guide), corretto con riferimento esplicito
+   all'esempio del libro inventato.
 
-**Stato attuale**: 5 su 5 pubblicate. **Modulo Fondamenti completo come bozza**.
-Lezioni 1-4 hanno completato l'intero ciclo di revisione; lezione 5 ha
-integrate-questions fatto, manca il pass finale dello `style-checker`.
-La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx`
-e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
-esiste più (per ora non è un problema, il sito non è ancora pubblicato).
+**Stato attuale**: 5 su 5 pubblicate, **modulo Fondamenti completo, ciclo
+di revisione chiuso su tutte le lezioni**. La vecchia `cos-e-un-llm.mdx`
+è stata rinominata `come-capisce-l-ia.mdx` e riscritta da capo: il vecchio
+URL `/it/fondamenti/cos-e-un-llm/` non esiste più (per ora non è un
+problema, il sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -153,10 +155,10 @@ tradurre una pagina alla volta senza rompere il sito.
 
 Due filoni aperti, scegliere in che ordine attaccarli:
 
-**Revisioni pendenti**:
-- Lezione 5: integrazione fatta, manca pass finale dello `style-checker`.
+**Revisioni pendenti**: nessuna. Il modulo Fondamenti è chiuso al 100%.
 
-**Prossima bozza**: nessuna nel modulo Fondamenti, è completo. Dopo le
-revisioni di 4 e 5, decidere se aprire il **modulo 2 (Uso quotidiano)** o
-fare prima un giro di rifiniture: la lista provvisoria degli 8 titoli è
-ancora `🆕`, va validata o ridisegnata.
+**Prossima bozza**: nessuna nel modulo Fondamenti. Decisioni aperte: aprire
+il **modulo 2 (Uso quotidiano)** validando o ridisegnando la lista
+provvisoria di 8 titoli, oppure fare prima un giro di rifiniture al sito
+(deploy, dominio, inizia-qui che linka anche le 5 lezioni adesso che
+esistono tutte, ecc.).
