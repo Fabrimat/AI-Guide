@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-  site: 'https://example.com', // TODO: sostituire con il dominio reale quando sarà pronto
+  site: 'https://ai-guide.larosa.work',
 
   // Niente redirect statico per `/`. La landing root è in `src/pages/index.astro`
   // e fa detection lato client della lingua del browser, così l'utente atterra

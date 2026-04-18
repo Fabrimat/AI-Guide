@@ -337,7 +337,7 @@ label visibili (badge, titolo, hint, bottone, messaggi di errore) sono in
 ```mdx
 import MailtoComposer from '../../../components/MailtoComposer.astro';
 
-<MailtoComposer to="aiguide@larosa.work" />
+<MailtoComposer to="ai-guide@larosa.work" />
 ```
 
 ## Piano dei contenuti
