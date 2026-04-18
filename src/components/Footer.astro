@@ -20,7 +20,12 @@ const aboutHref = `/${locale}/about/`;
 
 const LINKEDIN_URL = 'https://linkedin.com/in/fabriziolarosa';
 const SITE_URL = 'https://larosa.work';
-const MAIL = 'ai-guide@larosa.work';
+// Mail split in user/domain per obfuscation: il DOM statico non
+// contiene mai la stringa `user@domain` unita, i crawler spam che
+// scansionano HTML grezzo non trovano una mail leggibile. Lo script
+// in fondo a questo file ricompone href e testo al caricamento.
+const MAIL_USER = 'ai-guide';
+const MAIL_DOMAIN = 'larosa.work';
 ---
 
 <Default />
@@ -46,7 +51,11 @@ const MAIL = 'ai-guide@larosa.work';
     </li>
     <li>
       <a
-        href={`mailto:${MAIL}`}
+        href="#"
+        data-obf-email
+        data-user={MAIL_USER}
+        data-domain={MAIL_DOMAIN}
+        rel="nofollow"
         aria-label={ui.footerEmailAria}
       >
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -71,6 +80,32 @@ const MAIL = 'ai-guide@larosa.work';
     </li>
   </ul>
 </div>
+
+<script>
+  // Wire-a ogni elemento `[data-obf-email]` presente in pagina:
+  // ricompone user@domain dai data attributes, aggiorna href e il
+  // testo del fallback (se presente). Il Footer è incluso in ogni
+  // pagina del sito, quindi basta un solo script qui per coprire
+  // tutti gli ObfuscatedEmail sparsi nei contenuti.
+  function wireObfuscatedEmails() {
+    document
+      .querySelectorAll<HTMLAnchorElement>('a[data-obf-email]')
+      .forEach((a) => {
+        if (a.dataset.oeWired === 'true') return;
+        a.dataset.oeWired = 'true';
+        const user = a.dataset.user ?? '';
+        const domain = a.dataset.domain ?? '';
+        if (!user || !domain) return;
+        const email = `${user}@${domain}`;
+        a.href = `mailto:${email}`;
+        const fallback = a.querySelector<HTMLElement>('[data-oe-fallback]');
+        if (fallback) fallback.textContent = email;
+      });
+  }
+
+  wireObfuscatedEmails();
+  document.addEventListener('astro:page-load', wireObfuscatedEmails);
+</script>
 
 <style>
   .ai-guide-footer {

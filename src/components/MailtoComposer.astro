@@ -22,12 +22,18 @@ const ui = t(Astro.currentLocale);
 const finalSubject = subject ?? ui.composerSubject;
 const finalPlaceholder = placeholder ?? ui.composerPlaceholder;
 const finalButtonLabel = buttonLabel ?? ui.composerButton;
+
+// Split in user/domain per obfuscation: il DOM statico non contiene
+// mai la stringa completa `user@domain`. Lo script client ricompone
+// l'indirizzo solo al click del bottone "Apri email".
+const [mailUser = '', mailDomain = ''] = to.split('@');
 ---
 
 <section
   class="mailto-composer not-content"
   data-mailto-composer
-  data-to={to}
+  data-mail-user={mailUser}
+  data-mail-domain={mailDomain}
   data-subject={finalSubject}
   data-i18n-empty={ui.composerEmpty}
   data-i18n-error={ui.composerOpenError}
@@ -73,7 +79,8 @@ const finalButtonLabel = buttonLabel ?? ui.composerButton;
         const status = root.querySelector<HTMLElement>('[data-status]');
         if (!textarea || !sendBtn || !status) return;
 
-        const to = root.dataset.to ?? '';
+        const user = root.dataset.mailUser ?? '';
+        const domain = root.dataset.mailDomain ?? '';
         const subject = root.dataset.subject ?? '';
         const emptyMsg = root.dataset.i18nEmpty ?? '';
         const errorMsg = root.dataset.i18nError ?? '';
@@ -94,6 +101,12 @@ const finalButtonLabel = buttonLabel ?? ui.composerButton;
             return;
           }
 
+          if (!user || !domain) {
+            status.textContent = errorMsg;
+            status.classList.add('is-error');
+            return;
+          }
+          const to = `${user}@${domain}`;
           const url = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
           try {
             window.location.href = url;

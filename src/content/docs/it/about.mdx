@@ -5,6 +5,7 @@ description: AI-Guide è scritto da Fabrizio La Rosa. Ecco cosa faccio, da dove 
 
 import { Image } from 'astro:assets';
 import MailtoComposer from '../../../components/MailtoComposer.astro';
+import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
 import avatar from '../../../assets/about/avatar.png';
 
 <div class="about-hero not-content">
@@ -68,6 +69,6 @@ I tuoi progressi restano sul tuo browser.
 
 ## Oppure scrivimi direttamente
 
-- ✉️ [ai-guide@larosa.work](mailto:ai-guide@larosa.work)
+- ✉️ <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
 - 💼 [LinkedIn](https://linkedin.com/in/fabriziolarosa)
 - 🌐 [larosa.work](https://larosa.work)

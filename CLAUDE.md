@@ -323,13 +323,18 @@ oggetto e corpo. Niente backend, niente fetch: il messaggio parte dal client
 di posta dell'utente, coerente con la postura privacy del sito (vedi
 `src/scripts/progress.ts`).
 
+La mail passata in `to` viene splittata server-side in user/domain e
+scritta come due `data-*` attributes separati (obfuscation contro crawler
+spam). Lo script del componente ricompone l'indirizzo solo al click del
+bottone "Apri email".
+
 Pensato per pagine "scrivimi" tipo About, raccolta feedback a costo zero. Le
 label visibili (badge, titolo, hint, bottone, messaggi di errore) sono in
 `src/i18n/ui.ts` sotto le chiavi `composer*`.
 
 | Prop            | Tipo     | Default                        | Note                                                            |
 |-----------------|----------|--------------------------------|------------------------------------------------------------------|
-| `to`            | `string` | —                              | obbligatorio: indirizzo destinatario                            |
+| `to`            | `string` | —                              | obbligatorio: indirizzo destinatario (viene splittato e offuscato nel DOM) |
 | `subject`       | `string` | `ui.composerSubject`           | oggetto della mail (default localizzato)                        |
 | `placeholder`   | `string` | `ui.composerPlaceholder`       | placeholder della textarea                                      |
 | `buttonLabel`   | `string` | `ui.composerButton`            | testo del bottone (default "Apri email" / "Open email")         |
@@ -338,6 +343,32 @@ label visibili (badge, titolo, hint, bottone, messaggi di errore) sono in
 import MailtoComposer from '../../../components/MailtoComposer.astro';
 
 <MailtoComposer to="ai-guide@larosa.work" />
+```
+
+### `<ObfuscatedEmail>`
+
+Link email che si ricompone solo al caricamento JS. Il DOM statico
+contiene `user` e `domain` in due `data-*` attributes separati, mai la
+stringa unita `user@domain`. I crawler spam che scansionano HTML grezzo
+non trovano una mail leggibile.
+
+Se JS è disabilitato (raro), l'utente vede il fallback
+`user [at] domain`, leggibile e copiabile senza spiegazioni.
+
+Il wiring client (aggiorna `href` e testo) sta nello `<script>` di
+`Footer.astro`, che è incluso in ogni pagina del sito. Quindi basta
+usare `<ObfuscatedEmail>` dove serve, senza import di script aggiuntivi.
+
+| Prop     | Tipo     | Default | Note                                        |
+|----------|----------|---------|---------------------------------------------|
+| `user`   | `string` | —       | obbligatorio: parte prima della chiocciola  |
+| `domain` | `string` | —       | obbligatorio: parte dopo la chiocciola      |
+| `class`  | `string` | —       | opzionale, classi CSS aggiuntive sul link   |
+
+```mdx
+import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
+
+<ObfuscatedEmail user="ai-guide" domain="larosa.work" />
 ```
 
 ## Piano dei contenuti

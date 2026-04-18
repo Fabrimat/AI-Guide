@@ -1,0 +1,33 @@
+---
+/**
+ * ObfuscatedEmail: link email che si ricompone solo al caricamento JS.
+ *
+ * Server-side render: user e domain separati in data attributes, niente
+ * stringa completa `user@domain` nel DOM statico. I crawler spam che
+ * scansionano HTML grezzo non trovano la mail leggibile.
+ *
+ * Client-side: lo script in Footer.astro cerca tutti gli elementi
+ * `[data-obf-email]` in pagina e ne aggiorna href + testo visibile.
+ *
+ * Se JS è disabilitato (raro): l'utente vede "user [at] domain",
+ * leggibile, copiabile e comprensibile senza spiegazioni.
+ */
+interface Props {
+  user: string;
+  domain: string;
+  class?: string;
+}
+
+const { user, domain, class: className } = Astro.props;
+---
+
+<a
+  class:list={['obfuscated-email', className]}
+  href="#"
+  data-obf-email
+  data-user={user}
+  data-domain={domain}
+  rel="nofollow"
+>
+  <span data-oe-fallback>{user} [at] {domain}</span>
+</a>

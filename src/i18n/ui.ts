@@ -224,7 +224,8 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   composerSubject: 'AI-Guide: idea o correzione',
   composerButton: 'Apri email',
   composerEmpty: 'Scrivi qualcosa prima di aprire la mail.',
-  composerOpenError: "Non sono riuscito ad aprire il client di posta. Scrivi direttamente a ai-guide@larosa.work.",
+  composerOpenError:
+    "Non sono riuscito ad aprire il client di posta. Prova con l'email in fondo alla pagina.",
 
   footerAbout: 'Chi sono',
   footerLinkedinAria: 'Profilo LinkedIn di Fabrizio La Rosa',
@@ -339,7 +340,8 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   composerSubject: 'AI-Guide: idea or correction',
   composerButton: 'Open email',
   composerEmpty: 'Write something before opening the email.',
-  composerOpenError: "Couldn't open your email client. Write directly to ai-guide@larosa.work.",
+  composerOpenError:
+    "Couldn't open your email client. Try the email link at the bottom of the page.",
 
   footerAbout: 'About',
   footerLinkedinAria: "Fabrizio La Rosa's LinkedIn profile",
