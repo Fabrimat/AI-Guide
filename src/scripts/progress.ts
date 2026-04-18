@@ -89,6 +89,17 @@ function isReadable(url: string): boolean {
   return parts[0] === 'it' || parts[0] === 'en';
 }
 
+function isLesson(url: string): boolean {
+  // Le lezioni vivono a `/<locale>/<modulo>/<slug>/`, tre segmenti dopo
+  // la root. Le pagine meta (about, privacy, glossary, start-here) ne
+  // hanno solo due e vanno escluse da `lastUrl`, altrimenti `<Resume>`
+  // proporrebbe di "riprendere" da una pagina di navigazione invece
+  // che dall'ultima lezione vera.
+  const parts = url.split('/').filter(Boolean);
+  if (parts.length !== 3) return false;
+  return parts[0] === 'it' || parts[0] === 'en';
+}
+
 function blank(now: string, title: string): PageRecord {
   return {
     firstVisit: now,
@@ -155,10 +166,10 @@ function flushTimeAndScroll(url: string) {
 
 function commitLastUrl(url: string) {
   // Marca la pagina come "ultima lasciata" SOLO quando l'utente la
-  // abbandona, e solo se è una pagina leggibile. Così `<Resume>` non
-  // punta mai alla pagina corrente, e il redirect alla root non
-  // sovrascrive lastUrl.
-  if (!isReadable(url)) return;
+  // abbandona, e solo se è una lezione. `<Resume>` deve far ripartire
+  // l'utente dal punto dello studio, non da una pagina di navigazione
+  // (about/privacy/glossary/start-here).
+  if (!isLesson(url)) return;
   const state = load();
   state.lastUrl = url;
   save(state);

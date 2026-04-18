@@ -60,6 +60,15 @@ const ui = t(Astro.currentLocale);
   const LOCALES = ['en', 'it'];
   const LOCALE_RE = /^\/([a-z]{2})\//;
 
+  // A lesson URL has exactly three path segments (/<locale>/<module>/<slug>/).
+  // Pages like /it/about/ or /it/privacy/ have two and shouldn't steer Resume.
+  // Kept in sync with isLesson() in src/scripts/progress.ts.
+  function isLesson(url: string): boolean {
+    const parts = url.split('/').filter(Boolean);
+    if (parts.length !== 3) return false;
+    return LOCALES.indexOf(parts[0]) !== -1;
+  }
+
   function humanizeTitle(title: string): string {
     // Rimuove il suffisso "| AI-Guide" che Starlight aggiunge ai title.
     return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
@@ -89,6 +98,7 @@ const ui = t(Astro.currentLocale);
 
     if (
       !state?.lastUrl ||
+      !isLesson(state.lastUrl) ||
       !state.pages?.[state.lastUrl] ||
       !titleEl ||
       !linkEl
