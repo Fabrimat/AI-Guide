@@ -72,14 +72,15 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    verificare a sforzo crescente, e una mentalità di chiusura ("assistente
    brillante ma incostante"). Termine "allucinazione" introdotto a metà
    come etichetta. Chiude il modulo Fondamenti e ponte verso *Uso
-   quotidiano*. Revisione ancora da fare.
+   quotidiano*. Revisione `analyze-lesson` + `integrate-questions`
+   completata (2026-04-18). Manca solo il pass `style-checker`.
 
 **Stato attuale**: 5 su 5 pubblicate. **Modulo Fondamenti completo come bozza**.
-Lezioni 1, 2, 3 e 4 hanno completato l'intero ciclo di revisione; lezione 5
-ha la revisione ancora aperta. La vecchia `cos-e-un-llm.mdx` è stata
-rinominata `come-capisce-l-ia.mdx` e riscritta da capo: il vecchio URL
-`/it/fondamenti/cos-e-un-llm/` non esiste più (per ora non è un problema, il
-sito non è ancora pubblicato).
+Lezioni 1-4 hanno completato l'intero ciclo di revisione; lezione 5 ha
+integrate-questions fatto, manca il pass finale dello `style-checker`.
+La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx`
+e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
+esiste più (per ora non è un problema, il sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -153,7 +154,7 @@ tradurre una pagina alla volta senza rompere il sito.
 Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
-- Lezione 5: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
+- Lezione 5: integrazione fatta, manca pass finale dello `style-checker`.
 
 **Prossima bozza**: nessuna nel modulo Fondamenti, è completo. Dopo le
 revisioni di 4 e 5, decidere se aprire il **modulo 2 (Uso quotidiano)** o
