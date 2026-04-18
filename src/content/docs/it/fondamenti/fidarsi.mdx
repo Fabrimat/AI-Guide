@@ -1,0 +1,107 @@
+---
+title: Quando fidarsi e quando no
+description: "L'IA sbaglia con la stessa sicurezza di quando ha ragione. Imparare a riconoscere i casi e a verificare è la differenza fra usarla bene e farsi fregare."
+livello: principiante
+prerequisiti: [cos-e-l-ia, cos-e-un-prompt, prima-conversazione, come-capisce-l-ia]
+sidebar:
+  order: 5
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+
+L'IA è convincente. Quando ti risponde, suona come una persona che sa
+quello che dice: scrive in modo fluente e articolato, senza esitazioni.
+È qui che sta il problema: quando sbaglia, lo fa con lo stesso identico
+tono di quando ha ragione. Non si capisce dall'aria della risposta.
+
+In questa lezione vediamo dove tende a sbagliare, come riconoscere quei
+casi, e cosa fare per verificare quando conta.
+
+## Quando l'IA inventa
+
+Hai visto nella lezione precedente che l'IA prevede la parola successiva
+in base a quello che ha letto. Se le chiedi qualcosa per cui non ha
+informazioni precise, riempie i buchi **con quello che è probabile, non
+con quello che è vero**.
+
+Un esempio classico: chiederle un riassunto di un libro che non esiste.
+
+<ChatDemo
+  user="Riassumimi 'L'orologiaio di Edimburgo' di Marco Castagnoli."
+  ai={`"L'orologiaio di Edimburgo" è un romanzo storico di Marco Castagnoli pubblicato nel 2017. La storia segue Aldo Bensi, un giovane apprendista orologiaio italiano che si trasferisce a Edimburgo a inizio Novecento per studiare presso un maestro scozzese. Fra dialoghi appassionanti e vicissitudini personali, il libro esplora i temi del talento, della perseveranza e dell'identità.`}
+/>
+
+Quel libro non esiste. L'autore non esiste. La trama è inventata di sana
+pianta. Eppure l'IA non ha esitato: ha scritto un riassunto perfettamente
+plausibile, con date, nomi, temi.
+
+Si chiama in gergo **"allucinazione"**. È il termine che probabilmente
+sentirai in giro. Non significa che l'IA abbia un disturbo: significa che
+sta producendo un testo che suona vero ma che non si basa su niente di
+reale.
+
+## Dove tende ad andare bene
+
+L'IA è generalmente affidabile quando:
+
+- Le chiedi di spiegarti concetti generali e ben consolidati (cos'è la
+  fotosintesi, come funziona un motore, le basi di una lingua).
+- Le dai un testo da riformulare (riassumere una email, tradurre un
+  paragrafo, riscrivere in modo più formale).
+- Le chiedi di generare una struttura (una scaletta per una presentazione,
+  una bozza di mail, una lista di idee).
+- Le chiedi di fare brainstorming (dammi dieci angolazioni diverse su un
+  problema).
+- Le chiedi di tradurre fra lingue comuni.
+
+In questi casi sta lavorando con materiale che ha visto tantissime volte
+durante l'allenamento. La probabilità che la sua scelta della parola
+giusta porti a una risposta utile è alta.
+
+## Dove tende ad andare male
+
+L'IA tende a sbagliare quando:
+
+- **Le chiedi fatti specifici e verificabili**: nomi propri, date, numeri,
+  citazioni, fonti. Spesso li inventa di sana pianta, come hai visto sopra.
+- **Le chiedi cose recenti**: l'IA è stata allenata fino a una certa data,
+  e di quello che è successo dopo non sa nulla (o ha informazioni parziali
+  da una ricerca web, se il prodotto la fa per lei).
+- **Le fai conti complicati**: per la matematica oltre l'aritmetica banale
+  spesso si confonde. Per i conti seri usa una calcolatrice, oppure
+  chiedi all'IA di spiegarti il metodo invece di fare il calcolo per te.
+- **Le chiedi cose specifiche del tuo caso che non può sapere**: i tuoi
+  conti, la tua salute, le tue email, il tuo contratto. Se non gliel'hai
+  dato in pasto tu, non lo sa.
+- **Le chiedi consulenza dove l'errore è grave**: medica, legale,
+  finanziaria. Qui l'IA può essere uno strumento di esplorazione, non
+  una sostituta di un professionista.
+
+## Come verificare quando conta
+
+Tre mosse pratiche, in ordine di sforzo crescente.
+
+1. **Per i fatti puntuali**: copia l'affermazione su un motore di ricerca
+   e controlla. Trenta secondi che ti salvano da figure brutte.
+2. **Per citazioni e fonti**: chiedi all'IA di darti la fonte esatta. Poi
+   cerca quella fonte: se non esiste, la citazione era inventata. Se
+   esiste, leggila per vedere se dice davvero quello che ti aveva
+   riportato.
+3. **Per le decisioni importanti**: l'IA ti aiuta a strutturare il
+   pensiero, ti dà angolazioni diverse, ti scrive bozze. Per la decisione
+   finale, parla con una persona competente.
+
+## Una mentalità più che una regola
+
+Il modo migliore per riassumere tutto questo: usa l'IA come un assistente
+brillante ma incostante. Ti aiuta tantissimo per quasi tutto, e ogni
+tanto ti racconta cose convincenti che però sono sbagliate. Sapere quando
+sei in quel "ogni tanto" è la differenza fra usarla bene e farsi fregare.
+
+In dubbio, verifica. La verifica è veloce per quasi tutto.
+
+## Cosa viene dopo
+
+Hai finito il modulo *Fondamenti*. Da qui in avanti il manuale entra nel
+modulo *Uso quotidiano*: come usare l'IA per scrivere meglio, riassumere
+documenti, imparare cose nuove, pianificare.

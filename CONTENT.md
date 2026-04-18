@@ -63,16 +63,21 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    tecnica a fine pagina. Riusa il `<ChatDemo>` dei buchi neri come ancora
    visiva. Revisione ancora da fare.
 
-5. ⏳ **Quando fidarsi e quando no** (`fondamenti/fidarsi`)
-   Allucinazioni con esempi concreti, come verificare, casi d'uso dove
-   conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
-   operativo per il rapporto con l'IA.
+5. ✅ **Quando fidarsi e quando no** (`fondamenti/fidarsi`)
+   Apre con il problema del "convincente anche quando sbaglia". `<ChatDemo>`
+   con riassunto di un libro inventato per mostrare un'allucinazione in
+   atto. Mappa "dove va bene / dove va male" pratica, tre mosse per
+   verificare a sforzo crescente, e una mentalità di chiusura ("assistente
+   brillante ma incostante"). Termine "allucinazione" introdotto a metà
+   come etichetta. Chiude il modulo Fondamenti e ponte verso *Uso
+   quotidiano*. Revisione ancora da fare.
 
-**Stato attuale**: 4 su 5 pubblicate. Lezioni 1, 2 e 3 hanno completato
-l'intero ciclo di revisione. Lezione 4 appena scritta, revisione ancora
-aperta. La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx`
-e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
-esiste più (per ora non è un problema, il sito non è ancora pubblicato).
+**Stato attuale**: 5 su 5 pubblicate. **Modulo Fondamenti completo come bozza**.
+Lezioni 1, 2 e 3 hanno completato l'intero ciclo di revisione; lezioni 4 e 5
+hanno la revisione ancora aperta. La vecchia `cos-e-un-llm.mdx` è stata
+rinominata `come-capisce-l-ia.mdx` e riscritta da capo: il vecchio URL
+`/it/fondamenti/cos-e-un-llm/` non esiste più (per ora non è un problema, il
+sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -147,7 +152,9 @@ Due filoni aperti, scegliere in che ordine attaccarli:
 
 **Revisioni pendenti**:
 - Lezione 4: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
+- Lezione 5: stesso giro.
 
-**Prossima bozza**: lezione 5, *"Quando fidarsi e quando no"*. Chiude il
-modulo Fondamenti. Tema: allucinazioni con esempi concreti, come verificare,
-casi d'uso dove conviene affidarsi e dove no.
+**Prossima bozza**: nessuna nel modulo Fondamenti, è completo. Dopo le
+revisioni di 4 e 5, decidere se aprire il **modulo 2 (Uso quotidiano)** o
+fare prima un giro di rifiniture: la lista provvisoria degli 8 titoli è
+ancora `🆕`, va validata o ridisegnata.
