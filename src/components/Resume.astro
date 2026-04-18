@@ -11,8 +11,9 @@
  *  - localStorage non ha dati (prima visita),
  *  - oppure l'ultima pagina coincide con quella corrente.
  *
- * Include un pulsante "Cancella progressi" che svuota la chiave dopo
- * conferma. Gesto di trasparenza richiesto dalla scelta privacy-first.
+ * Include un pulsante "Cancella progressi" che apre un modale di
+ * conferma (`<dialog>` nativo, stilizzato Pastello). Niente
+ * `window.confirm()`.
  */
 ---
 
@@ -31,6 +32,22 @@
       Cancella progressi
     </button>
   </div>
+
+  <dialog class="resume-confirm" data-resume-confirm aria-labelledby="resume-confirm-title">
+    <h2 id="resume-confirm-title">Cancellare i progressi?</h2>
+    <p>
+      Tutti i progressi salvati su questo browser verranno rimossi.
+      L'azione non si può annullare.
+    </p>
+    <div class="resume-confirm-actions">
+      <button type="button" class="btn-cancel" data-resume-cancel>
+        Annulla
+      </button>
+      <button type="button" class="btn-confirm" data-resume-confirm-yes>
+        Sì, cancella
+      </button>
+    </div>
+  </dialog>
 </div>
 
 <script>
@@ -41,10 +58,7 @@
     return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
   }
 
-  function init() {
-    const card = document.querySelector<HTMLElement>('[data-resume-card]');
-    if (!card) return;
-
+  function applyVisibility(card: HTMLElement) {
     let state: any = null;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -55,7 +69,6 @@
 
     const titleEl = card.querySelector<HTMLElement>('[data-resume-title]');
     const linkEl = card.querySelector<HTMLAnchorElement>('[data-resume-link]');
-    const resetBtn = card.querySelector<HTMLButtonElement>('[data-resume-reset]');
 
     if (
       state?.lastUrl &&
@@ -72,21 +85,70 @@
     } else {
       card.setAttribute('hidden', '');
     }
+  }
 
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        const ok = window.confirm(
-          'Cancellare i progressi salvati su questo browser? Non si può annullare.'
-        );
-        if (!ok) return;
-        try {
-          localStorage.removeItem(STORAGE_KEY);
-        } catch {
-          /* ignore */
+  function wire(card: HTMLElement) {
+    const resetBtn = card.querySelector<HTMLButtonElement>(
+      '[data-resume-reset]',
+    );
+    const dialog = card.querySelector<HTMLDialogElement>(
+      '[data-resume-confirm]',
+    );
+    const cancelBtn = card.querySelector<HTMLButtonElement>(
+      '[data-resume-cancel]',
+    );
+    const yesBtn = card.querySelector<HTMLButtonElement>(
+      '[data-resume-confirm-yes]',
+    );
+
+    if (!resetBtn || !dialog || !cancelBtn || !yesBtn) return;
+
+    resetBtn.addEventListener('click', () => {
+      // Fallback per browser molto vecchi senza <dialog>.
+      if (typeof dialog.showModal !== 'function') {
+        if (window.confirm('Cancellare i progressi salvati su questo browser?')) {
+          doReset(card);
         }
-        card.setAttribute('hidden', '');
-      });
+        return;
+      }
+      dialog.showModal();
+    });
+
+    cancelBtn.addEventListener('click', () => dialog.close());
+
+    yesBtn.addEventListener('click', () => {
+      doReset(card);
+      dialog.close();
+    });
+
+    // Click sullo sfondo (al di fuori del contenuto del dialog) → chiudi.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+
+  function doReset(card: HTMLElement) {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
     }
+    card.setAttribute('hidden', '');
+  }
+
+  function init() {
+    const card = document.querySelector<HTMLElement>('[data-resume-card]');
+    if (!card) return;
+
+    // Listener attaccati una sola volta per istanza di card.
+    // Su initial load, init() gira due volte (script bundle + astro:page-load):
+    // senza questa guardia, il click "Cancella progressi" aprirebbe due modali.
+    if (card.dataset.resumeWired !== 'true') {
+      card.dataset.resumeWired = 'true';
+      wire(card);
+    }
+
+    applyVisibility(card);
   }
 
   init();
@@ -200,6 +262,82 @@
   .resume-reset:hover {
     color: var(--sl-color-text);
     text-decoration-color: currentColor;
+  }
+
+  /* ----- Modale di conferma "Cancellare i progressi?" ----- */
+  .resume-confirm {
+    margin: auto;
+    padding: 1.5rem 1.5rem 1.25rem;
+    max-width: 28rem;
+    width: calc(100% - 2rem);
+    background: #ffffff;
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow: 0 12px 36px rgba(42, 36, 71, 0.18);
+    font-family: var(--sl-font);
+  }
+
+  .resume-confirm::backdrop {
+    background: rgba(42, 36, 71, 0.45);
+  }
+
+  .resume-confirm h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+    letter-spacing: -0.005em;
+  }
+
+  .resume-confirm p {
+    margin: 0 0 1.25rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .resume-confirm-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .resume-confirm-actions button {
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-hairline);
+  }
+
+  .btn-cancel:hover {
+    background: rgba(42, 36, 71, 0.04);
+  }
+
+  .btn-confirm {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border-color: var(--sl-color-accent);
+  }
+
+  .btn-confirm:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .resume-confirm button:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
   }
 
   @media (max-width: 600px) {
