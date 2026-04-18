@@ -1,53 +1,53 @@
 ---
 /**
- * Componente per proporre alla lettrice un'attività da fare con il proprio LLM.
+ * Card che propone alla lettrice un'attività da svolgere con il proprio LLM.
  * Mostra titolo, descrizione e pulsanti per copiare/scaricare/aprire un file
  * `.txt` di istruzioni (servito staticamente da `/public/skills/`). Plain
  * text deliberato: niente markdown grezzo nel testo che viene incollato
  * nell'IA o aperto in un editor (vale anche per il pubblico non-tecnico).
  *
  * Due varianti:
- *  - `variant="esercizio"` (default): pratica guidata. Accento coral.
+ *  - `variant="practice"` (default): pratica guidata. Accento coral.
  *    Badge: "🤖 Esercizio con la tua IA".
- *  - `variant="verifica"`: verifica dell'apprendimento a fine lezione.
+ *  - `variant="review"`: verifica dell'apprendimento a fine lezione.
  *    Accento ocra. Badge: "📝 Verifica con la tua IA".
  *
- * Il meccanismo (file scaricabile + copy + apri) è identico in entrambe.
+ * Il meccanismo (file scaricabile + copia + apri) è identico in entrambe.
  * Cambia solo il framing visivo per distinguere "fai pratica" da
  * "controlla cosa hai capito".
  *
  * Uso (in un file .mdx):
- *   <EsercizioLLM
- *     titolo="Titolo"
- *     file="nome-file.md"
- *     descrizione="Breve descrizione opzionale"
- *     variant="esercizio"  // oppure "verifica", default "esercizio"
+ *   <LlmExercise
+ *     title="Titolo"
+ *     file="nome-file.txt"
+ *     description="Breve descrizione opzionale"
+ *     variant="practice"  // oppure "review", default "practice"
  *   />
  */
 interface Props {
-  titolo: string;
+  title: string;
   file: string;
-  descrizione?: string;
-  variant?: 'esercizio' | 'verifica';
+  description?: string;
+  variant?: 'practice' | 'review';
 }
 
-const { titolo, file, descrizione, variant = 'esercizio' } = Astro.props;
+const { title, file, description, variant = 'practice' } = Astro.props;
 const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/');
 
 const labels = {
-  esercizio: { icon: '🤖', badge: 'Esercizio con la tua IA' },
-  verifica: { icon: '📝', badge: 'Verifica con la tua IA' },
+  practice: { icon: '🤖', badge: 'Esercizio con la tua IA' },
+  review: { icon: '📝', badge: 'Verifica con la tua IA' },
 } as const;
 const { icon, badge } = labels[variant];
 ---
 
-<aside class:list={['esercizio-llm', 'not-content', `is-${variant}`]}>
+<aside class:list={['llm-exercise', 'not-content', `is-${variant}`]}>
   <header>
     <span class="badge">{icon} {badge}</span>
-    <h3>{titolo}</h3>
+    <h3>{title}</h3>
   </header>
 
-  {descrizione && <p class="desc">{descrizione}</p>}
+  {description && <p class="desc">{description}</p>}
 
   <p class="howto">
     Copia il testo qui sotto e incollalo nella tua IA preferita
@@ -85,7 +85,7 @@ const { icon, badge } = labels[variant];
       await navigator.clipboard.writeText(text);
       target.textContent = '✅ Copiato!';
     } catch (err) {
-      console.error('[EsercizioLLM] copy failed:', err);
+      console.error('[LlmExercise] copy failed:', err);
       target.textContent = '❌ Errore, riprova';
     } finally {
       window.setTimeout(() => {
@@ -96,7 +96,7 @@ const { icon, badge } = labels[variant];
 </script>
 
 <style>
-  .esercizio-llm {
+  .llm-exercise {
     margin: 1.5rem 0;
     padding: 1rem 1.25rem;
     border: 1px solid var(--sl-color-accent);
@@ -104,7 +104,7 @@ const { icon, badge } = labels[variant];
     border-radius: 0.5rem;
     background: var(--sl-color-accent-low);
   }
-  .esercizio-llm header {
+  .llm-exercise header {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -116,7 +116,7 @@ const { icon, badge } = labels[variant];
     letter-spacing: 0.05em;
     color: var(--sl-color-accent-high);
   }
-  .esercizio-llm h3 {
+  .llm-exercise h3 {
     margin: 0;
     font-size: 1.15rem;
   }
@@ -163,16 +163,16 @@ const { icon, badge } = labels[variant];
     background: transparent;
   }
 
-  /* ----- Variante "verifica" -----
-     Stessa struttura della variante esercizio, ma con accento ocra
-     (riprende la palette del callout :::caution) per distinguere
-     visivamente "controlla cosa hai capito" da "fai pratica".
-     Il bottone primary resta coral per coerenza dei CTA del sito. */
-  .esercizio-llm.is-verifica {
+  /* ----- variant="review" -----
+     Stessa struttura della pratica, ma con accento ocra (riprende la
+     palette del callout :::caution) per distinguere visivamente
+     "controlla cosa hai capito" da "fai pratica". Il bottone primary
+     resta coral per coerenza dei CTA del sito. */
+  .llm-exercise.is-review {
     border-color: #d4a248;
     background: #fbe9c0;
   }
-  .esercizio-llm.is-verifica .badge {
+  .llm-exercise.is-review .badge {
     color: #8a5a18;
   }
 </style>

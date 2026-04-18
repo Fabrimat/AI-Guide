@@ -123,45 +123,45 @@ import Resume from '../../../components/Resume.astro';
 <Resume />
 ```
 
-### `<EsercizioLLM>`
+### `<LlmExercise>`
 
-Riquadro che propone alla lettrice un'attività da fare con il proprio LLM:
+Card che propone alla lettrice un'attività da svolgere con il proprio LLM:
 mostra titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file
-`.txt` con le istruzioni. Il file vive in `public/skills/<nome>.txt` (plain
+`.txt` di istruzioni. Il file vive in `public/skills/<nome>.txt` (plain
 text, niente markdown) ed è servito staticamente.
 
 Due varianti, scelte con `variant`:
 
-- `esercizio` (default): pratica guidata. Accento coral. Badge "🤖 Esercizio
+- `practice` (default): pratica guidata. Accento coral. Badge "🤖 Esercizio
   con la tua IA".
-- `verifica`: verifica dell'apprendimento a fine lezione. Accento ocra.
+- `review`: verifica dell'apprendimento a fine lezione. Accento ocra.
   Badge "📝 Verifica con la tua IA".
 
 Il meccanismo (file scaricabile + copia + apri) è identico nelle due
-varianti. Convenzione: i file di verifica si chiamano
-`verifica-<slug-lezione>.md`.
+varianti. Convenzione: i file di review si chiamano
+`verifica-<slug-lezione>.txt`.
 
-| Prop          | Tipo                            | Default       | Note                                              |
-|---------------|---------------------------------|---------------|---------------------------------------------------|
-| `titolo`      | `string`                        | —             | obbligatorio                                      |
-| `file`        | `string`                        | —             | nome del file in `public/skills/`, es. `mio.txt`  |
-| `descrizione` | `string`                        | —             | opzionale, breve descrizione sotto il titolo      |
-| `variant`     | `'esercizio' \| 'verifica'`     | `'esercizio'` | scegli il framing visivo                          |
+| Prop          | Tipo                          | Default      | Note                                              |
+|---------------|-------------------------------|--------------|---------------------------------------------------|
+| `title`       | `string`                      | —            | obbligatorio                                      |
+| `file`        | `string`                      | —            | nome del file in `public/skills/`, es. `mio.txt`  |
+| `description` | `string`                      | —            | opzionale, breve descrizione sotto il titolo      |
+| `variant`     | `'practice' \| 'review'`      | `'practice'` | scegli il framing visivo                          |
 
 ```mdx
 {/* Esercizio pratico nel corpo della lezione */}
-<EsercizioLLM
-  titolo="La tua prima conversazione consapevole"
+<LlmExercise
+  title="La tua prima conversazione consapevole"
   file="primo-esercizio.txt"
-  descrizione="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
+  description="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
 />
 
 {/* Verifica a fine lezione */}
-<EsercizioLLM
-  variant="verifica"
-  titolo="Quattro domande per fissare le idee"
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
   file="verifica-cos-e-l-ia.txt"
-  descrizione="Incolla il prompt nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
 />
 ```
 

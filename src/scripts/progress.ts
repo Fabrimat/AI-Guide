@@ -160,18 +160,18 @@ function commitLastUrl(url: string) {
 }
 
 function buttonKey(target: HTMLElement): string | null {
-  // EsercizioLLM "Copia il testo"
-  if (target.closest('button[data-copy-src]')) return 'copia';
-  // EsercizioLLM "Scarica"
-  if (target.closest('a[download]')) return 'scarica';
-  // EsercizioLLM "Apri"
-  if (target.closest('a.btn-ghost[target="_blank"]')) return 'apri';
+  // LlmExercise "Copia il testo"
+  if (target.closest('button[data-copy-src]')) return 'copy';
+  // LlmExercise "Scarica"
+  if (target.closest('a[download]')) return 'download';
+  // LlmExercise "Apri"
+  if (target.closest('a.btn-ghost[target="_blank"]')) return 'open';
   // ChatDemo "Riavvia"
   if (target.closest('[data-action="replay"]')) return 'replay';
   // Pagination "Prossima lezione"
   if (target.closest('a.next-lesson')) return 'next-lesson';
   // Resume widget "Continua"
-  if (target.closest('a[data-resume-link]')) return 'resume-continua';
+  if (target.closest('a[data-resume-link]')) return 'resume-continue';
   return null;
 }
 
