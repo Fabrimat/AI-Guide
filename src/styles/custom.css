@@ -94,7 +94,7 @@
 .sl-markdown-content li {
   line-height: 1.7;
 }
-.sl-markdown-content p + p {
+.sl-markdown-content p + p:not(:where(.not-content, .not-content *)) {
   margin-top: 0.9em;
 }
 
@@ -269,6 +269,7 @@ nav.sidebar a.lesson-completed::after {
   border-radius: 50%;
   flex-shrink: 0;
   display: block;
+  object-fit: cover;
 }
 
 .about-hero__text {
