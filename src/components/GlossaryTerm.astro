@@ -92,7 +92,11 @@ const prompt = ui.glossaryPrompt(name);
     scroll-margin-top: 1rem;
   }
 
-  .gt-name {
+  /* Specificity bump: Starlight's `.sl-markdown-content :is(h2,h3)` rule
+     adds `margin-top: 2.2em` and reaches the H3 even through `not-content`
+     (it's a descendant combinator). `.glossary-term .gt-name` has 2 classes
+     vs Starlight's 1 class + 1 element, so it wins on specificity. */
+  .glossary-term .gt-name {
     margin: 0 0 0.55rem;
     font-size: 1.1rem;
     font-weight: 700;
