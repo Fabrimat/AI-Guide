@@ -166,6 +166,20 @@
 }
 
 /* ------------------------------------------------------------
+   Sidebar: checkmark accanto alle lezioni "completate"
+   La classe `lesson-completed` viene aggiunta da `src/scripts/progress.ts`
+   ai link del sidebar che puntano a pagine con `read: true` in localStorage
+   (>= 30s sulla pagina + scroll all'80%).
+   ------------------------------------------------------------ */
+nav.sidebar a.lesson-completed > span:first-child::after {
+  content: '✓';
+  color: #6b8e6e;
+  font-weight: 700;
+  margin-inline-start: 0.45rem;
+  display: inline-block;
+}
+
+/* ------------------------------------------------------------
    Splash hero (landing): tipografia più grande, CTA pill
    ------------------------------------------------------------ */
 

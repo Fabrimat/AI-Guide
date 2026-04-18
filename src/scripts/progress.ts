@@ -135,17 +135,22 @@ function flushTimeAndScroll(url: string) {
     if (ratio >= READ_SCROLL_RATIO) page.scrolledToEnd = true;
   }
 
-  if (
+  const justBecameRead =
     !page.read &&
     isReadable(url) &&
     page.timeSpentMs >= READ_TIME_MS &&
-    page.scrolledToEnd
-  ) {
+    page.scrolledToEnd;
+
+  if (justBecameRead) {
     page.read = true;
   }
 
   state.pages[url] = page;
   save(state);
+
+  if (justBecameRead) {
+    syncSidebarCompletion();
+  }
 }
 
 function commitLastUrl(url: string) {
@@ -185,6 +190,30 @@ function recordButtonClick(url: string, key: string) {
   save(state);
 }
 
+/**
+ * Aggiunge la classe `lesson-completed` ai link del sidebar che puntano a
+ * pagine marcate come `read` in localStorage. Il CSS in custom.css aggiunge
+ * un checkmark verde dopo il titolo. Chiamata su page-load, dopo flush
+ * (quando una pagina diventa "letta" mentre la stai leggendo), e quando
+ * l'utente clicca "Cancella progressi" (via custom event).
+ */
+function syncSidebarCompletion() {
+  const state = load();
+  const links = document.querySelectorAll<HTMLAnchorElement>(
+    'nav.sidebar a[href]',
+  );
+  links.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    const page = state.pages[href];
+    if (page?.read) {
+      link.classList.add('lesson-completed');
+    } else {
+      link.classList.remove('lesson-completed');
+    }
+  });
+}
+
 function setupForCurrentPage() {
   if (perPageTeardown) {
     perPageTeardown();
@@ -201,6 +230,7 @@ function setupForCurrentPage() {
   const url = window.location.pathname;
   const title = document.title;
   recordVisit(url, title);
+  syncSidebarCompletion();
 
   pageActiveSince =
     document.visibilityState === 'visible' ? Date.now() : null;
@@ -261,3 +291,7 @@ document.addEventListener('astro:before-swap', () => {
     perPageTeardown = null;
   }
 });
+
+// Quando l'utente clicca "Cancella progressi" nel widget Resume, lo stato
+// torna a zero: aggiorna il sidebar di conseguenza.
+window.addEventListener('aiguide:progress-cleared', syncSidebarCompletion);

@@ -134,6 +134,9 @@
       /* ignore */
     }
     card.setAttribute('hidden', '');
+    // Notifica il tracker (in src/scripts/progress.ts) che lo stato è stato
+    // svuotato, così aggiorna il sidebar (rimuove i checkmark).
+    window.dispatchEvent(new Event('aiguide:progress-cleared'));
   }
 
   function init() {
