@@ -47,17 +47,17 @@ export default defineConfig({
         {
           label: 'Inizia qui',
           translations: { en: 'Start here' },
-          slug: 'inizia-qui',
+          slug: 'start-here',
         },
         {
           label: 'Fondamenti',
           translations: { en: 'Fundamentals' },
-          autogenerate: { directory: 'fondamenti' },
+          autogenerate: { directory: 'fundamentals' },
         },
         {
           label: 'Glossario',
           translations: { en: 'Glossary' },
-          slug: 'glossario',
+          slug: 'glossary',
         },
       ],
 
