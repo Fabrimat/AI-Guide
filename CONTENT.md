@@ -55,21 +55,24 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    ("Tre situazioni tipiche" mentre la lista era cresciuta a quattro
    bullet), corretta in "Le situazioni più comuni".
 
-4. ⏳ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
-   Riscrittura alleggerita dell'attuale `fondamenti/cos-e-un-llm`. Indovina
-   la parola successiva, impara da molti testi, non sa davvero, non ha
-   memoria. Il termine "LLM" arriva solo alla fine come etichetta, non in
-   apertura.
+4. ✅ **Come fa l'IA a "capire"?** (`fondamenti/come-capisce-l-ia`)
+   Spiegazione del meccanismo "una parola alla volta", come ha imparato
+   (testo enorme, schemi non memorie), tre conseguenze pratiche per il
+   lettore (non sa, contesto conta, memoria solo nella stessa chat),
+   perché sembra intelligente, e infine il termine "LLM" come etichetta
+   tecnica a fine pagina. Riusa il `<ChatDemo>` dei buchi neri come ancora
+   visiva. Revisione ancora da fare.
 
 5. ⏳ **Quando fidarsi e quando no** (`fondamenti/fidarsi`)
    Allucinazioni con esempi concreti, come verificare, casi d'uso dove
    conviene affidarsi e dove no. Chiude il modulo dando al lettore un modello
    operativo per il rapporto con l'IA.
 
-**Stato attuale**: 3 su 5 pubblicate. Lezioni 1, 2 e 3 hanno completato
-l'intero ciclo di revisione. La vecchia `cos-e-un-llm.mdx` resta in sidebar
-a `order: 10` come placeholder, sarà sostituita dalla lezione 4 quando ci
-arriveremo.
+**Stato attuale**: 4 su 5 pubblicate. Lezioni 1, 2 e 3 hanno completato
+l'intero ciclo di revisione. Lezione 4 appena scritta, revisione ancora
+aperta. La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx`
+e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
+esiste più (per ora non è un problema, il sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -142,9 +145,9 @@ tradurre una pagina alla volta senza rompere il sito.
 
 Due filoni aperti, scegliere in che ordine attaccarli:
 
-**Revisioni pendenti**: nessuna. Le tre lezioni pubblicate hanno chiuso
-l'intero ciclo `analyze-lesson` + `integrate-questions` + `style-checker`.
+**Revisioni pendenti**:
+- Lezione 4: da lanciare `/analyze-lesson` + `/integrate-questions` + `style-checker`.
 
-**Prossima bozza**: lezione 4, *"Come fa l'IA a 'capire'?"*. Riscrittura
-alleggerita dell'attuale `cos-e-un-llm.mdx`. A quel punto rinomineremo il
-file (slug a `come-capisce-l-ia`) e ridaremo `sidebar.order: 4`.
+**Prossima bozza**: lezione 5, *"Quando fidarsi e quando no"*. Chiude il
+modulo Fondamenti. Tema: allucinazioni con esempi concreti, come verificare,
+casi d'uso dove conviene affidarsi e dove no.

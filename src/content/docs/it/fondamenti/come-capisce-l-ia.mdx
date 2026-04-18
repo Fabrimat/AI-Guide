@@ -1,0 +1,95 @@
+---
+title: Come fa l'IA a "capire"?
+description: "Uno sguardo dietro le quinte. L'IA non capisce davvero: indovina la parola successiva, una alla volta. Ma indovina così bene che a volte sembra magia."
+livello: principiante
+prerequisiti: [cos-e-l-ia, cos-e-un-prompt, prima-conversazione]
+sidebar:
+  order: 4
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+
+Hai aperto un'IA, le hai scritto, ti ha risposto in modo sensato. La
+domanda naturale è: come fa? Sotto il cofano non c'è nessuno che pensa,
+nessuna intelligenza nel senso umano. C'è un meccanismo abbastanza semplice
+da capire, ma sorprendentemente potente.
+
+## Una parola alla volta
+
+Il cuore di un'IA conversazionale è una sola operazione: **prevedere quale
+sarà la parola successiva**.
+
+Quando le scrivi una domanda, l'IA legge tutto quello che hai scritto e
+sceglie quale parola mettere per prima nella risposta. Poi rilegge tutto
+(la tua domanda più la sua prima parola) e sceglie la seconda. Poi la
+terza. Una parola alla volta, fino a chiudere la risposta.
+
+<ChatDemo
+  user="Mi spieghi in due frasi cos'è un buco nero?"
+  ai={`Un buco nero è una regione dello spaziotempo dove la gravità è così forte che nulla, nemmeno la luce, può sfuggirle. Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa sotto il proprio peso.`}
+/>
+
+Vista dall'esterno è una risposta articolata. Vista dall'interno è la
+stessa scelta ripetuta una parola dopo l'altra: "Date tutte queste parole,
+qual è quella che ha più senso mettere ora?"
+
+## Come ha imparato a indovinare bene
+
+Per scegliere la parola giusta, l'IA è stata allenata leggendo **enormi
+quantità di testo**: libri, articoli, pagine internet, codice,
+conversazioni. Centinaia di miliardi di parole. Da tutto quel materiale
+ha imparato schemi: come si costruiscono le frasi italiane, quali parole
+vanno tipicamente vicine, come si argomenta su un tema, come si risponde
+in modo educato, quali sono le risposte più frequenti a una domanda di
+matematica.
+
+Non ha memorizzato i testi: non sono dentro di lei come in un database.
+Ha imparato la "musica" di come funziona il linguaggio, e da lì
+ricostruisce ogni volta.
+
+## Tre conseguenze che cambiano come la userai
+
+Sapere com'è fatta dietro le quinte aiuta a capire perché si comporta come
+si comporta.
+
+1. **Non "sa" niente, stima.** Quando ti risponde non sta consultando un
+   archivio di verità. Sta scegliendo le parole più probabili date la tua
+   domanda e quello che ha imparato. Spesso azzecca. Quando sbaglia,
+   sbaglia con la stessa sicurezza.
+
+2. **Più contesto le dai, meglio risponde.** Ogni informazione utile che
+   aggiungi al prompt restringe il campo delle parole probabili e la
+   spinge verso una risposta più adatta a te. È il motivo per cui un
+   prompt chiaro funziona meglio di uno vago, come hai visto nella lezione
+   precedente.
+
+3. **Non si ricorda di te fra una chat e l'altra.** Ogni nuova
+   conversazione parte da zero. Dentro la stessa chat invece ricorda tutto
+   quello che vi siete detti, perché lo rilegge ogni volta come parte
+   della "domanda" su cui basare la prossima parola.
+
+## Allora perché sembra così intelligente?
+
+Perché lo scopo per cui è stata addestrata, scegliere bene la parola
+successiva, si avvicina molto a "scrivere bene". E scrivere bene su un
+argomento richiede di averci capito qualcosa. Quindi un'IA che prevede
+parole eccellenti finisce per produrre ragionamenti che, in superficie,
+sembrano eccellenti ragionamenti.
+
+A volte lo sono davvero. A volte sono parole che si incatenano bene fra
+loro ma che, se le verifichi, si rivelano sbagliate. Distinguere i due
+casi è il tema della prossima lezione.
+
+## Una parola tecnica, se ti capita di sentirla
+
+Le IA conversazionali che abbiamo descritto si chiamano in gergo **LLM**,
+da *Large Language Model*: "modello linguistico di grandi dimensioni".
+"Grande" perché hanno letto tantissimo testo durante l'allenamento e
+perché il modello matematico che le fa funzionare è enorme. Quando senti
+"LLM" riferito a ChatGPT o Claude o Gemini, stai parlando proprio di
+questo.
+
+## Cosa viene dopo
+
+- **Quando fidarsi e quando no**: come riconoscere quando l'IA sta
+  inventando, e come verificare le risposte importanti.
