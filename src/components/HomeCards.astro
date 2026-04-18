@@ -120,12 +120,16 @@ const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
       0 14px 32px rgba(42, 36, 71, 0.09);
   }
 
-  .home-card.is-coming {
-    opacity: 0.85;
-  }
-
   .home-card-icon {
     margin-bottom: 0.7rem;
+    transition: transform 180ms ease;
+  }
+  a.home-card:hover .home-card-icon {
+    transform: scale(1.08);
+  }
+
+  .home-card.is-coming {
+    opacity: 0.85;
   }
 
   .home-card-title {

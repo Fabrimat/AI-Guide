@@ -31,3 +31,14 @@ const { user, domain, class: className } = Astro.props;
 >
   <span data-oe-fallback>{user} [at] {domain}</span>
 </a>
+
+<style>
+  a.obfuscated-email {
+    cursor: pointer;
+    border-radius: 0.25rem;
+  }
+  a.obfuscated-email:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+</style>
