@@ -17,6 +17,7 @@ import { t, getLocale } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 const locale = getLocale(Astro.currentLocale);
 const aboutHref = `/${locale}/about/`;
+const privacyHref = `/${locale}/privacy/`;
 const currentYear = new Date().getFullYear();
 
 const LINKEDIN_URL = 'https://linkedin.com/in/fabriziolarosa';
@@ -40,6 +41,8 @@ const MAIL_DOMAIN = 'larosa.work';
 <div class="ai-guide-footer not-content">
   <div class="agf-row">
     <a class="agf-about" href={aboutHref}>{ui.footerAbout}</a>
+    <span class="agf-sep" aria-hidden="true">·</span>
+    <a class="agf-about" href={privacyHref}>{ui.footerPrivacy}</a>
     <span class="agf-tagline">{ui.footerTagline}</span>
   </div>
 

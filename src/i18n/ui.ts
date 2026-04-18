@@ -112,6 +112,7 @@ export interface UIStrings {
 
   // Footer
   footerAbout: string;
+  footerPrivacy: string;
   footerLinkedinAria: string;
   footerEmailAria: string;
   footerSiteAria: string;
@@ -231,6 +232,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
     "Non sono riuscito ad aprire il client di posta. Prova con l'email in fondo alla pagina.",
 
   footerAbout: 'Chi sono',
+  footerPrivacy: 'Privacy',
   footerLinkedinAria: 'Profilo LinkedIn di Fabrizio La Rosa',
   footerEmailAria: 'Scrivi una mail ad AI-Guide',
   footerSiteAria: 'Sito personale di Fabrizio La Rosa',
@@ -350,6 +352,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
     "Couldn't open your email client. Try the email link at the bottom of the page.",
 
   footerAbout: 'About',
+  footerPrivacy: 'Privacy',
   footerLinkedinAria: "Fabrizio La Rosa's LinkedIn profile",
   footerEmailAria: 'Send an email to AI-Guide',
   footerSiteAria: "Fabrizio La Rosa's personal site",
