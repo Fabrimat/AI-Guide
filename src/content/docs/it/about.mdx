@@ -3,15 +3,18 @@ title: Chi sono
 description: AI-Guide è scritto da Fabrizio La Rosa. Ecco cosa faccio, da dove vengo, e perché ho deciso di scrivere questo manuale.
 ---
 
+import { Image } from 'astro:assets';
 import MailtoComposer from '../../../components/MailtoComposer.astro';
+import avatar from '../../../assets/about/avatar.png';
 
 <div class="about-hero not-content">
-  <img
-    src="/about/avatar.png"
+  <Image
+    src={avatar}
     alt="Foto di Fabrizio La Rosa"
     class="about-hero__avatar"
-    width="96"
-    height="96"
+    width={96}
+    height={96}
+    densities={[1, 2]}
     loading="lazy"
   />
   <div class="about-hero__text">

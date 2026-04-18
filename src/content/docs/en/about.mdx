@@ -3,15 +3,18 @@ title: About
 description: AI-Guide is written by Fabrizio La Rosa. Here's what I do, where I come from, and why I decided to write this manual.
 ---
 
+import { Image } from 'astro:assets';
 import MailtoComposer from '../../../components/MailtoComposer.astro';
+import avatar from '../../../assets/about/avatar.png';
 
 <div class="about-hero not-content">
-  <img
-    src="/about/avatar.png"
+  <Image
+    src={avatar}
     alt="Photo of Fabrizio La Rosa"
     class="about-hero__avatar"
-    width="96"
-    height="96"
+    width={96}
+    height={96}
+    densities={[1, 2]}
     loading="lazy"
   />
   <div class="about-hero__text">
