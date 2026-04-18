@@ -1,0 +1,51 @@
+---
+/**
+ * Stima il tempo di lettura della pagina e lo mostra come riga meta
+ * sotto il titolo. Calcolato lato client contando le parole di
+ * `.sl-markdown-content` (220 parole/minuto, media italiana per
+ * lettura "tranquilla, non scanning").
+ *
+ * Pensato per essere iniettato dall'override di `PageTitle` solo
+ * sulle pagine "lezione" (quelle con `livello` nel frontmatter).
+ */
+---
+
+<p class="reading-time" data-reading-time aria-label="Tempo di lettura stimato">
+  <span data-reading-minutes>~</span> min di lettura
+</p>
+
+<script>
+  const WORDS_PER_MINUTE = 220;
+
+  function compute() {
+    const el = document.querySelector<HTMLElement>('[data-reading-time]');
+    if (!el) return;
+    const content = document.querySelector('.sl-markdown-content');
+    if (!content) {
+      el.style.display = 'none';
+      return;
+    }
+    const text = content.textContent || '';
+    const words = text.trim().split(/\s+/).filter((w) => w.length > 0).length;
+    if (words === 0) {
+      el.style.display = 'none';
+      return;
+    }
+    const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+    const target = el.querySelector<HTMLElement>('[data-reading-minutes]');
+    if (target) target.textContent = String(minutes);
+  }
+
+  compute();
+  document.addEventListener('astro:page-load', compute);
+</script>
+
+<style>
+  .reading-time {
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+    margin: 0.35rem 0 0;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+</style>

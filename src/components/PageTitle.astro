@@ -1,0 +1,20 @@
+---
+/**
+ * Override di Starlight `PageTitle`. Aggiunge la riga "X min di lettura"
+ * subito sotto l'H1, ma solo sulle pagine che hanno `livello` nel
+ * frontmatter (cioè le lezioni). Splash hero e pagine senza livello
+ * dichiarato restano com'erano.
+ *
+ * Il calcolo del tempo è lato client: vedi `ReadingTime.astro`.
+ */
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import ReadingTime from './ReadingTime.astro';
+
+const route = Astro.locals.starlightRoute;
+// `livello` è il nostro campo custom per marcare le pagine lezione.
+const livello = (route?.entry?.data as { livello?: string } | undefined)?.livello;
+const isLessonPage = Boolean(livello);
+---
+
+<Default><slot /></Default>
+{isLessonPage && <ReadingTime />}

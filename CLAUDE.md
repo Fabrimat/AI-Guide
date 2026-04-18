@@ -56,6 +56,7 @@ Lo schema è validato in `src/content.config.ts`.
 - **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/<lingua>/`.
 - **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
+- **Tempo di lettura stimato** sotto l'H1 di ogni lezione, calcolato lato client da `src/components/ReadingTime.astro` (220 parole/minuto sul testo di `.sl-markdown-content`). Iniettato dall'override di `PageTitle` (`src/components/PageTitle.astro`) solo sulle pagine con `livello` nel frontmatter, così la splash hero non lo riceve.
 - **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
 - **Tracker dei progressi** (`src/scripts/progress.ts`): caricato via `Head.astro` su ogni pagina. Registra in `localStorage` (chiave `aiguide:progress:v1`) visite/tempo/scroll/letture/click sui pulsanti. **Niente backend, niente cookie, niente analytics terze: tutto resta sul browser dell'utente.** Il componente `<Resume>` (vedi catalogo sotto) lo consuma per mostrare "Riprendi da dove hai lasciato".
 
