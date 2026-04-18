@@ -1,29 +1,47 @@
 ---
 /**
- * Componente per proporre un esercizio da fare con il proprio LLM.
- * Mostra titolo, descrizione, e pulsanti per copiare / scaricare / aprire
- * il prompt (servito come file .md statico da /public/skills/).
+ * Componente per proporre alla lettrice un'attività da fare con il proprio LLM.
+ * Mostra titolo, descrizione e pulsanti per copiare/scaricare/aprire un file
+ * `.md` con il prompt (servito staticamente da `/public/skills/`).
+ *
+ * Due varianti:
+ *  - `variant="esercizio"` (default): pratica guidata. Accento coral.
+ *    Badge: "🤖 Esercizio con la tua IA".
+ *  - `variant="verifica"`: verifica dell'apprendimento a fine lezione.
+ *    Accento ocra. Badge: "📝 Verifica con la tua IA".
+ *
+ * Il meccanismo (file scaricabile + copy + apri) è identico in entrambe.
+ * Cambia solo il framing visivo per distinguere "fai pratica" da
+ * "controlla cosa hai capito".
  *
  * Uso (in un file .mdx):
  *   <EsercizioLLM
- *     titolo="Titolo esercizio"
+ *     titolo="Titolo"
  *     file="nome-file.md"
  *     descrizione="Breve descrizione opzionale"
+ *     variant="esercizio"  // oppure "verifica", default "esercizio"
  *   />
  */
 interface Props {
   titolo: string;
   file: string;
   descrizione?: string;
+  variant?: 'esercizio' | 'verifica';
 }
 
-const { titolo, file, descrizione } = Astro.props;
+const { titolo, file, descrizione, variant = 'esercizio' } = Astro.props;
 const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/');
+
+const labels = {
+  esercizio: { icon: '🤖', badge: 'Esercizio con la tua IA' },
+  verifica: { icon: '📝', badge: 'Verifica con la tua IA' },
+} as const;
+const { icon, badge } = labels[variant];
 ---
 
-<aside class="esercizio-llm not-content">
+<aside class:list={['esercizio-llm', 'not-content', `is-${variant}`]}>
   <header>
-    <span class="badge">🤖 Esercizio con la tua IA</span>
+    <span class="badge">{icon} {badge}</span>
     <h3>{titolo}</h3>
   </header>
 
@@ -141,5 +159,18 @@ const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/')
   }
   .btn-ghost {
     background: transparent;
+  }
+
+  /* ----- Variante "verifica" -----
+     Stessa struttura della variante esercizio, ma con accento ocra
+     (riprende la palette del callout :::caution) per distinguere
+     visivamente "controlla cosa hai capito" da "fai pratica".
+     Il bottone primary resta coral per coerenza dei CTA del sito. */
+  .esercizio-llm.is-verifica {
+    border-color: #d4a248;
+    background: #fbe9c0;
+  }
+  .esercizio-llm.is-verifica .badge {
+    color: #8a5a18;
   }
 </style>

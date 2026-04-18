@@ -103,22 +103,43 @@ import NomeComponente from '../../../../components/NomeComponente.astro';
 
 ### `<EsercizioLLM>`
 
-Riquadro che propone un esercizio pratico da fare con il proprio LLM. Mostra
-titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file `.md` con
-il prompt dell'esercizio. Il file vive in `public/skills/<nome>.md` ed è servito
+Riquadro che propone alla lettrice un'attività da fare con il proprio LLM:
+mostra titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file
+`.md` con il prompt. Il file vive in `public/skills/<nome>.md` ed è servito
 staticamente.
 
-| Prop          | Tipo     | Default | Note                                                  |
-|---------------|----------|---------|-------------------------------------------------------|
-| `titolo`      | `string` | —       | obbligatorio                                          |
-| `file`        | `string` | —       | nome del file in `public/skills/`, es. `mio-es.md`    |
-| `descrizione` | `string` | —       | opzionale, breve descrizione sotto il titolo         |
+Due varianti, scelte con `variant`:
+
+- `esercizio` (default): pratica guidata. Accento coral. Badge "🤖 Esercizio
+  con la tua IA".
+- `verifica`: verifica dell'apprendimento a fine lezione. Accento ocra.
+  Badge "📝 Verifica con la tua IA".
+
+Il meccanismo (file scaricabile + copia + apri) è identico nelle due
+varianti. Convenzione: i file di verifica si chiamano
+`verifica-<slug-lezione>.md`.
+
+| Prop          | Tipo                            | Default       | Note                                              |
+|---------------|---------------------------------|---------------|---------------------------------------------------|
+| `titolo`      | `string`                        | —             | obbligatorio                                      |
+| `file`        | `string`                        | —             | nome del file in `public/skills/`, es. `mio.md`   |
+| `descrizione` | `string`                        | —             | opzionale, breve descrizione sotto il titolo      |
+| `variant`     | `'esercizio' \| 'verifica'`     | `'esercizio'` | scegli il framing visivo                          |
 
 ```mdx
+{/* Esercizio pratico nel corpo della lezione */}
 <EsercizioLLM
   titolo="La tua prima conversazione consapevole"
   file="primo-esercizio.md"
   descrizione="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
+/>
+
+{/* Verifica a fine lezione */}
+<EsercizioLLM
+  variant="verifica"
+  titolo="Quattro domande per fissare le idee"
+  file="verifica-cos-e-l-ia.md"
+  descrizione="Incolla il prompt nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
 />
 ```
 
