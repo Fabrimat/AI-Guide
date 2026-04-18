@@ -150,6 +150,47 @@ import GlossaryTerm from '../../../components/GlossaryTerm.astro';
 
 Pagina di riferimento: `src/content/docs/it/glossary.mdx`.
 
+### `<Def>`
+
+Termine inline cliccabile con una breve spiegazione in popover. Pensato
+per le lezioni: quando nel testo compare una parola che potrebbe non
+essere familiare, la si avvolge in `<Def>` e il lettore al click o al
+passaggio del mouse vede la definizione senza lasciare la pagina.
+
+La parola è evidenziata nel testo con sottolineatura tratteggiata
+coral (stesso colore dei link nel corpo). Il popover appare sotto al
+termine, max 280px, con background bianco e bordo hairline. Coerente
+con la palette Pastello, indipendente dal `<GlossaryTerm>` (che resta
+dedicato alla pagina Glossary dove compare l'elenco completo con
+prompt "Spiegamelo meglio con la tua IA").
+
+Comportamento:
+- hover desktop e focus da tastiera: popover aperto via CSS.
+- click / tap: toggle persistente (resta aperto finché l'utente clicca
+  fuori o preme Escape).
+
+A11y: il termine è un `<button>` (focusable nativo), con
+`aria-expanded` sincronizzato e `aria-describedby` che collega al
+popover (`role="tooltip"`).
+
+| Prop          | Tipo     | Default | Note                                                                 |
+|---------------|----------|---------|----------------------------------------------------------------------|
+| `explanation` | `string` | —       | obbligatorio, testo puro. Per markup (link, grassetto) rinegoziare il componente con uno slot. |
+
+Il termine visibile passa come child.
+
+```mdx
+import Def from '../../../../components/Def.astro';
+
+Un <Def explanation="Il programma matematico dietro all'IA.">modello</Def>
+è l'insieme di formule matematiche che fa funzionare una IA
+conversazionale.
+```
+
+Nota sulla profondità di import: dentro una lezione a
+`src/content/docs/it/<sezione>/<slug>.mdx` il path è
+`../../../../components/Def.astro` (quattro livelli di risalita).
+
 ### `<RecapWithAi>`
 
 Card che trasforma la tua IA in un tutor delle lezioni che hai

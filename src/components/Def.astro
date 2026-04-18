@@ -1,0 +1,210 @@
+---
+/**
+ * Def: termine inline cliccabile con una breve spiegazione in popover.
+ *
+ * Pattern familiare del dizionario/enciclopedia: la parola è evidenziata
+ * con una sottolineatura tratteggiata coral (stesso colore dei link nel
+ * corpo testo), al passaggio del mouse o click compare un popover con
+ * la definizione.
+ *
+ * API minimale: l'autore passa la spiegazione come prop `explanation`
+ * (stringa) e il termine come child. Per definizioni più articolate o
+ * con link, estendere in futuro con uno slot dedicato.
+ *
+ * Comportamento:
+ *  - hover (desktop): popover via CSS :hover, niente JS richiesto.
+ *  - click / tap (mobile): toggle `is-open`, persiste finché l'utente
+ *    clicca fuori o preme Escape.
+ *  - focus da tastiera: popover via `:focus-within`, accessibile.
+ *
+ * A11y: il termine è reso come `<button>` (nativamente focusable e
+ * keyboard-friendly), con `aria-expanded` e `aria-describedby` che
+ * collega al popover (`role="tooltip"`).
+ */
+interface Props {
+  explanation: string;
+}
+
+const { explanation } = Astro.props;
+
+// Id univoco per `aria-describedby`. Non serve determinismo cross-build
+// perché l'associazione vive solo dentro la stessa pagina.
+const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+<span class="def-wrap" data-def-wrap>
+  <button
+    type="button"
+    class="def-term"
+    aria-expanded="false"
+    aria-describedby={popoverId}
+    data-def-term
+  >
+    <slot />
+  </button>
+  <span class="def-pop" id={popoverId} role="tooltip">
+    {explanation}
+  </span>
+</span>
+
+<script>
+  function wireLocalButtons() {
+    const wraps = document.querySelectorAll<HTMLElement>('[data-def-wrap]');
+    wraps.forEach((wrap) => {
+      if (wrap.dataset.defWired === 'true') return;
+      wrap.dataset.defWired = 'true';
+      const btn = wrap.querySelector<HTMLButtonElement>('[data-def-term]');
+      if (!btn) return;
+
+      btn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = !wrap.classList.contains('is-open');
+        closeAll();
+        if (willOpen) {
+          wrap.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  function closeAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-def-wrap].is-open')
+      .forEach((wrap) => {
+        wrap.classList.remove('is-open');
+        const btn = wrap.querySelector<HTMLButtonElement>('[data-def-term]');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+  }
+
+  // I listener globali vanno attaccati una sola volta per sessione,
+  // anche attraverso le view transitions di Astro.
+  const marker = '__aiguideDefGlobalsWired';
+  if (!(window as unknown as Record<string, unknown>)[marker]) {
+    (window as unknown as Record<string, unknown>)[marker] = true;
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest('[data-def-wrap]')) {
+        return;
+      }
+      closeAll();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeAll();
+    });
+  }
+
+  wireLocalButtons();
+  document.addEventListener('astro:page-load', wireLocalButtons);
+</script>
+
+<style>
+  .def-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .def-term {
+    /* Reset degli stili di default del button. */
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    line-height: inherit;
+
+    color: var(--sl-color-text-accent);
+    cursor: help;
+    text-decoration: underline dotted var(--sl-color-accent);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+  }
+
+  .def-term:hover {
+    color: var(--sl-color-accent-high);
+    text-decoration-color: var(--sl-color-accent-high);
+  }
+
+  .def-term:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.15rem;
+  }
+
+  .def-pop {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 20;
+
+    min-width: 180px;
+    max-width: min(280px, calc(100vw - 2rem));
+    padding: 0.6rem 0.75rem;
+
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    box-shadow:
+      0 2px 8px rgba(42, 36, 71, 0.06),
+      0 10px 28px rgba(42, 36, 71, 0.08);
+
+    color: var(--sl-color-text);
+    font-size: 0.88rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    white-space: normal;
+
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease,
+      visibility 0s linear 0.15s;
+    pointer-events: none;
+  }
+
+  /* Piccolo arrow in alto a sinistra. */
+  .def-pop::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 1rem;
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-left: 1px solid var(--sl-color-hairline);
+    border-top: 1px solid var(--sl-color-hairline);
+    transform: rotate(45deg);
+  }
+
+  .def-wrap:hover .def-pop,
+  .def-wrap.is-open .def-pop,
+  .def-wrap:focus-within .def-pop {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease,
+      visibility 0s linear 0s;
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .def-pop {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .def-pop {
+      max-width: calc(100vw - 1.5rem);
+    }
+  }
+</style>
