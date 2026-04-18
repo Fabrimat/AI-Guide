@@ -109,12 +109,21 @@ const ui = t(Astro.currentLocale);
       return;
     }
 
-    // Title preference: if the user has already visited the localized
-    // counterpart, use that title (it's in their current language).
-    // Otherwise fall back to the title of the page they actually read.
+    // Title preference, in order:
+    //  1. The build-time title map for the target URL (always in the
+    //     current locale, even if the user never visited that page).
+    //  2. The title saved in localStorage for the localized URL (if the
+    //     user did visit it once).
+    //  3. The title of the original URL (last resort: shows the language
+    //     they actually read in).
+    const titleMap = (window as any).__AIGUIDE_TITLES__ as
+      | Record<string, string>
+      | undefined;
+    const buildTitle = titleMap?.[targetUrl];
     const localizedPage = state.pages[targetUrl];
     const sourcePage = state.pages[state.lastUrl];
-    const rawTitle = localizedPage?.title || sourcePage?.title || '';
+    const rawTitle =
+      buildTitle || localizedPage?.title || sourcePage?.title || '';
     const fallback = card.dataset.i18nFallbackTitle || '';
     titleEl.textContent = humanizeTitle(rawTitle) || fallback;
     linkEl.setAttribute('href', targetUrl);

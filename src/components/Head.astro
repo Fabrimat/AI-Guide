@@ -2,7 +2,7 @@
 /**
  * Override del componente Head di Starlight.
  *
- * Fa tre cose:
+ * Fa quattro cose:
  *  1. Blocca il tema su "light" prima che il resto del JS si carichi
  *     (il sito ha una sola palette, "Pastello", quindi non ha senso
  *     persistere o offrire dark mode).
@@ -12,9 +12,25 @@
  *  3. Carica il tracker di progresso (vedi `src/scripts/progress.ts`).
  *     Tutto in localStorage, nessun dato lascia il browser. Serve
  *     al componente `<Resume>` per il "riprendi da dove hai lasciato".
+ *  4. Inietta `window.__AIGUIDE_TITLES__`, una mappa URL → titolo per
+ *     ogni pagina del sito in ogni lingua. Usata da `<Resume>` e
+ *     `<RecapWithAi>` per mostrare il titolo nel locale corrente anche
+ *     se l'utente non ha mai visitato quella pagina in quella lingua.
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('docs');
+const titleMap: Record<string, string> = {};
+for (const entry of entries) {
+  if (!entry.data.title) continue;
+  // Routing di Starlight: /<id>/ per pagine normali, /<locale>/ per
+  // <locale>/index. Normalizziamo entrambi i casi.
+  let url = `/${entry.id}/`.replace(/\/+/g, '/');
+  url = url.replace(/\/index\/$/, '/');
+  titleMap[url] = entry.data.title;
+}
 ---
 
 <script is:inline>
@@ -26,6 +42,10 @@ import { ClientRouter } from 'astro:transitions';
   } catch (_) {
     /* localStorage non disponibile (browser privato): ignora. */
   }
+</script>
+
+<script is:inline define:vars={{ titleMap }}>
+  window.__AIGUIDE_TITLES__ = titleMap;
 </script>
 
 <Default><slot /></Default>

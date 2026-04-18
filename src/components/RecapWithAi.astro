@@ -111,6 +111,9 @@ const ui = t(Astro.currentLocale);
       // each lesson twice would be noise. The summary lookup later keys
       // on the rewritten URL, so the prompt also speaks the right language.
       const currentLocale = detectCurrentLocale();
+      const titleMap = (window as any).__AIGUIDE_TITLES__ as
+        | Record<string, string>
+        | undefined;
       const seen = new Set<string>();
       const completed: Lesson[] = [];
 
@@ -127,12 +130,14 @@ const ui = t(Astro.currentLocale);
         if (seen.has(targetUrl)) continue;
         seen.add(targetUrl);
 
-        // Prefer the title of the page in the current locale (if the
-        // user has visited it); fall back to the title actually read.
+        // Title preference: build-time map first (always localized),
+        // then the title saved in localStorage for the localized URL,
+        // then the title actually read (last-resort fallback).
+        const buildTitle = titleMap?.[targetUrl];
         const localizedTitle = state.pages[targetUrl]?.title;
         completed.push({
           url: targetUrl,
-          title: humanize(localizedTitle || page.title),
+          title: humanize(buildTitle || localizedTitle || page.title),
         });
       }
       return completed;
