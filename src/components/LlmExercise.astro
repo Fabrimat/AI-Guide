@@ -28,17 +28,23 @@ interface Props {
   title: string;
   file: string;
   description?: string;
+  /**
+   * Stima del tempo per completare l'attività, da indicare in formato
+   * "X min" o "X-Y min" (es. "5 min", "5-7 min", "10 min"). Mostrata
+   * sotto il titolo come "X min di esercizio" / "X min di verifica".
+   */
+  duration?: string;
   variant?: 'practice' | 'review';
 }
 
-const { title, file, description, variant = 'practice' } = Astro.props;
+const { title, file, description, duration, variant = 'practice' } = Astro.props;
 const fileUrl = `${import.meta.env.BASE_URL}skills/${file}`.replace(/\/+/g, '/');
 
 const labels = {
-  practice: { icon: '🤖', badge: 'Esercizio con la tua IA' },
-  review: { icon: '📝', badge: 'Verifica con la tua IA' },
+  practice: { icon: '🤖', badge: 'Esercizio con la tua IA', durationSuffix: 'di esercizio' },
+  review: { icon: '📝', badge: 'Verifica con la tua IA', durationSuffix: 'di verifica' },
 } as const;
-const { icon, badge } = labels[variant];
+const { icon, badge, durationSuffix } = labels[variant];
 ---
 
 <aside class:list={['llm-exercise', 'not-content', `is-${variant}`]}>
@@ -46,6 +52,8 @@ const { icon, badge } = labels[variant];
     <span class="badge">{icon} {badge}</span>
     <h3>{title}</h3>
   </header>
+
+  {duration && <p class="duration">{duration} {durationSuffix}</p>}
 
   {description && <p class="desc">{description}</p>}
 
@@ -119,6 +127,13 @@ const { icon, badge } = labels[variant];
   .llm-exercise h3 {
     margin: 0;
     font-size: 1.15rem;
+  }
+  .duration {
+    margin: 0.4rem 0 0;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+    font-weight: 500;
+    letter-spacing: 0.01em;
   }
   .desc {
     margin: 0.5rem 0 0;

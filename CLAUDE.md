@@ -142,18 +142,20 @@ Il meccanismo (file scaricabile + copia + apri) è identico nelle due
 varianti. Convenzione: i file di review si chiamano
 `verifica-<slug-lezione>.txt`.
 
-| Prop          | Tipo                          | Default      | Note                                              |
-|---------------|-------------------------------|--------------|---------------------------------------------------|
-| `title`       | `string`                      | —            | obbligatorio                                      |
-| `file`        | `string`                      | —            | nome del file in `public/skills/`, es. `mio.txt`  |
-| `description` | `string`                      | —            | opzionale, breve descrizione sotto il titolo      |
-| `variant`     | `'practice' \| 'review'`      | `'practice'` | scegli il framing visivo                          |
+| Prop          | Tipo                          | Default      | Note                                                                              |
+|---------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
+| `title`       | `string`                      | —            | obbligatorio                                                                      |
+| `file`        | `string`                      | —            | nome del file in `public/skills/`, es. `mio.txt`                                  |
+| `description` | `string`                      | —            | opzionale, breve descrizione sotto il titolo                                      |
+| `duration`    | `string`                      | —            | opzionale, formato `"X min"` o `"X-Y min"` (es. `"5-7 min"`). Mostrato sotto il titolo come "X min di esercizio" o "X min di verifica" a seconda del variant. |
+| `variant`     | `'practice' \| 'review'`      | `'practice'` | scegli il framing visivo                                                          |
 
 ```mdx
 {/* Esercizio pratico nel corpo della lezione */}
 <LlmExercise
   title="La tua prima conversazione consapevole"
   file="primo-esercizio.txt"
+  duration="10 min"
   description="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
 />
 
@@ -162,6 +164,7 @@ varianti. Convenzione: i file di review si chiamano
   variant="review"
   title="Quattro domande per fissare le idee"
   file="verifica-cos-e-l-ia.txt"
+  duration="5-7 min"
   description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
 />
 ```
