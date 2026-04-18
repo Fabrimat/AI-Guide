@@ -1,0 +1,354 @@
+---
+/**
+ * PromptBuilder: piccolo widget che porta il lettore step-by-step a
+ * costruire un prompt chiaro per il suo problema reale. Quattro campi
+ * (cosa vuoi, contesto, destinatario, formato), preview live, bottone
+ * "Copia il prompt".
+ *
+ * Pensato come naturale follow-up della Lezione 2 ("Cos'è un prompt?"):
+ * la lezione spiega gli ingredienti, qui il lettore li mette in pratica
+ * sul SUO problema. Il prompt assemblato è plain text, etichetta-style,
+ * pronto da incollare in Claude/ChatGPT/Gemini.
+ */
+---
+
+<section class="prompt-builder not-content" data-prompt-builder>
+  <header>
+    <span class="pb-badge">🛠️ Costruisci il tuo prompt</span>
+    <h3>Mettiti alla prova: scrivi un prompt che funziona</h3>
+  </header>
+
+  <p class="pb-hint">
+    Compila i quattro campi qui sotto pensando a una richiesta vera che
+    vuoi fare a un'IA. Mentre scrivi vedi il prompt prendere forma a
+    destra. Quando sei pronto, copialo e incollalo nella tua IA preferita.
+  </p>
+
+  <div class="pb-grid">
+    <div class="pb-fields">
+      <div class="pb-field">
+        <label for="pb-task">
+          1. Cosa vuoi che l'IA faccia?
+          <span class="pb-example">
+            es. "scrivimi una mail al mio capo per chiedere tre giorni di ferie"
+          </span>
+        </label>
+        <textarea id="pb-task" data-field="task" rows="2"></textarea>
+      </div>
+
+      <div class="pb-field">
+        <label for="pb-context">
+          2. Contesto: chi sei, cosa stai facendo
+          <span class="pb-example">
+            es. "lavoro come grafica freelance, non ho ferie da 4 mesi"
+          </span>
+        </label>
+        <textarea id="pb-context" data-field="context" rows="2"></textarea>
+      </div>
+
+      <div class="pb-field">
+        <label for="pb-audience">
+          3. Per chi è la risposta?
+          <span class="pb-example">
+            es. "il mio capo, rigido ma ragionevole"
+          </span>
+        </label>
+        <textarea id="pb-audience" data-field="audience" rows="1"></textarea>
+      </div>
+
+      <div class="pb-field">
+        <label for="pb-format">
+          4. Come la vuoi (formato, lunghezza, tono)
+          <span class="pb-example">
+            es. "una mail breve, tono professionale ma cordiale, max 100 parole"
+          </span>
+        </label>
+        <textarea id="pb-format" data-field="format" rows="1"></textarea>
+      </div>
+    </div>
+
+    <div class="pb-preview-wrap">
+      <span class="pb-preview-label">Prompt generato</span>
+      <pre class="pb-preview" data-preview aria-live="polite">{`Compila i campi a sinistra e il prompt apparirà qui.`}</pre>
+    </div>
+  </div>
+
+  <div class="pb-actions">
+    <button type="button" class="pb-btn pb-btn-primary" data-action="copy">
+      Copia il prompt
+    </button>
+    <button type="button" class="pb-btn pb-btn-ghost" data-action="reset">
+      Ripulisci tutto
+    </button>
+  </div>
+</section>
+
+<script>
+  const PLACEHOLDER = 'Compila i campi a sinistra e il prompt apparirà qui.';
+
+  function assemble(state: Record<string, string>): string {
+    const parts: string[] = [];
+    if (state.context?.trim()) {
+      parts.push(`Contesto: ${state.context.trim()}`);
+    }
+    if (state.task?.trim()) {
+      parts.push(`Cosa mi serve: ${state.task.trim()}`);
+    }
+    if (state.audience?.trim()) {
+      parts.push(`Per chi è la risposta: ${state.audience.trim()}`);
+    }
+    if (state.format?.trim()) {
+      parts.push(`Formato: ${state.format.trim()}`);
+    }
+    return parts.join('\n\n');
+  }
+
+  function readState(root: HTMLElement): Record<string, string> {
+    const state: Record<string, string> = {};
+    root.querySelectorAll<HTMLTextAreaElement>('textarea[data-field]').forEach(
+      (el) => {
+        const key = el.dataset.field || '';
+        state[key] = el.value;
+      },
+    );
+    return state;
+  }
+
+  function update(root: HTMLElement) {
+    const preview = root.querySelector<HTMLElement>('[data-preview]');
+    if (!preview) return;
+    const text = assemble(readState(root));
+    preview.textContent = text || PLACEHOLDER;
+  }
+
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-prompt-builder]')
+      .forEach((root) => {
+        if (root.dataset.pbWired === 'true') return;
+        root.dataset.pbWired = 'true';
+
+        root.addEventListener('input', (event) => {
+          const target = event.target;
+          if (target instanceof HTMLTextAreaElement && target.dataset.field) {
+            update(root);
+          }
+        });
+
+        root.addEventListener('click', async (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          const action = target
+            .closest<HTMLElement>('[data-action]')
+            ?.dataset.action;
+
+          if (action === 'reset') {
+            root
+              .querySelectorAll<HTMLTextAreaElement>('textarea[data-field]')
+              .forEach((el) => {
+                el.value = '';
+              });
+            update(root);
+            return;
+          }
+
+          if (action === 'copy') {
+            const text = assemble(readState(root));
+            if (!text) return;
+            const btn = target.closest<HTMLButtonElement>('button[data-action="copy"]');
+            if (!btn) return;
+            const original = btn.textContent ?? '';
+            try {
+              await navigator.clipboard.writeText(text);
+              btn.textContent = '✅ Copiato!';
+            } catch {
+              btn.textContent = '❌ Errore, riprova';
+            }
+            window.setTimeout(() => {
+              btn.textContent = original;
+            }, 2000);
+          }
+        });
+
+        update(root);
+      });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .prompt-builder {
+    margin: 1.75rem 0;
+    padding: 1.25rem 1.25rem 1rem;
+    background: #ffffff;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(42, 36, 71, 0.04),
+      0 6px 18px rgba(42, 36, 71, 0.05);
+  }
+
+  .prompt-builder header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .pb-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .prompt-builder h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .pb-hint {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .pb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .pb-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .pb-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .pb-example {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--sl-color-gray-3);
+    font-size: 0.8rem;
+  }
+
+  .pb-field textarea {
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    resize: vertical;
+    line-height: 1.45;
+  }
+
+  .pb-field textarea:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+
+  .pb-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  .pb-preview-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .pb-preview {
+    flex: 1;
+    margin: 0;
+    padding: 0.75rem 0.85rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 1px dashed var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    font-family: var(--sl-font);
+    font-size: 0.88rem;
+    color: var(--sl-color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 8rem;
+    line-height: 1.5;
+  }
+
+  .pb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .pb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .pb-btn-primary {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border-color: var(--sl-color-accent);
+  }
+
+  .pb-btn-primary:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .pb-btn-ghost {
+    background: transparent;
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-hairline);
+  }
+
+  .pb-btn-ghost:hover {
+    background: rgba(42, 36, 71, 0.04);
+  }
+
+  @media (max-width: 720px) {
+    .pb-grid {
+      grid-template-columns: 1fr;
+    }
+    .pb-preview {
+      min-height: 6rem;
+    }
+  }
+</style>

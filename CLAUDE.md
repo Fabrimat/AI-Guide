@@ -124,6 +124,26 @@ import Resume from '../../../components/Resume.astro';
 <Resume />
 ```
 
+### `<PromptBuilder>`
+
+Widget interattivo che porta la lettrice step-by-step a costruire un
+prompt chiaro per il suo problema reale. Quattro campi (cosa vuoi,
+contesto, destinatario, formato), preview live a destra, bottone
+"Copia il prompt" per portare il risultato nella propria IA.
+
+Pensato come naturale follow-up della lezione *Cos'è un prompt?*: la
+teoria viene applicata sul problema della lettrice. Il prompt
+assemblato è plain text, etichetta-style, pronto per Claude/ChatGPT/
+Gemini.
+
+Nessun prop. Si include come `<PromptBuilder />`.
+
+```mdx
+import PromptBuilder from '../../../../components/PromptBuilder.astro';
+
+<PromptBuilder />
+```
+
 ### `<LlmExercise>`
 
 Card che propone alla lettrice un'attività da svolgere con il proprio LLM:
