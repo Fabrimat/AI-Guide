@@ -5,26 +5,24 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   site: 'https://example.com', // TODO: sostituire con il dominio reale quando sarà pronto
 
-  // Redirect della root alla lingua di default (coerente con le altre lingue
-  // che hanno prefisso). In un sito statico Astro emette un meta refresh.
-  redirects: {
-    '/': '/it/',
-  },
+  // Niente redirect statico per `/`. La landing root è in `src/pages/index.astro`
+  // e fa detection lato client della lingua del browser, così l'utente atterra
+  // direttamente sulla versione coerente con `navigator.language`. Default EN.
 
   integrations: [
     starlight({
       title: 'AI-Guide',
-      description: "Impara a usare l'IA, dalle basi al livello avanzato.",
+      description: 'Learn how to use AI, from the basics to advanced.',
 
       // --- Localizzazione ---
-      // Tutte le lingue hanno prefisso URL uniforme: /it/..., /en/..., etc.
-      // Per aggiungere una lingua: aggiungere la voce in `locales` e creare
-      // i file sotto `src/content/docs/<codice-lingua>/`.
-      // Le pagine non tradotte ricadono automaticamente sulla lingua di default.
-      defaultLocale: 'it',
+      // Tutte le lingue hanno prefisso URL uniforme: /en/..., /it/..., etc.
+      // Inglese è la lingua di default: le pagine senza traduzione ricadono
+      // sull'inglese. Per aggiungere una lingua: aggiungere la voce in
+      // `locales` e creare i file sotto `src/content/docs/<codice-lingua>/`.
+      defaultLocale: 'en',
       locales: {
-        it: { label: 'Italiano', lang: 'it' },
         en: { label: 'English', lang: 'en' },
+        it: { label: 'Italiano', lang: 'it' },
       },
 
       // Override dei componenti di Starlight:
@@ -45,18 +43,18 @@ export default defineConfig({
       // giusto nella lingua corrente).
       sidebar: [
         {
-          label: 'Inizia qui',
-          translations: { en: 'Start here' },
+          label: 'Start here',
+          translations: { it: 'Inizia qui' },
           slug: 'start-here',
         },
         {
-          label: 'Fondamenti',
-          translations: { en: 'Fundamentals' },
+          label: 'Fundamentals',
+          translations: { it: 'Fondamenti' },
           autogenerate: { directory: 'fundamentals' },
         },
         {
-          label: 'Glossario',
-          translations: { en: 'Glossary' },
+          label: 'Glossary',
+          translations: { it: 'Glossario' },
           slug: 'glossary',
         },
       ],

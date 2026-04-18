@@ -37,17 +37,16 @@ interface Props {
   variant?: 'practice' | 'review';
 }
 
-import { t, getLocale, DEFAULT_LOCALE } from '../i18n/ui';
+import { t, getLocale } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 const locale = getLocale(Astro.currentLocale);
 
 const { title, file, description, duration, variant = 'practice' } = Astro.props;
 
-// Skill file path: IT files live under /skills/, EN files under /skills/en/.
-// The same `file` prop (e.g. "review-what-is-ai.txt") resolves to the right
-// path per locale, so authors don't have to know about the convention.
-const skillsBase = locale === DEFAULT_LOCALE ? 'skills' : `skills/${locale}`;
-const fileUrl = `${import.meta.env.BASE_URL}${skillsBase}/${file}`.replace(/\/+/g, '/');
+// Skill files live under /skills/<locale>/<file>. The same `file` prop
+// (e.g. "review-what-is-ai.txt") resolves to the right path per locale,
+// so authors don't have to know about the convention.
+const fileUrl = `${import.meta.env.BASE_URL}skills/${locale}/${file}`.replace(/\/+/g, '/');
 
 const labels = {
   practice: { icon: '🤖', badge: ui.practiceBadge, durationSuffix: ui.practiceDuration },

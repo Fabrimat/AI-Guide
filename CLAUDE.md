@@ -54,7 +54,7 @@ Lo schema è validato in `src/content.config.ts`.
 ## Architettura (alto livello)
 
 - **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/<lingua>/`.
-- **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/it/...`, `/en/...`). La root `/` fa redirect a `/it/` (lingua di default, configurata in `astro.config.mjs > redirects`). Le pagine non tradotte ricadono automaticamente sulla lingua di default.
+- **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/en/...`, `/it/...`). La root `/` non è un redirect statico: `src/pages/index.astro` legge `navigator.languages` e fa replace verso `/en/` o `/it/` lato client. Default e fallback (no-JS o lingua non supportata): `/en/`. Le pagine senza traduzione ricadono automaticamente sull'inglese.
 - **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
 - **Tempo di lettura stimato** sotto l'H1 di ogni lezione, calcolato lato client da `src/components/ReadingTime.astro` (220 parole/minuto sul testo di `.sl-markdown-content`). Iniettato dall'override di `PageTitle` (`src/components/PageTitle.astro`) solo sulle pagine con `livello` nel frontmatter, così la splash hero non lo riceve.
 - **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
@@ -353,9 +353,9 @@ controparte IT (es. `en/fundamentals/what-is-ai.mdx`). Le pagine senza
 traduzione ricadono automaticamente sulla lingua di default.
 
 **File `.txt` di skill in `public/skills/<locale>/`.** Convenzione:
-`public/skills/<name>.txt` (IT, root del default-locale) e
-`public/skills/en/<name>.txt`. Il componente `<LlmExercise>` risolve
-il path corretto in base al locale.
+`public/skills/en/<name>.txt`, `public/skills/it/<name>.txt`. Il
+componente `<LlmExercise>` risolve sempre il path con il prefisso
+locale, qualunque sia la lingua di default.
 
 **Stringhe UI dei componenti in `src/i18n/ui.ts`.** Dizionario tipato
 `UIStrings` per ogni locale. Componenti server: `t(Astro.currentLocale)`.

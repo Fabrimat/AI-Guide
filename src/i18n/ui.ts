@@ -12,7 +12,7 @@
 
 export type Locale = 'it' | 'en';
 
-export const DEFAULT_LOCALE: Locale = 'it';
+export const DEFAULT_LOCALE: Locale = 'en';
 
 export interface UIStrings {
   // Resume
@@ -300,7 +300,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
 const STRINGS: Record<Locale, UIStrings> = { it, en };
 
 export function getLocale(raw: string | undefined | null): Locale {
-  return raw === 'en' ? 'en' : 'it';
+  return raw === 'it' ? 'it' : 'en';
 }
 
 export function t(raw: string | undefined | null): UIStrings {
