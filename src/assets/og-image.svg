@@ -11,14 +11,18 @@
   </g>
 
   <!-- Title -->
-  <text x="90" y="390" font-family="'Outfit', system-ui, sans-serif"
+  <!-- NOTE: Outfit cannot be used here. librsvg 2.61 (shipped with sharp) ignores -->
+  <!-- @font-face data URLs, so we fall back to Arial/Helvetica for a sans-serif -->
+  <!-- render instead of the serif Times that 'Outfit' alone triggers. This SVG -->
+  <!-- is only rasterized once into public/og-image.png; the live site uses Outfit. -->
+  <text x="90" y="390" font-family="Arial, Helvetica, sans-serif"
         font-size="136" font-weight="700" fill="#2A2447" letter-spacing="-2">AI-Guide</text>
 
   <!-- Tagline -->
-  <text x="90" y="470" font-family="'Outfit', system-ui, sans-serif"
+  <text x="90" y="470" font-family="Arial, Helvetica, sans-serif"
         font-size="44" font-weight="400" fill="#6B5C8C">Impara a usare l'IA, passo dopo passo.</text>
 
   <!-- Author line -->
-  <text x="90" y="560" font-family="'Outfit', system-ui, sans-serif"
+  <text x="90" y="560" font-family="Arial, Helvetica, sans-serif"
         font-size="28" font-weight="500" fill="#C25A3F">di Fabrizio La Rosa · ai-guide.larosa.work</text>
 </svg>
