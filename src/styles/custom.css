@@ -169,9 +169,9 @@
    Sidebar: checkmark accanto alle lezioni "completate"
    La classe `lesson-completed` viene aggiunta da `src/scripts/progress.ts`
    ai link del sidebar che puntano a pagine con `read: true` in localStorage
-   (>= 15s sulla pagina + scroll all'80%). Il segno è coral (accento del
-   sito) e si posiziona all'estrema destra del link, separato dal titolo
-   per leggibilità.
+   (>= 15s sulla pagina + scroll all'80%). Il segno usa il colore del link
+   stesso (`color: inherit`) per stare in tono col resto del sidebar e
+   seguire le varianti di stato (hover, current page).
    ------------------------------------------------------------ */
 nav.sidebar a.lesson-completed {
   position: relative;
@@ -180,7 +180,7 @@ nav.sidebar a.lesson-completed {
 
 nav.sidebar a.lesson-completed::after {
   content: '✓';
-  color: var(--sl-color-accent);
+  color: inherit;
   font-weight: 700;
   font-size: 0.95em;
   position: absolute;
