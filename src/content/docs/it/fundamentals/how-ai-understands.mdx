@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
 Hai aperto un'IA, le hai scritto, ti ha risposto in modo sensato. La
@@ -63,8 +64,8 @@ si comporta.
    domanda e quello che ha imparato. Spesso azzecca. Quando sbaglia,
    sbaglia con la stessa sicurezza.
 
-2. **Più contesto le dai, meglio risponde.** Ogni informazione utile che
-   aggiungi al prompt restringe il campo delle parole probabili e la
+2. **Più <Def explanation="Tutto quello che l'IA ha sotto gli occhi mentre genera la risposta: la tua domanda, le risposte precedenti nella stessa chat, eventuali documenti.">contesto</Def> le dai, meglio risponde.** Ogni informazione utile che
+   aggiungi al <Def explanation="Quello che scrivi all'IA per ottenere una risposta. Più è chiaro e contestualizzato, meglio risponde.">prompt</Def> restringe il campo delle parole probabili e la
    spinge verso una risposta più adatta a te. È il motivo per cui un
    prompt chiaro funziona meglio di uno vago, come hai visto nella lezione
    precedente.

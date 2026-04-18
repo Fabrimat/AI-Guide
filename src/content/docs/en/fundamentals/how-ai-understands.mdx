@@ -8,6 +8,7 @@ sidebar:
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
 You've opened an AI, you've written to it, it answered you in a sensible
@@ -62,8 +63,8 @@ way it does.
    words given your question and what it has learned. Often it nails it.
    When it gets it wrong, it does so with the same confidence.
 
-2. **The more context you give it, the better it answers.** Every useful
-   piece of information you add to the prompt narrows the field of
+2. **The more <Def explanation="Everything the AI has in front of it while it generates the answer: your question, previous replies in the same chat, any documents.">context</Def> you give it, the better it answers.** Every useful
+   piece of information you add to the <Def explanation="What you write to the AI to get an answer. The clearer and more contextualized it is, the better the AI answers.">prompt</Def> narrows the field of
    probable words and pushes it toward an answer that fits you better.
    That is why a clear prompt works better than a vague one, as you saw
    in the previous lesson.
