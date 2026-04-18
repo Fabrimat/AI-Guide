@@ -15,7 +15,7 @@ non riscrivere. L'utente (o un altro agent) applicherà le modifiche.
 ## Input
 
 Un path a un file `.md` o `.mdx` sotto `src/content/docs/`. Esempio:
-`src/content/docs/fondamenti/cos-e-un-llm.mdx`.
+`src/content/docs/it/fondamenti/<lezione>.mdx`.
 
 ## Processo
 

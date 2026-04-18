@@ -153,7 +153,7 @@ link, badge "Presto" in alto a destra.
       icon: '🌱',
       title: 'Fondamenti',
       description: "Cos'è un'IA, come parlarci, cosa aspettarti.",
-      href: '/it/fondamenti/cos-e-un-llm/',
+      href: '/it/fondamenti/cos-e-l-ia/',
     },
     {
       icon: '✍️',

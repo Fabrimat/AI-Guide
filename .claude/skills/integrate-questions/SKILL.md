@@ -17,14 +17,14 @@ Il principio: **risposte dove servono, non in appendice rimossa dal contesto**.
 
 ## Input
 
-- **Path della pagina** da modificare (relativo alla root, es. `src/content/docs/fondamenti/cos-e-un-llm.mdx`).
+- **Path della pagina** da modificare (relativo alla root, es. `src/content/docs/it/fondamenti/<lezione>.mdx`).
 - **Path del file di domande** (default: cerca `analysis/<slug>.questions.md`).
   In alternativa, l'utente può passare le domande direttamente nel prompt.
 
 Esempio di invocazione:
 ```
-/integrate-questions src/content/docs/fondamenti/cos-e-un-llm.mdx
-/integrate-questions src/content/docs/fondamenti/cos-e-un-llm.mdx analysis/cos-e-un-llm.questions.md
+/integrate-questions src/content/docs/it/fondamenti/<lezione>.mdx
+/integrate-questions src/content/docs/it/fondamenti/<lezione>.mdx analysis/<lezione>.questions.md
 ```
 
 ## Processo

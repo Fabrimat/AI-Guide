@@ -30,7 +30,8 @@ src/
 │       │   ├── index.mdx
 │       │   ├── inizia-qui.md
 │       │   └── fondamenti/
-│       │       └── cos-e-un-llm.mdx
+│       │       ├── cos-e-l-ia.mdx
+│       │       └── ... (altre lezioni)
 │       └── en/                     # inglese: servito sotto /en/
 │           └── ...                 # attualmente vuoto: fallback automatico all'italiano
 ├── components/
@@ -103,7 +104,7 @@ Per tradurre una pagina, replica il percorso sotto `src/content/docs/en/`:
 
 ```
 src/content/docs/it/inizia-qui.md               → src/content/docs/en/inizia-qui.md
-src/content/docs/it/fondamenti/cos-e-un-llm.mdx → src/content/docs/en/fondamenti/cos-e-un-llm.mdx
+src/content/docs/it/fondamenti/cos-e-l-ia.mdx        → src/content/docs/en/fondamenti/cos-e-l-ia.mdx
 ```
 
 Le pagine non tradotte ricadono automaticamente sul contenuto nella lingua di

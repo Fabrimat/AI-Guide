@@ -22,7 +22,7 @@ Argomento richiesto: **path della pagina** da analizzare (relativo alla root del
 
 Esempio di invocazione:
 ```
-/analyze-lesson src/content/docs/fondamenti/cos-e-un-llm.mdx
+/analyze-lesson src/content/docs/it/fondamenti/<lezione>.mdx
 ```
 
 Argomento opzionale: **path di output** dove salvare le domande (default:
@@ -62,7 +62,7 @@ In base al livello dichiarato, assumi un profilo specifico:
   - Conosce: API REST, JSON, autenticazione, rate limit, contesto in token, system/user/assistant message.
   - Vuole risposte tecniche dirette. Si chiede "quale trade-off?", "perché questa scelta e non quella?".
 
-Considera anche i `prerequisiti`: se la lezione richiede `prerequisiti: [cos-e-un-llm]`, puoi assumere che il lettore abbia già letto quella pagina e quindi conosca il vocabolario lì introdotto.
+Considera anche i `prerequisiti`: se la lezione richiede `prerequisiti: [cos-e-l-ia]`, puoi assumere che il lettore abbia già letto quella pagina e quindi conosca il vocabolario lì introdotto.
 
 ### 3. Lettura attiva della pagina
 
@@ -102,7 +102,7 @@ strutturato così:
 
 ```markdown
 ---
-source: src/content/docs/fondamenti/cos-e-un-llm.mdx
+source: src/content/docs/it/fondamenti/<lezione>.mdx
 title: Cos'è un LLM?
 livello: principiante
 generated_at: YYYY-MM-DD
