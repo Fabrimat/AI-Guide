@@ -354,16 +354,24 @@ const headingId = `${panelId}-heading`;
   }
 
   /* ---- Embed Starlight's theme/lang selects inline ----
-     Starlight calcola `select` padding-inline come spazio per icona
-     sinistra + caret destra, poi `width: calc(var(--sl-select-width)
-     + var(--sl-inline-padding) * 2)`. Per fargli riempire la riga del
-     popover senza sborderare dal label: settiamo `label` full-width,
-     e `--sl-select-width` pari a 100% meno i due padding inline. Così
-     la calc interna torna a 100%.
+     Starlight calcola il `<select>` così:
+       - padding-inline: calc(icon-size + inline-padding + 0.25rem)
+                         calc(caret-size + inline-padding + 0.25rem)
+       - margin-inline:  calc(inline-padding * -1)
+       - width:          calc(var(--sl-select-width) + inline-padding * 2)
+     E posiziona l'icona label a `inset-inline-start: 0` (bordo sinistro
+     del padding-box = bordo interno del label).
 
-     Non override del padding/background/border del `<select>`: il
-     default Starlight li gestisce e sa dove far iniziare il testo
-     per non finire sotto alle icone. */
+     Nel nostro popover aggiungiamo un bordo visibile alla `<label>` per
+     farlo sembrare un controllo. Con le icone a inset 0 toccano quel
+     bordo, tipo schiacciate. Due override:
+       1. Sposto le icone di `--sl-inline-padding` dal bordo, così hanno
+          aria.
+       2. Aumento il padding-inline del `<select>` della stessa quantità
+          per evitare che il testo dell'opzione finisca dietro alle
+          icone.
+     Width: `--sl-select-width` = 100% meno i due padding inline così la
+     calc interna `select width + padding*2` torna a 100%. */
   .hp-starlight-select {
     margin-top: 0.4rem;
   }
@@ -377,17 +385,29 @@ const headingId = `${panelId}-heading`;
   .hp-starlight-select :global(label) {
     width: 100%;
     --sl-select-width: calc(100% - var(--sl-inline-padding, 0.5rem) * 2);
-    /* Wrap visivo da controllo: bordo + bg coerenti col popover. */
     background: var(--sl-color-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 0.5rem;
     color: var(--sl-color-text);
-    padding: 0 var(--sl-inline-padding, 0.5rem);
   }
 
   .hp-starlight-select :global(label:hover) {
     color: var(--sl-color-text);
     border-color: var(--sl-color-accent);
+  }
+
+  .hp-starlight-select :global(.label-icon) {
+    inset-inline-start: var(--sl-inline-padding, 0.5rem);
+  }
+
+  .hp-starlight-select :global(.caret) {
+    inset-inline-end: var(--sl-inline-padding, 0.5rem);
+  }
+
+  .hp-starlight-select :global(select) {
+    padding-inline:
+      calc(var(--sl-label-icon-size) + var(--sl-inline-padding) * 2 + 0.25rem)
+      calc(var(--sl-caret-size) + var(--sl-inline-padding) * 2 + 0.25rem);
   }
 
   /* Mobile: panel stretches to viewport width minus margin, stays
