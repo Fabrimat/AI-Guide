@@ -36,18 +36,18 @@ fa caching/CDN/anti-DDoS, è il layer descritto in `privacy.mdx` →
 
 **Branch strategy**:
 
-- `main` — sviluppo. Ogni push genera un **deploy preview** Netlify
-  (URL tipo `<hash>--<site>.netlify.app`). Utile per condividere prima
-  di andare live.
-- `production` — produzione. È il branch che Netlify deploya su
-  `ai-guide.larosa.work`. Solo fast-forward da `main`, mai commit
-  diretti.
+- `main` — sviluppo. Netlify **non** è agganciato a `main`: pushare
+  qui non genera nessun deploy (né preview né live). Serve solo per
+  accumulare i commit prima di mandarli live.
+- `production` — produzione. È l'unico branch che Netlify deploya, e
+  va su `ai-guide.larosa.work`. Solo fast-forward da `main`, mai
+  commit diretti.
 
 **Workflow per andare live:**
 
 ```bash
-# Sviluppi su main e pushi
-git push origin main           # → preview deploy
+# Sviluppi su main e pushi (nessun deploy parte da qui)
+git push origin main
 
 # Quando vuoi mandare live
 git checkout production
@@ -59,6 +59,10 @@ git checkout main
 `--ff-only` evita merge commit accidentali. Se la merge non è
 fast-forward c'è qualcosa che non va (rebase, divergenza), investigare
 prima di forzare.
+
+Quindi per "pushare per generare un preview" non c'è scorciatoia: o
+si va direttamente su `production` (che è live, non preview), o si
+testa in locale con `npm run dev` / `npm run preview`.
 
 **Env var lato build**: nessuna richiesta. Il sito è completamente
 statico, non legge segreti a build time.
