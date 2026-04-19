@@ -87,6 +87,18 @@ export interface UIStrings {
   prefsSectionTheme: string;
   prefsSectionLanguage: string;
 
+  // ShareLesson
+  shareHeading: string;
+  shareXAria: string;
+  shareLinkedInAria: string;
+  shareWhatsAppAria: string;
+  shareEmailAria: string;
+  shareEmailSubject: (title: string) => string;
+  shareCopyLabel: string;
+  shareCopyAria: string;
+  shareCopied: string;
+  shareCopyError: string;
+
   // HomeCards
   comingSoonLabel: string;
 
@@ -215,6 +227,17 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   prefsSectionReading: 'Lettura assistita',
   prefsSectionTheme: 'Tema',
   prefsSectionLanguage: 'Lingua',
+
+  shareHeading: 'Condividi questa lezione',
+  shareXAria: 'Condividi su X',
+  shareLinkedInAria: 'Condividi su LinkedIn',
+  shareWhatsAppAria: 'Condividi su WhatsApp',
+  shareEmailAria: 'Condividi via email',
+  shareEmailSubject: (title) => `AI-Guide: ${title}`,
+  shareCopyLabel: 'Copia link',
+  shareCopyAria: 'Copia il link della lezione',
+  shareCopied: '✅ Link copiato!',
+  shareCopyError: '❌ Errore, riprova',
 
   comingSoonLabel: 'Presto',
 
@@ -347,6 +370,17 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   prefsSectionReading: 'Assisted reading',
   prefsSectionTheme: 'Theme',
   prefsSectionLanguage: 'Language',
+
+  shareHeading: 'Share this lesson',
+  shareXAria: 'Share on X',
+  shareLinkedInAria: 'Share on LinkedIn',
+  shareWhatsAppAria: 'Share on WhatsApp',
+  shareEmailAria: 'Share via email',
+  shareEmailSubject: (title) => `AI-Guide: ${title}`,
+  shareCopyLabel: 'Copy link',
+  shareCopyAria: 'Copy the lesson link',
+  shareCopied: '✅ Link copied!',
+  shareCopyError: '❌ Error, please retry',
 
   comingSoonLabel: 'Soon',
 

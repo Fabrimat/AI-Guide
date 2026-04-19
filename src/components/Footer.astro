@@ -12,6 +12,7 @@
  * configurabili da terzi.
  */
 import Default from '@astrojs/starlight/components/Footer.astro';
+import ShareLesson from './ShareLesson.astro';
 import { t, getLocale } from '../i18n/ui';
 
 const ui = t(Astro.currentLocale);
@@ -19,6 +20,17 @@ const locale = getLocale(Astro.currentLocale);
 const aboutHref = `/${locale}/about/`;
 const privacyHref = `/${locale}/privacy/`;
 const currentYear = new Date().getFullYear();
+
+// Share buttons solo sulle pagine "lezione", riconosciute dalla
+// presenza di `livello` nel frontmatter (stessa chiave usata dallo
+// schema content). Sono esclusi homepage, about, privacy, glossario,
+// 404. Il titolo e l'URL canonico li leggiamo dal route Starlight,
+// così il tab di condivisione punta sempre all'URL locale effettivo
+// (niente hardcoding di dominio o path).
+const route = Astro.locals.starlightRoute;
+const isLesson = Boolean(route?.entry?.data?.livello);
+const shareUrl = isLesson ? new URL(Astro.url.pathname, Astro.site).toString() : '';
+const shareTitle = isLesson ? route?.entry?.data?.title ?? '' : '';
 
 const LINKEDIN_URL = 'https://linkedin.com/in/fabriziolarosa';
 const SITE_URL = 'https://larosa.work';
@@ -35,6 +47,8 @@ const VAT = 'BE1031214819';
 const MAIL_USER = 'ai-guide';
 const MAIL_DOMAIN = 'larosa.work';
 ---
+
+{isLesson && <ShareLesson url={shareUrl} title={shareTitle} />}
 
 <Default />
 
