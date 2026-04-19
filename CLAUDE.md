@@ -25,10 +25,14 @@ output in `dist/`).
 
 **DNS / dominio**: `ai-guide.larosa.work`. Il dominio `larosa.work` è
 gestito su Cloudflare DNS. Record CNAME `ai-guide` → dominio Netlify
-del progetto, in modalità **DNS-only (nuvola grigia)**, NON proxied
-(nuvola arancione). Proxy arancione termina TLS lato Cloudflare e
-rompe il certificato di Netlify. Cloudflare in questa configurazione
-fa solo da DNS authoritative, non vede traffico HTTP né IP.
+del progetto, in modalità **proxied (nuvola arancione)**. Cloudflare
+fa da reverse proxy davanti a Netlify: termina TLS lato visitatore
+con un suo certificato e ne apre uno separato verso Netlify. Perché
+funzioni, l'SSL mode di Cloudflare deve essere **Full** o **Full
+(strict)** (Settings → SSL/TLS), sennò Netlify rifiuta la connessione
+o si crea un loop di redirect. Cloudflare in questa modalità vede IP,
+fa caching/CDN/anti-DDoS, è il layer descritto in `privacy.mdx` →
+"Cloudflare davanti al sito".
 
 **Branch strategy**:
 
