@@ -75,14 +75,9 @@ const headingId = `${panelId}-heading`;
           data-reading-toggle
           aria-pressed="false"
           aria-label={ui.readingToggleAria}
-          data-i18n-on={ui.readingToggleStateOn}
-          data-i18n-off={ui.readingToggleStateOff}
         >
           <span class="hp-switch-track" aria-hidden="true">
             <span class="hp-switch-thumb"></span>
-          </span>
-          <span class="hp-switch-state" data-hp-switch-state>
-            {ui.readingToggleStateOff}
           </span>
         </button>
       </div>
@@ -114,12 +109,6 @@ const headingId = `${panelId}-heading`;
     const on = isOn();
     btn.setAttribute('aria-pressed', String(on));
     btn.classList.toggle('is-on', on);
-    const stateEl = btn.querySelector<HTMLElement>('[data-hp-switch-state]');
-    if (stateEl) {
-      const onLabel = btn.dataset.i18nOn || 'on';
-      const offLabel = btn.dataset.i18nOff || 'off';
-      stateEl.textContent = on ? onLabel : offLabel;
-    }
   }
 
   function openPanel(root: HpRoot) {
@@ -314,34 +303,33 @@ const headingId = `${panelId}-heading`;
     color: var(--sl-color-gray-3);
   }
 
-  /* ---- Switch-style toggle for the reading mode button ---- */
+  /* ---- Switch-style toggle for the reading mode button ----
+     Pure icon: track + thumb. Lo stato è comunicato da posizione del
+     pollice + colore della traccia + `aria-pressed`. Niente etichetta
+     testuale a lato, altrimenti lo switch si sposterebbe ogni volta
+     che cambia parola ("attiva"/"disattivata" hanno lunghezze diverse). */
   .hp-switch {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.2rem 0.25rem;
+    padding: 0.2rem;
     border: none;
     background: transparent;
-    color: var(--sl-color-gray-3);
     cursor: pointer;
-    font-family: inherit;
-    font-size: 0.82rem;
-    font-weight: 500;
-    line-height: 1;
+    flex-shrink: 0;
   }
 
   .hp-switch:focus-visible {
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
-    border-radius: 0.25rem;
+    border-radius: 999px;
   }
 
   .hp-switch-track {
     position: relative;
-    width: 2.2rem;
-    height: 1.25rem;
+    width: 2.4rem;
+    height: 1.35rem;
     border-radius: 999px;
-    background: var(--sl-color-gray-5);
+    background: var(--aig-switch-track-off);
     transition: background 150ms ease;
   }
 
@@ -349,11 +337,11 @@ const headingId = `${panelId}-heading`;
     position: absolute;
     top: 2px;
     left: 2px;
-    width: calc(1.25rem - 4px);
-    height: calc(1.25rem - 4px);
+    width: calc(1.35rem - 4px);
+    height: calc(1.35rem - 4px);
     border-radius: 50%;
-    background: var(--aig-elevated-bg);
-    box-shadow: 0 1px 3px rgba(var(--aig-shadow-color), 0.25);
+    background: var(--aig-switch-thumb);
+    box-shadow: 0 1px 3px rgba(var(--aig-shadow-color), 0.35);
     transition: transform 150ms ease;
   }
 
@@ -362,40 +350,44 @@ const headingId = `${panelId}-heading`;
   }
 
   .hp-switch.is-on .hp-switch-thumb {
-    transform: translateX(0.95rem);
-  }
-
-  .hp-switch.is-on {
-    color: var(--sl-color-text);
+    transform: translateX(1.05rem);
   }
 
   /* ---- Embed Starlight's theme/lang selects inline ----
-     Their default styles have a fixed width, an arrow, etc. Inside
-     the popover we want them full-width and left-aligned so the
-     "Tema"/"Lingua" heading sits above them. */
+     Starlight calcola `select` padding-inline come spazio per icona
+     sinistra + caret destra, poi `width: calc(var(--sl-select-width)
+     + var(--sl-inline-padding) * 2)`. Per fargli riempire la riga del
+     popover senza sborderare dal label: settiamo `label` full-width,
+     e `--sl-select-width` pari a 100% meno i due padding inline. Così
+     la calc interna torna a 100%.
+
+     Non override del padding/background/border del `<select>`: il
+     default Starlight li gestisce e sa dove far iniziare il testo
+     per non finire sotto alle icone. */
   .hp-starlight-select {
     margin-top: 0.4rem;
   }
 
   .hp-starlight-select :global(starlight-theme-select),
   .hp-starlight-select :global(starlight-lang-select) {
+    display: block;
     width: 100%;
   }
 
   .hp-starlight-select :global(label) {
     width: 100%;
-    --sl-select-width: 100%;
-  }
-
-  .hp-starlight-select :global(select) {
-    width: 100%;
+    --sl-select-width: calc(100% - var(--sl-inline-padding, 0.5rem) * 2);
+    /* Wrap visivo da controllo: bordo + bg coerenti col popover. */
     background: var(--sl-color-bg);
-    color: var(--sl-color-text);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 0.5rem;
-    padding: 0.45rem 0.65rem;
-    font-family: inherit;
-    font-size: 0.9rem;
+    color: var(--sl-color-text);
+    padding: 0 var(--sl-inline-padding, 0.5rem);
+  }
+
+  .hp-starlight-select :global(label:hover) {
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-accent);
   }
 
   /* Mobile: panel stretches to viewport width minus margin, stays

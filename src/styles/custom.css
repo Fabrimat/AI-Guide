@@ -107,6 +107,11 @@
   --aig-shadow-color: 42, 36, 71;
   --aig-scrim: rgba(42, 36, 71, 0.45);
   --aig-hover-wash: rgba(42, 36, 71, 0.04);
+  /* Switch track "off": deve contrastare sia col bg della pagina
+     sia con `--aig-elevated-bg` (bianco in light) così il controllo
+     resta visibile dentro i popover. */
+  --aig-switch-track-off: #d8c9b0;
+  --aig-switch-thumb: #ffffff;
 
   color-scheme: light;
 }
@@ -178,6 +183,10 @@
   --aig-shadow-color: 0, 0, 0;
   --aig-scrim: rgba(0, 0, 0, 0.65);
   --aig-hover-wash: rgba(243, 229, 208, 0.06);
+  /* Switch: track muted warm brown (più chiara di elevated-bg così
+     stacca), thumb cream (come il testo) per stare leggibile. */
+  --aig-switch-track-off: #7a6452;
+  --aig-switch-thumb: #f3e5d0;
 
   color-scheme: dark;
 }
