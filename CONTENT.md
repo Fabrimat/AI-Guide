@@ -31,7 +31,7 @@ Principi editoriali:
 ## Modulo 1: Fondamenti (livello `principiante`)
 
 Target: chi non ha mai usato ChatGPT o un'IA conversazionale. Zero gergo.
-Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
+Sei lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
 
 1. ✅ **Ma cos'è l'IA?** (`fundamentals/what-is-ai`)
    Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
@@ -73,17 +73,29 @@ Cinque lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    atto. Mappa "dove va bene / dove va male" pratica, tre mosse per
    verificare a sforzo crescente, e una mentalità di chiusura ("assistente
    brillante ma incostante"). Termine "allucinazione" introdotto a metà
-   come etichetta. Chiude il modulo Fondamenti e ponte verso *Uso
-   quotidiano*. **Ciclo di revisione completo** (`analyze-lesson` +
-   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker
-   ha catturato "come hai visto sopra" (vietato dalla regola "vedi
-   sopra/sotto" della voice guide), corretto con riferimento esplicito
+   come etichetta. Ponte verso la lezione 6. **Ciclo di revisione completo**
+   (`analyze-lesson` + `integrate-questions` + `style-checker`, 2026-04-18).
+   Style-checker ha catturato "come hai visto sopra" (vietato dalla regola
+   "vedi sopra/sotto" della voice guide), corretto con riferimento esplicito
    all'esempio del libro inventato.
 
-**Stato attuale**: 5 su 5 pubblicate, **modulo Fondamenti completo, ciclo
-di revisione chiuso su tutte le lezioni, verifica dell'apprendimento attiva
-su tutte e cinque** (sezione `<EsercizioLLM variant="verifica">` prima di
-"Cosa viene dopo", con prompt dedicato in `public/skills/verifica-<slug>.txt`).
+6. 🆕 **Quello che condividi quando usi l'IA** (`fundamentals/privacy-basics`)
+   Lezione sulla privacy delle proprie conversazioni, non sui dati del
+   sito (per quella c'è già `/it/privacy/`). Tono non legale, "la nonna
+   chiede". Cinque blocchi: cosa vede l'IA quando le parli (testo, file,
+   immagini), cosa succede dopo (storage, training, differenze Free /
+   Plus / Team / Enterprise), cosa non condividere (dati di terzi,
+   segreti professionali, password, documenti sanitari/fiscali altrui),
+   impostazioni che esistono (opt-out dal training, cronologia temporanea,
+   chat senza memoria), modello mentale di chiusura ("trattala come un
+   collega fidato ma con una catena informativa ignota"). Chiude il
+   modulo Fondamenti.
+
+**Stato attuale**: 5 su 6 pubblicate, lezione 6 (privacy-basics) da
+scrivere. Ciclo di revisione chiuso su tutte le lezioni esistenti,
+verifica dell'apprendimento attiva su tutte (sezione
+`<EsercizioLLM variant="verifica">` prima di "Cosa viene dopo", con
+prompt dedicato in `public/skills/verifica-<slug>.txt`).
 La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx` e
 riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non esiste
 più (per ora non è un problema, il sito non è ancora pubblicato).
@@ -98,12 +110,15 @@ Elenco provvisorio, da validare prima di scrivere:
 1. 🆕 Formulare una richiesta che funziona (chiarezza, contesto, formato atteso)
 2. 🆕 Iterare: il prompt come conversazione (non "prompt magici")
 3. 🆕 Riassumere un documento lungo (esempio su PDF o articolo reale)
-4. 🆕 Imparare un argomento nuovo con l'IA (il tutor personale)
-5. 🆕 Scrivere meglio (email, testi, quando sì e quando no)
-6. 🆕 Pianificare (viaggio, attività, evento)
-7. 🆕 Quando l'IA è meglio di Google, e viceversa
-8. 🆕 Cose da NON fare con l'IA (consigli sanitari, finanza, decisioni senza
-   verifica)
+4. 🆕 Capire una cosa complicata (contratto, referto medico, bolletta,
+   regolamento condominiale: tradurre dal burocratese al quotidiano)
+5. 🆕 Imparare un argomento nuovo con l'IA (il tutor personale)
+6. 🆕 Scrivere meglio (email, testi, quando sì e quando no)
+7. 🆕 Foto, immagini e file: parlare all'IA senza parole (multimodalità)
+8. 🆕 Pianificare (viaggio, attività, evento)
+9. 🆕 Quando l'IA è meglio di Google, e viceversa
+10. 🆕 Cose da NON fare con l'IA (consigli sanitari, finanza, decisioni senza
+    verifica)
 
 Da decidere: ordine definitivo, eventuali accorpamenti, numero finale.
 
@@ -119,11 +134,15 @@ Elenco provvisorio, da validare prima di scrivere:
 1. 🆕 Bozze di documenti professionali (proposte, brief, report)
 2. 🆕 Preparare una riunione (ordine del giorno, riassunto, follow-up)
 3. 🆕 Email che funzionano (negoziare, chiedere, dire di no, gestire conflitti)
-4. 🆕 Ricerca per il lavoro (raccogliere informazioni, sintetizzare fonti)
-5. 🆕 L'IA come "collega che ti aiuta a pensare" (challenge, devil's advocate, brainstorming)
-6. 🆕 Riformulare comunicazioni difficili (cliente irritato, feedback delicato)
-7. 🆕 Privacy e dati aziendali: cosa NON dare in pasto a un'IA pubblica
-8. 🆕 Quando creare un GPT/Project/Claude Project per riciclare contesto
+4. 🆕 Lavorare con dati e tabelle (CSV, formule Excel/Sheets, pulizia,
+   piccole analisi — senza diventare programmatori)
+5. 🆕 Slide e presentazioni (contenuto, non design: scaletta, bullet, speaker notes)
+6. 🆕 Ricerca per il lavoro (raccogliere informazioni, sintetizzare fonti)
+7. 🆕 L'IA come "collega che ti aiuta a pensare" (challenge, devil's advocate, brainstorming)
+8. 🆕 Riformulare comunicazioni difficili (cliente irritato, feedback delicato)
+9. 🆕 Privacy e dati aziendali: cosa NON dare in pasto a un'IA pubblica
+10. 🆕 Riusare contesto: progetti, custom GPT, Claude Project (lo stesso
+    pattern su tutte le piattaforme)
 
 Da decidere: ordine, taglio (orizzontale per professione vs trasversale),
 quanti use case professionali coprire prima di passare al modulo avanzato.
@@ -142,8 +161,9 @@ Elenco provvisorio, da validare prima di scrivere:
 3. 🆕 Scrivere una tesi senza farsela scrivere
 4. 🆕 Prendere appunti da lezioni registrate o testi lunghi
 5. 🆕 Tradurre e confrontare testi in lingue straniere
-6. 🆕 Quando l'IA ti imbroglia: riconoscere risposte plausibili ma sbagliate
-7. 🆕 Etica dello studio: dove finisce l'aiuto e inizia il copiato
+6. 🆕 Fonti e citazioni: come non farsi inventare la bibliografia
+7. 🆕 Quando l'IA ti imbroglia: riconoscere risposte plausibili ma sbagliate
+8. 🆕 Etica dello studio: dove finisce l'aiuto e inizia il copiato
 
 Da decidere: target di età prevalente (liceo vs università), peso della
 componente etica vs operativa, se includere l'uso dell'IA nei test/esami
@@ -159,11 +179,15 @@ Elenco provvisorio, da validare prima di scrivere:
 
 1. 🆕 Progettare una lezione con l'IA (dal piano alla pratica)
 2. 🆕 Materiali differenziati: stesso argomento, più livelli di difficoltà
-3. 🆕 Generare domande per verifiche e interrogazioni
-4. 🆕 Correggere con criterio: l'IA come assistente, non come giudice
-5. 🆕 Spiegare la stessa cosa in cinque modi diversi
-6. 🆕 Quando lo studente usa l'IA: riconoscere, non demonizzare
-7. 🆕 Etica del docente: onestà, privacy degli studenti, valutazione
+3. 🆕 Inclusività: adattare materiali per BES e DSA (accessibilità, non solo
+   difficoltà)
+4. 🆕 Generare domande per verifiche e interrogazioni
+5. 🆕 Correggere con criterio: l'IA come assistente, non come giudice
+6. 🆕 Spiegare la stessa cosa in cinque modi diversi
+7. 🆕 Comunicare con le famiglie: email delicate ai genitori (voti, comportamento,
+   segnalazioni)
+8. 🆕 Quando lo studente usa l'IA: riconoscere, non demonizzare
+9. 🆕 Etica del docente: onestà, privacy degli studenti, valutazione
 
 Da decidere: taglio (generalista vs per disciplina), peso della parte
 "riconoscere l'uso dell'IA da parte degli studenti", relazione con il
@@ -177,18 +201,24 @@ propri. Pubblico tecnico: tono più diretto, meno propedeutico.
 Elenco provvisorio:
 
 1. 🆕 Dalle chat alle API (cosa cambia, quando conviene)
-2. 🆕 Il contesto in token (limiti, cosa entra e cosa no)
-3. 🆕 System prompt e ruoli (separare istruzioni da input)
-4. 🆕 Tool use, function calling, structured output
-5. 🆕 RAG: dare all'IA i tuoi documenti (concetti e quando serve davvero)
-6. 🆕 Agenti (panoramica realistica, non hype)
-7. 🆕 MCP e integrazioni (standard emergenti)
-8. 🆕 Costi, prompt caching, pattern di ottimizzazione
-9. 🆕 Privacy e data handling nelle API
-10. 🆕 Un mini progetto end-to-end (mettere insieme quello che si è visto)
+2. 🆕 Scegliere il modello (Claude / GPT / Gemini / open source: criteri, non
+   tifoseria)
+3. 🆕 Il contesto in token (limiti, cosa entra e cosa no)
+4. 🆕 System prompt e ruoli (separare istruzioni da input)
+5. 🆕 Tool use, function calling, structured output
+6. 🆕 RAG: dare all'IA i tuoi documenti (concetti e quando serve davvero)
+7. 🆕 Agenti (panoramica realistica, non hype)
+8. 🆕 MCP e integrazioni (standard emergenti)
+9. 🆕 Prompt injection e sicurezza (input utente, jailbreak, difese pratiche)
+10. 🆕 Evals: come testi se il tuo sistema AI funziona davvero
+11. 🆕 Costi, prompt caching, pattern di ottimizzazione
+12. 🆕 Privacy e data handling nelle API
+13. 🆕 Un mini progetto end-to-end (mettere insieme quello che si è visto)
 
 Da decidere: stack degli esempi (Node? Python? Entrambi?), profondità dei
-pattern (RAG: spiegazione concettuale o tutorial con codice?).
+pattern (RAG: spiegazione concettuale o tutorial con codice?). Con 13 voci
+il modulo è denso: valutare se spezzarlo in "API di base" + "Oltre le API"
+una volta scritte le prime lezioni.
 
 ## Pagine trasversali (fuori dai moduli)
 
@@ -201,8 +231,16 @@ pattern (RAG: spiegazione concettuale o tutorial con codice?).
   `<MailtoComposer>` verso `ai-guide@larosa.work` per raccolta feedback e
   link a LinkedIn + sito personale. Linkata dal footer (override
   `Footer.astro`) su tutte le pagine.
-- 🆕 **FAQ** — privacy, costi, quale IA scegliere, cosa succede se l'IA sbaglia.
-- 🆕 **Cronologia** (opzionale) — breve storia di come siamo arrivati qui.
+- ✅ **Privacy del sito** (`/it/privacy/`, `/en/privacy/`) — cosa raccoglie
+  il sito stesso (cookie zero, `localStorage` locale, analytics via proxy
+  Cloudflare). Non va confusa con la lezione *Quello che condividi quando
+  usi l'IA* (Modulo 1, lezione 6), che riguarda le conversazioni del
+  lettore con la propria IA.
+- 🆕 **FAQ** — privacy, costi, quale IA scegliere, cosa succede se l'IA
+  sbaglia, AI Act in pillole.
+- 🆕 **Cronologia** (opzionale) — breve storia di come siamo arrivati qui,
+  tono narrativo non Wikipedia. Antidoto all'hype: "non è la prima volta
+  che l'IA 'arriva'".
 
 ## Traduzione
 
@@ -228,12 +266,23 @@ mirror in `public/skills/en/`, stringhe UI dei componenti in
 
 ## Prossima sessione
 
-Due filoni aperti, scegliere in che ordine attaccarli:
+**Revisioni pendenti**: nessuna sulle lezioni già pubblicate.
 
-**Revisioni pendenti**: nessuna. Il modulo Fondamenti è chiuso al 100%.
+**Prossima bozza nel modulo Fondamenti**: lezione 6 *Quello che condividi
+quando usi l'IA* (`fundamentals/privacy-basics`). Aggiunta al piano il
+2026-04-19 dopo audit dei moduli: gap identificato sul livello principiante
+(la domanda "che fine fanno i miei messaggi?" blocca chi non ha mai usato
+un'IA). Taglio non legale, 5 blocchi già definiti nel modulo 1 sopra.
 
-**Prossima bozza**: nessuna nel modulo Fondamenti. Decisioni aperte: aprire
-il **modulo 2 (Uso quotidiano)** validando o ridisegnando la lista
-provvisoria di 8 titoli, oppure fare prima un giro di rifiniture al sito
-(deploy, dominio, inizia-qui che linka anche le 5 lezioni adesso che
-esistono tutte, ecc.).
+**Audit moduli 2-6 (2026-04-19)**: aggiunti gap prima non coperti:
+- Modulo 2: *Capire una cosa complicata*, *Foto, immagini e file*
+- Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
+- Modulo 4: *Fonti e citazioni*
+- Modulo 5: *Inclusività (BES/DSA)*, *Comunicare con le famiglie*
+- Modulo 6: *Scegliere il modello*, *Prompt injection e sicurezza*,
+  *Evals*
+
+Decisione aperta: dopo aver scritto *privacy-basics* e chiuso davvero
+Fondamenti, aprire il **modulo 2 (Uso quotidiano)** validando l'ordine
+definitivo delle 10 voci, oppure prima un giro di rifiniture al sito
+(inizia-qui che linka tutte e 6 le lezioni, ecc.).
