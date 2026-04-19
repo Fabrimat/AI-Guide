@@ -37,8 +37,10 @@
 const STORAGE_KEY = 'aiguide:reading-mode';
 const WRAP_ATTR = 'data-bionic-wrap';
 const BOLD_ATTR = 'data-bionic';
-const HTML_ATTR = 'reading-mode';
 const EVENT_NAME = 'aiguide:reading-mode';
+// `<html data-reading-mode="on">` → `dataset.readingMode`.
+// `dataset` accepts only camelCase keys at runtime, so kebab-case would
+// throw `Failed to set a named property … is not a valid property name`.
 
 const EXCLUDED_TAGS = new Set([
   'SCRIPT',
@@ -137,12 +139,12 @@ function reset(): void {
 }
 
 export function isOn(): boolean {
-  return document.documentElement.dataset[HTML_ATTR as 'readingMode'] === 'on';
+  return document.documentElement.dataset.readingMode === 'on';
 }
 
 export function setState(on: boolean): void {
   if (on) {
-    document.documentElement.dataset[HTML_ATTR as 'readingMode'] = 'on';
+    document.documentElement.dataset.readingMode = 'on';
     try {
       localStorage.setItem(STORAGE_KEY, 'on');
     } catch {
@@ -150,7 +152,7 @@ export function setState(on: boolean): void {
     }
     apply();
   } else {
-    delete document.documentElement.dataset[HTML_ATTR as 'readingMode'];
+    delete document.documentElement.dataset.readingMode;
     try {
       localStorage.removeItem(STORAGE_KEY);
     } catch {
