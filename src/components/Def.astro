@@ -158,14 +158,21 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     text-align: left;
     white-space: normal;
 
-    visibility: hidden;
+    /* Hidden via `display: none`, non `visibility: hidden`: un popover
+       invisible-but-laid-out da 280px sporgerebbe oltre la viewport
+       ogni volta che il termine <Def> è a metà/destra della riga,
+       generando scroll orizzontale su mobile (e spingendo fuori dal
+       canvas il bottone fisso del menu di Starlight).
+       `transition-behavior: allow-discrete` + `@starting-style` nella
+       regola "aperto" tengono il fade sui browser moderni; sui più
+       vecchi il popover compare senza animazione, accettabile. */
+    display: none;
     opacity: 0;
     transform: translateY(-2px);
     transition:
       opacity 0.15s ease,
       transform 0.15s ease,
-      visibility 0s linear 0.15s;
-    pointer-events: none;
+      display 0.15s allow-discrete;
   }
 
   /* Piccolo arrow in alto a sinistra. */
@@ -185,14 +192,17 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
   .def-wrap:hover .def-pop,
   .def-wrap.is-open .def-pop,
   .def-wrap:focus-within .def-pop {
-    visibility: visible;
+    display: block;
     opacity: 1;
     transform: translateY(0);
-    transition:
-      opacity 0.15s ease,
-      transform 0.15s ease,
-      visibility 0s linear 0s;
-    pointer-events: auto;
+
+    /* `@starting-style` definisce lo stato di partenza quando si passa
+       da display:none a display:block: senza, il browser applicherebbe
+       subito lo stato finale e la transition non partirebbe. */
+    @starting-style {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
