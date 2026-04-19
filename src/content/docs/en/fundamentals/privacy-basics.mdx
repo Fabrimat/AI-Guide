@@ -39,6 +39,17 @@ fraud) or to improve the product: if your conversation ends up in that
 sample, it may pass through the eyes of someone on their team, under
 confidentiality rules.
 
+:::caution[What if I use a less famous AI app?]
+"Serious companies" here means ones with a recognizable name, legal
+documents published openly on the site, and an app downloaded from the
+official Play Store or App Store. If a free AI app you stumbled on
+doesn't have a readable privacy policy, or asks for odd permissions
+(contacts, address book, always-on microphone), don't give it personal
+data. The rules in this lesson apply to OpenAI, Anthropic, Google, and
+a handful of other big companies. Unknown apps deserve more caution,
+not less.
+:::
+
 ## What happens after you send the message
 
 Three things, with variations from product to product:
@@ -52,11 +63,22 @@ Three things, with variations from product to product:
 3. **Safety review.** Small samples can be read by designated staff, to
    catch abuse or improve the product.
 
-Key point: these rules change depending on the plan.
+:::note[Can it "repeat" what I wrote to someone else?]
+In practice, no. When a model is trained on millions of conversations,
+what you wrote becomes a drop in the training ocean. There are rare
+cases where a model reproduces chunks of its training data word-for-word,
+but they involve things published in many copies (the Wikipedia front
+page, lyrics of famous songs), not a unique conversation like yours.
+:::
+
+Key point: these rules change depending on the plan you're on (the
+type of subscription). You can see it at the top of your account
+settings: "Free", "Plus", "Pro", "Team", and so on.
 
 - **Free and consumer plans (ChatGPT Plus, Claude Pro, personal Gemini)**:
-  by default, conversations can be used for training, but you can turn
-  that off in the settings.
+  even if you pay for a subscription like Plus or Pro, from a privacy
+  standpoint you're in the "consumer" bucket. By default, conversations
+  can be used for training, but you can turn that off in the settings.
 - **Business plans (Team, Enterprise, Business)**: by default they are
   **not** used to train models, and the company makes contractual
   commitments to your employer.
@@ -73,7 +95,7 @@ A simple mental test: "if this showed up in a Google search a year from
 now, would it create a problem for me?" If the answer is yes, think
 twice.
 
-In practice, keep these out of public chats:
+In practice, keep these out of free-plan and personal chats:
 
 - **Data about people other than you.** If you paste a coworker's email
   as is, you're sharing her address, her topics, her writing style. Those
@@ -84,12 +106,20 @@ In practice, keep these out of public chats:
   strategies, confidential pricing, client lists. Many companies have
   explicit policies: before pasting something work-related into
   "personal" ChatGPT, check whether a dedicated business plan exists.
-- **Credentials.** Passwords, API keys, credit card numbers, PINs.
+- **Credentials.** Passwords, <Def explanation="A kind of technical password developers use to let an application talk to a service. Not something you'd use unless you're coding, but it sometimes shows up in work files.">API keys</Def>, credit card numbers, PINs.
   Never, for any reason.
 
 For your own personal data the calculation is different: if it helps you
 to have the AI explain your own bill, that's your call. Just remember
 that the bill, with your name and address on it, leaves a trace.
+
+:::tip[How to share only what matters]
+Before pasting an email or a document, strip out what the AI doesn't
+need to help you: names, addresses, phone numbers, codes. Replace
+"Dear Francesca" with "[name]", replace an address with "[address]".
+The AI still follows the context, and you've given away less. Works
+for coworkers' emails, bills, medical reports, contracts.
+:::
 
 ## Settings that actually exist
 
@@ -107,7 +137,17 @@ You don't have to trust blindly: serious AIs give you real controls.
 
 Heads up: turning off training **doesn't** delete the conversation. Your
 text still sits on the company's servers for a while (typically 30 days,
-even after you delete it yourself, for legal audit reasons).
+even after you delete it yourself). That's the time required for
+fraud-prevention obligations, responding to legal subpoenas, and
+internal audits. After that period it actually gets deleted.
+
+:::tip[How do I check training is really off]
+After changing the option, close the settings page and reopen it: if
+the option is still off, the change was saved. If it flips back on by
+itself, the save didn't go through (it happens, rarely). As an extra
+check, ChatGPT shows a small note next to the input box when you're in
+a chat that won't be used for training.
+:::
 
 ## A mindset, not a checklist
 

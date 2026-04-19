@@ -39,6 +39,17 @@ pedopornografico, frodi) o per migliorare il prodotto: se la tua
 conversazione cade in quel campione, può passare dagli occhi di qualche
 persona del loro team, sotto obblighi di riservatezza.
 
+:::caution[E se uso un'app di IA meno famosa?]
+"Aziende serie" qui vuol dire con un nome riconoscibile, documenti
+legali in chiaro sul sito, e un'app scaricata dal Play Store o
+dall'App Store ufficiali. Se un'applicazione gratuita di IA che hai
+trovato girando non ha una privacy policy leggibile, o ti chiede
+permessi strani (accesso a contatti, rubrica, microfono sempre
+attivo), evita di darle dati personali. Le regole di questa lezione
+valgono per OpenAI, Anthropic, Google e poche altre aziende grandi.
+Con le app sconosciute serve più cautela, non meno.
+:::
+
 ## Cosa succede dopo che mandi il messaggio
 
 Tre cose, con varianti da prodotto a prodotto:
@@ -52,11 +63,24 @@ Tre cose, con varianti da prodotto a prodotto:
 3. **Revisione per sicurezza.** Campioni piccoli possono essere letti da
    personale addetto, per individuare abusi o migliorare il prodotto.
 
-Il punto importante: queste regole cambiano a seconda del piano.
+:::note[Può "ripetere" quello che ho scritto a qualcun altro?]
+Nella pratica no. Quando un modello viene allenato su milioni di
+conversazioni, quello che hai scritto tu diventa una goccia nell'oceano
+dell'allenamento. Esistono casi rari in cui un modello ripete parola
+per parola pezzi dei suoi dati, ma riguardano cose pubblicate in molte
+copie (la prima pagina di Wikipedia, testi di canzoni famose), non una
+conversazione unica come la tua.
+:::
+
+Il punto importante: queste regole cambiano a seconda del piano che
+hai (il tipo di abbonamento). Lo leggi in alto nelle impostazioni del
+tuo account: "Free", "Plus", "Pro", "Team" e così via.
 
 - **Piani gratuiti e consumer (ChatGPT Plus, Claude Pro, Gemini
-  personale)**: di default le conversazioni possono essere usate per
-  allenamento, ma puoi disattivare l'opzione nelle impostazioni.
+  personale)**: anche se paghi un abbonamento come Plus o Pro, dal
+  punto di vista della privacy sei nella categoria "consumer". Di
+  default le conversazioni possono essere usate per allenamento, ma
+  puoi disattivare l'opzione nelle impostazioni.
 - **Piani aziendali (Team, Enterprise, Business)**: di default **non**
   vengono usate per allenare i modelli, e l'azienda si impegna
   contrattualmente con il tuo datore di lavoro.
@@ -73,7 +97,7 @@ Un test mentale semplice: "se questa cosa finisse in una ricerca Google
 fra un anno, mi creerebbe un problema?" Se la risposta è sì, pensaci due
 volte.
 
-In pratica, tieni fuori dalle chat pubbliche:
+In pratica, tieni fuori dalle chat dei piani gratuiti e personali:
 
 - **Dati di persone che non sono te.** Se copi una mail di una collega
   così com'è, stai condividendo il suo indirizzo, i suoi argomenti, il
@@ -84,12 +108,21 @@ In pratica, tieni fuori dalle chat pubbliche:
   commerciali, prezzi riservati, liste clienti. Molte aziende hanno
   policy esplicite: prima di incollare qualcosa di lavoro in ChatGPT
   "personale", guarda se esiste un piano aziendale dedicato.
-- **Credenziali.** Password, chiavi API, numeri di carta di credito,
-  PIN. Mai, per nessun motivo.
+- **Credenziali.** Password, <Def explanation="Una specie di password tecnica che gli sviluppatori usano per far parlare un'applicazione con un servizio. Non è roba che useresti se non stai programmando, ma a volte compare in file di lavoro.">chiavi API</Def>, numeri di carta di
+  credito, PIN. Mai, per nessun motivo.
 
 Per i tuoi dati personali il calcolo è diverso: se ti aiuta farti
 spiegare una tua bolletta, è una scelta tua. Ricorda solo che quella
 bolletta, col tuo nome e il tuo indirizzo sopra, lascia una traccia.
+
+:::tip[Come condividere solo quello che serve]
+Prima di incollare una mail o un documento, togli quello che all'IA
+non serve per aiutarti: nomi, indirizzi, numeri di telefono, codici.
+Al posto di "Cara Francesca" scrivi "[nome]", al posto di un
+indirizzo scrivi "[indirizzo]". L'IA capisce ugualmente il contesto,
+e tu hai regalato meno. Funziona per mail di colleghi, bollette,
+referti sanitari, contratti.
+:::
 
 ## Impostazioni che esistono davvero
 
@@ -108,8 +141,19 @@ Non devi fidarti a scatola chiusa: le IA serie ti danno controlli veri.
 
 Attenzione: disattivare l'uso per allenamento **non** cancella la
 conversazione. Il tuo testo resta comunque sui server dell'azienda per
-un periodo (tipicamente 30 giorni, anche dopo averla cancellata tu, per
-ragioni legali di audit).
+un periodo (tipicamente 30 giorni, anche dopo averla cancellata tu). È
+il tempo previsto per obblighi antifrode, risposta a eventuali
+ingiunzioni giudiziarie, e audit interni. Dopo quel periodo viene
+cancellato davvero.
+
+:::tip[Come controllo di aver spento davvero l'allenamento]
+Dopo aver cambiato l'opzione, chiudi la pagina delle impostazioni e
+riaprila: se l'opzione è ancora disattivata, la modifica è salvata.
+Se torna attiva da sola, il salvataggio non è andato a buon fine
+(succede raramente). Come ulteriore verifica, ChatGPT mostra una
+piccola scritta accanto alla casella di testo quando sei in una chat
+che non verrà usata per allenamento.
+:::
 
 ## Una mentalità, non una lista
 
