@@ -144,12 +144,12 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     max-width: min(280px, calc(100vw - 2rem));
     padding: 0.6rem 0.75rem;
 
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 0.5rem;
     box-shadow:
-      0 2px 8px rgba(42, 36, 71, 0.06),
-      0 10px 28px rgba(42, 36, 71, 0.08);
+      0 2px 8px rgba(var(--aig-shadow-color), 0.06),
+      0 10px 28px rgba(var(--aig-shadow-color), 0.08);
 
     color: var(--sl-color-text);
     font-size: 0.88rem;
@@ -183,7 +183,7 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     left: 1rem;
     width: 10px;
     height: 10px;
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border-left: 1px solid var(--sl-color-hairline);
     border-top: 1px solid var(--sl-color-hairline);
     transform: rotate(45deg);

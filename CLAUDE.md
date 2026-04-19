@@ -135,9 +135,9 @@ Lo schema è validato in `src/content.config.ts`.
 
 ## Direzione visiva — Pastello
 
-Il sito usa **una sola palette warm** ("Pastello") pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
+Il sito usa **una palette warm in due modalità** ("Pastello"), pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
 
-**Palette (CSS vars in `src/styles/custom.css`)**:
+**Palette Light (CSS vars in `src/styles/custom.css`)**:
 
 | Token                       | Valore     | Uso                          |
 |-----------------------------|------------|------------------------------|
@@ -149,13 +149,41 @@ Il sito usa **una sola palette warm** ("Pastello") pensata per un pubblico non-t
 | `--sl-color-accent-high`    | `#B85D44`  | hover su accento             |
 | `--sl-color-hairline`       | `#F0DCC9`  | bordi                        |
 
+**Palette Dark (warm dark)**:
+
+| Token                       | Valore     | Uso                             |
+|-----------------------------|------------|---------------------------------|
+| `--sl-color-bg`             | `#1C130D`  | sfondo pagina (cioccolato)      |
+| `--sl-color-text`           | `#F3E5D0`  | testo principale (crema)        |
+| `--sl-color-text-accent`    | `#F29A82`  | link nel corpo (coral chiaro)   |
+| `--sl-color-accent`         | `#E07A5F`  | accento, CTA (coral invariato)  |
+| `--sl-color-accent-low`     | `#5A3025`  | accento soffuso (coral scuro)   |
+| `--sl-color-accent-high`    | `#F29A82`  | hover su accento (più chiaro)   |
+| `--sl-color-hairline`       | `#3D2D22`  | bordi                           |
+
+Il coral (`--sl-color-accent`) è identico in entrambi i temi: è il tratto di continuità del sito.
+
+**Token custom `--aig-*`**: usati dai componenti per sostituire `#ffffff` e `rgba(42, 36, 71, X)` hardcoded, così il tema scuro funziona senza toccare ogni file.
+
+| Token                    | Uso                                                |
+|--------------------------|----------------------------------------------------|
+| `--aig-elevated-bg`      | sfondo di card, popover, modali (`#fff` in light)  |
+| `--aig-elevated-bg-warm` | aside `:::note`                                    |
+| `--aig-caution-*`        | aside `:::caution` e `<LlmExercise variant="review">` |
+| `--aig-danger-*`         | aside `:::danger`                                  |
+| `--aig-shadow-color`     | tripletta rgb usata in `rgba(var(--aig-shadow-color), X)` per le box-shadow |
+| `--aig-scrim`            | backdrop dei `<dialog>` modali                     |
+| `--aig-hover-wash`       | hover wash su bottoni minimali / ghost             |
+
+Quando aggiungi un componente con fondo "bianco" o ombre, usa questi token, non hardcodare `#ffffff` né `rgba(42, 36, 71, X)`.
+
 **Tipografia**: [Outfit Variable](https://fonts.google.com/specimen/Outfit) via `@fontsource-variable/outfit`. Base 17px, line-height 1.7, heading tracking `-0.005em`.
 
 **Vincoli**:
 
-- **Niente dark mode.** `ThemeSelect.astro` è override-vuoto, `Head.astro` blocca `data-theme="light"` prima del rendering. Non rimuovere queste cose senza decisione esplicita.
+- **Due modalità, stessa identità.** Light (Pastello) e dark (warm dark cioccolato+crema). Il selettore è lo `ThemeSelect` di default di Starlight, persistito in `localStorage['starlight-theme']`. Rispetta `prefers-color-scheme`.
 - **Niente TOC laterale.** `PageSidebar.astro` è override-vuoto. Le lezioni sono brevi e auto-contenute.
-- **Niente blu/cyber/neri puri/densità "da docs".** Quando aggiungi UI: usa le CSS vars di Starlight già sovrascritte, non hardcodare colori.
+- **Niente blu/cyber/neri puri/densità "da docs".** Quando aggiungi UI: usa le CSS vars di Starlight e i token `--aig-*`, mai hardcodare colori.
 - **Outfit è la voce dominante.** Aggiungere font solo con discussione esplicita.
 - **Riferimenti mentali**: NYT Cooking, Brain Pickings, guide illustrate di carta. NON: Stripe / Linear / Vercel docs.
 - **Custom CSS**: `src/styles/custom.css` (caricato da Starlight via `customCss`).

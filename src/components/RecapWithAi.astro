@@ -324,12 +324,12 @@ ${instructions}`;
     margin: 1.75rem auto;
     padding: 1.25rem 1.25rem 1rem;
     max-width: 900px;
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
     box-shadow:
-      0 1px 0 rgba(42, 36, 71, 0.04),
-      0 6px 18px rgba(42, 36, 71, 0.05);
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
   }
 
   .recap-with-ai[hidden] {
@@ -411,16 +411,16 @@ ${instructions}`;
     padding: 1.5rem;
     max-width: 36rem;
     width: calc(100% - 2rem);
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
-    box-shadow: 0 12px 36px rgba(42, 36, 71, 0.18);
+    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
     font-family: var(--sl-font);
   }
 
   .recap-dialog::backdrop {
-    background: rgba(42, 36, 71, 0.45);
+    background: var(--aig-scrim);
   }
 
   .recap-dialog h4 {
@@ -467,6 +467,6 @@ ${instructions}`;
   }
 
   .recap-btn-ghost:hover {
-    background: rgba(42, 36, 71, 0.04);
+    background: var(--aig-hover-wash);
   }
 </style>

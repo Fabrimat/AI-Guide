@@ -126,12 +126,12 @@ const [mailUser = '', mailDomain = ''] = to.split('@');
   .mailto-composer {
     margin: 1.75rem 0;
     padding: 1.25rem 1.25rem 1.1rem;
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
     box-shadow:
-      0 1px 0 rgba(42, 36, 71, 0.04),
-      0 6px 18px rgba(42, 36, 71, 0.05);
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
   }
 
   .mailto-composer header {

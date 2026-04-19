@@ -179,6 +179,10 @@ const { icon, badge, durationSuffix } = labels[variant];
   .btn:hover {
     background: var(--sl-color-gray-6);
   }
+  .btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
   .btn-primary {
     background: var(--sl-color-accent);
     color: var(--sl-color-text-invert);
@@ -197,10 +201,10 @@ const { icon, badge, durationSuffix } = labels[variant];
      "controlla cosa hai capito" da "fai pratica". Il bottone primary
      resta coral per coerenza dei CTA del sito. */
   .llm-exercise.is-review {
-    border-color: #d4a248;
-    background: #fbe9c0;
+    border-color: var(--aig-caution-border);
+    background: var(--aig-caution-bg);
   }
   .llm-exercise.is-review .badge {
-    color: #8a5a18;
+    color: var(--aig-caution-text);
   }
 </style>

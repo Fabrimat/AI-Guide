@@ -40,14 +40,14 @@ const labels = LABELS[locale] ?? LABELS.it;
     gap: 1rem;
     margin: 3rem 0 0;
     padding: 1.4rem 1.5rem;
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
     text-decoration: none;
     color: var(--sl-color-text);
     box-shadow:
-      0 1px 0 rgba(42, 36, 71, 0.04),
-      0 6px 18px rgba(42, 36, 71, 0.05);
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
     transition:
       background 150ms ease,
       transform 150ms ease,
@@ -58,8 +58,8 @@ const labels = LABELS[locale] ?? LABELS.it;
     background: var(--sl-color-accent-low);
     transform: translateY(-1px);
     box-shadow:
-      0 4px 10px rgba(42, 36, 71, 0.06),
-      0 12px 28px rgba(42, 36, 71, 0.08);
+      0 4px 10px rgba(var(--aig-shadow-color), 0.06),
+      0 12px 28px rgba(var(--aig-shadow-color), 0.08);
   }
 
   .next-lesson:focus-visible {

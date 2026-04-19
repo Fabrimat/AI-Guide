@@ -221,12 +221,12 @@ const ui = t(Astro.currentLocale);
     margin: 2rem auto;
     padding: 1rem 1.25rem;
     max-width: 900px;
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
     box-shadow:
-      0 1px 0 rgba(42, 36, 71, 0.04),
-      0 6px 18px rgba(42, 36, 71, 0.05);
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
     flex-wrap: wrap;
   }
 
@@ -321,22 +321,28 @@ const ui = t(Astro.currentLocale);
     text-decoration-color: currentColor;
   }
 
+  .resume-reset:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
   /* ----- Modale di conferma "Cancellare i progressi?" ----- */
   .resume-confirm {
     margin: auto;
     padding: 1.5rem 1.5rem 1.25rem;
     max-width: 28rem;
     width: calc(100% - 2rem);
-    background: #ffffff;
+    background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 1rem;
-    box-shadow: 0 12px 36px rgba(42, 36, 71, 0.18);
+    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
     font-family: var(--sl-font);
   }
 
   .resume-confirm::backdrop {
-    background: rgba(42, 36, 71, 0.45);
+    background: var(--aig-scrim);
   }
 
   .resume-confirm h2 {
@@ -378,7 +384,7 @@ const ui = t(Astro.currentLocale);
   }
 
   .btn-cancel:hover {
-    background: rgba(42, 36, 71, 0.04);
+    background: var(--aig-hover-wash);
   }
 
   .btn-confirm {

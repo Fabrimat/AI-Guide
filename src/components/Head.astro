@@ -2,21 +2,18 @@
 /**
  * Override del componente Head di Starlight.
  *
- * Fa cinque cose:
- *  1. Blocca il tema su "light" prima che il resto del JS si carichi
- *     (il sito ha una sola palette, "Pastello", quindi non ha senso
- *     persistere o offrire dark mode).
- *  2. Attiva le View Transitions di Astro (ClientRouter) per avere
+ * Fa quattro cose:
+ *  1. Attiva le View Transitions di Astro (ClientRouter) per avere
  *     navigazione SPA-like fra pagine e fra lingue, senza flash bianco
  *     né reset dello stato della pagina.
- *  3. Carica il tracker di progresso (vedi `src/scripts/progress.ts`).
+ *  2. Carica il tracker di progresso (vedi `src/scripts/progress.ts`).
  *     Tutto in localStorage, nessun dato lascia il browser. Serve
  *     al componente `<Resume>` per il "riprendi da dove hai lasciato".
- *  4. Inietta `window.__AIGUIDE_TITLES__`, una mappa URL → titolo per
+ *  3. Inietta `window.__AIGUIDE_TITLES__`, una mappa URL → titolo per
  *     ogni pagina del sito in ogni lingua. Usata da `<Resume>` e
  *     `<RecapWithAi>` per mostrare il titolo nel locale corrente anche
  *     se l'utente non ha mai visitato quella pagina in quella lingua.
- *  5. In produzione carica Simple Analytics, l'unico strumento di
+ *  4. In produzione carica Simple Analytics, l'unico strumento di
  *     analytics aggregato del sito. No cookie, no fingerprint, IP
  *     scartato dopo aver derivato il paese. In dev è disattivato per
  *     non sporcare le statistiche con il lavoro di sviluppo. La SPA
@@ -30,6 +27,14 @@
  *     SA non raccoglie dato personale, quindi non c'è profilazione
  *     da disattivare e perderemmo solo i lettori più privacy-aware.
  *     Vedi `privacy.mdx` per la versione user-facing.
+ *
+ * Nota sul tema: il sito supporta sia light (Pastello originale)
+ * che warm dark (cioccolato + crema + coral). La scelta è persistita
+ * da Starlight in `localStorage['starlight-theme']` e l'init senza
+ * flash è gestito dal Head default (che include lo script inline di
+ * Starlight). Non forziamo più il tema qui: il rispetto di
+ * `prefers-color-scheme` e della preferenza utente è completamente
+ * delegato a Starlight.
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -46,17 +51,6 @@ for (const entry of entries) {
   titleMap[url] = entry.data.title;
 }
 ---
-
-<script is:inline>
-  // Lock palette to light. Eseguito inline nel head così è la prima cosa
-  // che gira: niente flash di un tema diverso prima del nostro CSS.
-  document.documentElement.dataset.theme = 'light';
-  try {
-    localStorage.setItem('starlight-theme', 'light');
-  } catch (_) {
-    /* localStorage non disponibile (browser privato): ignora. */
-  }
-</script>
 
 <script is:inline define:vars={{ titleMap }}>
   window.__AIGUIDE_TITLES__ = titleMap;

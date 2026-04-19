@@ -1,22 +1,46 @@
 /* ============================================================
    AI-Guide · stili globali
-   Direzione visiva: "Pastello" (palette warm, una sola modalità).
-   I token sono override delle CSS variables di Starlight.
+   Direzione visiva: "Pastello" (palette warm, due modalità).
+   - Light: sfondo pesca + indigo + coral (originale).
+   - Dark: sfondo cioccolato + crema + coral (warm dark).
+   I token sono override delle CSS variables di Starlight, più
+   alcuni token custom prefissati `--aig-*` consumati dai
+   componenti del progetto.
    ============================================================ */
 
 @import '@fontsource-variable/outfit';
 
 /* ------------------------------------------------------------
-   Design tokens · Pastello
-   - Sfondo pesca (#FCEEE3), testo indigo profondo (#2A2447),
-     accento coral (#E07A5F).
-   - Sito bloccato su tema light: tutti gli override sono
-     applicati anche a [data-theme='dark'] per evitare flash
-     di palette se qualcosa la imposta.
+   Design tokens · base invariante
+   Tipografia, sizing, ritmo: uguali in entrambi i temi.
+   Le palette vere (colori) stanno nei blocchi per `data-theme`.
+   ------------------------------------------------------------ */
+:root {
+  /* Tipografia */
+  --sl-font:
+    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-system:
+    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Ritmo tipografico più arioso rispetto al default */
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.25;
+
+  /* Sizing del corpo lezione (chrome resta a default) */
+  --sl-text-base: 1.0625rem; /* ~17px */
+  --sl-text-h1: 2.4rem;
+  --sl-text-h2: 1.65rem;
+  --sl-text-h3: 1.3rem;
+  --sl-text-h4: 1.1rem;
+  --sl-text-h5: 1rem;
+}
+
+/* ------------------------------------------------------------
+   Palette · Light (Pastello originale)
+   Sfondo pesca (#FCEEE3), testo indigo (#2A2447), coral (#E07A5F).
    ------------------------------------------------------------ */
 :root,
-:root[data-theme='light'],
-:root[data-theme='dark'] {
+:root[data-theme='light'] {
   /* Background */
   --sl-color-bg: #fceee3;
   --sl-color-bg-nav: #fceee3;
@@ -32,10 +56,11 @@
   /* ATTENZIONE ai nomi delle variabili di Starlight:
      - `--sl-color-white` NON è "bianco letterale": è il colore
        "strong text" (max contrasto contro lo sfondo). In light mode
-       vale il colore scuro della palette (indigo).
+       vale il colore scuro della palette (indigo). In dark vale il
+       colore chiaro (crema).
      - `--sl-color-black` è il colore "light bg" (usato come sfondo
-       del modale Pagefind, del bottone menu mobile, ecc.).
-     Invertire questi due causa testo bianco su fondo chiaro ovunque. */
+       del modale Pagefind, del bottone menu mobile, ecc.). In dark
+       va invertito su un tono elevato. */
   --sl-color-white: #2a2447;
   --sl-color-black: #ffffff;
 
@@ -58,26 +83,103 @@
   --sl-color-hairline-light: #f8e8d9;
   --sl-color-hairline-shade: #e5d2be;
 
-  /* Tipografia */
-  --sl-font:
-    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --sl-font-system:
-    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Token custom del progetto.
+     - `--aig-elevated-bg`: sfondo di card, popover, modali, preview,
+       tooltip (in light è bianco puro, in dark è cioccolato elevato).
+     - `--aig-elevated-bg-warm`: variante calda per gli aside `note`.
+     - `--aig-caution-*` / `--aig-danger-*`: colori degli aside
+       (`:::caution`, `:::danger`) e del variant `review` di
+       `<LlmExercise>`. Estratti qui così in dark possono diventare
+       toni profondi invece dei pastelli chiari.
+     - `--aig-shadow-color`: tripletta rgb usata nei `rgba(...)` dei
+       box-shadow. In light è l'indigo del testo (ombre con tinta
+       viola, non nere); in dark diventa nero puro.
+     - `--aig-scrim`: sfondo dei backdrop modali (Resume, Recap).
+     - `--aig-hover-wash`: sfondo wash per hover su bottoni minimali. */
+  --aig-elevated-bg: #ffffff;
+  --aig-elevated-bg-warm: #fffaf1;
+  --aig-caution-bg: #fbe9c0;
+  --aig-caution-border: #d4a248;
+  --aig-caution-text: #8a5a18;
+  --aig-danger-bg: #f7c8bc;
+  --aig-danger-border: #b5483a;
+  --aig-danger-text: #8a2f1a;
+  --aig-shadow-color: 42, 36, 71;
+  --aig-scrim: rgba(42, 36, 71, 0.45);
+  --aig-hover-wash: rgba(42, 36, 71, 0.04);
 
-  /* Ritmo tipografico più ariosa rispetto al default */
-  --sl-line-height: 1.7;
-  --sl-line-height-headings: 1.25;
-
-  /* Sizing del corpo lezione (chrome resta a default) */
-  --sl-text-base: 1.0625rem; /* ~17px */
-  --sl-text-h1: 2.4rem;
-  --sl-text-h2: 1.65rem;
-  --sl-text-h3: 1.3rem;
-  --sl-text-h4: 1.1rem;
-  --sl-text-h5: 1rem;
-
-  /* Forza color-scheme light anche se l'attributo è "dark" */
   color-scheme: light;
+}
+
+/* ------------------------------------------------------------
+   Palette · Dark (warm dark)
+   Sfondo cioccolato (#1C130D), testo crema (#F3E5D0), coral
+   brillante per i link (#F29A82). Le coppie Gray 1..7 si
+   invertono: in dark `gray-1` è il testo più contrastato (crema),
+   `gray-7` è lo sfondo più profondo. Stessa convenzione di
+   Starlight, così i componenti già scritti contro `gray-*`
+   continuano a dare senso.
+   ------------------------------------------------------------ */
+:root[data-theme='dark'] {
+  /* Background */
+  --sl-color-bg: #1c130d;
+  --sl-color-bg-nav: #1c130d;
+  --sl-color-bg-sidebar: #1c130d;
+  --sl-color-bg-inline-code: #3a2a1e;
+  --sl-color-bg-accent: #e07a5f;
+
+  /* Text */
+  --sl-color-text: #f3e5d0;
+  /* Link nel corpo: coral brillante per contrasto AAA su cioccolato. */
+  --sl-color-text-accent: #f29a82;
+  /* Testo su bottoni coral primari: resta cioccolato scuro (il coral
+     è lo stesso in entrambi i temi, quindi il testo sopra di esso
+     non cambia). */
+  --sl-color-text-invert: #1c130d;
+
+  /* Vedi nota sopra: `white` = strong text, `black` = light bg. */
+  --sl-color-white: #f3e5d0;
+  --sl-color-black: #2a1d14;
+
+  /* Accent (coral). Low = coral scuro per wash. High = coral brillante
+     per hover (su dark la direzione "più chiaro" funziona meglio di
+     "più scuro"). */
+  --sl-color-accent: #e07a5f;
+  --sl-color-accent-low: #5a3025;
+  --sl-color-accent-high: #f29a82;
+
+  /* Scala di grigi invertita, tinta warm (non neutra). */
+  --sl-color-gray-1: #f3e5d0;
+  --sl-color-gray-2: #d9c4a8;
+  --sl-color-gray-3: #b89a82;
+  --sl-color-gray-4: #7a6452;
+  --sl-color-gray-5: #3d2d22;
+  --sl-color-gray-6: #2a1d14;
+  --sl-color-gray-7: #1c130d;
+
+  /* Hairlines / bordi: bump verso 2.5:1 contro il bg per garantire
+     che le card si separino visibilmente anche senza shadow forte. */
+  --sl-color-hairline: #6b5140;
+  --sl-color-hairline-light: #4a382b;
+  --sl-color-hairline-shade: #8a6a4e;
+
+  /* Token custom del progetto (dark).
+     Elevazione: bg cioccolato più chiaro del page bg (1.4:1), così
+     card e popover si staccano senza dipendere dall'ombra (nera su
+     cioccolato è poco visibile). */
+  --aig-elevated-bg: #3a2a1e;
+  --aig-elevated-bg-warm: #402e20;
+  --aig-caution-bg: #3a2a15;
+  --aig-caution-border: #a77a2b;
+  --aig-caution-text: #f0c775;
+  --aig-danger-bg: #3d1f15;
+  --aig-danger-border: #c26048;
+  --aig-danger-text: #f2a28e;
+  --aig-shadow-color: 0, 0, 0;
+  --aig-scrim: rgba(0, 0, 0, 0.65);
+  --aig-hover-wash: rgba(243, 229, 208, 0.06);
+
+  color-scheme: dark;
 }
 
 /* Outfit beneficia di un tracking leggermente stretto sui titoli */
@@ -130,8 +232,8 @@
    Callout (asides di Starlight)
    Le quattro varianti di default usano colori "semaforo"
    (blu/viola/arancio/rosso) che stridono con la palette Pastello.
-   Le rimappiamo su toni warm coordinati: la struttura resta quella
-   di Starlight (icona + titolo + contenuto), cambiano solo i colori.
+   Le rimappiamo su toni warm coordinati via `--aig-*`, così la
+   modalità dark può ridefinirli in blocco.
    ------------------------------------------------------------ */
 .starlight-aside {
   border-radius: 0.75rem;
@@ -141,28 +243,28 @@
 .starlight-aside--tip {
   --sl-color-asides-text-accent: var(--sl-color-accent-high);
   --sl-color-asides-border: var(--sl-color-accent);
-  background-color: #ffffff;
+  background-color: var(--aig-elevated-bg);
 }
 
 /* `:::note` -> neutro warm. Per informazioni di contesto. */
 .starlight-aside--note {
   --sl-color-asides-text-accent: var(--sl-color-text);
   --sl-color-asides-border: var(--sl-color-gray-4);
-  background-color: #fffaf1;
+  background-color: var(--aig-elevated-bg-warm);
 }
 
 /* `:::caution` -> ocra. Per attirare l'attenzione su un dettaglio. */
 .starlight-aside--caution {
-  --sl-color-asides-text-accent: #8a5a18;
-  --sl-color-asides-border: #d4a248;
-  background-color: #fbe9c0;
+  --sl-color-asides-text-accent: var(--aig-caution-text);
+  --sl-color-asides-border: var(--aig-caution-border);
+  background-color: var(--aig-caution-bg);
 }
 
 /* `:::danger` -> coral scuro. Per errori comuni o cose da non fare. */
 .starlight-aside--danger {
-  --sl-color-asides-text-accent: #8a2f1a;
-  --sl-color-asides-border: #b5483a;
-  background-color: #f7c8bc;
+  --sl-color-asides-text-accent: var(--aig-danger-text);
+  --sl-color-asides-border: var(--aig-danger-border);
+  background-color: var(--aig-danger-bg);
 }
 
 /* ------------------------------------------------------------
@@ -241,7 +343,7 @@ nav.sidebar a.lesson-completed::after {
 }
 
 .hero .actions .sl-link-button.minimal:hover {
-  background: rgba(42, 36, 71, 0.04);
+  background: var(--aig-hover-wash);
 }
 
 /* ------------------------------------------------------------
@@ -255,12 +357,12 @@ nav.sidebar a.lesson-completed::after {
   gap: 1.25rem;
   margin: 1.25rem 0 2rem;
   padding: 1.1rem 1.25rem;
-  background: #ffffff;
+  background: var(--aig-elevated-bg);
   border: 1px solid var(--sl-color-hairline);
   border-radius: 1rem;
   box-shadow:
-    0 1px 0 rgba(42, 36, 71, 0.04),
-    0 6px 18px rgba(42, 36, 71, 0.05);
+    0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+    0 6px 18px rgba(var(--aig-shadow-color), 0.05);
 }
 
 .about-hero__avatar {
