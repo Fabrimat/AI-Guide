@@ -2,7 +2,7 @@
 /**
  * Override del componente Head di Starlight.
  *
- * Fa quattro cose:
+ * Fa cinque cose:
  *  1. Blocca il tema su "light" prima che il resto del JS si carichi
  *     (il sito ha una sola palette, "Pastello", quindi non ha senso
  *     persistere o offrire dark mode).
@@ -16,6 +16,13 @@
  *     ogni pagina del sito in ogni lingua. Usata da `<Resume>` e
  *     `<RecapWithAi>` per mostrare il titolo nel locale corrente anche
  *     se l'utente non ha mai visitato quella pagina in quella lingua.
+ *  5. In produzione carica Simple Analytics, l'unico strumento di
+ *     analytics aggregato del sito. No cookie, no fingerprint, IP
+ *     scartato dopo aver derivato il paese. In dev è disattivato per
+ *     non sporcare le statistiche con il lavoro di sviluppo. La SPA
+ *     navigation di ClientRouter è gestita automaticamente dal loro
+ *     script (osserva pushState/popstate). Vedi `privacy.mdx` per
+ *     la versione user-facing.
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -54,6 +61,10 @@ for (const entry of entries) {
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:image" content="https://ai-guide.larosa.work/og-image.png" />
+
+{import.meta.env.PROD && (
+  <script async is:inline src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+)}
 
 <ClientRouter />
 
