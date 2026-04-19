@@ -17,6 +17,57 @@ npm run preview   # serve dist/ localmente
 
 Nessun linter/test configurato al momento. Lo "smoke test" è `npm run build`: se gira pulito, la build è OK.
 
+## Hosting e deploy
+
+**Hosting**: [Netlify](https://netlify.com), free tier. Sito statico,
+build server-side da Git push. Astro è auto-rilevato (`npm run build`,
+output in `dist/`).
+
+**DNS / dominio**: `ai-guide.larosa.work`. Il dominio `larosa.work` è
+gestito su Cloudflare DNS. Record CNAME `ai-guide` → dominio Netlify
+del progetto, in modalità **DNS-only (nuvola grigia)**, NON proxied
+(nuvola arancione). Proxy arancione termina TLS lato Cloudflare e
+rompe il certificato di Netlify. Cloudflare in questa configurazione
+fa solo da DNS authoritative, non vede traffico HTTP né IP.
+
+**Branch strategy**:
+
+- `main` — sviluppo. Ogni push genera un **deploy preview** Netlify
+  (URL tipo `<hash>--<site>.netlify.app`). Utile per condividere prima
+  di andare live.
+- `production` — produzione. È il branch che Netlify deploya su
+  `ai-guide.larosa.work`. Solo fast-forward da `main`, mai commit
+  diretti.
+
+**Workflow per andare live:**
+
+```bash
+# Sviluppi su main e pushi
+git push origin main           # → preview deploy
+
+# Quando vuoi mandare live
+git checkout production
+git merge --ff-only main
+git push origin production     # → deploy live
+git checkout main
+```
+
+`--ff-only` evita merge commit accidentali. Se la merge non è
+fast-forward c'è qualcosa che non va (rebase, divergenza), investigare
+prima di forzare.
+
+**Env var lato build**: nessuna richiesta. Il sito è completamente
+statico, non legge segreti a build time.
+
+**Env var lato runtime**: zero, è statico.
+
+**Node version**: 22, pinnata in `.nvmrc` al root del repo. Netlify
+e nvm/fnm locali la rispettano automaticamente.
+
+**Niente Cloudflare Pages**: tentato e abbandonato per friction della
+loro UI in transizione (Workers Builds + token interni che si
+invalidavano). Non riprovarci senza una motivazione forte.
+
 ## Scrittura di contenuti — regole vincolanti
 
 Prima di scrivere o modificare qualunque pagina di `src/content/docs/`, leggi
