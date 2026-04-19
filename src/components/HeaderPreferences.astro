@@ -384,7 +384,6 @@ const headingId = `${panelId}-heading`;
 
   .hp-starlight-select :global(label) {
     width: 100%;
-    --sl-select-width: calc(100% - var(--sl-inline-padding, 0.5rem) * 2);
     background: var(--sl-color-bg);
     border: 1px solid var(--sl-color-hairline);
     border-radius: 0.5rem;
@@ -404,7 +403,21 @@ const headingId = `${panelId}-heading`;
     inset-inline-end: var(--sl-inline-padding, 0.5rem);
   }
 
+  /* Starlight passa `width="7em"` come prop al <Select>, che diventa
+     `style="--sl-select-width: 7em"` inline sul <label>. Essendo inline
+     batte qualunque override via selettore sul custom property. Invece
+     di provarne a sovrascriverlo, andiamo direttamente su width e
+     margin del <select> con `!important`: rimpiazza la calc di
+     Starlight (`width: calc(select-width + inline-padding * 2)`,
+     `margin-inline: calc(inline-padding * -1)`) e fa riempire al select
+     tutta la larghezza del label senza overflow.
+
+     Il padding-inline resta calcolato per lasciare spazio a icona e
+     caret (che abbiamo spostato inward di `var(--sl-inline-padding)`
+     per respirare dal bordo). */
   .hp-starlight-select :global(select) {
+    width: 100% !important;
+    margin-inline: 0 !important;
     padding-inline:
       calc(var(--sl-label-icon-size) + var(--sl-inline-padding) * 2 + 0.25rem)
       calc(var(--sl-caret-size) + var(--sl-inline-padding) * 2 + 0.25rem);
