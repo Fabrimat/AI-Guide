@@ -448,6 +448,7 @@ Invocabili da Claude Code:
 - **`/voice-guide`** — riferimento di stile (lo leggi, non lo esegui).
 - **`/analyze-lesson <path>`** — analizza una pagina simulando un lettore al livello dichiarato e produce una lista di domande del lettore. Output in `analysis/<slug>.questions.md`.
 - **`/integrate-questions <path> [questions-file]`** — integra le domande nella pagina come risposte inline, callout, esempi, o FAQ. Chiede conferma prima di applicare.
+- **`/add-defs <path>`** — arricchisce una lezione con tooltip `<Def>` sui termini tecnici, lavorando in parallelo su tutte le lingue mirror trovate sotto `src/content/docs/<lang>/`. Mostra un piano (termini scelti + spiegazioni per lingua) prima di toccare i file.
 - **Agent `style-checker`** — passa di QA su una pagina. Non modifica, solo segnala.
 
 Workflow tipico per una nuova lezione:
@@ -456,7 +457,8 @@ Workflow tipico per una nuova lezione:
 2. Lancio `/analyze-lesson <path>` per vedere cosa un lettore non capirebbe.
 3. Curo le domande nel file `analysis/<slug>.questions.md`.
 4. Lancio `/integrate-questions <path>` per integrarle.
-5. Lancio l'agent `style-checker` per un QA finale.
+5. Lancio `/add-defs <path>` per aggiungere i tooltip inline sui termini tecnici.
+6. Lancio l'agent `style-checker` per un QA finale.
 
 ## Traduzione e i18n
 
