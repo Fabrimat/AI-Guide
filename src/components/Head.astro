@@ -21,8 +21,12 @@
  *     scartato dopo aver derivato il paese. In dev è disattivato per
  *     non sporcare le statistiche con il lavoro di sviluppo. La SPA
  *     navigation di ClientRouter è gestita automaticamente dal loro
- *     script (osserva pushState/popstate). Vedi `privacy.mdx` per
- *     la versione user-facing.
+ *     script (osserva pushState/popstate). Lo script viene servito
+ *     da `/sa/proxy.js` (first-party), passa attraverso il Worker
+ *     `workers/sa-proxy/` su Cloudflare e arriva a Simple Analytics:
+ *     così non viene bloccato dagli adblocker che filtrano per
+ *     dominio `simpleanalyticscdn.com`. Vedi `privacy.mdx` per la
+ *     versione user-facing.
  */
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -63,7 +67,7 @@ for (const entry of entries) {
 <meta name="twitter:image" content="https://ai-guide.larosa.work/og-image.png" />
 
 {import.meta.env.PROD && (
-  <script async is:inline src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <script async is:inline src="/sa/proxy.js"></script>
 )}
 
 <ClientRouter />

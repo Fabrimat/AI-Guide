@@ -1,0 +1,11 @@
+name = "sa-proxy"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Bind il Worker a un path sul dominio ai-guide.larosa.work.
+# Tutto il resto del traffico continua ad andare su Netlify (origin
+# sotto al proxy Cloudflare). Solo /sa/* viene intercettato e
+# inoltrato a Simple Analytics da questo Worker.
+routes = [
+  { pattern = "ai-guide.larosa.work/sa/*", zone_name = "larosa.work" }
+]

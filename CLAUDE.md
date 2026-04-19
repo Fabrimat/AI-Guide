@@ -72,6 +72,20 @@ e nvm/fnm locali la rispettano automaticamente.
 loro UI in transizione (Workers Builds + token interni che si
 invalidavano). Non riprovarci senza una motivazione forte.
 
+**Cloudflare Worker `sa-proxy`** (`workers/sa-proxy/`): proxy
+first-party per Simple Analytics. Lo script di SA caricato dal CDN
+ufficiale è bloccato da molti adblocker per dominio; servirlo da
+`ai-guide.larosa.work/sa/proxy.js` lo rende invisibile alle blocklist.
+Il Worker inoltra `/sa/proxy.js`, `/sa/auto-events.js`, `/sa/simple/*`
+ai relativi endpoint di Simple Analytics, strippando header con IP del
+visitatore prima del forward. Deploy: `cd workers/sa-proxy && npx
+wrangler deploy` (richiede `npx wrangler login` la prima volta). Il
+Worker è bound alla route `ai-guide.larosa.work/sa/*` su zone
+`larosa.work`; tutto il resto del traffico continua ad andare a
+Netlify. Vedi `workers/sa-proxy/README.md` per il dettaglio. Se si
+cambia provider analytics o si tocca lo script lato `Head.astro`,
+aggiornare anche questo Worker.
+
 ## Scrittura di contenuti — regole vincolanti
 
 Prima di scrivere o modificare qualunque pagina di `src/content/docs/`, leggi
