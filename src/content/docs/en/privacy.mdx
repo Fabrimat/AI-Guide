@@ -15,9 +15,45 @@ You can reach me through the form at the bottom of the
 ## What I do NOT collect
 
 - No tracking or advertising cookies.
-- No Google Analytics, Meta Pixel, or similar tools.
+- No Google Analytics, Meta Pixel, or advertising trackers.
 - No accounts, no logins.
 - No newsletter, no mailing lists.
+
+## What I measure, and how
+
+To know how many people read the site and which pages are useful, I
+use **Simple Analytics**, a European service (Netherlands) built
+specifically not to profile anyone. What it collects:
+
+- Number of visits per page.
+- Which site you came from (referrer), if any.
+- Country, device type, browser, in aggregate form.
+
+What it does NOT collect:
+
+- No cookies.
+- No ID or fingerprint that follows you across sessions or sites.
+- No stored IP address (it's used on the fly to derive the country,
+  then discarded).
+- No personal data.
+
+That's why the site has no consent banner: there's nothing to ask
+your permission for. Details on [what Simple Analytics collects](https://docs.simpleanalytics.com/what-we-collect).
+
+## Cloudflare in front of the site
+
+The site sits behind **Cloudflare** as a reverse proxy: it serves the
+pages quickly worldwide and protects against abusive traffic. To do
+this Cloudflare sees your IP address, which is unavoidable (it needs
+to know who to answer). It doesn't use cookies to profile you; in
+rare cases (anti-bot challenge) it may show a check with a very
+short-lived technical cookie.
+
+Cloudflare keeps standard access logs (IP, user agent, URL) for
+limited periods, for technical and security reasons. These are the
+logs any web server keeps by default. I don't use them for profiling.
+
+Details in [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/).
 
 ## What stays on your browser
 
@@ -41,13 +77,6 @@ The mail sits on my email provider's server. I don't forward it, I
 don't add you to any list, I don't use it for anything other than
 replying.
 
-## Server logs
-
-The site is static. The web server hosting it keeps standard access
-logs (IP, user agent, requested URL) for short periods, only for
-technical and security reasons. I use them only for server diagnostics,
-never for profiling.
-
 ## Your rights
 
 Technically there's no user database for me to modify or delete. If
@@ -62,4 +91,4 @@ or homepage for a reasonable period.
 
 ---
 
-Last updated 2026-04-18.
+Last updated 2026-04-19.

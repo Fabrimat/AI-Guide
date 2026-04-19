@@ -15,9 +15,45 @@ oppure scrivendo a ai-guide@larosa.work.
 ## Cosa NON raccolgo
 
 - Niente cookie per tracciamento o pubblicità.
-- Niente Google Analytics, Meta Pixel, o strumenti analoghi.
+- Niente Google Analytics, Meta Pixel, o tracker pubblicitari.
 - Niente account, niente login.
 - Niente newsletter, né liste di contatti.
+
+## Cosa misuro, e come
+
+Per capire quante persone leggono il sito e quali pagine funzionano
+uso **Simple Analytics**, un servizio europeo (Paesi Bassi) costruito
+apposta per non profilare nessuno. Cosa raccoglie:
+
+- Numero di visite per pagina.
+- Da quale sito arrivi (referrer), se ce n'è uno.
+- Paese, tipo di dispositivo, browser, in forma aggregata.
+
+Cosa NON raccoglie:
+
+- Nessun cookie.
+- Nessun ID o fingerprint che ti segua tra sessioni o tra siti.
+- Nessun indirizzo IP salvato (viene usato al volo per derivare il
+  paese, poi scartato).
+- Nessun dato personale.
+
+Per questo il sito non ha banner di consenso: non c'è niente per cui
+chiederti il permesso. Dettagli su [cosa raccoglie Simple Analytics](https://docs.simpleanalytics.com/what-we-collect).
+
+## Cloudflare davanti al sito
+
+Il sito passa attraverso **Cloudflare** come reverse proxy: serve a
+distribuire le pagine velocemente in tutto il mondo e a proteggere
+dal traffico abusivo. Per farlo Cloudflare vede il tuo indirizzo IP,
+è inevitabile (deve sapere a chi rispondere). Non usa cookie per
+profilarti; in casi rari (challenge anti-bot) può mostrare una
+verifica con un cookie tecnico a brevissima durata.
+
+Cloudflare tiene log di accesso standard (IP, user agent, URL) per
+tempi limitati, per ragioni tecniche e di sicurezza. Sono i log che
+qualunque server web tiene di default. Non li uso per profilazione.
+
+Dettagli nella [privacy policy di Cloudflare](https://www.cloudflare.com/privacypolicy/).
 
 ## Cosa resta sul tuo browser
 
@@ -40,13 +76,6 @@ posta. L'email resta sul server del mio provider. Non la inoltro, non
 la aggiungo a liste, non la uso per cose diverse dalla risposta
 diretta.
 
-## Log del server
-
-Il sito è statico. Il server web che lo serve tiene log di accesso
-standard (IP, user agent, URL richiesto) per periodi brevi, solo per
-ragioni tecniche e di sicurezza. Li uso solo per diagnostica del
-server, non per profilazione.
-
 ## I tuoi diritti
 
 Tecnicamente non ho un database di utenti da modificare o cancellare.
@@ -61,4 +90,4 @@ o in home per un periodo ragionevole.
 
 ---
 
-Aggiornata al 2026-04-18.
+Aggiornata al 2026-04-19.
