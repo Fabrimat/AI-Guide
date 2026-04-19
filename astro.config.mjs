@@ -26,15 +26,18 @@ export default defineConfig({
       },
 
       // Override dei componenti di Starlight:
-      // - Head:         view transitions + progress tracker + SA
-      // - PageSidebar:  TOC laterale rimosso (rumore visivo non utile)
-      // - Pagination:   "Prossima lezione" come card singola, niente Prev
-      // - PageTitle:    aggiunge "X min di lettura" sotto l'H1 sulle lezioni
-      // - Footer:       wrappa il default + aggiunge link About + social
+      // - Head:          view transitions + progress tracker + SA
+      // - SocialIcons:   riusato come slot per il toggle "lettura assistita"
+      //                  (niente social in header, vivono nel footer)
+      // - PageSidebar:   TOC laterale rimosso (rumore visivo non utile)
+      // - Pagination:    "Prossima lezione" come card singola, niente Prev
+      // - PageTitle:     aggiunge "X min di lettura" sotto l'H1 sulle lezioni
+      // - Footer:        wrappa il default + aggiunge link About + social
       // Il ThemeSelect di default di Starlight resta attivo: il sito ha
       // due temi, light (Pastello) e dark (warm dark).
       components: {
         Head: './src/components/Head.astro',
+        SocialIcons: './src/components/ReadingToggle.astro',
         PageSidebar: './src/components/PageSidebar.astro',
         Pagination: './src/components/Pagination.astro',
         PageTitle: './src/components/PageTitle.astro',

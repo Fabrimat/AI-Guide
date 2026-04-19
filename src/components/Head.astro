@@ -52,6 +52,22 @@ for (const entry of entries) {
 }
 ---
 
+<script is:inline>
+  // Assisted reading (see `src/scripts/reading-mode.ts`): mirror the
+  // stored preference onto `<html>` before first paint, so the toggle
+  // button in the header can reflect the correct state immediately and
+  // CSS scoped to `[data-reading-mode='on']` (if ever added) doesn't
+  // flash. The DOM-walking that bolds word-starts happens later, from
+  // the `<ReadingToggle>` script, after `.sl-markdown-content` exists.
+  try {
+    if (localStorage.getItem('aiguide:reading-mode') === 'on') {
+      document.documentElement.dataset.readingMode = 'on';
+    }
+  } catch (_) {
+    /* localStorage non disponibile: default a off, nessun problema. */
+  }
+</script>
+
 <script is:inline define:vars={{ titleMap }}>
   window.__AIGUIDE_TITLES__ = titleMap;
 </script>

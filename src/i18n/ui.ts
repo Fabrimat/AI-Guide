@@ -74,6 +74,12 @@ export interface UIStrings {
   readingTimeSuffix: string;
   readingTimeAria: string;
 
+  // ReadingToggle (assisted reading / bionic reading)
+  readingToggleAria: string;
+  readingToggleTitle: string;
+  readingToggleStateOn: string;
+  readingToggleStateOff: string;
+
   // HomeCards
   comingSoonLabel: string;
 
@@ -190,6 +196,12 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
 
   readingTimeSuffix: 'min di lettura',
   readingTimeAria: 'Tempo di lettura stimato',
+
+  readingToggleAria: 'Lettura assistita',
+  readingToggleTitle:
+    'Lettura assistita: mette in grassetto l\'inizio di ogni parola per scorrere più in fretta',
+  readingToggleStateOn: 'attiva',
+  readingToggleStateOff: 'disattivata',
 
   comingSoonLabel: 'Presto',
 
@@ -310,6 +322,12 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
 
   readingTimeSuffix: 'min read',
   readingTimeAria: 'Estimated reading time',
+
+  readingToggleAria: 'Assisted reading',
+  readingToggleTitle:
+    'Assisted reading: bolds the start of each word so you can scan faster',
+  readingToggleStateOn: 'on',
+  readingToggleStateOff: 'off',
 
   comingSoonLabel: 'Soon',
 

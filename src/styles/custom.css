@@ -470,13 +470,6 @@ site-search button[data-open-modal]:hover {
     align-items: center;
   }
 
-  /* SocialIcons su mobile è vuoto (nessun social configurato per
-     l'header), ma il suo `::after` disegna un separatore verticale
-     che occuperebbe spazio. Lo nascondiamo. */
-  html:not([data-has-sidebar]) .header > .right-group > .social-icons {
-    display: none;
-  }
-
   /* Selettore di lingua compatto: stringiamo la `<select>`
      sovrascrivendo `--sl-select-width` sull'elemento (l'inline
      style di Starlight imposta 7em sul label, ridichiarare sul

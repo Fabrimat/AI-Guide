@@ -1,0 +1,139 @@
+---
+/**
+ * ReadingToggle: pill button in the header that toggles assisted
+ * reading (bionic-style bolded word-starts) on the lesson content.
+ *
+ * Mounted via the `SocialIcons` override in `astro.config.mjs`. That
+ * slot is currently unused (no social links configured for the header:
+ * they live in the footer instead), so it gives us a clean spot next
+ * to the language and theme selectors without having to override the
+ * whole Header component.
+ *
+ * State:
+ *  - `localStorage['aiguide:reading-mode']` persists across sessions.
+ *  - `<html data-reading-mode="on">` is set pre-paint by Head.astro.
+ *  - `aria-pressed` mirrors the state for screen readers.
+ *
+ * See `src/scripts/reading-mode.ts` for the walker, wrap/unwrap logic,
+ * and `astro:page-load` re-application. That module is imported by the
+ * `<script>` below, so Astro bundles it into the client once.
+ */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+---
+
+<button
+  type="button"
+  class="reading-toggle"
+  data-reading-toggle
+  aria-pressed="false"
+  aria-label={ui.readingToggleAria}
+  title={ui.readingToggleTitle}
+>
+  <span class="reading-toggle-icon" aria-hidden="true">
+    <b>A</b>a
+  </span>
+</button>
+
+<script>
+  import { applyIfEnabled, toggle, isOn } from '../scripts/reading-mode';
+
+  function syncButton(btn: HTMLButtonElement) {
+    const on = isOn();
+    btn.setAttribute('aria-pressed', String(on));
+    btn.classList.toggle('is-on', on);
+  }
+
+  function init() {
+    document
+      .querySelectorAll<HTMLButtonElement>('button[data-reading-toggle]')
+      .forEach((btn) => {
+        syncButton(btn);
+        if (btn.dataset.rtWired === 'true') return;
+        btn.dataset.rtWired = 'true';
+        btn.addEventListener('click', () => {
+          toggle();
+          syncButton(btn);
+        });
+      });
+    applyIfEnabled();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+
+  // Sync all buttons if state changes from elsewhere (e.g. a
+  // future settings page) or across tabs via storage events.
+  window.addEventListener('aiguide:reading-mode', () => {
+    document
+      .querySelectorAll<HTMLButtonElement>('button[data-reading-toggle]')
+      .forEach(syncButton);
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key !== 'aiguide:reading-mode') return;
+    const wantOn = event.newValue === 'on';
+    if (wantOn !== isOn()) {
+      // Mirror the state set in the other tab, but let that tab's
+      // setState have already handled its own DOM: here we just align
+      // our tab via toggle().
+      toggle();
+    }
+  });
+</script>
+
+<style>
+  /* Visual parity with the search icon button (see `site-search`
+     rules in `custom.css`): same size, same pill, same border. */
+  .reading-toggle {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+    cursor: pointer;
+    font-family: var(--sl-font);
+  }
+
+  .reading-toggle:hover {
+    background: var(--sl-color-accent-low);
+    border-color: var(--sl-color-accent-low);
+    color: var(--sl-color-text);
+  }
+
+  .reading-toggle:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Active state: coral fill, inverted text. */
+  .reading-toggle.is-on {
+    background: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  .reading-toggle.is-on:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  /* "Aa" glyph: bold A + regular a, as a tiny visual metaphor for
+     "bold start of each word". */
+  .reading-toggle-icon {
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .reading-toggle-icon b {
+    font-weight: 700;
+  }
+</style>
