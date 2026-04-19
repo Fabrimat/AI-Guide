@@ -28,17 +28,8 @@ const shouldRenderSearch =
   <div class="title-wrapper sl-flex">
     <SiteTitle />
   </div>
-  {/*
-    `transition:persist` su Search è necessario per le view transitions
-    di Astro (`<ClientRouter />` in Head.astro). Starlight inizializza
-    `PagefindUI` nel costruttore di `<site-search>` su `DOMContentLoaded`,
-    evento che non rispara dopo il primo caricamento: ad ogni navigazione
-    il custom element viene ricreato vuoto e il modale si apre senza
-    input di ricerca. Con `transition:persist` l'elemento viene riusato
-    fra le pagine, la PagefindUI già montata resta attiva.
-  */}
   <div class="sl-flex print:hidden">
-    {shouldRenderSearch && <Search transition:persist />}
+    {shouldRenderSearch && <Search />}
   </div>
   <div class="sl-flex print:hidden header-prefs-wrap">
     <HeaderPreferences />

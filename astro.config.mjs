@@ -40,6 +40,7 @@ export default defineConfig({
       components: {
         Head: './src/components/Head.astro',
         Header: './src/components/Header.astro',
+        Search: './src/components/Search.astro',
         MobileMenuFooter: './src/components/MobileMenuFooter.astro',
         PageSidebar: './src/components/PageSidebar.astro',
         Pagination: './src/components/Pagination.astro',
