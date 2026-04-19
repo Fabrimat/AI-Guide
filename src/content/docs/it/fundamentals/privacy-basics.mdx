@@ -1,0 +1,143 @@
+---
+title: Quello che condividi quando usi l'IA
+description: "Cosa succede ai tuoi messaggi dopo che li mandi a ChatGPT o Claude? Chi li vede, cosa resta, cosa puoi controllare. E cosa non conviene mai metterci."
+livello: principiante
+prerequisiti: [what-is-ai, what-is-a-prompt, first-conversation, how-ai-understands, when-to-trust-it]
+sidebar:
+  order: 6
+---
+
+import Def from '../../../../components/Def.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import RecapWithAi from '../../../../components/RecapWithAi.astro';
+
+Quando scrivi un messaggio a ChatGPT, Claude o Gemini, quel messaggio
+non si dissolve nell'aria. Viaggia a un server di un'azienda, viene letto
+da un programma che produce una risposta, e lascia una traccia che
+qualcuno conserva per un po'.
+
+Sapere cosa succede davvero ti permette di scegliere con calma cosa
+condividere e cosa tenere fuori. Non è una lezione per diventare paranoici:
+serve per usare l'IA tranquillamente sulle cose di tutti i giorni e per
+fermarti un secondo quando stai per darle qualcosa di delicato.
+
+## Cosa vede l'IA quando le parli
+
+Tutto quello che scrivi nella casella di testo viene inviato all'azienda
+che gestisce il servizio: OpenAI per ChatGPT, Anthropic per Claude, Google
+per Gemini. Non solo il testo: se carichi un PDF, una foto o un audio, li
+manda anche quelli.
+
+Una persona che sbircia dall'altra parte non c'è. Il tuo messaggio diventa
+numeri, il modello produce una risposta, ti torna indietro. Ma una copia
+di quello che hai scritto resta comunque sui server dell'azienda, almeno
+per un po'.
+
+Le aziende serie non leggono le conversazioni per sport. Fanno però
+controlli a campione per individuare usi illeciti (minacce, materiale
+pedopornografico, frodi) o per migliorare il prodotto: se la tua
+conversazione cade in quel campione, può passare dagli occhi di qualche
+persona del loro team, sotto obblighi di riservatezza.
+
+## Cosa succede dopo che mandi il messaggio
+
+Tre cose, con varianti da prodotto a prodotto:
+
+1. **Conservazione.** La conversazione viene salvata nel tuo account così
+   la ritrovi dopo. Di solito resta lì finché non la cancelli tu.
+2. **<Def explanation="La fase in cui un'IA impara leggendo enormi quantità di testo: libri, pagine internet, conversazioni, codice. Da lì ricava i suoi schemi.">Allenamento</Def> dei modelli futuri.** Alcune aziende usano quello che
+   scrivi per migliorare i loro prossimi modelli. Non significa che la
+   prossima versione sputerà la tua conversazione: il tuo testo viene
+   mischiato con milioni di altri.
+3. **Revisione per sicurezza.** Campioni piccoli possono essere letti da
+   personale addetto, per individuare abusi o migliorare il prodotto.
+
+Il punto importante: queste regole cambiano a seconda del piano.
+
+- **Piani gratuiti e consumer (ChatGPT Plus, Claude Pro, Gemini
+  personale)**: di default le conversazioni possono essere usate per
+  allenamento, ma puoi disattivare l'opzione nelle impostazioni.
+- **Piani aziendali (Team, Enterprise, Business)**: di default **non**
+  vengono usate per allenare i modelli, e l'azienda si impegna
+  contrattualmente con il tuo datore di lavoro.
+- **API per sviluppatori**: altre regole ancora, di solito nessun
+  allenamento di default.
+
+Se la cosa ti interessa davvero, cercala nelle impostazioni del prodotto
+che usi: la voce di solito si chiama "Controlli privacy", "Data controls"
+o "Privacy & security".
+
+## Cosa non conviene mai darle
+
+Un test mentale semplice: "se questa cosa finisse in una ricerca Google
+fra un anno, mi creerebbe un problema?" Se la risposta è sì, pensaci due
+volte.
+
+In pratica, tieni fuori dalle chat pubbliche:
+
+- **Dati di persone che non sono te.** Se copi una mail di una collega
+  così com'è, stai condividendo il suo indirizzo, i suoi argomenti, il
+  suo modo di scrivere. Non sono dati tuoi da regalare.
+- **Documenti sensibili di altri.** Referti medici di familiari, atti
+  legali che riguardano parenti, dati fiscali di terzi.
+- **Segreti professionali.** Codice aziendale non pubblico, strategie
+  commerciali, prezzi riservati, liste clienti. Molte aziende hanno
+  policy esplicite: prima di incollare qualcosa di lavoro in ChatGPT
+  "personale", guarda se esiste un piano aziendale dedicato.
+- **Credenziali.** Password, chiavi API, numeri di carta di credito,
+  PIN. Mai, per nessun motivo.
+
+Per i tuoi dati personali il calcolo è diverso: se ti aiuta farti
+spiegare una tua bolletta, è una scelta tua. Ricorda solo che quella
+bolletta, col tuo nome e il tuo indirizzo sopra, lascia una traccia.
+
+## Impostazioni che esistono davvero
+
+Non devi fidarti a scatola chiusa: le IA serie ti danno controlli veri.
+
+- **Spegnere l'uso per allenamento.** Su ChatGPT: Impostazioni →
+  Controlli dati → disattiva "Migliora il modello per tutti". Su Claude:
+  di default non vengono usate per allenamento per gli utenti dei piani
+  standard. Su Gemini: Impostazioni → Attività → controlla l'opzione
+  "Attività delle app Gemini".
+- **Chat temporanee.** Una modalità "usa e getta" in cui la conversazione
+  non viene salvata e non viene usata per allenamento. ChatGPT la chiama
+  "Chat temporanea", altre piattaforme hanno equivalenti.
+- **Cancellare conversazioni o l'intera cronologia.** Sempre disponibile,
+  dentro le impostazioni del tuo account.
+
+Attenzione: disattivare l'uso per allenamento **non** cancella la
+conversazione. Il tuo testo resta comunque sui server dell'azienda per
+un periodo (tipicamente 30 giorni, anche dopo averla cancellata tu, per
+ragioni legali di audit).
+
+## Una mentalità, non una lista
+
+Tratta l'IA come un collega fidato di cui non conosci tutta la catena
+informativa dietro. Ti fidi a raccontargli la tua giornata, a farti
+aiutare con un'email difficile, a riassumere un articolo. Non gli daresti
+la password del conto, non gli faresti leggere le chat private di un
+amico.
+
+Se ti accorgi di stare per dargli qualcosa di delicato, fermati un
+secondo e chiediti se ti serve davvero per quello che stai facendo.
+Molte volte la risposta è sì e procedi senza pensieri. Qualche volta è
+no, e hai appena evitato un problema.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per chiudere il modulo"
+  file="review-privacy-basics.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande per verificare se hai capito cosa condividi quando la usi."
+/>
+
+## Cosa viene dopo
+
+Hai finito il modulo *Fondamenti*. Da qui in avanti il manuale entra nel
+modulo *Uso quotidiano*: come usare l'IA per scrivere meglio, riassumere
+documenti, capire cose complicate, imparare argomenti nuovi, pianificare.
+
+<RecapWithAi />

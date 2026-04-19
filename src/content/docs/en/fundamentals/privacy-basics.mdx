@@ -1,0 +1,140 @@
+---
+title: What you share when you use AI
+description: "What actually happens to your messages after you send them to ChatGPT or Claude? Who sees them, what stays, what you can control. And what you should never put in."
+livello: principiante
+prerequisiti: [what-is-ai, what-is-a-prompt, first-conversation, how-ai-understands, when-to-trust-it]
+sidebar:
+  order: 6
+---
+
+import Def from '../../../../components/Def.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import RecapWithAi from '../../../../components/RecapWithAi.astro';
+
+When you type a message to ChatGPT, Claude, or Gemini, that message
+doesn't vanish into thin air. It travels to a company's server, gets
+read by a program that produces a reply, and leaves a trace that someone
+holds on to for a while.
+
+Knowing what actually happens lets you decide calmly what to share and
+what to keep out. This isn't a lesson for getting paranoid: it's here so
+you can use AI casually for everyday things and pause for a second when
+you're about to give it something sensitive.
+
+## What the AI sees when you talk to it
+
+Everything you type in the input box gets sent to the company that runs
+the service: OpenAI for ChatGPT, Anthropic for Claude, Google for Gemini.
+Not just the text: if you upload a PDF, a photo, or audio, it sends those
+too.
+
+There isn't a person peeking at you from the other side. Your message
+turns into numbers, the model produces a reply, and it comes back. But a
+copy of what you wrote does stay on the company's servers, at least for
+a while.
+
+Serious companies don't read conversations for fun. They do run
+sample-based checks to catch abuse (threats, child sexual abuse material,
+fraud) or to improve the product: if your conversation ends up in that
+sample, it may pass through the eyes of someone on their team, under
+confidentiality rules.
+
+## What happens after you send the message
+
+Three things, with variations from product to product:
+
+1. **Storage.** The conversation gets saved in your account so you can
+   find it later. It usually sits there until you delete it yourself.
+2. **<Def explanation="The phase in which an AI learns by reading huge amounts of text: books, web pages, conversations, code. From that material it picks up its patterns.">Training</Def> of future models.** Some companies use what you write to
+   improve their next models. It doesn't mean the next version will spit
+   your conversation back out: your text gets mixed in with millions of
+   others.
+3. **Safety review.** Small samples can be read by designated staff, to
+   catch abuse or improve the product.
+
+Key point: these rules change depending on the plan.
+
+- **Free and consumer plans (ChatGPT Plus, Claude Pro, personal Gemini)**:
+  by default, conversations can be used for training, but you can turn
+  that off in the settings.
+- **Business plans (Team, Enterprise, Business)**: by default they are
+  **not** used to train models, and the company makes contractual
+  commitments to your employer.
+- **Developer APIs**: different rules again, usually no training by
+  default.
+
+If you really care, look for it in the settings of the product you use:
+the option is usually called "Data controls", "Privacy controls", or
+"Privacy & security".
+
+## What you should never give it
+
+A simple mental test: "if this showed up in a Google search a year from
+now, would it create a problem for me?" If the answer is yes, think
+twice.
+
+In practice, keep these out of public chats:
+
+- **Data about people other than you.** If you paste a coworker's email
+  as is, you're sharing her address, her topics, her writing style. Those
+  aren't your data to give away.
+- **Sensitive documents belonging to others.** Family members' medical
+  reports, legal documents about relatives, third parties' tax data.
+- **Professional secrets.** Non-public company code, commercial
+  strategies, confidential pricing, client lists. Many companies have
+  explicit policies: before pasting something work-related into
+  "personal" ChatGPT, check whether a dedicated business plan exists.
+- **Credentials.** Passwords, API keys, credit card numbers, PINs.
+  Never, for any reason.
+
+For your own personal data the calculation is different: if it helps you
+to have the AI explain your own bill, that's your call. Just remember
+that the bill, with your name and address on it, leaves a trace.
+
+## Settings that actually exist
+
+You don't have to trust blindly: serious AIs give you real controls.
+
+- **Turn off use for training.** On ChatGPT: Settings → Data controls →
+  turn off "Improve the model for everyone". On Claude: by default,
+  standard-plan users' conversations are not used for training. On
+  Gemini: Settings → Activity → check the "Gemini Apps Activity" option.
+- **Temporary chats.** A "throwaway" mode where the conversation isn't
+  saved and isn't used for training. ChatGPT calls it "Temporary chat";
+  other platforms have equivalents.
+- **Delete conversations or your whole history.** Always available, in
+  your account settings.
+
+Heads up: turning off training **doesn't** delete the conversation. Your
+text still sits on the company's servers for a while (typically 30 days,
+even after you delete it yourself, for legal audit reasons).
+
+## A mindset, not a checklist
+
+Treat AI like a trusted colleague whose full information chain you don't
+know. You trust it to hear about your day, to help with a hard email, to
+summarize an article. You wouldn't give it your bank password, you
+wouldn't let it read a friend's private chats.
+
+If you notice you're about to give it something sensitive, pause for a
+second and ask whether you actually need to for what you're doing. Most
+of the time the answer is yes and you go ahead without worrying. Sometimes
+it's no, and you just saved yourself a headache.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to close the module"
+  file="review-privacy-basics.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four questions to check whether you understood what you share when using it."
+/>
+
+## What comes next
+
+You've finished the *Fundamentals* module. From here on, the manual moves
+into the *Everyday use* module: using AI to write better, summarize
+documents, understand complicated things, learn new topics, plan.
+
+<RecapWithAi />
