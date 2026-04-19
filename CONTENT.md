@@ -79,26 +79,33 @@ Sei lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
    "vedi sopra/sotto" della voice guide), corretto con riferimento esplicito
    all'esempio del libro inventato.
 
-6. 🆕 **Quello che condividi quando usi l'IA** (`fundamentals/privacy-basics`)
+6. ✅ **Quello che condividi quando usi l'IA** (`fundamentals/privacy-basics`)
    Lezione sulla privacy delle proprie conversazioni, non sui dati del
    sito (per quella c'è già `/it/privacy/`). Tono non legale, "la nonna
-   chiede". Cinque blocchi: cosa vede l'IA quando le parli (testo, file,
-   immagini), cosa succede dopo (storage, training, differenze Free /
-   Plus / Team / Enterprise), cosa non condividere (dati di terzi,
-   segreti professionali, password, documenti sanitari/fiscali altrui),
-   impostazioni che esistono (opt-out dal training, cronologia temporanea,
-   chat senza memoria), modello mentale di chiusura ("trattala come un
-   collega fidato ma con una catena informativa ignota"). Chiude il
-   modulo Fondamenti.
+   chiede". Cinque blocchi: cosa vede l'IA quando le parli, cosa succede
+   dopo il messaggio (conservazione, allenamento, revisione per sicurezza
+   + differenze Free / Plus / Team / Enterprise), cosa non condividere
+   (dati di terzi, documenti sensibili di altri, segreti professionali,
+   credenziali), impostazioni che puoi cambiare (opt-out dal training,
+   chat temporanee, cancellazione), modello mentale di chiusura
+   ("trattala come un collega fidato ma con una catena informativa
+   ignota"). Chiude il modulo Fondamenti e fa da ponte verso *Uso
+   quotidiano*. **Ciclo di revisione completo** (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-19). Quattro
+   callout aggiunti in integrazione: memorization fear, anonimizzare
+   prima di incollare, verificare che l'opt-out sia andato a buon fine,
+   cautela con app di IA meno famose. Style-checker ha suggerito di
+   neutralizzare "Impostazioni che esistono davvero" (lievemente
+   difensivo) in "Impostazioni che puoi cambiare", applicato.
 
-**Stato attuale**: 5 su 6 pubblicate, lezione 6 (privacy-basics) da
-scrivere. Ciclo di revisione chiuso su tutte le lezioni esistenti,
-verifica dell'apprendimento attiva su tutte (sezione
-`<EsercizioLLM variant="verifica">` prima di "Cosa viene dopo", con
-prompt dedicato in `public/skills/verifica-<slug>.txt`).
-La vecchia `cos-e-un-llm.mdx` è stata rinominata `come-capisce-l-ia.mdx` e
-riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non esiste
-più (per ora non è un problema, il sito non è ancora pubblicato).
+**Stato attuale**: 6 su 6 pubblicate, **modulo Fondamenti completo al
+100%**. Ciclo di revisione chiuso su tutte le lezioni, verifica
+dell'apprendimento attiva su tutte (sezione `<LlmExercise variant="review">`
+prima di "Cosa viene dopo", con prompt dedicato in
+`public/skills/<locale>/review-<slug>.txt`).
+La vecchia `cos-e-un-llm.mdx` era stata rinominata `come-capisce-l-ia.mdx`
+e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
+esiste più (per ora non è un problema, il sito non è ancora pubblicato).
 
 ## Modulo 2: Uso quotidiano (livello `intermedio`)
 
@@ -266,13 +273,10 @@ mirror in `public/skills/en/`, stringhe UI dei componenti in
 
 ## Prossima sessione
 
-**Revisioni pendenti**: nessuna sulle lezioni già pubblicate.
+**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
+2026-04-19.
 
-**Prossima bozza nel modulo Fondamenti**: lezione 6 *Quello che condividi
-quando usi l'IA* (`fundamentals/privacy-basics`). Aggiunta al piano il
-2026-04-19 dopo audit dei moduli: gap identificato sul livello principiante
-(la domanda "che fine fanno i miei messaggi?" blocca chi non ha mai usato
-un'IA). Taglio non legale, 5 blocchi già definiti nel modulo 1 sopra.
+**Prossima bozza nel modulo Fondamenti**: nessuna, il modulo è completo.
 
 **Audit moduli 2-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 2: *Capire una cosa complicata*, *Foto, immagini e file*
@@ -282,7 +286,7 @@ un'IA). Taglio non legale, 5 blocchi già definiti nel modulo 1 sopra.
 - Modulo 6: *Scegliere il modello*, *Prompt injection e sicurezza*,
   *Evals*
 
-Decisione aperta: dopo aver scritto *privacy-basics* e chiuso davvero
-Fondamenti, aprire il **modulo 2 (Uso quotidiano)** validando l'ordine
-definitivo delle 10 voci, oppure prima un giro di rifiniture al sito
-(inizia-qui che linka tutte e 6 le lezioni, ecc.).
+Decisione aperta: aprire il **modulo 2 (Uso quotidiano)** validando
+l'ordine definitivo delle 10 voci, oppure prima un giro di rifiniture
+al sito (deploy, `start-here` che linka tutte e 6 le lezioni adesso
+che esistono tutte, ecc.).
