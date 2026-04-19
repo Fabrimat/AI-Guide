@@ -1,0 +1,410 @@
+---
+/**
+ * HeaderPreferences: single icon button in the header that opens a
+ * popover with three labeled preferences — assisted reading, theme,
+ * language. Replaces the flat row of (ThemeSelect + LanguageSelect +
+ * reading toggle) that was cluttering the right-hand side, and gives
+ * room for a visible description next to each control.
+ *
+ * Theme and language controls are reused as-is from Starlight via the
+ * virtual module. Their custom elements
+ * (`<starlight-theme-select>`, `<starlight-lang-select>`) handle
+ * persistence and view transitions; we just embed them in our UI.
+ *
+ * Mounted by the `Header.astro` override.
+ */
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+
+// Random-ish ids to pair the button with its panel and heading.
+const panelId = `hp-panel-${Math.random().toString(36).slice(2, 8)}`;
+const headingId = `${panelId}-heading`;
+---
+
+<div class="hp-wrap" data-hp-wrap>
+  <button
+    type="button"
+    class="hp-btn"
+    data-hp-btn
+    aria-expanded="false"
+    aria-controls={panelId}
+    aria-label={ui.prefsButtonAria}
+    title={ui.prefsButtonAria}
+  >
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="4" y1="6" x2="10" y2="6" />
+      <line x1="15" y1="6" x2="20" y2="6" />
+      <line x1="4" y1="12" x2="5" y2="12" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="4" y1="18" x2="13" y2="18" />
+      <line x1="18" y1="18" x2="20" y2="18" />
+      <circle cx="12.5" cy="6" r="2" />
+      <circle cx="7.5" cy="12" r="2" />
+      <circle cx="15.5" cy="18" r="2" />
+    </svg>
+  </button>
+
+  <div
+    id={panelId}
+    class="hp-panel"
+    data-hp-panel
+    role="dialog"
+    aria-labelledby={headingId}
+    hidden
+  >
+    <h2 id={headingId} class="hp-panel-heading">{ui.prefsPanelHeading}</h2>
+
+    <section class="hp-section">
+      <div class="hp-row">
+        <span class="hp-section-title">{ui.prefsSectionReading}</span>
+        <button
+          type="button"
+          class="hp-switch"
+          data-reading-toggle
+          aria-pressed="false"
+          aria-label={ui.readingToggleAria}
+          data-i18n-on={ui.readingToggleStateOn}
+          data-i18n-off={ui.readingToggleStateOff}
+        >
+          <span class="hp-switch-track" aria-hidden="true">
+            <span class="hp-switch-thumb"></span>
+          </span>
+          <span class="hp-switch-state" data-hp-switch-state>
+            {ui.readingToggleStateOff}
+          </span>
+        </button>
+      </div>
+      <p class="hp-section-desc">{ui.readingToggleTitle}</p>
+    </section>
+
+    <section class="hp-section">
+      <span class="hp-section-title">{ui.prefsSectionTheme}</span>
+      <div class="hp-starlight-select">
+        <ThemeSelect />
+      </div>
+    </section>
+
+    <section class="hp-section">
+      <span class="hp-section-title">{ui.prefsSectionLanguage}</span>
+      <div class="hp-starlight-select">
+        <LanguageSelect />
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  import { isOn, toggle } from '../scripts/reading-mode';
+
+  type HpRoot = HTMLElement;
+
+  function syncReadingSwitch(btn: HTMLButtonElement) {
+    const on = isOn();
+    btn.setAttribute('aria-pressed', String(on));
+    btn.classList.toggle('is-on', on);
+    const stateEl = btn.querySelector<HTMLElement>('[data-hp-switch-state]');
+    if (stateEl) {
+      const onLabel = btn.dataset.i18nOn || 'on';
+      const offLabel = btn.dataset.i18nOff || 'off';
+      stateEl.textContent = on ? onLabel : offLabel;
+    }
+  }
+
+  function openPanel(root: HpRoot) {
+    const btn = root.querySelector<HTMLButtonElement>('[data-hp-btn]');
+    const panel = root.querySelector<HTMLElement>('[data-hp-panel]');
+    if (!btn || !panel) return;
+    panel.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    root.classList.add('is-open');
+    // Focus first interactive element in the panel.
+    const firstFocusable = panel.querySelector<HTMLElement>(
+      'button, select, [tabindex]:not([tabindex="-1"])',
+    );
+    firstFocusable?.focus();
+  }
+
+  function closePanel(root: HpRoot, returnFocus = true) {
+    const btn = root.querySelector<HTMLButtonElement>('[data-hp-btn]');
+    const panel = root.querySelector<HTMLElement>('[data-hp-panel]');
+    if (!btn || !panel) return;
+    panel.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    root.classList.remove('is-open');
+    if (returnFocus) btn.focus();
+  }
+
+  function isOpen(root: HpRoot): boolean {
+    return root.classList.contains('is-open');
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-hp-wrap]').forEach((root) => {
+      const readingBtn = root.querySelector<HTMLButtonElement>(
+        '[data-reading-toggle]',
+      );
+      if (readingBtn) syncReadingSwitch(readingBtn);
+
+      if (root.dataset.hpWired === 'true') return;
+      root.dataset.hpWired = 'true';
+
+      const triggerBtn = root.querySelector<HTMLButtonElement>('[data-hp-btn]');
+      if (!triggerBtn) return;
+
+      triggerBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (isOpen(root)) closePanel(root);
+        else openPanel(root);
+      });
+
+      if (readingBtn) {
+        readingBtn.addEventListener('click', () => {
+          toggle();
+          syncReadingSwitch(readingBtn);
+        });
+      }
+    });
+  }
+
+  // Close when clicking outside any open popover, or on ESC.
+  function globalCloseHandlers() {
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      document
+        .querySelectorAll<HTMLElement>('[data-hp-wrap].is-open')
+        .forEach((root) => {
+          if (!root.contains(target)) closePanel(root, false);
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      document
+        .querySelectorAll<HTMLElement>('[data-hp-wrap].is-open')
+        .forEach((root) => closePanel(root));
+    });
+  }
+
+  const GLOBAL_MARK = '__aiguideHpGlobalsWired';
+  if (!(window as unknown as Record<string, unknown>)[GLOBAL_MARK]) {
+    (window as unknown as Record<string, unknown>)[GLOBAL_MARK] = true;
+    globalCloseHandlers();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+
+  // Mirror state if reading mode is toggled from another surface or
+  // from another tab.
+  window.addEventListener('aiguide:reading-mode', () => {
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-reading-toggle]')
+      .forEach(syncReadingSwitch);
+  });
+</script>
+
+<style>
+  .hp-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  /* ---- Trigger button ---- */
+  .hp-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+    cursor: pointer;
+  }
+
+  .hp-btn:hover {
+    background: var(--sl-color-accent-low);
+    border-color: var(--sl-color-accent-low);
+  }
+
+  .hp-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .hp-wrap.is-open .hp-btn {
+    background: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  /* ---- Popover panel ---- */
+  .hp-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    /* Anchor to the right edge of the button so the panel opens
+       leftward and never exceeds the viewport on desktop. */
+    right: 0;
+    z-index: 40;
+    width: min(20rem, calc(100vw - 1.5rem));
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.9rem;
+    box-shadow:
+      0 4px 12px rgba(var(--aig-shadow-color), 0.06),
+      0 14px 36px rgba(var(--aig-shadow-color), 0.12);
+    color: var(--sl-color-text);
+  }
+
+  .hp-panel[hidden] {
+    display: none;
+  }
+
+  .hp-panel-heading {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .hp-section {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .hp-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .hp-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .hp-section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+  }
+
+  .hp-section-desc {
+    margin: 0.25rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--sl-color-gray-3);
+  }
+
+  /* ---- Switch-style toggle for the reading mode button ---- */
+  .hp-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.25rem;
+    border: none;
+    background: transparent;
+    color: var(--sl-color-gray-3);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .hp-switch:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  .hp-switch-track {
+    position: relative;
+    width: 2.2rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-5);
+    transition: background 150ms ease;
+  }
+
+  .hp-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(1.25rem - 4px);
+    height: calc(1.25rem - 4px);
+    border-radius: 50%;
+    background: var(--aig-elevated-bg);
+    box-shadow: 0 1px 3px rgba(var(--aig-shadow-color), 0.25);
+    transition: transform 150ms ease;
+  }
+
+  .hp-switch.is-on .hp-switch-track {
+    background: var(--sl-color-accent);
+  }
+
+  .hp-switch.is-on .hp-switch-thumb {
+    transform: translateX(0.95rem);
+  }
+
+  .hp-switch.is-on {
+    color: var(--sl-color-text);
+  }
+
+  /* ---- Embed Starlight's theme/lang selects inline ----
+     Their default styles have a fixed width, an arrow, etc. Inside
+     the popover we want them full-width and left-aligned so the
+     "Tema"/"Lingua" heading sits above them. */
+  .hp-starlight-select {
+    margin-top: 0.4rem;
+  }
+
+  .hp-starlight-select :global(starlight-theme-select),
+  .hp-starlight-select :global(starlight-lang-select) {
+    width: 100%;
+  }
+
+  .hp-starlight-select :global(label) {
+    width: 100%;
+    --sl-select-width: 100%;
+  }
+
+  .hp-starlight-select :global(select) {
+    width: 100%;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  /* Mobile: panel stretches to viewport width minus margin, stays
+     anchored to the right of the trigger (which sits near the
+     right edge). */
+  @media (max-width: 480px) {
+    .hp-panel {
+      right: -0.5rem;
+      width: calc(100vw - 1rem);
+    }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+/**
+ * Override del Header di Starlight.
+ *
+ * Motivo: il default di Starlight mette in riga ThemeSelect,
+ * LanguageSelect e SocialIcons sulla destra. Appesantiva l'header
+ * e non lasciava spazio per etichette leggibili. Qui sostituiamo la
+ * terna con un singolo bottone "Preferenze" (icona sliders) che apre
+ * un popover con le tre impostazioni nominate ed etichettate.
+ *
+ * Il bottone resta visibile anche su mobile (no `md:sl-flex`), così
+ * sulle pagine splash senza sidebar c'è sempre un modo per cambiare
+ * lingua e tema. In parallelo, `MobileMenuFooter` è overridden a vuoto
+ * per evitare che theme/lang compaiano due volte nel menu mobile.
+ */
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import config from 'virtual:starlight/user-config';
+
+import HeaderPreferences from './HeaderPreferences.astro';
+
+const shouldRenderSearch =
+  config.pagefind ||
+  config.components.Search !== '@astrojs/starlight/components/Search.astro';
+---
+
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+  <div class="sl-flex print:hidden">
+    {shouldRenderSearch && <Search />}
+  </div>
+  <div class="sl-flex print:hidden header-prefs-wrap">
+    <HeaderPreferences />
+  </div>
+</div>
+
+<style>
+  .header {
+    display: flex;
+    gap: var(--sl-nav-gap);
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  .title-wrapper {
+    overflow: clip;
+    padding: 0.25rem;
+    margin: -0.25rem;
+    min-width: 0;
+  }
+
+  .header-prefs-wrap {
+    align-items: center;
+  }
+</style>

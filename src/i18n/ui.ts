@@ -80,6 +80,13 @@ export interface UIStrings {
   readingToggleStateOn: string;
   readingToggleStateOff: string;
 
+  // HeaderPreferences popover
+  prefsButtonAria: string;
+  prefsPanelHeading: string;
+  prefsSectionReading: string;
+  prefsSectionTheme: string;
+  prefsSectionLanguage: string;
+
   // HomeCards
   comingSoonLabel: string;
 
@@ -199,9 +206,15 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
 
   readingToggleAria: 'Lettura assistita',
   readingToggleTitle:
-    'Lettura assistita: mette in grassetto l\'inizio di ogni parola per scorrere più in fretta',
+    "Mette in grassetto l'inizio di ogni parola, per scorrere il testo più in fretta.",
   readingToggleStateOn: 'attiva',
   readingToggleStateOff: 'disattivata',
+
+  prefsButtonAria: 'Preferenze',
+  prefsPanelHeading: 'Preferenze',
+  prefsSectionReading: 'Lettura assistita',
+  prefsSectionTheme: 'Tema',
+  prefsSectionLanguage: 'Lingua',
 
   comingSoonLabel: 'Presto',
 
@@ -325,9 +338,15 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
 
   readingToggleAria: 'Assisted reading',
   readingToggleTitle:
-    'Assisted reading: bolds the start of each word so you can scan faster',
+    'Bolds the start of each word so you can scan the text faster.',
   readingToggleStateOn: 'on',
   readingToggleStateOff: 'off',
+
+  prefsButtonAria: 'Preferences',
+  prefsPanelHeading: 'Preferences',
+  prefsSectionReading: 'Assisted reading',
+  prefsSectionTheme: 'Theme',
+  prefsSectionLanguage: 'Language',
 
   comingSoonLabel: 'Soon',
 

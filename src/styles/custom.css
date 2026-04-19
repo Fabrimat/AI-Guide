@@ -437,60 +437,18 @@ site-search button[data-open-modal]:hover {
 }
 
 /* ------------------------------------------------------------
-   LanguageSelect sempre raggiungibile su mobile.
+   Mobile: stacco fra search/preferenze e hamburger.
 
-   Per default Starlight nasconde il `.right-group` (che contiene
-   il selettore di lingua) sotto i 50rem: lo si raggiunge solo
-   aprendo il menu mobile (hamburger). Ma le pagine `splash`
-   (es. la home) non hanno il sidebar, quindi non hanno hamburger
-   né mobile menu, quindi su mobile non c'è alcun modo di cambiare
-   lingua.
+   Le pagine lezione hanno sidebar, quindi su mobile compare il
+   bottone hamburger di Starlight in alto a destra. Il padding di
+   default dell'header lascia ~16px di spazio fra la nostra icona
+   "Preferenze" e l'hamburger: troppo poco su display stretti.
+   Allarghiamo il padding-end del wrapper `<header>` per respirare.
 
-   Soluzione: mostriamo il `.right-group` anche su mobile, sempre.
-   Il selettore lo rendiamo compatto (solo icona + freccia) per
-   tenere l'header pulito accanto al pulsante search e
-   all'eventuale hamburger. Il duplicato dentro al menu mobile
-   viene nascosto per non confondere.
-
-   Senza questo blocco la lettrice mobile sulla home resta
-   bloccata nella lingua scelta dal browser; con due lingue è un
-   problema concreto.
+   Selettore: `header.header` (l'elemento <header>) per colpire il
+   wrapper PageFrame, non il `<div class="header">` di Header.astro.
    ------------------------------------------------------------ */
 @media (max-width: 49.999rem) {
-  /* Splash pages (es. la home): non hanno sidebar e quindi nessun
-     hamburger né mobile menu, quindi nessun selettore di lingua.
-     Mostriamo il `.right-group` (con LanguageSelect) nell'header
-     così la lettrice mobile può sempre cambiare lingua.
-     Sulle pagine non-splash (lezioni) lasciamo il default
-     Starlight: il selettore vive nel mobile menu, raggiungibile
-     via hamburger. */
-  html:not([data-has-sidebar]) .header > .right-group {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  /* Selettore di lingua compatto: stringiamo la `<select>`
-     sovrascrivendo `--sl-select-width` sull'elemento (l'inline
-     style di Starlight imposta 7em sul label, ridichiarare sul
-     select vince per cascade). Restano visibili icona globe e
-     freccia. Il `color: transparent` nasconde il testo
-     dell'opzione corrente; il dropdown nativo al tap mostra
-     comunque le opzioni con i loro nomi pieni. */
-  html:not([data-has-sidebar]) .header starlight-lang-select label {
-    min-width: 0;
-  }
-  html:not([data-has-sidebar]) .header starlight-lang-select select {
-    --sl-select-width: 0em;
-    --sl-inline-padding: 0.25rem;
-    color: transparent;
-  }
-
-  /* Allarga lo stacco tra search e hamburger: il padding di
-     default lascia ~16px tra le due icone, troppo poco su display
-     stretti. Spostiamo il search un po' più a sinistra. Selettore
-     `header.header` (l'elemento <header>) per colpire il wrapper
-     PageFrame e non il `<div class="header">` di Header.astro. */
   [data-has-sidebar] header.header {
     padding-inline-end: calc(
       var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size) +
