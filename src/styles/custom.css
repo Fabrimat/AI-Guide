@@ -501,3 +501,14 @@ a[aria-disabled='true'] {
   opacity: 0.55;
   cursor: default;
 }
+
+/* Badge "Presto / Soon" sulle voci sidebar disabilitate: evita che il
+   testo del badge si spezzi, lo rende più compatto così è più raro che
+   vada a capo in sidebar strette. Se comunque va a capo, resta integro
+   (non orfano mid-parola) e allineato a fine label. */
+a[aria-disabled='true'] .sl-badge {
+  white-space: nowrap;
+  font-size: 0.7rem;
+  padding: 0.05rem 0.4rem;
+  margin-inline-start: 0.3rem;
+}
