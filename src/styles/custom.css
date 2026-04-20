@@ -489,3 +489,15 @@ site-search button[data-open-modal]:hover {
     text-align: center;
   }
 }
+
+/* ------------------------------------------------------------
+   Sidebar: voci disabilitate (lezioni previste ma non ancora scritte)
+   ------------------------------------------------------------
+   Usata nel sidebar di `astro.config.mjs` con `attrs: { 'aria-disabled': 'true', tabindex: -1 }`
+   sulle voci che non hanno ancora una pagina pubblicata. */
+
+a[aria-disabled='true'] {
+  pointer-events: none;
+  opacity: 0.55;
+  cursor: default;
+}

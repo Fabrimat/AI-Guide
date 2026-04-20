@@ -62,9 +62,64 @@ export default defineConfig({
           autogenerate: { directory: 'fundamentals' },
         },
         {
+          // Lista manuale (non `autogenerate`) per poter mostrare le
+          // lezioni previste ma non ancora scritte come voci disabilitate
+          // con badge "Presto" / "Soon". Quando una lezione viene
+          // pubblicata, sostituire la sua voce placeholder con `{ slug: '...' }`.
           label: 'Everyday use',
           translations: { it: 'Uso quotidiano' },
-          autogenerate: { directory: 'everyday-use' },
+          items: [
+            { slug: 'everyday-use/ask-well' },
+            {
+              label: 'Iterate the conversation',
+              translations: { it: 'Iterare la conversazione' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'Understand something complex',
+              translations: { it: 'Capire una cosa complicata' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'Summarize a long document',
+              translations: { it: 'Riassumere un documento lungo' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'Learn something new',
+              translations: { it: 'Imparare un argomento nuovo' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'Write better',
+              translations: { it: 'Scrivere meglio' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'Images and files',
+              translations: { it: 'Foto, immagini e file' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
+              label: 'What not to do',
+              translations: { it: 'Cose da NON fare' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+          ],
         },
         {
           label: 'Glossary',
