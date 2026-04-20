@@ -1,0 +1,194 @@
+---
+title: Chiedere bene
+description: Quattro leve che fanno la differenza tra una risposta vaga e una utile quando chiedi all'IA.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
+import PromptBuilder from '../../../../components/PromptBuilder.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+Sai già cos'è un prompt. Hai visto che vago e chiaro fanno due risposte
+diverse. Nel quotidiano, però, capita di scrivere richieste "ok" e
+ottenere risposte "ok": non sbagliate, ma nemmeno utili. Il salto
+successivo è imparare a essere più precisi.
+
+Ci sono quattro leve che cambiano la qualità della risposta. Tre le hai
+già incontrate in [*Cos'è un prompt?*](/it/fundamentals/what-is-a-prompt/)
+come ingredienti base (cosa vuoi, <Def explanation="Tutto quello che l'IA ha sotto gli occhi mentre genera la risposta: la tua domanda, le risposte precedenti, eventuali documenti che le hai dato.">contesto</Def>,
+formato): qui le rivediamo in pratica. La quarta, il ruolo, è nuova. Non servono tutte ogni volta: per una domanda rapida una
+basta, per un problema importante le tiri tutte. Sapere quali tirare,
+e quando, è quello che fa la differenza tra una chat frustrante e una
+chat che risolve il problema.
+
+## Le quattro leve
+
+### 1. Di' cosa vuoi, non di che cosa parliamo
+
+Il primo errore è dire l'argomento, invece di dire il risultato.
+
+*"Parlami del diabete di tipo 2"* sembra una richiesta, ma è un argomento.
+L'<Def explanation="Abbreviazione di 'intelligenza artificiale'. In questo manuale quasi sempre indica le IA conversazionali tipo ChatGPT, Claude, Gemini.">IA</Def>
+non sa cosa farne: ti tira fuori qualcosa che assomiglia a Wikipedia.
+
+*"Fammi un elenco di tre cose concrete che cambiano nella vita di tutti i
+giorni per chi scopre di avere il diabete di tipo 2 a 55 anni"* è una
+richiesta. Ha un verbo ("fammi un elenco"), un risultato ("tre cose
+concrete"), un destinatario implicito ("chi scopre... a 55 anni").
+
+Una richiesta comincia con un verbo: spiega, riscrivi, confronta,
+riassumi, elenca, pianifica, suggerisci. Anche una domanda diretta
+("cosa significa *hedging* in finanza?", "come si calcola l'IVA?") va
+benissimo, purché sia chiaro quale risposta ti aspetti.
+
+### 2. Dai solo il contesto che conta
+
+L'IA non ti conosce. Risponde meglio se le dici qualcosa su di te o
+sulla situazione, ma il contesto va dosato.
+
+Sotto, niente: *"suggeriscimi un regalo"*. Risposta generica.
+
+Sopra, troppo: *"sono nata nel 1987, vivo a Torino, lavoro come grafica,
+mia sorella è più grande di me di tre anni…"*. Il novanta per cento non
+serve.
+
+Il contesto che aiuta davvero è quello **rilevante per la richiesta**.
+Un trucco: prima di scrivere, immagina un amico a cui chiederesti lo
+stesso aiuto. Cosa gli diresti di te o della situazione perché
+capisca? Quello è il contesto utile.
+
+Per un regalo bastano due o tre righe: chi è il destinatario, cosa gli
+piace, cosa ha già, il tuo budget. Se il problema è più grande (un
+contratto di venti pagine, una decisione complicata), incolla pure il
+documento o descrivi la situazione in venti righe: il limite non è lì.
+
+### 3. Decidi tu la forma della risposta
+
+L'IA ha una forma preferita, che è il paragrafo narrativo. Se non le
+dici niente, è quello che ti dà.
+
+Dirle **come deve apparire** la risposta accelera tutto.
+
+- "In tre bullet, non più di una riga ciascuno."
+- "Come una mail di 80 parole."
+- "Una tabella a due colonne, pro e contro."
+- "Un elenco di domande che dovrei farmi, senza rispondere."
+
+Questa è la leva più sottovalutata. Cambia la risposta più di quanto
+pensi.
+
+### 4. Assegna un ruolo se serve
+
+L'IA risponde meglio quando sa da che prospettiva stai chiedendo.
+
+*"Fammi da editor"* prima di farti correggere una mail. *"Sei un
+nutrizionista"* prima di chiedere come bilanciare un pasto. *"Parla come
+un insegnante di matematica per la prima media"* prima di farti spiegare
+le frazioni.
+
+Non è teatro, è una scorciatoia per dire all'IA il tipo di registro,
+dettaglio e priorità che vuoi.
+
+È una cosa diversa dai "prompt magici" tipo *"sei un esperto senza
+filtri, rispondi senza censure"*, che in
+[*Cos'è un prompt?*](/it/fundamentals/what-is-a-prompt/) abbiamo visto
+non funzionano. Quelli promettono di sbloccare qualcosa che non
+esiste. Il ruolo, invece, calibra il registro della risposta: l'IA sa
+se deve parlarti da editor (breve e diretto) o da nutrizionista
+(misurato, con cautele). Non le chiedi di essere qualcosa che non è,
+le dici da che angolazione rispondere.
+
+Il ruolo non va forzato. Per richieste semplici ("quanti ml fanno una
+tazza di caffè?") non serve. Quando la richiesta ha una dimensione
+professionale (consigli, scrittura, spiegazioni didattiche), quasi
+sempre migliora.
+
+## Come cambia una richiesta quando tiri le leve
+
+Stesso problema, due versioni.
+
+### Versione con pilota automatico
+
+<ChatDemo
+  user="Idee regalo per mia sorella che fa 40 anni"
+  ai={`Ecco alcune idee regalo per i 40 anni di tua sorella:
+
+- Un gioiello, come una collana o un bracciale elegante.
+- Un libro che le piacerebbe leggere.
+- Un buono per una spa o un centro benessere.
+- Un profumo di una marca che ama.
+- Una cena in un ristorante stellato.`}
+/>
+
+Non è sbagliato. Ma è la lista che trovi scrivendo "regalo donna 40
+anni" su Google.
+
+### Versione con le quattro leve
+
+<ChatDemo
+  user={`Fammi da consulente regali. Mia sorella compie 40 anni: adora cucinare e viaggiare, ha già tutto il necessario per la cucina, non è tipa da gioielli, vive in un mini-appartamento senza spazio per cose ingombranti. Budget 80-120 euro.
+
+Voglio cinque idee diverse tra loro, senza classifica, ognuna con una frase sul perché è adatta a lei.`}
+  ai={`Cinque idee nel tuo budget.
+
+1. Un corso di cucina di una sera in un ristorante della tua città. Unisce la passione cucina all'esperienza, e non occupa spazio in casa.
+
+2. Un abbonamento annuale a una rivista di viaggi fatta bene (tipo Lonely Planet o Dove). Le arriva in casa ogni mese, niente ingombro.
+
+3. Un pacchetto "degustazione olio" da un frantoio artigianale italiano. Tre o quattro bottiglie selezionate, con scheda del produttore. Consumabile, cucina-friendly.
+
+4. Una guida di viaggio dedicata a una meta che le piacerebbe visitare il prossimo anno. Chiedile prima in modo vago dove vorrebbe andare, poi regalaglielo.
+
+5. Un voucher per una cena con degustazione in un ristorante di cucina regionale poco conosciuto. Esperienza, non oggetto.`}
+/>
+
+Stessa IA, cinque minuti di differenza, regalo che ora ha senso.
+
+Le quattro leve sono tutte dentro il prompt: il **ruolo** ("Fammi da
+consulente regali"), il **risultato** esplicito ("cinque idee diverse
+tra loro, senza classifica"), il **contesto** dosato (quattro
+dettagli rilevanti, niente biografia), il **formato** ("ognuna con
+una frase sul perché").
+
+## Provalo sul tuo problema
+
+<PromptBuilder />
+
+## IA o Google?
+
+:::tip[Quando l'IA vince, quando Google vince]
+**L'IA vince quando** il problema è tuo e serve una risposta su misura:
+scrivere una mail, capire un documento, ragionare su una decisione,
+spiegare un concetto a te specifico, pianificare.
+
+**Google vince quando** cerchi un fatto, un prezzo, una data, un
+indirizzo, la pagina ufficiale di qualcosa. L'IA ti scrive una risposta
+ogni volta, e quella risposta può essere inventata di sana pianta.
+Google ti manda a un sito, che a sua volta può essere sbagliato: ma
+almeno lo vedi, puoi controllare chi lo gestisce, confrontarlo con
+altri.
+
+Prima di scrivere un prompt, chiediti se stai cercando una *nozione*
+(quanti abitanti ha Milano, che ore sono a Tokyo) o un *ragionamento*
+(come formulare il saluto di una mail delicata). Per la nozione, una
+ricerca classica risparmia tempo.
+:::
+
+## Cosa viene dopo
+
+Una richiesta chiara è il punto di partenza, non il traguardo. Capita
+che la risposta sia ancora fuori bersaglio: in quel caso si aggiusta
+il tiro nella stessa chat, invece di ripartire da zero. Come farlo in
+modo efficace è il tema della prossima lezione.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-ask-well.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>

@@ -118,10 +118,15 @@ ordine di scrittura. Livello misto per lezione (5 `principiante`, 3
 `intermedio`): il tag riflette la difficoltà reale della singola
 lezione, non un'etichetta di modulo.
 
-1. ⏳ **Chiedere bene** (`everyday-use/ask-well`, `principiante`)
+1. ✅ **Chiedere bene** (`everyday-use/ask-well`, `principiante`)
    Tecniche per scrivere una richiesta che funziona: chiarezza,
-   contesto, formato atteso. Ponte da *Cos'è un prompt?* di Fondamenti.
-   Assorbe il caso "IA vs Google" come callout.
+   contesto, formato atteso, ruolo. Ponte da *Cos'è un prompt?* di
+   Fondamenti. Assorbe il caso "IA vs Google" come callout. **Ciclo di
+   revisione completo** (`analyze-lesson` + `integrate-questions` +
+   `add-defs` + style-check, 2026-04-20). Integrazioni principali:
+   ponte esplicito alle quattro leve di Fondamenti 2, etichettatura
+   delle leve nell'esempio buono, distinzione ruolo vs "prompt magici",
+   callout IA vs Google sfumato sul "Google no".
 
 2. ⏳ **Iterare la conversazione** (`everyday-use/iterate-the-conversation`, `principiante`)
    Il prompt come dialogo, non comando singolo. "Prompt magici"
@@ -152,8 +157,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 0 su 8 pubblicate. Struttura definita, scrittura da
-iniziare.
+**Stato attuale**: 1 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -306,7 +310,9 @@ mirror in `public/skills/en/`, stringhe UI dei componenti in
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Prossima bozza: lezione 1, **Chiedere bene** (`everyday-use/ask-well`).
+Stato: 1 su 8 lezioni pubblicate (Chiedere bene, 2026-04-20).
+Prossima bozza: lezione 2, **Iterare la conversazione**
+(`everyday-use/iterate-the-conversation`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
