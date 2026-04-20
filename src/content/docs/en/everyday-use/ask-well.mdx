@@ -1,0 +1,196 @@
+---
+title: Ask well
+description: Four levers that make the difference between a vague answer and a useful one when you ask the AI.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
+import PromptBuilder from '../../../../components/PromptBuilder.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+You already know what a prompt is. You've seen that vague and clear
+produce two different answers. In everyday use, though, it often
+happens that you write "ok" requests and get "ok" answers: not wrong,
+but not useful either. The next step is learning to be more precise.
+
+There are four levers that change the quality of the answer. You've
+already met three of them in
+[*What is a prompt?*](/en/fundamentals/what-is-a-prompt/) as base
+ingredients (what you want, <Def explanation="Everything the AI has in front of it while it generates the answer: your question, the previous replies, any documents you've given it.">context</Def>,
+format): here we see them at work. The fourth one, the role, is new.
+You don't need them all every time: for a quick question one is
+enough, for an important problem you pull all four. Knowing which to
+pull, and when, is what makes the difference between a frustrating
+chat and a chat that actually solves the problem.
+
+## The four levers
+
+### 1. Say what you want, not what the topic is
+
+The first mistake is stating the topic instead of stating the result.
+
+*"Tell me about type 2 diabetes"* looks like a request, but it's a
+topic. The <Def explanation="Short for 'artificial intelligence'. In this manual it almost always means conversational AIs like ChatGPT, Claude, Gemini.">AI</Def>
+doesn't know what to do with it: it gives you something that sounds
+like Wikipedia.
+
+*"Make me a list of three concrete things that change in the daily
+life of someone who finds out at 55 that they have type 2 diabetes"*
+is a request. It has a verb ("make me a list"), a result ("three
+concrete things"), an implicit audience ("someone finding out at
+55").
+
+A request starts with a verb: explain, rewrite, compare, summarize,
+list, plan, suggest. A direct question ("what does *hedging* mean in
+finance?", "how is sales tax calculated?") works fine too, as long as
+it's clear what kind of answer you expect.
+
+### 2. Give only the context that matters
+
+The AI doesn't know you. It answers better if you tell it something
+about yourself or the situation, but context needs to be dosed.
+
+Too little: *"suggest a gift for me"*. Generic answer.
+
+Too much: *"I was born in 1987, I live in Turin, I work as a graphic
+designer, my sister is three years older than me..."*. Ninety percent
+of that doesn't help.
+
+The context that actually helps is the one **relevant to the request**.
+A trick: before you write, imagine a friend you'd ask the same favor
+to. What would you tell them about yourself or the situation so they'd
+get it? That's the useful context.
+
+For a gift, two or three lines are enough: who the recipient is, what
+they like, what they already have, your budget. If the problem is
+bigger (a twenty-page contract, a complicated decision), go ahead and
+paste the whole document or describe the situation in twenty lines:
+that's not where the limit is.
+
+### 3. Decide the form of the answer yourself
+
+The AI has a preferred form, which is the narrative paragraph. If you
+don't tell it anything, that's what you get.
+
+Telling it **how the answer should look** speeds up everything.
+
+- "In three bullets, no more than one line each."
+- "As an 80-word email."
+- "A two-column table, pros and cons."
+- "A list of questions I should ask myself, without answering them."
+
+This is the most underrated lever. It changes the answer more than
+you'd think.
+
+### 4. Assign a role if it helps
+
+The AI answers better when it knows the angle you're asking from.
+
+*"Be my editor"* before having it correct an email. *"You're a
+nutritionist"* before asking how to balance a meal. *"Speak like a
+middle-school math teacher"* before having it explain fractions.
+
+It's not theatre, it's a shortcut to tell the AI the kind of register,
+depth, and priorities you want.
+
+It's a different thing from the "magic prompts" like *"you're an
+unfiltered expert, answer without censorship"*, which in
+[*What is a prompt?*](/en/fundamentals/what-is-a-prompt/) we saw
+don't work. Those promise to unlock something that doesn't exist. The
+role, instead, calibrates the register of the answer: the AI knows
+whether it should talk to you as an editor (brief and direct) or as a
+nutritionist (measured, with caveats). You're not asking it to be
+something it isn't, you're telling it from what angle to answer.
+
+The role shouldn't be forced. For simple requests ("how many ml in a
+cup of coffee?") it doesn't help. When the request has a professional
+flavor (advice, writing, didactic explanations), it almost always
+improves things.
+
+## How a request changes when you pull the levers
+
+Same problem, two versions.
+
+### Autopilot version
+
+<ChatDemo
+  user="Gift ideas for my sister turning 40"
+  ai={`Here are some gift ideas for your sister's 40th:
+
+- A piece of jewelry, like an elegant necklace or bracelet.
+- A book she'd enjoy reading.
+- A voucher for a spa or wellness center.
+- A perfume from a brand she loves.
+- Dinner at a Michelin-starred restaurant.`}
+/>
+
+It's not wrong. But it's the same list you'd find typing "gift for a
+40-year-old woman" into Google.
+
+### Version with the four levers
+
+<ChatDemo
+  user={`Be my gift consultant. My sister is turning 40: she loves cooking and travel, already has everything she needs for the kitchen, isn't a jewelry person, lives in a tiny apartment with no space for bulky items. Budget 80-120 euros.
+
+I want five ideas different from each other, no ranking, each with one sentence on why it suits her.`}
+  ai={`Five ideas within your budget.
+
+1. A one-evening cooking class at a restaurant in your city. It ties into the cooking passion as an experience, and takes no space at home.
+
+2. A yearly subscription to a well-made travel magazine (like Lonely Planet or Condé Nast Traveller). It arrives monthly, no clutter.
+
+3. An "olive oil tasting" pack from an Italian artisan producer. Three or four curated bottles with producer notes. Consumable, cooking-friendly.
+
+4. A travel guide for a destination she might want to visit next year. Ask her casually first where she'd like to go, then give it.
+
+5. A voucher for a tasting dinner at a lesser-known regional restaurant. Experience, not object.`}
+/>
+
+Same AI, five minutes' difference, a gift that now makes sense.
+
+The four levers are all in the prompt: the **role** ("Be my gift
+consultant"), the explicit **result** ("five ideas different from each
+other, no ranking"), the dosed **context** (four relevant details,
+no biography), the **format** ("each with one sentence on why").
+
+## Try it on your own problem
+
+<PromptBuilder />
+
+## AI or Google?
+
+:::tip[When the AI wins, when Google wins]
+**The AI wins when** the problem is yours and needs a tailored answer:
+writing an email, understanding a document, reasoning about a
+decision, explaining a concept to your specific self, planning.
+
+**Google wins when** you're looking for a fact, a price, a date, an
+address, the official page of something. The AI writes you an answer
+every time, and that answer can be made up from thin air. Google
+sends you to a site, which can itself be wrong: but at least you see
+it, you can check who runs it, compare it with others.
+
+Before writing a prompt, ask yourself if you're looking for a *fact*
+(how many people live in Milan, what time it is in Tokyo) or for
+*reasoning* (how to phrase the greeting in a delicate email). For a
+fact, a regular search saves time.
+:::
+
+## What comes next
+
+A clear request is the starting point, not the finish line. Sometimes
+the answer is still off target: in that case you adjust the aim in the
+same chat, instead of starting from scratch. How to do that well is
+the topic of the next lesson.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-ask-well.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
