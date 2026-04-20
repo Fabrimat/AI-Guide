@@ -107,27 +107,53 @@ La vecchia `cos-e-un-llm.mdx` era stata rinominata `come-capisce-l-ia.mdx`
 e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
 esiste più (per ora non è un problema, il sito non è ancora pubblicato).
 
-## Modulo 2: Uso quotidiano (livello `intermedio`)
+## Modulo 2: Uso quotidiano (livello misto `principiante` / `intermedio`)
 
-Target: chi usa già ChatGPT/Claude/Gemini occasionalmente e vuole usarli
-meglio nel quotidiano. Ogni lezione è un caso d'uso concreto.
+Target: chi ha usato ChatGPT / Claude / Gemini qualche volta e vuole
+portarli nel quotidiano con più consapevolezza. Spec di modulo:
+`docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 
-Elenco provvisorio, da validare prima di scrivere:
+Struttura validata 2026-04-20. Otto lezioni, ordine pedagogico =
+ordine di scrittura. Livello misto per lezione (5 `principiante`, 3
+`intermedio`): il tag riflette la difficoltà reale della singola
+lezione, non un'etichetta di modulo.
 
-1. 🆕 Formulare una richiesta che funziona (chiarezza, contesto, formato atteso)
-2. 🆕 Iterare: il prompt come conversazione (non "prompt magici")
-3. 🆕 Riassumere un documento lungo (esempio su PDF o articolo reale)
-4. 🆕 Capire una cosa complicata (contratto, referto medico, bolletta,
-   regolamento condominiale: tradurre dal burocratese al quotidiano)
-5. 🆕 Imparare un argomento nuovo con l'IA (il tutor personale)
-6. 🆕 Scrivere meglio (email, testi, quando sì e quando no)
-7. 🆕 Foto, immagini e file: parlare all'IA senza parole (multimodalità)
-8. 🆕 Pianificare (viaggio, attività, evento)
-9. 🆕 Quando l'IA è meglio di Google, e viceversa
-10. 🆕 Cose da NON fare con l'IA (consigli sanitari, finanza, decisioni senza
-    verifica)
+1. ⏳ **Chiedere bene** (`everyday-use/ask-well`, `principiante`)
+   Tecniche per scrivere una richiesta che funziona: chiarezza,
+   contesto, formato atteso. Ponte da *Cos'è un prompt?* di Fondamenti.
+   Assorbe il caso "IA vs Google" come callout.
 
-Da decidere: ordine definitivo, eventuali accorpamenti, numero finale.
+2. ⏳ **Iterare la conversazione** (`everyday-use/iterate-the-conversation`, `principiante`)
+   Il prompt come dialogo, non comando singolo. "Prompt magici"
+   demistificati. Esempio portante: pianificare un weekend in più giri
+   (assorbe la voce provvisoria "Pianificare").
+
+3. ⏳ **Capire una cosa complicata** (`everyday-use/understand-something-complex`, `principiante`)
+   Tradurre dal burocratese al quotidiano: contratto, referto,
+   bolletta, regolamento condominiale.
+
+4. ⏳ **Riassumere un documento lungo** (`everyday-use/summarize-a-long-document`, `principiante`)
+   PDF, articoli, libri. Come chiedere un riassunto affidabile e come
+   verificarlo.
+
+5. ⏳ **Imparare un argomento nuovo** (`everyday-use/learn-something-new`, `intermedio`)
+   L'IA come tutor: spiegazioni a più livelli, interrogazioni di
+   ritorno, verifica della qualità.
+
+6. ⏳ **Scrivere meglio** (`everyday-use/write-better`, `intermedio`)
+   Email, testi, messaggi. Giudizio "quando sì, quando no":
+   riconoscere dove l'IA aiuta e dove appiattisce la voce.
+
+7. ⏳ **Foto, immagini e file** (`everyday-use/images-and-files`, `intermedio`)
+   Multimodalità: foto, screenshot, PDF. Differenze su ChatGPT /
+   Claude / Gemini.
+
+8. ⏳ **Cose da NON fare** (`everyday-use/what-not-to-do`, `principiante`)
+   Sanitari, finanza, legale, decisioni importanti senza verifica.
+   Chiusura del modulo, ponte verso *Sul lavoro*.
+
+**Stato attuale**: 0 su 8 pubblicate. Struttura definita, scrittura da
+iniziare.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -276,17 +302,15 @@ mirror in `public/skills/en/`, stringhe UI dei componenti in
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19.
 
-**Prossima bozza nel modulo Fondamenti**: nessuna, il modulo è completo.
+**Modulo 2 (Uso quotidiano)**: struttura validata 2026-04-20 in
+`docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
+Piano di implementazione in
+`docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
+Prossima bozza: lezione 1, **Chiedere bene** (`everyday-use/ask-well`).
 
-**Audit moduli 2-6 (2026-04-19)**: aggiunti gap prima non coperti:
-- Modulo 2: *Capire una cosa complicata*, *Foto, immagini e file*
+**Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
 - Modulo 4: *Fonti e citazioni*
 - Modulo 5: *Inclusività (BES/DSA)*, *Comunicare con le famiglie*
 - Modulo 6: *Scegliere il modello*, *Prompt injection e sicurezza*,
   *Evals*
-
-Decisione aperta: aprire il **modulo 2 (Uso quotidiano)** validando
-l'ordine definitivo delle 10 voci, oppure prima un giro di rifiniture
-al sito (deploy, `start-here` che linka tutte e 6 le lezioni adesso
-che esistono tutte, ecc.).

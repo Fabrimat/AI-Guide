@@ -62,6 +62,11 @@ export default defineConfig({
           autogenerate: { directory: 'fundamentals' },
         },
         {
+          label: 'Everyday use',
+          translations: { it: 'Uso quotidiano' },
+          autogenerate: { directory: 'everyday-use' },
+        },
+        {
           label: 'Glossary',
           translations: { it: 'Glossario' },
           slug: 'glossary',
