@@ -70,13 +70,7 @@ export default defineConfig({
           translations: { it: 'Uso quotidiano' },
           items: [
             { slug: 'everyday-use/ask-well' },
-            {
-              label: 'Iterate the conversation',
-              translations: { it: 'Iterare la conversazione' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'everyday-use/iterate-the-conversation' },
             {
               label: 'Understand something complex',
               translations: { it: 'Capire una cosa complicata' },
