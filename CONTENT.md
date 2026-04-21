@@ -288,17 +288,17 @@ una volta scritte le prime lezioni.
 
 **Inglese live al 100% per il modulo Fondamenti**. Per il **Modulo 2
 (Uso quotidiano)** la traduzione EN avanza lezione per lezione in pari
-passo con la stesura IT (decisione 2026-04-20): 1 su 8 tradotta
-(*Chiedere bene* / *Ask well*). Cataloghi tradotti, file `.txt` di
-skill mirror in `public/skills/en/`, stringhe UI dei componenti in
+passo con la stesura IT (decisione 2026-04-20): 2 su 8 tradotte
+(*Chiedere bene* / *Ask well*, *Iterare la conversazione* / *Iterate
+the conversation*). Cataloghi tradotti, file `.txt` di skill mirror in
+`public/skills/en/`, stringhe UI dei componenti in
 `src/i18n/ui.ts`. Per aggiungere una terza lingua: aggiungere la voce
 in `astro.config.mjs > locales` e in `src/i18n/ui.ts > STRINGS`,
 mirrorare `src/content/docs/<lang>/` e `public/skills/<lang>/`.
 
-Le card della homepage e della start-here EN per il Modulo 2 restano
-`comingSoon: true` finché non è tradotta una massa critica di lezioni
-(criterio: metà del modulo oppure le prime 4 in ordine pedagogico, da
-riconsiderare strada facendo).
+Le card della homepage e della start-here EN per il Modulo 2 sono
+state attivate con la pubblicazione di *Ask well* (commit b64e411,
+2026-04-20) e puntano alla prima lezione EN del modulo.
 
 ## Workflow per scrivere una lezione
 

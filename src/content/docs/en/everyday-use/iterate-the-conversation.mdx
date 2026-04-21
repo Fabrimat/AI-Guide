@@ -1,0 +1,207 @@
+---
+title: Iterate the conversation
+description: The first answer is rarely the right one. The move isn't rewriting from scratch, it's keeping the chat going.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- The first answer is rarely the right one. People who use AI well keep the chat going instead of starting over.
+- Three types of follow-up that solve almost everything: **add a constraint**, **change the angle**, **deepen a piece**.
+- The AI remembers everything inside the same chat: you don't have to repeat the context with every message.
+- Better to start wide and narrow down with follow-ups than to pile thirty constraints into a single prompt.
+- "Magic prompts" don't exist. Iteration is the real trick.
+
+</LessonSummary>
+
+You wrote a clear request, you pulled all the levers from the previous
+lesson, you hit enter. The answer is "ok": not wrong, but not exactly
+what you needed. What do you do?
+
+The most common reflex is to close the chat and try again with a new
+prompt, hoping to hit it right on the second try. It's the wrong move.
+People who use AI well do the opposite: **they keep the conversation
+going**. An "ok" answer that becomes good with two lines of follow-up
+is the normal pattern, not the exception.
+
+## The iteration cycle
+
+Using AI well looks like a dialogue, not a command. You write the
+request, you read the answer, you say what to adjust, you get the
+better version. Repeat until you're there.
+
+Three types of follow-up cover ninety percent of the cases.
+
+### Add a constraint
+
+Is the first answer too generic? Add a piece of context that narrows
+the field. *"Budget max 50 euros"*. *"No dairy"*. *"For someone
+who's never programmed"*. You don't rewrite the original request: you
+only add the new constraint.
+
+### Change the angle
+
+The answer is in the wrong shape, not in the wrong content. *"Too
+long, give it to me in three bullets"*. *"Too technical, explain it
+like I'm ten"*. *"Skip the history, just the practical consequences
+today"*. The role, the tone, the length: they change with one
+sentence.
+
+### Deepen a piece
+
+The overall answer is fine, but one part interests you more.
+*"Explain point 2 better"*. *"Ok on the overall plan, but give me an
+hour-by-hour schedule for Saturday"*. *"Can you cite the two or
+three main sources?"*. The AI doesn't repeat everything: it develops
+only where you pointed the finger.
+
+You can combine two of them in a single message (*"make it shorter
+**and** add the 50-euro budget"*) if the case is simple, or keep them
+separate across different turns if you want to see the effect of
+each constraint before adding the next.
+
+One important thing: **the AI remembers the whole chat**. You don't
+have to rewrite the initial context every time. If you told it earlier
+that you're planning a weekend in Florence with a 200-euro budget, it
+keeps that in mind for all the later messages in the same
+conversation. You saw this in
+[*How does the AI "understand"?*](/en/fundamentals/how-ai-understands/):
+there's memory inside the same chat, none outside.
+
+:::note[If the chat gets very long]
+Chat memory still has a ceiling. In conversations that grow to
+dozens or hundreds of messages, the AI may start to lose pieces from
+the earlier turns. You usually notice when an answer ignores a
+constraint you gave at the beginning. When that happens, remind it
+in one line, or open a new chat.
+:::
+
+A new chat makes sense in two cases: when you're actually switching
+topic (I stop planning the weekend, I start writing an email), and
+when the current chat has gotten stuck, the AI keeps making the same
+mistake, and two follow-ups aren't enough. For everything else, stay
+on the same chat.
+
+## An example: planning a weekend
+
+The clearest way to see iteration in action is to watch it on a real
+case. Planning a weekend away is perfect: it starts generic and
+becomes yours through several turns.
+
+### Turn 1: the starting request
+
+<ChatDemo
+  user="Plan me a two-day weekend in Florence."
+  ai={`Here's a classic weekend in Florence.
+
+Saturday: tour of the historic center (Duomo, Baptistery, Piazza della Signoria), lunch break at a typical trattoria, afternoon at the Uffizi, dinner in the Santa Croce area.
+
+Sunday: morning at Palazzo Pitti and the Boboli Gardens, lunch in San Niccolò, afternoon at Piazzale Michelangelo for sunset over the city.
+
+Let me know if you want restaurant suggestions or prefer a different angle.`}
+/>
+
+"Ok" answer, generic tourist guide. I start from here.
+
+### Turn 2: I add constraints
+
+<ChatDemo
+  user={`We're two people, we arrive Friday evening by train, no car. Total budget 200 euros each for the weekend, accommodation included. We don't like touristy restaurants.`}
+  ai={`Let me revise factoring in the budget and the train.
+
+Sleeping: a B&B in Oltrarno or San Frediano, roughly 60-80 euros per night for a double. Walking distance from the station, more livable and cheaper than the center.
+
+Saturday: walking tour of the center in the morning (everything free from outside). Quick lunch at a wine bar in the center or at a non-touristy trattoria, 10-15 euros each. Afternoon at the Uffizi, 25 euros each if you book online. Dinner in the Sant'Ambrogio area, where Florentines go more than tourists, 25-35 euros each.
+
+Sunday: Boboli Gardens in the morning, 10 euros. Quick lunch in San Niccolò. Afternoon at Piazzale Michelangelo, walking up (free).
+
+Rough total: 180-200 euros each, in line with the budget.`}
+/>
+
+Now the plan has my constraints. I didn't rewrite the request from
+scratch: I only added what wasn't there before.
+
+### Turn 3: I dig deeper
+
+<ChatDemo
+  user="Great on the broad strokes. Let's do a detailed schedule for Saturday morning, we'll leave the B&B around 9."
+  ai={`Here's a realistic schedule for Saturday morning, starting from Oltrarno at 9.
+
+09:00 - breakfast at the bar downstairs (2-3 euros each).
+09:30 - walk across Ponte Vecchio.
+09:45 - arrive in Piazza della Signoria, outside tour of Palazzo Vecchio and the Loggia dei Lanzi.
+10:30 - Duomo: church free, cupola 20 euros if booked in advance.
+11:30 - Baptistery and Giotto's Bell Tower from outside, photos.
+12:00 - walk toward the Mercato Centrale.
+12:30 - street food lunch on the first floor of the Mercato Centrale (10-12 euros each).
+
+Does this pace work for you, or would you prefer something slower?`}
+/>
+
+### Turn 4: changing the angle
+
+<ChatDemo
+  user="I think we packed too much into the morning. Give it to me in a more relaxed version, three stops instead of six, with time to pause."
+  ai={`Slower version, same area.
+
+09:30 - breakfast at the bar and a walk across Ponte Vecchio.
+10:45 - Piazza della Signoria, outside tour, coffee sitting at the bar under the arcade.
+12:15 - Mercato Centrale at your pace, street food lunch on the first floor.
+
+This way you have time to stop and take things in, without running from one spot to the next.`}
+/>
+
+Same information as before, different shape: same places, fewer
+stops, more room to breathe. It's the third type of follow-up,
+"change the angle": I don't touch the content, I change how it
+reaches me.
+
+The conversation now has a tailored answer. None of these four
+messages, by itself, would have been enough. Together, yes.
+
+## Common mistakes
+
+Three things that slow you down a lot while you're learning to
+iterate.
+
+**Starting over instead of continuing.** When an answer doesn't work,
+the reflex is to close the chat and rewrite a "perfect" prompt. Often
+it's slower. Adding one line to the existing chat is almost always
+faster and more precise: the AI keeps the work done so far.
+
+**Piling everything into a single request.** The opposite temptation:
+putting thirty constraints into the first message to avoid later
+turns. It doesn't work well. The AI loses pieces, forgets details,
+gets confused. A practical rule: if rereading the request there are
+more than two "and also", you've probably loaded too much. Better to
+start wide and narrow down with follow-ups: the mistake shows up
+sooner, and it's easier to fix.
+
+**Forgetting that the chat has memory.** Repeating with every message
+*"as I was saying"* or *"remember there are two of us"* is wasted
+effort. Inside the same conversation the AI has everything in front
+of it. You only have to give context again when you open a new chat.
+
+## What comes next
+
+Knowing how to ask and knowing how to iterate are the two abilities
+that hold up the rest of the manual. From here on, the lessons in
+the module are concrete use cases: understanding a complicated
+document, summarizing a long text, learning something new. In all
+these cases the two levers you've seen so far come back, tailored to
+the situation.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-iterate-the-conversation.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
