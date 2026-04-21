@@ -128,10 +128,15 @@ lezione, non un'etichetta di modulo.
    delle leve nell'esempio buono, distinzione ruolo vs "prompt magici",
    callout IA vs Google sfumato sul "Google no".
 
-2. ⏳ **Iterare la conversazione** (`everyday-use/iterate-the-conversation`, `principiante`)
+2. ✅ **Iterare la conversazione** (`everyday-use/iterate-the-conversation`, `principiante`)
    Il prompt come dialogo, non comando singolo. "Prompt magici"
-   demistificati. Esempio portante: pianificare un weekend in più giri
-   (assorbe la voce provvisoria "Pianificare").
+   demistificati. Esempio portante: pianificare un weekend a Firenze
+   in quattro giri (vincoli, approfondimento, cambio di taglio). Ciclo
+   di revisione completo (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-21). Integrazioni principali: callout sul
+   limite della memoria della chat, paragrafo "quando aprire una chat
+   nuova", Giro 4 "cambio taglio" per coprire tutti e tre i tipi di
+   follow-up nell'esempio portante.
 
 3. ⏳ **Capire una cosa complicata** (`everyday-use/understand-something-complex`, `principiante`)
    Tradurre dal burocratese al quotidiano: contratto, referto,
@@ -157,7 +162,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 1 su 8 pubblicate.
+**Stato attuale**: 2 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -317,9 +322,9 @@ riconsiderare strada facendo).
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 1 su 8 lezioni pubblicate (Chiedere bene, 2026-04-20).
-Prossima bozza: lezione 2, **Iterare la conversazione**
-(`everyday-use/iterate-the-conversation`).
+Stato: 2 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
+la conversazione 2026-04-21). Prossima bozza: lezione 3, **Capire una
+cosa complicata** (`everyday-use/understand-something-complex`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*

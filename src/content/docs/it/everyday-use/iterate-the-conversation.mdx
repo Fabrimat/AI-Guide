@@ -1,0 +1,203 @@
+---
+title: Iterare la conversazione
+description: La prima risposta è raramente quella giusta. Il pattern non è riscrivere da zero, è continuare la chat.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- La prima risposta è raramente quella giusta. Chi usa bene l'IA continua la chat invece di ripartire da zero.
+- Tre tipi di follow-up che risolvono quasi tutto: **aggiungere un vincolo**, **cambiare taglio**, **approfondire un pezzo**.
+- L'IA ricorda tutto dentro la stessa chat: non devi ripetere il contesto ogni messaggio.
+- Meglio partire ampio e stringere con i follow-up che impilare trenta vincoli in un unico prompt.
+- I "prompt magici" non esistono. L'iterazione è il vero trucco.
+
+</LessonSummary>
+
+Hai scritto una richiesta chiara, hai tirato tutte le leve della lezione
+scorsa, hai premuto invio. La risposta è "ok": non sbagliata, ma
+nemmeno esattamente quello che ti serviva. Cosa fai?
+
+Il riflesso più comune è chiudere la chat e riprovare con un prompt
+nuovo, sperando di azzeccarla al secondo colpo. È la mossa sbagliata.
+Chi usa bene l'IA fa l'opposto: **continua la conversazione**. Una
+risposta "ok" che diventa buona con due righe di follow-up è il pattern
+normale, non l'eccezione.
+
+## Il ciclo dell'iterazione
+
+Usare bene l'IA assomiglia a un dialogo, non a un comando. Scrivi la
+richiesta, leggi la risposta, dici cosa aggiustare, ricevi la versione
+migliore. Ripeti finché ci sei.
+
+Tre tipi di follow-up coprono il novanta per cento dei casi.
+
+### Aggiungere un vincolo
+
+La prima risposta è troppo generica? Aggiungi un pezzo di contesto che
+restringa il campo. *"Budget massimo 50 euro"*. *"Senza latticini"*. *"Per
+una persona che non ha mai programmato"*. Non riscrivi la richiesta
+originale: aggiungi solo il vincolo nuovo.
+
+### Cambiare taglio
+
+La risposta è nel posto sbagliato, non nel contenuto sbagliato.
+*"Troppo lunga, dammela in tre bullet"*. *"Troppo tecnica, spiegamela come
+a una decenne"*. *"Niente storia, solo le conseguenze pratiche oggi"*. Il
+ruolo, il tono, la lunghezza: cambiano con una frase.
+
+### Approfondire un pezzo
+
+La risposta complessiva va bene, ma una parte ti interessa di più.
+*"Spiegami meglio il punto 2"*. *"Ok il piano generale, ma facciamo un
+orario dettagliato per il sabato"*. *"Mi citi le due o tre fonti
+principali?"*. L'IA non ripete tutto: sviluppa solo dove le hai puntato
+il dito.
+
+Puoi combinarne due in un messaggio solo (*"dammela più corta **e**
+aggiungi il budget di 50 euro"*) se la cosa è semplice, oppure
+tenerli separati in giri diversi se vuoi vedere l'effetto di ciascun
+vincolo prima di aggiungere il successivo.
+
+Una cosa importante: **l'IA ricorda tutta la chat**. Non devi riscrivere
+ogni volta il contesto iniziale. Se le hai detto prima che stai
+pianificando un weekend a Firenze con budget 200 euro, te lo tiene in
+mente per tutti i messaggi successivi della stessa conversazione.
+L'hai visto in [*Come fa l'IA a "capire"?*](/it/fundamentals/how-ai-understands/):
+dentro la stessa chat c'è memoria, fuori no.
+
+:::note[Se la chat diventa molto lunga]
+La memoria della chat ha comunque un tetto. In conversazioni che
+crescono per decine o centinaia di messaggi, l'IA può iniziare a
+perdere pezzi dei primi turni. Di solito si sente quando la risposta
+ignora un vincolo che avevi dato all'inizio. Quando succede, glielo
+ricordi in una riga oppure apri una chat nuova.
+:::
+
+Una chat nuova serve in due casi: quando cambi proprio argomento
+(smetto di pianificare il weekend, comincio a scrivere una mail), e
+quando la chat in corso si è impantanata, l'IA continua a sbagliare
+nello stesso modo e due follow-up non bastano. Per tutto il resto,
+resta sulla stessa chat.
+
+## Un esempio: pianificare un weekend
+
+Il modo più chiaro di vedere l'iterazione in azione è guardarla su un
+caso concreto. Pianificare un weekend fuori è perfetto: parte generico
+e diventa tuo a forza di giri.
+
+### Giro 1: la richiesta di partenza
+
+<ChatDemo
+  user="Pianificami un weekend di due giorni a Firenze."
+  ai={`Ecco un weekend classico a Firenze.
+
+Sabato: giro del centro storico (Duomo, Battistero, Piazza della Signoria), pausa pranzo in una trattoria tipica, pomeriggio agli Uffizi, cena in zona Santa Croce.
+
+Domenica: mattina a Palazzo Pitti e Giardino di Boboli, pranzo a San Niccolò, pomeriggio a Piazzale Michelangelo per il tramonto sulla città.
+
+Fammi sapere se vuoi consigli di ristoranti o se preferisci un taglio diverso.`}
+/>
+
+Risposta "ok", da guida turistica generica. Parto da qui.
+
+### Giro 2: aggiungo vincoli
+
+<ChatDemo
+  user={`Siamo in due, arriviamo venerdì sera in treno, niente auto. Budget totale 200 euro a testa per il weekend, dormire incluso. Non ci piacciono i ristoranti turistici.`}
+  ai={`Allora rivediamo tenendo conto di budget e treno.
+
+Dormire: un B&B in Oltrarno o San Frediano, indicativamente 60-80 euro a notte in doppia. A piedi dalla stazione, più vivibili e meno cari del centro.
+
+Sabato: giro a piedi del centro la mattina (tutto gratis da fuori). Pranzo veloce in un vinaio del centro o in una trattoria non turistica, 10-15 euro a testa. Pomeriggio agli Uffizi, 25 euro a testa prenotando online. Cena in zona Sant'Ambrogio, dove vanno più i fiorentini che i turisti, 25-35 euro a testa.
+
+Domenica: Giardino di Boboli la mattina, 10 euro. Pranzo veloce a San Niccolò. Pomeriggio a Piazzale Michelangelo salendo a piedi (gratis).
+
+Conto approssimativo: 180-200 euro a testa, in linea col budget.`}
+/>
+
+Ora il piano ha i miei vincoli. Non ho riscritto la richiesta da capo:
+ho solo aggiunto quello che prima non c'era.
+
+### Giro 3: approfondisco
+
+<ChatDemo
+  user="Perfetto per le grandi linee. Facciamo un orario dettagliato per la mattinata di sabato, partiamo dal B&B verso le 9."
+  ai={`Eccoti un orario realistico per sabato mattina, partendo dall'Oltrarno alle 9.
+
+09:00 – colazione al bar sotto casa (2-3 euro a testa).
+09:30 – attraversi Ponte Vecchio a piedi.
+09:45 – arrivi in Piazza della Signoria, giro esterno di Palazzo Vecchio e della Loggia dei Lanzi.
+10:30 – Duomo: chiesa gratis, cupola 20 euro se prenotata in anticipo.
+11:30 – Battistero e Campanile di Giotto dall'esterno, foto.
+12:00 – passeggiata verso il Mercato Centrale.
+12:30 – pranzo street food al primo piano del Mercato Centrale (10-12 euro a testa).
+
+Ti va bene questo ritmo, o preferisci qualcosa di più lento?`}
+/>
+
+### Giro 4: cambio taglio
+
+<ChatDemo
+  user="Secondo me per la mattina abbiamo caricato troppo. Dammela in versione più rilassata, tre tappe invece di sei, col tempo di fermarsi."
+  ai={`Versione più lenta, stessa zona.
+
+09:30 - colazione al bar e passeggiata su Ponte Vecchio.
+10:45 - Piazza della Signoria, giro esterno, caffè seduti nel bar del portico.
+12:15 - Mercato Centrale al tuo ritmo, pranzo street food al primo piano.
+
+Così hai tempo di fermarti e assorbire, senza correre da un posto all'altro.`}
+/>
+
+Stessa informazione di prima, forma diversa: stessi luoghi, meno
+tappe, più respiro. È il terzo tipo di follow-up, "cambiare taglio":
+non tocco i contenuti, cambio come mi arrivano.
+
+La conversazione ora ha una risposta su misura. Nessuno di questi
+quattro messaggi, da solo, sarebbe bastato. Insieme, sì.
+
+## Errori comuni
+
+Tre cose che rallentano molto quando impari a iterare.
+
+**Ripartire da zero invece di continuare.** Quando una risposta non
+funziona, il riflesso è chiudere la chat e riscrivere un prompt
+"perfetto". Spesso è più lento. Aggiungere una riga alla chat
+esistente è quasi sempre più veloce e più preciso: l'IA conserva il
+lavoro fatto fin lì.
+
+**Impilare tutto in un'unica richiesta.** La tentazione opposta:
+mettere trenta vincoli nel primo messaggio per evitare giri successivi.
+Non funziona bene. L'IA perde pezzi, dimentica dettagli, fa confusione.
+Una regola pratica: se rileggendo la richiesta ci sono più di due "e
+anche", probabilmente hai caricato troppo. Meglio partire ampio e
+stringere con i follow-up: l'errore si vede prima, ed è più facile da
+correggere.
+
+**Dimenticare che la chat ha memoria.** Ripetere a ogni messaggio *"come
+ti dicevo"* o *"ricordati che siamo in due"* è fatica inutile. Dentro la
+stessa conversazione l'IA ha tutto sotto gli occhi. Ricominci a dover
+dare contesto solo quando apri una chat nuova.
+
+## Cosa viene dopo
+
+Sapere chiedere e sapere iterare sono le due abilità che reggono
+tutto il resto del manuale. Da qui in poi le lezioni del modulo sono
+casi d'uso concreti: capire un documento complicato, riassumere un
+testo lungo, imparare qualcosa di nuovo. In tutti questi casi le due
+leve che hai visto finora tornano, declinate sulla situazione.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-iterate-the-conversation.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
