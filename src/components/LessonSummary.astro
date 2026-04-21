@@ -1,0 +1,130 @@
+---
+/**
+ * Riepilogo della lezione in 30 secondi. Posizionato in alto alla
+ * lezione, subito dopo l'H1: chi skimma lo apre, chi legge tutto lo
+ * ignora. Collassato di default via `<details>` nativo.
+ *
+ * Uso (in un .mdx):
+ *   <LessonSummary>
+ *
+ *   - Punto uno
+ *   - Punto due
+ *   - Punto tre
+ *
+ *   </LessonSummary>
+ *
+ * Nota: le linee vuote sopra e sotto la lista sono necessarie perché
+ * MDX parsi il markdown dentro il componente.
+ */
+interface Props {
+  label?: string;
+}
+
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const { label = ui.lessonSummaryLabel } = Astro.props;
+---
+
+<details class="lesson-summary not-content">
+  <summary>
+    <span class="icon" aria-hidden="true">📋</span>
+    <span class="label">{label}</span>
+    <span class="chevron" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 6 8 10 12 6"></polyline>
+      </svg>
+    </span>
+  </summary>
+  <div class="body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .lesson-summary {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 1rem 0 1.75rem;
+    margin-inline: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .lesson-summary summary {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--sl-color-accent-high);
+    background: var(--sl-color-accent-low);
+    border-radius: 0.5rem;
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+  .lesson-summary summary::-webkit-details-marker {
+    display: none;
+  }
+  .lesson-summary summary::marker {
+    content: '';
+  }
+  .lesson-summary summary:hover {
+    background: var(--aig-caution-bg, var(--sl-color-accent-low));
+    filter: brightness(0.97);
+  }
+  .lesson-summary summary:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+  .lesson-summary[open] summary {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .label {
+    flex: 1;
+  }
+  .chevron {
+    display: inline-flex;
+    align-items: center;
+    color: var(--sl-color-accent);
+    transition: transform 0.2s ease;
+  }
+  .lesson-summary[open] .chevron {
+    transform: rotate(180deg);
+  }
+  .body {
+    box-sizing: border-box;
+    padding: 0.75rem 0.9rem 0.5rem;
+    margin-left: 0;
+    border-left: 3px solid var(--sl-color-accent-low);
+    font-size: 0.95rem;
+  }
+  .body :global(ul),
+  .body :global(ol) {
+    margin: 0.4rem 0;
+    padding-left: 1.1rem;
+  }
+  .body :global(li) {
+    margin: 0.3rem 0;
+  }
+  .body :global(li)::marker {
+    color: var(--sl-color-accent);
+  }
+  .body :global(p) {
+    margin: 0.4rem 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chevron {
+      transition: none;
+    }
+  }
+</style>

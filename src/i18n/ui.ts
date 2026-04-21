@@ -102,6 +102,9 @@ export interface UIStrings {
   // HomeCards
   comingSoonLabel: string;
 
+  // LessonSummary
+  lessonSummaryLabel: string;
+
   // PromptBuilder
   builderBadge: string;
   builderTitle: string;
@@ -240,6 +243,8 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   shareCopyError: '❌ Errore, riprova',
 
   comingSoonLabel: 'Presto',
+
+  lessonSummaryLabel: 'Riepilogo in 30 secondi',
 
   builderBadge: '🛠️ Costruisci il tuo prompt',
   builderTitle: 'Mettiti alla prova: scrivi un prompt che funziona',
@@ -383,6 +388,8 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   shareCopyError: '❌ Error, please retry',
 
   comingSoonLabel: 'Soon',
+
+  lessonSummaryLabel: '30-second summary',
 
   builderBadge: '🛠️ Build your prompt',
   builderTitle: 'Give it a go: write a prompt that works',

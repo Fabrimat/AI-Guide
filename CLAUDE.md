@@ -228,6 +228,46 @@ import Resume from '../../../components/Resume.astro';
 <Resume />
 ```
 
+### `<LessonSummary>`
+
+Riepilogo della lezione in 30 secondi. Da posizionare in alto alla
+lezione, subito dopo gli import: chi skimma lo apre, chi legge tutto
+lo ignora. Usa `<details>` nativo (collassato di default, funziona
+senza JS, accessibile).
+
+Il summary ha l'aspetto di un bottone (background coral-soft, testo
+coral scuro, chevron che ruota all'apertura). Il body aperto flowa
+sotto con una barra coral-soft a sinistra che lo collega visivamente
+al summary, senza creare un box chiuso che possa disallineare col
+resto della pagina.
+
+L'etichetta è localizzata (`ui.lessonSummaryLabel`: "Riepilogo in 30
+secondi" / "30-second summary"). Il contenuto è uno slot markdown:
+tipicamente una lista di 3-5 punti che sintetizzano i takeaway della
+lezione.
+
+Linea guida editoriale: i bullet non devono ripetere i titoli delle
+sezioni, ma dare il takeaway azionabile di ciascuna.
+
+| Prop    | Tipo     | Default                   | Note                                    |
+|---------|----------|---------------------------|------------------------------------------|
+| `label` | `string` | `ui.lessonSummaryLabel`   | opzionale, per sovrascrivere l'etichetta |
+
+```mdx
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Le quattro leve: **risultato**, **contesto**, **formato**, **ruolo**.
+- Dì cosa vuoi (verbo + risultato), non l'argomento generico.
+- Dosa il contesto: rilevante sì, biografia no.
+
+</LessonSummary>
+```
+
+Nota: le righe vuote sopra e sotto la lista sono necessarie perché
+MDX parsi il markdown dentro il componente.
+
 ### `<GlossaryTerm>`
 
 Voce singola di un glossario: nome del termine come prop, definizione
