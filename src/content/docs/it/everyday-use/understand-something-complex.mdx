@@ -1,0 +1,223 @@
+---
+title: Capire una cosa complicata
+description: Bollette, contratti, referti, regolamenti. L'IA è un ottimo traduttore di burocratese, se la usi bene.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- I documenti che ti arrivano in casa sono scritti in burocratese: l'IA è bravissima a tradurli in italiano normale.
+- Tre tecniche coprono quasi tutto: **spiegamelo facile**, **estrai solo i dati che mi servono**, **dimmi cosa devo guardare**.
+- Sui contratti la terza tecnica è la più utile: ti aiuta a vedere clausole rischiose prima di firmare.
+- I numeri sono il punto debole dell'IA: la traduzione è lavoro suo, l'aritmetica resta lavoro tuo.
+- Quello che incolli (bolletta, contratto, referto) contiene dati personali. Sappilo prima di farlo.
+
+</LessonSummary>
+
+Hai aperto una bolletta della luce e ti sei fermato sulla riga
+"corrispettivo PCV". Hai letto un contratto e non hai capito cosa
+significa "tacito rinnovo salvo disdetta entro trenta giorni dalla
+scadenza". O ti è arrivato un referto medico con sigle che sembrano
+codici di guerra. È capitato a tutti.
+
+Il problema non è la tua attenzione. È che questi documenti sono
+scritti per proteggere chi li manda, non per farti capire. L'IA
+conversazionale è bravissima in una cosa: prendere un testo
+difficile e restituirtelo in italiano normale. Lo stesso lavoro lo
+fa su contratti, regolamenti condominiali, lettere dell'Agenzia
+delle Entrate, foglietti illustrativi, condizioni di una polizza. È
+una delle applicazioni più utili nella vita di tutti i giorni.
+
+In questa lezione vediamo tre tecniche che ti servono quasi sempre,
+con un esempio vero su una bolletta luce. Sui referti medici, un
+avvertimento prima di andare avanti: l'IA è un buon traduttore di
+sigle e termini clinici, non un sostituto del medico nella scelta
+della cura. Ne parleremo nell'ultima lezione del modulo, *Cose da
+NON fare*.
+
+## Le tre tecniche
+
+Non serve un prompt magico. Serve sapere cosa stai chiedendo.
+
+### Spiegamelo come se avessi dieci anni
+
+La tecnica base. Incolli (o descrivi) il testo difficile e chiedi
+all'IA di rispiegartelo in parole semplici. Funziona su qualsiasi
+documento: una clausola contrattuale, una pagina di un regolamento,
+un paragrafo di un articolo. L'IA toglie i tecnicismi e ti
+restituisce la stessa informazione in lingua corrente. Il livello lo
+decidi tu: il caso estremo è quello del decenne, ma puoi anche
+chiedere *come a un adulto digiuno della materia* o *come a un
+collega che ne sa la metà di me*. Più sei preciso sul tuo punto di
+partenza, più la spiegazione ti calza.
+
+> *"Spiegami questa frase del contratto come se non sapessi nulla di
+> diritto: 'In caso di recesso anticipato, il cliente è tenuto a
+> corrispondere il corrispettivo previsto dall'Allegato B, comma 3,
+> oltre agli oneri amministrativi.'"*
+
+Ti arriva una risposta del tipo: "se chiudi il contratto prima della
+scadenza paghi una penale, che è scritta in un altro foglio del
+contratto, l'Allegato B, più una piccola spesa di gestione". Stesso
+significato, lingua diversa.
+
+### Estrai solo quello che mi interessa
+
+La differenza con la prima tecnica è il taglio: lì vuoi *capire* il
+documento, qui vuoi solo un *dato*. Spesso non ti serve farti
+spiegare tutto: ti basta una risposta secca a una domanda concreta.
+*Quando devo pagare? Quanto costa disdire? Da quando parte la
+copertura?* L'IA recupera il dato dentro il testo senza farti
+leggere venti pagine.
+
+> *"Da questa bolletta, dimmi solo: importo totale, data di scadenza,
+> e quanto è la quota fissa mensile."*
+
+Il modello legge tutto il documento, ma ti risponde solo su quello
+che hai chiesto. È il pattern giusto per documenti lunghi (un PDF
+di un'assicurazione, un regolamento condominiale, una nota
+informativa di un investimento) quando ti serve un'informazione
+precisa e basta.
+
+### Dimmi cosa devo guardare
+
+La terza tecnica è la più potente, e dà il massimo sui contratti
+prima di firmarli. Invece di chiedere "spiegamelo" o "estraimi un
+dato", chiedi all'IA di fare il lavoro che farebbe un amico esperto:
+*segnalami le cose che potrebbero darmi problemi*.
+
+> *"Leggi questo contratto di affitto e dimmi quali clausole
+> potrebbero essere svantaggiose per me come inquilino. Concentrati
+> su penali, rinnovi automatici, durata minima, e spese che
+> potrebbero tornare a mio carico."*
+
+L'IA non firma niente al posto tuo, ma ti tira fuori una lista delle
+clausole su cui rallentare: tacito rinnovo, caparra non rimborsabile,
+durata minima vincolante, penali nascoste in nota a piè di pagina.
+Su un affitto, una risposta tipica suona così: *"durata minima 24
+mesi con penale di 240 euro se esci prima; rinnovo automatico salvo
+disdetta entro tre mesi dalla scadenza; manutenzione straordinaria a
+tuo carico, è una clausola da verificare con la legge italiana."* È
+utile quando stai per firmare un'offerta telefonica, un contratto
+della luce, un abbonamento palestra, una polizza, un compromesso
+immobiliare. Ti dà un secondo paio d'occhi prima di una decisione
+che vincola.
+
+:::tip[E se il mio documento è cartaceo o un PDF lungo?]
+Per testo già selezionabile (sito web, email) lo copi e lo incolli
+in chat. Per un PDF, quasi tutte le IA accettano il file caricato
+direttamente, e ne riparliamo nella lezione *Foto, immagini e file*.
+Per un documento cartaceo hai due strade: trascriverlo a mano (una
+bolletta sta in cinque minuti) o fotografarlo. Sui documenti molto
+lunghi (PDF di decine di pagine, libri) le tecniche di questa
+lezione reggono, ma vanno combinate con quelle della lezione
+successiva, *Riassumere un documento lungo*.
+:::
+
+:::note[Prima di incollare un documento tuo (o di altri)]
+Quello che dai in pasto all'IA esce dal tuo computer e arriva ai
+server del fornitore. Una bolletta ha il tuo indirizzo e il tuo POD
+(il codice univoco del tuo contatore); un contratto può contenere
+codice fiscale e IBAN; un referto ha dati sanitari. Cancella o
+sostituisci con `xxx` tutto ciò che non serve per la domanda che
+stai facendo: gli importi in euro ti servono se vuoi capire la
+bolletta, il tuo nome e indirizzo no. Stesso ragionamento se incolli
+un documento di un'altra persona (un genitore, un amico): chiedi
+prima il suo OK, e anonimizza i suoi dati come faresti con i tuoi.
+Per il quadro completo, [*Quello che condividi quando usi
+l'IA*](/it/fundamentals/privacy-basics/).
+:::
+
+## Un esempio: la bolletta della luce
+
+Le prime due tecniche all'opera su una scena reale: una bolletta
+arrivata più alta del solito, e tu vuoi capire perché.
+
+<ChatDemo
+  user={`Spiegami questa bolletta della luce. Importo totale 142,30 euro per il mese di novembre. Le voci sono:
+- Spesa per la materia energia: 58,40
+- Spesa per il trasporto e la gestione del contatore: 27,80
+- Spesa per oneri di sistema: 19,50
+- Imposte (accise + IVA): 22,10
+- Conguaglio fatturazione precedente: 14,50
+
+Cosa sto pagando esattamente, e perché c'è quel conguaglio?`}
+  ai={`Ti rispondo voce per voce in lingua normale.
+
+"Spesa per la materia energia" (58,40 €) è quello che paghi davvero per i kilowattora che hai consumato. Il vero "costo della luce".
+
+"Spesa per il trasporto e la gestione del contatore" (27,80 €) è quello che paghi al gestore della rete per portarti la corrente fino a casa, più la lettura del contatore.
+
+"Spesa per oneri di sistema" (19,50 €) sono costi che lo Stato fa pagare in bolletta a tutti per finanziare cose come gli incentivi alle rinnovabili e le agevolazioni sociali.
+
+"Imposte" (22,10 €) sono accise sull'energia più IVA.
+
+"Conguaglio fatturazione precedente" (14,50 €) è il punto a cui ti riferisci. In una bolletta passata il fornitore aveva stimato il tuo consumo, e ora lo sta correggendo perché quello vero (letto sul contatore) era più alto. È un addebito arretrato, non un costo nuovo: stai pagando energia che avevi già consumato.
+
+Per dare l'ordine di grandezza: il consumo vero è circa il 41% del totale. Il resto è infrastruttura, tasse, e una correzione retroattiva.`}
+/>
+
+In quattro righe di prompt hai ricevuto una traduzione completa, e
+hai identificato il colpevole del rincaro (un conguaglio retroattivo,
+non un consumo improvviso fuori controllo). Avresti potuto chiederle
+solo *"perché è alta?"* (tecnica 2), e ti avrebbe dato la risposta
+secca; oppure *"dimmi se c'è qualcosa di anomalo"* (tecnica 3), e
+avrebbe controllato per te. Tre lenti diverse sullo stesso documento.
+
+## Cosa verificare sempre
+
+Una cosa va detta chiara: **l'IA sbaglia spesso i numeri**. Confonde
+le voci, somma male, scambia decimali e migliaia, prende un dato di
+una riga e lo attribuisce a un'altra. Capita anche sulle somme
+banali: ti ritrova 142,80 invece di 142,30 perché ha letto 27,80 al
+posto di 27,30, e tu non te ne accorgi se non ricontrolli. Non
+perché sia stupida, ma perché non sta calcolando con una
+calcolatrice: sta predicendo testo plausibile, e un numero
+plausibile non è un numero corretto. Hai visto il meccanismo in
+[*Quando fidarsi e quando
+no*](/it/fundamentals/when-to-trust-it/).
+
+I numeri sono il caso più ovvio. L'IA però sbaglia anche sulle
+parole: una clausola tradotta troppo morbida, un'eccezione saltata,
+un'interpretazione plausibile che però non vale per il tuo testo
+specifico. La contromossa è chiederle di citarti la frase esatta del
+documento da cui ha capito quello che ti dice (*"da quale riga del
+contratto hai dedotto questo?"*). Se non sa indicarla, o ne tira
+fuori una che nel testo non c'è, hai trovato il punto debole.
+
+Per i documenti di questa lezione, la regola pratica è semplice.
+
+:::caution[Incolla, chiedi, verifica]
+Usa l'IA per *capire* il documento, non per fidarti dei numeri che
+ti restituisce. Se ti dice che il conguaglio è 14,50 euro, cerca
+quella voce nel documento e controlla che ci sia. Se ti dice che la
+penale è di 200 euro, vai a leggere la cifra esatta nel testo
+originale. Tradurre è lavoro suo; controllare le cifre resta tuo.
+:::
+
+Vale anche per date, percentuali, codici fiscali, numeri di
+telefono. Tutto quello che è una cifra è da ricontrollare contro il
+documento originale.
+
+## Cosa viene dopo
+
+Capire un documento complicato è il caso d'uso a più alto valore
+immediato dell'IA per chi vive una vita italiana normale. La lezione
+successiva sale di scala: non più una bolletta o una clausola, ma un
+PDF lungo o un articolo intero. Stesso spirito, tecniche un po' più
+strutturate, e una nota grossa sulla verifica.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-understand-something-complex.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>

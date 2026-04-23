@@ -138,9 +138,17 @@ lezione, non un'etichetta di modulo.
    nuova", Giro 4 "cambio taglio" per coprire tutti e tre i tipi di
    follow-up nell'esempio portante.
 
-3. ⏳ **Capire una cosa complicata** (`everyday-use/understand-something-complex`, `principiante`)
+3. ✅ **Capire una cosa complicata** (`everyday-use/understand-something-complex`, `principiante`)
    Tradurre dal burocratese al quotidiano: contratto, referto,
-   bolletta, regolamento condominiale.
+   bolletta, regolamento condominiale. Ciclo di revisione completo
+   (`analyze-lesson` + `integrate-questions` + `style-checker`,
+   2026-04-23). Integrazioni principali: callout `:::tip` su PDF e
+   documenti cartacei tra le tecniche e la privacy, riga di
+   precisazione referto medico in apertura (ponte a *Cose da NON
+   fare*), differenza esplicita tecnica 1 vs tecnica 2, paragrafo
+   "le parole" nella sezione verifica per coprire le imprecisioni
+   non numeriche, callout privacy esteso a documenti di terzi e con
+   glossa di POD.
 
 4. ⏳ **Riassumere un documento lungo** (`everyday-use/summarize-a-long-document`, `principiante`)
    PDF, articoli, libri. Come chiedere un riassunto affidabile e come
@@ -162,7 +170,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 2 su 8 pubblicate.
+**Stato attuale**: 3 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -322,9 +330,10 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 2 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
-la conversazione 2026-04-21). Prossima bozza: lezione 3, **Capire una
-cosa complicata** (`everyday-use/understand-something-complex`).
+Stato: 3 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
+la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23).
+Prossima bozza: lezione 4, **Riassumere un documento lungo**
+(`everyday-use/summarize-a-long-document`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
