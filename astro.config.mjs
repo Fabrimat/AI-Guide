@@ -62,10 +62,9 @@ export default defineConfig({
           autogenerate: { directory: 'fundamentals' },
         },
         {
-          // Lista manuale (non `autogenerate`) per poter mostrare le
-          // lezioni previste ma non ancora scritte come voci disabilitate
-          // con badge "Presto" / "Soon". Quando una lezione viene
-          // pubblicata, sostituire la sua voce placeholder con `{ slug: '...' }`.
+          // Lista manuale (non `autogenerate`) perché le lezioni non
+          // hanno `sidebar.order` nel frontmatter e l'ordinamento
+          // alfabetico non corrisponde all'ordine pedagogico.
           label: 'Everyday use',
           translations: { it: 'Uso quotidiano' },
           items: [
@@ -76,13 +75,7 @@ export default defineConfig({
             { slug: 'everyday-use/learn-something-new' },
             { slug: 'everyday-use/write-better' },
             { slug: 'everyday-use/images-and-files' },
-            {
-              label: 'What not to do',
-              translations: { it: 'Cose da NON fare' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'everyday-use/what-not-to-do' },
           ],
         },
         {
