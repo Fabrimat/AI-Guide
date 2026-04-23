@@ -1,0 +1,286 @@
+---
+title: Learn something new
+description: The AI as a personal tutor. Techniques to actually understand, not just get a reply.
+livello: intermedio
+prerequisiti: [what-is-a-prompt, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Learning is different from "getting a reply": it wants understanding, not just memory.
+- Three techniques for turning the AI into a patient tutor: **scalable explanation** (the same thing at different levels), **anchor to something you already know** (analogies targeted to your world), **return questioning** (let it quiz you, one question at a time).
+- A too-smooth explanation is a suspicious signal: is it going down easy because you're getting it, or because the AI simplified something important away?
+- The stakes here are higher than elsewhere: if the AI gets something wrong, you risk *learning* the mistake. On technical topics (math, programming, medicine) always cross-check with an external source.
+
+</LessonSummary>
+
+You want to understand how blockchain works. Or the effects of
+interest rates on inflation. Or the genetics behind antibiotic
+resistance. Topics that aren't yours, that you need to understand
+right now, without enrolling in a university course.
+
+The AI is excellent at this, with one big caveat: the difference
+between "getting a reply" and "actually understanding" is wide, and
+people who use the AI poorly stop at the first. This lesson gives
+you three techniques to turn it into a patient tutor that takes you
+from "I've heard of it" to "I get it", plus a verification section
+that matters more here than elsewhere.
+
+Compared to
+[*Summarize a long document*](/en/everyday-use/summarize-a-long-document/),
+the question changes. There you needed the kernel of a text to keep
+at hand. Here you need a topic to settle in, and stay.
+
+## The three techniques
+
+### 1. Scalable explanation
+
+Ask for the same thing at different levels of complexity. Start
+from the simplest, and use the scale upward for the parts you
+already get and downward for the ones that still resist.
+
+> *"Explain blockchain to me as if I were ten. Just the core
+> concept, in two sentences."*
+
+> *"Now the version for a non-technical adult who got the first
+> explanation. Add the mechanism for how the chain extends."*
+
+> *"Finally the version for a first-year computer science student:
+> what a hash is, why tampering doesn't get through."*
+
+Three versions of the same content, each calibrated on your level
+at that moment. You're not reading the same article three times:
+you're doing what a human tutor would do if they had time to adapt
+to you.
+
+Quick rule: if you know almost nothing about the topic, start from
+the "ten-year-old" and climb up. If you already have a vague idea,
+attack from "non-technical adult" and drop down only on the parts
+that don't hold. You change level at no cost in the next turn.
+
+It also works at fine grain: if inside a medium-level explanation
+you get lost on a single point, copy that sentence into the next
+prompt and ask for the ten-year-old version of it, then climb back
+up. You don't have to restart the conversation from scratch.
+
+### 2. Anchor to something you already know
+
+Generic analogies (*"think of blockchain as a ledger"*) are how
+most web explanations present a new concept. The problem: that
+"ledger" isn't in your vocabulary. You could ask the AI to also
+explain what a ledger is, but you end up stacking definitions of
+words you don't master. The analogy helps only if the starting
+point is already yours.
+
+The move is to force the AI to start from something you know well.
+
+> *"Explain blockchain by analogy with a condo registry: the
+> minutes, the resolutions, the way each new resolution is based on
+> the old ones."*
+
+> *"Explain inflation using as an analogy a school where more and
+> more snacks are circulating than are needed."*
+
+The AI builds the bridge from your vocabulary to the new concept,
+not the other way around. The analogy doesn't have to be perfect:
+it has to give you a hook for when the technical version arrives.
+
+An analogy always has a breaking point. *"Blockchain as a class
+notebook"* conveys the idea of a shared copy, but doesn't capture
+the mathematical mechanism that makes tampering visible. When you
+feel the analogy no longer holds, that's the signal to ask for the
+technical version of that specific part.
+
+A handy variant: declare your background at the start of the
+conversation. *"I'm an architect. When you explain something, if
+it makes sense, look for an analogy that works for someone who
+thinks in floor plans, materials, job sites"*. That way the AI
+calibrates all the following explanations without your having to
+remind it each time.
+
+If an analogy to your world doesn't come to mind, ask for one:
+*"give me three possible analogies for blockchain, drawing from
+different worlds (kitchen, school, finance, sport). I'll pick"*.
+Not all of them work, but at least you get a menu.
+
+The difference from Technique 1: there you move up and down the
+level of complexity; here you shift the starting vocabulary. The
+two are complementary, not alternatives: often you start with an
+analogy and then scale the details.
+
+### 3. Return questioning
+
+Reading an explanation and nodding along is passive. The feeling
+"I got it" is common, and often lies. The antidote: flip roles.
+
+> *"Ask me five progressive questions about blockchain, one at a
+> time, starting from the base concept. Wait for my answer before
+> moving on. After each answer tell me if it's correct and what
+> I'm missing."*
+
+The AI becomes something different: no longer a teacher pouring in
+information, but a professor quizzing you. Here you discover where
+you'd been faking it.
+
+It's the most uncomfortable moment of the process, and it's also
+the one that actually imprints the concept. You're training, not
+reading.
+
+Combine the techniques: after a quiz, on the points where you
+stumbled go back to scalable and ask for the level below. When that
+area is solid, do a harder quiz on the same ground.
+
+If the questions come out too easy, too abstract, or all on the
+same plane, ask for an adjustment: *"next ones harder"*, *"more
+applied to a concrete case"*, *"less theoretical"*. You calibrate
+the quiz the same way you calibrate an explanation.
+
+One caution on the feedback. The AI can say "correct" out of
+politeness even when the answer is partial. To counterbalance,
+close the request like this: *"besides telling me if it's correct,
+tell me what I could have added"*. You force it to see the
+completion, not just the surface.
+
+## An example: understanding blockchain
+
+Let's see the three techniques chained. I want to understand
+blockchain, I don't have precise ideas, I've only heard the term.
+First pass, scalable at the lowest level.
+
+<ChatDemo
+  user="Explain blockchain to me as if I were ten, in two sentences max."
+  ai={`It's like a notebook shared by the whole class, where every new page leans on the pages before it.
+
+Since everyone has a copy of the notebook, if someone changes an old page the others notice right away and reject it.`}
+/>
+
+I've got the concept. Now I raise a level.
+
+<ChatDemo
+  user={`Now the version for a non-technical adult who got the notebook analogy. Add how the chain extends and why cheating is hard.`}
+  ai={`Each "page" is a block of transactions (who pays whom, who owns what). When a block is added, it contains a code that mathematically depends on the previous block, a sort of fingerprint of the one before.
+
+If someone changes a single letter in an old block, its fingerprint changes, and all the following blocks become instantly invalid. They'd have to recompute the whole chain from that point forward on every computer that holds it: in reasonable time, impossible.
+
+There's no central administrator saying "this is the good chain". The majority of nodes says it: the version more computers agree on is the one considered true.`}
+/>
+
+I've got the mechanism. Now the interrogation, to see if it's
+stuck.
+
+<ChatDemo
+  user={`Ok. Now ask me three progressive questions to check whether I've really understood. One at a time, wait for my answer before the next.`}
+  ai={`First question.
+
+An attacker manages to modify a 10-year-old block on their own computer. Their copy of the blockchain is tampered with locally, but the network as a whole doesn't accept it. Why does the network reject it?`}
+/>
+
+Here you stop and answer. The question pushes you on the "why" of
+the mechanism, not on vocabulary. If you can't answer, you know
+exactly where to go back with Technique 1.
+
+Here's how the next turn might unfold.
+
+<ChatDemo
+  user="The network rejects it because if he changes an old block, that block's fingerprint changes, and all the following blocks in his copy become broken. To the other nodes his chain looks invalid from the point of the change onward."
+  ai={`Exactly, you got the point: the broken fingerprint propagates invalidity to all following blocks. Two things I'd add. First: the network doesn't just reject the broken chain, it picks the longest and most "worked-on" chain among the valid ones; to impose his tampered version, the attacker would also have to redo all the blocks from there forward, faster than the rest of the network combined. Second: in a large network that costs so much (in energy and hardware) as to be economically infeasible, and that's where the system's security comes from.
+
+Next question.
+
+If tomorrow someone invented a computer a thousand times faster than today's, would the blockchain automatically become insecure?`}
+/>
+
+That's the loop. Your answer, an honest validation, a completion on
+what escaped you, the next question calibrated to where you landed.
+
+## What to always verify
+
+On "learning" the stakes are different from the other lessons of
+the module. If the AI gives you a wrong summary, you notice by
+comparing with the document. If it explains a concept to you
+wrongly, that error enters your mental model and you carry it with
+you.
+
+Three useful checks.
+
+**A too-smooth explanation is a signal.** When an explanation comes
+out clean on the first try, with no gray areas, it doesn't mean you
+understood: it may mean the AI simplified an important part away.
+Ask it explicitly: *"what did I lose by simplifying this way?"*,
+or *"where is this explanation imprecise?"*. It can usually tell
+you. If it insists everything's fine, push: *"give me three
+concrete examples where the simple explanation you gave me
+doesn't hold"*. Starting from counter-examples usually unblocks it.
+
+**Cross-check with an external source on the critical points.** You
+don't need to read a textbook: for most topics the Wikipedia entry
+and the first lines of two serious articles on the subject are
+enough. "Serious" means published by a university, a newsroom
+outlet, or an official organization; prefer recent articles if the
+topic is evolving. Look for divergences between what the AI told
+you and what you find there. The discrepancies are the spots to go
+back and ask about.
+
+:::note[Niche topics]
+On specialist topics with little popular coverage (active research,
+sector-specific technical questions, local contexts), verification
+costs more: often the only route is a paper or a primary document.
+In these areas the AI has probably read more simplified
+popularization than original material, and knows less than its
+tone would suggest. It stays a useful tutor to get oriented, but
+not the last word.
+:::
+
+**Try to explain it yourself.** If you can't express the concept
+in your own words to someone who doesn't know it, you haven't
+locked it in yet. It can be to a real person, or back to the AI
+(*"now I'll explain how I understood it, tell me where I
+oversimplified or got it wrong"*). Students know it as the
+"Feynman technique": it's as old as the university, it always
+works. The reason is mechanical. Reading an explanation exercises
+recognition (*"yes, this sounds familiar"*); expressing it
+exercises reconstruction (*"I have to put the pieces back in order
+from scratch"*). They're two different processes, and
+reconstruction is the harsher test.
+
+:::caution[On technical topics, distrust answers that sound too confident]
+Math, programming, statistics, specialist medicine: these are the
+areas where the AI is most likely to hand you an answer that sounds
+authoritative but contains an error. They have one thing in common:
+a small wrong step (a digit, a logical operator, a dose) wrecks the
+whole reasoning, while on prose a shading error is less noticeable
+and weighs less. Practical rule: on these topics, use the AI to get
+oriented, not as your only source. The broader picture is in
+[*When to trust it (and when not)*](/en/fundamentals/when-to-trust-it/).
+:::
+
+:::note[What if I want to acquire a skill, not grasp a concept?]
+These techniques are designed for conceptual learning:
+understanding how something works, keeping it in mind, being able
+to reason about it. For a practical skill (cooking better, writing
+more clearly, playing an instrument) theory helps but isn't enough:
+you need repeated practice with feedback. The AI still helps
+(study plan, feedback on your output, sparring partner), but the
+three techniques here play a supporting role, not a central one.
+:::
+
+## What comes next
+
+When you've understood a topic and you want to translate it into
+something someone else will read (an email, a document, an
+article), the techniques change again: from learning to writing.
+The next lesson, *Write better*, enters that territory.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-learn-something-new.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
