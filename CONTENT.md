@@ -150,9 +150,23 @@ lezione, non un'etichetta di modulo.
    non numeriche, callout privacy esteso a documenti di terzi e con
    glossa di POD.
 
-4. ⏳ **Riassumere un documento lungo** (`everyday-use/summarize-a-long-document`, `principiante`)
+4. ✅ **Riassumere un documento lungo** (`everyday-use/summarize-a-long-document`, `principiante`)
    PDF, articoli, libri. Come chiedere un riassunto affidabile e come
-   verificarlo.
+   verificarlo. Ciclo di revisione completo (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-23). Integrazioni
+   principali: differenza esplicita con la lezione 3 in apertura
+   (scala vs complessità, con combinazione delle tecniche sui
+   documenti sia lunghi sia difficili), Tecnica 1 con esempi
+   contestuali di "profondità" e "va bene per te" vs "va bene per
+   chiunque", Tecnica 3 estesa a documenti senza sezioni numerate e
+   con differenza esplicita dalla Tecnica 1, callout `:::tip`
+   riscritto con istruzioni concrete su upload e su cosa succede
+   quando il documento è "troppo grande", sezione *Cosa verificare*
+   con le due ragioni della maggiore frequenza di invenzioni sui
+   documenti lunghi. Style-checker ha catturato "spot-check" residuo
+   nel sommario, quattro occorrenze di "davvero" (parola difensiva),
+   "di fatto" (buzzword), una ripetizione ravvicinata di "plausibile"
+   e una tripla parallela nella chiusura: tutti sistemati.
 
 5. ⏳ **Imparare un argomento nuovo** (`everyday-use/learn-something-new`, `intermedio`)
    L'IA come tutor: spiegazioni a più livelli, interrogazioni di
@@ -170,7 +184,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 3 su 8 pubblicate.
+**Stato attuale**: 4 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -331,10 +345,11 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 3 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
-la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23).
-Prossima bozza: lezione 4, **Riassumere un documento lungo**
-(`everyday-use/summarize-a-long-document`).
+Stato: 4 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
+la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23,
+Riassumere un documento lungo 2026-04-23). Prossima bozza: lezione
+5, **Imparare un argomento nuovo**
+(`everyday-use/learn-something-new`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*

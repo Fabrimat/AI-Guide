@@ -1,0 +1,266 @@
+---
+title: Riassumere un documento lungo
+description: PDF, articoli, report, libri. Come chiedere un riassunto utile, e come sapere se ti puoi fidare.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- "Riassumilo" da solo ti dà la versione Wikipedia: corretta, ma non pensata per te.
+- Tre tecniche: **di' come lo vuoi** (lunghezza, forma, profondità), **di' perché lo stai leggendo** (l'obiettivo), **mappa prima, dettaglio poi** (per documenti lunghi).
+- Su un documento lungo l'IA può omettere pezzi importanti o inventarne di nuovi. È il rischio specifico di questa lezione.
+- Due contromosse pratiche: farle citare la frase esatta, e fare un controllo a campione leggendo tu una sezione nel documento originale.
+- PDF, copia-incolla, link: ogni IA gestisce i file in modo un po' diverso. Sapere cosa accetta la tua evita sorprese.
+
+</LessonSummary>
+
+Hai salvato un articolo di ottomila parole "per dopo", ti è arrivato
+un PDF di quaranta pagine in una chat di lavoro, hai aperto un libro
+e vorresti tenere a mente cosa dice. Tre situazioni diverse, lo
+stesso problema: poco tempo, voglia di ridurre quel testo a qualcosa
+che leggi in due minuti.
+
+Riassumere è uno dei casi d'uso più naturali dell'IA. Ci prende
+bene, e lo si impara in fretta. Ha però una trappola specifica: su
+un documento lungo, l'IA può restituirti un riassunto
+perfettamente strutturato che omette un pezzo importante, o peggio,
+si inventa un'affermazione che nel testo non c'è. Questa lezione ti
+dà le tecniche per chiedere bene e, soprattutto, per verificare.
+
+Rispetto a [*Capire una cosa complicata*](/it/everyday-use/understand-something-complex/)
+cambia la scala. Lì il documento è difficile ma corto (una bolletta,
+una clausola, qualche pagina di regolamento); qui può essere
+semplice ma lungo, o lungo e difficile insieme. Un contratto di
+trenta pagine è entrambe le cose: in quel caso le tecniche delle
+due lezioni si combinano, prima fai capire il linguaggio, poi estrai
+quello che ti interessa. Verificare, quando il documento è lungo,
+costa di più e si fa in modo diverso.
+
+## Le tre tecniche
+
+### Di' come lo vuoi
+
+"Riassumilo" senza altro produce quasi sempre la stessa cosa: un
+paragrafo da voce di enciclopedia, in stile generico. L'IA senza
+indicazioni suppone un lettore medio e ti dà il riassunto che "va
+bene per chiunque", che è diverso da "va bene per te". Per avere
+qualcosa di utile servono almeno due indicazioni su tre:
+
+- **Quanto lungo**: *"in dieci punti elenco"*, *"in 200 parole"*,
+  *"in tre paragrafi"*.
+- **In che forma**: *"lista puntata"*, *"paragrafo narrativo"*,
+  *"una tabella con due colonne, argomento e conclusione
+  principale"*.
+- **Quanto profondo**: *"solo i concetti principali"* se ti basta
+  l'idea generale, *"anche gli esempi"* se lo stai usando per
+  studiare, *"tutto quello che serve a coglierne le sfumature"* se
+  devi discuterne con qualcuno.
+
+> *"Riassumi questo articolo in dieci punti elenco, uno per argomento
+> principale, e per ciascuno una riga di dettaglio."*
+
+È un prompt preciso: riusandolo su documenti diversi ottieni
+riassunti nella stessa forma, e puoi confrontarli tra loro. Se la
+risposta non ti piace, cambi un pezzo nel giro dopo (*"troppo lungo,
+dammela in cinque punti"*) senza riscrivere tutto da capo. È il
+meccanismo di
+[*Iterare la conversazione*](/it/everyday-use/iterate-the-conversation/).
+
+### Di' perché lo stai leggendo
+
+È la mossa che fa la differenza, e la maggior parte delle persone
+non la usa. Invece di chiedere un riassunto generico, dici
+all'IA **l'obiettivo** per cui stai leggendo quel documento.
+
+> *"Riassumimi questo rapporto in modo che io possa decidere se vale
+> la pena leggerlo per intero."*
+
+> *"Riassumi questo articolo per un collega che deve partecipare a
+> una riunione in cui se ne parla, ma non ha tempo per leggerlo."*
+
+> *"Da questo capitolo dammi solo quello che serve a un insegnante di
+> liceo che deve spiegare il tema in classe."*
+
+L'IA non comprime soltanto: filtra. Cambia cosa mette in prima linea
+e cosa lascia fuori. Lo stesso documento, con tre obiettivi diversi,
+produce tre riassunti diversi. È lo stesso principio di
+[*Chiedere bene*](/it/everyday-use/ask-well/): dire il risultato che
+vuoi, non solo l'argomento.
+
+### Mappa prima, dettaglio poi
+
+Per testi molto lunghi (un paper, cioè un articolo accademico o
+tecnico, un libro, un report di cinquanta pagine), il riassunto
+monolitico è il pattern che regge peggio: l'IA si trova a
+comprimere troppo e i dettagli che ti servivano evaporano.
+
+Meglio in due passaggi. Primo: chiedi l'indice degli argomenti.
+
+> *"Dividimi questo documento in sezioni. Per ciascuna, una riga sul
+> tema trattato, senza entrare nel merito."*
+
+Ti arriva qualcosa tipo: "sezione 1, introduzione e contesto;
+sezione 2, metodo di ricerca; sezione 3, risultati principali;
+sezione 4, limiti dello studio; sezione 5, raccomandazioni". Da
+quella mappa vedi dove sta il valore per te.
+
+Secondo: entri in dettaglio solo su quello che ti serve.
+
+> *"Dammi un riassunto dettagliato della sezione 3 e della 5. Le
+> altre lasciale così, non mi interessano ora."*
+
+È lo stesso modo in cui, in pratica, leggi un libro: prima
+l'indice, poi zoomi dove conta. Una mappa ben fatta ti fa anche capire, a
+volte, che il documento non ti serve affatto, e ti risparmia un'ora
+di lettura.
+
+Funziona anche su documenti senza sezioni già titolate: un articolo
+di giornale lungo, un saggio, un capitolo di narrativa. L'IA ti
+costruisce lei una mappa, identificando i cambi di argomento e
+proponendoti un indice "ricavato". La differenza con la Tecnica 1:
+lì chiedi un riassunto del documento intero in un colpo solo, qui
+spezzi il lavoro in due giri e ottieni anche la bussola per
+orientarti.
+
+:::tip[In che modo darle il documento?]
+Tre strade, in ordine di affidabilità. **Upload**: quasi tutte le IA
+accettano PDF, Word, testo. Nella chat cerchi un'icona a graffetta
+o a "più" vicino al campo di testo, selezioni il file, poi scrivi
+la tua domanda. **Copia e incolla**: perfetto per articoli web e
+documenti non troppo lunghi, finché il testo sta dentro un singolo
+messaggio. **Link**: alcune IA (ChatGPT, Gemini, Perplexity) aprono
+la pagina e la leggono; altre (Claude, di base) non navigano il web
+e ti chiederanno di incollare il testo.
+
+Un caso limite: su un libro intero o documenti di centinaia di
+pagine, ogni IA ha una sua soglia oltre la quale il documento è
+"troppo grande". A volte te lo dice con un errore e non ti lascia
+caricare; a volte però il file passa e l'IA ne legge solo una parte,
+rispondendoti come se l'avesse letto tutto. Quando succede, dividi
+il documento in pezzi (capitoli, blocchi di pagine) e dalle un pezzo
+alla volta, oppure passi a uno strumento dedicato come Google
+NotebookLM, gratuito e pensato proprio per analizzare documenti
+molto lunghi.
+:::
+
+:::note[Prima di caricare un documento di lavoro]
+Un rapporto interno, un bilancio, la bozza di un contratto possono
+contenere dati riservati. Se lo stai caricando su un'IA pubblica,
+lo stai spedendo ai server di un fornitore esterno. Per la
+regola generale,
+[*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/).
+Per documenti aziendali delicati ne riparliamo nel modulo
+*Sul lavoro*.
+:::
+
+## Un esempio: un report di quaranta pagine
+
+Proviamo "mappa prima, dettaglio poi" su un caso realistico. Hai
+appena caricato in chat un report dell'OCSE sul lavoro ibrido dopo
+la pandemia, quaranta pagine, e vuoi capire se vale la pena leggerlo
+per intero.
+
+<ChatDemo
+  user={`Ho caricato un report dell'OCSE sul lavoro ibrido post-pandemia, 40 pagine. Prima di leggerlo per intero, dividimelo in sezioni e dammi una riga per ciascuna, senza entrare nel merito.`}
+  ai={`Il report è articolato in sei sezioni.
+
+1. Sintesi iniziale: i tre messaggi chiave del rapporto, in forma breve.
+2. Contesto: come si è diffuso il lavoro ibrido nei paesi OCSE dal 2020 al 2024.
+3. Dati e metodologia: quali indagini e fonti sono state usate, e i loro limiti.
+4. Effetti sul mercato del lavoro: produttività, salari, mobilità territoriale.
+5. Effetti sui lavoratori: benessere, salute mentale, differenze di genere.
+6. Raccomandazioni di policy: suggerimenti ai governi dei paesi membri.
+
+Ogni sezione è di 5-8 pagine, tranne la sintesi iniziale (2 pagine) e le raccomandazioni (4).`}
+/>
+
+Dalla mappa capisci subito che se ti interessa il lato benessere,
+quella da non saltare è la sezione 5. Secondo giro, mirato.
+
+<ChatDemo
+  user={`Dammi un riassunto esteso della sezione 5, in circa 300 parole. Le altre sezioni lasciale così.`}
+  ai={`Sezione 5: Effetti sui lavoratori.
+
+Il report distingue tre gruppi di effetti.
+
+Primo, la salute mentale. Chi lavora in regime ibrido dichiara livelli di stress inferiori rispetto a chi è in presenza tutti i giorni, ma riporta più senso di isolamento. L'effetto netto dipende dalla dose: due o tre giorni a casa a settimana danno il miglior bilancio; sotto o sopra, peggiora.
+
+Secondo, le differenze di genere. Le donne con figli piccoli sono quelle che beneficiano di più del lavoro ibrido in termini di partecipazione al mercato del lavoro. Allo stesso tempo sono le più esposte al rischio di sovraccarico domestico, perché la presenza fisica in casa ridistribuisce il lavoro di cura su di loro, non sul partner.
+
+Terzo, la carriera. Il report evidenzia una penalizzazione salariale e di promozione per chi lavora da remoto più di tre giorni a settimana, soprattutto in posizioni junior. Il meccanismo: meno visibilità al capo, meno contatti informali con chi potrebbe aiutarti a crescere.
+
+Il report si chiude notando che i tre effetti non si annullano a vicenda, e suggerisce ai governi di trattarli separatamente invece che come un saldo unico.
+
+Nota: nel report questi punti sono documentati da tabelle e grafici che nel testo non sono riprodotti; se ti servono i numeri precisi, ti conviene aprire le pagine 22-28 dell'originale.`}
+/>
+
+In due giri hai ottenuto una mappa di tutto il documento e un
+riassunto dettagliato della sezione che ti serviva. Se ti basta,
+stop qui. Se vuoi approfondire altro, un altro giro.
+
+## Cosa verificare sempre
+
+Sui documenti lunghi l'IA sbaglia in un modo specifico e un po'
+subdolo: **presenta come presenti nel testo delle affermazioni che
+nel testo non ci sono**. Non è malizia, è il meccanismo che hai
+visto in
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/):
+l'IA produce testo che suona vero, e un riassunto di un documento
+può contenere un'affermazione plausibile che quel documento in
+realtà non fa.
+
+Succede più sui documenti lunghi per due ragioni. La prima: il
+documento può eccedere la capienza dell'IA, che allora ne legge solo
+una parte e riempie i vuoti con affermazioni plausibili ma non
+verificate. La seconda: su un contratto di tre pagine vedresti
+subito che la frase non c'è; su un report di cinquanta, chi lo va a
+controllare?
+
+Due contromosse semplici.
+
+**Chiedile di citare la frase esatta.** Se ti dice *"il report
+sostiene che il lavoro ibrido riduce lo stress"*, rispondile:
+*"citami la frase del report da cui hai tratto questa conclusione,
+e dimmi a che pagina si trova"*. Se la cita, vai a controllarla nel
+documento originale. Se non sa indicarla, o se ti dà un numero di
+pagina ma a quella pagina la frase non c'è, hai trovato
+un'invenzione. È un controllo che funziona anche quando il tema ti
+è nuovo: non serve essere esperti, basta confrontare quello che
+l'IA ti dice con quello che c'è scritto.
+
+**Fai un controllo a campione.** Prendi una delle sue affermazioni e vai a
+leggerti quella pagina nel documento originale. Non serve
+controllare tutto, ne basta una: se quella è corretta, il resto del
+riassunto è probabilmente affidabile; se è sbagliata o gonfiata, il
+sospetto si estende all'intero output.
+
+:::caution[Sospetta delle cose che "suonano bene"]
+Un numero tondo, una percentuale citata senza fonte, una
+conclusione netta dove ti aspetteresti un "dipende" sono i segnali
+tipici di un'affermazione gonfiata o inventata. Su documenti
+lunghi non fidarti del tono: vai a controllare il punto specifico.
+:::
+
+## Cosa viene dopo
+
+Riassumere è la forma base. Quando vuoi che quel documento diventi
+*materiale per imparare qualcosa*, cambiano le tecniche: fai
+domande aperte, chiedi spiegazioni a diversi livelli di profondità,
+ti fai interrogare dall'IA per capire cosa non hai fissato. La
+prossima lezione, *Imparare un argomento nuovo*, è dedicata a
+questo.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-summarize-a-long-document.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
