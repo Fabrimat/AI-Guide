@@ -206,15 +206,31 @@ lezione, non un'etichetta di modulo.
    success, glosse inline di *AI-polish* e *imbottitura*.
    Style-checker: verdetto OK senza fix richiesti.
 
-7. ⏳ **Foto, immagini e file** (`everyday-use/images-and-files`, `intermedio`)
-   Multimodalità: foto, screenshot, PDF. Differenze su ChatGPT /
-   Claude / Gemini.
+7. ✅ **Foto, immagini e file** (`everyday-use/images-and-files`, `intermedio`)
+   Multimodalità: foto, screenshot, PDF, fogli di calcolo. Tre casi
+   d'uso canonici (foto di documento cartaceo, screenshot, PDF/file),
+   quattro criteri per orientarsi fra ChatGPT / Claude / Gemini,
+   cosa va bene e cosa va male per ogni formato, privacy. Ciclo di
+   revisione completo (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-23). Integrazioni principali: callout
+   `:::tip` su come si carica un file (graffetta / drag-and-drop /
+   fotocamera), callout `:::caution` sull'allenamento con opt-out
+   (la domanda chiave del lettore intermedio sui file caricati),
+   callout `:::note` sui documenti in altre lingue, paragrafo sulla
+   scrittura a mano (stampatello vs corsivo del medico) in caso
+   d'uso 1, distinzione PDF digitale vs PDF scansionato in caso
+   d'uso 3, chiarimento sui File Office "via allegato" su Claude.
+   Style-checker: verdetto OK, applicate quattro rifiniture
+   opzionali (glossa inline di *opt-out*, rimpiazzo di "quel
+   territorio" con formulazione più piana, linking ancora esplicito
+   alla sezione "Cosa va bene, cosa va male", variazione di una
+   ripetizione di "vale/valgono le cautele").
 
 8. ⏳ **Cose da NON fare** (`everyday-use/what-not-to-do`, `principiante`)
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 6 su 8 pubblicate.
+**Stato attuale**: 7 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 

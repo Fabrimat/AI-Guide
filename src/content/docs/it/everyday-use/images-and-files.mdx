@@ -1,0 +1,258 @@
+---
+title: Foto, immagini e file
+description: Caricare una bolletta, uno screenshot, un PDF. Le IA moderne vedono, e puoi sfruttarle per leggere il mondo intorno a te.
+livello: intermedio
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Le IA moderne accettano foto, screenshot, PDF e fogli di calcolo: tre famiglie di casi d'uso reali, dalla bolletta cartacea al regolamento di cinquanta pagine.
+- La qualità dell'input fa tutto: una foto fuori fuoco vale meno di un testo scritto a mano.
+- Sui PDF lunghi vale la regola dei riassunti. L'IA può perdere passaggi centrali: chiedi sempre la citazione esatta, e verifica aprendo il documento a quella pagina.
+- Quello che carichi lo condividi. Anonimizza nomi e dati di terzi prima di caricare, e non mettere mai in chat credenziali, carte di credito o documenti d'identità.
+
+</LessonSummary>
+
+Hai una bolletta cartacea sul tavolo e vuoi capire perché è più alta
+del mese scorso. Hai uno screenshot di un errore che il computer ti
+mostra da mezz'ora. Hai un PDF di quaranta pagine del regolamento di
+un concorso a cui partecipi e vuoi sapere se un dettaglio ti squalifica.
+
+Tutti e tre oggi si risolvono con una IA conversazionale. Non perché
+le IA siano diventate più brave a parlare, ma perché hanno imparato a
+*vedere*. Carichi il file nella chat, scrivi la domanda, e ricevi
+una risposta basata sul contenuto concreto di quello che hai caricato.
+
+La parola tecnica è *multimodalità*: una chat che accetta non solo
+testo, ma anche foto, screenshot, PDF, fogli di calcolo. Questa
+lezione è su come usarla. Tre casi d'uso canonici, le differenze
+fra le piattaforme principali, cosa va bene e cosa no, e cosa
+tenere presente sulla privacy di quello che carichi.
+
+## Tre casi d'uso canonici
+
+:::tip[Come si carica un file]
+Nelle chat di ChatGPT, Claude e Gemini cerchi un'icona a forma di
+graffetta o un *"+"* nella barra di scrittura: apre il file
+explorer del tuo dispositivo. Alternativa più veloce: trascini il
+file direttamente nella finestra della chat. Da telefono, lo stesso
+pulsante apre la galleria o la fotocamera.
+:::
+
+### 1. Foto di un documento fisico
+
+La bolletta cartacea che ti arriva a casa, la ricetta medica
+stampata, il libretto di istruzioni della lavatrice: testi che
+esistono su carta, non in formato digitale a portata di mano.
+
+Fai una foto leggibile (luce buona, documento piatto, inquadratura
+dritta, niente dito sul bordo) e la carichi nella chat. L'IA non
+riconosce solo il testo: vede anche tabelle, piccoli schemi di
+collegamento, simboli stampati sulle etichette. Puoi chiederle di
+leggere il totale di una bolletta e spiegarti da dove arriva,
+tradurti un'abbreviazione sulla ricetta del medico, dirti quale
+combinazione di tasti della lavatrice corrisponde al programma lana.
+
+Anche la scrittura a mano è gestita, con un asterisco: lo stampatello
+pulito lo legge bene, il corsivo veloce (incluso quello tipico delle
+ricette scritte a mano del medico) a volte lo azzecca, a volte no.
+Se la cosa è importante, controlla a mano almeno i numeri e i nomi
+dei farmaci.
+
+Quando la foto è chiara, risparmi la fatica di ricopiare dati a mano.
+Quando è sfuocata o storta, l'IA può leggere *O* al posto di *0* o
+saltare una riga intera. I controlli che riducono questi errori sono
+più sotto, in [*Cosa va bene, cosa va male*](#cosa-va-bene-cosa-va-male).
+
+### 2. Screenshot
+
+Il messaggio di errore che il computer ti mostra, la pagina web
+confusa dove non trovi il bottone giusto, il grafico di un articolo
+che hai letto ma non sai interpretare.
+
+Lo screenshot è più leggibile di una foto cartacea: niente luce,
+niente inquadratura, è già digitale e ad alta risoluzione. Si presta
+a tre tipi di domanda:
+
+- *Cosa vuol dire questo errore?* Lo incolli nella chat e chiedi
+  significato e come si risolve.
+- *Come arrivo da qui a X?* Screenshot dell'interfaccia, l'IA ti
+  guida nel flusso passo per passo.
+- *Cosa mostra questo grafico?* Spiegazione in parole di un'immagine
+  dove i numeri sono impliciti ma non elencati.
+
+Per gli errori software lo screenshot è meglio della descrizione a
+voce: un messaggio di errore può cambiare senso con una singola
+parola, e copiarlo a mano introduce sviste.
+
+### 3. PDF, presentazioni, fogli di calcolo
+
+Il caso più diverso dai primi due. Non una foto, ma un file intero.
+Il regolamento del condominio, il contratto di lavoro, la dispensa
+universitaria, il report annuale dell'azienda, un foglio di calcolo
+di spese.
+
+Una distinzione che conta: i PDF *digitali* (generati da Word o da
+un modulo web) contengono il testo come testo, e l'IA lo legge in
+modo affidabile. I PDF *scansionati* (pagine cartacee fotografate e
+salvate come immagini dentro un PDF) sono il caso del punto 1
+travestito: l'IA li legge, ma valgono le stesse cautele delle foto
+su leggibilità, luce, inquadratura della scansione.
+
+Lo carichi e fai domande sul contenuto. Non stai chiedendo un
+riassunto generico (quello è l'argomento di
+[*Riassumere un documento lungo*](/it/everyday-use/summarize-a-long-document/)):
+qui chiedi cose specifiche.
+
+<ChatDemo
+  user={`Ti allego il regolamento del concorso di illustrazione. Ho già partecipato l'anno scorso e sono arrivato fra i finalisti. Nel regolamento c'è un passaggio che squalifica chi è già stato finalista in edizioni precedenti, o posso partecipare di nuovo?`}
+  ai={`Ho cercato nel regolamento, ed è una buona notizia per te.
+
+All'articolo 4 ("Requisiti di partecipazione"), punto 4.3, il testo esclude esplicitamente solo "i vincitori delle ultime tre edizioni". Non compare nessun riferimento a finalisti, menzioni speciali, o candidati non premiati.
+
+All'articolo 6 ("Casi di esclusione"), i punti riguardano invece la consegna fuori tempo, il materiale non conforme alle specifiche, o l'uso di opere non originali. Niente che tocchi la tua situazione.
+
+Se vuoi, ti riporto la citazione esatta dei due articoli per farti leggere le formulazioni integrali: a volte un singolo aggettivo cambia il senso.`}
+/>
+
+L'IA cerca dentro il documento, isola il passaggio rilevante, lo
+riporta. Per documenti brevi (poche pagine) funziona in modo diretto.
+Per documenti lunghi (decine o centinaia di pagine) si applicano
+tutte le cautele che trovi in
+[*Riassumere un documento lungo*](/it/everyday-use/summarize-a-long-document/):
+può saltare passaggi, attribuire male una citazione, o rispondere
+solo sulle prime e ultime pagine.
+
+## Come funziona su ChatGPT, Claude, Gemini
+
+Le tre piattaforme principali accettano tutte immagini e file, ma
+con differenze pratiche. Invece di una tabella che diventa vecchia
+in due mesi, i criteri che contano sono quattro, gli stessi per
+qualsiasi piattaforma.
+
+**Quali formati accetta.** Immagini (JPEG, PNG) ovunque. PDF quasi
+ovunque. File Office (Word, Excel, PowerPoint) su tutte e tre, con
+qualche differenza sui formati meno comuni (alcuni vecchi `.doc` o
+`.xls` a volte vengono convertiti o rifiutati). Scansioni di
+documenti cartacei: le accettano tutte, se la foto è leggibile.
+
+**Dimensioni massime.** Per un singolo file si va dalle decine di MB
+a 100+ MB, a seconda del piano. Per PDF molto lunghi (centinaia di
+pagine) a volte la piattaforma ti chiede di estrarre solo le sezioni
+rilevanti prima del caricamento.
+
+**Numero di file per messaggio.** ChatGPT e Gemini ne accettano
+parecchi in un colpo solo. Claude è più parsimonioso sul numero, ma
+tende a gestire meglio PDF lunghi singoli.
+
+**Piani gratuiti e piani a pagamento.** Alcune funzioni (caricare
+PDF voluminosi, allegare più file in una chat, usare la visione su
+volumi alti) esistono solo sui piani a pagamento (Plus, Pro, Team).
+Sul piano gratuito la copertura c'è, ma con limiti quotidiani più
+stringenti.
+
+I numeri esatti cambiano spesso. Quando ti serve un'operazione
+specifica, cerca la pagina di supporto ufficiale della piattaforma
+(*"ChatGPT file uploads"*, *"Claude file types"*, *"Gemini vision
+capabilities"*) e leggi i limiti del momento. Tre minuti di ricerca
+prima ti risparmiano mezz'ora di tentativi a vuoto.
+
+## Cosa va bene, cosa va male
+
+**Foto di documenti**: vanno bene quando la foto è leggibile a
+occhio umano. Se tu, avvicinandoti allo schermo, fatichi a leggere
+una cifra, anche l'IA farà fatica. Tre controlli che migliorano
+molto: luce diffusa (no flash diretto che brucia metà pagina),
+documento piatto (non fotografato di sbieco), inquadratura completa
+(niente dito sul bordo o angoli tagliati).
+
+:::note[Documenti in altre lingue]
+Le tre piattaforme leggono senza sforzo inglese, spagnolo, francese,
+tedesco e la maggior parte delle lingue europee. Su lingue con
+alfabeti diversi (arabo, cinese, giapponese, cirillico) la lettura
+è buona ma più fragile sui testi manoscritti o con font non
+standard.
+:::
+
+**Screenshot**: quasi sempre affidabili per leggere il testo. Meno
+affidabili quando mischi molti elementi. Uno screenshot di una
+dashboard piena di bottoni con colori simili può confondere l'IA su
+quale è attivo e quale no. Se la distinzione è importante, fai lo
+screenshot della singola sezione invece dello schermo intero.
+
+**PDF brevi (1-20 pagine)**: funzionano molto bene. L'IA coglie
+struttura e dettagli.
+
+**PDF lunghi (50+ pagine)**: vanno trattati con cautela. Due
+problemi ricorrenti: l'IA può *perdersi* al centro (ricorda meglio
+inizio e fine che la parte di mezzo), e può inventare riferimenti di
+pagina che sembrano veri ma non esistono. Quando chiedi una
+citazione, chiedi sempre *"riporta la frase esatta e la pagina da
+cui viene"*, poi verifica aprendo il PDF a quella pagina.
+
+**Fogli di calcolo**: vanno bene per letture e domande qualitative
+(*"qual è la voce più alta?"*, *"quali righe hanno questo campo
+vuoto?"*). Cautela sui calcoli: l'IA può sbagliare somme o
+arrotondamenti. Quando la risposta è un numero, ricalcolalo a parte,
+o chiedi all'IA di mostrarti la formula invece del solo risultato.
+
+## Privacy
+
+Quello che carichi in chat è quello che condividi con l'IA. Se la
+foto della bolletta contiene nome, indirizzo, POD (il codice
+identificativo dell'utenza), quei dati entrano nella conversazione.
+
+Quando sei tu l'intestatario, è paragonabile a scrivere i tuoi dati
+in un form online. Quando la foto è di una bolletta di un'altra
+persona (un familiare, un cliente), di una ricetta medica di
+qualcun altro, di un contratto dove compaiono nomi di terzi, stai
+condividendo dati che non sono solo tuoi.
+
+:::caution[E l'allenamento? La mia foto diventa materiale di training?]
+Sui piani consumer (ChatGPT Free/Plus, Claude Free/Pro, Gemini) le
+immagini e i file caricati possono essere usati per addestrare
+modelli futuri, a meno che tu non abbia attivato l'opt-out nelle
+impostazioni (la voce che disattiva l'uso dei tuoi dati per il
+training). Sui piani business (Team, Enterprise, API) di default
+non lo sono. Il quadro completo e le istruzioni per verificare le
+impostazioni le trovi in
+[*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/).
+:::
+
+Due mosse pratiche:
+
+1. **Anonimizza prima di caricare**, quando puoi. Un foglietto di
+   carta sopra il nome prima di fotografare, un ritaglio digitale
+   sull'anteprima della foto, o un'app come *Microsoft Lens* o
+   *Adobe Scan* che permettono di oscurare porzioni. Se ti interessa
+   solo un dato numerico, ritaglia lo screenshot a quella sola riga.
+2. **Non caricare mai** credenziali (login, password), numeri di
+   carta di credito, documenti d'identità (passaporto, patente,
+   carta d'identità). Per questi l'anonimizzazione non basta: non
+   dovrebbero finire in una chat, nemmeno la tua.
+
+Il quadro completo di cosa l'IA *vede* quando le parli e cosa
+succede dopo il messaggio è in
+[*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/).
+
+## Cosa viene dopo
+
+In questa lezione hai visto cosa l'IA sa fare con il mondo attorno
+a te: carta, schermi, file. La prossima lezione, *Cose da NON fare*,
+è il complemento: casi in cui conviene tenersi a distanza, anche
+quando la tentazione è forte.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-images-and-files.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
