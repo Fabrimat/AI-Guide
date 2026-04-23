@@ -226,11 +226,32 @@ lezione, non un'etichetta di modulo.
    alla sezione "Cosa va bene, cosa va male", variazione di una
    ripetizione di "vale/valgono le cautele").
 
-8. ⏳ **Cose da NON fare** (`everyday-use/what-not-to-do`, `principiante`)
-   Sanitari, finanza, legale, decisioni importanti senza verifica.
-   Chiusura del modulo, ponte verso *Sul lavoro*.
+8. ✅ **Cose da NON fare** (`everyday-use/what-not-to-do`, `principiante`)
+   Chiusura del modulo. La tesi non è "l'IA sbaglia" (quello è in
+   Fondamenti 5) né privacy (Fondamenti 6): è dove non delegare la
+   **decisione** anche se la risposta fosse giusta, per chi si
+   prende la responsabilità. Regola madre (costo alto + non te ne
+   accorgi → solo capire, non decidere) con due test, caso peggiore
+   su argomenti specialistici dove il test "me ne accorgo in tempo"
+   non regge. Cinque aree: salute, soldi, questioni legali,
+   decisioni che toccano altre persone, lavori dove la firma vale
+   competenza tua. Bussola finale: differenza concreta è "chi
+   firma". Ciclo di revisione completo (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-23).
+   Integrazioni principali: estensione della regola madre per il
+   caso specialistico (non hai competenza per accorgerti
+   dell'errore), callout `:::tip` sull'emergenza sanitaria (112 o
+   pronto soccorso, non l'IA), chiarimento nella sezione "medico vs
+   IA", mini-esempio sulla linea fra delega totale e aiuto a pensare
+   una conversazione difficile, callout `:::tip` su editor vs
+   ghostwriter (chi ha l'idea iniziale), estensione del "Perché"
+   della sezione firma con il boomerang del colloquio. Style-checker:
+   verdetto OK, applicate due rifiniture nella bussola ("Guarda i
+   cinque casi sopra" → "In tutti e cinque i casi", triade
+   **Non/Sì** allentata).
 
-**Stato attuale**: 7 su 8 pubblicate.
+**Stato attuale**: 8 su 8 pubblicate, **modulo Uso quotidiano
+completo al 100%**.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -391,15 +412,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19.
 
-**Modulo 2 (Uso quotidiano)**: struttura validata 2026-04-20 in
+**Modulo 2 (Uso quotidiano)**: chiuso al 100% il 2026-04-23. Otto
+lezioni pubblicate secondo lo spec in
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
-Piano di implementazione in
-`docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 6 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
-la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23,
-Riassumere un documento lungo 2026-04-23, Imparare un argomento
-nuovo 2026-04-23, Scrivere meglio 2026-04-23). Prossima bozza:
-lezione 7, **Foto, immagini e file** (`everyday-use/images-and-files`).
+Ciclo di revisione completo su tutte, verifica dell'apprendimento
+attiva su ciascuna.
+
+**Prossimo passo**: validazione dello spec per il **Modulo 3 (Sul
+lavoro)**. L'elenco provvisorio di 10 voci vive nella sezione
+Modulo 3 di questo file. Da decidere prima di scrivere: ordine di
+lettura, taglio (orizzontale per professione vs trasversale per
+attività), quanti casi d'uso coprire prima di passare al modulo
+avanzato. Workflow analogo a Modulo 2: prima uno spec dedicato,
+poi il piano di implementazione, poi le singole lezioni.
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*

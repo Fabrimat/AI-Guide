@@ -1,0 +1,220 @@
+---
+title: Cose da NON fare
+description: L'IA aiuta in quasi tutto. Ma ci sono casi dove delegarle la decisione è una cattiva idea, anche quando sembra avere ragione.
+livello: principiante
+prerequisiti: [what-is-a-prompt, when-to-trust-it]
+---
+
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Anche quando l'IA è brava, ci sono cose che non dovrebbe **decidere** al posto tuo: non per limiti della tecnologia, ma per chi si prende la responsabilità.
+- Due test rapidi: se sbaglia, il danno è reversibile? Te ne accorgi prima che sia tardi? Se anche solo una risposta è "no", usa l'IA per capire, non per decidere.
+- Cinque aree scottanti: salute, soldi, questioni legali, decisioni che toccano altre persone, lavori dove la tua firma vale come competenza tua.
+- In tutti i casi il pattern è lo stesso: l'IA ti aiuta a **capire, preparare, esplorare**. La decisione resta tua, o di un professionista che se la firma.
+
+</LessonSummary>
+
+Fino a qui il manuale ti ha mostrato cosa puoi fare con un'IA
+conversazionale: scrivere, capire, riassumere, studiare, lavorare
+con foto e file. Questa lezione è il rovescio della medaglia. Non
+parla di errori tecnici dell'IA (per quelli c'è già
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/))
+né di privacy (c'è già
+[*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/)).
+Parla di cose che l'IA **sa fare**, ma che non dovresti comunque
+chiederle.
+
+## La regola madre
+
+Prima di andare negli esempi, la regola generale, in una frase:
+
+> Se il costo di sbagliare è alto **e** non te ne accorgi subito,
+> usa l'IA per capire, non per decidere.
+
+Due domande da farti prima di delegarle qualcosa:
+
+1. **Se l'IA sbaglia, il danno è reversibile?** Una email da
+   riscrivere è reversibile. Una medicina presa male, una firma
+   su un contratto, un investimento fatto, un messaggio che rompe
+   un rapporto: no.
+2. **Me ne accorgerei prima che sia tardi?** Un riassunto sbagliato
+   te ne accorgi rileggendo il documento. Una raccomandazione
+   fiscale che ti fa pagare un'imposta doppia te ne accorgi sei
+   mesi dopo, quando arriva la comunicazione. Attenzione al caso
+   peggiore: se l'argomento è specialistico (medicina, legge,
+   fisco) e non hai la competenza per giudicare la risposta, il
+   test non regge. Non ti accorgerai mai dell'errore.
+
+Se anche una sola delle due risposte è "no", l'IA resta uno
+strumento **di esplorazione**, non di decisione.
+
+## Cinque aree in cui non delegare
+
+### 1. Salute
+
+Non chiedere:
+
+- *"Questo sintomo cos'è?"* per farti fare una diagnosi.
+- *"Posso smettere di prendere questa medicina?"*
+- *"Posso mescolare questi due farmaci?"*
+
+Puoi chiedere:
+
+- *"Questo referto cosa dice in parole semplici, e quali domande
+  dovrei fare al mio medico?"*
+- *"Cosa vuol dire emoglobina glicata nel mio esame del sangue?"*
+- *"Quali effetti collaterali segnalano di solito per questo
+  principio attivo? Voglio poterli raccontare al medico."*
+
+Perché la differenza? Una diagnosi non si fa da un sintomo isolato
+senza visitare la persona, leggere la sua storia clinica, valutare
+il quadro intero. Il medico può farlo, l'IA no: non può visitarti,
+non può prescriverti esami, e non risponde di quello che ti dice.
+Se sbaglia, il costo lo paga il tuo corpo.
+
+:::tip[E se è un'emergenza?]
+In emergenza il numero è 112 o il pronto soccorso, non l'IA. Se
+stai decidendo *"vado o aspetto?"*, l'IA ti può aiutare a mettere
+in fila i sintomi, ma il verdetto non è suo. In dubbio vai.
+:::
+
+### 2. Soldi
+
+Non chiedere:
+
+- *"Dove conviene investire ventimila euro?"*
+- *"Devo comprare questa casa?"*
+- *"Compilami la dichiarazione dei redditi."*
+
+Puoi chiedere:
+
+- *"Spiegami la differenza tra un ETF e un fondo comune, così
+  capisco di cosa mi parlano in banca."*
+- *"Questa offerta di mutuo a tasso variabile ha una clausola di
+  rinegoziazione? Spiegamela in italiano normale."*
+- *"Quali documenti servono per scaricare le spese mediche?
+  Voglio arrivare preparato al commercialista."*
+
+Perché? La tua situazione è specifica: reddito, famiglia, obblighi,
+quanto rischio puoi sopportare. L'IA non la conosce, e un consiglio
+generico applicato a un caso particolare fa danni. Per le decisioni
+vere serve un professionista che se le firma.
+
+### 3. Questioni legali
+
+Non chiedere:
+
+- *"Posso firmare questo contratto?"*
+- *"Ho ragione nella causa con il vicino?"*
+- *"Mi scrivi la lettera di diffida con la clausola giusta per il
+  mio caso?"*
+
+Puoi chiedere:
+
+- *"Cosa significa la clausola di non concorrenza in questo
+  contratto? Spiegamela con un esempio."*
+- *"Quali sono le domande che dovrei fare a un avvocato prima del
+  primo appuntamento su questo tema?"*
+- *"Quando una causa di lavoro va in tribunale, di solito quali
+  sono i passaggi? Mi serve per capire cosa aspettarmi, non per
+  agire da solo."*
+
+Perché? La legge è locale, cambia spesso, e varia per i dettagli
+del singolo caso. Una risposta che suona giusta in astratto può
+essere sbagliata per te. Le conseguenze di una firma o di una
+causa persa sono di solito irreversibili.
+
+### 4. Decisioni che toccano altre persone
+
+Non chiedere:
+
+- *"Scrivimi il messaggio per chiudere questa relazione."*
+- *"Come licenzio questo collaboratore?"* intesa come delega
+  totale della conversazione.
+- *"Decidi tu cosa dire a mio padre della sua diagnosi."*
+
+Puoi chiedere:
+
+- *"Devo avere una conversazione difficile con una persona su X.
+  Quali punti dovrei toccare? Cosa potrebbe rispondere?"*
+- *"Aiutami a capire cosa prova probabilmente l'altra persona in
+  questa situazione."*
+
+La linea è chi tiene in mano le parole. *"Scrivi tu il messaggio
+che le mando"* è delega. *"Che tono scelgo? Anticipami tre
+reazioni possibili"* è aiuto a pensarci.
+
+Perché? Le altre persone non sono caselle da ottimizzare. Una
+conversazione difficile è il momento in cui un rapporto si
+costruisce o si rompe: se la deleghi a un testo non scritto da
+te, l'altro lo sente. La differenza tra un messaggio "da IA" e
+un messaggio tuo, per chi ti conosce, è palpabile.
+
+### 5. Lavori dove la tua firma vale come competenza tua
+
+Non chiedere:
+
+- Tesi, saggi, trattazioni che devono dimostrare la tua capacità.
+- Candidature (CV e soprattutto lettera motivazionale) dove ti
+  stai vendendo per una competenza.
+- Prove tecniche o lavori professionali che qualcuno paga per
+  **la tua** abilità: articolo da giornalista, traduzione da
+  traduttore, bozza da consulente, codice da developer.
+
+Puoi chiedere:
+
+- Aiuto per superare un blocco, riformulare un paragrafo, trovare
+  esempi, rileggere con occhio critico.
+- Brainstorming iniziale su un'idea, poi il testo lo scrivi tu.
+- Una seconda opinione sullo stile, come faresti con un collega.
+
+:::tip[Editor o ghostwriter: dove passa la linea?]
+Se il paragrafo lo scrivi tu e l'IA te lo pulisce, è editor. Se
+hai chiesto *"scrivimi un paragrafo su X"* e poi lo ricopi, è
+ghostwriter. Il confine non è quanto intervieni dopo: è se
+l'idea iniziale è tua.
+:::
+
+Perché? La firma trasmette un'informazione a chi legge: *"questo
+lavoro riflette le mie capacità"*. Se la firma è tua ma il lavoro
+è dell'IA, stai dando un segnale falso. Una candidatura brillante
+che ti fa arrivare al colloquio ma che al colloquio non sai
+sostenere è un boomerang: la promessa era forte, tu no.
+
+## Un'unica bussola
+
+In tutti e cinque i casi il pattern è lo stesso. Non chiedere
+all'IA di **decidere**. Chiedile di **spiegare, preparare,
+esplorare**. Il verbo giusto è *capire*.
+
+In pratica, la differenza è chi firma. Chiedere *"cosa vuol dire
+questa clausola?"* e poi decidere con un avvocato: stai decidendo
+tu, l'IA ti ha dato contesto. Chiedere *"posso firmare questo
+contratto?"*: stai chiedendo una decisione, e se l'IA sbaglia
+non hai modo di difenderti.
+
+Questa non è una regola tecnica imposta dal software. È una
+postura di responsabilità: le cose che pesano le decidi tu,
+eventualmente con un professionista che se le firma. L'IA è un
+assistente che ti prepara al confronto, non il confronto.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-what-not-to-do.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Questo modulo finisce qui. Ora sai usare un'IA per leggere la
+realtà (documenti, foto, file), per studiare, per scrivere, e sai
+cosa invece lasciarle fuori. Nel prossimo modulo, *Sul lavoro*,
+cambia il contesto: dati aziendali, clienti, colleghi, e nuove
+regole di ingaggio.
