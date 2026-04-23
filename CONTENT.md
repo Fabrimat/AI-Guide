@@ -168,9 +168,27 @@ lezione, non un'etichetta di modulo.
    "di fatto" (buzzword), una ripetizione ravvicinata di "plausibile"
    e una tripla parallela nella chiusura: tutti sistemati.
 
-5. ⏳ **Imparare un argomento nuovo** (`everyday-use/learn-something-new`, `intermedio`)
+5. ✅ **Imparare un argomento nuovo** (`everyday-use/learn-something-new`, `intermedio`)
    L'IA come tutor: spiegazioni a più livelli, interrogazioni di
-   ritorno, verifica della qualità.
+   ritorno, verifica della qualità. Prerequisiti estesi a
+   `when-to-trust-it` oltre a `what-is-a-prompt` (lezione a posta
+   più alta sulla verifica). Ciclo di revisione completo
+   (`analyze-lesson` + `integrate-questions` + `style-checker`,
+   2026-04-23). Integrazioni principali: "regola rapida" sul livello
+   di partenza nella Tecnica 1, rimpiazzo della metafora opaca
+   "scalpello locale" con "a grana fine", motivo per cui le analogie
+   generiche (*"libro mastro"*) falliscono, paragrafo sull'analogia
+   che si rompe, variante "chiedila all'IA", differenza esplicita
+   fra Tecnica 1 e Tecnica 2, aggiustamento del quiz e cautela sul
+   feedback nella Tecnica 3, quarta `<ChatDemo>` col turno completo
+   utente/IA per far vedere il loop dell'interrogazione,
+   escalation sul caso "l'IA insiste che è tutto ok",
+   chiarimento su cosa sia una "fonte seria" + callout su
+   argomenti di nicchia, spiegazione meccanica del test di
+   Feynman, motivo strutturale per cui matematica/programmazione/
+   medicina sono le aree più rischiose, callout finale su
+   competenze vs concetti. Style-checker: verdetto OK, applicati 3
+   fix su "davvero/veramente" nell'asse "capire sul serio".
 
 6. ⏳ **Scrivere meglio** (`everyday-use/write-better`, `intermedio`)
    Email, testi, messaggi. Giudizio "quando sì, quando no":
@@ -184,7 +202,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 4 su 8 pubblicate.
+**Stato attuale**: 5 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -346,11 +364,11 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 4 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
+Stato: 5 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
 la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23,
-Riassumere un documento lungo 2026-04-23). Prossima bozza: lezione
-5, **Imparare un argomento nuovo**
-(`everyday-use/learn-something-new`).
+Riassumere un documento lungo 2026-04-23, Imparare un argomento
+nuovo 2026-04-23). Prossima bozza: lezione 6, **Scrivere meglio**
+(`everyday-use/write-better`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*

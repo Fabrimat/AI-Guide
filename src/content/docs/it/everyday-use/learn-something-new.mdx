@@ -1,0 +1,290 @@
+---
+title: Imparare un argomento nuovo
+description: L'IA come tutor personale. Tecniche per capire, non solo per avere una risposta.
+livello: intermedio
+prerequisiti: [what-is-a-prompt, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Imparare è una cosa diversa da "ottenere una risposta": vuole capire, non solo ricordare.
+- Tre tecniche per trasformare l'IA in un tutor paziente: **spiegazione scalabile** (stessa cosa a livelli diversi), **ancora a qualcosa che già sai** (analogie mirate al tuo mondo), **interrogazione di ritorno** (fatti quizzare, una domanda alla volta).
+- La spiegazione troppo liscia è un segnale sospetto: sta venendo via bene perché stai capendo, o perché l'IA ha semplificato via qualcosa di importante?
+- Qui la posta è più alta che altrove: se l'IA sbaglia, rischi di *imparare* l'errore. Su temi tecnici (matematica, programmazione, medicina) incrocia sempre con una fonte esterna.
+
+</LessonSummary>
+
+Vuoi capire come funziona la blockchain. O gli effetti dei tassi di
+interesse sull'inflazione. O la genetica dietro la resistenza ai
+batteri. Argomenti non tuoi, che ti serve capire adesso, senza
+iscriverti a un corso universitario.
+
+L'IA è bravissima in questo caso, con un caveat grosso: la
+differenza fra "avere una risposta" e "aver capito" è ampia, e chi
+usa male l'IA si ferma alla prima. Questa lezione ti dà tre
+tecniche per trasformarla in un tutor paziente che ti porta dal
+sentito-dire al capisco, più una sezione sulla verifica che qui
+conta più che altrove.
+
+Rispetto a
+[*Riassumere un documento lungo*](/it/everyday-use/summarize-a-long-document/)
+cambia la domanda. Lì ti serviva il nocciolo di un testo, da tenere
+a portata. Qui ti serve che un argomento ti entri, e resti.
+
+## Le tre tecniche
+
+### 1. Spiegazione scalabile
+
+Chiedi la stessa cosa a livelli di complessità diversi. Parti dal
+più semplice, e usa la scala verso l'alto per le parti che già
+capisci e verso il basso per quelle che ancora resistono.
+
+Regola rapida: se del tema non sai quasi niente, parti dal "decenne"
+e sali da lì. Se hai già una mezza idea, attacca dal livello
+"adulto non tecnico" e scendi solo sulle parti che non reggono. Il
+livello si cambia senza costo nel giro dopo.
+
+> *"Spiegami la blockchain come se avessi dieci anni. Solo il
+> concetto centrale, in due frasi."*
+
+> *"Ora la versione per un adulto non tecnico che ha capito la
+> prima spiegazione. Aggiungi il meccanismo di come si estende la
+> catena."*
+
+> *"Infine la versione per uno studente di informatica del primo
+> anno: cos'è un hash, perché le manomissioni non passano."*
+
+Tre versioni dello stesso contenuto, ciascuna calibrata sul tuo
+livello di quel momento. Non stai leggendo lo stesso articolo tre
+volte: stai facendo quello che un tutor umano farebbe se avesse
+tempo di adattarsi a te.
+
+Funziona anche a grana fine: se dentro una spiegazione di livello
+medio ti perdi su un singolo punto, copia quella frase nel prompt
+successivo e chiedine la versione decenne, poi risali. Non devi
+ricominciare la conversazione da capo.
+
+### 2. Ancora a qualcosa che già sai
+
+Le analogie generiche (*"pensa alla blockchain come a un libro
+mastro"*) sono il modo in cui la maggior parte delle spiegazioni
+sul web presenta un concetto nuovo. Il problema: quel "libro
+mastro" non è nel tuo vocabolario. Potresti chiedere all'IA di
+spiegarti anche cos'è un libro mastro, ma finisci per impilare
+definizioni di parole che non padroneggi. L'analogia aiuta solo se
+il punto di partenza è già tuo.
+
+La mossa è forzare l'IA a partire da qualcosa che conosci bene.
+
+> *"Spiegami la blockchain per analogia con un registro
+> condominiale: il verbale, le delibere, il modo in cui ogni
+> delibera nuova si basa su quelle vecchie."*
+
+> *"Spiegami l'inflazione usando come analogia una scuola dove
+> circolano sempre più merendine di quante ne servano."*
+
+L'IA costruisce il ponte dal tuo vocabolario al concetto nuovo,
+non viceversa. L'analogia non deve essere perfetta: deve darti un
+gancio per quando arriva la versione tecnica.
+
+Un'analogia ha sempre un punto in cui si rompe. *"Blockchain come
+quaderno di classe"* rende l'idea della copia condivisa, ma non
+coglie il meccanismo matematico che fa saltare all'occhio le
+manomissioni. Quando senti che l'analogia smette di reggere, è il
+segnale per chiedere la versione tecnica di quella singola parte.
+
+Una variante comoda: dichiara il tuo sfondo all'inizio della
+conversazione. *"Faccio l'architetto. Quando spieghi qualcosa, se
+ha senso cerca un'analogia che funzioni per chi pensa in piante,
+materiali, cantieri"*. Così l'IA calibra tutte le spiegazioni
+successive senza doverglielo ricordare ogni volta.
+
+Se non ti viene in mente un'analogia col tuo mondo, chiedila:
+*"proponimi tre analogie possibili per spiegare la blockchain,
+pescando da mondi diversi (cucina, scuola, finanza, sport).
+Scelgo io"*. Non tutte funzionano, ma almeno ti mette davanti a
+un menu.
+
+La differenza con la Tecnica 1: lì scendi e sali sul livello di
+complessità, qui sposti il vocabolario di partenza. Le due sono
+complementari, non alternative: spesso parti con un'analogia e
+poi scali i dettagli.
+
+### 3. Interrogazione di ritorno
+
+Leggere una spiegazione e annuire è passivo. La sensazione "ho
+capito" è diffusa, e spesso mente. L'antidoto: invertire i ruoli.
+
+> *"Fammi cinque domande progressive sulla blockchain, una alla
+> volta, partendo dal concetto base. Aspetta la mia risposta prima
+> di passare alla successiva. Dopo ogni risposta dimmi se è
+> corretta e cosa mi manca."*
+
+L'IA diventa una cosa diversa: non è più una maestra che riversa
+informazioni, è una prof che ti interroga. Qui scopri dove avevi
+finto di capire.
+
+È il momento più scomodo del percorso, ed è anche quello che
+imprime il concetto. Ti stai allenando, non leggendo.
+
+Combina le tecniche: dopo un'interrogazione, sui punti dove sei
+inciampato torna alla scalabile e chiedi la versione di sotto.
+Quando quella zona è solida, rifai un quiz più duro sulla stessa
+area.
+
+Se le domande escono troppo facili, troppo astratte, o tutte sullo
+stesso piano, chiedi un aggiustamento: *"le prossime più
+difficili"*, *"più applicate a un caso pratico"*, *"meno
+teoriche"*. Il quiz si tara come una spiegazione.
+
+Sul feedback c'è una cautela. L'IA può dirti "corretto" per
+gentilezza anche quando la risposta è parziale. Per
+controbilanciare, chiudi la richiesta così: *"oltre a dirmi se è
+corretta, dimmi cosa avrei potuto aggiungere"*. La forzi a vedere
+il completamento, non solo la superficie.
+
+## Un esempio: capire la blockchain
+
+Vediamo le tre tecniche in catena. Voglio capire la blockchain,
+non ho idee precise, ho solo sentito il termine. Primo giro,
+scalabile al livello più basso.
+
+<ChatDemo
+  user="Spiegami la blockchain come se avessi dieci anni, in due frasi al massimo."
+  ai={`È come un quaderno condiviso da tutta la classe, dove ogni nuova pagina si appoggia alle pagine di prima.
+
+Siccome tutti hanno una copia del quaderno, se qualcuno cambia una pagina vecchia gli altri se ne accorgono subito e la rifiutano.`}
+/>
+
+Ho il concetto. Ora alzo di un livello.
+
+<ChatDemo
+  user={`Ora la versione per un adulto non tecnico che ha capito l'analogia del quaderno. Aggiungi come si estende la catena e perché è difficile barare.`}
+  ai={`Ogni "pagina" è un blocco di transazioni (chi paga chi, chi possiede cosa). Quando un blocco si aggiunge, contiene un codice che dipende matematicamente dal blocco precedente, una specie di impronta digitale di quello prima.
+
+Se qualcuno cambia una singola lettera in un blocco vecchio, la sua impronta cambia, e tutti i blocchi successivi risultano istantaneamente invalidi. Dovrebbe ricalcolare l'intera catena da lì in poi su tutti i computer che la tengono: in tempi ragionevoli, impossibile.
+
+Non c'è un amministratore centrale che dice "questa è la catena buona". Lo dice la maggioranza dei nodi: la versione su cui più computer sono d'accordo è quella considerata vera.`}
+/>
+
+Ho il meccanismo. Ora l'interrogazione, per vedere se mi è
+entrato.
+
+<ChatDemo
+  user={`Ok. Ora fammi tre domande progressive per verificare se ho davvero capito. Una alla volta, aspetta la mia risposta prima della successiva.`}
+  ai={`Prima domanda.
+
+Un attaccante riesce a modificare un blocco di dieci anni fa sul suo computer. La sua copia della blockchain risulta manomessa localmente, ma la rete nel suo complesso non la accetta. Perché la rete la rifiuta?`}
+/>
+
+Qui ti fermi e rispondi. La domanda ti spinge sul "perché" del
+meccanismo, non sul vocabolario. Se non sai rispondere, sai
+esattamente dove tornare con la Tecnica 1.
+
+Ecco come potrebbe svilupparsi il turno successivo.
+
+<ChatDemo
+  user="La rete la rifiuta perché se lui cambia un blocco vecchio, l'impronta di quel blocco cambia, e tutti i blocchi successivi nella sua copia risultano rotti. Agli altri nodi la sua catena appare invalida dal punto della modifica in poi."
+  ai={`Esatto, hai centrato il punto: la rottura dell'impronta propaga l'invalidità a tutti i blocchi successivi. Due cose che aggiungerei. Primo: la rete non si limita a rifiutare la catena rotta, sceglie quella più lunga e più "lavorata" fra quelle valide; per imporre la sua versione manomessa, l'attaccante dovrebbe anche rifare tutti i blocchi da lì in avanti, più velocemente del resto della rete messa insieme. Secondo: in una rete grande questo costa così tanto (in energia e hardware) da essere economicamente impraticabile, ed è da lì che nasce la sicurezza del sistema.
+
+Prossima domanda.
+
+Se domani qualcuno inventasse un computer mille volte più veloce di quelli odierni, la blockchain diventerebbe automaticamente insicura?`}
+/>
+
+Questo è il loop. La tua risposta, una validazione onesta, un
+completamento su quello che ti era scappato, la domanda seguente
+calibrata su dove eri arrivato.
+
+## Cosa verificare sempre
+
+Su "imparare" la posta è diversa dalle altre lezioni del modulo.
+Se l'IA ti dà un riassunto sbagliato, te ne accorgi confrontando
+col documento. Se ti spiega in modo sbagliato un concetto, quello
+errore entra nel tuo modello mentale e lo porti via con te.
+
+Tre controlli utili.
+
+**La spiegazione troppo liscia è un segnale.** Quando una
+spiegazione arriva pulita al primo colpo, senza zone grigie, non
+significa che tu abbia capito: può voler dire che l'IA ha
+semplificato via una parte importante. Chiedile esplicitamente:
+*"cosa ho perso, semplificando così?"*, oppure *"dove questa
+spiegazione è imprecisa?"*. In genere sa dirtelo. Se invece
+insiste che è tutto a posto, forza la mano: *"fammi tre esempi
+concreti in cui la spiegazione semplice che mi hai dato non
+regge"*. Partire dai controesempi di solito la sblocca.
+
+**Incrocia con una fonte esterna sui punti critici.** Non serve
+leggere un manuale: per la maggior parte degli argomenti bastano
+la voce Wikipedia e le prime righe di due articoli seri. "Seri"
+sono quelli pubblicati da università, testate con redazione,
+organizzazioni ufficiali; preferisci articoli recenti se il tema
+è in evoluzione. Cerca le divergenze fra quello che ti ha detto
+l'IA e quello che trovi lì. Le discrepanze sono le zone dove
+tornare a chiedere.
+
+:::note[Argomenti di nicchia]
+Su temi specialistici con poca divulgazione (ricerche attive,
+questioni tecniche settoriali, contesti locali), la verifica
+costa di più: spesso l'unica strada è un paper o un documento
+primario. In queste aree l'IA ha probabilmente letto più
+divulgazione semplificata che materiale originale, e sa meno di
+quanto il suo tono lascerebbe pensare. Resta un tutor utile per
+orientarti, ma non l'ultima parola.
+:::
+
+**Prova a spiegarla tu.** Se non sai esporre il concetto con
+parole tue a qualcuno che non lo sa, non l'hai ancora fissato.
+Può essere una persona reale, o di nuovo l'IA (*"ora ti spiego
+come l'ho capita io, tu dimmi dove ho semplificato troppo o
+sbagliato"*). Chi studia lo conosce come "test di Feynman": è
+antico come l'università, funziona sempre. Il motivo è
+meccanico. Leggere una spiegazione fa lavorare il riconoscimento
+(*"ah sì, sembra familiare"*); esporla fa lavorare la
+ricostruzione (*"devo rimettere i pezzi in ordine da zero"*).
+Sono due processi diversi, e la ricostruzione è il test più
+severo.
+
+:::caution[Su temi tecnici, diffida delle risposte troppo sicure]
+Matematica, programmazione, statistica, medicina specialistica:
+sono le aree dove l'IA ha più probabilità di restituirti una
+risposta che suona autorevole ma contiene un errore. Hanno una
+cosa in comune: un piccolo passaggio sbagliato (una cifra, un
+operatore logico, un dosaggio) rovina tutto il ragionamento,
+mentre sulla prosa un errore di sfumatura si nota meno e pesa
+meno. Regola pratica: su questi temi, usa l'IA per orientarti,
+non come unica fonte. Il quadro più largo è in
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/).
+:::
+
+:::note[E se voglio acquisire una competenza, non capire un concetto?]
+Queste tecniche sono pensate per l'apprendimento concettuale:
+capire come funziona una cosa, tenerla a mente, sapere ragionarci
+sopra. Per una competenza pratica (cucinare meglio, scrivere più
+chiaro, suonare uno strumento) la teoria aiuta ma non basta:
+serve esercizio ripetuto con feedback. L'IA serve ancora (piano
+di studio, feedback su una tua produzione, sparring partner), ma
+le tre tecniche qui giocano un ruolo di supporto, non centrale.
+:::
+
+## Cosa viene dopo
+
+Quando hai capito un tema e vuoi tradurlo in qualcosa che
+qualcun altro leggerà (una mail, un documento, un articolo),
+cambiano di nuovo le tecniche: dall'apprendimento alla scrittura.
+La prossima lezione, *Scrivere meglio*, entra in quel territorio.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-learn-something-new.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
