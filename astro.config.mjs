@@ -75,13 +75,7 @@ export default defineConfig({
             { slug: 'everyday-use/summarize-a-long-document' },
             { slug: 'everyday-use/learn-something-new' },
             { slug: 'everyday-use/write-better' },
-            {
-              label: 'Images and files',
-              translations: { it: 'Foto, immagini e file' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'everyday-use/images-and-files' },
             {
               label: 'What not to do',
               translations: { it: 'Cose da NON fare' },
