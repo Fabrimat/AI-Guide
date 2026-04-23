@@ -71,13 +71,7 @@ export default defineConfig({
           items: [
             { slug: 'everyday-use/ask-well' },
             { slug: 'everyday-use/iterate-the-conversation' },
-            {
-              label: 'Understand something complex',
-              translations: { it: 'Capire una cosa complicata' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'everyday-use/understand-something-complex' },
             {
               label: 'Summarize a long document',
               translations: { it: 'Riassumere un documento lungo' },
