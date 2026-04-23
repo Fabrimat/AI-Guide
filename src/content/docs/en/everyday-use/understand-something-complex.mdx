@@ -1,0 +1,223 @@
+---
+title: Understanding something complicated
+description: Bills, contracts, medical reports, regulations. The AI is an excellent translator of bureaucratese, if you use it well.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- The documents that show up in your mailbox are written in bureaucratese: the AI is excellent at translating them into normal language.
+- Three techniques cover almost everything: **explain it simply**, **extract just the data I need**, **tell me what to watch for**.
+- For contracts the third technique is the most useful: it helps you spot risky clauses before you sign.
+- Numbers are the AI's weak spot: translation is its job, arithmetic stays yours.
+- What you paste in (a bill, a contract, a medical report) contains your personal data. Know it before you do it.
+
+</LessonSummary>
+
+You opened an electricity bill and got stuck on the line "system
+charges adjustment factor". You read a contract and didn't
+understand what "automatic renewal unless cancelled within thirty
+days of expiry" actually means. Or you got a medical report with
+acronyms that look like military codes. It's happened to everyone.
+
+The problem isn't your attention. It's that these documents are
+written to protect the people who send them, not to make sense to
+you. The conversational AI is excellent at one thing: taking a
+difficult text and giving it back to you in normal language. It does
+the same job on contracts, condo bylaws, tax authority letters, drug
+leaflets, insurance policy terms. It's one of the most useful
+applications in everyday life.
+
+In this lesson we'll see three techniques that work almost every
+time, with a real example on an electricity bill. About medical
+reports, a heads-up before going further: the AI is a good translator
+of acronyms and clinical terms, not a substitute for a doctor in
+choosing what to do. We'll talk about it in the last lesson of the
+module, *What not to do*.
+
+## The three techniques
+
+You don't need a magic prompt. You need to know what you're asking
+for.
+
+### Explain it like I'm ten
+
+The base technique. You paste (or describe) the difficult text and
+you ask the AI to explain it in simple words. It works on any
+document: a contract clause, a page of a regulation, a paragraph of
+an article. The AI strips out the jargon and gives you back the same
+information in plain language. You decide the level: "like I'm ten"
+is the extreme case, but you can also ask *"like to an adult who
+knows nothing about the topic"* or *"like to a colleague who knows
+half of what I know"*. The more precise you are about your starting
+point, the better the explanation fits.
+
+> *"Explain this contract sentence as if I knew nothing about law:
+> 'In case of early termination, the customer is required to pay the
+> fee provided in Annex B, paragraph 3, plus administrative
+> charges.'"*
+
+You'll get an answer like: "if you close the contract before the end
+date you pay a penalty, which is written in another sheet of the
+contract, Annex B, plus a small handling fee". Same meaning,
+different language.
+
+### Extract just what I'm interested in
+
+The difference from the first technique is the focus: there you want
+to *understand* the document, here you only want a *piece of data*.
+Often you don't need the whole thing explained: you just need a
+direct answer to a specific question. *When do I have to pay? How
+much does it cost to cancel? When does the coverage start?* The AI
+pulls the data out of the text without making you read twenty pages.
+
+> *"From this bill, tell me only: total amount, due date, and how
+> much the fixed monthly fee is."*
+
+The model reads the whole document but only answers what you asked.
+It's the right pattern for long documents (an insurance PDF, a condo
+bylaws document, an investment information sheet) when you need a
+specific piece of information and nothing more.
+
+### Tell me what to watch for
+
+The third technique is the most powerful, and it shines on contracts
+before you sign them. Instead of asking "explain it" or "extract a
+piece of data", you ask the AI to do the job a knowledgeable friend
+would: *flag the things that could give me trouble*.
+
+> *"Read this rental contract and tell me which clauses could be
+> disadvantageous for me as a tenant. Focus on penalties, automatic
+> renewals, minimum duration, and expenses that might come back to
+> me."*
+
+The AI doesn't sign anything for you, but it pulls out a list of the
+clauses to slow down on: automatic renewal, non-refundable deposit,
+binding minimum duration, penalties hidden in the footnotes. On a
+rental, a typical answer sounds like: *"24-month minimum term with a
+240-euro penalty if you leave early; automatic renewal unless you
+cancel three months before expiry; extraordinary maintenance is on
+the tenant, this is a clause to verify against local law."* It's
+useful when you're about to sign a phone offer, an electricity
+contract, a gym membership, an insurance policy, a real estate
+preliminary contract. It gives you a second pair of eyes before a
+decision that locks you in.
+
+:::tip[What if my document is on paper or a long PDF?]
+For text already selectable (web page, email) you copy and paste it
+into the chat. For a PDF, almost all AIs accept the file uploaded
+directly, and we'll come back to this in the lesson *Photos, images
+and files*. For a paper document you have two routes: type it out
+manually (a bill takes five minutes) or photograph it. For very long
+documents (PDFs of dozens of pages, books) the techniques in this
+lesson still work, but they need to be combined with those of the
+next lesson, *Summarize a long document*.
+:::
+
+:::note[Before pasting in a document of yours (or someone else's)]
+What you feed to the AI leaves your computer and arrives at the
+provider's servers. A bill has your address and your POD (the unique
+code identifying your electricity meter); a contract may contain a
+tax ID and IBAN; a medical report has health data. Delete or replace
+with `xxx` anything you don't need for the question you're asking:
+the euro amounts you need if you want to understand the bill, your
+name and address you don't. Same logic if you're pasting a document
+that belongs to someone else (a parent, a friend): ask their OK
+first, and anonymize their data the way you would your own. For the
+full picture, [*What you share when you use
+AI*](/en/fundamentals/privacy-basics/).
+:::
+
+## An example: the electricity bill
+
+The first two techniques at work on a real scene: a bill that came
+in higher than usual, and you want to understand why.
+
+<ChatDemo
+  user={`Explain this electricity bill. Total amount 142.30 euros for November. The line items are:
+- Energy commodity charge: 58.40
+- Network and metering fee: 27.80
+- System charges: 19.50
+- Taxes (excise + VAT): 22.10
+- Adjustment from previous billing: 14.50
+
+What exactly am I paying for, and why is there that adjustment?`}
+  ai={`I'll go item by item in plain language.
+
+"Energy commodity charge" (€58.40) is what you actually pay for the kilowatt-hours you used. The real "cost of electricity".
+
+"Network and metering fee" (€27.80) is what you pay the grid operator to bring electricity to your home, plus the meter reading.
+
+"System charges" (€19.50) are costs the State puts on every bill to fund things like incentives for renewables and social subsidies.
+
+"Taxes" (€22.10) are excise on energy plus VAT.
+
+"Adjustment from previous billing" (€14.50) is the line you're asking about. In an earlier bill the supplier had estimated your consumption, and now they're correcting it because the actual figure (read from the meter) was higher. It's a back-charge, not a new cost: you're paying for energy you'd already used.
+
+To give you the order of magnitude: actual consumption is about 41% of the total. The rest is infrastructure, taxes, and a retroactive correction.`}
+/>
+
+In four lines of prompt you got a complete translation, and you
+identified the culprit of the higher amount (a retroactive
+adjustment, not a sudden runaway consumption). You could also have
+asked just *"why is it high?"* (technique 2), and you'd have gotten
+a direct answer; or *"tell me if anything looks off"* (technique 3),
+and it would have checked for you. Three different lenses on the
+same document.
+
+## What to always verify
+
+One thing has to be said clearly: **the AI often gets numbers
+wrong**. It mixes up line items, adds badly, swaps decimals and
+thousands, takes a value from one row and assigns it to another. It
+happens even on trivial sums: it'll give you 142.80 instead of
+142.30 because it read 27.80 instead of 27.30, and you won't catch
+it unless you double-check. Not because it's stupid, but because it
+isn't computing on a calculator: it's predicting plausible text, and
+a plausible number isn't a correct number. You saw the mechanism in
+[*When to trust it (and when
+not)*](/en/fundamentals/when-to-trust-it/).
+
+Numbers are the obvious case. The AI can be wrong on the words too:
+a clause translated too softly, an exception skipped, a plausible
+interpretation that doesn't actually fit your specific text. The
+counter-move is to ask the AI to quote the exact sentence in the
+document it drew the explanation from (*"which line of the contract
+did you get this from?"*). If it can't point to it, or it pulls one
+out that isn't in the text, you've found the weak spot.
+
+For the documents in this lesson, the practical rule is simple.
+
+:::caution[Paste, ask, verify]
+Use the AI to *understand* the document, not to trust the numbers it
+gives you back. If it tells you the adjustment is €14.50, look for
+that line in the document and check that it's there. If it tells you
+the penalty is €200, go read the exact figure in the original text.
+Translating is its job; checking the figures stays yours.
+:::
+
+It also applies to dates, percentages, tax IDs, phone numbers.
+Anything that's a number is to be re-checked against the original
+document.
+
+## What comes next
+
+Understanding a complicated document is one of the highest-value
+everyday uses of the AI. The next lesson scales up: no longer a bill
+or a clause, but a long PDF or a whole article. Same spirit, slightly
+more structured techniques, and a big note on verification.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-understand-something-complex.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
