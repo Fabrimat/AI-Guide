@@ -260,23 +260,26 @@ proprio lavoro. Non developer: tipicamente knowledge worker (project
 manager, marketing, HR, consulenza, didattica, sales, design,
 comunicazione). Tono pratico, ogni lezione un caso d'uso da ufficio.
 
-Elenco provvisorio, da validare prima di scrivere:
+Slug definitivi e ordine in sidebar (2026-04-23). I placeholder sono
+attivi come voci disabilitate con badge "Soon" / "Presto" in
+`astro.config.mjs`. Sbloccarle sostituendo la voce col relativo
+`{ slug: '...' }` al momento della pubblicazione.
 
-1. 🆕 Bozze di documenti professionali (proposte, brief, report)
-2. 🆕 Preparare una riunione (ordine del giorno, riassunto, follow-up)
-3. 🆕 Email che funzionano (negoziare, chiedere, dire di no, gestire conflitti)
-4. 🆕 Lavorare con dati e tabelle (CSV, formule Excel/Sheets, pulizia,
-   piccole analisi — senza diventare programmatori)
-5. 🆕 Slide e presentazioni (contenuto, non design: scaletta, bullet, speaker notes)
-6. 🆕 Ricerca per il lavoro (raccogliere informazioni, sintetizzare fonti)
-7. 🆕 L'IA come "collega che ti aiuta a pensare" (challenge, devil's advocate, brainstorming)
-8. 🆕 Riformulare comunicazioni difficili (cliente irritato, feedback delicato)
-9. 🆕 Privacy e dati aziendali: cosa NON dare in pasto a un'IA pubblica
-10. 🆕 Riusare contesto: progetti, custom GPT, Claude Project (lo stesso
-    pattern su tutte le piattaforme)
+1. 🆕 **Bozze di documenti professionali** (`at-work/draft-professional-documents`) — proposte, brief, report.
+2. 🆕 **Preparare una riunione** (`at-work/prepare-a-meeting`) — ordine del giorno, riassunto, follow-up.
+3. 🆕 **Email che funzionano** (`at-work/emails-that-work`) — negoziare, chiedere, dire di no, gestire conflitti.
+4. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`) — CSV, formule Excel/Sheets, pulizia, piccole analisi, senza diventare programmatori.
+5. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`) — contenuto, non design: scaletta, bullet, speaker notes.
+6. 🆕 **Ricerca per il lavoro** (`at-work/research-for-work`) — raccogliere informazioni, sintetizzare fonti.
+7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`) — challenge, devil's advocate, brainstorming.
+8. 🆕 **Riformulare comunicazioni difficili** (`at-work/difficult-communications`) — cliente irritato, feedback delicato.
+9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`) — cosa NON dare in pasto a un'IA pubblica.
+10. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`) — progetti, custom GPT, Claude Project: lo stesso pattern su tutte le piattaforme.
 
-Da decidere: ordine, taglio (orizzontale per professione vs trasversale),
-quanti use case professionali coprire prima di passare al modulo avanzato.
+Da decidere prima di scrivere: taglio (orizzontale per professione vs
+trasversale per attività), quanti use case professionali coprire prima
+di passare al modulo avanzato. Workflow analogo a Modulo 2: prima uno
+spec dedicato, poi il piano di implementazione, poi le singole lezioni.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -285,20 +288,20 @@ riqualificazione), che vogliono usare l'IA come supporto allo studio
 senza cadere nel "fammi i compiti". Tono pratico, attento al rischio
 plagio e al confine fra studio e sostituzione.
 
-Elenco provvisorio, da validare prima di scrivere:
+Slug definitivi e ordine in sidebar (2026-04-23).
 
-1. 🆕 Studiare un argomento nuovo con l'IA (dal capire al verificare)
-2. 🆕 Ripassare prima di un esame (interrogazioni simulate, mappe mentali)
-3. 🆕 Scrivere una tesi senza farsela scrivere
-4. 🆕 Prendere appunti da lezioni registrate o testi lunghi
-5. 🆕 Tradurre e confrontare testi in lingue straniere
-6. 🆕 Fonti e citazioni: come non farsi inventare la bibliografia
-7. 🆕 Quando l'IA ti imbroglia: riconoscere risposte plausibili ma sbagliate
-8. 🆕 Etica dello studio: dove finisce l'aiuto e inizia il copiato
+1. 🆕 **Studiare un argomento nuovo** (`for-students/study-a-new-topic`) — dal capire al verificare.
+2. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`) — interrogazioni simulate, mappe mentali.
+3. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`) — senza farsela scrivere.
+4. 🆕 **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`) — lezioni registrate, testi lunghi.
+5. 🆕 **Tradurre e confrontare testi** (`for-students/translate-and-compare`) — lingue straniere, varianti, glosse.
+6. 🆕 **Fonti e citazioni** (`for-students/sources-and-citations`) — come non farsi inventare la bibliografia.
+7. 🆕 **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`) — riconoscere risposte plausibili ma sbagliate.
+8. 🆕 **Etica dello studio** (`for-students/ethics-of-studying`) — dove finisce l'aiuto e inizia il copiato.
 
-Da decidere: target di età prevalente (liceo vs università), peso della
-componente etica vs operativa, se includere l'uso dell'IA nei test/esami
-proctored.
+Da decidere prima di scrivere: target di età prevalente (liceo vs
+università), peso della componente etica vs operativa, se includere
+l'uso dell'IA nei test/esami proctored.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -306,50 +309,49 @@ Target: insegnanti di scuola primaria, secondaria e università, più
 formatori aziendali e divulgatori. Pubblico non tecnico ma con
 competenza didattica propria. Tono pratico, casi d'uso da classe.
 
-Elenco provvisorio, da validare prima di scrivere:
+Slug definitivi e ordine in sidebar (2026-04-23).
 
-1. 🆕 Progettare una lezione con l'IA (dal piano alla pratica)
-2. 🆕 Materiali differenziati: stesso argomento, più livelli di difficoltà
-3. 🆕 Inclusività: adattare materiali per BES e DSA (accessibilità, non solo
-   difficoltà)
-4. 🆕 Generare domande per verifiche e interrogazioni
-5. 🆕 Correggere con criterio: l'IA come assistente, non come giudice
-6. 🆕 Spiegare la stessa cosa in cinque modi diversi
-7. 🆕 Comunicare con le famiglie: email delicate ai genitori (voti, comportamento,
-   segnalazioni)
-8. 🆕 Quando lo studente usa l'IA: riconoscere, non demonizzare
-9. 🆕 Etica del docente: onestà, privacy degli studenti, valutazione
+1. 🆕 **Progettare una lezione** (`for-teachers/design-a-lesson`) — dal piano alla pratica.
+2. 🆕 **Materiali differenziati** (`for-teachers/differentiated-materials`) — stesso argomento, più livelli di difficoltà.
+3. 🆕 **Inclusività (BES e DSA)** (`for-teachers/inclusive-materials`) — adattare materiali per bisogni specifici, accessibilità non solo difficoltà.
+4. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`) — verifiche e interrogazioni.
+5. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`) — l'IA come assistente, non come giudice.
+6. 🆕 **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`) — la stessa cosa raccontata a pubblici diversi.
+7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`) — email delicate ai genitori su voti, comportamento, segnalazioni.
+8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`) — riconoscere, non demonizzare.
+9. 🆕 **Etica del docente** (`for-teachers/ethics-of-teaching`) — onestà, privacy degli studenti, valutazione.
 
-Da decidere: taglio (generalista vs per disciplina), peso della parte
-"riconoscere l'uso dell'IA da parte degli studenti", relazione con il
-modulo 4 (riferimenti reciproci vs autonomia).
+Da decidere prima di scrivere: taglio (generalista vs per disciplina),
+peso della parte "riconoscere l'uso dell'IA da parte degli studenti",
+relazione con il modulo 4 (riferimenti reciproci vs autonomia).
 
 ## Modulo 6: Per chi vuole di più (livello `avanzato`)
 
 Target: developer e professionisti che vogliono integrare l'IA in strumenti
 propri. Pubblico tecnico: tono più diretto, meno propedeutico.
 
-Elenco provvisorio:
+Slug definitivi e ordine in sidebar (2026-04-23). Decisione 2026-04-23:
+il modulo resta un blocco unico da 13 voci finché non ne vengono scritte
+le prime 3-4 lezioni; se cresce, valutare lo split in "Core APIs" +
+"Beyond APIs".
 
-1. 🆕 Dalle chat alle API (cosa cambia, quando conviene)
-2. 🆕 Scegliere il modello (Claude / GPT / Gemini / open source: criteri, non
-   tifoseria)
-3. 🆕 Il contesto in token (limiti, cosa entra e cosa no)
-4. 🆕 System prompt e ruoli (separare istruzioni da input)
-5. 🆕 Tool use, function calling, structured output
-6. 🆕 RAG: dare all'IA i tuoi documenti (concetti e quando serve davvero)
-7. 🆕 Agenti (panoramica realistica, non hype)
-8. 🆕 MCP e integrazioni (standard emergenti)
-9. 🆕 Prompt injection e sicurezza (input utente, jailbreak, difese pratiche)
-10. 🆕 Evals: come testi se il tuo sistema AI funziona davvero
-11. 🆕 Costi, prompt caching, pattern di ottimizzazione
-12. 🆕 Privacy e data handling nelle API
-13. 🆕 Un mini progetto end-to-end (mettere insieme quello che si è visto)
+1. 🆕 **Dalle chat alle API** (`going-deeper/from-chats-to-apis`) — cosa cambia, quando conviene.
+2. 🆕 **Scegliere il modello** (`going-deeper/choose-the-model`) — Claude / GPT / Gemini / open source: criteri, non tifoseria.
+3. 🆕 **Il contesto in token** (`going-deeper/context-in-tokens`) — limiti, cosa entra e cosa no.
+4. 🆕 **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`) — separare istruzioni da input.
+5. 🆕 **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`).
+6. 🆕 **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`) — concetti e quando serve davvero.
+7. 🆕 **Agenti** (`going-deeper/agents`) — panoramica realistica, non hype.
+8. 🆕 **MCP e integrazioni** (`going-deeper/mcp-and-integrations`) — standard emergenti.
+9. 🆕 **Prompt injection e sicurezza** (`going-deeper/prompt-injection`) — input utente, jailbreak, difese pratiche.
+10. 🆕 **Evals** (`going-deeper/evals`) — come testi se il tuo sistema IA funziona.
+11. 🆕 **Costi e prompt caching** (`going-deeper/costs-and-caching`) — pattern di ottimizzazione.
+12. 🆕 **Privacy e dati nelle API** (`going-deeper/privacy-in-apis`).
+13. 🆕 **Mini progetto end-to-end** (`going-deeper/mini-project`) — mettere insieme quello che si è visto.
 
-Da decidere: stack degli esempi (Node? Python? Entrambi?), profondità dei
-pattern (RAG: spiegazione concettuale o tutorial con codice?). Con 13 voci
-il modulo è denso: valutare se spezzarlo in "API di base" + "Oltre le API"
-una volta scritte le prime lezioni.
+Da decidere prima di scrivere: stack degli esempi (Node? Python?
+Entrambi?), profondità dei pattern (RAG: spiegazione concettuale o
+tutorial con codice?).
 
 ## Pagine trasversali (fuori dai moduli)
 
@@ -420,12 +422,19 @@ Ciclo di revisione completo su tutte, verifica dell'apprendimento
 attiva su ciascuna.
 
 **Prossimo passo**: validazione dello spec per il **Modulo 3 (Sul
-lavoro)**. L'elenco provvisorio di 10 voci vive nella sezione
-Modulo 3 di questo file. Da decidere prima di scrivere: ordine di
-lettura, taglio (orizzontale per professione vs trasversale per
-attività), quanti casi d'uso coprire prima di passare al modulo
-avanzato. Workflow analogo a Modulo 2: prima uno spec dedicato,
-poi il piano di implementazione, poi le singole lezioni.
+lavoro)**. Gli slug dei Moduli 3-6 sono stati fissati il 2026-04-23 e
+le voci compaiono già in sidebar come placeholder disabilitati con
+badge "Soon" / "Presto" (vedi `astro.config.mjs`). Da decidere prima
+di scrivere Modulo 3: taglio (orizzontale per professione vs
+trasversale per attività), quanti casi d'uso coprire prima di passare
+al modulo avanzato. Workflow analogo a Modulo 2: prima uno spec
+dedicato, poi il piano di implementazione, poi le singole lezioni.
+
+**Sblocco placeholder in sidebar**: quando si pubblica una lezione di
+uno qualsiasi dei Moduli 3-6, sostituire la voce placeholder in
+`astro.config.mjs` con `{ slug: '<slug>' }` in un commit dedicato
+(stesso pattern già usato per Modulo 2, vedi serie di commit "Unlock
+Module 2 lesson N in sidebar").
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
