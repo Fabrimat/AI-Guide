@@ -74,13 +74,7 @@ export default defineConfig({
             { slug: 'everyday-use/understand-something-complex' },
             { slug: 'everyday-use/summarize-a-long-document' },
             { slug: 'everyday-use/learn-something-new' },
-            {
-              label: 'Write better',
-              translations: { it: 'Scrivere meglio' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'everyday-use/write-better' },
             {
               label: 'Images and files',
               translations: { it: 'Foto, immagini e file' },
