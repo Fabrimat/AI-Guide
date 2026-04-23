@@ -502,13 +502,28 @@ a[aria-disabled='true'] {
   cursor: default;
 }
 
-/* Badge "Presto / Soon" sulle voci sidebar disabilitate: evita che il
-   testo del badge si spezzi, lo rende più compatto così è più raro che
-   vada a capo in sidebar strette. Se comunque va a capo, resta integro
-   (non orfano mid-parola) e allineato a fine label. */
-a[aria-disabled='true'] .sl-badge {
+/* Starlight monta il link come `<a><span>label</span><Badge /></a>` con
+   `<a>` display:block: quando la label è lunga (es. "L'IA come collega
+   che ti aiuta a pensare") il badge finisce su una riga propria perché
+   non entra in coda all'ultima parola. Facciamo del link disabilitato
+   un flex container: la label occupa lo spazio residuo e si spezza su
+   più righe se serve, il badge resta inline a destra, centrato
+   verticalmente, su singola riga. */
+nav.sidebar a[aria-disabled='true'] {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+nav.sidebar a[aria-disabled='true'] > span {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+nav.sidebar a[aria-disabled='true'] .sl-badge {
+  flex: 0 0 auto;
   white-space: nowrap;
   font-size: 0.7rem;
   padding: 0.05rem 0.4rem;
-  margin-inline-start: 0.3rem;
+  margin-inline-start: 0; /* gap gestisce la distanza */
 }
