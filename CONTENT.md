@@ -190,9 +190,21 @@ lezione, non un'etichetta di modulo.
    competenze vs concetti. Style-checker: verdetto OK, applicati 3
    fix su "davvero/veramente" nell'asse "capire sul serio".
 
-6. ⏳ **Scrivere meglio** (`everyday-use/write-better`, `intermedio`)
-   Email, testi, messaggi. Giudizio "quando sì, quando no":
-   riconoscere dove l'IA aiuta e dove appiattisce la voce.
+6. ✅ **Scrivere meglio** (`everyday-use/write-better`, `intermedio`)
+   L'IA come editor sulla propria bozza, non come ghostwriter.
+   Tre pattern che tengono la voce (bozza + critica, più versioni,
+   temperatura emotiva), trappola della voce media con istruzione
+   "standing" per smorzare il default, matrice sì/cautela/no.
+   Ciclo di revisione completo (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-23).
+   Integrazioni principali: secondo ChatDemo sul pattern 1
+   (email ritardo cliente), mini-paragrafo su "come identifichi
+   la tua voce" nel pattern 2, variante "incolla testi passati"
+   per evitare la voce media, caveat "la diagnosi può sbagliare"
+   nel pattern 3, callout privacy per anonimizzare prima di
+   incollare, callout "lavoro quasi tutto cautela" per HR/customer
+   success, glosse inline di *AI-polish* e *imbottitura*.
+   Style-checker: verdetto OK senza fix richiesti.
 
 7. ⏳ **Foto, immagini e file** (`everyday-use/images-and-files`, `intermedio`)
    Multimodalità: foto, screenshot, PDF. Differenze su ChatGPT /
@@ -202,7 +214,7 @@ lezione, non un'etichetta di modulo.
    Sanitari, finanza, legale, decisioni importanti senza verifica.
    Chiusura del modulo, ponte verso *Sul lavoro*.
 
-**Stato attuale**: 5 su 8 pubblicate.
+**Stato attuale**: 6 su 8 pubblicate.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
@@ -365,11 +377,11 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-20-uso-quotidiano-module.md`.
-Stato: 5 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
+Stato: 6 su 8 lezioni pubblicate (Chiedere bene 2026-04-20, Iterare
 la conversazione 2026-04-21, Capire una cosa complicata 2026-04-23,
 Riassumere un documento lungo 2026-04-23, Imparare un argomento
-nuovo 2026-04-23). Prossima bozza: lezione 6, **Scrivere meglio**
-(`everyday-use/write-better`).
+nuovo 2026-04-23, Scrivere meglio 2026-04-23). Prossima bozza:
+lezione 7, **Foto, immagini e file** (`everyday-use/images-and-files`).
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*

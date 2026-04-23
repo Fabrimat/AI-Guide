@@ -1,0 +1,317 @@
+---
+title: Scrivere meglio
+description: L'IA come editor sulla tua bozza, non come ghostwriter. Tre pattern per usarla senza perdere la tua voce.
+livello: intermedio
+prerequisiti: [what-is-a-prompt, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- "Scrivere meglio" non vuol dire "far scrivere l'IA al posto tuo": vuol dire usarla sulla tua bozza, non come sostituta.
+- Tre pattern che tengono la tua voce: **bozza tua, critica dell'IA** (diagnosi, non riscrittura), **più versioni** (ne prendi pezzi, non una intera), **temperatura emotiva** (controlli il tono prima di mandare).
+- La voce dell'IA ha un registro di default cortese ma anonimo. Se per settimane copi e incolli, quel default diventa la tua voce standard, e chi ti legge se ne accorge.
+- Non tutto si presta: email di coordinamento sì, messaggi a persone vicine no. Dove la sincerità è il contenuto, non delegare.
+
+</LessonSummary>
+
+Hai un'email da mandare. La scadenza è in dieci minuti, il tono
+giusto non ti viene, e ti senti la pagina bianca.
+
+Puoi chiedere all'IA di scriverla al posto tuo e incollare quello
+che ti dà. Oppure puoi chiederle di aiutarti a scriverla tu
+meglio. Sembrano la stessa cosa, ma non lo sono. La prima opzione
+restituisce un testo che andrebbe bene per chiunque abbia quel
+problema generico: cortese e corretto, ma senza impronta. La
+seconda parte da un tuo tentativo, anche goffo, e ci lavora sopra.
+
+Questa lezione è sulla seconda opzione. Funziona meglio della
+prima su due piani: i testi che escono sembrano tuoi perché lo
+sono, e nel tempo diventi un lettore più lucido della tua stessa
+scrittura.
+
+## Tre pattern che tengono la tua voce
+
+### 1. Bozza tua, critica dell'IA
+
+Il più controintuitivo, ed è il più utile. Scrivi tu la prima
+versione, anche male, veloce, senza rileggerla. La bozza
+imperfetta serve proprio a quello: costringe l'IA a reagire alle
+tue idee invece di generarne di sue. Poi la passi all'IA per
+farti dire cosa non funziona, non per farla riscrivere.
+
+> *"Ecco la mia email. Ti sembra troppo lunga? Dove sono ambiguo?
+> C'è un passaggio in cui scivolo dal cortese al passivo-aggressivo
+> senza accorgermene?"*
+
+Quello che ricevi non è un testo nuovo, è una diagnosi: tre o
+quattro osservazioni puntate a frasi precise. Da lì riscrivi tu,
+scegliendo cosa tenere, cosa tagliare, cosa spostare. La voce
+resta la tua, perché l'impalcatura resta la tua.
+
+Una variante che aiuta: chiedi la critica a strati separati.
+*"Prima dimmi cosa non funziona sul piano della chiarezza. Poi sul
+tono. Poi sulla lunghezza."* Sono tre diagnosi diverse, e
+separandole vedi meglio cosa serve cambiare prima. Se la lunghezza
+non è un problema, non ci perdi tempo.
+
+Un esempio. Devo comunicare a un cliente un ritardo su un
+progetto, ho buttato giù una bozza che mi suona burocratica ma
+non so mettere il dito sul problema. Passo il testo all'IA
+chiedendo solo la diagnosi.
+
+<ChatDemo
+  user={`Ho abbozzato questa email per un cliente a cui devo comunicare un ritardo. Non riscriverla: dimmi in tre punti cosa non funziona, poi mi riscrivo io.
+
+"Buongiorno, la scrivo per informarla che purtroppo non saremo in grado di consegnare il progetto nelle tempistiche inizialmente previste a causa di alcune difficoltà operative che abbiamo incontrato nelle ultime settimane. Il nuovo termine di consegna sarà il 15 maggio. Ci scusiamo per il disagio e rimaniamo a disposizione per eventuali chiarimenti."`}
+  ai={`Tre osservazioni.
+
+1. Il motivo del ritardo è vago. "Alcune difficoltà operative" non dice niente al cliente e lo lascia immaginare qualcosa di peggio del reale. Se il motivo è semplice (un fornitore in ritardo, una persona in malattia, una dipendenza esterna), dirlo nudo aumenta la fiducia.
+
+2. La data nuova arriva alla fine come dato anonimo. Mettila in apertura, subito dopo la notizia: così il cliente sa cosa aspettarsi senza doverla cercare.
+
+3. "Ci scusiamo per il disagio" è un format da voicemail aziendale. Sostituiscilo con una scusa che riconosca cosa il ritardo comporta per lui (un lancio rimandato, una pianificazione da rifare).`}
+/>
+
+Non ti dà un testo pronto, ti dà il bisturi. Le tre osservazioni
+puntate sono la mappa di quello che andrai a cambiare in
+riscrittura.
+
+### 2. Più versioni, nessuna intera
+
+Il secondo pattern ribalta il modo tipico di usare l'IA. Invece
+di chiedere *la* versione giusta, chiedine tre o quattro calibrate
+diversamente, e non prenderne nessuna per intero.
+
+> *"Dammi tre versioni di questa email per chiedere un rimborso.
+> Una diretta e asciutta, una diplomatica, una formale. Per
+> ciascuna tre o quattro frasi, non di più."*
+
+Le etichette specifiche servono: chiedere "tre versioni" senza
+altro ti dà spesso tre varianti molto simili. Nomi diversi
+(*"diretta"*, *"diplomatica"*, *"formale"*) costringono l'IA a
+muovere il registro in direzioni riconoscibili.
+
+Il valore non è scegliere la migliore. È vedere come la stessa
+cosa cambia forma, e capire quale registro suona tuo. Di solito
+non è nessuna delle tre: è un ibrido, la partenza dalla prima
+versione, il passaggio centrale dalla seconda, una frase di
+chiusura dalla terza.
+
+Riconoscere la propria voce non è automatico, soprattutto se
+scrivi molte email di lavoro e magari hai già assorbito qualche
+tic dall'IA. Due indizi pratici. Confronta con un tuo testo di
+qualche anno fa che ti piaceva (una mail a un amico, una nota di
+diario, qualsiasi cosa): lì la voce era più nuda. Poi leggi a
+voce alta le tre versioni dell'IA e segna il punto dove la frase
+ti scivola via senza intoppi: quello è il passaggio che si
+avvicina a come parli.
+
+Invece di copiare, componi. Prendi un'apertura da una versione,
+un argomento da un'altra, una chiusura da una terza. Poi rileggi
+e sistemi i passaggi. Quello che esce è un testo che non c'era in
+nessuna delle tre, ma che l'IA ti ha aiutato a montare. Il
+mosaico conviene quando nessuna delle tre versioni ti convince
+per intero. Se una è già quasi buona, ritoccare una frase è più
+veloce e produce meno cuciture.
+
+Variante più ambiziosa: incolla due o tre tuoi testi passati di
+cui sei contento e chiedi *"riprendi la cadenza di questi testi,
+non il loro contenuto"*. Non è magico, ma l'IA prende alcuni tic
+del tuo ritmo (dove spezzi le frasi, quanto allunghi le
+subordinate) e li porta nelle versioni nuove.
+
+### 3. Temperatura emotiva
+
+Il terzo pattern è dove l'IA è insospettabilmente brava: leggere
+il tono emotivo di un testo. La spiegazione non è magica: ha
+letto milioni di testi dove le persone commentavano esplicitamente
+il tono ricevuto (*"mi sembra freddo"*, *"è passivo-aggressivo"*),
+e ha imparato quali segnali di superficie innescano quelle
+reazioni. Sa riconoscere quando un *"certamente"* suona ironico,
+quando una chiusura formale arriva distante, quando un aggettivo
+leggermente sbagliato sposta tutto il messaggio.
+
+> *"Leggi questa email e dimmi che tono trasmette. Suona fredda?
+> Passivo-aggressiva? Voglio dire no a un collega senza farlo
+> sentire liquidato."*
+
+Particolarmente utile nei casi dove la posta è alta: dire di no a
+chi ti ha chiesto qualcosa, negoziare un aumento, rispondere a un
+feedback che ti ha ferito, dare una brutta notizia. Lì il tono è
+il messaggio, più ancora delle parole.
+
+Il pattern regge anche in altre lingue: l'IA ha visto abbastanza
+testi in inglese, spagnolo, francese per leggerne il registro.
+Un'avvertenza: a volte proietta norme di un'altra cultura sulla
+tua (un *"freddo"* in inglese americano non è un freddo in
+italiano). Leggi la diagnosi tenendo conto del cambio di
+contesto.
+
+<ChatDemo
+  user={`Voglio dire no a Marco, un collega, senza farlo sentire trattato male. Leggi questa email e dimmi che tono trasmette:
+
+"Ciao Marco, ti ringrazio per aver pensato a me, ma al momento non posso prendere in carico questo progetto. Spero tu capisca. Fammi sapere se serve altro. Luca"`}
+  ai={`Suona cortese, ma un po' distante. Due passaggi lavorano contro la tua intenzione.
+
+"Spero tu capisca" subito dopo un rifiuto può leggersi come una chiusura anticipata, come se non volessi discuterne.
+
+"Fammi sapere se serve altro" al termine di un no è burocratico: di cos'altro dovrebbe avere bisogno Marco? Gli hai appena detto che non prendi il progetto.
+
+Se Marco è un collega con cui lavori spesso, dai il motivo reale del no e togli la chiusura generica. Per esempio: "Grazie per avermi pensato. In questo momento sono sotto con le scadenze e non riuscirei a darti il contributo che meriti. Se vi serve una mano a giugno, chiamami volentieri."`}
+/>
+
+La diagnosi è utile anche quando non applichi la riscrittura
+proposta: ti fa notare cose che rileggendo da sola ti sfuggivano.
+
+La diagnosi può anche sbagliare: l'IA a volte proietta letture
+esagerate su testi neutri. Se una lettura ti sorprende in modo
+drastico, chiedi *"a cosa nel testo vedi questo?"* e leggi i
+passaggi che cita. Se quei passaggi non reggono, scarta la
+diagnosi; se reggono, ha un punto anche se la tua percezione
+diceva altro.
+
+Differenza con il pattern 1: lì chiedi una critica tecnica
+(chiarezza, struttura, lunghezza); qui chiedi una lettura del
+registro emotivo. Stessi muscoli, fuoco diverso. Nei casi
+delicati puoi combinarli: prima la diagnosi tecnica, poi quella
+del tono, separate, così vedi se un'email è *ambigua e fredda*
+insieme o solo una delle due.
+
+## La trappola della voce media
+
+L'IA ha letto milioni di testi di lavoro, e ha imparato come
+suonano in media. Il suo default è un registro cortese ma anonimo:
+corretto, levigato, intercambiabile. È la *AI-polish*, il lucido
+impersonale dei testi generati, leggibile ma senza firma.
+
+Il problema nasce quando copi le sue versioni senza lavorarle. Per
+una settimana non si nota; dopo un mese le tue email cominciano
+tutte con *"Ti ringrazio per…"* e chiudono tutte con *"Resto a
+disposizione per…"*, e sembrano uscite dallo stesso stampino. Chi
+legge non sa spiegarlo, ma lo sente.
+
+Un esempio concreto. La tua bozza veloce, prima di passare dall'IA:
+
+*"Ciao Marco, la proposta è interessante ma il timing non va. Ho
+troppo in corso fino a metà giugno. Se ti va, riparliamone a
+luglio?"*
+
+La versione in uscita dall'IA quando le chiedi di "migliorare"
+senza istruzioni specifiche:
+
+*"Ciao Marco, ti ringrazio per avermi presentato questa
+interessante opportunità. Purtroppo al momento la mia agenda è
+particolarmente fitta fino a metà giugno e non riesco a dedicare
+a questo progetto l'attenzione che meriterebbe. Resto a
+disposizione per riprendere il discorso a partire da luglio, se
+per te va bene."*
+
+La seconda è più lunga, più formale, e dice esattamente quello
+che dice la prima. La prima è più tua: chiara, calibrata al tuo
+rapporto con Marco, priva di imbottitura. Se fai questo passaggio
+dieci volte al giorno per un mese, il registro della seconda
+diventa il tuo standard.
+
+Contromossa pratica: rileggi a voce alta l'ultima versione prima
+di mandarla. Se suona come una risposta di un call center, tagli.
+Un secondo test: prova a spiegare in due parole cosa vuoi dire.
+Se la sintesi è corta e chiara ma la tua versione scritta è tre
+volte più lunga, c'è imbottitura. L'imbottitura più comune:
+congiunzioni lunghe (*"purtroppo al momento"*), formule di
+cortesia ridondanti, avverbi riempitivi (*"particolarmente"*,
+*"effettivamente"*, *"sicuramente"*).
+
+:::tip[Due mosse per contrastare la voce media]
+**All'inizio della chat**, se userai l'IA per lavorare sulla
+scrittura più volte, dalle un'istruzione standing: *"Quando
+correggi o riscrivi testi, evita formule di cortesia standard
+come 'resto a disposizione' o 'ti ringrazio per'. Preferisci
+frasi asciutte, prima persona diretta, nessuna introduzione
+rituale."* Non sparisce del tutto (il default è forte), ma il
+registro di partenza si sposta visibilmente.
+
+**A fine email**, rileggi il testo e chiediti: se dovessi
+giustificare al mittente ogni singola frase come tua, potresti? I
+passaggi che non sapresti spiegare con parole tue, o che non
+riconosci, sono quelli che l'IA ha messo lì e tu stai firmando.
+Riscriverli.
+:::
+
+:::caution[Qualità di spiegazioni, non solo di tono]
+L'IA sa leggere il tono, ma sui contenuti fattuali può
+sbagliare. Se le chiedi di "migliorare" un testo che contiene
+numeri, date, citazioni, o riferimenti a fatti specifici,
+controlla che non ti abbia ritoccato quelle parti credendo di
+renderle più scorrevoli. Per il quadro generale,
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/).
+:::
+
+## Quando sì, quando no
+
+Tre categorie, non simmetriche. La maggior parte delle email vive
+nel mezzo, e la calibrazione è caso per caso. La mappa sotto
+serve a tararti, non a incasellarti.
+
+:::caution[Se il contenuto è sensibile, prima anonimizza]
+I tre pattern chiedono di incollare il testo, spesso intero. Se
+l'email riguarda una persona terza, un cliente, un problema
+riservato, sostituisci nomi, aziende, dati identificativi con
+generici (*"il collega"*, *"il cliente X"*) prima di incollare.
+Il quadro di cosa condividi e cosa no è in
+[*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/).
+:::
+
+Usa l'IA con libertà per email brevi di coordinamento (conferme,
+follow-up, aggiornamenti), documenti interni dove conta la
+chiarezza e non la voce (promemoria, verbali, istruzioni
+operative), testi tecnici dove il contenuto fa tutto il lavoro.
+Qui la voce media dell'IA è adeguata, e il tempo risparmiato è
+reale.
+
+Usala con cautela, rileggendo due volte e rimettendo la tua mano,
+per testi dove esprimi una tua posizione (recensioni, lettere
+aperte, post che portano il tuo nome), email delicate (rifiuti,
+negoziazioni, critiche costruttive), e comunicazioni a persone
+che sanno come scrivi di solito. La cautela qui non è sull'usare
+l'IA in sé, è sull'imbottitura: un'email AI-polish arrivata da
+qualcuno che di solito scrive asciutto suona come un'altra
+persona, e il destinatario lo registra senza saperlo dire.
+
+:::note[E se il tuo lavoro è quasi tutto "cautela"?]
+Se fai HR, customer success, commerciale, mediazione, molte email
+quotidiane cadono nella seconda categoria. Il consiglio non è
+"non usare l'IA", è "non usarla a default pieno": tieni il
+pattern 1 (la diagnosi) come abitudine principale, e scrivi tu
+gli ultimi 20-30 metri. Più volte al giorno lo fai, più la tua
+voce resta allenata.
+:::
+
+Non usarla per scriverli da zero: messaggi a persone vicine
+(amici, familiari, partner), testi intimi (biglietti, auguri,
+lettere private), comunicazioni dove la sincerità è il contenuto
+(scuse, condoglianze, dichiarazioni personali). Il problema non è
+etico in astratto: è che l'umano dall'altra parte spesso se ne
+accorge, anche senza saperlo dire. L'IA può aiutarti a rileggere,
+a smussare un passaggio aspro, a controllare che il tono sia
+quello che volevi (è il pattern 3, applicato in piccolo). Non a
+parlare al posto tuo.
+
+## Cosa viene dopo
+
+Finora hai lavorato con testo che scrivi o incolli. L'IA moderna
+va oltre: legge foto, screenshot, PDF, tabelle. La prossima
+lezione, *Foto, immagini e file*, entra in quel territorio.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-write-better.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
