@@ -310,10 +310,11 @@ una volta scritte le prime lezioni.
 
 **Inglese live al 100% per il modulo Fondamenti**. Per il **Modulo 2
 (Uso quotidiano)** la traduzione EN avanza lezione per lezione in pari
-passo con la stesura IT (decisione 2026-04-20): 3 su 8 tradotte
+passo con la stesura IT (decisione 2026-04-20): 4 su 8 tradotte
 (*Chiedere bene* / *Ask well*, *Iterare la conversazione* / *Iterate
 the conversation*, *Capire una cosa complicata* / *Understanding
-something complicated*). Cataloghi tradotti, file `.txt` di skill mirror in
+something complicated*, *Riassumere un documento lungo* /
+*Summarize a long document*). Cataloghi tradotti, file `.txt` di skill mirror in
 `public/skills/en/`, stringhe UI dei componenti in
 `src/i18n/ui.ts`. Per aggiungere una terza lingua: aggiungere la voce
 in `astro.config.mjs > locales` e in `src/i18n/ui.ts > STRINGS`,

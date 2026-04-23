@@ -1,0 +1,259 @@
+---
+title: Summarize a long document
+description: PDFs, articles, reports, books. How to ask for a summary that's actually useful, and how to know if you can trust it.
+livello: principiante
+prerequisiti: [what-is-a-prompt]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- "Summarize it" on its own gives you the Wikipedia version: correct, but not tailored to you.
+- Three techniques: **say how you want it** (length, form, depth), **say why you're reading it** (the goal), **map first, details later** (for long documents).
+- On a long document the AI can drop important parts or invent new ones. That's the specific risk of this lesson.
+- Two practical countermoves: ask it to quote the exact sentence, and do a spot-check by reading a section yourself in the original document.
+- PDF, paste, link: each AI handles files a bit differently. Knowing what yours accepts saves surprises.
+
+</LessonSummary>
+
+You saved an 8,000-word article for "later", you got a 40-page PDF
+in a work chat, you started a book and want to hold on to what it
+says. Three different situations, the same problem: little time, a
+desire to shrink that text down to something you can read in two
+minutes.
+
+Summarizing is one of the AI's most natural use cases. It's good at
+it, and you pick it up fast. But it has a specific trap: on a long
+document, the AI can hand you a perfectly structured summary that
+leaves out an important piece, or worse, invents a claim that isn't
+in the text. This lesson gives you the techniques to ask well and,
+above all, to verify.
+
+Compared to
+[*Understanding something complicated*](/en/everyday-use/understand-something-complex/)
+the scale changes. There the document was hard but short (a bill, a
+clause, a few pages of rules); here it can be easy but long, or long
+and hard at the same time. A 30-page contract is both: in that case
+the techniques from the two lessons combine. First you make the
+language clear, then you extract what matters to you. Verifying, on
+a long document, costs more and works differently.
+
+## The three techniques
+
+### Say how you want it
+
+"Summarize it" on its own almost always produces the same thing: a
+generic, encyclopedia-style paragraph. Without instructions the AI
+assumes an average reader and gives you the summary that "works for
+anyone", which is different from "works for you". To get something
+useful you need at least two pieces of guidance out of three:
+
+- **How long**: *"in ten bullet points"*, *"in 200 words"*, *"in
+  three paragraphs"*.
+- **In what form**: *"bulleted list"*, *"narrative paragraph"*, *"a
+  two-column table, topic and main conclusion"*.
+- **How deep**: *"just the main concepts"* if all you need is the
+  gist, *"examples included"* if you're using it to study, *"all the
+  nuance"* if you're going to discuss it with someone.
+
+> *"Summarize this article in ten bullet points, one per main topic,
+> with one line of detail for each."*
+
+It's a precise prompt: reuse it on different documents and you get
+summaries in the same shape, comparable with each other. If you
+don't like the answer, you change one piece in the next turn
+(*"too long, give me five points"*) without rewriting from scratch.
+It's the mechanism of
+[*Iterate the conversation*](/en/everyday-use/iterate-the-conversation/).
+
+### Say why you're reading it
+
+This is the move that makes the difference, and most people don't
+use it. Instead of asking for a generic summary, you tell the AI
+**the goal** you're reading the document for.
+
+> *"Summarize this report so I can decide whether it's worth reading
+> in full."*
+
+> *"Summarize this article for a colleague who has to attend a
+> meeting about it but doesn't have time to read it."*
+
+> *"From this chapter give me only what a high school teacher needs
+> to explain the topic in class."*
+
+The AI doesn't just compress: it filters. It changes what goes in
+the foreground and what gets left out. The same document, with three
+different goals, produces three different summaries. It's the same
+principle as [*Ask well*](/en/everyday-use/ask-well/): say the
+outcome you want, not just the topic.
+
+### Map first, details later
+
+For really long texts (an academic paper, a book, a 50-page annual
+report), the monolithic summary is the pattern that holds up worst:
+the AI has to compress too much and the details that mattered to you
+evaporate.
+
+Better to do it in two passes. First: ask for the map of topics.
+
+> *"Break this document into sections. For each, one line on what
+> it's about, without going into the content."*
+
+You'll get something like: "section 1, introduction and background;
+section 2, research method; section 3, main findings; section 4,
+study limitations; section 5, recommendations". From that map you
+can see where the value is for you.
+
+Second: you zoom in only on what you need.
+
+> *"Give me a detailed summary of section 3 and section 5. Leave the
+> others as they are, I'm not interested in them right now."*
+
+It's the same way you'd read the book in practice: first the table
+of contents, then you zoom where it counts. A good map can also tell
+you, sometimes, that the document isn't for you at all, and spare
+you an hour of reading.
+
+It also works on documents without pre-titled sections: a long
+newspaper article, an essay, a chapter of fiction. The AI builds the
+map for you, identifying topic shifts and proposing a "derived"
+index. The difference with Technique 1: there you ask for a summary
+of the whole document in one shot; here you break the work into two
+passes, and you also get a compass to orient yourself.
+
+:::tip[How do you actually hand it the document?]
+Three routes, in order of reliability. **Upload**: almost every AI
+accepts PDF, Word, plain text. In the chat, look for a paperclip or
+"plus" icon near the text box, select the file, then type your
+question. **Copy and paste**: great for web articles and not-too-long
+documents, as long as the text fits in a single message. **Link**:
+some AIs (ChatGPT, Gemini, Perplexity) open the page and read it;
+others (Claude, by default) don't browse the web and will ask you to
+paste the text.
+
+One edge case: on a whole book or documents hundreds of pages long,
+every AI has a threshold above which the document is "too big".
+Sometimes it tells you with an error and won't let you upload.
+Sometimes the file goes through but the AI only reads part of it and
+answers as if it had read everything, without warning you. When that
+happens, split the document into chunks (chapters, blocks of pages)
+and feed it one chunk at a time, or switch to a dedicated tool like
+Google NotebookLM, free and built for analyzing very long documents.
+:::
+
+:::note[Before uploading a work document]
+An internal report, a budget, a draft contract may contain
+confidential information. If you're uploading it to a public AI,
+you're sending it to a third-party provider's servers. For the
+general rule,
+[*What you share when you use AI*](/en/fundamentals/privacy-basics/).
+For sensitive work documents we'll come back to this in the
+*At work* module.
+:::
+
+## An example: a 40-page report
+
+Let's try "map first, details later" on a realistic case. You've
+just uploaded into the chat an OECD report on hybrid work after the
+pandemic, 40 pages, and you want to figure out whether it's worth
+reading in full.
+
+<ChatDemo
+  user={`I've uploaded an OECD report on post-pandemic hybrid work, 40 pages. Before I read it in full, break it into sections and give me one line for each, without going into detail.`}
+  ai={`The report is laid out in six sections.
+
+1. Opening summary: the three key messages of the report, in short form.
+2. Context: how hybrid work spread across OECD countries from 2020 to 2024.
+3. Data and methodology: which surveys and sources were used, and their limitations.
+4. Effects on the labor market: productivity, wages, geographic mobility.
+5. Effects on workers: well-being, mental health, gender differences.
+6. Policy recommendations: suggestions to member-country governments.
+
+Each section is 5-8 pages, except the opening summary (2 pages) and the recommendations (4).`}
+/>
+
+From the map you can tell right away: if you care about the
+well-being side, section 5 is the one you shouldn't skip. Second
+pass, focused.
+
+<ChatDemo
+  user={`Give me an extended summary of section 5, around 300 words. Leave the other sections as they are.`}
+  ai={`Section 5: Effects on workers.
+
+The report splits the effects into three groups.
+
+First, mental health. Workers in a hybrid arrangement report lower stress levels than people fully on-site, but more sense of isolation. The net effect depends on the dose: two or three days from home a week give the best balance; less or more makes it worse.
+
+Second, gender differences. Women with small children benefit the most from hybrid work in terms of labor-force participation. At the same time they're the most exposed to domestic overload, because physical presence at home tends to redistribute care work onto them, not onto the partner.
+
+Third, careers. The report highlights a wage and promotion penalty for those who work remote more than three days a week, especially in junior roles. The mechanism: less visibility to the manager, fewer informal contacts with people who could help you grow.
+
+The report closes by noting that the three effects don't cancel out, and suggests governments treat them separately rather than as a single net balance.
+
+Note: in the report these points are backed by tables and charts not reproduced in the text; if you need the exact figures, it's worth opening pages 22-28 of the original.`}
+/>
+
+In two passes you got a map of the whole document and a detailed
+summary of the section you needed. If that's enough, stop here. If
+you want to go deeper, one more pass.
+
+## What to always verify
+
+On long documents the AI gets things wrong in a specific, slightly
+sneaky way: **it presents as present in the text claims that aren't
+actually there**. It's not malice, it's the mechanism you saw in
+[*When to trust it (and when not)*](/en/fundamentals/when-to-trust-it/):
+the AI produces text that sounds true, and a summary of a document
+can contain a plausible statement that the document doesn't actually
+make.
+
+It happens more on long documents for two reasons. One: the document
+can exceed the AI's capacity, and the AI then reads only part of it
+and fills in the gaps with plausible-but-unverified claims. Two: on
+a three-page contract you'd see right away that the sentence isn't
+there; on a 50-page report, who's going to go check?
+
+Two simple countermoves.
+
+**Ask it to quote the exact sentence.** If it says *"the report
+argues that hybrid work reduces stress"*, reply: *"quote the
+sentence of the report you got this from, and tell me which page
+it's on"*. If it quotes, go check it in the original document. If it
+can't point to it, or it gives you a page number but the sentence
+isn't on that page, you've found an invention. This check works even
+when the topic is new to you: you don't need to be an expert, you
+just need to compare what the AI says with what's written.
+
+**Do a spot-check yourself.** Take one of its claims and go read
+that page in the original document. You don't need to check
+everything, one is enough: if that one's correct, the rest of the
+summary is probably reliable; if it's wrong or inflated, the
+suspicion extends to the whole output.
+
+:::caution[Be suspicious of what "sounds good"]
+A round number, a percentage quoted without a source, a clear-cut
+conclusion where you'd expect a "it depends" are the typical signs
+of an inflated or invented claim. On long documents, don't trust the
+tone: go check the specific point.
+:::
+
+## What comes next
+
+Summarizing is the base form. When you want that document to become
+*material for learning something*, the techniques change: you ask
+open questions, you ask for explanations at different depths, you
+let the AI quiz you back to see what you haven't internalized. The
+next lesson, *Learn something new*, is dedicated to this.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-summarize-a-long-document.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
