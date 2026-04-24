@@ -86,6 +86,13 @@ export default defineConfig({
           translations: { it: 'Sul lavoro' },
           items: [
             {
+              label: 'Hard emails',
+              translations: { it: 'Email difficili' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
               label: 'Draft professional documents',
               translations: { it: 'Bozze di documenti professionali' },
               link: '#',
@@ -100,8 +107,8 @@ export default defineConfig({
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
             },
             {
-              label: 'Emails that work',
-              translations: { it: 'Email che funzionano' },
+              label: 'Slides and presentations',
+              translations: { it: 'Slide e presentazioni' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
@@ -109,13 +116,6 @@ export default defineConfig({
             {
               label: 'Data and tables',
               translations: { it: 'Lavorare con dati e tabelle' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Slides and presentations',
-              translations: { it: 'Slide e presentazioni' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
@@ -135,8 +135,8 @@ export default defineConfig({
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
             },
             {
-              label: 'Difficult communications',
-              translations: { it: 'Riformulare comunicazioni difficili' },
+              label: 'Reuse context with projects',
+              translations: { it: 'Riusare contesto con i progetti' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
@@ -144,13 +144,6 @@ export default defineConfig({
             {
               label: 'Company data and privacy',
               translations: { it: 'Privacy e dati aziendali' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Reuse context with projects',
-              translations: { it: 'Riusare contesto con i progetti' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },

@@ -255,31 +255,52 @@ completo al 100%**.
 
 ## Modulo 3: Sul lavoro (livello `intermedio`)
 
-Target: chi sa già usare l'IA per cose personali e vuole portarla nel
-proprio lavoro. Non developer: tipicamente knowledge worker (project
-manager, marketing, HR, consulenza, didattica, sales, design,
-comunicazione). Tono pratico, ogni lezione un caso d'uso da ufficio.
+Target: knowledge worker non developer (project manager, marketing,
+HR, consulenza, sales, didattica, design, comunicazione) che sanno già
+usare l'IA per cose personali e vogliono portarla nel proprio lavoro.
+Taglio trasversale per attività (non per professione). Spec di
+modulo: `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 
-Slug definitivi e ordine in sidebar (2026-04-23). I placeholder sono
-attivi come voci disabilitate con badge "Soon" / "Presto" in
-`astro.config.mjs`. Sbloccarle sostituendo la voce col relativo
-`{ slug: '...' }` al momento della pubblicazione.
+Struttura validata 2026-04-23. Nove lezioni, ordine pedagogico = ordine
+di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
+dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
 
-1. 🆕 **Bozze di documenti professionali** (`at-work/draft-professional-documents`) — proposte, brief, report.
-2. 🆕 **Preparare una riunione** (`at-work/prepare-a-meeting`) — ordine del giorno, riassunto, follow-up.
-3. 🆕 **Email che funzionano** (`at-work/emails-that-work`) — negoziare, chiedere, dire di no, gestire conflitti.
-4. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`) — CSV, formule Excel/Sheets, pulizia, piccole analisi, senza diventare programmatori.
-5. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`) — contenuto, non design: scaletta, bullet, speaker notes.
-6. 🆕 **Ricerca per il lavoro** (`at-work/research-for-work`) — raccogliere informazioni, sintetizzare fonti.
-7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`) — challenge, devil's advocate, brainstorming.
-8. 🆕 **Riformulare comunicazioni difficili** (`at-work/difficult-communications`) — cliente irritato, feedback delicato.
-9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`) — cosa NON dare in pasto a un'IA pubblica.
-10. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`) — progetti, custom GPT, Claude Project: lo stesso pattern su tutte le piattaforme.
+1. 🆕 **Email difficili** (`at-work/hard-emails`)
+   Dire di no, negoziare, cliente irritato, feedback delicato. Taglio
+   specifico "parola sbagliata costa caro". Assorbe le due voci
+   provvisorie "Email che funzionano" e "Riformulare comunicazioni
+   difficili".
 
-Da decidere prima di scrivere: taglio (orizzontale per professione vs
-trasversale per attività), quanti use case professionali coprire prima
-di passare al modulo avanzato. Workflow analogo a Modulo 2: prima uno
-spec dedicato, poi il piano di implementazione, poi le singole lezioni.
+2. 🆕 **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
+   Proposte, brief, report. Struttura (exec summary, audience, sezioni),
+   non solo scrittura.
+
+3. 🆕 **Preparare una riunione** (`at-work/prepare-a-meeting`)
+   Ordine del giorno, brief di preparazione, riassunto, follow-up.
+
+4. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`)
+   Contenuto, non design: scaletta, bullet asciugati, speaker notes.
+
+5. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
+   CSV, formule Excel/Sheets, pulizia, piccole analisi. Privacy al
+   centro.
+
+6. 🆕 **Ricerca per il lavoro** (`at-work/research-for-work`)
+   Sintesi multi-fonte per un deliverable.
+
+7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
+   Challenge, devil's advocate, brainstorming. Riconoscere "penso
+   meglio" vs "mi faccio rassicurare".
+
+8. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
+   Claude Projects, ChatGPT Custom GPT, Gemini Gems.
+
+9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
+   Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
+   Ponte verso i moduli successivi.
+
+**Stato attuale**: 0 su 9 pubblicate. Struttura definita, scrittura da
+iniziare.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -413,28 +434,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 ## Prossima sessione
 
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
-2026-04-19.
+2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 2 (Uso quotidiano)**: chiuso al 100% il 2026-04-23. Otto
-lezioni pubblicate secondo lo spec in
-`docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
-Ciclo di revisione completo su tutte, verifica dell'apprendimento
-attiva su ciascuna.
+**Modulo 3 (Sul lavoro)**: struttura validata 2026-04-23 in
+`docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
+Piano di implementazione in
+`docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
+bozza: lezione 1, **Email difficili** (`at-work/hard-emails`).
 
-**Prossimo passo**: validazione dello spec per il **Modulo 3 (Sul
-lavoro)**. Gli slug dei Moduli 3-6 sono stati fissati il 2026-04-23 e
-le voci compaiono già in sidebar come placeholder disabilitati con
-badge "Soon" / "Presto" (vedi `astro.config.mjs`). Da decidere prima
-di scrivere Modulo 3: taglio (orizzontale per professione vs
-trasversale per attività), quanti casi d'uso coprire prima di passare
-al modulo avanzato. Workflow analogo a Modulo 2: prima uno spec
-dedicato, poi il piano di implementazione, poi le singole lezioni.
-
-**Sblocco placeholder in sidebar**: quando si pubblica una lezione di
-uno qualsiasi dei Moduli 3-6, sostituire la voce placeholder in
-`astro.config.mjs` con `{ slug: '<slug>' }` in un commit dedicato
-(stesso pattern già usato per Modulo 2, vedi serie di commit "Unlock
-Module 2 lesson N in sidebar").
+**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
+atterra, sostituire la voce placeholder disabilitata in
+`astro.config.mjs` con `{ slug: 'at-work/<slug>' }` in un commit
+dedicato (pattern già stabilito con i commit "Unlock Module 2 lesson N
+in sidebar").
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
