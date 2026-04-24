@@ -382,6 +382,11 @@ export default defineConfig({
           translations: { it: 'Glossario' },
           slug: 'glossary',
         },
+        {
+          label: 'About',
+          translations: { it: 'Chi sono' },
+          slug: 'about',
+        },
       ],
 
       customCss: ['./src/styles/custom.css'],
