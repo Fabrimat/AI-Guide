@@ -1,0 +1,274 @@
+---
+title: Drafting professional documents
+description: Proposals, briefs, reports. AI as a structured first draft, not as a ghostwriter who writes the whole thing.
+livello: intermedio
+prerequisiti: [ask-well, write-better]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- The blank page of a professional document is worse than the blank page of an email: twenty pages to fill, not twenty lines. The AI solves the eighty percent that is "where do I start," not the rest.
+- Three canonical documents: **proposal** (problem, solution, approach, costs), **brief** (for whoever continues the work or decides), **report** (data, interpretation, next steps).
+- The pattern is *outline + filling*, not "write everything, I'll fix it." First the outline, you critique it, then section by section. Re-reading eight hundred new words and cutting three hundred is slower than writing four hundred on top of the right outline.
+- Calibrate explicitly on audience, length constraints, level of detail. *"For the CEO"* and *"for the technical team"* produce two different documents.
+
+</LessonSummary>
+
+The blank page of an email is annoying. The blank page of a
+professional document is worse: twenty pages to fill, not twenty
+lines, and on the other side you have a client, a boss, or a
+committee who will read. Eighty percent of the block isn't "I
+don't know how to write": it's "I don't know where to start."
+That's where AI works best, not on the fine prose.
+
+On a long document, AI as ghostwriter fails in a specific way: it
+produces two thousand plausible-sounding words, but re-reading
+them and cutting eight hundred is slower than writing a thousand
+on top of the right outline. The work doesn't move: it multiplies.
+What works is splitting the job in two moments: first the
+**structure** (what goes where, how long, for whom), then the
+**text** (section by section, with you as the filter).
+
+This doesn't mean "AI as ghostwriter" is always to avoid: on a
+quick email, a note to yourself, a group greeting to colleagues,
+pasting the first version is fine, the cost of a slip is low. On
+documents with a signature and someone deciding as they read, the
+cost goes up, and the pattern changes.
+
+## Three canonical documents
+
+### Commercial or project proposal
+
+A proposal has standard sections: problem, solution, approach,
+timeline, costs, team or references. The sections aren't yours,
+they belong to the genre: a client who reads proposals every month
+expects to find them in roughly the same order. Your value isn't
+inventing the structure, it's **calibrating** the sections on the
+specific case: how much weight the problem carries (a lot if the
+client doesn't yet know why they need it), how much the team
+carries (a lot if you're a small outfit selling trust).
+
+AI is useful for proposing you a clean outline and getting your
+thinking moving. You critique it: cut a section that isn't needed,
+add one the client explicitly asked for, reorder. Often the final
+outline is seventy percent what the AI gave you plus thirty
+percent of your corrections.
+
+### Internal brief
+
+A brief is short by construction: it's read by people with no
+time. Three recurring types: a colleague who has to continue your
+work, a team receiving a *handoff* (the transfer of a project in
+progress), a boss who has to decide something. The format shifts:
+for continuing the work you need the operational steps; for
+deciding you need the problem plus two or three options with
+trade-offs.
+
+The brief's trap is the opposite of the proposal: writing it too
+long. If you tell the AI *"handoff brief, one page max, who does
+what and with which files,"* it gives you a short skeleton that's
+easier to shorten than to fill. Typically four slots: **current
+state** (where we are, in three lines), **what's already been
+decided** (so closed discussions don't reopen), **what's left to
+do and who owns each piece**, **essential files and links**. If
+it starts long, you're starting behind.
+
+### Report or review
+
+A report has a life cycle: data → interpretation → next steps.
+Weekly status update, post-mortem of a closed project, quarterly
+review. The format is stable, what shifts is the weight of the
+three parts: a weekly update is twenty percent data and eighty
+percent next steps; a post-mortem is sixty percent interpretation.
+
+AI writes the **interpretation** part well if you give it
+structured data (numbers, events, dates) and ask what it sees.
+Example: you hand it a table with monthly revenue for the past six
+months, number of projects delivered, hours over budget, and ask
+*"write two paragraphs reading this data, without inventing things
+you don't see."* It finds the patterns (anomalous month,
+correlation between hours over and margin), and you cut the
+readings you know are wrong for contextual reasons it doesn't have.
+It doesn't write the **next steps** part well, because those
+depend on the company context it doesn't know. You often use it
+for the first part, and write the second yourself.
+
+This pattern (structured data in → reading out) extends well
+beyond the three canonical documents: internal policies, technical
+specifications, short pitches all work similarly, with recurring
+structures that shift only in weighting. If your document isn't
+one of the three, start by asking the AI *"what standard structure
+does a document of type X have in my industry?"* and then apply
+the pattern below.
+
+## The pattern: outline first, filling second
+
+The pattern that works well is opposite to instinct. Instinct is
+"ask the AI to write me the proposal," read, fix. The pattern is:
+**ask for an outline, critique it, then section by section**.
+
+It works better for two reasons. Critiquing the outline costs a
+lot less than critiquing the text: changing "drop the timeline
+section, add a why-us section" is two lines, while changing the
+text of a whole section is ten minutes of reading plus five of
+rewriting. And when the AI writes on top of an outline you've
+already validated, the text comes out more targeted: it has fewer
+degrees of freedom to invent sections or wander, because the
+perimeter is fixed.
+
+"But I don't know what should be there, that's why I'm asking the
+AI": fair objection, and the answer is that you don't start from
+zero. You start from the outline it proposes and you read it
+entry by entry with a single question in mind: *"does this
+section speak to my client, or to a generic client?"* That
+question alone surfaces seventy percent of the critiques. The rest
+comes by asking for a second outline with a different constraint
+(*"shorter,"* *"for a non-technical audience,"* *"dropping the
+sections a non-paying client would see"*) and comparing the two:
+the differences tell you what the AI is tuned on and what you are
+tuned on.
+
+The second step (section by section) isn't "give me the full
+document based on the outline." It's one section at a time:
+*"write the Problem section, 150-200 words, neutral tone."* Small
+pieces you re-read and correct as you go. Keep a single chat for
+the whole document: the AI sees the sections already written and
+keeps tone consistent; opening separate chats for each section
+fragments the voice. If a section leaves you unhappy, you rewrite
+it while it's fresh in your head, not at the end over a block of
+two thousand words.
+
+:::tip[When the outline is ready]
+A stop-rule that works: when you re-read the outline and no longer
+feel anxious ("is something important missing?") but impatient
+("come on, let's write"), it's ready. If you polish the outline
+for more than twenty minutes, you're probably just putting off
+writing. Better to start on an outline that's eighty percent right
+and fix it during the filling, than to stall hunting the perfect
+one.
+:::
+
+:::note[If the client or your office imposes a template]
+Happens all the time: client procurement with required Word styles,
+internal proposal template, format imposed by a public tender. In
+these cases the outline is already set, and step 1 shifts: you
+hand the template's index to the AI as an input constraint
+(*"document structured exactly in these sections: 1. X, 2. Y..."*)
+and go straight to step 2. The critique doesn't disappear, it
+moves: you no longer critique the structure, you critique the
+content of each section under that structure.
+:::
+
+## A concrete example
+
+You're writing a commercial proposal for a potential client, a
+fifty-person family business that has never hired an external
+consultant. They know you through an introduction from a previous
+client of yours. The first pass is asking for a generic outline.
+
+<ChatDemo
+  user={`Propose an outline for a commercial proposal for organizational consulting, six months, for a medium-sized company. Just the section index with a one-line description each, not the text.`}
+  ai={`**Organizational consulting proposal: outline**
+
+1. Executive summary (half page): summary of what we're proposing and why.
+2. The problem: analysis of the current situation and its costs.
+3. The proposed solution: what we want to achieve in six months.
+4. Approach and methodology: phases, techniques, tools.
+5. Timeline: six-month gantt chart with main milestones.
+6. Investment: costs per phase, total, invoicing terms.
+7. The team: who will work on the project and why they're the right people.
+8. References: similar projects already completed.
+9. Next steps: what's needed to begin.`}
+/>
+
+This is the textbook outline. It works for a generic client. For
+this specific client (family, first time, indirect introduction)
+it's too neutral: trust is missing, and the detailed timeline so
+early intimidates a client who hasn't decided yet.
+
+You critique it in plain words:
+
+<ChatDemo
+  user={`Good start. But this client is a 50-person family business, first time hiring an external consultant, introduced by a mutual contact. Revise the outline taking these things into account:
+
+- before the problem, add a short 'Why us, why now' section that hooks into the indirect introduction;
+- drop the detailed timeline, for now we just need a sense of timing, the gantt we do at the kick-off;
+- the costs section isn't a price list, it has to justify the value against the cost of doing nothing;
+- shorten to 6 sections max, not 9.`}
+  ai={`**Revised proposal, six sections**
+
+1. Why us, why now (half page): who we are, the introduction that brought us here, why we think we're right for you at this moment.
+2. What we observe (one page): the current situation as we've understood it from early conversations, without premature diagnoses.
+3. What we propose (one and a half pages): the expected outcome in six months, with two or three concrete priorities, not an exhaustive list.
+4. How we'll work (one page): broad phases and working style (meeting cadence, people involved, decisions in the client's hands), without a gantt.
+5. Investment and return (half page): project cost against the estimated cost of doing nothing. Invoicing terms at close.
+6. Next steps (a few lines): what's needed to begin (meeting with the owner, access to essential data, engagement letter).`}
+/>
+
+The final outline is shorter, speaks to that client instead of a
+generic one, and still has everything it needs. Ten minutes to get
+there. Now you ask the AI *section by section* to write the draft,
+with the length constraints from your index. What you'll read is
+faster to fix, because you already know where each piece should
+land.
+
+:::tip[Calibrate on audience and purpose]
+"This document is for the CEO" and "this document is for the
+technical team" produce two different outlines. Even with the same
+content, what shifts is the sequence of sections, the level of
+detail, and the executive summary (the CEO reads it first, the
+technical reader skips it).
+
+A prompt that works well at the start:
+*"Audience: [role, how much time they have, what they already
+know]. Purpose of the document: [decide, inform, persuade]. Max
+length: [X pages / Y words]."* Those three pieces together shift
+the AI's default much more than you'd expect.
+:::
+
+## What NOT to delegate
+
+**The strategy.** If you don't know what to propose, the AI won't
+figure it out for you. AI knows how a proposal is structured in
+general; it doesn't know what the right solution for your client
+is. If you ask for a proposal without having decided your approach
+yourself, you'll get a textbook proposal, sounding good but not
+yours. The initial thinking stays yours, then the AI helps you
+write it down.
+
+**Specific data.** Revenue numbers, names of previous clients,
+concrete results from past projects: the AI doesn't have them
+and, if you ask it to invent them to fill space, it will. It
+sounds obvious and yet it's a mistake that happens (the document
+reads smoothly, an invented figure slips by). Give it real data as
+input, or leave explicit blanks you fill in later
+(*"[INSERT THREE 2025 REFERENCES HERE]"*).
+
+**Contextual decisions.** If two options are on the table
+(approach A or B, package X or Y, include a section or not), the
+choice is yours. The AI can list the trade-offs, it can't choose
+for you: it doesn't know the internal priorities, the client's
+constraints, the political reasons. The corollary is in [*Things
+NOT to do*](/en/everyday-use/what-not-to-do/): where you sign, you
+decide.
+
+## What comes next
+
+A document rarely lives alone: almost always it gets presented,
+discussed, or followed by a meeting. The next lesson, *Preparing
+a meeting*, closes the loop: how to use AI to arrive at the
+meeting prepared without losing two hours of prep.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-draft-professional-documents.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
