@@ -306,10 +306,34 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    richiesto tre fix di idiomaticità ("It happens often" calco dall'IT,
    cascata "so does X, so does Y", "which" relativo in coda).
 
-3. ✍️ **Preparare una riunione** (`at-work/prepare-a-meeting`)
-   Ordine del giorno, brief di preparazione, riassunto azionabile,
-   follow-up. Ciclo pre/durante/post, taglio "la riunione è il momento
-   umano, tutto il resto può essere più veloce".
+3. ✅ **Preparare una riunione** (`at-work/prepare-a-meeting`)
+   Ordine del giorno strutturato (obiettivo, owner, tempo, decisione
+   attesa), brief di preparazione sotto le 150 parole, anticipazione
+   delle obiezioni con l'IA come devil's advocate. "Durante" è una
+   sezione breve: l'IA non è al tavolo. Dopo, estratto azionabile a
+   tre sezioni (decisioni, action item con owner e scadenza, domande
+   aperte) invece di "riassumi la riunione". ChatDemo su una
+   trascrizione finta di uno status settimanale. Callout `:::note`
+   sulle IA integrate nei tool di call (Zoom Companion, Teams
+   Copilot, Gemini in Meet) e `:::caution` sulla privacy delle
+   trascrizioni come dato di terzi, con criterio pratico per
+   decidere se la riunione è "sensibile". Ciclo di revisione
+   completo (`analyze-lesson` + integrazione + `style-checker` IT e
+   EN, 2026-04-24). Integrazioni principali dall'analisi lettore:
+   contesto concreto per il prompt "anticipare obiezioni" (ruoli,
+   posta in gioco, storia recente), controllo di completezza
+   sull'estratto (scorri l'ordine del giorno), criterio pratico per
+   "sensibile" + caso non-sensibile con nomi, specifica sulle
+   modalità di consenso (orale per routine, scritto per formale),
+   callout `:::note` sulle IA nei tool di call. Style-checker IT ha
+   richiesto il fix della frase "questa parte la riprendiamo più
+   giù" (regola "vedi sopra/sotto") e due rifiniture opzionali
+   (ritrovo → riunione, glossa inline su devil's advocate).
+   Style-checker EN ha richiesto 8 fix di idiomaticità (calchi
+   IT→EN come "pays a high return", "buy you double", "don't
+   land", "beats the benefit", "record only if you're the one
+   recording", "paper minutes", "jotted down too", "straight away
+   the two topics").
 
 4. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`)
    Contenuto, non design: scaletta, bullet asciugati, speaker notes.
@@ -332,10 +356,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 2 su 9 pubblicate. Email difficili e Bozze di
-documenti professionali live (IT + EN); sidebar Modulo 3 con lezioni
-1-2 attive e 7 placeholder disabilitati; card "Sul lavoro" / "At
-work" in homepage e start-here attive, puntano alla lezione 1.
+**Stato attuale**: 3 su 9 pubblicate. Email difficili, Bozze di
+documenti professionali e Preparare una riunione live (IT + EN);
+sidebar Modulo 3 con lezioni 1-3 attive e 6 placeholder
+disabilitati; card "Sul lavoro" / "At work" in homepage e
+start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -471,15 +496,16 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 2 su 9 pubblicate (2026-04-24).
+**Modulo 3 (Sul lavoro)**: 3 su 9 pubblicate (2026-04-24).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 3, **Preparare una riunione**
-(`at-work/prepare-a-meeting`), prerequisiti `ask-well` e
-`iterate-the-conversation`, taglio pre/durante/post (ordine del giorno
-e brief di preparazione, riassunto e follow-up).
+bozza: lezione 4, **Slide e presentazioni**
+(`at-work/slides-and-presentations`), prerequisiti `ask-well` e
+`write-better`, taglio "contenuto non design" (scaletta dal
+documento, bullet asciugati, speaker notes, pitfall delle slide
+piene di parole).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
