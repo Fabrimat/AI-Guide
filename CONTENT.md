@@ -265,11 +265,25 @@ Struttura validata 2026-04-23. Nove lezioni, ordine pedagogico = ordine
 di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
 dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
 
-1. ✍️ **Email difficili** (`at-work/hard-emails`)
-   Dire di no, negoziare, cliente irritato, feedback delicato. Taglio
-   specifico "parola sbagliata costa caro". Assorbe le due voci
-   provvisorie "Email che funzionano" e "Riformulare comunicazioni
-   difficili".
+1. ✅ **Email difficili** (`at-work/hard-emails`)
+   Dire di no, rispondere a chi ha sbagliato, dare feedback delicato.
+   Taglio specifico "parola sbagliata costa caro". Tre situazioni,
+   pattern in tre passi (racconta la situazione completa, chiedi
+   versioni con registri diversi, componi la tua da pezzi), ChatDemo
+   portante anonimizzato, callout sul tono per il capo, cosa NON fare.
+   Assorbe le due voci provvisorie "Email che funzionano" e
+   "Riformulare comunicazioni difficili". **Ciclo di revisione
+   completo** (`analyze-lesson` + integrazione manuale curata con
+   l'utente + `style-checker` IT e EN, 2026-04-24). Integrazioni
+   principali: anonimizzazione completa del ChatDemo (tre modi:
+   generico, nome fittizio, iniziali), mini-esempio in *Dire di no*
+   (no + ragione + ponte, variante senza ponte), prompt concreto per
+   diagnosi del tono in *Rispondere a chi ha sbagliato*, differenza
+   reattivo/proattivo tra le due sezioni, nota sull'urgenza al passo
+   1 del pattern. Style-checker IT ha richiesto solo un fix
+   sull'apertura ("temperatura della stanza" → "chi legge registra
+   come reagisci"); EN ha richiesto 11 aggiustamenti di idiomaticità
+   (calchi IT→EN).
 
 2. 🆕 **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
    Proposte, brief, report. Struttura (exec summary, audience, sezioni),
@@ -299,8 +313,10 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 0 su 9 pubblicate. Struttura definita, scrittura da
-iniziare.
+**Stato attuale**: 1 su 9 pubblicate. Email difficili live (IT + EN);
+sidebar Modulo 3 con lezione 1 attiva e 8 placeholder disabilitati;
+card "Sul lavoro" / "At work" in homepage e start-here attivate,
+puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -436,11 +452,13 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: struttura validata 2026-04-23 in
+**Modulo 3 (Sul lavoro)**: 1 su 9 pubblicate (2026-04-24).
+Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 1, **Email difficili** (`at-work/hard-emails`).
+bozza: lezione 2, **Bozze di documenti professionali**
+(`at-work/draft-professional-documents`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
