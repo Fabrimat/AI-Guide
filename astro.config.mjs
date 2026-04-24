@@ -86,13 +86,7 @@ export default defineConfig({
           translations: { it: 'Sul lavoro' },
           items: [
             { slug: 'at-work/hard-emails' },
-            {
-              label: 'Draft professional documents',
-              translations: { it: 'Bozze di documenti professionali' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/draft-professional-documents' },
             {
               label: 'Prepare a meeting',
               translations: { it: 'Preparare una riunione' },
