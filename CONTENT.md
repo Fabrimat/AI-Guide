@@ -364,7 +364,7 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    feed in" → "What to feed in", "the dedicated tool" → "your slide
    tool or a designer").
 
-5. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
+5. ✍️ **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
    CSV, formule Excel/Sheets, pulizia, piccole analisi. Privacy al
    centro.
 

@@ -1,0 +1,318 @@
+---
+title: Lavorare con dati e tabelle
+description: Pulizia di dati sporchi, formule Excel o Sheets che non ricordi, piccole analisi su estratti. L'IA è il copilota giusto per l'ad-hoc, ma i dati aziendali restano un documento aziendale.
+livello: intermedio
+prerequisiti: [ask-well, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Tre casi d'uso dove l'IA fa risparmiare ore: **pulizia di dati incoerenti**, **formule Excel o Sheets** che non ricordi, **piccole analisi** su estratti.
+- La forma del prompt cambia: qui passi un estratto di dati (o poche righe di esempio) e una domanda precisa, non una pagina di contesto.
+- **Privacy al centro**: un CSV con clienti, importi, indirizzi è un documento aziendale. Anonimizza o estrai solo le colonne necessarie prima di caricarlo in una chat pubblica.
+- **IA per l'ad-hoc, BI per il ricorrente**: se la stessa analisi torna ogni mese, il posto giusto è un tool dedicato (Power BI, Looker, la dashboard del tuo gestionale). L'IA serve quando il conto è isolato.
+- Sui numeri, verifica sempre a campione: l'IA può sbagliare una somma o un arrotondamento e presentarli con la stessa sicurezza di una risposta giusta.
+
+</LessonSummary>
+
+Hai una tabella in Excel con le colonne sbagliate, i nomi dei
+clienti scritti in quindici modi diversi, le date mezze in
+formato italiano e mezze all'americana, e una formula che non ti
+ricordi. Senza IA ci metti un'ora di copia-incolla a mano. Con
+l'IA, dieci minuti.
+
+Il risparmio è reale, ma c'è una cautela che non si può saltare:
+un foglio di calcolo aziendale non è il tuo diario. Ci sono
+dentro clienti, fornitori, contratti, fatturato. Prima di
+incollarlo in una chat pubblica, vale la pena fermarsi trenta
+secondi per decidere cosa far uscire dall'azienda e cosa no.
+
+Questa lezione è la cassetta degli attrezzi pratica: tre casi
+d'uso dove l'IA fa davvero la differenza, un callout sulla
+privacy che è il pezzo più importante, e una regola su quando
+smettere di chiedere all'IA e aprire il tool giusto.
+
+## Tre casi d'uso concreti
+
+I tre che seguono coprono l'80% di quello che un knowledge
+worker non-developer fa con un foglio di calcolo. Sono gesti
+quotidiani, nessuno richiede codice.
+
+### 1. Pulizia di dati incoerenti
+
+Il caso più comune. Una colonna "Cliente" con entry tipo
+*"Rossi Mario"*, *"M. Rossi"*, *"rossi m"*, *"Mario Rossi SRL"*.
+Date scritte come *"12/03/2026"*, *"2026-03-12"*, *"12 marzo"*.
+Duplicati con maiuscole diverse. A mano è un pomeriggio; con
+l'IA sono cinque minuti.
+
+Il prompt funziona se dai un estratto (dieci-venti righe
+rappresentative) e una regola esplicita di uniformazione:
+
+> *Ti incollo dieci righe della colonna "Cliente" del mio
+> gestionale. Uniformale nel formato "Nome Cognome" (es.
+> "Mario Rossi"). Se c'è una ragione sociale tipo "SRL" o
+> "SpA", mettila dopo una virgola. Restituiscimi la tabella
+> pulita più una riga con i dubbi ancora aperti, se ci sono.*
+
+I due pezzi che fanno la differenza: la regola (*"Nome
+Cognome"*, *"ragione sociale dopo la virgola"*) e la richiesta
+esplicita dei dubbi. Senza quella, l'IA normalizza tutto anche
+dove dovrebbe chiederti come interpretare un caso ambiguo
+(*"M. Rossi"* è Mario o Marco?).
+
+Sulle date vale la stessa logica, ma con una precisazione sul
+locale: se lavori in italiano, specifica *"formato
+gg/mm/aaaa"* o *"formato aaaa-mm-gg"* in modo esplicito. L'IA
+di default tende al formato americano (mm/gg/aaaa), e se i
+tuoi dati sono misti può interpretare *"03/04/2026"* come
+*"aprile"* invece di *"marzo"*. Una riga di vincolo risolve il
+problema.
+
+Se le righe sono cinquecento e non dieci, ci sono due strade.
+La prima, pratica, è il pattern **campione, regola,
+estensione**: passi dieci-venti righe rappresentative, trovi
+con l'IA la regola di pulizia, e poi la applichi al resto in
+Excel con una formula (*trova e sostituisci*,
+`TESTO.MAIUSC.INIZ`, `STRINGA.ESTRAI`) o con una macro.
+
+La seconda è caricare l'intero CSV come allegato: Claude e
+ChatGPT su PDF e CSV lunghi gestiscono bene volumi di qualche
+migliaio di righe, se il file non supera i limiti della
+piattaforma. Fra le due, la prima è di solito più robusta:
+mantiene il controllo su come la regola viene applicata e non
+affida cinquecento righe di dati aziendali a un solo giro
+dell'IA.
+
+### 2. Formule Excel o Sheets che non ricordi
+
+*"Come conto quante volte compare un valore in una colonna?"*
+*"Come sommo solo le righe di gennaio?"* *"Come confronto due
+colonne e trovo le differenze?"* L'IA risponde con la formula
+esatta e una riga di spiegazione.
+
+Qui il vincolo da passare è **quale tool usi** e **in che
+lingua è installato**. Le due cose cambiano la sintassi:
+
+- Excel in italiano usa `SOMMA.SE`, `CONTA.SE`, `CERCA.VERT`.
+- Excel in inglese (e Google Sheets, che è sempre in inglese
+  internamente) usa `SUMIF`, `COUNTIF`, `VLOOKUP`.
+- Il separatore dei parametri è `;` nelle versioni italiane,
+  `,` in quelle inglesi.
+- Il separatore decimale è `,` in italiano, `.` in inglese.
+
+Dillo all'IA nel prompt: *"Excel italiano"* o *"Google
+Sheets"*. Se non lo specifichi, a volte ti dà una formula che
+non incolli come-è e devi adattare a mano.
+
+La parte utile è la spiegazione: chiedi sempre
+*"spiegami cosa fa ogni pezzo della formula"* la prima volta.
+Così la volta successiva la scrivi da solo o la adatti a un
+caso diverso. Senza la spiegazione, hai risolto oggi ma non
+hai imparato nulla.
+
+Se incolli la formula e Excel risponde con `#NOME?`,
+`#VALORE!` o `#RIF!`, non rifare il giro da zero. Copia
+l'errore così com'è nella chat e chiedi *"mi dà questo errore,
+cosa c'è che non va?"*. Nove volte su dieci è una di tre
+cose: il separatore sbagliato (`,` dove vuole `;`), la
+funzione nella lingua sbagliata (`SUMIF` in Excel italiano),
+o un riferimento di cella che non esiste sul tuo foglio.
+Rimbalzare l'errore è più veloce che provare a indovinare il
+fix.
+
+### 3. Piccole analisi su estratti
+
+*"Su questi 50 ordini, qual è il valore medio per cliente?
+Quanti clienti spendono sopra la media? C'è una stagionalità
+evidente?"* L'IA legge, calcola, risponde.
+
+Due accortezze. **Prima**, passa l'estratto in una forma che
+l'IA legge bene: un CSV incollato, o un allegato (vale tutto
+quello che hai visto in
+[*Foto, immagini e file*](/it/everyday-use/images-and-files/)).
+Tabelle screenshottate funzionano, ma un CSV testuale è più
+affidabile perché l'IA lo legge carattere per carattere,
+senza rischiare di scambiare una cifra con un'altra in una
+foto sfuocata.
+
+**Seconda**, verifica a campione. Chiedi all'IA il conto e
+poi ricontrolla qualche riga con il calcolo a mano o con una
+formula in Excel. Una regola comoda: **5% delle righe, con un
+minimo di tre**. Se il dataset è da 50 righe ricontrolli tre
+righe; se è da 500, ne ricontrolli venticinque; se è da
+cinquemila, forse il caso d'uso è sbagliato, e la sezione
+[*IA per l'ad-hoc, BI per il ricorrente*](#ia-per-lad-hoc-bi-per-il-ricorrente)
+spiega quando passare a un tool dedicato. Scegli righe che coprono tre profili: una media, una
+agli estremi (valore più alto o più basso), una con campi
+vuoti o formato strano. Non perché l'IA sbagli spesso, ma
+perché quando sbaglia lo fa con la stessa sicurezza con cui
+risponde giusto, e sui numeri una cifra spostata di una
+posizione è un errore che non si vede a occhio. Il pattern è
+lo stesso che hai visto in
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/).
+
+## Privacy: il vincolo principale
+
+Un CSV con nomi di clienti, importi, indirizzi, fatturato
+**è un documento aziendale**. Anche se sta sul tuo computer e
+non dentro un sistema gestionale, anche se lo stai gestendo
+tu in autonomia, è dato dell'azienda. Prima di caricarlo in
+una chat pubblica (ChatGPT Free/Plus, Claude Free/Pro, Gemini
+standard) valgono tre mosse, in questo ordine.
+
+1. **Chiedi se esiste una policy.** In molte aziende medie e
+   grandi IT o legale hanno già deciso cosa si può caricare
+   e dove. Se esiste una linea guida, segui quella e ti
+   risparmi il resto del pensiero. Se non c'è (o se sei un
+   freelance e la policy sei tu), il criterio comodo è
+   questo: *"accetterei che questi dati finissero su un
+   giornale domani?"*. Se la risposta è no, le due mosse qui
+   sotto non sono opzionali.
+2. **Estrai solo le colonne che servono.** Se ti interessa
+   sapere quanto hanno speso i clienti in media, non ti
+   serve il loro indirizzo, il loro codice fiscale, o il
+   numero di telefono. Cancella quelle colonne dall'estratto
+   prima di caricarlo. Meno dati carichi, meno superficie di
+   rischio.
+3. **Anonimizza i nomi.** Sostituisci *"Mario Rossi"* con
+   *"Cliente 1"*, *"Azienda Beta SRL"* con *"Cliente 2"*, e
+   tieni tu la tabella di corrispondenza in un foglio a
+   parte. Quando l'IA ti restituisce l'analisi, la rimappi
+   sui nomi veri. È lo stesso gesto di
+   [*Foto, immagini e file*](/it/everyday-use/images-and-files/),
+   applicato a dati tabellari.
+
+Queste tre mosse non coprono tutto. Contratti con clausole di
+riservatezza, dati sanitari, dati di categorie particolari
+(GDPR art. 9) sono un gradino sopra: lì l'anonimizzazione non
+basta, serve un canale aziendale dedicato o nessuna IA
+pubblica. Una lezione più avanti nel modulo, *Privacy e dati
+aziendali*, affronta quel livello.
+
+:::note[IA pubblica o IA aziendale?]
+Se la tua azienda ti ha dato un account Team, Enterprise, o
+un tenant Microsoft Copilot / ChatGPT Enterprise / Claude
+Team, le policy di privacy cambiano: i dati che carichi lì in
+genere non vengono usati per l'allenamento e restano nel
+perimetro aziendale. Se usi l'IA sul lavoro in modo
+ricorrente e hai accesso a uno di questi piani, quello è il
+posto giusto per i dati aziendali. Se invece apri ChatGPT o
+Claude con il tuo account personale, sei sulla versione
+consumer e valgono le tre mosse sopra.
+
+Come distinguerli al volo: il nome del piano compare nelle
+impostazioni dell'account. Se leggi *Plus*, *Pro*, *Free*, è
+consumer; se leggi *Team*, *Enterprise*, *Business*, o vedi
+il logo della tua azienda accanto al tuo nome, è business.
+ChatGPT Plus a pagamento è comunque consumer: il pagamento
+sblocca funzioni, non cambia il perimetro dei dati.
+:::
+
+## IA per l'ad-hoc, BI per il ricorrente
+
+L'IA è un copilota per il caso isolato: hai un foglio
+stasera, lo devi ripulire, incolli e vai. Se invece la stessa
+analisi la farai ogni mese (una dashboard, un report
+trimestrale, un KPI settimanale per il team), l'IA è
+l'attrezzo sbagliato.
+
+Per l'analisi ricorrente servono i tool di **Business
+Intelligence** (Power BI, Looker, Tableau), o la dashboard
+nativa del tuo CRM o gestionale. Il motivo è strutturale: una volta configurata, la
+dashboard si aggiorna da sola, garantisce riproducibilità, ed
+è condivisibile con il team. Con l'IA invece ogni volta
+riparti da capo, rischi una risposta leggermente diversa dal
+mese prima, e nessuno può verificare come hai ottenuto un
+numero.
+
+Regola pratica: se la stessa domanda te la farai di nuovo
+entro un mese, chiedila a un tool che non sia l'IA. Se è una
+domanda che nasce oggi e muore stasera, l'IA va benissimo.
+
+## Un esempio concreto
+
+Hai un estratto di cinque righe di una colonna *Cliente* del
+gestionale, scritte in modi diversi. Vuoi uniformarle in
+formato *Nome Cognome* per importarle in un foglio Excel
+pulito.
+
+<ChatDemo
+  user={`Ti incollo cinque righe della colonna "Cliente". Uniformale in formato "Nome Cognome" (es. "Mario Rossi"). Se c'è una ragione sociale, mettila dopo una virgola. Restituiscimi la tabella pulita più una riga finale con i dubbi aperti, se ci sono.
+
+- rossi m.
+- M. Rossi
+- Mario Rossi SRL
+- ROSSI MARIO
+- m rossi`}
+  ai={`Tabella pulita:
+
+1. Mario Rossi
+2. M. Rossi
+3. Mario Rossi, SRL
+4. Mario Rossi
+5. M. Rossi
+
+**Dubbio aperto:** le righe 2 e 5 hanno solo l'iniziale del nome ("M."). Potrebbero essere lo stesso Mario Rossi delle altre righe, oppure un altro cliente con iniziale M (Marco, Matteo, Michele). Se hai accesso al dato originale con il codice cliente, verifica prima di trattarle come duplicati.`}
+/>
+
+Quello che l'IA ha fatto bene: normalizzazione dei
+maiuscoli/minuscoli, ordine *Nome Cognome* rispettato,
+ragione sociale separata. Quello che ha fatto ancora meglio:
+non ha deciso lei che *"M. Rossi"* fosse *"Mario Rossi"*, ma
+ti ha segnalato il dubbio. Il vincolo *"più una riga con i
+dubbi"* nel prompt è quello che ha tirato fuori questo
+comportamento.
+
+Senza quel vincolo, l'IA avrebbe probabilmente scritto
+*"Mario Rossi"* ovunque, fondendo righe che magari erano di
+clienti diversi, e tu non te ne saresti accorto.
+
+## Cosa NON fare
+
+**Non fidarti dei numeri senza verifica.** Sulle piccole
+analisi, ricontrolla sempre due o tre righe a mano. L'IA può
+sbagliare una media, un arrotondamento, o contare male le
+righe che rispettano una condizione. Il pattern di
+verifica è quello di
+[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/),
+applicato ai numeri.
+
+**Non caricare dataset interi di dati sensibili.** Se hai un
+CSV di diecimila righe con clienti e importi, non serve
+caricarlo tutto per chiedere una formula. Estrai dieci righe
+rappresentative, anonimizzate, e passa quelle. Per gli stessi
+motivi della sezione [*Privacy: il vincolo principale*](#privacy-il-vincolo-principale).
+
+**Non usare l'IA come analista per decisioni di business
+importanti.** Pianificazione finanziaria, valutazione di un
+investimento, analisi di clientela per una decisione
+strategica: lì serve un analista vero (o tu, con l'IA come
+appoggio puntuale), non l'IA come autore della conclusione.
+Il perimetro è quello di
+[*Cose da NON fare*](/it/everyday-use/what-not-to-do/): dove
+non delegare la decisione, indipendentemente dalla qualità
+della risposta.
+
+## Cosa viene dopo
+
+La prossima lezione, *Ricerca per il lavoro*, cambia l'asse:
+dai dati tuoi (un foglio che hai in mano) alle fonti esterne
+(articoli, report, siti) quando devi arrivare a una sintesi
+per un deliverable professionale. È il pezzo dove l'IA
+accelera di più e allucina di più, e la differenza la fa il
+metodo.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-data-and-tables.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
