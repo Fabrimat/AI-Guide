@@ -523,6 +523,16 @@ Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa.`
 I newline dentro la stringa `ai` (uso del template literal con backtick) vengono
 preservati e renderizzati come a-capo grazie a `white-space: pre-wrap`.
 
+**Markdown inline nella risposta IA.** La stringa `ai` supporta un
+sottoinsieme di markdown inline renderizzato in SSR: `**grassetto**` /
+`__grassetto__`, `*corsivo*` / `_corsivo_`, `` `inline code` ``, e link
+`[testo](url)` (solo schemi `http(s)`, `mailto:`, path interno `/`, ancora
+`#`; schemi diversi ricadono su `#` per sicurezza). Niente block element
+(liste, heading, citazioni restano testo piano). Il typewriter walka i nodi
+di testo lasciando i tag in place, così il grassetto nel titolo di una
+risposta appare già formattato dalla prima lettera digitata. La stringa
+`user` resta testo piano e non viene parsata.
+
 ### `<MailtoComposer>`
 
 Textarea + bottone "Apri email" che lancia un `mailto:` precompilato con
