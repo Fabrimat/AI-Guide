@@ -306,8 +306,10 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    richiesto tre fix di idiomaticità ("It happens often" calco dall'IT,
    cascata "so does X, so does Y", "which" relativo in coda).
 
-3. 🆕 **Preparare una riunione** (`at-work/prepare-a-meeting`)
-   Ordine del giorno, brief di preparazione, riassunto, follow-up.
+3. ✍️ **Preparare una riunione** (`at-work/prepare-a-meeting`)
+   Ordine del giorno, brief di preparazione, riassunto azionabile,
+   follow-up. Ciclo pre/durante/post, taglio "la riunione è il momento
+   umano, tutto il resto può essere più veloce".
 
 4. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`)
    Contenuto, non design: scaletta, bullet asciugati, speaker notes.

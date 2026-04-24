@@ -1,0 +1,262 @@
+---
+title: Preparare una riunione
+description: Ordine del giorno, brief di preparazione, estratto azionabile, follow-up. L'IA lavora prima e dopo; la riunione resta il momento umano.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Una riunione mal preparata moltiplica il costo per il numero di persone in stanza. Prepararla bene con l'IA costa pochi minuti, e il ritorno è alto soprattutto nei due momenti giusti: il prima e il dopo.
+- **Prima**: ordine del giorno con obiettivo, owner, tempo, decisione attesa; brief sotto le 150 parole; passata *"quali obiezioni possono arrivare?"* con l'IA come devil's advocate.
+- **Durante**: l'IA non è al tavolo. Appunti tuoi, o registrazione con consenso esplicito.
+- **Dopo**: chiedi un estratto azionabile (decisioni, action item con owner e scadenza, domande aperte), non un riassunto generico. Da lì nascono il follow-up e l'aggiornamento per chi non era in call.
+
+</LessonSummary>
+
+Trenta minuti di riunione mal preparata, moltiplicati per otto
+persone in chiamata, sono quattro ore di lavoro aziendale bruciate.
+Il costo di una riunione si moltiplica per le persone che ci sono:
+è per questo che prepararla bene ha un ritorno alto, sproporzionato
+rispetto ai pochi minuti che ci vogliono.
+
+Il taglio di questa lezione è semplice: durante la riunione l'IA
+non c'è, ed è giusto così, è il momento umano. Ma prima e dopo
+lavora bene, e sono proprio i due momenti dove di solito si perde
+tempo. Prima: ordine del giorno, brief per i partecipanti, domande
+probabili. Dopo: estratto delle decisioni, action item, ponte con
+chi non era in call. Se la riunione dura un'ora, dieci minuti di
+prep e dieci di chiusura ti ricomprano il doppio sui partecipanti.
+
+## Prima della riunione
+
+### Ordine del giorno strutturato
+
+Un ordine del giorno utile ha quattro voci per ogni punto:
+obiettivo, chi lo porta, tempo, decisione attesa. Se manca una di
+queste, il punto si dilata o finisce senza conclusione.
+
+L'IA lavora bene su questo passaggio perché il formato è rigido. Un
+prompt che funziona: *"organizza questi punti in tabella con
+obiettivo, owner, tempo in minuti, decisione attesa. Totale massimo
+50 minuti."* Il vincolo sul totale la costringe a tagliare invece
+di dilatare. Tu poi rivedi dove ha stimato male i tempi (la stanza
+la conosci tu, non lei) e aggiusti.
+
+### Brief di preparazione
+
+Una riunione dove tutti arrivano senza aver letto niente parte con
+dieci minuti di allineamento. Dieci minuti per otto persone sono
+ottanta minuti, più del doppio di quello che serve a scrivere un
+brief.
+
+Un brief buono risponde a tre domande: cosa leggere prima (al
+massimo uno o due link, non quindici), cosa portare (dati,
+un'opinione, una decisione già presa), cosa aspettarsi in uscita.
+L'IA te lo produce in due minuti se le passi l'ordine del giorno e
+una o due righe di contesto. Regola pratica: sotto le 150 parole, o
+nessuno lo legge.
+
+### Anticipare le obiezioni
+
+Prima di una presentazione importante, chiedile di fare il
+contrario del tuo lavoro. Il prompt funziona solo se le dai il
+contesto: non *"sto presentando X al team Y"* ma *"sto presentando
+la nuova roadmap al team commerciale, loro vogliono risultati nel
+breve, noi proponiamo sei mesi di investimento tecnico; lo scorso
+trimestre su una decisione simile c'è stata frizione. Che domande
+è probabile che mi facciano? Che obiezioni possono emergere?"*.
+Tre ingredienti bastano di solito: ruoli dei partecipanti, posta
+in gioco della decisione, storia recente rilevante. L'IA fa da
+devil's advocate (contesta le tue idee per farne emergere i punti
+deboli), elenca una dozzina di domande, tu ne noti tre a cui non
+avevi pensato e prepari la risposta.
+
+Non è un indovino: qualche obiezione anticipata non arriva, altre
+emergono che non aveva previsto. Ma in media un 60-70% delle
+domande probabili le indovina, e il tempo di prep si accorcia.
+Spesso vale un secondo giro nello stesso stile di [*Iterare la
+conversazione*](/it/everyday-use/iterate-the-conversation/): *"di
+queste, quali sono le tre più probabili e perché?"*. La seconda
+lista è più utile della prima.
+
+:::tip[Quando non vale la pena prepararla]
+Non tutte le riunioni si preparano bene con questo schema.
+Stand-up di dieci minuti, uno-a-uno ricorrente, call di
+allineamento fra due persone: il costo di preparare supera il
+beneficio. Il criterio rapido: se c'è una decisione in uscita che
+riguarda più persone, vale la pena; se è un aggiornamento frontale
+o informale, bastano due note tue.
+:::
+
+## Durante
+
+Durante la riunione, l'IA non è al tavolo. Registra se registri tu
+(con consenso: detto in apertura per le riunioni interne di
+routine, messo per iscritto per i casi formali o con esterni);
+altrimenti no. Appunti a mano, app di trascrizione sul tuo
+portatile, minuta su carta: sono tutte opzioni, l'IA come
+partecipante attivo no.
+
+Il motivo è semplice: sapere che un'IA ascolta cambia come si
+parla. Se la riunione tocca un conflitto, una negoziazione, un
+feedback delicato, registrare va deciso con i partecipanti, non
+assunto.
+
+Se registri, tieni il file sul tuo dispositivo e non caricarlo su
+un servizio terzo prima di aver chiarito con chi era in call: la
+trascrizione contiene dati di persone che non hanno consentito
+all'IA di ascoltarle.
+
+:::note[Se il tuo tool di call ha un'IA integrata]
+Zoom Companion, Teams Copilot, Gemini in Meet sono attive di
+default o a un clic di distanza, e sempre più colleghi le
+accendono senza annunciarlo. La regola non cambia: un'IA che
+ascolta va dichiarata in apertura, non assunta, a prescindere da
+chi l'abbia avviata. Se la scopri accesa senza consenso,
+chiedi di spegnerla o rendilo esplicito per tutti.
+:::
+
+## Dopo la riunione
+
+### Estratto azionabile, non riassunto generico
+
+Questo è il punto dove si sbaglia di più. *"Riassumi la riunione"*
+produce un paragrafo che nessuno legge: buono per l'archivio,
+inutile per fare le cose.
+
+Il prompt che funziona ha struttura rigida: *"da questa
+trascrizione (o da queste note) estrai, in tre sezioni separate:
+1. Decisioni prese, 2. Action item con owner e scadenza, 3.
+Domande aperte. Niente narrazione."* La differenza è enorme:
+ottieni una lista operativa da cui puoi già ricavare i task da
+mettere nel tuo sistema.
+
+Funziona anche su appunti disordinati che hai buttato giù tu, non
+solo su trascrizioni pulite: la qualità dell'output segue quella
+dell'input. E un controllo veloce sulla completezza: scorri
+l'ordine del giorno che avevi preparato e verifica che ogni punto
+affrontato in riunione sia coperto almeno una volta, fra decisioni,
+action item o domande aperte. Se un punto manca nell'estratto,
+spesso è l'IA che l'ha saltato, non la riunione che non ci è
+arrivata.
+
+### Email di follow-up
+
+Una volta estratto il nocciolo, la mail di follow-up è
+formattazione. Le chiedi *"scrivi il follow-up al team basato su
+questo, 150 parole massimo, chiuso con i prossimi passi"* e hai
+la bozza da ritoccare.
+
+La bozza non è buona al 100%: di solito aggiusti il tono (spesso
+troppo formale), aggiungi il dettaglio che conosci tu (il cliente
+ha anticipato la prossima call, il budget è da rivedere), togli
+l'action item che nella realtà è già partito. I cinque minuti che
+ci metti sono molto meno dei trenta che servirebbero dalla pagina
+bianca.
+
+### Aggiornamento per chi non era in call
+
+Chi non era in call ha bisogno di meno dettaglio ma di una cornice
+precisa. Prompt: *"per chi non era in riunione, 4-5 bullet su
+cosa è cambiato e cosa devono sapere per il loro lavoro"*. Non è
+il riassunto, è un estratto selettivo, già tagliato sul
+destinatario. Qui cinque parole di contesto in più al prompt
+(*"il destinatario è il reparto legal, interessano solo i
+rischi"*) cambiano molto: le 4-5 bullet che escono sono quelle
+giuste, non quelle generiche.
+
+## Un esempio concreto
+
+Finita una riunione di status settimanale del team prodotto (sei
+persone, 45 minuti), hai una trascrizione dallo strumento di call.
+La passi così:
+
+<ChatDemo
+  user={`Da questa trascrizione estrai, in tre sezioni separate: 1. Decisioni prese, 2. Action item con owner e scadenza, 3. Domande aperte. Niente narrazione.
+
+Trascrizione:
+Marco: Il Q2 è chiuso, ricavi +12% sul Q1 ma 5% sotto budget.
+Laura: Il CRM nuovo entra entro luglio?
+Paolo: Sì, se ricevo i dati master entro il 20 giugno.
+Anna: Propongo di tagliare il budget ads del 15%, siamo sopra-ottimizzati.
+Marco: Decidiamo oggi, ma prima Laura verifica il tasso di conversione del mese.
+Marco (chiusura): Prossima riunione mercoledì 26.`}
+  ai={`**Decisioni prese**
+- Il nuovo CRM va in produzione entro luglio.
+- Prossima riunione: mercoledì 26.
+
+**Action item**
+- Paolo: ricevere i dati master entro il 20 giugno (bloccante per il go-live del CRM).
+- Laura: verificare il tasso di conversione del mese prima della prossima riunione.
+
+**Domande aperte**
+- Taglio del 15% sul budget ads (proposta di Anna): decisione rinviata, dipende dalla verifica di Laura.
+- Gap del 5% sotto budget Q2: non affrontato, probabilmente da riprendere alla prossima riunione.`}
+/>
+
+In due minuti hai un output che è già la spina dorsale del
+follow-up, e nelle domande aperte leggi subito i due temi che nella
+riunione non avete chiuso. La stessa estrazione a mano sarebbe
+venti minuti di rilettura.
+
+:::caution[Le trascrizioni contengono dati di altri]
+Una trascrizione è un testo collettivo: contiene quello che hanno
+detto persone che non hanno consentito all'IA di leggerle. Nomi,
+opinioni su colleghi o clienti, cifre, conflitti. Un criterio
+rapido per decidere il livello di cautela: se qualcuno dei
+presenti si sentirebbe a disagio sapendo che la trascrizione
+passa per un'IA esterna, la riunione è sensibile. Vale sempre per
+HR, conflitti interni, clienti criticati, compliance, budget
+riservati: lì anonimizza prima di incollare (nomi in ruoli come
+*"il product manager"*, cifre in intervalli come *"fatturato a
+sette cifre"*, aziende in descrizioni come *"un cliente del
+settore X"*). Per le riunioni di routine senza giudizi su persone
+(status settimanale, allineamento di progetto), puoi lasciare
+nomi e cifre se il tuo contesto aziendale lo permette: il rischio
+è più basso. Il quadro più ampio è in [*Quello che condividi
+quando usi l'IA*](/it/fundamentals/privacy-basics/).
+:::
+
+## Cosa NON fare
+
+**Non delegare la decisione sulle priorità.** L'IA ti estrae gli
+action item, ma l'ordine in cui vanno fatti è tuo. Dipende da chi
+è più di fretta, da quanto il cliente si aspetta, da vincoli
+interni che lei non conosce. Una lista ordinata genericamente è
+spesso ordinata male per il tuo caso.
+
+**Non condividere trascrizioni sensibili senza pensarci.** La
+regola va decisa prima della riunione, non dopo. Se la call tocca
+temi su cui l'azienda ha NDA o dati personali, stabilisci in
+anticipo cosa puoi far vedere a un'IA pubblica e cosa no. Il caso
+aziendale più ampio è rimandato alla lezione sulla privacy dei dati
+aziendali, più avanti nel modulo.
+
+**Non saltare la revisione della trascrizione.** Le trascrizioni
+automatiche contengono errori: nomi sbagliati, termini tecnici
+trasformati, frasi troncate. Una scorsa veloce per correggere
+almeno i nomi e i punti più grossolani prima di passarla all'IA,
+altrimenti l'estratto esce sbagliato in modo plausibile, che è
+peggio di visibilmente sbagliato.
+
+## Cosa viene dopo
+
+Una riunione produce spesso slide, report, o entrambi. Nelle due
+lezioni successive il modulo passa a quei formati: *Slide e
+presentazioni* sul contenuto delle slide, *Lavorare con dati e
+tabelle* su numeri e fogli di calcolo.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-prepare-a-meeting.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
