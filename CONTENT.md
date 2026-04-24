@@ -364,9 +364,40 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    feed in" → "What to feed in", "the dedicated tool" → "your slide
    tool or a designer").
 
-5. ✍️ **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
-   CSV, formule Excel/Sheets, pulizia, piccole analisi. Privacy al
-   centro.
+5. ✅ **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
+   Tre casi d'uso canonici (pulizia di dati incoerenti, formule
+   Excel/Sheets, piccole analisi su estratti), tre mosse di privacy
+   prima di caricare in una chat pubblica (policy o test del
+   giornale, estrai solo le colonne necessarie, anonimizza i
+   nomi), callout *IA pubblica o IA aziendale?* con criterio
+   pratico per distinguere consumer vs business, callout *IA per
+   l'ad-hoc, BI per il ricorrente* con regola del mese, ChatDemo
+   portante sulla pulizia di cinque righe con il vincolo "più una
+   riga con i dubbi aperti". Ciclo di revisione completo
+   (`analyze-lesson` + integrazione + `style-checker` IT e EN,
+   2026-04-24). Integrazioni principali dall'analisi lettore:
+   regola 5% con minimo tre per la verifica a campione, pattern
+   *campione, regola, estensione* per dataset grandi, mini-paragrafo
+   sul rimbalzare l'errore di Excel (`#NOME?`, `#VALORE!`, `#RIF!`)
+   alla chat, criterio del giornale per freelance senza IT/legale,
+   aggiunta al callout *IA pubblica o IA aziendale?* su come
+   distinguere consumer da business dal nome del piano. Style-checker
+   IT: verdetto OK con rifiniture opzionali, applicati sei fix
+   (link esplicito "vedi sopra/sotto" in due punti, "fa davvero la
+   differenza" nell'intro, "veramente utile", titolo "Tre casi
+   d'uso concreti", scioglimento di "BI" in Business Intelligence,
+   paragrafo "E se le righe sono cinquecento" spezzato).
+   Style-checker EN ha richiesto un fix strutturale (*management
+   system* come calco di "gestionale", sostituito con *CRM*/*ERP*
+   in cinque occorrenze) e nove rifiniture di idiomaticità
+   ("caveat you can't skip" → "catch", "hand over" → "give",
+   "more robust" + "keeps control" → "safer" + "keeps you in
+   control", "The useful part is" → "The real value is",
+   "Bouncing the error back" → "Pasting the error back",
+   "recurrently" → "regularly", "ask it to a tool" → "ask a
+   tool", "what it got even better" → "better still", "the
+   difference is in the method" → "method is what separates the
+   two", "less risk surface" → "less risk").
 
 6. 🆕 **Ricerca per il lavoro** (`at-work/research-for-work`)
    Sintesi multi-fonte per un deliverable.
@@ -382,11 +413,12 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 4 su 9 pubblicate. Email difficili, Bozze di
-documenti professionali, Preparare una riunione e Slide e
-presentazioni live (IT + EN); sidebar Modulo 3 con lezioni 1-4
-attive e 5 placeholder disabilitati; card "Sul lavoro" / "At
-work" in homepage e start-here attive, puntano alla lezione 1.
+**Stato attuale**: 5 su 9 pubblicate. Email difficili, Bozze di
+documenti professionali, Preparare una riunione, Slide e
+presentazioni e Lavorare con dati e tabelle live (IT + EN);
+sidebar Modulo 3 con lezioni 1-5 attive e 4 placeholder
+disabilitati; card "Sul lavoro" / "At work" in homepage e
+start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -522,16 +554,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 4 su 9 pubblicate (2026-04-24).
+**Modulo 3 (Sul lavoro)**: 5 su 9 pubblicate (2026-04-24).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 5, **Lavorare con dati e tabelle**
-(`at-work/data-and-tables`), prerequisiti `ask-well` e
-`images-and-files`, taglio "CSV, formule Excel/Sheets, pulizia
-dati, piccole analisi, privacy centrale". Lezione tecnica senza
-pretesa di trasformare il lettore in programmatore.
+bozza: lezione 6, **Ricerca per il lavoro**
+(`at-work/research-for-work`), prerequisiti `ask-well`,
+`when-to-trust-it` e `summarize-a-long-document`, taglio
+"sintesi multi-fonte per un deliverable professionale". È il
+pezzo dove l'IA accelera di più e allucina di più, differenza da
+*Imparare un argomento nuovo* (Modulo 2) e *Riassumere un
+documento lungo* (Modulo 2): più fonti contemporaneamente più
+obiettivo d'uso professionale.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
