@@ -265,7 +265,7 @@ Struttura validata 2026-04-23. Nove lezioni, ordine pedagogico = ordine
 di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
 dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
 
-1. 🆕 **Email difficili** (`at-work/hard-emails`)
+1. ✍️ **Email difficili** (`at-work/hard-emails`)
    Dire di no, negoziare, cliente irritato, feedback delicato. Taglio
    specifico "parola sbagliata costa caro". Assorbe le due voci
    provvisorie "Email che funzionano" e "Riformulare comunicazioni
