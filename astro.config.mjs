@@ -81,7 +81,7 @@ export default defineConfig({
         {
           // Modulo 3 (Sul lavoro) — non ancora scritto. Tutti placeholder
           // disabilitati con badge "Soon" / "Presto". Quando una lezione
-          // viene pubblicata, sostituire la sua voce con `{ slug: '...' }`.
+          // viene pubblicata, sostituire la sua voce con `{ slug: 'at-work/<slug>' }`.
           label: 'At work',
           translations: { it: 'Sul lavoro' },
           items: [
