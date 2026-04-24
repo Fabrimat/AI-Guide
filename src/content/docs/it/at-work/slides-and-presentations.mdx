@@ -1,0 +1,255 @@
+---
+title: Slide e presentazioni
+description: Scaletta dal documento, bullet asciutti, speaker notes. L'IA aiuta sul contenuto, non sul design; il default produce slide piene di testo, ed è il rischio da neutralizzare.
+livello: intermedio
+prerequisiti: [ask-well, write-better]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Una buona presentazione non è un documento proiettato. Il default dell'IA produce slide piene di testo: ti serve l'istruzione giusta per ribaltarlo.
+- **Dal report alla scaletta**: *"filo narrativo in N slide, una idea per slide, massimo 30 parole a slide"*. Istruzione rigida, risultato usabile; senza vincoli, l'IA parafrasa il documento e tu finisci a leggerlo in proiezione.
+- **Bullet asciutti**: vincolo esplicito, *"massimo 4-6 bullet da massimo 10 parole, senza verbi alla terza persona"*. Senza il vincolo parte l'inflazione verbale.
+- **Speaker notes**: il testo che dirai a voce mentre la slide è proiettata. Le usi per prepararti, non per leggerle.
+- **Cosa NON chiedere**: design grafico, colori, animazioni, font, template. Lì serve il tool di slide (PowerPoint, Keynote, Google Slides) o un designer.
+
+</LessonSummary>
+
+Una buona presentazione non è un documento proiettato. Chi apre
+una slide piena di parole fa una scelta implicita: chi guarda
+deve o leggere, o ascoltare, ma non entrambe le cose. In quasi
+tutti i casi smette di ascoltare e legge, male. Le slide fatte
+bene sostengono quello che dici, non lo duplicano.
+
+Con l'IA si sbaglia in un modo specifico: chiedi *"fammi le slide
+del report"* e l'IA parafrasa il documento in paragrafi
+rimpiccioliti. Ottieni un file PowerPoint ma hai perso la
+funzione delle slide. Il rimedio non è cambiare tono, è cambiare
+istruzione: dirle cosa *non* deve fare (parafrasare, scrivere
+paragrafi, usare verbi lunghi) e cosa vuoi (una idea per slide,
+parole contate). Il resto (disegno, colori, template) resta
+fuori: l'IA lì non ha quello che serve.
+
+## Dal documento alla scaletta
+
+Il punto di partenza più frequente è un report o un documento
+lungo che devi presentare. Tentazione numero uno: copia-incolla
+di pezzi del documento nelle slide. Tentazione numero due:
+chiedere all'IA *"fai le slide da questo"*. Tutte e due
+producono slide piene di testo, perché il documento di partenza
+era *fatto* per essere letto, non proiettato.
+
+Il prompt che rompe il pattern è rigido: *"estrai da questo
+testo il filo narrativo in dieci slide, una idea per slide,
+massimo 30 parole a slide. Per ogni slide dammi titolo breve
+(massimo sei parole) e da due a quattro bullet. Niente
+paragrafi."* Tre vincoli in fila (numero di slide, parole
+totali, niente paragrafi) forzano la sintesi. Quello che ottieni
+è la struttura narrativa del tuo documento, non il documento
+rimpicciolito.
+
+Due decisioni stanno fuori dal prompt e le prendi tu. Quante
+slide: dipende dal tempo di presentazione, non dalla lunghezza
+del documento. Regola comoda, circa una slide al minuto per
+una presentazione discorsiva da 15-20 minuti, meno se il
+pubblico vuole discutere, di più per slide di dati. E cosa
+passare in input: se il documento è lungo (oltre le cinque o
+sei pagine), non incollarlo tutto. Riassumilo prima (il pattern
+di [*Riassumere un documento lungo*](/it/everyday-use/summarize-a-long-document/))
+o estrai le sezioni chiave, e dai all'IA solo quelle. Un
+documento intero costringe l'IA a riempire più di quello che
+serve, e la scaletta che esce è diluita.
+
+Il numero 30 non è magico, ma è utile: tiene la slide leggibile
+da cinque metri di distanza e obbliga a sintetizzare. Puoi
+muoverlo tra 20 e 40 a seconda della densità (meno per un pitch,
+più per slide tecniche). Sotto le 20 diventa criptico, sopra le
+40 diventa un documento travestito.
+
+"Una idea per slide" è il vincolo che fa il lavoro più
+importante. Senza quello, l'IA impacchetta tre concetti nella
+stessa slide per risparmiare sul totale, ma la slide non è uno
+strumento di efficienza, è uno strumento di attenzione. Una
+cosa alla volta.
+
+Dopo aver letto la scaletta, la critichi con lo stesso gesto di
+[*Bozze di documenti professionali*](/it/at-work/draft-professional-documents/):
+togli le slide che non aggiungono niente, riordini, inserisci
+quella mancante. Dieci slide proposte diventano spesso sette o
+otto dopo il taglio, e sono le giuste.
+
+## Bullet asciutti
+
+La scaletta dà il titolo e due o quattro bullet per slide. Il
+passo dopo è renderli leggibili in proiezione. Qui l'IA
+sbaglia nel modo opposto del resto della lezione: scrive troppo.
+Bullet di 15-20 parole, verbi impersonali in terza persona,
+paralleli tra frasi ("è stato osservato che...", "si rileva
+come...", "è emerso che..."). Sono paragrafi tagliati in
+bastoncini, non bullet.
+
+Il prompt che funziona è restrittivo e numerico: *"riscrivi
+questi bullet come massimo quattro bullet di massimo dieci
+parole ciascuno, senza verbi alla terza persona, stile
+telegrafico. Cifre e nomi propri restano; il resto va asciugato."*
+I due vincoli (numero, lunghezza) sono non negoziabili; lo stile
+("telegrafico") dà la direzione; la nota sulle cifre protegge i
+dati dalla parafrasi. Il "senza verbi alla terza persona" è il
+vincolo che fa più lavoro: togliendo l'impersonale ("è stato
+osservato", "si rileva") il paragrafo crolla nelle sue parti
+essenziali, che sono cifre e nomi, cioè quello che deve stare
+sulla slide.
+
+Se il risultato è ancora lungo, secondo giro: *"più corti:
+massimo sei parole a bullet. Può spezzarsi in due bullet se
+serve."* Due cicli arrivano quasi sempre dove vuoi.
+
+Un test veloce: leggi ad alta voce il bullet e conta le parole
+con le dita. Se arrivi a dieci prima di esaurire la frase, è
+lungo. Se puoi dirlo in un respiro solo, è a posto.
+
+## Speaker notes
+
+Il bullet fissa l'idea; le parole che dici ad alta voce sono
+altre. In PowerPoint, Keynote e Google Slides c'è un campo
+*speaker notes* sotto ogni slide: è lì che scrivi quello che dirai
+mentre la slide è proiettata. Chi guarda non lo vede; tu sì, se
+vuoi.
+
+L'IA le scrive bene se le passi i bullet della slide e il
+contesto di chi ascolta: *"per la slide con questi bullet, dammi
+due-tre frasi di speaker notes. Pubblico: [CEO / team tecnico /
+cliente esterno]. Tono: [più formale / più diretto]. Niente
+ripetizione parola per parola dei bullet."* Si passa una slide
+alla volta, non l'intera scaletta in un colpo: il pattern è lo
+stesso di [*Bozze di documenti professionali*](/it/at-work/draft-professional-documents/),
+chiedere tutto insieme diluisce la qualità.
+
+L'ultimo vincolo è quello che fa la differenza. Senza, l'IA ti
+scrive quello che sta scritto nel bullet, con qualche parola in
+più. Inutile: in proiezione, dire ad alta voce quello che è
+scritto è la cosa che più svuota una presentazione. Le speaker
+notes servono per dire *altro*: il perché di quel dato,
+l'aneddoto, la transizione verso la slide successiva.
+
+Le usi per prepararti, non per leggerle. Se a presentare arrivi
+leggendo le note parola per parola, hai bisogno di uno script
+vero, non di speaker notes, e probabilmente di un pubblico più
+piccolo o di una call registrata senza audience. Quasi mai è il
+caso: meglio prepararsi a voce e portarle come rete di
+sicurezza.
+
+## Un esempio concreto
+
+Hai un paragrafo del tuo report Q2 che vuoi trasformare in una
+slide *"Risultati Q2"*:
+
+> Nel secondo trimestre abbiamo registrato ricavi di 1,2 milioni
+> di euro, in crescita del 12% rispetto al primo trimestre ma
+> ancora sotto il budget annuale del 5%. I progetti consegnati
+> sono stati 23, in linea con il Q1. Le ore oltre preventivo
+> sono salite del 18%, soprattutto sul cliente Alfa.
+
+Il prompt generico (*"fammi i bullet per la slide"*) produce
+bullet lunghi che riparafrasano il testo:
+
+> - Nel Q2 abbiamo raggiunto ricavi pari a 1,2 milioni di euro,
+>   in crescita del 12% rispetto al primo trimestre
+> - Il risultato è ancora inferiore al budget annuale, con uno
+>   scarto del 5%
+> - I progetti consegnati nel trimestre sono stati 23, in linea
+>   con il Q1
+> - Le ore sforate sul preventivo sono aumentate del 18%,
+>   soprattutto sul cliente Alfa
+
+Stesso testo, solo spezzato. Non serve. Cambia prompt:
+
+<ChatDemo
+  user={`Riscrivi questi bullet come massimo quattro bullet di massimo dieci parole ciascuno, senza verbi alla terza persona, stile telegrafico. Cifre e nomi propri restano.
+
+- Nel Q2 abbiamo raggiunto ricavi pari a 1,2 milioni di euro, in crescita del 12% rispetto al primo trimestre
+- Il risultato è ancora inferiore al budget annuale, con uno scarto del 5%
+- I progetti consegnati nel trimestre sono stati 23, in linea con il Q1
+- Le ore sforate sul preventivo sono aumentate del 18%, soprattutto sul cliente Alfa`}
+  ai={`- Ricavi Q2: 1,2 mln €, +12% sul Q1
+- Budget annuale: ancora a -5%
+- Progetti consegnati: 23 (pari al Q1)
+- Ore fuori preventivo: +18% (cliente Alfa)`}
+/>
+
+Stesso contenuto, metà parole, slide leggibile in tre secondi. La
+narrazione la porti tu a voce: *"siamo cresciuti del 12% ma
+ancora sotto budget; i progetti restano in linea ma le ore
+sforate crescono, e il peso è quasi tutto su un solo cliente."*
+Questo è quello che va nelle speaker notes, non nei bullet.
+
+:::note[Se usi un tool di slide generate dall'IA]
+Gamma, Tome, Beautiful.ai, Decktopus e simili generano slide
+direttamente da un prompt o un documento, con design già
+applicato. Cambia lo strumento, non il principio: il primo giro
+è quasi sempre verboso e affollato di stock image. I vincoli di
+questa lezione restano utili (una idea per slide, 30 parole
+massime, bullet telegrafici): passali al tool come parte del
+prompt di generazione. Quando preferirli al percorso ChatGPT +
+PowerPoint: se hai poco tempo e il template non deve seguire un
+brand preciso, ti danno un deck pubblicabile in un passaggio. Se
+il template è vincolato (corporate, procurement cliente) o ti
+aspetti di ritoccare molto, parti dalla scaletta in testo e
+impagina nel tuo tool preferito, hai più controllo. E in ogni
+caso, controlla le fonti e le cifre: questi tool allucinano sui
+numeri come qualunque altra IA.
+:::
+
+## Cosa NON chiedere all'IA
+
+**Design grafico e scelta colori.** Un prompt tipo *"che palette
+userei per slide corporate di un'azienda di consulenza?"* ti dà
+consigli generici che non hanno niente a che vedere con il tuo
+template. Il tuo brand ha già una palette; se non ce l'ha,
+serve un designer, non un'IA. Pochi secondi di ragionamento
+tuo sul template che usi di solito valgono più di qualunque
+risposta generica.
+
+**Animazioni e transizioni.** Stesso discorso, aggravato. Le
+animazioni servono raramente (quasi mai), e quando servono
+dipendono dalla slide specifica. L'IA ti suggerirà "fade in del
+bullet uno per uno" anche quando peggiora la presentazione.
+Regola pratica: se non hai un motivo narrativo preciso per
+animare, non animare.
+
+**Font.** Il font è deciso dal template della tua azienda, o
+dal template che scegli in PowerPoint/Keynote. L'IA non lo sa e
+te ne suggerirà uno qualunque. Salta questa domanda.
+
+In generale, se la domanda inizia con *"che aspetto dovrebbe
+avere..."*, stai chiedendo la cosa sbagliata. L'IA è forte sul
+contenuto, debole sulla forma visiva. Per il design, il tool
+dedicato.
+
+Se non hai nessun template aziendale (freelance, realtà piccole,
+primo deck di sempre), parti da un template pronto di
+PowerPoint, Keynote o Google Slides, non da un "suggerimento
+estetico" dell'IA. Quei template sono stati progettati da
+grafici veri e sono un punto di partenza migliore di qualunque
+palette generica.
+
+## Cosa viene dopo
+
+Dalle slide si passa spesso ai numeri: fogli di calcolo, CSV,
+piccole analisi. La prossima lezione, *Lavorare con dati e
+tabelle*, apre quel capitolo con un occhio particolare alla
+privacy dei dati aziendali.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-slides-and-presentations.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>

@@ -335,8 +335,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    recording", "paper minutes", "jotted down too", "straight away
    the two topics").
 
-4. 🆕 **Slide e presentazioni** (`at-work/slides-and-presentations`)
-   Contenuto, non design: scaletta, bullet asciugati, speaker notes.
+4. ✍️ **Slide e presentazioni** (`at-work/slides-and-presentations`)
+   Contenuto, non design: scaletta dal documento, bullet asciutti con
+   vincoli espliciti, speaker notes separate. Pitfall dominante: l'IA
+   di default produce slide piene di testo, che è l'opposto di come
+   si presenta bene.
 
 5. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
    CSV, formule Excel/Sheets, pulizia, piccole analisi. Privacy al
