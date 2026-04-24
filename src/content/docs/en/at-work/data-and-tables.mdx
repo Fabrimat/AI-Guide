@@ -1,0 +1,314 @@
+---
+title: Working with data and tables
+description: Cleaning messy data, Excel or Sheets formulas you can't remember, small analyses on extracts. AI is the right copilot for one-offs, but company data is still company data.
+livello: intermedio
+prerequisiti: [ask-well, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Three use cases where AI saves hours: **cleaning inconsistent data**, **Excel or Sheets formulas** you can't remember, **small analyses** on extracts.
+- The prompt shape changes: you pass a data extract (or a handful of sample rows) plus a precise question, not a page of context.
+- **Privacy is the main constraint**: a CSV with customers, amounts, addresses is a company document. Anonymize or extract only the columns you need before uploading to a public chat.
+- **AI for ad-hoc, BI for recurring**: if the same analysis comes back every month, the right place is a dedicated tool (Power BI, Looker, your CRM's dashboard). AI earns its keep when the calculation is one-off.
+- On numbers, always verify a sample: AI can miss a sum or a rounding and hand it back with the same confidence as a correct answer.
+
+</LessonSummary>
+
+You have an Excel table with the wrong columns, customer
+names written fifteen different ways, dates half in European
+format and half American, and a formula you can't remember.
+Without AI you're in for an hour of copy-paste by hand. With
+AI, ten minutes.
+
+The time saved is real, but there's one catch you can't skip:
+a work spreadsheet isn't your journal. It has customers,
+suppliers, contracts, revenue. Before pasting it into a public
+chat, take thirty seconds to decide what leaves the company
+and what doesn't.
+
+This lesson is the practical toolkit: three concrete use
+cases, a privacy section that's the most important piece, and
+a rule for when to stop asking AI and open the right tool.
+
+## Three concrete use cases
+
+The three below cover 80% of what a non-developer knowledge
+worker does with a spreadsheet. They're everyday moves, none
+of them requires code.
+
+### 1. Cleaning inconsistent data
+
+The most common case. A "Customer" column with entries like
+*"Smith John"*, *"J. Smith"*, *"smith j"*, *"John Smith Ltd"*.
+Dates written as *"12/03/2026"*, *"2026-03-12"*, *"March 12"*.
+Duplicates with different capitalization. By hand it's an
+afternoon; with AI it's five minutes.
+
+The prompt works if you give it an extract (ten to twenty
+representative rows) plus an explicit normalization rule:
+
+> *I'm pasting ten rows from the "Customer" column of our
+> CRM. Normalize them to "First Last" format
+> (e.g., "John Smith"). If there's a business suffix like
+> "Ltd" or "Inc", put it after a comma. Give me back the
+> clean table plus one line with any open doubts.*
+
+The two pieces that make the difference: the rule (*"First
+Last"*, *"suffix after the comma"*) and the explicit ask for
+doubts. Without that, AI normalizes even where it should ask
+you how to read an ambiguous case (*"J. Smith"* is John or
+James?).
+
+The same logic applies to dates, with one note on locale: if
+you work in European format, state *"DD/MM/YYYY format"* or
+*"YYYY-MM-DD format"* explicitly. AI tends to default to the
+US format (MM/DD/YYYY), and if your data is mixed it can read
+*"03/04/2026"* as *"April"* instead of *"March"*. One line of
+constraint fixes the problem.
+
+What if the rows are five hundred, not ten? Two paths. The
+first, practical one, is the **sample, rule, extend** pattern:
+you pass ten to twenty representative rows, work out the
+cleanup rule with AI, then apply it to the rest in Excel with
+a formula (*find and replace*, `PROPER`, `MID`) or a macro.
+
+The second is uploading the full CSV as an attachment: Claude
+and ChatGPT handle long PDFs and CSVs up to a few thousand
+rows well, as long as the file is within the platform's
+limits. Between the two, the first is usually safer: it keeps you in
+control of how the rule gets applied, and it doesn't dump
+five hundred rows of company data into a single AI call.
+
+### 2. Excel or Sheets formulas you can't remember
+
+*"How do I count how many times a value appears in a column?"*
+*"How do I sum only the January rows?"* *"How do I compare two
+columns and find the differences?"* AI gives you the exact
+formula and a one-line explanation.
+
+What to pass here is **which tool you use** and **which
+language it's installed in**. Both change the syntax:
+
+- Excel in most European languages uses local function names
+  (e.g., Italian `SOMMA.SE`, French `SOMME.SI`).
+- Excel in English (and Google Sheets, which is always English
+  internally) uses `SUMIF`, `COUNTIF`, `VLOOKUP`.
+- The parameter separator is `;` in European locales, `,` in
+  English ones.
+- The decimal separator is `,` in most of Europe, `.` in
+  English.
+
+Say it to AI in the prompt: *"English Excel"* or *"Google
+Sheets"* or *"Italian Excel"*. If you don't specify, sometimes
+you get a formula you can't paste as-is and have to adapt by
+hand.
+
+The real value is the explanation: always ask *"explain what
+each part of the formula does"* the first time. Next time
+you'll write it yourself or adapt it to a different case.
+Without the explanation, you've solved today but learned
+nothing.
+
+If you paste the formula and Excel answers with `#NAME?`,
+`#VALUE!`, or `#REF!`, don't start from scratch. Copy the
+error as-is into the chat and ask *"this is the error I'm
+getting, what's wrong?"*. Nine times out of ten it's one of
+three things: wrong separator (`,` where it wants `;`),
+function in the wrong language (`SUMIF` in a non-English
+Excel), or a cell reference that doesn't exist on your sheet.
+Pasting the error back into the chat is faster than guessing
+the fix.
+
+### 3. Small analyses on extracts
+
+*"On these 50 orders, what's the average value per customer?
+How many customers spend above the average? Is there a clear
+seasonality?"* AI reads, computes, and answers.
+
+Two precautions. **First**, pass the extract in a form AI
+reads well: a pasted CSV, or an attachment (everything from
+[*Photos, images, and files*](/en/everyday-use/images-and-files/)
+applies). Screenshotted tables work, but a text CSV is more
+reliable because AI reads it character by character, with no
+risk of mistaking one digit for another in a blurry photo.
+
+**Second**, verify a sample. Ask AI for the calculation and
+then re-check a few rows by hand or with an Excel formula. A
+handy rule: **5% of the rows, minimum three**. If the dataset
+is 50 rows you re-check three; if it's 500, you re-check
+twenty-five; if it's five thousand, the use case is probably
+wrong, and the section
+[*AI for ad-hoc, BI for recurring*](#ai-for-ad-hoc-bi-for-recurring)
+covers when to switch to a dedicated tool.
+
+Pick rows that cover three profiles: one in the middle, one
+at the extremes (highest or lowest value), one with empty or
+oddly formatted fields. Not because AI is often wrong, but
+because when it is, it's wrong with the same confidence as
+when it's right, and on numbers a digit shifted by one
+position is an error you can't catch at a glance. The pattern
+is the same as in
+[*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/).
+
+## Privacy: the main constraint
+
+A CSV with customer names, amounts, addresses, revenue **is a
+company document**. Even if it sits on your laptop and isn't
+inside a CRM, even if you're handling it on
+your own, it's company data. Before uploading it to a public
+chat (ChatGPT Free/Plus, Claude Free/Pro, Gemini standard),
+three moves apply, in this order.
+
+1. **Ask whether a policy exists.** In many mid-size and
+   large companies, IT or legal has already decided what can
+   be uploaded and where. If there's a guideline, follow it
+   and save yourself the rest of the thinking. If there isn't
+   (or if you're a freelancer and the policy is you), the
+   handy test is this: *"would I be fine with this data
+   showing up on a newspaper tomorrow?"*. If the answer is
+   no, the two moves below aren't optional.
+2. **Extract only the columns you need.** If you want to know
+   how much customers spent on average, you don't need their
+   address, their tax ID, or their phone number. Delete those
+   columns from the extract before uploading. Less data
+   uploaded, less risk.
+3. **Anonymize the names.** Replace *"John Smith"* with
+   *"Customer 1"*, *"Beta Inc"* with *"Customer 2"*, and keep
+   the mapping table in a separate sheet. When AI returns the
+   analysis, you map it back to the real names. It's the same
+   move as in
+   [*Photos, images, and files*](/en/everyday-use/images-and-files/),
+   applied to tabular data.
+
+These three moves don't cover everything. Contracts with
+confidentiality clauses, health data, special category data
+(GDPR art. 9) are a notch higher: anonymization isn't enough,
+you need a dedicated company channel or no public AI at all.
+A later lesson in this module, *Company data and privacy*,
+covers that level.
+
+:::note[Public AI or company AI?]
+If your company has given you a Team or Enterprise account, or
+a Microsoft Copilot / ChatGPT Enterprise / Claude Team tenant,
+the privacy terms change: the data you upload there typically
+isn't used for training and stays inside the company
+perimeter. If you use AI for work regularly and have access
+to one of these plans, that's the right place for company
+data. If instead you open ChatGPT or Claude with your personal
+account, you're on the consumer version and the three moves
+above apply.
+
+A quick way to tell: the plan name appears in your account
+settings. If you see *Plus*, *Pro*, *Free*, it's consumer; if
+you see *Team*, *Enterprise*, *Business*, or your company's
+logo next to your name, it's business. ChatGPT Plus is still
+consumer even though it's paid: the payment unlocks features,
+it doesn't change the data perimeter.
+:::
+
+## AI for ad-hoc, BI for recurring
+
+AI is a copilot for the one-off case: you have a sheet
+tonight, you need to clean it up, you paste and go. If
+instead the same analysis comes back every month (a
+dashboard, a quarterly report, a weekly KPI for the team), AI
+is the wrong tool.
+
+Recurring analysis is what **Business Intelligence** tools
+are for (Power BI, Looker, Tableau), or the native dashboard
+inside your CRM or ERP. There's a structural reason for this:
+once it's set up, the dashboard refreshes itself, it's
+reproducible, and it's shareable with the team. With AI
+you start from scratch every time, you risk a slightly
+different answer than last month, and no one can trace how
+you got a number.
+
+Practical rule: if you'll ask the same question again within a
+month, ask a tool other than AI. If it's a question
+that's born today and dies tonight, AI is fine.
+
+## A concrete example
+
+You have a five-row extract from a *Customer* column in the
+CRM, written inconsistently. You want them
+normalized to *First Last* format to import into a clean
+Excel sheet.
+
+<ChatDemo
+  user={`I'm pasting five rows from the "Customer" column. Normalize them to "First Last" format (e.g., "John Smith"). If there's a business suffix, put it after a comma. Give me back the clean table plus one closing line with any open doubts.
+
+- smith j.
+- J. Smith
+- John Smith Ltd
+- SMITH JOHN
+- j smith`}
+  ai={`Clean table:
+
+1. John Smith
+2. J. Smith
+3. John Smith, Ltd
+4. John Smith
+5. J. Smith
+
+**Open doubt:** rows 2 and 5 have only the first initial ("J."). They could be the same John Smith as the other rows, or a different customer with initial J (James, Jack, Jared). If you have access to the original data with customer IDs, verify before treating them as duplicates.`}
+/>
+
+What AI got right: uppercase/lowercase normalized, *First
+Last* order respected, business suffix separated out. Better
+still: it didn't decide on its own that *"J. Smith"* was
+*"John Smith"*, it flagged the doubt. The *"plus one line
+with open doubts"* constraint in the prompt is what triggered
+that behavior.
+
+Without that constraint, AI would have probably written
+*"John Smith"* everywhere, merging rows that might have been
+different customers, and you wouldn't have noticed.
+
+## What NOT to do
+
+**Don't trust numbers without verification.** On small
+analyses, always re-check two or three rows by hand. AI can
+miss an average, a rounding, or miscount rows that meet a
+condition. The verification pattern is the one from
+[*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/),
+applied to numbers.
+
+**Don't upload entire datasets of sensitive data.** If you
+have a CSV of ten thousand rows with customers and amounts,
+you don't need to upload all of it to ask for a formula.
+Extract ten representative, anonymized rows, and pass those.
+For the same reasons as in
+[*Privacy: the main constraint*](#privacy-the-main-constraint).
+
+**Don't use AI as an analyst for important business
+decisions.** Financial planning, investment appraisal,
+customer analysis for a strategic decision: those need a real
+analyst (or you, with AI as a targeted helper), not AI as the
+author of the conclusion. The perimeter is the one from
+[*Things NOT to do*](/en/everyday-use/what-not-to-do/): where
+not to delegate the decision, regardless of how good the
+answer might be.
+
+## What's next
+
+The next lesson, *Research for work*, shifts the axis: from
+your own data (a sheet in your hand) to external sources
+(articles, reports, websites) when you need to reach a
+synthesis for a professional deliverable. It's the place
+where AI speeds you up the most and also hallucinates the
+most, and method is what separates the two.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-data-and-tables.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
