@@ -1,0 +1,247 @@
+---
+title: Slides and presentations
+description: Outline from a document, tight bullets, speaker notes. AI helps with content, not design; the default produces text-heavy slides, and that's the risk to neutralize.
+livello: intermedio
+prerequisiti: [ask-well, write-better]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- A good presentation isn't a projected document. The AI default produces text-heavy slides: you need the right instruction to flip it.
+- **From the report to the outline**: *"narrative thread in N slides, one idea per slide, 30 words max per slide"*. Rigid instruction, usable result; without the constraints, AI paraphrases the document and you end up reading it on screen.
+- **Tight bullets**: explicit constraint, *"max 4-6 bullets of max 10 words each, no third-person verbs"*. Without the constraint, verbal inflation kicks in.
+- **Speaker notes**: what you'll say aloud while the slide is projected. You use them to prepare, not to read.
+- **What NOT to ask**: graphic design, colors, animations, fonts, templates. That's the job of your slide tool (PowerPoint, Keynote, Google Slides) or a designer.
+
+</LessonSummary>
+
+A good presentation isn't a projected document. Opening a slide
+full of words is an implicit choice: the audience has to either
+read or listen, not both. In almost every case they stop
+listening and read, badly. Slides that work well support what you
+say, they don't duplicate it.
+
+With AI you go wrong in a specific way: you ask *"make the slides
+from the report"* and AI paraphrases the document into smaller
+paragraphs. You get a PowerPoint file, but you've lost the
+function of slides. The fix isn't to change the tone, it's to
+change the instruction: tell it what *not* to do (paraphrase,
+write paragraphs, use long verbs) and what you want (one idea
+per slide, counted words). The rest (layout, colors, template)
+stays out: AI doesn't have what it takes there.
+
+## From document to outline
+
+The most common starting point is a report or long document you
+need to present. Temptation number one: copy-paste bits of the
+document into slides. Temptation number two: ask AI *"make the
+slides from this"*. Both produce text-heavy slides, because the
+source document was *made* to be read, not projected.
+
+The prompt that breaks the pattern is rigid: *"extract the
+narrative thread from this text in ten slides, one idea per
+slide, 30 words max per slide. For each slide give me a short
+title (six words max) and between two and four bullets. No
+paragraphs."* Three constraints in a row (slide count, total
+words, no paragraphs) force the synthesis. What you get is the
+narrative structure of your document, not the document shrunk.
+
+Two decisions sit outside the prompt and you make them. How many
+slides: depends on the presentation time, not the document
+length. Handy rule: about one slide per minute for a 15-20
+minute discursive talk, fewer if the audience wants to discuss,
+more for data-heavy slides. What to feed in: if the document is
+long (more than five or six pages), don't paste all of it.
+Summarize it first (the pattern from [*Summarize a long
+document*](/en/everyday-use/summarize-a-long-document/)) or pull
+the key sections, and feed AI only those. A whole document
+forces AI to fill more than it should, and the outline comes out
+diluted.
+
+The number 30 isn't magic, but it's useful: keeps the slide
+readable from five meters away and forces synthesis. You can
+move it between 20 and 40 depending on density (less for a
+pitch, more for technical slides). Under 20 it goes cryptic,
+over 40 it turns back into a document in disguise.
+
+"One idea per slide" is the constraint that does the heaviest
+lifting. Without it, AI packs three concepts into the same
+slide to save on the total, but a slide isn't a tool for
+efficiency, it's a tool for attention. One thing at a time.
+
+After reading the outline, you critique it with the same move
+as [*Drafting professional documents*](/en/at-work/draft-professional-documents/):
+cut the slides that add nothing, reorder, insert the missing
+one. Ten proposed slides often become seven or eight after the
+cut, and those are the right ones.
+
+## Tight bullets
+
+The outline gives you the title and two to four bullets per
+slide. The next step is making them readable in projection.
+Here AI goes wrong in the opposite direction from the rest of
+the lesson: it writes too much. Bullets of 15-20 words,
+impersonal third-person verbs, parallel phrasing ("it has been
+observed that...", "one notes that...", "it emerges that...").
+Those are paragraphs chopped into sticks, not bullets.
+
+The prompt that works is restrictive and numerical: *"rewrite
+these bullets as max four bullets of max ten words each, no
+third-person verbs, telegraphic style. Numbers and proper names
+stay; the rest gets trimmed."* The two constraints (count,
+length) are non-negotiable; the style ("telegraphic") gives
+direction; the note on numbers protects data from paraphrase.
+The "no third-person verbs" is the constraint that does the
+most work: strip the impersonals ("it has been observed", "one
+notes"), and the paragraph collapses into the parts that
+actually belong on a slide, which are numbers and names.
+
+If the result is still long, second round: *"shorter: max six
+words per bullet. Split into two bullets if needed."* Two
+rounds almost always get you there.
+
+A quick test: read the bullet out loud and count the words on
+your fingers. If you hit ten before running out of sentence,
+it's long. If you can say it in one breath, it's fine.
+
+## Speaker notes
+
+The bullet pins the idea; the words you say out loud are
+different. In PowerPoint, Keynote, and Google Slides there's a
+*speaker notes* field under each slide: that's where you write
+what you'll say while the slide is projected. The audience
+doesn't see it; you do, if you want.
+
+AI writes them well if you hand it the slide's bullets and the
+context of who's listening: *"for the slide with these bullets,
+give me two or three sentences of speaker notes. Audience: [CEO
+/ technical team / external client]. Tone: [more formal / more
+direct]. No word-for-word repetition of the bullets."* You pass
+one slide at a time, not the whole deck in one go: same pattern
+from [*Drafting professional documents*](/en/at-work/draft-professional-documents/),
+asking for everything at once thins out the quality.
+
+That last constraint is where the difference shows. Without it,
+AI writes back what's in the bullet with a few words more.
+Useless: in projection, saying out loud what's written is what
+empties a presentation fastest. Speaker notes are for saying
+*something else*: the reason behind the number, the anecdote,
+the transition to the next slide.
+
+You use them to prepare, not to read. If when presenting you
+end up reading the notes word for word, you need a real script,
+not speaker notes, and probably a smaller audience or a
+recorded call without one. That's rarely the case: better to
+rehearse aloud and carry them as a safety net.
+
+## A concrete example
+
+You have a paragraph from your Q2 report you want to turn into
+a slide titled *"Q2 Results"*:
+
+> In Q2 we posted revenue of 1.2 million euros, up 12% from Q1
+> but still 5% below annual budget. Delivered projects were 23,
+> in line with Q1. Hours over quote rose 18%, mainly on client
+> Alfa.
+
+The generic prompt (*"give me the bullets for the slide"*)
+produces long bullets that just rephrase the text:
+
+> - In Q2 we reached revenue of 1.2 million euros, up 12% on
+>   the first quarter
+> - The result is still below the annual budget, with a 5% gap
+> - Projects delivered in the quarter were 23, in line with Q1
+> - Hours over quote went up 18%, mostly on client Alfa
+
+Same text, only broken up. Useless. Change the prompt:
+
+<ChatDemo
+  user={`Rewrite these bullets as max four bullets of max ten words each, no third-person verbs, telegraphic style. Numbers and proper names stay.
+
+- In Q2 we reached revenue of 1.2 million euros, up 12% on the first quarter
+- The result is still below the annual budget, with a 5% gap
+- Projects delivered in the quarter were 23, in line with Q1
+- Hours over quote went up 18%, mostly on client Alfa`}
+  ai={`- Q2 revenue: €1.2M, +12% vs Q1
+- Annual budget: still -5%
+- Projects delivered: 23 (level with Q1)
+- Hours over quote: +18% (client Alfa)`}
+/>
+
+Same content, half the words, and a slide you can read in three
+seconds. You tell the story out loud: *"we grew 12% but still
+under budget; project count holds but hours over quote are up,
+and the weight is almost all on one client."* That's what goes
+in the speaker notes, not in the bullets.
+
+:::note[If you use an AI-native slide tool]
+Gamma, Tome, Beautiful.ai, Decktopus and the like generate
+slides directly from a prompt or a document, with design
+already applied. Different tool, same principle: the first pass
+is almost always wordy and stock-image-heavy. The constraints
+in this lesson still apply (one idea per slide, 30 words max,
+telegraphic bullets): pass them to the tool as part of the
+generation prompt. When to prefer them over the ChatGPT +
+PowerPoint route: if you're short on time and the template
+doesn't need to follow a specific brand, they give you a
+publishable deck in one shot. If the template is constrained
+(corporate, client procurement) or you expect to retouch a lot,
+start from the outline in text and lay it out in your tool of
+choice, you get more control. And in any case, check sources
+and figures: these tools hallucinate on numbers like any other
+AI.
+:::
+
+## What NOT to ask the AI
+
+**Graphic design and color choices.** A prompt like *"what
+palette would I use for corporate slides of a consulting firm?"*
+gets you generic advice that has nothing to do with your
+template. Your brand already has a palette; if it doesn't, you
+need a designer, not an AI. A few seconds of your own thinking
+about the template you usually use is worth more than any
+generic answer.
+
+**Animations and transitions.** Same story, worse. Animations
+rarely help (almost never), and when they do, it depends on the
+specific slide. AI will suggest "fade in each bullet one by
+one" even when it makes the presentation worse. Rule of thumb:
+if you don't have a specific narrative reason to animate, don't
+animate.
+
+**Fonts.** The font is set by your company template, or by the
+template you pick in PowerPoint or Keynote. AI doesn't know it
+and will suggest some random one. Skip that question.
+
+In general, if the question starts with *"what should it look
+like..."*, you're asking the wrong thing. AI is strong on
+content, weak on visual form. For design, use your slide tool
+or a designer.
+
+If you don't have any company template at all (freelance, tiny
+outfits, first deck ever), start from a ready-made template in
+PowerPoint, Keynote, or Google Slides, not from an "aesthetic
+suggestion" from AI. Those templates were designed by actual
+designers and are a better starting point than any generic
+palette.
+
+## What comes next
+
+From slides the module moves to numbers: spreadsheets, CSVs,
+small analyses. The next lesson, *Working with data and tables*,
+opens that chapter with a particular eye on company data
+privacy.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-slides-and-presentations.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
