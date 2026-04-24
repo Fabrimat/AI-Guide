@@ -335,11 +335,34 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    recording", "paper minutes", "jotted down too", "straight away
    the two topics").
 
-4. ✍️ **Slide e presentazioni** (`at-work/slides-and-presentations`)
-   Contenuto, non design: scaletta dal documento, bullet asciutti con
-   vincoli espliciti, speaker notes separate. Pitfall dominante: l'IA
-   di default produce slide piene di testo, che è l'opposto di come
-   si presenta bene.
+4. ✅ **Slide e presentazioni** (`at-work/slides-and-presentations`)
+   Contenuto, non design. Tre prompt rigidi per invertire il default
+   "slide piene di testo": scaletta dal documento (filo narrativo in
+   N slide, una idea per slide, 30 parole massime), bullet asciutti
+   (max 4-6 bullet di max 10 parole, senza verbi alla terza persona,
+   telegrafico, cifre e nomi che restano), speaker notes (quello che
+   dici a voce, non quello che sta sulla slide, niente ripetizione
+   parola per parola). Esempio portante su una slide "Risultati Q2"
+   con ChatDemo prima/dopo. Callout `:::note` sui tool di slide
+   generate dall'IA (Gamma, Tome, Beautiful.ai, Decktopus) con
+   criterio di scelta rispetto al percorso ChatGPT + PowerPoint.
+   "Cosa NON chiedere": design, colori, font, animazioni, template.
+   Ciclo di revisione completo (`analyze-lesson` + integrazione +
+   `style-checker` IT e EN, 2026-04-24). Integrazioni principali
+   dall'analisi lettore: decisioni fuori dal prompt (numero di
+   slide dal tempo di presentazione, documento lungo da riassumere
+   prima), ponte esplicito sul perché "niente verbi alla terza
+   persona" fa più lavoro, criterio di scelta Gamma/Tome vs
+   ChatGPT+PowerPoint, speaker notes una alla volta non in blocco,
+   eccezione pratica per chi non ha template aziendale.
+   Style-checker IT: verdetto OK, applicate due rifiniture (link
+   mancante a *Bozze di documenti professionali* al secondo
+   riferimento, "è importante" → "fa la differenza"). Style-checker
+   EN ha richiesto 5 fix di idiomaticità (doppio inciso "which are
+   numbers and names, that is...", "carry the narrative" → "tell
+   the story", concordanza "are worth" → "is worth", "And what to
+   feed in" → "What to feed in", "the dedicated tool" → "your slide
+   tool or a designer").
 
 5. 🆕 **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
    CSV, formule Excel/Sheets, pulizia, piccole analisi. Privacy al
@@ -359,11 +382,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 3 su 9 pubblicate. Email difficili, Bozze di
-documenti professionali e Preparare una riunione live (IT + EN);
-sidebar Modulo 3 con lezioni 1-3 attive e 6 placeholder
-disabilitati; card "Sul lavoro" / "At work" in homepage e
-start-here attive, puntano alla lezione 1.
+**Stato attuale**: 4 su 9 pubblicate. Email difficili, Bozze di
+documenti professionali, Preparare una riunione e Slide e
+presentazioni live (IT + EN); sidebar Modulo 3 con lezioni 1-4
+attive e 5 placeholder disabilitati; card "Sul lavoro" / "At
+work" in homepage e start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -499,16 +522,16 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 3 su 9 pubblicate (2026-04-24).
+**Modulo 3 (Sul lavoro)**: 4 su 9 pubblicate (2026-04-24).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 4, **Slide e presentazioni**
-(`at-work/slides-and-presentations`), prerequisiti `ask-well` e
-`write-better`, taglio "contenuto non design" (scaletta dal
-documento, bullet asciugati, speaker notes, pitfall delle slide
-piene di parole).
+bozza: lezione 5, **Lavorare con dati e tabelle**
+(`at-work/data-and-tables`), prerequisiti `ask-well` e
+`images-and-files`, taglio "CSV, formule Excel/Sheets, pulizia
+dati, piccole analisi, privacy centrale". Lezione tecnica senza
+pretesa di trasformare il lettore in programmatore.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
