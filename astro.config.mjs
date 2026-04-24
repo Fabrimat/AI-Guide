@@ -88,13 +88,7 @@ export default defineConfig({
             { slug: 'at-work/hard-emails' },
             { slug: 'at-work/draft-professional-documents' },
             { slug: 'at-work/prepare-a-meeting' },
-            {
-              label: 'Slides and presentations',
-              translations: { it: 'Slide e presentazioni' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/slides-and-presentations' },
             {
               label: 'Data and tables',
               translations: { it: 'Lavorare con dati e tabelle' },
