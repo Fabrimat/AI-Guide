@@ -1,0 +1,276 @@
+---
+title: Bozze di documenti professionali
+description: Proposte, brief, report. L'IA come prima bozza strutturata, non come ghostwriter che scrive tutto.
+livello: intermedio
+prerequisiti: [ask-well, write-better]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- La pagina bianca di un documento professionale è peggio di quella di un'email: sono venti pagine da riempire, non venti righe. L'IA ti risolve l'ottanta percento del "da dove inizio", non il resto.
+- Tre documenti canonici: **proposta** (problema, soluzione, approccio, costi), **brief** (per chi continua il lavoro o decide), **report** (dati, interpretazione, prossimi passi).
+- Il pattern è *outline + riempimento*, non "scrivi tutto, poi correggo". Prima la scaletta, la critichi, poi sezione per sezione. Rileggere ottocento parole nuove e cambiarne trecento è più lento che scriverne quattrocento sopra una scaletta giusta.
+- Calibra esplicitamente su pubblico, vincoli di lunghezza, livello di dettaglio. *"Per il CEO"* e *"per il team tecnico"* producono due documenti diversi.
+
+</LessonSummary>
+
+La pagina bianca di un'email è fastidiosa. La pagina bianca di un
+documento professionale è peggio: venti pagine da riempire, non
+venti righe, e davanti hai un cliente, un capo, o un comitato che
+leggerà. L'ottanta percento del blocco non è "non so scrivere": è
+"non so da dove iniziare". È lì che l'IA lavora meglio, non sulla
+prosa fine.
+
+Su un documento lungo l'IA come ghostwriter fallisce in un modo
+specifico: produce duemila parole che suonano plausibili, ma è più
+lento rileggerle e tagliarne ottocento che scriverne mille sopra
+una scaletta giusta. Il lavoro non si sposta: si moltiplica. Quello
+che funziona è dividere il lavoro in due momenti: prima la
+**struttura** (cosa va dove, quanto è lungo, per chi è), poi il
+**testo** (sezione per sezione, con te che resti il filtro).
+
+Questo non vuol dire che "l'IA come ghostwriter" sia sempre da
+evitare: su un'email quotidiana, un appunto per te stesso, un
+messaggio di auguri ai colleghi, incollare la prima versione va
+bene, il costo di una svista è basso. Sui documenti con una firma
+e qualcuno che decide leggendoli, il costo sale, e il pattern
+cambia.
+
+## Tre documenti canonici
+
+### Proposta commerciale o progettuale
+
+Una proposta ha sezioni standard: problema, soluzione, approccio,
+timeline, costi, team o referenze. Le sezioni non sono tue, sono
+del genere: un cliente che legge proposte tutti i mesi si aspetta
+di trovarle più o meno nello stesso ordine. Il tuo valore non è
+inventare la struttura, è **calibrare** le sezioni sul caso
+specifico: quanto peso ha il problema (tanto se il cliente non sa
+ancora perché gli serve), quanto peso ha il team (tanto se sei una
+realtà piccola che vende fiducia).
+
+L'IA è utile per proporti la scaletta pulita e fare partire il
+pensiero. Tu la critichi: togli una sezione che non serve, ne
+aggiungi una che il tuo cliente ha chiesto esplicitamente, muovi
+l'ordine. Spesso la scaletta finale è il settanta percento di
+quella dell'IA più il trenta percento di correzioni tue.
+
+### Brief interno
+
+Un brief è corto per costruzione: lo leggono persone che non hanno
+tempo. Tre tipi ricorrenti: un collega che deve continuare il tuo
+lavoro, un team che riceve un *handoff* (il passaggio di consegne
+di un progetto in corso), un capo che deve decidere qualcosa. Il
+formato cambia: per continuare il lavoro servono i passi
+operativi, per decidere serve il problema più le due o tre opzioni
+con trade-off.
+
+La trappola del brief è il contrario della proposta: scriverlo
+troppo lungo. L'IA se le dici *"brief di handoff, una pagina
+massima, chi fa cosa e con quali file"* ti produce un'ossatura
+corta che è più facile accorciare che riempire. Tipicamente quattro
+voci: **stato attuale** (dove siamo arrivati, in tre righe),
+**cosa è già stato deciso** (per non riaprire i discorsi chiusi),
+**cosa resta da fare con chi è il referente per ogni pezzo**,
+**file e link essenziali**. Se parte lunga, parti perdente.
+
+### Report o revisione
+
+Un report ha un ciclo di vita: dati → interpretazione → prossimi
+passi. Update di stato settimanale, post-mortem di un progetto
+chiuso, revisione trimestrale. Il formato è stabile, cambia il
+peso delle tre parti: un update settimanale è venti percento dati
+e ottanta percento prossimi passi; un post-mortem è sessanta
+percento interpretazione.
+
+L'IA scrive bene la parte di **interpretazione** se le dai i dati
+strutturati (numeri, eventi, date) e le chiedi cosa vede. Esempio:
+le passi una tabella con fatturato mensile degli ultimi sei mesi,
+numero di progetti consegnati, ore sforate sul preventivo, e
+chiedi *"scrivi due paragrafi di lettura di questi dati, senza
+inventare cose che non vedi"*. Lei trova i pattern (mese anomalo,
+correlazione tra ore sforate e marginalità), tu togli le letture
+che sai essere sbagliate per motivi di contesto che non ha. Non
+scrive bene la parte dei **prossimi passi**, perché quelli
+dipendono dal contesto aziendale che non conosce. Spesso la usi per
+la prima parte, e la seconda la scrivi tu.
+
+Questo pattern (dati strutturati in input → lettura in output) si
+estende ben oltre i tre documenti canonici: policy interne,
+specifiche tecniche, pitch brevi funzionano tutti in modo simile,
+con strutture ricorrenti che cambiano nei pesi. Se il tuo
+documento non è uno dei tre, parti chiedendo all'IA *"quale
+struttura standard ha un documento di tipo X nel mio settore?"* e
+poi applica il pattern sotto.
+
+## Il pattern: outline prima, riempimento dopo
+
+Il pattern che funziona bene è opposto all'istinto. L'istinto è
+"chiedi all'IA di scrivermi la proposta", leggi, correggi. Il
+pattern è: **chiedi una scaletta, la critichi, poi sezione per
+sezione**.
+
+Funziona meglio per due motivi. La critica alla scaletta costa
+molto meno della critica al testo: cambiare "togli la sezione
+timeline, aggiungi una sezione perché noi" sono due righe, mentre
+cambiare il testo di una sezione intera sono dieci minuti di
+lettura più cinque di riscrittura. E quando l'IA scrive sopra una
+scaletta che hai già validato, il testo arriva più mirato: ha meno
+gradi di libertà per inventare sezioni o allargarsi, perché il
+perimetro è fissato.
+
+"Ma io non so cosa ci dovrebbe essere, per quello chiedo all'IA":
+obiezione giusta, e la risposta è che non parti da zero. Parti
+dalla scaletta che ti propone lei e la leggi voce per voce con
+una sola domanda in testa: *"questa sezione parla al mio cliente
+o a un cliente generico?"*. Basta quella domanda a far emergere
+il settanta percento delle critiche. Il resto arriva chiedendo
+una seconda scaletta con un vincolo diverso (*"più corta"*, *"per
+un pubblico non tecnico"*, *"togliendo le sezioni che un cliente
+non pagante vede"*) e confrontando le due: le differenze ti
+dicono su cosa l'IA è tarata e su cosa sei tarata tu.
+
+Il secondo passo (sezione per sezione) non è "dammi il documento
+completo basandoti sulla scaletta". È una sezione alla volta:
+*"scrivi la sezione Problema, 150-200 parole, tono neutro"*. Piccoli pezzi, che rileggi e correggi man mano. Tieni
+una sola chat per tutto il documento: l'IA ha sotto gli occhi le
+sezioni già scritte e mantiene tono coerente; aprire chat diverse
+per ogni sezione frammenta la voce. Se una sezione ti lascia
+insoddisfatto, la fai riscrivere mentre è fresca in testa, non
+alla fine su un blocco di duemila parole.
+
+:::tip[Quando la scaletta è pronta]
+Una stop-rule che funziona: quando rileggi la scaletta e non senti
+più ansia ("manca qualcosa di importante?"), ma impazienza ("dai,
+scriviamo"), è pronta. Se perfezioni la scaletta per più di venti
+minuti, è probabile che tu stia rimandando il momento di scrivere.
+Meglio partire su una scaletta buona all'ottanta percento e
+correggerla durante il riempimento, che bloccarti a cercare la
+scaletta perfetta.
+:::
+
+:::note[Se il cliente o il tuo ufficio impongono un template]
+Capita spesso: procurement del cliente con stili Word obbligatori,
+template interno per le proposte, formato imposto dal bando
+pubblico. In questi casi la scaletta è già fatta, e il passo 1 si
+sposta: passi l'indice del template all'IA come vincolo di input
+(*"documento strutturato esattamente in queste sezioni: 1. X, 2.
+Y..."*) e vai direttamente al passo 2. La critica non sparisce, si
+sposta: non critichi più la struttura, critichi il contenuto di
+ogni sezione sotto quella struttura.
+:::
+
+## Un esempio concreto
+
+Stai scrivendo una proposta commerciale per un potenziale cliente,
+un'azienda familiare di cinquanta persone che non ha mai preso un
+consulente esterno. Ti conoscono per introduzione di un tuo
+cliente precedente. Il primo giro è chiedere una scaletta
+generica.
+
+<ChatDemo
+  user={`Mi proponi una scaletta per una proposta commerciale di consulenza organizzativa, sei mesi, per un'azienda di medie dimensioni. Solo indice delle sezioni con una riga di descrizione, non il testo.`}
+  ai={`**Proposta di consulenza organizzativa: scaletta**
+
+1. Executive summary (mezza pagina): sintesi di cosa stiamo proponendo e perché.
+2. Il problema: analisi della situazione attuale e dei suoi costi.
+3. La soluzione proposta: cosa vogliamo ottenere in sei mesi.
+4. Approccio e metodologia: fasi, tecniche, strumenti.
+5. Timeline: gantt a sei mesi con i milestone principali.
+6. Investimento: costi per fase, totale, modalità di fatturazione.
+7. Il team: chi lavorerà al progetto e perché sono le persone giuste.
+8. Referenze: progetti simili già completati.
+9. Prossimi passi: cosa serve per partire.`}
+/>
+
+Questa è la scaletta da libro di testo. Funziona per un cliente
+generico. Per questo cliente specifico (famiglia, prima volta,
+presentazione indiretta) è troppo neutra: manca la fiducia, e la
+timeline dettagliata troppo presto intimorisce un cliente che non
+ha ancora deciso.
+
+La critichi, dicendolo a parole:
+
+<ChatDemo
+  user={`Buona partenza. Però questo cliente è un'azienda familiare di 50 persone, prima volta che prende un consulente esterno, mi conoscono tramite un introduttore. Rivedi la scaletta tenendo conto di queste cose:
+
+- aggiungi prima del problema una sezione 'Perché noi, perché ora' breve che agganci alla presentazione indiretta;
+- togli la timeline dettagliata, per ora serve solo un orientamento sui tempi, il gantt lo facciamo al kick-off;
+- la sezione costi non è un listino, deve giustificare il valore in relazione al costo di non fare niente;
+- accorcia a 6 sezioni massime, non 9.`}
+  ai={`**Proposta rivista, sei sezioni**
+
+1. Perché noi, perché ora (mezza pagina): chi siamo, l'introduzione che ci ha fatti incontrare, perché crediamo di essere i giusti per voi in questo momento.
+2. Cosa osserviamo (una pagina): la situazione attuale come l'abbiamo capita dalle prime conversazioni, senza diagnosi anticipate.
+3. Cosa proponiamo (una pagina e mezza): l'esito atteso in sei mesi, con due o tre priorità concrete, non un elenco esaustivo.
+4. Come lavoreremo (una pagina): fasi di massima e stile di lavoro (frequenza incontri, figure coinvolte, decisioni in mano al cliente), senza gantt.
+5. Investimento e ritorno (mezza pagina): costo del progetto a fronte del costo stimato di non intervenire. Modalità di fatturazione a chiusura.
+6. Prossimi passi (poche righe): cosa serve per iniziare (incontro con il titolare, accesso a dati essenziali, lettera di incarico).`}
+/>
+
+La scaletta finale è più corta, parla a quel cliente invece che a
+un cliente generico, e ha ancora tutto quello che serve. Dieci
+minuti per arrivarci. Adesso chiedi all'IA *sezione per sezione*
+di scriverti la bozza, con i vincoli di lunghezza del tuo indice.
+Quello che leggi sarà più veloce da correggere, perché sai già
+dove dovrebbe andare ogni pezzo.
+
+:::tip[Calibra su pubblico e scopo]
+"Questo documento lo legge il CEO" e "questo documento lo legge
+il team tecnico" producono due scalette diverse. Anche con lo
+stesso contenuto, cambiano la sequenza delle sezioni, il livello
+di dettaglio, l'executive summary (che il CEO legge per primo, il
+tecnico salta).
+
+Un prompt che funziona bene all'inizio:
+*"Pubblico: [ruolo, quanto tempo ha, cosa già sa]. Obiettivo del
+documento: [decidere, informare, convincere]. Lunghezza massima:
+[X pagine / Y parole]."* Queste tre informazioni insieme cambiano
+il default dell'IA molto più di quanto ti aspetti.
+:::
+
+## Cosa NON delegare
+
+**La strategia.** Se non sai tu cosa proporre, l'IA non te lo
+scopre. L'IA sa come si struttura una proposta in generale, non
+sa quale sia la soluzione giusta per il tuo cliente. Se chiedi una
+proposta senza aver deciso tu stessa l'approccio, otterrai una
+proposta di scuola, che suona bene ma non è tua. Il pensiero
+iniziale resta tuo, poi l'IA ti aiuta a scriverlo.
+
+**I dati specifici.** Numeri di fatturato, nomi di clienti
+precedenti, risultati concreti di progetti passati: l'IA non li
+ha e, se le chiedi di inventarli per riempire, li inventa. Sembra
+un'ovvietà e invece è un errore che capita (il documento scorre
+bene, un dato inventato passa inosservato). Dagli i dati veri in
+input, oppure lascia buchi espliciti che riempi tu dopo
+(*"[METTI QUI TRE REFERENZE DEL 2025]"*).
+
+**Le decisioni contestuali.** Se due opzioni sono sul tavolo
+(approccio A o B, pacchetto X o Y, includere o no una sezione),
+la scelta è tua. L'IA può elencarti i trade-off, non può
+scegliere per te: non conosce le priorità interne, i vincoli del
+cliente, i motivi politici. Il corollario è in [*Cose da NON
+fare*](/it/everyday-use/what-not-to-do/): dove firmi tu, decidi
+tu.
+
+## Cosa viene dopo
+
+Un documento non vive da solo: quasi sempre viene presentato,
+discusso, o seguito da una riunione. La prossima lezione,
+*Preparare una riunione*, chiude il ciclo: come usare l'IA per
+arrivare all'incontro preparati senza perdere due ore di prep.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-draft-professional-documents.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>

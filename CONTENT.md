@@ -285,7 +285,7 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    come reagisci"); EN ha richiesto 11 aggiustamenti di idiomaticità
    (calchi IT→EN).
 
-2. 🆕 **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
+2. ✍️ **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
    Proposte, brief, report. Struttura (exec summary, audience, sezioni),
    non solo scrittura.
 
