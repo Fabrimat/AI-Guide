@@ -285,9 +285,26 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    come reagisci"); EN ha richiesto 11 aggiustamenti di idiomaticità
    (calchi IT→EN).
 
-2. ✍️ **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
+2. ✅ **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
    Proposte, brief, report. Struttura (exec summary, audience, sezioni),
-   non solo scrittura.
+   non solo scrittura. Il taglio scelto è *struttura prima del testo*: l'IA
+   come prima bozza strutturata, non ghostwriter. Tre documenti canonici
+   (proposta, brief interno, report), pattern *outline + riempimento*,
+   stop-rule sulla scaletta, callout sul template imposto (procurement,
+   bandi), calibrazione esplicita sul pubblico. Ciclo di revisione
+   completo (`analyze-lesson` + integrazione + `style-checker` IT e EN,
+   2026-04-24). Integrazioni principali: riga su "quando ghostwriter va
+   bene" in apertura, glossa inline di *handoff* + struttura a quattro
+   voci del brief, mini-esempio dati → interpretazione nel report,
+   paragrafo "ma io non so criticare" con la domanda-filtro "parla al
+   mio cliente o a un cliente generico?", callout `:::tip` stop-rule
+   scaletta, callout `:::note` template imposto, chiarimento "sezione
+   per sezione tiene una chat unica". Style-checker IT ha richiesto fix
+   su due em dash in ChatDemo (righe 178 e 206), "letteralmente" come
+   avverbio magico, pattern "Primo/Secondo" listicle mascherato,
+   coerenza "executive summary" vs "exec summary". Style-checker EN ha
+   richiesto tre fix di idiomaticità ("It happens often" calco dall'IT,
+   cascata "so does X, so does Y", "which" relativo in coda).
 
 3. 🆕 **Preparare una riunione** (`at-work/prepare-a-meeting`)
    Ordine del giorno, brief di preparazione, riassunto, follow-up.
@@ -313,10 +330,10 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 1 su 9 pubblicate. Email difficili live (IT + EN);
-sidebar Modulo 3 con lezione 1 attiva e 8 placeholder disabilitati;
-card "Sul lavoro" / "At work" in homepage e start-here attivate,
-puntano alla lezione 1.
+**Stato attuale**: 2 su 9 pubblicate. Email difficili e Bozze di
+documenti professionali live (IT + EN); sidebar Modulo 3 con lezioni
+1-2 attive e 7 placeholder disabilitati; card "Sul lavoro" / "At
+work" in homepage e start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -452,13 +469,15 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 1 su 9 pubblicate (2026-04-24).
+**Modulo 3 (Sul lavoro)**: 2 su 9 pubblicate (2026-04-24).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 2, **Bozze di documenti professionali**
-(`at-work/draft-professional-documents`).
+bozza: lezione 3, **Preparare una riunione**
+(`at-work/prepare-a-meeting`), prerequisiti `ask-well` e
+`iterate-the-conversation`, taglio pre/durante/post (ordine del giorno
+e brief di preparazione, riassunto e follow-up).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
