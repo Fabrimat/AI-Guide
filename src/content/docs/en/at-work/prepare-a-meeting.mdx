@@ -1,0 +1,261 @@
+---
+title: Preparing a meeting
+description: Structured agenda, preparation brief, actionable extract, follow-up. AI works before and after; the meeting stays the human moment.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- A poorly prepared meeting multiplies its cost by the number of people in the room. Prepping it well with AI takes a few minutes, and the return is high especially at the two right moments: before and after.
+- **Before**: an agenda with objective, owner, time, expected decision; a brief under 150 words; a pass asking *"what objections might come up?"* with AI as devil's advocate.
+- **During**: AI isn't at the table. Your notes, or a recording with explicit consent.
+- **After**: ask for an actionable extract (decisions, action items with owner and deadline, open questions), not a generic summary. From there come the follow-up and the update for those who weren't on the call.
+
+</LessonSummary>
+
+Thirty minutes of a poorly prepared meeting, multiplied by eight
+people on the call, is four hours of company work burned. The cost
+of a meeting multiplies by the number of people in it: that's why
+prepping it well gives a high return, far bigger than the few
+minutes it takes.
+
+The point of this lesson is simple. During the meeting AI isn't
+there, and that's how it should be: the meeting is the human
+moment. But before and after it works well, and those are the
+two moments where time usually gets lost. Before: agenda, brief
+for participants, likely questions. After: extract of decisions,
+action items, bridge to those who weren't on the call. If the
+meeting runs an hour, ten minutes of prep and ten of wrap-up save
+you twice that, multiplied across everyone on the call.
+
+## Before the meeting
+
+### Structured agenda
+
+A useful agenda has four fields for each item: objective, who owns
+it, time, expected decision. Miss one, and the item drifts or ends
+without reaching a conclusion.
+
+AI handles this step well because the format is rigid. A prompt
+that works: *"organize these items into a table with objective,
+owner, time in minutes, expected decision. Total cap 50 minutes."*
+The total cap forces it to cut rather than stretch. You then
+revise where its time estimates are off (you know the room, it
+doesn't) and adjust.
+
+### Preparation brief
+
+A meeting where everyone shows up without having read anything
+starts with ten minutes of catch-up. Ten minutes across eight
+people is eighty minutes, more than twice what it takes to write
+a brief.
+
+A good brief answers three questions: what to read beforehand
+(one or two links max, not fifteen), what to bring (data, an
+opinion, a decision already made), what to expect at the end. The
+AI produces it in two minutes if you hand it the agenda and a
+line or two of context. Rule of thumb: under 150 words, or
+nobody reads it.
+
+### Anticipating objections
+
+Before an important presentation, ask it to do the opposite of
+your job. The prompt only works if you give it context: not *"I'm
+presenting X to team Y"* but *"I'm presenting the new roadmap to
+the sales team, they want short-term results, we're proposing six
+months of technical investment; last quarter there was friction
+on a similar decision. What questions are they likely to ask me?
+What objections are likely to come up?"*. Three ingredients
+usually do it: participants' roles, what's at stake in the
+decision, relevant recent history. The AI plays devil's advocate
+(challenges your ideas to surface the weak spots), lists a dozen
+questions, you spot three you hadn't thought of, and you prepare
+the answer.
+
+It isn't a fortune teller: some objections you anticipated never
+come up, others do that the AI hadn't foreseen. But on average
+it gets 60-70% of the likely questions right, and prep time
+shrinks.
+A second round in the style of [*Iterate the
+conversation*](/en/everyday-use/iterate-the-conversation/) often
+pays off: *"of these, which are the three most likely and why?"*.
+The second list beats the first.
+
+:::tip[When prep isn't worth it]
+Not every meeting benefits from this setup. Ten-minute stand-ups,
+recurring one-on-ones, two-person sync calls: prepping costs more
+than it's worth. Quick rule: if there's a decision coming out
+that affects multiple people, prep pays off; if it's a one-way
+update or informal, a couple of your own notes are enough.
+:::
+
+## During
+
+During the meeting, the AI isn't at the table. If you record, do
+it yourself, and only with consent: stated at the start for
+routine internal meetings, in writing for formal cases or with
+external parties. Otherwise don't record. Handwritten notes, a
+transcription app on your laptop, pen-and-paper minutes: those
+are all options, AI as an active participant isn't.
+
+The reason is simple: knowing an AI is listening changes how
+people speak. If the meeting touches a conflict, a negotiation,
+delicate feedback, recording is decided with the participants,
+not assumed.
+
+If you record, keep the file on your device and don't upload it
+to a third-party service before clearing it with whoever was on
+the call: the transcript contains data from people who didn't
+consent to an AI listening in.
+
+:::note[If your call tool has a built-in AI]
+Zoom Companion, Teams Copilot, Gemini in Meet are on by default
+or one click away, and more and more colleagues switch them on
+without announcing it. The rule doesn't change: an AI that's
+listening needs to be declared at the start, not assumed,
+regardless of who turned it on. If you find it on without
+consent, ask to turn it off or make it explicit for everyone.
+:::
+
+## After the meeting
+
+### Actionable extract, not a generic summary
+
+This is where most people get it wrong. *"Summarize the meeting"*
+produces a paragraph nobody reads: fine for the archive, useless
+for getting things done.
+
+The prompt that works has a rigid structure: *"from this
+transcript (or these notes) extract, in three separate sections:
+1. Decisions made, 2. Action items with owner and deadline, 3.
+Open questions. No narrative."* The difference is huge: you get
+an operational list you can already turn into tickets in your
+system.
+
+It also works on messy notes you jotted down yourself, not just
+clean transcripts: the quality of the output follows the quality
+of the input. And a quick completeness check: run down the agenda
+you had prepared and make sure every item actually discussed
+shows up at least once, across decisions, action items, or open
+questions. If a point is missing from the extract, it's usually
+the AI that skipped it, not that nobody raised it.
+
+### The follow-up email
+
+Once the core is extracted, the follow-up email is just
+formatting. You ask *"write the follow-up to the team based on
+this, 150 words max, closing with the next steps"* and you have
+the draft to tweak.
+
+The draft isn't perfect: you usually adjust the tone (often too
+formal), add the detail you know (the client moved the next call
+up, the budget needs revisiting), cut the action item that's
+actually already in motion. The five minutes you spend are much
+less than the thirty you'd spend from a blank page.
+
+### Update for those not on the call
+
+People who weren't on the call need less detail but a clearer
+frame. Prompt: *"for people who weren't in the meeting, 4-5
+bullets on what changed and what they need to know for their
+work"*. It isn't the summary, it's a selective extract, already
+tailored to the recipient. Five extra words of context in the
+prompt (*"the recipient is the legal team, only risks matter"*)
+change a lot here: the 4-5 bullets that come out are the right
+ones, not generic ones.
+
+## A concrete example
+
+You've just wrapped a weekly status meeting for the product team
+(six people, 45 minutes), and you have a transcript from the
+call tool. You hand it over like this:
+
+<ChatDemo
+  user={`From this transcript extract, in three separate sections: 1. Decisions made, 2. Action items with owner and deadline, 3. Open questions. No narrative.
+
+Transcript:
+Marco: Q2 is closed, revenue +12% vs Q1 but 5% below budget.
+Laura: Does the new CRM go live by July?
+Paolo: Yes, if I get the master data by June 20.
+Anna: I propose cutting the ads budget by 15%, we're over-optimized.
+Marco: We'll decide today, but first Laura checks this month's conversion rate.
+Marco (closing): Next meeting Wednesday the 26th.`}
+  ai={`**Decisions made**
+- The new CRM goes into production by July.
+- Next meeting: Wednesday the 26th.
+
+**Action items**
+- Paolo: receive master data by June 20 (blocker for the CRM go-live).
+- Laura: check this month's conversion rate before the next meeting.
+
+**Open questions**
+- 15% cut to ads budget (Anna's proposal): decision deferred, depends on Laura's check.
+- 5% gap below Q2 budget: not addressed, likely to pick up at the next meeting.`}
+/>
+
+In two minutes you have an output that's already the backbone of
+the follow-up, and the two topics the meeting didn't close are
+right there in the open questions. The same extraction by hand
+would be twenty minutes of rereading.
+
+:::caution[Transcripts contain data from other people]
+A transcript is a collective text: it contains what people said
+who didn't consent to an AI reading it. Names, opinions on
+colleagues or clients, figures, conflicts. A quick test for how
+careful to be: if anyone in the room would feel uncomfortable
+knowing the transcript is going through an external AI, the
+meeting is sensitive. That's always true for HR, internal
+conflicts, clients being criticized, compliance, confidential
+budgets: there, anonymize before pasting (names into roles like
+*"the product manager"*, figures into ranges like *"seven-figure
+revenue"*, companies into descriptions like *"a client in sector
+X"*). For routine meetings without judgments on people (weekly
+status, project alignment), you can leave names and figures in
+if your company context allows: the risk is lower. The broader
+picture is in [*What you share when you use
+AI*](/en/fundamentals/privacy-basics/).
+:::
+
+## What NOT to do
+
+**Don't delegate the call on priorities.** The AI extracts the
+action items, but the order they go in is yours. It depends on
+who's in more of a hurry, what the client expects, internal
+constraints it doesn't know about. A generically ordered list is
+often ordered badly for your case.
+
+**Don't share sensitive transcripts without thinking.** The rule
+gets set before the meeting, not after. If the call touches
+topics where your company has NDAs or personal data, decide in
+advance what a public AI can see and what it can't. The broader
+company case is covered later in the module, in the lesson on
+company data and privacy.
+
+**Don't skip reviewing the transcript.** Automatic transcripts
+contain errors: names wrong, technical terms mangled, sentences
+cut off. A quick pass to fix at least the names and the most
+egregious bits before handing it over, otherwise the extract
+comes out wrong in a plausible way, which is worse than
+obviously wrong.
+
+## What comes next
+
+A meeting often produces slides, reports, or both. The next two
+lessons shift the module to those formats: *Slides and
+presentations* on slide content, *Working with data and tables*
+on numbers and spreadsheets.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-prepare-a-meeting.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
