@@ -429,11 +429,43 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    weight" calco → "more weight than", triplo "It [verb]" merged
    in una frase variata, doppio "usually X, usually Y" rimosso).
 
-7. ✍️ **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
-   Challenge, devil's advocate, brainstorming strutturato.
-   Riconoscere "penso meglio" vs "mi faccio rassicurare". La
-   sycophancy dei modelli come rischio specifico: senza vincoli
-   l'IA conferma per default.
+7. ✅ **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
+   Cambio di postura: l'IA non produce un output, aiuta a tirare
+   fuori un pensiero. Tre modi (devil's advocate sulla tua idea,
+   brainstorming strutturato divergi-converti, anticipare obiezioni
+   in role-play). Sycophancy come rischio specifico, con
+   spiegazione di RLHF e tre prompt di sfida (ruolo specifico +
+   blocco preamboli + numero/intensità). Test di chiusura "almeno
+   una cosa è cambiata" con anti-test su "cambiamento in peggio"
+   (rileggi a freddo, verifica i fatti su cui poggia la nuova
+   posizione). ChatDemo portante: CFO scettico sul programma di
+   mentoring per junior con tre obiezioni (causa-effetto turnover,
+   costo nascosto del tempo dei senior, orizzonte di sei mesi
+   troppo corto). Ciclo di revisione completo (`analyze-lesson` +
+   integrazione + `style-checker` IT e EN, 2026-04-25).
+   Integrazioni principali dall'analisi lettore: callout `:::tip`
+   "quanto contesto dare" (setup minimo, non brief di pagina),
+   traduzione del "critico specifico" per chi non ha ruoli classici
+   da consiglio (ONG, freelance, scuola), secondo round di
+   brainstorming per uscire dagli angoli ovvi, paragrafo privacy
+   nel role-play (riusa la sezione di *Lavorare con dati e
+   tabelle*), nota sulla sycophancy che varia tra modelli ma con
+   vincoli espliciti come difesa principale, anti-test
+   rileggi-a-freddo + verifica fatti per il rischio di cambiare in
+   peggio, paragrafo dedicato in *Cosa NON fare* sul thinking
+   partner ammesso anche su salute/soldi/legali ma solo per
+   pensare meglio (capire opzioni, formulare le domande da fare a
+   un professionista). Style-checker IT: OK con rifiniture
+   opzionali, applicate quattro correzioni (due deittici
+   "sopra/paragrafo precedente" sostituiti con ancore esplicite,
+   due "davvero" diradati, "che vedremo fra poco" sostituito con
+   link esplicito). Style-checker EN: OK con rifiniture opzionali,
+   applicate tre polish ("make the difference" calco di "fare la
+   differenza" → "that matter", typo "a accommodating" → "an
+   accommodating", "actually" difensivo rimosso). Bug fix di
+   contorno: la description in entrambi i frontmatter conteneva un
+   `: ` non quotato che YAML parsava come mapping; quotata in
+   entrambe le lingue per stabilizzare il build.
 
 8. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
    Claude Projects, ChatGPT Custom GPT, Gemini Gems.
@@ -442,12 +474,13 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 6 su 9 pubblicate. Email difficili, Bozze di
+**Stato attuale**: 7 su 9 pubblicate. Email difficili, Bozze di
 documenti professionali, Preparare una riunione, Slide e
-presentazioni, Lavorare con dati e tabelle, e Ricerca per il
-lavoro live (IT + EN); sidebar Modulo 3 con lezioni 1-6 attive
-e 3 placeholder disabilitati; card "Sul lavoro" / "At work" in
-homepage e start-here attive, puntano alla lezione 1.
+presentazioni, Lavorare con dati e tabelle, Ricerca per il
+lavoro, e L'IA come collega che ti aiuta a pensare live (IT +
+EN); sidebar Modulo 3 con lezioni 1-7 attive e 2 placeholder
+disabilitati; card "Sul lavoro" / "At work" in homepage e
+start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -583,19 +616,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 6 su 9 pubblicate (2026-04-25).
+**Modulo 3 (Sul lavoro)**: 7 su 9 pubblicate (2026-04-25).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 7, **L'IA come collega che ti aiuta a pensare**
-(`at-work/ai-as-thinking-partner`), prerequisiti `ask-well` e
-`when-to-trust-it`, taglio "challenge, devil's advocate,
-brainstorming strutturato". Differenza dalle lezioni 5 e 6 del
-modulo: lì l'IA elabora dati o sintetizza fonti, qui aiuta a
-pensare. Il rischio cambia forma: le allucinazioni pesano meno,
-ma compare il rischio di farsi rassicurare invece di farsi
-sfidare.
+bozza: lezione 8, **Riusare contesto con i progetti**
+(`at-work/reuse-context-with-projects`), prerequisiti `ask-well`
+e `iterate-the-conversation`, taglio "scalare il pattern del
+modulo su base ricorrente". Stesso meccanismo su tutte e tre le
+piattaforme principali: Claude Projects, ChatGPT Custom GPTs,
+Gemini Gems. Idea operativa: caricare contesto ricorrente una
+volta sola (knowledge base, tone of voice, vincoli, persone,
+template) invece di ricaricarlo a ogni nuova chat.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
