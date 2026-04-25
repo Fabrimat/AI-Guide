@@ -472,6 +472,184 @@ site-search button[data-open-modal]:hover {
 }
 
 /* ------------------------------------------------------------
+   Search modal · PagefindUI
+
+   Il modale di ricerca usa la PagefindUI di default. Senza
+   override è "documentation docs": campo input gigante, placeholder
+   opacity 0.2 (quasi invisibile), risultati come righe orizzontali
+   piatte separate solo da `border-top`, titoli grigi senza segnale
+   "questo è un link". Lo riallineiamo alla palette Pastello:
+   modale come gli altri popover (`--aig-elevated-bg`), input con
+   focus ring coral, risultati come card distinte con hover.
+   ------------------------------------------------------------ */
+
+/* Dialog del modale: sfondo coerente con Resume/Recap. */
+site-search dialog {
+  background-color: var(--aig-elevated-bg);
+  border: 1px solid var(--sl-color-hairline);
+  box-shadow:
+    0 12px 40px rgba(var(--aig-shadow-color), 0.18),
+    0 2px 8px rgba(var(--aig-shadow-color), 0.08);
+}
+
+site-search dialog::backdrop {
+  background-color: var(--aig-scrim);
+}
+
+/* Variabili Pagefind UI rimappate sui token del sito. */
+#starlight__search {
+  --pagefind-ui-primary: var(--sl-color-accent);
+  --pagefind-ui-text: var(--sl-color-text);
+  --pagefind-ui-background: var(--aig-elevated-bg-warm);
+  --pagefind-ui-border: var(--sl-color-hairline);
+  --pagefind-ui-tag: var(--aig-elevated-bg-warm);
+  --pagefind-ui-border-radius: 0.75rem;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-font: var(--sl-font);
+  --pagefind-ui-image-border-radius: 0.5rem;
+}
+
+/* Input di ricerca: bordo evidente, focus ring coral. Il
+   `font-weight: 700` di default è troppo "sparato" per un campo
+   vuoto, lo abbassiamo. */
+#starlight__search .pagefind-ui__search-input {
+  font-weight: 500;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+#starlight__search .pagefind-ui__search-input::placeholder {
+  color: var(--sl-color-gray-3);
+  opacity: 1;
+  font-weight: 400;
+}
+#starlight__search .pagefind-ui__search-input:focus,
+#starlight__search .pagefind-ui__search-input:focus-visible {
+  outline: none;
+  border-color: var(--sl-color-accent);
+  box-shadow: 0 0 0 3px var(--sl-color-accent-low);
+}
+
+/* Icona magnifier davanti all'input. Default Pagefind la dipinge
+   con `--pagefind-ui-text` (che usiamo per il testo); la rendiamo
+   coral chiara così è leggibile ma non urla. */
+#starlight__search .pagefind-ui__form::before {
+  background-color: var(--sl-color-accent);
+  opacity: 0.85;
+}
+
+/* Bottone "Clear" dentro l'input. Il default è una grossa pillola
+   con stesso bg dell'input: confonde. Lo riduciamo a un'azione
+   testuale discreta che diventa visibile in hover. */
+#starlight__search .pagefind-ui__search-clear {
+  background-color: transparent;
+  color: var(--sl-color-gray-3);
+  font-weight: 500;
+  font-size: calc(14px * var(--pagefind-ui-scale));
+}
+#starlight__search .pagefind-ui__search-clear:hover {
+  background-color: var(--aig-hover-wash);
+  color: var(--sl-color-text);
+}
+
+/* Messaggio di stato: "1 risultato", "Nessun risultato".
+   Il default è 700 e box-rigido; lo ammorbidiamo. */
+#starlight__search .pagefind-ui__message {
+  color: var(--sl-color-gray-2);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Card del risultato. Default Pagefind: solo `border-top`, nessun
+   padding orizzontale, nessuno stato hover. Lo trasformiamo in
+   card con hairline, padding generoso, hover che vira al coral. */
+#starlight__search .pagefind-ui__result {
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.75rem;
+  background-color: var(--aig-elevated-bg-warm);
+  padding: 1rem 1.1rem;
+  margin-block-end: 0.6rem;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+#starlight__search .pagefind-ui__result:last-of-type {
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+#starlight__search .pagefind-ui__result:hover,
+#starlight__search .pagefind-ui__result:focus-within {
+  border-color: var(--sl-color-accent);
+  background-color: var(--sl-color-accent-low);
+}
+
+/* Titolo del risultato: deve sembrare un link. Il default è in
+   `--pagefind-ui-text` (testo del corpo), nessuna sottolineatura,
+   nessun cambio in hover diverso da `text-decoration: underline`. */
+#starlight__search .pagefind-ui__result-title {
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+#starlight__search .pagefind-ui__result-title .pagefind-ui__result-link {
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+  text-decoration-color: var(--sl-color-accent-low);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+#starlight__search .pagefind-ui__result-title .pagefind-ui__result-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--sl-color-accent);
+}
+
+/* Excerpt sotto il titolo: dimensione contenuta, testo neutro. */
+#starlight__search .pagefind-ui__result-excerpt {
+  color: var(--sl-color-text);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-top: 0.4rem;
+}
+
+/* Highlight dei match (Pagefind li avvolge in `<mark>`). */
+#starlight__search mark {
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-text);
+  border-radius: 0.25rem;
+  padding: 0 0.15em;
+  font-weight: 600;
+}
+
+/* Sub-risultati: sezioni della stessa pagina che hanno match.
+   Default Pagefind li mette su una riga con un piccolo "↷". Li
+   indentiamo con un filetto coral-soft a sinistra per leggerli
+   subito come "dentro la stessa lezione". */
+#starlight__search .pagefind-ui__result-nested {
+  border-inline-start: 2px solid var(--sl-color-accent-low);
+  padding-inline-start: 0.8rem !important;
+  margin-inline-start: 0.2rem;
+  margin-block-start: 0.5rem;
+}
+#starlight__search
+  .pagefind-ui__result-nested
+  .pagefind-ui__result-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Bottone "Carica altro". Default: full-width, peso 700, accento
+   primario sia in bg sia in border. Lo rendiamo ghost/secondario. */
+#starlight__search .pagefind-ui__button {
+  font-weight: 500;
+  background-color: transparent;
+  color: var(--sl-color-text-accent);
+  border-color: var(--sl-color-hairline);
+}
+#starlight__search .pagefind-ui__button:hover {
+  background-color: var(--sl-color-accent-low);
+  border-color: var(--sl-color-accent);
+  color: var(--sl-color-text-accent);
+}
+
+/* ------------------------------------------------------------
    Mobile: stacco fra search/preferenze e hamburger.
 
    Le pagine lezione hanno sidebar, quindi su mobile compare il
