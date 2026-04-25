@@ -399,8 +399,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    difference is in the method" → "method is what separates the
    two", "less risk surface" → "less risk").
 
-6. 🆕 **Ricerca per il lavoro** (`at-work/research-for-work`)
-   Sintesi multi-fonte per un deliverable.
+6. ✍️ **Ricerca per il lavoro** (`at-work/research-for-work`)
+   Sintesi multi-fonte per un deliverable. Differenza da *Imparare un
+   argomento nuovo* (Modulo 2) e *Riassumere un documento lungo*
+   (Modulo 2): più fonti contemporaneamente più obiettivo d'uso
+   professionale, e responsabilità sul deliverable.
 
 7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
    Challenge, devil's advocate, brainstorming. Riconoscere "penso
