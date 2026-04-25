@@ -503,18 +503,47 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    ("Below that threshold" → "Below that" per ritmo); il sweep
    sui calchi italiani-inglese non ha trovato nulla.
 
-9. ✍️ **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
-   Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
-   Ponte verso i moduli successivi.
+9. ✅ **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
+   Chiusura del modulo. Scala il modello di privacy personale di
+   Fondamenti 6 al contesto aziendale: tre livelli di rischio
+   (rosso/giallo/verde), come anonimizzare in pratica (nomi,
+   identificatori numerici, dettagli combinabili), piani business
+   veri (Team/Enterprise/Workspace/Copilot for Business) vs piani
+   consumer (Plus/Pro/Advanced) con il criterio "cerca data
+   retention, training opt-out, DPA", NDA come primo filtro,
+   GDPR e categorie particolari, AI Act per usi ad alto rischio,
+   policy aziendale e variante freelance. Ponte ai moduli
+   successivi (4, 5, 6) come chiusura naturale del modulo.
+   Ciclo di revisione completo (`analyze-lesson` + integrazione +
+   `style-checker` IT e EN, 2026-04-25). Integrazioni principali
+   dall'analisi lettore: glossa inline su DPA e DPO, chiarimento
+   "Plus/Pro/Advanced sono consumer, non business", callout
+   `:::tip` "se ho già incollato dati in passato" con tre
+   contromisure, callout `:::tip` su PDF scansionati/foto/audio
+   (anonimizzazione alla fonte, riscrittura, OCR locale), check
+   rapido "leggi come un estraneo" prima di incollare,
+   distinzione fra numeri di business che servono al ragionamento
+   e numeri da tagliare, glossa su backend Azure OpenAI di
+   Microsoft Copilot, esempio pratico AI Act ("studio piccolo che
+   fa screening di CV"), variante freelance con clausola tipo
+   nei contratti. Style-checker IT: OK con rifiniture opzionali,
+   applicate due polish ("qui sotto" → "tipiche dei piani
+   business" per evitare deittico, chiusura "Lo strumento
+   amplifica chi sei" attenuata in formula meno keynote).
+   Style-checker EN: OK con rifiniture opzionali, applicate
+   quattro polish (variazione "usually" → "typically" / "likely",
+   "roughly these three" → "Business plans usually offer three",
+   periodo lungo del DPA spezzato in due frasi, "may move you in"
+   → "may put you in scope").
 
-**Stato attuale**: 8 su 9 pubblicate. Email difficili, Bozze di
-documenti professionali, Preparare una riunione, Slide e
-presentazioni, Lavorare con dati e tabelle, Ricerca per il
-lavoro, L'IA come collega che ti aiuta a pensare, e Riusare
-contesto con i progetti live (IT + EN); sidebar Modulo 3 con
-lezioni 1-8 attive e 1 placeholder disabilitato; card "Sul
-lavoro" / "At work" in homepage e start-here attive, puntano
-alla lezione 1.
+**Stato attuale**: **9 su 9 pubblicate, modulo Sul lavoro
+completo al 100%** (2026-04-25). Tutte le lezioni live (IT + EN)
+con verifica dell'apprendimento attiva (sezione `<LlmExercise
+variant="review">` prima di "Cosa viene dopo", con prompt
+dedicato in `public/skills/<locale>/review-<slug>.txt`); sidebar
+Modulo 3 con tutte e 9 le lezioni attive, nessun placeholder
+disabilitato; card "Sul lavoro" / "At work" in homepage e
+start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -647,30 +676,31 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 
 ## Prossima sessione
 
-**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
-2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
+**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100%
+il 2026-04-19. Modulo Uso quotidiano chiuso al 100% il
+2026-04-23. **Modulo Sul lavoro chiuso al 100% il 2026-04-25.**
 
-**Modulo 3 (Sul lavoro)**: 8 su 9 pubblicate (2026-04-25).
-Struttura validata 2026-04-23 in
-`docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
-Piano di implementazione in
-`docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 9, **Privacy e dati aziendali**
-(`at-work/company-data-and-privacy`), prerequisiti `ask-well` e
-`privacy-basics`, taglio "chiusura del modulo + ponte ai
-moduli successivi". Cosa NON dare in pasto a un'IA pubblica
-(NDA, dati di categorie particolari GDPR, contratti con
-clausole di confidentiality), cosa cambia con piani
-business/enterprise (Microsoft Copilot, ChatGPT Enterprise,
-Claude Team), opt-out reali. Riprende e estende il taglio
-privacy delle lezioni 5 (*Lavorare con dati e tabelle*) e 8
-(*Riusare contesto con i progetti*).
+**Prossimo blocco di lavoro**: scelta fra Modulo 4 (*Per
+studenti*), Modulo 5 (*Per docenti*), Modulo 6 (*Per chi vuole di
+più*), oppure pagine trasversali ancora pendenti (FAQ,
+Cronologia). Decisioni da prendere prima di iniziare un nuovo
+modulo:
 
-**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
-atterra, sostituire la voce placeholder disabilitata in
-`astro.config.mjs` con `{ slug: 'at-work/<slug>' }` in un commit
-dedicato (pattern già stabilito con i commit "Unlock Module 2 lesson N
-in sidebar").
+- **Modulo 4 (Per studenti)**: target di età prevalente (liceo vs
+  università), peso della componente etica vs operativa, se
+  includere l'uso dell'IA nei test/esami proctored. Otto lezioni
+  pianificate, tutte 🆕.
+- **Modulo 5 (Per docenti)**: taglio (generalista vs per
+  disciplina), peso della parte "riconoscere l'uso dell'IA da
+  parte degli studenti", relazione con il modulo 4 (riferimenti
+  reciproci vs autonomia). Nove lezioni pianificate, tutte 🆕.
+- **Modulo 6 (Per chi vuole di più)**: stack degli esempi (Node?
+  Python? Entrambi?), profondità dei pattern (RAG: spiegazione
+  concettuale o tutorial con codice?). Tredici lezioni pianificate,
+  tutte 🆕.
+- **FAQ** trasversale: privacy, costi, quale IA scegliere, cosa
+  succede se l'IA sbaglia, AI Act in pillole. Pagina singola, non
+  modulo.
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
