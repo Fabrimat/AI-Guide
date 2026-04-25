@@ -1,0 +1,364 @@
+---
+title: Reuse context with projects
+description: "Claude Projects, ChatGPT Custom GPTs, Gemini Gems: same mechanism, three different names. You load once the context that recurs (who you are, what you do, how you write, reference files) and reuse it across every chat in that thread, instead of starting from scratch every time."
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- AI chats remember nothing between one conversation and the next. For **recurring** tasks (weekly status, Monday newsletter, Thursday client brief) reloading the context every time is a hidden tax you pay on each new chat.
+- All major platforms solve the same problem with the same mechanism, under three different names: **Claude Projects**, **ChatGPT Custom GPTs**, **Gemini Gems**. Load once, reuse always.
+- Three ingredients to put inside: **persistent instructions** (who you are, how AI should behave), **knowledge files** (PDFs, documents, price lists, brand guidelines), **examples** (a couple of good past outputs as "do it like this").
+- When it's worth it: you notice you're reloading the same context on every new chat, or you're doing the same kind of task at least once a week. Below that, a fresh chat is faster.
+- Three things not to put inside: sensitive personal data (clients, credentials, confidential contracts on a consumer account), instructions that conflict with each other (AI follows the latest one and you think it "doesn't get it"), too many files (the more you add, the more you dilute the signal).
+
+</LessonSummary>
+
+Every Monday morning you sit down and need to put together
+the team's weekly status report. Every Thursday you write a
+client newsletter with three updates from the week. Once a
+month you prepare a brief for the board in the same format as
+last month's. In every case, you know exactly what AI needs to
+help you: the company tone, the team members' names, the
+document template, the three reference files, and what never
+to write.
+
+The problem is that every new chat with AI starts from zero.
+It doesn't know who you are, doesn't remember last Monday's
+chat, doesn't know the tone is always lean and never
+enthusiastic, has never seen your file with the product names.
+You end up reloading the same context on every new
+conversation. Six minutes of setup, ten minutes of real work.
+On recurring tasks, it's a hidden tax you pay every week and
+don't see until someone points it out.
+
+The three major platforms have solved this problem with the
+same mechanism, under three different names. On Claude they're
+called **Projects**. On ChatGPT they're called **Custom GPTs**.
+On Gemini they're called **Gems**. The logic is identical: you
+create a persistent "container", you put instructions and
+files inside, and every chat you open **inside** that container
+inherits all that context without you having to reload it.
+
+Difference from
+[*Iterate the conversation*](/en/everyday-use/iterate-the-conversation/)
+in Module 2: there the context lives **inside a chat** (the
+conversation's memory). Here the context lives **before the
+chat** and applies to every chat you open in that project. Two
+different layers: single-conversation context stays as you
+learned it, and on top you add a persistent context you don't
+have to reload.
+
+## Three names for the same thing
+
+| Platform | Name | Availability | Strong point |
+|---|---|---|---|
+| Claude | Projects | Pro and up | Generous knowledge files (dozens of documents, large context window) |
+| ChatGPT | Custom GPTs | Plus and up (creation); free to use | Marketplace of public GPTs, external integrations ("Actions") |
+| Gemini | Gems | Free | Simpler, integrated with Workspace; on consumer plans you can't upload knowledge files |
+
+Practical differences for a knowledge worker:
+
+- **Claude Projects** is the strongest on knowledge files: you
+  upload long documents (manuals, price lists, brand books,
+  archives of past outputs) and Claude keeps them within reach
+  during chats. A good choice if your recurring work revolves
+  around documents.
+- **ChatGPT Custom GPTs** is the most granular and the only one
+  that lets you publish (you can share a Custom GPT with your
+  team or use public ones). It also has **Actions**, which let
+  the GPT call external APIs (an internal system or a
+  third-party tool). For a non-developer knowledge worker,
+  Actions are often overkill; for those working in a team with
+  some IT, they're the deciding factor for picking ChatGPT.
+  There's an important distinction on ChatGPT: **creating** a
+  Custom GPT requires Plus or higher, but **using** one
+  published by someone else works on Free too. If you don't pay
+  and a set of useful public GPTs is enough for you, that's a
+  way in.
+- **Gemini Gems** is the simplest and the only one free at
+  consumer level, but on the free plan you can't upload
+  knowledge files. A good entry point to the concept if you're
+  not paying any subscription; less powerful for those who need
+  a persistent knowledge base.
+
+In practice: if you already pay for one of the three, use that
+one. The pattern in this lesson works on all three, and the
+cases where AI "picks the wrong platform" are few and specific.
+The question to ask isn't *"which platform is best?"*, it's
+*"which one do I already open ten times a week?"*.
+
+## What to put inside: three ingredients
+
+Think of your project as a mini-virtual colleague that you set
+up once. Three things make it useful.
+
+### 1. Persistent instructions
+
+The project's "character". Who you are, what you do, how AI
+should behave when you talk to it **inside this project**. It's
+the field Claude calls "Project instructions", ChatGPT calls
+"Instructions" of the Custom GPT, Gemini calls "Instructions"
+of the Gem.
+
+What to write well here:
+
+> *I'm [role] in a [sector] company, [SME / large], working
+> language English. When I ask you something inside this
+> project, behave like this: lean tone, no enthusiasm, no
+> generous preambles. If I ask for a piece of text, give me
+> two different variants, not one. If I ask a factual
+> question, answer first, then tell me what you're basing
+> the answer on. Words I don't want to see: "solutions",
+> "synergy", "ecosystem". Words that work: "choice",
+> "tradeoff", "practice".*
+
+Three practical rules for instructions:
+
+- **Write them the way you talk.** Not a tender document, not
+  a stage prompt. Short, direct sentences, because AI applies
+  them better when it gets them at a glance.
+- **Focus on what NOT to do.** AI tends toward optimistic and
+  generous defaults: half the value of persistent instructions
+  is listing the behaviors to avoid (no preamble, no recap
+  closure, no impersonal passive).
+- **Keep the instructions file short.** One page is plenty. If
+  it gets long, that's the signal you're stuffing the project
+  with things that should sit in knowledge files or examples.
+
+What happens if in a single turn you ask for something that
+goes against the project's instructions? Generally AI follows
+the **turn's request** when it's explicit, and keeps the
+project's instructions as default for everything else. Example:
+the project says *"no preambles, no recap closures"*; in a
+single turn you write *"this time give me a friendly one-line
+opening, it's a thank-you note"*. AI does the friendly opening.
+If you forget to spell it out, it reapplies the project rules.
+It works as a layer above: the project sets the default, the
+single turn can deviate for that occasion. If you notice AI
+"not respecting" the project systematically, read what you
+wrote in the turn: nine times out of ten, you gave a request
+that, read carefully, contradicted the project instructions
+without you noticing.
+
+### 2. Knowledge files
+
+The reference documents AI can consult when it answers. Not
+memory, a library it has access to, and the relevant pieces
+get fetched at the moment of the specific question. That's why
+the **selection quality** of the files matters more than the
+quantity.
+
+On formats: PDF, Word, plain text, Markdown, spreadsheets all
+work. PDF and Markdown are the two most reliable formats,
+because they keep structure (headings, sections) without
+weighing it down with graphical metadata. Scanned documents
+(image PDFs without OCR) and screenshots work worse: only
+upload them if you have no alternative.
+
+What to upload:
+
+- **Domain** documents: product manuals, price lists, public
+  internal policies, FAQs.
+- **Style** material: brand guidelines, samples of your writing
+  voice, company glossary, quality checklists.
+- **Good past outputs**: three or four finalized versions of
+  documents you'll want to produce in the future (old
+  newsletters, old briefs, old reports). AI uses them as form
+  and tone references.
+
+What NOT to upload:
+
+- The whole company folder "since it can't hurt": the more
+  files you load, the more you dilute the relevance of every
+  single file. On Claude and ChatGPT the context limit is
+  large but not infinite; above all, not infinitely *useful*.
+  The mechanical reason: when you ask a specific question, AI
+  searches across the loaded files and uses only the relevant
+  pieces. The more files there are, the higher the chance it
+  picks a similar but wrong piece (an old glossary instead of
+  the new one, an out-of-context example instead of the right
+  one). Three to five focused files beat thirty generic ones,
+  even if the thirtieth would "technically" fit.
+- **Confidential** documents: client data with names and
+  revenues, contracts, health data, NDA-covered documents. On
+  a consumer account (Plus, Pro, Free) the uploaded files can
+  end up in the provider's systems. For that kind of material
+  you need a business plan or, better, don't upload it at all.
+  The rules from
+  [*Working with data and tables*](/en/at-work/data-and-tables/#privacy-the-main-constraint)
+  apply here with even more weight, because the file stays in
+  the project, not just in a single chat.
+
+:::tip[Updating knowledge files]
+Uploaded documents age: a price list changes, the org chart
+changes, a tone-of-voice line shifts. The safest move is to
+**delete the old file and upload the new version**: the
+platforms don't manage automatic versioning, and keeping two
+copies of the same document (v1 and v2) doubles the risk that
+AI picks the wrong one. A good practice is to add a line at
+the bottom of the project instructions saying *"currently
+loaded files: [list], updated on [date]"* and stick to it when
+you update: it helps you remember, and it helps AI not get
+confused if you ask something that depends on the version.
+:::
+
+### 3. Examples
+
+Three or four well-done past outputs, ideally different from
+each other in type. *"A newsletter that worked"*, *"a board
+brief that worked"*, *"a graceful no-email that worked"*. They
+help AI understand **what you mean by good**, which is almost
+always more specific than what your text instructions can say.
+
+Examples can sit in knowledge files or, on ChatGPT and Claude,
+inside the instructions themselves as text blocks. If the
+instructions start getting long, that's the signal to move
+them into files.
+
+## When it's worth building a project
+
+Three practical criteria, with at least two out of three met.
+
+1. **Recurrence**: you're doing this kind of task at least
+   once a week, or several times a month in a predictable way.
+   Below that, a fresh chat with all the context pasted in is
+   faster.
+
+2. **Stable context**: the "container" you'd want to preload
+   changes little. A brand voice, a report structure, a team
+   with five names. If the context shifts every week, the
+   project ages quickly and you end up maintaining it instead
+   of using it.
+
+3. **More than one person or one channel**: you want the
+   result to be consistent between you and a colleague, or
+   between Monday and Thursday. A shared project (publishable
+   on ChatGPT as a Custom GPT, on Claude as a team Project if
+   you have a team plan) guarantees the "single voice" for
+   everyone.
+
+If zero or one of these three is met, you're probably
+overcomplicating things. A good chat with a good prompt stays
+the fastest tool for one-off tasks.
+
+## A concrete example
+
+Every Thursday you write a newsletter to the firm's clients.
+The format: a "three updates this week" section, a "firm's
+take" section of 200 words, a "what we're reading" section.
+The firm's tone is lean, non-promotional, and the clients are
+typically experienced managers in the sector.
+
+Project setup (you do it once, it lasts months).
+
+**Instructions**:
+
+> *I'm a partner at a consulting firm in [sector]. Firm's
+> tone: lean, peer-to-peer with clients (experienced
+> managers, not beginners), no selling. When I ask you to work
+> on the Thursday newsletter, always structure in three
+> sections: "Three updates", "Firm's take" (200 words),
+> "What we're reading". No enthusiasm, no "we're delighted
+> to…", no closings like "till next time!". Each section must
+> be readable in less than two minutes.*
+
+**Knowledge files** (three, focused):
+
+- Firm's brand guideline, two pages.
+- Five past newsletters considered successful.
+- Glossary of sector terms with preferred reformulations
+  (e.g., "stakeholders" → "counterparts", "leverage" →
+  "use").
+
+**Examples** (embedded in the instructions, one line per
+section):
+
+> *Example of "Three updates" that worked: [line 1] / [line
+> 2] / [line 3]. Example of "What we're reading": [title], in
+> two lines, why I'm flagging it.*
+
+From that moment, on Thursday morning you open a new chat
+**inside** the project and write:
+
+> *"This week's newsletter. Three updates I have in mind: [A],
+> [B], [C]. For the firm's take, I'm starting from this idea:
+> [line]. For 'what we're reading', I'm finishing this book:
+> [title]. Pull out the three sections in the firm's style."*
+
+AI doesn't ask who you are, doesn't ask the tone, doesn't ask
+the format. It has everything. You fix two lines, double-check
+the names, and send.
+
+The real gain isn't the single Thursday: it's that the gains
+compound across fifty Thursdays, and the firm's tone stays
+consistent even on the weeks when you're tired or rushing.
+
+## What NOT to do
+
+**Don't turn the project into a warehouse.** The temptation is
+to upload the whole "Company documents" folder because "it
+can't hurt". It can: the more files you load, the more noise
+you introduce, the more AI's response gets lost chasing
+documents irrelevant to the specific question. Three to five
+focused files beat thirty generic ones.
+
+**Don't upload confidential material into a consumer
+project.** A project is less "innocent" than a chat: the files
+stay loaded, get read multiple times, and on a consumer plan
+they end up in the provider's systems. Same perimeter as
+[*Working with data and tables*](/en/at-work/data-and-tables/#privacy-the-main-constraint):
+contracts, NDAs, client data with names and revenues, health
+data don't go there. The next lesson in the module, *Company
+data and privacy*, covers this point specifically for those
+working in companies.
+
+**Don't confuse projects with personal memory.** Features like
+"Memory" on ChatGPT (which remembers your personal
+preferences across all chats) are different from Custom GPTs.
+Memory is personal and cross-project; a project is specific to
+a work thread. Mixing them leads to oddly personalized
+responses ("remember you like running" while you're working on
+the client newsletter) that aren't useful.
+
+**Don't create twenty projects.** If you have more than five
+or six active, some probably overlap and you'll end up
+wondering which one to open the chat in today. Better few
+projects covered well than many thin projects.
+
+**Don't leave projects without maintenance.** A "live" project
+has updated files and instructions that still reflect how you
+work. Once a quarter it's worth doing a sweep: are the loaded
+files still the current version? Has the org chart or price
+list changed? Do the instructions still describe how you work?
+If you haven't opened a project in two months, it's probably
+near the end of its life: either the recurring activity that
+justified it has run out, or the context has changed enough to
+make the project a burden. In either case, archiving it is
+better than leaving it in limbo.
+
+## What's next
+
+The last lesson in the module, *Company data and privacy*,
+closes the thread. It picks up the concept you saw in
+[*Working with data and tables*](/en/at-work/data-and-tables/)
+on work data, extends it to the more delicate situations
+(NDAs, GDPR special category data, contracts with
+confidentiality clauses), and explains how the rules change
+when you move from a consumer account to a business or
+enterprise plan. Bridge to the next modules.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-reuse-context-with-projects.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
