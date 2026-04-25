@@ -1,0 +1,396 @@
+---
+title: Research for work
+description: Mapping a new territory, synthesizing multiple sources, doing live research with citations. AI speeds you up a lot and hallucinates a lot, and method is what separates a solid deliverable from an embarrassing one.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it, summarize-a-long-document]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Three ways to use AI: **map a new territory** (figure out what exists before you start searching), **synthesize multiple sources** you already have, **do live research** with engines that cite (Perplexity, ChatGPT with search, Gemini).
+- Unlike Module 2: here you produce for someone else who trusts your name. A hallucination isn't a mistake you'll catch yourself, it's a mistake you'll sign.
+- The specific risk has three shapes: invented citations, round numbers without a source, syntheses that attribute to a source things the source doesn't actually say.
+- Three-step pattern: **ask for the source**, **open the source**, **track where each thing came from** in your final document.
+- For output you sign (proposals, reports, briefs), AI's first synthesis is the starting point, never the ending point.
+
+</LessonSummary>
+
+You have a meeting tomorrow morning with your sales director and
+they want five points on how the three main competitors are moving
+on topic X. Or: you're preparing a proposal for a client in a
+sector where you don't have deep experience, and you need market
+numbers, regulations, recent trends. Or: the board has asked you
+for a status update on regulation Y that comes into force in six
+months, and you didn't know it existed.
+
+In all three cases the pattern is the same: short on time, lots
+of potential sources, an output you'll sign with your name.
+
+AI speeds this work up considerably. It maps a territory in two
+minutes where by hand it would take you twenty, summarizes five
+articles in thirty seconds, and searches in real time with
+citations. It's the work use case with the most
+unbalanced speed-to-risk ratio, in both directions.
+
+The **hallucinations** you saw in
+[*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/)
+aren't an abstract problem here: they become a wrong number in a
+client pitch, an invented citation in a board report, a trend
+that never existed presented as industry data. Difference from
+[*Learn something new*](/en/everyday-use/learn-something-new/) in
+Module 2: there you study for yourself, and if AI is wrong reality
+corrects it later; here you produce for someone else, and if AI
+is wrong the problem reaches a client, a manager, a board.
+
+This lesson is the playbook to use it well: three standard moves,
+the specific risk, and a verification pattern you can't skip.
+
+## Three ways to use AI for research
+
+Three distinct moves, picked based on where you are in the process:
+you don't yet know what to search for, you already have something
+to synthesize, you need a fresh fact with an open source.
+
+### 1. Map a new territory
+
+When you're asked to work on a topic where you're not an expert,
+the first problem isn't searching: it's figuring out **what
+exists**. What are the sub-topics? Who are the main actors?
+What's the specific vocabulary? What's connected to what? Without
+a map, every search on a search engine starts blind.
+
+This is where AI is an index of the problem. You ask it for a
+map, not the facts.
+
+> *"I need to prepare a brief on 'European AI Act regulations for
+> SMEs'. I'm not an expert. Give me a ten-point map of the
+> territory: the main sub-topics, the institutional actors
+> involved, the technical vocabulary I should know, and the three
+> or four questions an SME client would ask me."*
+
+You get something like: four sub-topics (risk classification,
+transparency obligations, use in HR, regulatory sandboxes);
+actors (European Commission, national supervisory authorities,
+data protection authorities); key terms (high-risk AI, foundation
+model, General-Purpose AI); typical questions (do I need to
+notify? what fines? when does it come into force?).
+
+That map isn't the final answer. It's the **compass**: it tells
+you where to look, not what to write. From there you know which
+terms to search on an engine, which institutional sources to
+open, which questions to ask. Without the map, you waste twenty
+minutes just figuring out what exists.
+
+The map itself does need checking, but it's a structure that's
+easy to verify: you search for the actor's name, you search for
+the technical term, and in two seconds you see whether they
+exist. If the actor exists and the term is in use, the map node
+makes sense. If you find nothing, AI probably pulled it out of
+thin air.
+
+There's a point where readers of
+[*Summarize a long document*](/en/everyday-use/summarize-a-long-document/)
+might get confused. There Technique 3 asked for the index of **a
+specific document** you had uploaded; here the map is of **a
+topic**, with no source document to start from. The first is the
+outline of a text, the second is a compass on a territory. The
+risk also changes: the index of a document is verified by
+scrolling the document, the map of a topic is verified by
+searching the names on a search engine.
+
+### 2. Synthesize multiple sources you already have
+
+You've opened three articles, downloaded two reports, saved a
+PDF. Five documents, you want one synthesis with the points of
+convergence, the divergences, and the key facts that repeat.
+
+This is where the techniques from
+[*Summarize a long document*](/en/everyday-use/summarize-a-long-document/)
+scale up: instead of one document you have five, and the output
+isn't a summary but a **comparative analysis**.
+
+> *"I'm uploading five sources on topic X (three articles, two
+> reports). For each one, give me a five-point summary. Then give
+> me a comparison table: where they converge, where they diverge,
+> and which key facts (numbers, dates, names) are repeated in at
+> least two sources. For each key fact, write in parentheses
+> which source supports it."*
+
+The three constraints that make the difference: per-source
+summary (not a single blob), comparison table (makes
+convergences and divergences explicit), source attribution per
+fact. The last one is what saves you: a fact appearing in three
+sources carries more weight than one appearing in only one,
+and as the person signing the deliverable you need to know that.
+
+Asking AI to show attribution also changes its behavior: if it
+can't say which source a fact comes from, that's the signal that
+it probably added the fact from its training, not from the
+sources you gave it. If it writes *"not directly from any
+source, but it's a generally known fact"*, you know that fact
+needs to be verified separately.
+
+On volume: five news articles or blog posts fit into a chat
+without trouble. Five PDFs of a hundred pages each is a
+different story, because every platform has a context limit
+beyond which documents get truncated silently. For long
+documents, the same advice from
+[*Summarize a long document*](/en/everyday-use/summarize-a-long-document/)
+applies: either you pass the documents one by one, get a summary
+for each, and then ask for the comparative synthesis on the
+summaries; or you use a dedicated tool like Google NotebookLM,
+which handles bundles of bulky sources and keeps per-source
+traceability in its responses.
+
+:::caution[What if the sources are confidential company documents?]
+If the sources you want to synthesize are internal (a CFO
+report, a confidential memo, a strategy brief) the same rules
+from
+[*Working with data and tables*](/en/at-work/data-and-tables/)
+on company data apply: no upload to a public chat without first
+checking the company policy, and if there's no policy, the test
+is always *"would I be fine with this showing up on a newspaper
+tomorrow?"*. For external public sources (articles, reports
+downloaded from sites, PDFs you've opened) the problem doesn't
+arise: you're synthesizing already-published material.
+:::
+
+### 3. Live research with citations
+
+When you need a fresh fact (last quarter's statistics,
+regulation that came into force last week, yesterday's news
+article) standard AI is the wrong tool: ChatGPT base, Claude
+base, Gemini base have a training cutoff date and don't know
+what happened after. On specific facts they didn't see in
+training, they can invent easily.
+
+Here you need engines with web access and citations:
+
+- **Perplexity**: built specifically for research with inline
+  citations. The response comes with footnote numbers and
+  clickable links.
+- **ChatGPT with search** (selecting a model with web search
+  enabled): searches, cites, and links.
+- **Gemini**: integrated with Google Search, responses come with
+  sources.
+- **Claude with tools** (on business plans or via specific
+  plugins): can search and cite in enterprise scenarios.
+
+How to choose between these four? For pure research (a fact, a
+statistic, a name with a source) Perplexity is the most direct:
+that's what it was built for and it cites by default in a very
+readable way. For research inside a wider workflow (you're
+already writing, rewriting, iterating) ChatGPT with search and
+Gemini are more convenient: you stay in the same tool you're
+doing the rest of the work in. If you already pay for one of
+the three, that one is fine to start with; if you don't pay for
+any, Perplexity has a generous free tier for the research case.
+Newer modes like "Deep Research" on ChatGPT or agentic search on
+Perplexity Pro (modes where AI does multiple search rounds on
+its own, digs deeper, and hands you a longer, more structured
+output) take more time and cite more sources. They don't change
+the underlying problem: the
+[verification pattern](#pattern-verify-cite-track) you'll read
+in the next section is the same, because invention doesn't
+disappear with more automated steps, it just hides better.
+
+All four share the same non-negotiable constraint: the **link
+must be opened**. The citation is part of the prompt, not the
+verification. Sometimes the engine cites an article accurately but paraphrases
+a sentence the article doesn't actually contain. And yes, live
+engines also invent: less often than the base versions, but the
+problem hasn't disappeared.
+You'll see it in the ChatDemo of the
+[A concrete example](#a-concrete-example) section.
+
+## The professional hallucination: the specific risk
+
+On research-for-work topics, AI can invent in three specific
+ways. Knowing them by name helps: they're recognizable at a
+glance once you know what to look for.
+
+**Invented citations.** The book doesn't exist, the author
+doesn't exist, the year is plausible but wrong. The title often
+"sounds" authoritative (*Smart Markets in the Age of AI, Harvard
+Business Press, 2023*). Classic case: you ask AI to cite three
+books on topic X and it gives you three. When you search, you
+find that one is real, one is by a real author but the title
+doesn't exist, and one is completely made up.
+
+**Round numbers without a source.** *"73% of companies report
+that…"*, *"The market is worth 12 billion dollars globally"*.
+Precise numbers, suspiciously round percentages, with no
+indication of who measured them or when. On LinkedIn these
+numbers propagate from one post to another because nobody
+verifies them. In a work deliverable they're poison.
+
+**Synthesis that invents attribution.** You gave AI five
+sources. A claim shows up in the synthesis. You go look for it
+in the five sources and it isn't there. AI has synthesized by
+combining things it found in the sources with things it already
+"knew" from training, and the two layers blend together in the
+single output.
+
+These three patterns aren't a built-in flaw of AI: they're the
+behavior of a system that produces plausible text from a
+request, even when it doesn't have the exact information. Same
+mechanism as in
+[*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/).
+What changes here is the **consequence**: in a professional
+deliverable, an invented citation is an embarrassing moment with
+a client, an invented number is a flawed analysis that will
+steer a decision, an inflated synthesis is your name next to a
+false claim.
+
+## Pattern: verify, cite, track
+
+For every piece of information that will go into the
+deliverable, three steps you can't skip.
+
+**1. Always ask for the source.** If AI gives you a number, a
+citation, a name, a fact, ask *"where does it come from? Give me
+the specific source with link, author, and date"*. If it can't
+point to one, throw the fact out. A good rule is to ask for it
+already in the initial prompt: *"for every factual claim,
+indicate the source in parentheses"*. Prevention beats
+chasing. The constraint isn't a guarantee: the model can still
+invent a plausible source. But it works as a brake: most of the
+time it prefers to declare *"no recent source"* rather than
+fabricate one if you've given it an explicit safety exit. The
+verification at step 2 stays indispensable.
+
+**2. Open the source.** If the source exists, go to the link
+and verify that the sentence AI cites is actually there. Often
+it's there but rephrased, and the rephrasing changes the meaning
+(it goes from *"grows by 10%"* to *"could grow up to 10%"*, or
+from *"in some countries"* to a general claim). When the
+response cites many sources (easily happens with Perplexity in
+deep mode), you don't need to open them all: open the ones that
+support the facts going into the deliverable. If the brief has
+five key points, that's five sources to open, even if the
+response cites fifteen. For a report you sign, cast a wider
+net: every fact cited as a specific data point (numbers, dates,
+names) needs checking.
+
+**3. Track where each thing came from.** In your final document,
+keep a record of the source for every important data point: a
+"source" column in the working sheet, a footnote in the report,
+a margin note that won't end up in the deliverable but that you
+have. The minimum acceptable is one row per fact with four
+fields: the fact, the source, the link, the date you checked.
+Like:
+
+> *"Diadora e-commerce relaunch 2024 / source: Diadora press
+> release / link / verified 24/04/2026"*.
+
+It serves two purposes: it lets you go back if someone asks
+*"where did you get that?"* (and someone always asks, sooner or
+later), and it forces you not to leave any fact unverified,
+because you notice when you have to fill in the column.
+
+The pattern isn't academic. It's how professionals who've
+learned that shipping a deliverable without traceability is the
+fastest way to end up justifying a mistake in front of a client
+six months later, with no memory of where the fact came from.
+
+:::tip[When the live engine gives you links]
+On Perplexity and ChatGPT with search, the inline citations
+already feel like verification. They aren't. The citation only
+says the response was built by looking at that page, not that
+the sentence you're reading is on that page. Open the
+link, search the sentence with `Ctrl+F`. If you can't find it
+word for word, the engine has rephrased, and the rephrasing
+needs rereading.
+:::
+
+## A concrete example
+
+You're preparing a half-page brief for the sales director. The
+topic: how the three main Italian sportswear companies have
+moved on the e-commerce channel over the past year. You're not
+an expert in the sector. You have thirty minutes.
+
+Strategy: start with a live search engine, ask for five points,
+and in the prompt require sources for every fact. If a point
+has no source, AI must say so.
+
+<ChatDemo
+  user={`I'm preparing a brief for the sales director. Topic: how the three main Italian sportswear companies (your pick among the most well-known) have moved on the e-commerce channel over the past year. Give me five key points. For each point, indicate the specific source with link and date. If for one point you don't have a recent reliable source, say so explicitly instead of inventing a number.`}
+  ai={`The three companies I selected: Diadora, Lotto, Kappa. Five points.
+
+1. **Diadora relaunched its direct e-commerce in 2024**, shifting part of its distribution from marketplaces (Amazon, Zalando) to its own site. Source: Diadora press release of 12/03/2024 ([link to Diadora site](#)).
+
+2. **Lotto Sport opened a dedicated Shopify store for the European market** in the second half of 2024, focused on DACH countries. Source: CMO interview on Pambianco News, 09/2024 ([link](#)).
+
+3. **Kappa kept a hybrid strategy** with prevalent weight on multi-brand online retailers (e.g., Spartoo, Zalando) over direct sales. Source: BasicNet annual report 2023 ([link to PDF, pp. 34-38](#)).
+
+4. **On social commerce (Instagram Shop, TikTok Shop)** I don't have recent reliable sources that allow a comparison across the three companies. Pambianco and Mark Up have partial coverage. For this point I suggest asking the marketing team directly or checking the official social pages.
+
+5. **On average online discount rate** I don't have current public sources for 2024. Numbers circulating on LinkedIn (e.g., *"30% average discount on Italian sports retail online"*) aren't traceable to a specific measurement: I wouldn't use them in a brief to the director without a source.`}
+/>
+
+AI did well on two axes: it attributed the facts in the first
+three points to specific sources (with links, dates, and page
+numbers where relevant), and on points 4 and 5 it **declared the
+limit** rather than filling in with a plausible number. Point 5
+is exactly where an AI without the *"if you don't have a source,
+say so"* constraint would probably have invented a suspiciously
+round figure.
+
+From here your work isn't done: the three links in the first
+points need to be **opened** one by one, the sentences need to be
+verified word for word against the original text, and the two
+missing data points get gathered from elsewhere (an internal
+team, a specialist source, a sector agency) or you accept that
+the brief leaves them blank with a note.
+
+## What NOT to do
+
+**Don't ship a deliverable without verification.** Even if AI
+gave you five cited sources and everything seems coherent.
+Opening links and checking sentences isn't optional: it's the
+difference between a professional brief and an embarrassing
+slip. A wrong citation in a board report, surfaced six months
+later, is the kind of mistake that sticks.
+
+**Don't ask "do the research for me" as a one-shot.** AI doesn't
+know your client, doesn't know what angle to take, doesn't know
+your internal constraints. Without orientation it gives you a
+generic synthesis. You're the one who has to steer it with
+questions, constraints, and specific context. Same principle as
+[*Things NOT to do*](/en/everyday-use/what-not-to-do/): the
+decision on what goes into the deliverable and what doesn't
+stays with you.
+
+**Don't trust round numbers without a source.** *"73%"*, *"a
+third of companies"*, *"over 10 billion"*. Every number AI hands
+you without a traceable source is a number to throw out. Same
+pattern as
+[*Working with data and tables*](/en/at-work/data-and-tables/):
+AI can be wrong about a number with the same confidence it has
+when it's right, and on market data going into a brief,
+confidence isn't enough.
+
+## What's next
+
+The next lesson, *AI as a thinking partner*, shifts the axis:
+from research (finding and synthesizing information that exists)
+to thinking (using AI to anticipate objections, play devil's
+advocate on your ideas, brainstorm in a structured way). The
+risk changes shape: there hallucinations matter less, but a new
+risk shows up, the risk of being reassured rather than
+challenged.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-research-for-work.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
