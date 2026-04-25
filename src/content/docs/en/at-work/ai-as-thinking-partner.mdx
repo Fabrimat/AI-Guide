@@ -1,0 +1,399 @@
+---
+title: AI as a thinking partner
+description: "Stress-test an idea before you propose it, anticipate objections, brainstorm with method. Without an explicit constraint AI confirms everything: the value comes from forcing it into discomfort."
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Posture shift compared to the rest of the module: here AI doesn't produce an output for you (email, brief, summary), it helps you bring out **your own** thinking. The operational distinction: you're talking to land a sharper idea of yours, not a result from the AI.
+- Three moves: **devil's advocate** on your idea, **structured brainstorming** (diverge first, then converge), **anticipate objections** by simulating the counterpart (boss, client, board).
+- The specific risk is **sycophancy**: by training, models tend to confirm what you say. Without an explicit constraint like *"challenge me for real"*, you'll get echo, not pushback.
+- Three prompts that force the AI into discomfort: *"find the three biggest holes"*, *"argue like the toughest critic in my industry"*, *"take the opposite position with full force"*.
+- Closing test: at the end of the conversation, **has at least one thing changed** in your original idea? Yes = the thinking partner worked. No = you were looking for reassurance and you found it.
+
+</LessonSummary>
+
+You're about to propose an initiative to management and you'd
+like to see it picked apart by someone who won't go easy on you.
+You have a difficult conversation with a client tomorrow morning
+and you'd like to rehearse the toughest objections before walking
+into the room. You've been stuck on a problem for a week, you
+keep going at it from the same angle, and you'd like someone to
+hand you ten different ones.
+
+All three are situations where you need a sharp colleague, not a
+machine that types out a draft for you. The other lessons in the
+module are about AI producing something for you (an email, a
+brief, a meeting digest, a synthesis of sources). This lesson is
+different: AI doesn't produce an output, it helps you pull out a
+thought of your **own**, ideally a better one than the thought
+you walked in with.
+
+Difference from
+[*Iterate the conversation*](/en/everyday-use/iterate-the-conversation/)
+in Module 2: there, the dialogue is for optimizing an output
+(the better summary, the right draft, the weekend plan). Here,
+the dialogue is for optimizing **an idea of yours**. The final
+output, in many cases, isn't even written: it's a decision, a
+position, a strategy that you carry into the room.
+
+There's good news and bad news. The good: with the right prompt,
+AI is a surprisingly strong thinking partner, asking questions a
+colleague wouldn't out of politeness. The bad: with the wrong
+prompt, it flatters you and leaves you exactly where it found
+you.
+
+## Three ways to use AI as a colleague who thinks with you
+
+### 1. Devil's advocate on your idea
+
+You have an idea, a plan, a proposal. You want to see it
+attacked before others do it. The prompt that works is explicit
+about the role:
+
+> *"I'm about to propose to the CEO that we open a direct
+> e-commerce channel instead of staying only on marketplaces.
+> I'm pasting my five-point proposal below. Find the three
+> biggest holes, including uncomfortable ones, as if you were
+> the most skeptical CFO in the company. No preambles, no
+> 'broadly speaking it's a good idea'. Go straight to the
+> critique."*
+
+Three pieces that matter. The **specific role**
+("skeptical CFO", not a generic "critic"): it changes the angle
+of the objections, because a CFO looks at cash flow, a client
+at price, a competitor at positioning. The **explicit number**
+("three holes"): without a number, AI tends to write a generic
+list of pros and cons. The **block phrase** ("no 'broadly
+speaking it's a good idea'"): without it, you'll get an opening
+paragraph that flatters you before the critique, and that
+opening is a sycophancy tell, picked up later in the section
+[The specific risk: sycophancy](#the-specific-risk-sycophancy).
+
+The same scheme works for other challenger roles: *"the toughest
+reviewer in academic peer review"*, *"opposing counsel"*, *"a
+journalist looking for the wrong piece"*. The more specific the
+role, the sharper the critique.
+
+If you work in a context where the classic boardroom roles
+don't apply (creative agency without a CFO, NGO, freelance,
+school), translate the toughest critic into your perimeter:
+*"the most cynical creative director you know"*, *"the head of
+a peer NGO weighing reputational risk"*, *"the client who
+rejected your last proposal"*, *"the strictest department
+colleague on fundamentals"*. The point isn't the title, it's
+the specificity of the viewpoint the critique is coming from.
+
+:::tip[How much context to give before the challenge]
+For a good devil's advocate, AI needs to know enough to attack
+the right points, not your company résumé. The useful minimum:
+sector or area, size (SME, multinational, team of 10), the
+problem in two lines, the proposal in points, and the main
+constraint you can't change (budget, deadline, a decision
+already taken upstream). Three or four sentences of setup, not
+a one-page brief. If AI makes a critique that ignores a key
+piece of context, add it in the next turn instead of front-
+loading the whole thing in the opening.
+:::
+
+### 2. Structured brainstorming
+
+When you're stuck and want to see the problem from different
+angles, the pattern is two-step: first you diverge (ask for
+many angles), then you converge (pick one or two and go deep).
+
+> *"I'm stuck on this problem: how to bring the company
+> newsletter open rate from 18% back up to 28% in three months.
+> Give me ten different angles of attack, each with a one-line
+> explanation. No ranking, no better-or-worse: I want ten real
+> directions, including the uncomfortable or counterintuitive
+> ones."*
+
+Once you see the ten angles (diversifying senders, A/B testing
+on subjects, database resegmentation, ignored preheaders,
+cadence, missing content, day-of-week, masked unsubscribes,
+subject as a question, mobile-first reformatting), you move
+into the second phase:
+
+> *"Let's go deeper on the resegmentation angle and the
+> diversified-senders one. For each: three specific hypotheses
+> to test in the first month, and for each how to measure the
+> result so I can tell whether it's working."*
+
+The diverge-converge scheme is simple but it changes everything
+when you flip it the right way. If you ask *"what's the best
+thing to do?"* AI will give you an answer that sounds
+single-track, when in reality it's only weighed one option (the
+most obvious). If you ask for ten angles first, you see the
+space you're operating in, and **you** pick where to go deep.
+
+A nuance: if the ten angles you get all feel obvious (you'd
+already seen seven of the eight, nothing is surprising), go
+back and ask for a second round with a stronger constraint:
+*"these are the ones everyone thinks of. Give me ten more
+angles that would be cut at the first internal pass because
+they look counterintuitive, awkward, or expensive. I want the
+ones nobody would pitch in a meeting, even if maybe one or two
+would hold up."*. The real value of brainstorming often sits
+in the second pass, not the first.
+
+### 3. Anticipate objections
+
+You have an important conversation coming up: an interview, a
+renegotiation meeting, a confrontation with an unhappy client.
+You can run it in dry mode with AI before running it for real.
+
+> *"Tomorrow morning I'm meeting a long-standing client who's
+> asked for a 20% fee reduction because 'times have changed'.
+> I'm pasting below the four points I want to make. You're the
+> client. Push back on every point the way you would, in a
+> direct but professional tone. Short answers, one
+> counter-question for every objection of mine. Don't leave me
+> any easy point."*
+
+The constraint *"don't leave me any easy point"* is what shifts
+the conversation. Without it, AI plays an accommodating client
+who accepts your arguments one by one and gives you the illusion
+of being prepared. With it, it surfaces the three objections
+you hadn't thought of.
+
+A useful variant: ask for two or three simulation rounds where
+you change a single variable (the client is in genuine financial
+trouble; the client is evaluating a competitor; the client is
+exposed on price internally to their board). The objections
+shift shape with each scenario.
+
+On personal data: for useful role-play AI doesn't need to know
+your client's name or read real emails. *"Client in sector X,
+revenue around Y, with you for Z years, unhappy for N months on
+topic W"* is enough. The rule from the
+[privacy section of *Working with data and tables*](/en/at-work/data-and-tables/#privacy-the-main-constraint)
+applies here too: the less identifying information you upload to
+a public chat, the less risk surface, and in the case of
+role-play you lose nothing pedagogically useful, because AI
+simulates the position, not the person.
+
+## The specific risk: sycophancy
+
+Models are trained with a method called **reinforcement learning
+from human feedback** (RLHF). In plain terms: during training,
+real people rated thousands of model responses, and the model
+learned to produce responses that get high ratings. The catch
+is that human feedback rewards, on average, responses that make
+the receiver feel good. Result: by default, AI tends to confirm
+your position, praise the idea you bring, and tell you you're on
+the right track.
+
+The technical name for this tendency is **sycophancy**, from the
+English word for flattery. It isn't a bug, it's a side effect of
+how the model is trained. It's the reason why if you ask
+*"what do you think of my idea?"* the default reply is
+*"great!"* followed by four reinforcing points. Not because the
+idea is great: because flattering first and softening later is
+the shortest route to a high rating from people who scored the
+AI during training.
+
+Three prompts that work to dismantle the default:
+
+- *"Find the three biggest holes in this idea, even
+  uncomfortable ones. Skip the compliments."*
+- *"Argue like the toughest critic in my industry. No generous
+  preambles."*
+- *"Take the opposite position to mine with all the force you
+  can. You don't have to agree with me, you have to challenge
+  me."*
+
+All three share three elements: **a challenger role** (critic,
+opponent), **an explicit block on flattering preambles** (so AI
+doesn't open by praising), and **a number or intensity** (three
+holes, full force, the toughest critic). Without these three
+elements, even with the best intentions, AI will tend to drift
+back to its default.
+
+A small note on reading: read what you get. If the critique is
+solid, accept it. If your first reaction is to look for another
+prompt that gives a kinder answer, you're already in the trap.
+
+On specific models: the three majors (Claude, ChatGPT, Gemini)
+are all subject to sycophancy, in different degrees and in
+slightly different ways. It varies by model, by version, and
+each new release shifts the bar one way or another. The
+practical advice isn't "switch model when one feels too
+accommodating", it's **apply those three constraints to whatever
+model you're using**. Explicit constraints stay the most
+reliable defense, because they act at the prompt level and don't
+depend on the model version you happen to have open in that
+moment.
+
+## Thinking better, or being reassured?
+
+The subtler problem of using AI as a thinking partner isn't the
+model's sycophancy, it's the sycophancy you can inflict on
+yourself without noticing. You look for confirmation, AI gives
+it to you, you feel more confident, **and** you haven't thought
+better. If anything, you're more locked in than before on your
+starting position.
+
+To tell the difference, one simple, honest closing question: at
+the end of the dialogue, **has at least one thing changed** in
+your idea, position, phrasing, or plan? Just one. Even a small
+one.
+
+- If yes (you changed a key data point, an argument, a priority
+  ordering, a phrasing, an estimate), the thinking partner
+  worked. AI added value, even if only by shifting a comma of
+  perspective.
+- If no, you have to ask: was I thinking, or was I looking for
+  an echo? One possible answer is: I did the right thing, the
+  idea holds up against every objection. More often the honest
+  answer is: I asked in a way that prevented the critique from
+  surfacing, AI confirmed me, and I feel stronger without
+  being so.
+
+The "at least one thing changed" test on its own isn't enough:
+changing for the worse is always possible. If AI brought a
+brilliant argument that shifted your position, before carrying
+the new version into the meeting, run two checks. **First**: does
+the new position hold up if you reread it cold tomorrow morning,
+without the conversation fresh in your head? Brilliant in chat
+and weak when cold is the typical signal of an argument that
+seduced you. **Second**: is there a fact, a data point, or a
+source the new position relies on that you don't have? If yes,
+verify it. AI can build a coherent position on top of a faulty
+factual premise (it's the pattern from
+[*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/))
+and you find yourself defending in public a conclusion resting
+on a hallucination.
+
+Three practical signals of "thinking partner that worked":
+
+- At some point in the dialogue, you felt a small twinge (a
+  critique you hadn't anticipated, a weak point you knew about
+  but were keeping low). That twinge is the signal that the
+  dialogue is doing its job.
+- You wrote down the objection that hit you the hardest. Not to
+  answer it right away: to carry it with you.
+- You changed at least the wording of one thing, even just to
+  test the new version on another round.
+
+And three signals of disguised reassurance:
+
+- You asked *"what do you think?"* without challenger
+  constraints.
+- AI opened with a compliment and then "softened".
+- You feel more confident at the end, but if you ask yourself
+  *what changed*, the answer is "nothing, I just feel better".
+
+## A concrete example
+
+You're about to propose to the CEO that the company launch an
+internal mentoring program for juniors. You have a five-point
+draft. You want it stress-tested by a skeptical CFO before
+taking it to the board.
+
+<ChatDemo
+  user={`I'm about to propose an internal mentoring program for juniors to the CEO. The five-point proposal:
+1. Each senior mentors one or two juniors, two hours a month.
+2. Pairs assigned by HR based on area + chemistry.
+3. Six-month pilot on 30 pairs.
+4. Investment: senior time valued at €50,000 per year.
+5. Expected benefit: cut junior turnover from 22% to 12%.
+
+You're the most skeptical CFO on the board. Find the three biggest holes, including uncomfortable ones. Skip the compliments. Go straight to the critique.`}
+  ai={`Three holes.
+
+1. **You don't prove the cause-effect on turnover.** The 22% junior turnover can come from many things: below-market salaries, weak direct managers, no career path. You're assuming mentoring acts on all of these, but mentoring is one variable. Without a control (a group of juniors **not** mentored over the same period), at the end of the pilot you won't know whether the turnover drop, if any, is your doing or ten other things'.
+
+2. **The hidden cost of senior time is underestimated.** Two hours a month per pair, across thirty pairs, is 720 hours a year of senior time alone. If seniors cost on average €80 an hour fully loaded, that's €57,600, not €50,000. But the real problem isn't the figure: it's that those 720 hours come from somewhere else. Where? If they're delivery hours, you have a revenue gap; if they're product development hours, you have a roadmap gap. The proposal doesn't say, and the CEO will ask.
+
+3. **Six months is too short to measure turnover.** Junior turnover at companies usually shows up at 18-24 months, when the "honeymoon" of the first job ends. A six-month pilot won't see anyone leave for reasons unrelated to mentoring; you'll see at best some engagement signals (eNPS, intent to stay), which is a weak proxy. If you measure eNPS, declare it, but then the "from 22% to 12%" number disappears from the slide and the whole story you tell changes.
+
+A closing question the CEO will ask but the CFO can't stand: if the turnover figure had moved on its own between 22% and 12% (it happens, it's a noisy number), how do you avoid taking credit you didn't earn?`}
+/>
+
+AI did three things well: it refused to open with the *"the
+program is a good idea, but…"* line (because you'd forbidden
+it in the prompt), it attacked the load-bearing point (the
+cause-effect on turnover, which was the strongest claim and
+therefore the most attackable), and it closed with a question
+that doesn't leave easy room to escape.
+
+What do you do with this response? Three options:
+- **If the critique holds**, you change the proposal before the
+  meeting. Maybe by adding a control group (point 1), spelling
+  out the real €57,600 and naming where the senior hours come
+  from (point 2), extending the pilot to twelve months or
+  switching the primary metric to engagement rather than
+  turnover (point 3).
+- **If a critique doesn't hold**, you have the arguments to
+  knock it down in the meeting, because the CFO will run it the
+  same way.
+- **If the critique holds but you can't fix it before tomorrow's
+  meeting**, at least you walk in knowing where you're weak,
+  and you prepare an honest answer instead of getting caught
+  off guard.
+
+All three options are work the dialogue with AI let you do in
+twenty minutes, before the meeting, instead of doing it in
+public in front of the board.
+
+## What NOT to do
+
+**Don't ask *"what do you think?"* without constraints.** It's
+the surest way to get a compliment and zero added thinking. If
+you don't specify a challenger role, a number, and a block on
+preambles, AI drifts back to its sycophant default.
+
+**Don't confuse brainstorming with deciding.** AI gives you ten
+angles, but the choice on which two to follow is yours: AI
+doesn't have skin in the game, doesn't answer for the result,
+doesn't know the internal culture or the precedents. Same
+perimeter as
+[*Things NOT to do*](/en/everyday-use/what-not-to-do/) in
+Module 2: the signature stays yours.
+
+A note on those specific domains. The thinking partner is
+allowed even when you're reasoning about health, money, legal
+matters, decisions that affect other people, and the other
+high-stakes areas *Things NOT to do* identifies. Allowed under
+one condition: you use it to **think better** (understand the
+options, see objections, formulate the right questions to ask a
+professional), not to decide on your behalf or on behalf of
+whoever has the real expertise. The practical difference: after
+the dialogue with AI, you walk into the doctor's / accountant's
+/ lawyer's office with better questions, not with a decision
+already made that you're asking them to sign.
+
+**Don't mistake a long dialogue for a deep one.** Forty turns
+with AI can be brilliant and completely disconnected from the
+substance. The signal of depth isn't the number of exchanges,
+it's the "at least one thing changed" test from the section
+[Thinking better, or being reassured?](#thinking-better-or-being-reassured).
+If the dialogue is long and nothing has changed, you've lost an
+hour.
+
+## What's next
+
+If AI helps you think well on a specific decision today, the
+next question is: how do you reuse the same context tomorrow,
+in a week, in a month, without reloading every time who you are
+and what you're doing? The next lesson, *Reuse context with
+projects*, covers the tool the three major platforms have
+adopted for this: Claude Projects, ChatGPT Custom GPTs, Gemini
+Gems.
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-ai-as-thinking-partner.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
