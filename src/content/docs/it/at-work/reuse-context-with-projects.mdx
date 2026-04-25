@@ -1,0 +1,375 @@
+---
+title: Riusare contesto con i progetti
+description: "Claude Projects, ChatGPT Custom GPTs, Gemini Gems: stesso meccanismo, tre nomi diversi. Carichi una volta il contesto che ricorre (chi sei, cosa fai, come scrivi, file di riferimento) e lo riusi in tutte le chat di quel filone, invece di ripartire da zero ogni volta."
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- Le chat con l'IA non si ricordano niente fra una conversazione e l'altra. Per task **ricorrenti** (status settimanale, newsletter del lunedì, brief al cliente del giovedì) ricaricare il contesto ogni volta è una tassa nascosta che paghi a ogni nuova chat.
+- Tutte le piattaforme principali risolvono lo stesso problema con lo stesso meccanismo, sotto tre nomi diversi: **Claude Projects**, **ChatGPT Custom GPTs**, **Gemini Gems**. Carichi una volta, riusi sempre.
+- Tre ingredienti da metterci dentro: **istruzioni persistenti** (chi sei, come l'IA deve comportarsi), **file di conoscenza** (PDF, documenti, listini, brand guideline), **esempi** (un paio di output buoni del passato come "fai così").
+- Quando vale la pena: ti accorgi che stai ricaricando lo stesso contesto a ogni nuova chat, oppure stai facendo lo stesso tipo di task almeno una volta a settimana. Sotto questa soglia, una chat fresca è più rapida.
+- Tre cose da non metterci dentro: dati personali sensibili (clienti, credenziali, contratti riservati su un account consumer), istruzioni in conflitto fra loro (l'IA segue l'ultima e ti sembra "non capisca"), troppi file (più ne aggiungi più diluisci il segnale).
+
+</LessonSummary>
+
+Ogni lunedì mattina ti siedi e devi mettere insieme lo status
+report settimanale del team. Ogni giovedì scrivi una newsletter
+ai clienti con tre novità della settimana. Una volta al mese
+prepari un brief per il consiglio nello stesso formato di
+quello del mese prima. In tutti i casi sai esattamente cosa
+serve all'IA per aiutarti: il tono dell'azienda, i nomi delle
+persone del team, il modello di documento, i tre file di
+riferimento, e cosa non scrivere mai.
+
+Il problema è che ogni nuova chat con l'IA parte da zero. Lei
+non sa chi sei, non ricorda la chat di lunedì scorso, non sa
+che il tono va sempre asciutto e mai entusiastico, non ha mai
+visto il tuo file con i nomi dei prodotti. Tu finisci a
+ricaricare lo stesso contesto a ogni nuova conversazione. Sei
+minuti di setup, dieci minuti di lavoro vero. Sui task
+ricorrenti, è una tassa nascosta che paghi tutte le settimane
+e che non vedi finché qualcuno non te la fa vedere.
+
+Le tre piattaforme maggiori hanno risolto questo problema con
+lo stesso meccanismo, sotto tre nomi diversi. Su Claude si
+chiamano **Projects**. Su ChatGPT si chiamano **Custom GPTs**.
+Su Gemini si chiamano **Gems**. La logica è identica: crei un
+"contenitore" persistente, ci metti dentro istruzioni e file,
+e ogni chat che apri **dentro** quel contenitore eredita tutto
+quel contesto senza che tu debba ricaricarlo.
+
+Differenza con
+[*Iterare la conversazione*](/it/everyday-use/iterate-the-conversation/)
+del Modulo 2: lì il contesto vive **dentro una chat** (la
+memoria della conversazione). Qui il contesto vive **prima
+della chat** e si applica a tutte le chat che apri in quel
+progetto. Sono due livelli diversi: il contesto della singola
+conversazione resta come l'hai imparato, sopra ci aggiungi un
+contesto persistente che non devi ricaricare.
+
+## I tre nomi della stessa cosa
+
+| Piattaforma | Nome | Disponibilità | Punto di forza |
+|---|---|---|---|
+| Claude | Projects | Da Pro in su | File di conoscenza generosi (decine di documenti, finestra di contesto ampia) |
+| ChatGPT | Custom GPTs | Da Plus in su (creazione); free per usarli | Marketplace di GPT pubblici, integrazioni esterne ("Actions") |
+| Gemini | Gems | Free | Più semplice, integrato con Workspace; al consumer non si caricano file di knowledge |
+
+Le differenze pratiche per un knowledge worker:
+
+- **Claude Projects** è il più forte sui file di conoscenza:
+  carichi documenti lunghi (manuali, listini, brand book, archivi
+  di output passati) e Claude li tiene a portata di chat. Buona
+  scelta se il tuo lavoro ricorrente ruota attorno a documenti.
+- **ChatGPT Custom GPTs** è il più granulare e l'unico che
+  permette di pubblicarli (puoi condividere un Custom GPT con il
+  tuo team o usare quelli pubblici). Ha anche le **Actions**, che
+  permettono al GPT di chiamare API esterne (per esempio un
+  sistema interno o uno strumento di terze parti). Per un
+  knowledge worker non-developer, le Actions sono spesso eccesso;
+  per chi lavora in team con un minimo di IT, sono la differenza
+  che fa scegliere ChatGPT. Su ChatGPT c'è una distinzione
+  importante: **creare** un Custom GPT richiede un piano Plus o
+  superiore, ma **usarne uno** pubblicato da altri si può anche
+  con account Free. Se non paghi e ti basta un set di GPT
+  pubblici utili, è una porta d'ingresso al concetto.
+- **Gemini Gems** è il più semplice e l'unico gratuito al livello
+  consumer, ma sul piano free non si caricano file di knowledge.
+  Buona porta d'ingresso al concetto se non paghi nessun
+  abbonamento; meno potente per chi ha bisogno di un knowledge
+  base persistente.
+
+In pratica: se paghi già uno dei tre, usa quello. Il pattern di
+lavoro che vedi in questa lezione funziona su tutti e tre, e i
+casi dove l'IA "sbaglia piattaforma" sono pochi e specifici. La
+domanda da farsi non è *"qual è la piattaforma migliore?"*, è
+*"quale ho già aperta dieci volte alla settimana?"*.
+
+## Cosa metterci dentro: tre ingredienti
+
+Pensa al tuo progetto come a un mini-collega virtuale che
+prepari una volta. Tre cose lo rendono utile.
+
+### 1. Istruzioni persistenti
+
+Il "carattere" del progetto. Chi sei, cosa fai, come l'IA deve
+comportarsi quando le parli **dentro questo progetto**. È il
+campo che su Claude si chiama "Project instructions", su ChatGPT
+"Instructions" del Custom GPT, su Gemini "Instructions" della
+Gem.
+
+Cosa scrivere bene qui:
+
+> *Sono [ruolo] in un'azienda di [settore], dimensione [PMI /
+> grande], lingua di lavoro italiano. Quando ti chiedo qualcosa
+> dentro questo progetto, comportati così: tono asciutto,
+> niente entusiasmo, niente preamboli generosi. Se ti chiedo un
+> testo, dammi due varianti diverse, non una. Se ti faccio una
+> domanda fattuale, prima rispondi, poi dimmi su cosa stai
+> basando la risposta. Termini da non usare mai: "soluzioni",
+> "sinergia", "ecosistema". Termini che vanno bene: "scelta",
+> "compromesso", "pratica".*
+
+Tre regole pratiche per le istruzioni:
+
+- **Scrivile come parli.** Non un bando di gara, non un
+  prompt da palco. Frasi brevi e dirette, perché l'IA le
+  applica meglio se le capisce al volo.
+- **Concentrati su quello che NON deve fare.** Le IA tendono a
+  default ottimistici e generosi: la metà del valore di
+  istruzioni persistenti è elencare i comportamenti da
+  evitare (vietato il preambolo, vietata la chiusura
+  riassuntiva, vietato il passivo impersonale).
+- **Tieni il file delle istruzioni breve.** Una pagina è
+  abbondante. Se diventa lungo, è il segnale che stai
+  riempiendo il progetto di cose che dovrebbero stare nei
+  file di knowledge o negli esempi.
+
+Cosa succede se nel singolo turno chiedi qualcosa che va contro
+le istruzioni del progetto? In genere l'IA segue la **richiesta
+del turno** quando questa è esplicita, e tiene le istruzioni del
+progetto come default per tutto il resto. Esempio: il progetto
+dice *"niente preamboli, niente chiusure riassuntive"*; in un
+singolo turno scrivi *"questa volta dammi un'apertura amichevole
+di una riga, è una mail di saluti"*. L'IA fa l'apertura
+amichevole. Se invece dimentichi di esplicitarlo, riapplica le
+regole del progetto. Funziona come un sopra-strato: il progetto
+imposta il default, il singolo turno può deviare per
+quell'occasione. Se ti accorgi che l'IA "non rispetta" il
+progetto in modo sistematico, leggi cosa hai scritto nel turno:
+nove volte su dieci hai dato una richiesta che, letta con cura,
+contraddiceva le istruzioni del progetto senza che te ne
+accorgessi.
+
+### 2. File di knowledge
+
+I documenti di riferimento che l'IA può consultare quando
+risponde. Non è memoria, è una libreria a cui ha accesso, e i
+pezzi rilevanti vengono ripescati al momento della domanda
+specifica. Per questo conta più la **qualità di selezione** dei
+file che la quantità.
+
+Sui formati: PDF, Word, testo semplice, Markdown, fogli di
+calcolo passano tutti. PDF e Markdown sono i due formati più
+affidabili, perché conservano struttura (titoli, sezioni)
+senza appesantirla con metadata grafici. Documenti scansionati
+(PDF immagine non OCR) e screenshot funzionano peggio:
+caricali solo se non hai alternative.
+
+Cosa caricare:
+
+- Documenti del **dominio**: manuali di prodotto, listini,
+  policy interne pubbliche, FAQ.
+- Materiale di **stile**: brand guideline, esempi della tua
+  voce di scrittura, glossario aziendale, checklist di
+  controllo qualità.
+- **Output buoni del passato**: tre o quattro versioni
+  finalizzate di documenti che vorrai produrre in futuro
+  (vecchie newsletter, vecchi brief, vecchi report). L'IA li
+  usa come riferimento di forma e tono.
+
+Cosa NON caricare:
+
+- Tutta la cartella aziendale "tanto male non fa": più file
+  carichi più diluisci la rilevanza di ogni singolo file. Su
+  Claude e ChatGPT il limite di contesto è ampio, ma non
+  infinito; soprattutto non infinitamente *utile*. La ragione
+  meccanica: quando rispondi a una domanda specifica, l'IA cerca
+  fra i file caricati e usa solo i pezzi rilevanti. Più file ci
+  sono, più aumenta la probabilità che peschi un pezzo simile
+  ma sbagliato (un vecchio glossario invece del nuovo, un
+  esempio fuori contesto invece di quello giusto). Tre o cinque
+  file mirati battono trenta file generici, anche se il
+  trentesimo "tecnicamente" entrerebbe.
+- Documenti **riservati**: dati clienti con nomi e fatturati,
+  contratti, dati sanitari, documenti coperti da NDA. Su un
+  account consumer (Plus, Pro, Free) i file caricati possono
+  finire nei sistemi del fornitore. Per quel tipo di
+  materiale serve un piano business o, meglio, non caricarlo
+  affatto. Le regole di
+  [*Lavorare con dati e tabelle*](/it/at-work/data-and-tables/#privacy-il-vincolo-principale)
+  valgono qui anche con più forza, perché il file resta nel
+  progetto, non solo in una chat.
+
+:::tip[Aggiornare i file di knowledge]
+I documenti caricati invecchiano: cambia un listino, cambia
+l'organigramma, cambia una linea di tono. Il modo più sicuro è
+**cancellare il file vecchio e caricare la versione nuova**:
+le piattaforme non gestiscono versioning automatico, e tenere
+due copie dello stesso documento (v1 e v2) raddoppia il rischio
+che l'IA peschi quella sbagliata. Una buona pratica è mettere
+in calce alle istruzioni del progetto una riga "documenti
+attualmente caricati: [elenco], aggiornato il [data]" e
+rispettarla quando aggiorni: serve a te per ricordartene, e
+all'IA per non confondersi se chiedi qualcosa che dipende dalla
+versione.
+:::
+
+### 3. Esempi
+
+Tre o quattro output del passato fatti bene, possibilmente
+diversi fra loro per tipo. *"Una newsletter andata bene"*,
+*"un brief al consiglio andato bene"*, *"una mail di no
+elegante andata bene"*. Servono all'IA per capire **cosa
+intendi tu per buono**, che è quasi sempre più specifico di
+quello che le istruzioni testuali riescono a dirle.
+
+Gli esempi possono stare nei file di knowledge o, su ChatGPT
+e Claude, dentro le istruzioni stesse come blocchi di
+testo. Se le istruzioni cominciano a diventare lunghe, è il
+segnale di spostarli nei file.
+
+## Quando vale la pena fare un progetto
+
+Tre criteri pratici, da soddisfare almeno due su tre.
+
+1. **Ricorrenza**: stai facendo questo tipo di task almeno una
+   volta a settimana, oppure più volte al mese in modo
+   prevedibile. Sotto la soglia, una chat fresca con tutto il
+   contesto incollato è più rapida.
+
+2. **Contesto stabile**: il "contenitore" che vorresti
+   precaricare cambia poco. Una brand voice, una struttura di
+   report, un team con cinque nomi. Se il contesto cambia ogni
+   settimana, il progetto invecchia velocemente e finisci a
+   manutenerlo invece che usarlo.
+
+3. **Più di una persona o più di un canale**: vuoi che il
+   risultato sia coerente fra te e un collega, o fra il
+   lunedì e il giovedì. Un progetto condiviso (su ChatGPT
+   pubblicabile come Custom GPT, su Claude come Project di
+   team se hai un piano team) garantisce il "tono unico" per
+   tutti.
+
+Se zero o uno di questi tre criteri è soddisfatto, è probabile
+che tu stia complicando troppo. Una buona chat con un buon
+prompt resta lo strumento più rapido per i task una tantum.
+
+## Un esempio concreto
+
+Ogni giovedì scrivi una newsletter ai clienti dello studio. Il
+formato è: una sezione "tre novità della settimana", una
+sezione "il consiglio dello studio" da 200 parole, una
+sezione "cosa stiamo leggendo". Il tono dello studio è
+asciutto, non promozionale, e i clienti sono mediamente
+manager esperti del settore.
+
+Setup del progetto (lo fai una volta, dura mesi).
+
+**Istruzioni**:
+
+> *Sono partner di uno studio di consulenza in [settore].
+> Tono dello studio: asciutto, da pari a pari con i clienti
+> (manager esperti, non principianti), niente vendite. Quando
+> ti chiedo di lavorare alla newsletter del giovedì, struttura
+> sempre in tre sezioni: "Tre novità", "Il consiglio dello
+> studio" (200 parole), "Cosa stiamo leggendo". Niente
+> entusiasmo, niente "siamo lieti di…", niente chiusure tipo
+> "alla prossima!". Ogni sezione deve poter essere capita in
+> meno di due minuti di lettura.*
+
+**File di knowledge** (tre, mirati):
+
+- Brand guideline dello studio, due pagine.
+- Cinque newsletter delle settimane passate considerate
+  riuscite.
+- Glossario di termini di settore con le riformulazioni
+  preferite (es. "stakeholder" → "interlocutori",
+  "leveragare" → "usare").
+
+**Esempi** (incorporati nelle istruzioni, una riga per
+sezione):
+
+> *Esempio di "Tre novità" che ha funzionato:
+> [riga 1] / [riga 2] / [riga 3]. Esempio di "Cosa stiamo
+> leggendo": [titolo], in due righe, perché lo segnalo.*
+
+Da quel momento, il giovedì mattina apri una nuova chat
+**dentro** il progetto e scrivi:
+
+> *"Newsletter di questa settimana. Le tre novità che ho in
+> testa: [A], [B], [C]. Per il consiglio dello studio, parto
+> da questa idea: [riga]. Per 'cosa stiamo leggendo', sto
+> finendo questo libro: [titolo]. Tira fuori le tre sezioni
+> nello stile dello studio."*
+
+L'IA non ti chiede chi sei, non ti chiede il tono, non ti
+chiede il formato. Ha tutto. Tu correggi due righe, controlli
+i nomi, mandi.
+
+Il guadagno reale non è il singolo giovedì: è che i guadagni
+si sommano per cinquanta giovedì, e il tono dello studio resta
+coerente anche le settimane in cui sei stanca o di fretta.
+
+## Cosa NON fare
+
+**Non trasformare il progetto in un magazzino.** La tentazione
+è caricare tutta la cartella "Documenti aziendali" perché
+"male non fa". Male fa: più file carichi, più rumore
+introduci, più la risposta dell'IA si perde a inseguire
+documenti irrilevanti per la domanda specifica. Tre-cinque
+file mirati battono trenta generici.
+
+**Non caricare materiale riservato in un progetto consumer.**
+Un progetto è meno "innocente" di una chat: i file restano
+caricati, vengono letti più volte, e se il piano è consumer
+finiscono nei sistemi del fornitore. Stesso perimetro di
+[*Lavorare con dati e tabelle*](/it/at-work/data-and-tables/#privacy-il-vincolo-principale):
+contratti, NDA, dati clienti con nomi e fatturati, dati
+sanitari non ci vanno. La prossima lezione del modulo,
+*Privacy e dati aziendali*, copre questo punto in modo
+specifico per chi lavora in azienda.
+
+**Non confondere progetti con memoria personale.** Funzioni
+come "Memory" su ChatGPT (che ricorda tue preferenze
+personali fra tutte le chat) sono cose diverse dai Custom
+GPTs. La memoria è personale e cross-progetto; un progetto è
+specifico per un filone di lavoro. Mischiarli porta a
+risposte stranamente personalizzate ("ricordi che mi piace
+correre" mentre sto lavorando alla newsletter del cliente)
+che non servono.
+
+**Non creare venti progetti.** Se ne hai più di cinque o sei
+attivi, probabilmente alcuni si sovrappongono e finirai a
+chiederti dentro quale aprire la chat di oggi. Meglio pochi
+progetti coperti bene che molti progetti sottili.
+
+**Non lasciare i progetti senza manutenzione.** Un progetto
+"vivo" ha file aggiornati e istruzioni che riflettono ancora
+come lavori. Una volta al trimestre vale la pena fare una
+passata: i file caricati sono ancora la versione corrente?
+L'organigramma o il listino sono cambiati? Le istruzioni
+descrivono ancora il tuo modo di lavorare? Se un progetto non
+lo apri da due mesi, probabilmente è alla fine della sua vita:
+o l'attività ricorrente che lo giustificava si è esaurita, o
+il contesto è cambiato abbastanza da rendere il progetto un
+peso. In entrambi i casi, archiviarlo è meglio che tenerlo
+aperto in un limbo.
+
+## Cosa viene dopo
+
+L'ultima lezione del modulo, *Privacy e dati aziendali*,
+chiude il filone. Riprende il concetto che hai visto in
+[*Lavorare con dati e tabelle*](/it/at-work/data-and-tables/)
+sui dati di lavoro, lo estende alle situazioni più delicate
+(NDA, dati di categorie particolari GDPR, contratti con
+clausole di confidentiality), e spiega come cambiano le
+regole quando passi da un account consumer a un piano
+business o enterprise. Ponte verso i moduli successivi.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-reuse-context-with-projects.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>

@@ -467,8 +467,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    `: ` non quotato che YAML parsava come mapping; quotata in
    entrambe le lingue per stabilizzare il build.
 
-8. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
-   Claude Projects, ChatGPT Custom GPT, Gemini Gems.
+8. ✍️ **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
+   Stesso pattern su Claude Projects, ChatGPT Custom GPTs, Gemini
+   Gems: caricare contesto ricorrente una volta sola, riusarlo
+   cento. Tre ingredienti (istruzioni persistenti, knowledge file,
+   esempi). Quando vale la pena vs quando è overkill.
 
 9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
