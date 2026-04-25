@@ -399,11 +399,35 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    difference is in the method" → "method is what separates the
    two", "less risk surface" → "less risk").
 
-6. ✍️ **Ricerca per il lavoro** (`at-work/research-for-work`)
-   Sintesi multi-fonte per un deliverable. Differenza da *Imparare un
-   argomento nuovo* (Modulo 2) e *Riassumere un documento lungo*
-   (Modulo 2): più fonti contemporaneamente più obiettivo d'uso
-   professionale, e responsabilità sul deliverable.
+6. ✅ **Ricerca per il lavoro** (`at-work/research-for-work`)
+   Tre modi di usare l'IA per la ricerca (mappare un territorio
+   nuovo, sintetizzare più fonti che hai, fare ricerca live con
+   citazioni), tre forme di allucinazione professionale (citazioni
+   inventate, numeri tondi senza fonte, sintesi che inventa
+   attribuzione), pattern verifica-cita-traccia in tre passi con
+   mini-template di tracciamento, callout `:::caution` sulle fonti
+   aziendali riservate (coerenza con la sezione privacy della
+   lezione 5), ChatDemo portante su un brief competitivo nel
+   settore abbigliamento sportivo italiano. Ciclo di revisione
+   completo (`analyze-lesson` + integrazione + `style-checker` IT
+   e EN, 2026-04-25). Integrazioni principali dall'analisi
+   lettore: differenza esplicita tra mappa di un argomento e
+   indice di un documento (lezione 4 Modulo 2), volumi oltre il
+   limite di contesto + rimando a NotebookLM, callout privacy
+   sulle fonti riservate, criterio di scelta tra Perplexity e gli
+   altri motori live, regola operativa per quanti link aprire
+   (cinque punti del brief = cinque fonti), nota sul vincolo
+   "se non hai fonte dillo" (freno non garanzia), Deep Research e
+   ricerca agentica con glossa inline. Style-checker IT: una
+   violazione netta (em dash dentro l'esempio di tracciamento,
+   sostituito con slash) e tre rifiniture opzionali applicate
+   ("Vale la pena" → "conviene", due "Lo vedrai/leggerai sotto"
+   sostituiti con ancore esplicite, "letteralmente" → "parola
+   per parola"). Style-checker EN: OK con rifiniture opzionali,
+   applicate cinque polish di idiomaticità ("it happens that"
+   calco → "Sometimes", grappolo di "actually" ridotto, "different
+   weight" calco → "more weight than", triplo "It [verb]" merged
+   in una frase variata, doppio "usually X, usually Y" rimosso).
 
 7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
    Challenge, devil's advocate, brainstorming. Riconoscere "penso
@@ -416,12 +440,12 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 5 su 9 pubblicate. Email difficili, Bozze di
+**Stato attuale**: 6 su 9 pubblicate. Email difficili, Bozze di
 documenti professionali, Preparare una riunione, Slide e
-presentazioni e Lavorare con dati e tabelle live (IT + EN);
-sidebar Modulo 3 con lezioni 1-5 attive e 4 placeholder
-disabilitati; card "Sul lavoro" / "At work" in homepage e
-start-here attive, puntano alla lezione 1.
+presentazioni, Lavorare con dati e tabelle, e Ricerca per il
+lavoro live (IT + EN); sidebar Modulo 3 con lezioni 1-6 attive
+e 3 placeholder disabilitati; card "Sul lavoro" / "At work" in
+homepage e start-here attive, puntano alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -557,19 +581,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 5 su 9 pubblicate (2026-04-24).
+**Modulo 3 (Sul lavoro)**: 6 su 9 pubblicate (2026-04-25).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 6, **Ricerca per il lavoro**
-(`at-work/research-for-work`), prerequisiti `ask-well`,
-`when-to-trust-it` e `summarize-a-long-document`, taglio
-"sintesi multi-fonte per un deliverable professionale". È il
-pezzo dove l'IA accelera di più e allucina di più, differenza da
-*Imparare un argomento nuovo* (Modulo 2) e *Riassumere un
-documento lungo* (Modulo 2): più fonti contemporaneamente più
-obiettivo d'uso professionale.
+bozza: lezione 7, **L'IA come collega che ti aiuta a pensare**
+(`at-work/ai-as-thinking-partner`), prerequisiti `ask-well` e
+`when-to-trust-it`, taglio "challenge, devil's advocate,
+brainstorming strutturato". Differenza dalle lezioni 5 e 6 del
+modulo: lì l'IA elabora dati o sintetizza fonti, qui aiuta a
+pensare. Il rischio cambia forma: le allucinazioni pesano meno,
+ma compare il rischio di farsi rassicurare invece di farsi
+sfidare.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
