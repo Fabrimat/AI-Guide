@@ -93,13 +93,7 @@ export default defineConfig({
             { slug: 'at-work/research-for-work' },
             { slug: 'at-work/ai-as-thinking-partner' },
             { slug: 'at-work/reuse-context-with-projects' },
-            {
-              label: 'Company data and privacy',
-              translations: { it: 'Privacy e dati aziendali' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/company-data-and-privacy' },
           ],
         },
         {
