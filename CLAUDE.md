@@ -174,6 +174,7 @@ Il coral (`--sl-color-accent`) è identico in entrambi i temi: è il tratto di c
 | `--aig-elevated-bg-warm` | aside `:::note`                                    |
 | `--aig-caution-*`        | aside `:::caution` e `<LlmExercise variant="review">` |
 | `--aig-danger-*`         | aside `:::danger`                                  |
+| `--aig-success-*`        | variante verde custom: avvolgi un `:::note` in `<div class="aig-success-wrap">…</div>` (Starlight non ha un tipo `success` nativo) |
 | `--aig-shadow-color`     | tripletta rgb usata in `rgba(var(--aig-shadow-color), X)` per le box-shadow |
 | `--aig-scrim`            | backdrop dei `<dialog>` modali                     |
 | `--aig-hover-wash`       | hover wash su bottoni minimali / ghost             |

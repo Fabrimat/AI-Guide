@@ -91,6 +91,11 @@
        (`:::caution`, `:::danger`) e del variant `review` di
        `<LlmExercise>`. Estratti qui così in dark possono diventare
        toni profondi invece dei pastelli chiari.
+     - `--aig-success-*`: variante "verde" per la classe wrapper
+       `aig-success-wrap` attorno a un `:::note`. Salvia in light,
+       sage profonda su cioccolato in dark. Usata quando un livello
+       "ok / safe" deve essere visivamente distinto da `:::caution`
+       (giallo) e `:::danger` (rosso).
      - `--aig-shadow-color`: tripletta rgb usata nei `rgba(...)` dei
        box-shadow. In light è l'indigo del testo (ombre con tinta
        viola, non nere); in dark diventa nero puro.
@@ -104,6 +109,9 @@
   --aig-danger-bg: #f7c8bc;
   --aig-danger-border: #b5483a;
   --aig-danger-text: #8a2f1a;
+  --aig-success-bg: #e5efd9;
+  --aig-success-border: #7aa374;
+  --aig-success-text: #3f6b3a;
   --aig-shadow-color: 42, 36, 71;
   --aig-scrim: rgba(42, 36, 71, 0.45);
   --aig-hover-wash: rgba(42, 36, 71, 0.04);
@@ -180,6 +188,9 @@
   --aig-danger-bg: #3d1f15;
   --aig-danger-border: #c26048;
   --aig-danger-text: #f2a28e;
+  --aig-success-bg: #2a3923;
+  --aig-success-border: #7a9a6e;
+  --aig-success-text: #b8d2a8;
   --aig-shadow-color: 0, 0, 0;
   --aig-scrim: rgba(0, 0, 0, 0.65);
   --aig-hover-wash: rgba(243, 229, 208, 0.06);
@@ -274,6 +285,21 @@
   --sl-color-asides-text-accent: var(--aig-danger-text);
   --sl-color-asides-border: var(--aig-danger-border);
   background-color: var(--aig-danger-bg);
+}
+
+/* Variante "verde" custom: avvolgere un `:::note` in un
+   `<div class="aig-success-wrap">...</div>` per ribattezzarlo come
+   livello "ok / safe", visivamente distinto dal giallo (caution) e
+   dal rosso (danger). Usato per esempio nella mappa
+   rosso/giallo/verde di "Privacy e dati aziendali". Starlight non
+   espone una variante `success` nativa, e i quattro tipi di aside
+   (note/tip/caution/danger) sono fissati nel core: il wrapper +
+   override è la via più leggera per non duplicare il markup
+   dell'aside. */
+.aig-success-wrap .starlight-aside--note {
+  --sl-color-asides-text-accent: var(--aig-success-text);
+  --sl-color-asides-border: var(--aig-success-border);
+  background-color: var(--aig-success-bg);
 }
 
 /* ------------------------------------------------------------
