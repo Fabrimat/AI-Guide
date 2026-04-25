@@ -467,23 +467,54 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    `: ` non quotato che YAML parsava come mapping; quotata in
    entrambe le lingue per stabilizzare il build.
 
-8. ✍️ **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
+8. ✅ **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
    Stesso pattern su Claude Projects, ChatGPT Custom GPTs, Gemini
-   Gems: caricare contesto ricorrente una volta sola, riusarlo
-   cento. Tre ingredienti (istruzioni persistenti, knowledge file,
-   esempi). Quando vale la pena vs quando è overkill.
+   Gems: contenitore persistente con istruzioni + file di knowledge
+   + esempi, ereditato da ogni chat aperta dentro. Tre ingredienti
+   spiegati uno per uno con buone pratiche e cose da evitare.
+   Tabella comparativa delle tre piattaforme con punti di forza
+   specifici (Claude per i file lunghi, ChatGPT per Actions e
+   marketplace, Gemini per la semplicità free). Tre criteri di
+   applicabilità (ricorrenza, contesto stabile, più persone o
+   canali). Esempio portante: setup di un progetto per la
+   newsletter del giovedì di uno studio di consulenza con
+   istruzioni complete + tre file mirati di knowledge + esempi
+   inline. Cinque cose da non fare: magazzino di file, materiale
+   riservato in account consumer, confusione con Memory personale,
+   troppi progetti, mancanza di manutenzione. Ciclo di revisione
+   completo (`analyze-lesson` + integrazione + `style-checker` IT
+   e EN, 2026-04-25). Integrazioni principali dall'analisi
+   lettore: ragione meccanica per cui pochi file mirati battono
+   molti generici (rilevanza diluita, rischio di pescaggio
+   sbagliato), formati dei file (PDF e Markdown affidabili,
+   scansionati no), callout `:::tip` su come aggiornare la
+   knowledge (cancella e ricarica, no versioning automatico, riga
+   "documenti caricati" in calce alle istruzioni), distinzione tra
+   creare un Custom GPT (Plus in su) e usarne uno pubblico
+   (anche Free), spiegazione di cosa vince fra istruzioni del
+   progetto e request del singolo turno (turno esplicito vince,
+   default del progetto altrimenti), paragrafo finale su
+   manutenzione e fine vita del progetto (passata trimestrale,
+   soglia dei due mesi senza aprire). Style-checker IT: OK con
+   rifiniture opzionali, applicate due polish lessicali ("La
+   knowledge invecchia" → "I documenti caricati invecchiano",
+   "overingegnerizzando" → "complicando troppo"). Style-checker
+   EN: OK con rifiniture opzionali, applicato un piccolo polish
+   ("Below that threshold" → "Below that" per ritmo); il sweep
+   sui calchi italiani-inglese non ha trovato nulla.
 
 9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 
-**Stato attuale**: 7 su 9 pubblicate. Email difficili, Bozze di
+**Stato attuale**: 8 su 9 pubblicate. Email difficili, Bozze di
 documenti professionali, Preparare una riunione, Slide e
 presentazioni, Lavorare con dati e tabelle, Ricerca per il
-lavoro, e L'IA come collega che ti aiuta a pensare live (IT +
-EN); sidebar Modulo 3 con lezioni 1-7 attive e 2 placeholder
-disabilitati; card "Sul lavoro" / "At work" in homepage e
-start-here attive, puntano alla lezione 1.
+lavoro, L'IA come collega che ti aiuta a pensare, e Riusare
+contesto con i progetti live (IT + EN); sidebar Modulo 3 con
+lezioni 1-8 attive e 1 placeholder disabilitato; card "Sul
+lavoro" / "At work" in homepage e start-here attive, puntano
+alla lezione 1.
 
 ## Modulo 4: Per studenti (livello `intermedio`)
 
@@ -619,19 +650,21 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 
-**Modulo 3 (Sul lavoro)**: 7 su 9 pubblicate (2026-04-25).
+**Modulo 3 (Sul lavoro)**: 8 su 9 pubblicate (2026-04-25).
 Struttura validata 2026-04-23 in
 `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-04-23-sul-lavoro-module.md`. Prossima
-bozza: lezione 8, **Riusare contesto con i progetti**
-(`at-work/reuse-context-with-projects`), prerequisiti `ask-well`
-e `iterate-the-conversation`, taglio "scalare il pattern del
-modulo su base ricorrente". Stesso meccanismo su tutte e tre le
-piattaforme principali: Claude Projects, ChatGPT Custom GPTs,
-Gemini Gems. Idea operativa: caricare contesto ricorrente una
-volta sola (knowledge base, tone of voice, vincoli, persone,
-template) invece di ricaricarlo a ogni nuova chat.
+bozza: lezione 9, **Privacy e dati aziendali**
+(`at-work/company-data-and-privacy`), prerequisiti `ask-well` e
+`privacy-basics`, taglio "chiusura del modulo + ponte ai
+moduli successivi". Cosa NON dare in pasto a un'IA pubblica
+(NDA, dati di categorie particolari GDPR, contratti con
+clausole di confidentiality), cosa cambia con piani
+business/enterprise (Microsoft Copilot, ChatGPT Enterprise,
+Claude Team), opt-out reali. Riprende e estende il taglio
+privacy delle lezioni 5 (*Lavorare con dati e tabelle*) e 8
+(*Riusare contesto con i progetti*).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 3 che
 atterra, sostituire la voce placeholder disabilitata in
