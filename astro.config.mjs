@@ -92,13 +92,7 @@ export default defineConfig({
             { slug: 'at-work/data-and-tables' },
             { slug: 'at-work/research-for-work' },
             { slug: 'at-work/ai-as-thinking-partner' },
-            {
-              label: 'Reuse context with projects',
-              translations: { it: 'Riusare contesto con i progetti' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/reuse-context-with-projects' },
             {
               label: 'Company data and privacy',
               translations: { it: 'Privacy e dati aziendali' },
