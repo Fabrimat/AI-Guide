@@ -503,7 +503,7 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    ("Below that threshold" → "Below that" per ritmo); il sweep
    sui calchi italiani-inglese non ha trovato nulla.
 
-9. 🆕 **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
+9. ✍️ **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
    Cosa NON dare in pasto a un'IA pubblica. Piani Enterprise/Team.
    Ponte verso i moduli successivi.
 

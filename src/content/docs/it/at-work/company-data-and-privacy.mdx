@@ -1,0 +1,293 @@
+---
+title: Privacy e dati aziendali
+description: "Quello che incolli in un'IA pubblica può uscire dalla tua azienda. Tre livelli di rischio (rosso, giallo, verde), cosa cambia con piani Enterprise o Team, primo filtro NDA, e cosa fare se la tua azienda non ha ancora una policy."
+livello: intermedio
+prerequisiti: [ask-well, privacy-basics]
+---
+
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+
+<LessonSummary>
+
+- La privacy delle tue conversazioni con l'IA (Modulo 1, *Quello che condividi quando usi l'IA*) è una cosa. La privacy dei dati aziendali è un'altra: non riguarda solo te, riguarda anche i clienti, i colleghi, e i contratti che hai firmato.
+- **Tre livelli di rischio**. Rosso (non incollare mai): dati personali di terzi, credenziali, contratti sotto NDA, numeri non pubblici. Giallo (anonimizza prima): email e note di riunione con nomi, CV, dati HR aggregati. Verde (OK con buon senso): testi pubblici, materiale tuo non riservato.
+- **Piani Enterprise e Team** cambiano le garanzie contrattuali (no training sui tuoi dati, isolamento del workspace, controllo admin), non la fisica del problema. Cerca "data retention" e "training opt-out" nel piano del fornitore, non fidarti dell'etichetta.
+- **NDA, GDPR, AI Act**: tu non sei l'ufficio legale, ma sei il primo filtro. Se hai dubbi su un dato specifico, anonimizza o chiedi a chi nella tua azienda decide.
+- Se la tua azienda non ha ancora una **AI policy**, mettere la domanda sul tavolo è parte del tuo lavoro, non un'iniziativa fuori ruolo.
+
+</LessonSummary>
+
+In [*Quello che condividi quando usi l'IA*](/it/fundamentals/privacy-basics/)
+hai visto cosa succede ai messaggi che mandi a ChatGPT, Claude o
+Gemini: vanno sui server dell'azienda, restano lì per un po', sui
+piani consumer possono finire nel materiale di allenamento se non
+disattivi l'opt-out. Quella lezione parlava dei **tuoi** dati, in un
+contesto personale.
+
+Sul lavoro la posta cambia. Quando incolli in un'IA pubblica un'email
+di un cliente, un CV di un candidato, una bozza di contratto, o un
+estratto del CRM, non stai più decidendo solo per te. Quei dati
+appartengono al tuo datore di lavoro, ai tuoi clienti, o a persone
+fisiche tutelate dal GDPR. Hai firmato contratti di lavoro e magari
+NDA che dicono cosa puoi condividere all'esterno, e dove "esterno"
+include il prompt che mandi a un modello pubblico. Questa lezione
+chiude il Modulo 3 con una mappa pratica per orientarti.
+
+## Tre livelli di rischio
+
+Una scala semplice prima di incollare qualunque cosa in una chat.
+
+:::danger[Rosso, non incollare mai in un'IA pubblica]
+- **Dati personali di terzi non anonimizzati**: clienti, colleghi,
+  candidati. Nome e cognome, email, telefono, indirizzo, codice
+  fiscale, dati di salute, dati finanziari personali.
+- **Credenziali**: password, token, API key, chiavi private,
+  certificati. Anche se ti serve "solo per un esempio".
+- **Contratti sotto NDA** o materiale che il contratto stesso
+  classifica come confidenziale.
+- **Dati finanziari non pubblici**: fatturato non comunicato,
+  margini, pipeline commerciale, costi interni, valutazioni di M&A.
+- **Piani strategici riservati**: roadmap di prodotto non annunciata,
+  liste di acquisizione, ristrutturazioni in corso, valutazioni di
+  performance individuali.
+:::
+
+:::caution[Giallo, anonimizza prima]
+- Email interne o ai clienti con nomi e dettagli identificativi.
+- CV di candidati e note di colloquio (sono dati personali pieni,
+  spesso anche di categorie particolari).
+- Verbali di riunione con nomi.
+- Dati HR aggregati (turnover, distribuzione salariale, engagement
+  survey).
+- Brief o documenti commerciali con riferimenti a clienti specifici.
+:::
+
+**Verde, OK con buon senso**. Testi pubblici (siti, blog, comunicati
+stampa, documentazione open), template generici che non contengono
+informazioni identificabili, materiale tuo non riservato (la tua
+agenda della giornata senza i nomi degli interlocutori, un commento
+pubblico da riformulare, un articolo che stai scrivendo per il blog
+aziendale prima della pubblicazione).
+
+Test mentale rapido per i casi dubbi: "se questo testo finisse in
+una ricerca Google fra un anno, mi creerebbe un problema con il mio
+capo, con un cliente, o con il legale?". Se sì, sei almeno nel
+giallo. Lo stesso test era valido per la versione personale (Modulo
+1), ma sul lavoro la "ricerca Google" è il caso peggiore: prima di
+quello c'è già il tuo manager che ti chiede dove è finito quel dato.
+
+:::tip[E se ho già incollato dati che ora classifico come rossi o gialli?]
+Capita a quasi tutti, leggendo questa lezione, di rendersi conto
+di aver caricato in passato qualcosa che oggi non caricherebbero.
+Tre cose puoi fare ora:
+
+1. Vai nelle impostazioni del provider e **cancella le chat**
+   contenenti quei dati. Su consumer la cancellazione lato utente
+   non garantisce la rimozione immediata dai sistemi del provider
+   (di solito hanno una finestra di retention residua di alcuni
+   giorni o settimane), ma toglie la chat dalla tua cronologia e
+   dal contesto futuro.
+2. Se eri in **opt-in di training** (su consumer è la condizione
+   di default), disattivalo subito. Quello che hai mandato nel
+   passato è già stato visto dal sistema, ma non aggiungi altro.
+3. Se i dati erano coperti da NDA o erano dati personali di terzi
+   con impatto serio, valuta di parlarne con il tuo manager o con
+   il referente compliance. Un incidente segnalato presto e con
+   onestà è quasi sempre meglio di uno scoperto dopo.
+:::
+
+## Come anonimizzare in pratica
+
+"Anonimizza" suona bene a parole. In pratica, prima di incollare un
+testo nel giallo, sostituisci con cura tre cose.
+
+1. **Nomi propri** (persone, aziende, progetti interni con
+   denominazioni riconoscibili). Sostituiscili con etichette
+   neutre: *Cliente A*, *Candidato 1*, *Manager senior*, *Progetto
+   Alfa*. Mantieni la distinzione (Cliente A non è Cliente B), così
+   l'IA può ancora ragionare sulla struttura del testo.
+2. **Identificatori numerici**. Codici fiscali, numeri di contratto,
+   IBAN, partite IVA, ID interni. Sostituisci con segnaposto del
+   tipo `[CF-1]`, `[IBAN-A]`. Per i numeri di **business** (importi,
+   percentuali, KPI, fatturati), distingui: se il numero serve al
+   ragionamento (analizzare un trend, scrivere una sintesi basata
+   sui dati), tienilo ma stacca i nomi e gli identificatori
+   associati: l'IA può ragionare sul fatturato di "Cliente A" senza
+   sapere che è Acme S.p.A. Se invece il numero specifico non
+   aggiunge nulla a quello che chiedi (per esempio stai chiedendo
+   di riformulare un testo), tagliarlo riduce il rischio senza
+   togliere niente.
+3. **Dettagli che combinati identificano una persona**. "Il
+   project manager italiano del team di Berlino, donna, assunta a
+   marzo 2024" identifica probabilmente una persona sola. La
+   combinazione di pochi dati apparentemente innocui è la trappola
+   classica del GDPR. Riduci ai minimi termini quello che davvero
+   serve all'IA per aiutarti.
+
+Per un .docx o un'email, una funzione "trova e sostituisci" del
+tuo editor di testo basta. Non incollare l'originale e poi
+chiedere all'IA di anonimizzarlo: hai già fatto entrare i dati nel
+sistema.
+
+:::tip[E se il file è un PDF scansionato, una foto, o un audio?]
+Trova-e-sostituisci non funziona su un PDF immagine, una scansione,
+o una registrazione vocale. Tre opzioni in ordine di preferenza:
+
+1. Vai alla **fonte** del documento (il file .docx o .xlsx
+   originale di chi l'ha prodotto) e anonimizza lì. Il PDF
+   scansionato è quasi sempre stampato da un originale digitale.
+2. **Ricrea** una versione testuale ridotta a quello che davvero
+   serve all'IA, scrivendola tu. Se ti serve solo "il candidato
+   ha esperienza in marketing B2B per cinque anni", non ti serve
+   il CV intero.
+3. Estrai il testo con un tool **locale** (un OCR offline, oppure
+   "Esporta testo" dell'app Note del Mac, o un editor PDF che gira
+   sul tuo computer), poi anonimizza il testo estratto e incolla
+   solo quello. Non caricare il PDF originale in un'IA pubblica
+   per fartelo trascrivere.
+:::
+
+**Check rapido prima di incollare**. Leggi il testo anonimizzato
+come se fossi un estraneo che lo trova online. Se riesci ancora a
+indovinare di quale azienda, di quale persona, o di quale progetto
+stai parlando, devi tagliare di più. Se la combinazione "ruolo +
+città + data di assunzione" identifica un solo dipendente nel tuo
+reparto, è ancora identificabile, anche senza il nome.
+
+## Piani Enterprise, Team, Workspace, e cosa cambia
+
+Prima di entrare nei piani business, una distinzione che il lettore
+sbaglia di continuo: **ChatGPT Plus, Claude Pro, Gemini Advanced
+sono piani consumer**, non business, anche se costano e si
+chiamano "Pro". Sono pensati per uso personale: pagano feature in
+più (modello migliore, limiti di uso più alti) ma non cambiano le
+garanzie sui dati. Per le tre garanzie tipiche dei piani business,
+un account Plus aziendale è equivalente a un account gratuito.
+
+Le aziende che producono i modelli vendono piani **business** veri
+e propri, pensati per gli usi al lavoro: ChatGPT Team ed Enterprise
+(OpenAI), Claude Team ed Enterprise (Anthropic), Gemini per
+Workspace (Google), Microsoft Copilot per Business e Enterprise
+(che gira sul backend di Azure OpenAI: per chi non lo sa, è
+un'offerta Microsoft che usa i modelli di OpenAI ma con contratto,
+infrastruttura e regole di privacy di Microsoft Azure, in genere
+più favorevoli per aziende già su stack Microsoft). Le garanzie
+contrattuali tipiche dei piani business sono sempre più o meno
+queste tre.
+
+- **No training sui tuoi dati di default**. Le tue conversazioni e
+  i tuoi file non vengono usati per allenare modelli futuri. Sui
+  piani consumer questo è opt-out (devi disattivare manualmente);
+  qui è il contrario, è opt-in (devi attivarlo se vuoi).
+- **Isolamento del workspace**. Le chat dei dipendenti di
+  un'azienda non vengono mescolate con quelle di un'altra. I file
+  caricati da un account non sono visibili agli altri account, anche
+  della stessa organizzazione, a meno di condivisione esplicita.
+- **Controllo admin**. Un amministratore può vedere chi ha accesso,
+  applicare policy di retention più stringenti, disabilitare
+  feature, ricevere log d'uso, e revocare accessi quando una
+  persona lascia l'azienda.
+
+**Cosa non cambia**. Il provider può comunque vedere i tuoi prompt
+per fornirti il servizio; può conservarli per i tempi di retention
+contrattuali (di solito 30 giorni, a volte azzerabili
+contrattualmente); può ispezionarli per ragioni di abuso,
+sicurezza, e adempimenti legali. La fisica del problema (i dati
+escono dalla tua macchina e arrivano a un fornitore) resta
+identica. Cambiano le **garanzie contrattuali** su quello che il
+fornitore farà o non farà con quei dati.
+
+Non fidarti dell'etichetta "Enterprise" sul piano. Le offerte
+cambiano spesso e fra fornitori diversi. Il criterio operativo:
+nella pagina del piano, cerca "data retention", "training opt-out",
+"DPA". *DPA* (Data Processing Agreement) è il contratto fra te,
+come azienda titolare dei dati, e il fornitore: stabilisce per
+iscritto che il fornitore tratta i dati per tuo conto, non per
+proprio uso, e fissa garanzie e responsabilità. Se questi tre
+termini non compaiono in chiaro, presumi le condizioni del piano
+consumer finché non hai una conferma scritta. Su un piano Team
+puoi ancora trovare clausole che permettono al fornitore di usare
+i prompt "pubblici" o "condivisi" per migliorare il servizio:
+leggi prima di firmare per il team.
+
+## NDA, GDPR, AI Act
+
+Se hai firmato un **NDA** con un cliente o un fornitore, incollare
+materiale coperto da quel NDA in un'IA pubblica è probabilmente una
+violazione del contratto, anche se l'IA non lo "pubblica". L'NDA in
+genere vieta di "divulgare a terzi", e il fornitore del modello è un
+terzo. Su un piano consumer questo è quasi sempre un problema; su
+Enterprise con DPA firmato di solito no, ma dipende da come è
+scritto l'NDA originale.
+
+Il **GDPR** copre tutti i dati personali di persone fisiche (clienti,
+candidati, dipendenti, fornitori se persone fisiche), con un livello
+di protezione più alto per le **categorie particolari** (salute,
+opinioni politiche, sindacali, religiose, orientamento sessuale,
+dati biometrici). Se l'azienda è il *titolare del trattamento*, ha
+obblighi su come questi dati vengono passati a terzi, anche per
+"solo un riassunto in ChatGPT". L'**AI Act** europeo aggiunge
+obblighi specifici per usi ad alto rischio (selezione del personale,
+credito, alcuni casi sanitari) e trasparenza sui sistemi di IA usati
+per decisioni che toccano le persone. Anche se il tuo lavoro non
+ricade in queste aree, vale la pena saperlo per capire quando una
+specifica attività ti ci porta dentro: per esempio, anche un
+piccolo studio che usa l'IA per fare screening di CV sta facendo
+un'attività che l'AI Act considera ad alto rischio.
+
+Tu non sei l'ufficio legale. Ma sei il primo filtro: se hai un dubbio
+concreto su un singolo file, anonimizzalo o non incollarlo, e se
+serve chiedi al referente compliance, all'IT o al tuo manager. È
+sempre più rapido di un incidente.
+
+## La tua azienda ha una AI policy?
+
+Se lavori in un'azienda strutturata, probabilmente esiste già una
+policy interna sull'uso dell'IA: cerca su intranet, in onboarding,
+o chiedi a HR. Se la trovi, leggila prima di portare nuovi tool al
+lavoro.
+
+Se la policy **non esiste**, sei nella maggior parte dei casi.
+Tante aziende, soprattutto piccole o medie, non l'hanno ancora
+formalizzata. Se lavori con dati sensibili, mettere la domanda sul
+tavolo (al tuo capo, all'IT, al legale, al DPO se c'è: *Data
+Protection Officer*, la figura che nelle aziende sopra una certa
+soglia vigila sul rispetto del GDPR) è parte del tuo lavoro, non
+un'iniziativa fuori ruolo. Bastano tre righe in
+un'email: "uso l'IA pubblica per X e Y, ho dei dubbi su quali dati
+posso o non posso passarle, c'è un orientamento aziendale o
+costruiamone uno?". Mettere il problema sul radar è già metà del
+lavoro.
+
+Se sei **freelance**, non hai un'azienda alle spalle ma hai i
+clienti, e la policy va costruita verso di loro: nei contratti che
+firmi, vedi se c'è una clausola sull'uso dell'IA con i dati del
+cliente. Se non c'è, alza tu il punto in fase di negoziazione,
+soprattutto se lavori con dati sensibili. Una clausola tipo "il
+fornitore può usare strumenti di IA generativa solo su contenuti
+anonimizzati" è ragionevole per entrambe le parti.
+
+## La fine del modulo, e cosa viene dopo
+
+In nove lezioni hai visto i gesti aziendali principali con l'IA:
+email difficili, bozze di documenti, riunioni, slide, dati e
+tabelle, ricerca, pensiero critico con un collega artificiale, e i
+progetti per non ricaricare il contesto ogni volta. Quello che
+cambia il risultato non è quale modello usi, ma il giudizio su
+cosa delegare, come, con che cautele.
+
+Nei moduli successivi il sito cambia angolo: *Per studenti* parla a
+chi studia, *Per docenti* a chi insegna, *Per chi vuole di più* è
+un percorso tecnico per chi vuole integrare l'IA in strumenti
+propri. Le abitudini che hai costruito qui (anonimizzazione,
+verifica, iterazione, contesto persistente) restano i prerequisiti
+non scritti di tutto il resto.
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-company-data-and-privacy.txt"
+  duration="6-8 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
+/>
