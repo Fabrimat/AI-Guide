@@ -91,13 +91,7 @@ export default defineConfig({
             { slug: 'at-work/slides-and-presentations' },
             { slug: 'at-work/data-and-tables' },
             { slug: 'at-work/research-for-work' },
-            {
-              label: 'AI as a thinking partner',
-              translations: { it: "L'IA come collega che ti aiuta a pensare" },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/ai-as-thinking-partner' },
             {
               label: 'Reuse context with projects',
               translations: { it: 'Riusare contesto con i progetti' },
