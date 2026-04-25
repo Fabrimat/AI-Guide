@@ -90,13 +90,7 @@ export default defineConfig({
             { slug: 'at-work/prepare-a-meeting' },
             { slug: 'at-work/slides-and-presentations' },
             { slug: 'at-work/data-and-tables' },
-            {
-              label: 'Research for work',
-              translations: { it: 'Ricerca per il lavoro' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'at-work/research-for-work' },
             {
               label: 'AI as a thinking partner',
               translations: { it: "L'IA come collega che ti aiuta a pensare" },
