@@ -429,9 +429,11 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    weight" calco → "more weight than", triplo "It [verb]" merged
    in una frase variata, doppio "usually X, usually Y" rimosso).
 
-7. 🆕 **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
-   Challenge, devil's advocate, brainstorming. Riconoscere "penso
-   meglio" vs "mi faccio rassicurare".
+7. ✍️ **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
+   Challenge, devil's advocate, brainstorming strutturato.
+   Riconoscere "penso meglio" vs "mi faccio rassicurare". La
+   sycophancy dei modelli come rischio specifico: senza vincoli
+   l'IA conferma per default.
 
 8. 🆕 **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
    Claude Projects, ChatGPT Custom GPT, Gemini Gems.
