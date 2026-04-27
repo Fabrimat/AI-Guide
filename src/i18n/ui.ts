@@ -138,6 +138,17 @@ export interface UIStrings {
   composerEmpty: string;
   composerOpenError: string;
 
+  // Search modal (custom Pagefind UI)
+  searchHint: string;
+  searchTooShort: string;
+  searchLoading: string;
+  searchNoResults: string; // "Nessun risultato per «{query}»"
+  searchCountOne: string; // "1 risultato"
+  searchCountMany: string; // "{n} risultati"
+  searchError: string;
+  searchResultsAria: string;
+  searchClearAria: string;
+
   // Footer
   footerAbout: string;
   footerPrivacy: string;
@@ -284,6 +295,16 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   composerOpenError:
     "Non sono riuscito ad aprire il client di posta. Prova con l'email in fondo alla pagina.",
 
+  searchHint: 'Scrivi qualcosa per cercare nel manuale',
+  searchTooShort: 'Scrivi almeno due caratteri',
+  searchLoading: 'Cerco…',
+  searchNoResults: 'Nessun risultato per «{query}»',
+  searchCountOne: '1 risultato',
+  searchCountMany: '{n} risultati',
+  searchError: 'Errore di ricerca, riprova',
+  searchResultsAria: 'Risultati di ricerca',
+  searchClearAria: 'Cancella la ricerca',
+
   footerAbout: 'Chi sono',
   footerPrivacy: 'Privacy',
   footerLinkedinAria: 'Profilo LinkedIn di Fabrizio La Rosa',
@@ -428,6 +449,16 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   composerEmpty: 'Write something before opening the email.',
   composerOpenError:
     "Couldn't open your email client. Try the email link at the bottom of the page.",
+
+  searchHint: 'Type something to search the manual',
+  searchTooShort: 'Type at least two characters',
+  searchLoading: 'Searching…',
+  searchNoResults: 'No results for "{query}"',
+  searchCountOne: '1 result',
+  searchCountMany: '{n} results',
+  searchError: 'Search error, please retry',
+  searchResultsAria: 'Search results',
+  searchClearAria: 'Clear search',
 
   footerAbout: 'About',
   footerPrivacy: 'Privacy',
