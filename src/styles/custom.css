@@ -496,22 +496,32 @@ site-search dialog::backdrop {
   background-color: var(--aig-scrim);
 }
 
-/* Variabili Pagefind UI rimappate sui token del sito. */
+/* Variabili Pagefind UI rimappate sui token del sito.
+
+   Note importanti sul contrasto in light mode: il dialog usa
+   `--aig-elevated-bg` (bianco puro #ffffff) e l'input deve
+   stargli sopra ben distinguibile. Quindi:
+   - bg input: `--sl-color-bg` (peach #fceee3 light, cocoa
+     #1c130d dark) -> contrasto chiaro contro il modale.
+   - border: `--sl-color-hairline-shade` (più scuro del hairline
+     normale) + 2px di spessore, così il rettangolo "esiste".
+   - scale 0.9 per scendere dai 64px brutali del default a ~58px. */
 #starlight__search {
+  --pagefind-ui-scale: 0.9;
   --pagefind-ui-primary: var(--sl-color-accent);
   --pagefind-ui-text: var(--sl-color-text);
-  --pagefind-ui-background: var(--aig-elevated-bg-warm);
-  --pagefind-ui-border: var(--sl-color-hairline);
+  --pagefind-ui-background: var(--sl-color-bg);
+  --pagefind-ui-border: var(--sl-color-hairline-shade);
   --pagefind-ui-tag: var(--aig-elevated-bg-warm);
   --pagefind-ui-border-radius: 0.75rem;
-  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-width: 2px;
   --pagefind-ui-font: var(--sl-font);
   --pagefind-ui-image-border-radius: 0.5rem;
 }
 
-/* Input di ricerca: bordo evidente, focus ring coral. Il
-   `font-weight: 700` di default è troppo "sparato" per un campo
-   vuoto, lo abbassiamo. */
+/* Input di ricerca: peso ridotto, focus ring coral. Pagefind di
+   default mette `font-weight: 700` (troppo deciso per uno stato
+   vuoto) e `placeholder { opacity: 0.2 }` (quasi invisibile). */
 #starlight__search .pagefind-ui__search-input {
   font-weight: 500;
   transition:
@@ -531,25 +541,36 @@ site-search dialog::backdrop {
 }
 
 /* Icona magnifier davanti all'input. Default Pagefind la dipinge
-   con `--pagefind-ui-text` (che usiamo per il testo); la rendiamo
-   coral chiara così è leggibile ma non urla. */
+   con `--pagefind-ui-text` (= testo del corpo), la rendiamo coral
+   pieno così segnala "campo cerca". */
 #starlight__search .pagefind-ui__form::before {
   background-color: var(--sl-color-accent);
-  opacity: 0.85;
+  opacity: 1;
 }
 
-/* Bottone "Clear" dentro l'input. Il default è una grossa pillola
-   con stesso bg dell'input: confonde. Lo riduciamo a un'azione
-   testuale discreta che diventa visibile in hover. */
+/* Bottone "Clear" dentro l'input. Pagefind di default lo rende
+   come una pillola tutta altezza-input con bg = pagefind-background:
+   sull'input peach diventa una macchia indistinta. La riduciamo a
+   un controllo compatto, vert-centered, coral con pill discreta. */
 #starlight__search .pagefind-ui__search-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  height: auto;
+  padding: 0.4rem 0.7rem;
   background-color: transparent;
-  color: var(--sl-color-gray-3);
+  color: var(--sl-color-text-accent);
   font-weight: 500;
-  font-size: calc(14px * var(--pagefind-ui-scale));
+  font-size: 0.85rem;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 #starlight__search .pagefind-ui__search-clear:hover {
-  background-color: var(--aig-hover-wash);
-  color: var(--sl-color-text);
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high);
 }
 
 /* Messaggio di stato: "1 risultato", "Nessun risultato".
