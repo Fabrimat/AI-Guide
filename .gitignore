@@ -32,3 +32,6 @@ Thumbs.db
 # Output della skill `analyze-lesson` (artefatti di lavoro, non sorgente).
 # Rimuovi questa riga se vuoi versionare le domande generate.
 analysis/
+
+# Git worktrees (sviluppo isolato di feature)
+.worktrees/
