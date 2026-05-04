@@ -1,0 +1,367 @@
+---
+/**
+ * InstallApp: install button + bulk download progress + iOS modal.
+ *
+ * Internal component, not meant to be imported from `.mdx` lessons.
+ * Mounted as the fourth section of `HeaderPreferences.astro`.
+ *
+ * State machine:
+ *   installable                → button "Install the app" active
+ *   ios-installable            → button opens an instructions modal
+ *   installing                 → button disabled, label "Installing…"
+ *   installed-online           → static label "App installed" + progress row
+ *   installed-offline-complete → static label "App installed · offline ready"
+ *
+ * The component triggers `AIGUIDE_BULK_DOWNLOAD` via postMessage when:
+ *   - `appinstalled` fires;
+ *   - the page loads in `display-mode: standalone` (resume after restart);
+ *   - the browser regains connectivity (`online` event) while standalone.
+ */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+
+const translations = {
+  installButtonLabel: ui.installButtonLabel,
+  installInProgress: ui.installInProgress,
+  installAlreadyInstalled: ui.installAlreadyInstalled,
+  installAlreadyInstalledReady: ui.installAlreadyInstalledReady,
+  installBulkProgress: ui.installBulkProgress,
+  installIosTitle: ui.installIosTitle,
+  installIosStep1: ui.installIosStep1,
+  installIosStep2: ui.installIosStep2,
+  installIosStep3: ui.installIosStep3,
+  installIosClose: ui.installIosClose,
+};
+---
+
+<install-app
+  class="install-app"
+  data-translations={JSON.stringify(translations)}
+>
+  <div class="install-row">
+    <button type="button" class="install-btn" data-install-btn hidden>
+      {ui.installButtonLabel}
+    </button>
+    <span class="install-status" data-install-status hidden></span>
+  </div>
+
+  <div class="install-progress" data-install-progress hidden>
+    <div class="install-progress-bar">
+      <span class="install-progress-fill" data-install-progress-fill></span>
+    </div>
+    <span class="install-progress-label" data-install-progress-label></span>
+  </div>
+
+  <dialog class="install-ios-modal" data-install-ios-modal>
+    <h3>{ui.installIosTitle}</h3>
+    <ol>
+      <li>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16V4M8 8l4-4 4 4M4 14v6h16v-6"/>
+        </svg>
+        <span>{ui.installIosStep1}</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="3"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        <span>{ui.installIosStep2}</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span>{ui.installIosStep3}</span>
+      </li>
+    </ol>
+    <button type="button" class="install-ios-close" data-install-ios-close>
+      {ui.installIosClose}
+    </button>
+  </dialog>
+</install-app>
+
+<script>
+  type Translations = {
+    installButtonLabel: string;
+    installInProgress: string;
+    installAlreadyInstalled: string;
+    installAlreadyInstalledReady: string;
+    installBulkProgress: string;
+    installIosTitle: string;
+    installIosStep1: string;
+    installIosStep2: string;
+    installIosStep3: string;
+    installIosClose: string;
+  };
+
+  interface BeforeInstallPromptEvent extends Event {
+    prompt(): Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  }
+
+  function isIos(): boolean {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent);
+  }
+
+  function isStandalone(): boolean {
+    return (
+      window.matchMedia('(display-mode: standalone)').matches ||
+      // iOS Safari
+      (navigator as unknown as { standalone?: boolean }).standalone === true
+    );
+  }
+
+  class InstallApp extends HTMLElement {
+    private deferredPrompt: BeforeInstallPromptEvent | null = null;
+    private translations!: Translations;
+    private btn!: HTMLButtonElement;
+    private status!: HTMLElement;
+    private progress!: HTMLElement;
+    private progressFill!: HTMLElement;
+    private progressLabel!: HTMLElement;
+    private modal!: HTMLDialogElement;
+    private modalClose!: HTMLButtonElement;
+
+    connectedCallback() {
+      if (this.dataset.wired === 'true') return;
+      this.dataset.wired = 'true';
+
+      this.translations = JSON.parse(this.dataset.translations || '{}');
+      this.btn = this.querySelector<HTMLButtonElement>('[data-install-btn]')!;
+      this.status = this.querySelector<HTMLElement>('[data-install-status]')!;
+      this.progress = this.querySelector<HTMLElement>('[data-install-progress]')!;
+      this.progressFill = this.querySelector<HTMLElement>('[data-install-progress-fill]')!;
+      this.progressLabel = this.querySelector<HTMLElement>('[data-install-progress-label]')!;
+      this.modal = this.querySelector<HTMLDialogElement>('[data-install-ios-modal]')!;
+      this.modalClose = this.querySelector<HTMLButtonElement>('[data-install-ios-close]')!;
+
+      this.wireEvents();
+      this.refresh();
+
+      if (isStandalone()) {
+        this.requestBulkDownload();
+      }
+    }
+
+    private wireEvents() {
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        this.deferredPrompt = e as BeforeInstallPromptEvent;
+        this.refresh();
+      });
+
+      window.addEventListener('appinstalled', () => {
+        this.deferredPrompt = null;
+        this.refresh();
+        this.requestBulkDownload();
+      });
+
+      window.addEventListener('online', () => {
+        if (isStandalone()) this.requestBulkDownload();
+      });
+
+      this.btn.addEventListener('click', async () => {
+        if (isIos() && !isStandalone()) {
+          this.modal.showModal();
+          return;
+        }
+        if (!this.deferredPrompt) return;
+        this.btn.disabled = true;
+        this.btn.textContent = this.translations.installInProgress;
+        try {
+          await this.deferredPrompt.prompt();
+          await this.deferredPrompt.userChoice;
+        } finally {
+          this.deferredPrompt = null;
+          this.refresh();
+        }
+      });
+
+      this.modalClose.addEventListener('click', () => this.modal.close());
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) this.modal.close();
+      });
+
+      navigator.serviceWorker?.addEventListener('message', (event) => {
+        if (event.data?.type !== 'AIGUIDE_BULK_PROGRESS') return;
+        this.updateProgress(event.data.done, event.data.total);
+      });
+    }
+
+    private refresh() {
+      const installed = isStandalone();
+      const iosCanInstall = isIos() && !installed;
+
+      if (installed) {
+        // Static "installed" label; progress is shown only while DL active.
+        this.btn.hidden = true;
+        this.status.hidden = false;
+        this.status.textContent = this.translations.installAlreadyInstalled;
+        return;
+      }
+
+      if (this.deferredPrompt || iosCanInstall) {
+        this.btn.hidden = false;
+        this.btn.disabled = false;
+        this.btn.textContent = this.translations.installButtonLabel;
+        this.status.hidden = true;
+        return;
+      }
+
+      // Browser doesn't support install (or hasn't fired the prompt yet).
+      this.btn.hidden = true;
+      this.status.hidden = true;
+    }
+
+    private requestBulkDownload() {
+      navigator.serviceWorker?.controller?.postMessage({
+        type: 'AIGUIDE_BULK_DOWNLOAD',
+      });
+    }
+
+    private updateProgress(done: number, total: number) {
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      this.progressFill.style.width = `${pct}%`;
+      this.progressLabel.textContent = this.translations.installBulkProgress
+        .replace('{done}', String(done))
+        .replace('{total}', String(total));
+
+      if (done >= total) {
+        this.progress.hidden = true;
+        this.status.textContent = this.translations.installAlreadyInstalledReady;
+        this.status.hidden = false;
+      } else {
+        this.progress.hidden = false;
+      }
+    }
+  }
+
+  if (!customElements.get('install-app')) {
+    customElements.define('install-app', InstallApp);
+  }
+</script>
+
+<style is:global>
+  install-app {
+    display: block;
+  }
+
+  install-app .install-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  install-app .install-btn {
+    appearance: none;
+    border: 1px solid var(--sl-color-accent);
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 120ms ease;
+  }
+  install-app .install-btn:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+  install-app .install-btn[hidden] { display: none; }
+
+  install-app .install-status {
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+  install-app .install-status[hidden] { display: none; }
+
+  install-app .install-progress {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  install-app .install-progress[hidden] { display: none; }
+
+  install-app .install-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--sl-color-accent-low);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  install-app .install-progress-fill {
+    display: block;
+    height: 100%;
+    background: var(--sl-color-accent);
+    width: 0%;
+    transition: width 200ms ease;
+  }
+  install-app .install-progress-label {
+    font-size: 0.75rem;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+
+  install-app .install-ios-modal {
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.9rem;
+    padding: 1.2rem 1.4rem;
+    background: var(--aig-elevated-bg);
+    color: var(--sl-color-text);
+    max-width: 22rem;
+    box-shadow:
+      0 4px 12px rgba(var(--aig-shadow-color), 0.06),
+      0 14px 36px rgba(var(--aig-shadow-color), 0.12);
+  }
+  install-app .install-ios-modal::backdrop {
+    background: var(--aig-scrim);
+  }
+  install-app .install-ios-modal h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  install-app .install-ios-modal ol {
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+  install-app .install-ios-modal li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  install-app .install-ios-modal li svg {
+    color: var(--sl-color-accent);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  install-app .install-ios-close {
+    appearance: none;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  install-app .install-ios-close:hover {
+    background: var(--aig-hover-wash);
+  }
+</style>
