@@ -85,8 +85,8 @@ setCatchHandler(async ({ request }) => {
   if (request.destination !== 'document') return Response.error();
   const url = new URL(request.url);
   const offlinePath = url.pathname.startsWith('/it/')
-    ? '/it/offline/'
-    : '/en/offline/';
+    ? '/it/offline'
+    : '/en/offline';
   const cached = await matchPrecache(offlinePath);
   return cached || Response.error();
 });

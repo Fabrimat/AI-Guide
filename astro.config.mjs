@@ -374,7 +374,6 @@ export default defineConfig({
           'icons/*.png',
           'favicon.svg',
           'manifest.webmanifest',
-          'offline/index.html',
           'en/offline/index.html',
           'it/offline/index.html',
         ],
