@@ -87,6 +87,19 @@ export interface UIStrings {
   prefsSectionTheme: string;
   prefsSectionLanguage: string;
 
+  // InstallApp (PWA install + bulk download progress)
+  prefsSectionApp: string;
+  installButtonLabel: string;
+  installInProgress: string;
+  installAlreadyInstalled: string;
+  installAlreadyInstalledReady: string;
+  installBulkProgress: string; // "Scarico per offline · {done}/{total}"
+  installIosTitle: string;
+  installIosStep1: string;
+  installIosStep2: string;
+  installIosStep3: string;
+  installIosClose: string;
+
   // ShareLesson
   shareHeading: string;
   shareXAria: string;
@@ -242,6 +255,18 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   prefsSectionTheme: 'Tema',
   prefsSectionLanguage: 'Lingua',
 
+  prefsSectionApp: 'App',
+  installButtonLabel: "Installa l'app",
+  installInProgress: 'Installazione…',
+  installAlreadyInstalled: 'App installata',
+  installAlreadyInstalledReady: 'App installata · pronta offline',
+  installBulkProgress: 'Scarico per offline · {done}/{total}',
+  installIosTitle: 'Installa AI-Guide su iPhone/iPad',
+  installIosStep1: 'Tocca il pulsante Condividi qui sotto.',
+  installIosStep2: "Scorri e scegli «Aggiungi alla schermata Home».",
+  installIosStep3: 'Conferma con «Aggiungi» in alto a destra.',
+  installIosClose: 'Chiudi',
+
   shareHeading: 'Condividi questa lezione',
   shareXAria: 'Condividi su X',
   shareLinkedInAria: 'Condividi su LinkedIn',
@@ -396,6 +421,18 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   prefsSectionReading: 'Assisted reading',
   prefsSectionTheme: 'Theme',
   prefsSectionLanguage: 'Language',
+
+  prefsSectionApp: 'App',
+  installButtonLabel: 'Install the app',
+  installInProgress: 'Installing…',
+  installAlreadyInstalled: 'App installed',
+  installAlreadyInstalledReady: 'App installed · offline ready',
+  installBulkProgress: 'Downloading for offline · {done}/{total}',
+  installIosTitle: 'Install AI-Guide on iPhone/iPad',
+  installIosStep1: 'Tap the Share button below.',
+  installIosStep2: 'Scroll and pick "Add to Home Screen".',
+  installIosStep3: 'Confirm with "Add" in the top right.',
+  installIosClose: 'Close',
 
   shareHeading: 'Share this lesson',
   shareXAria: 'Share on X',
