@@ -69,8 +69,19 @@ registerRoute(
 
 // ---------------------------------------------------------------------------
 // Offline navigation fallback.
+//
+// When a Layer 3 strategy (NetworkFirst, StaleWhileRevalidate) cannot return
+// a fresh or runtime-cached response, Workbox routes the request here. We
+// first try the BULK_CACHE (filled after PWA install) so an installed user
+// gets the actual lesson / skill / Pagefind shard. If nothing is there, we
+// return the localized /offline/ page for navigation requests; for non-doc
+// requests we return Response.error() so the browser surfaces the failure.
 // ---------------------------------------------------------------------------
 setCatchHandler(async ({ request }) => {
+  const bulkCache = await caches.open(BULK_CACHE);
+  const bulkHit = await bulkCache.match(request.url);
+  if (bulkHit) return bulkHit;
+
   if (request.destination !== 'document') return Response.error();
   const url = new URL(request.url);
   const offlinePath = url.pathname.startsWith('/it/')
@@ -159,28 +170,6 @@ async function downloadBulk() {
     bulkRunning = false;
   }
 }
-
-// Serve cached bulk entries when the network is unavailable for navigation
-// or skill/pagefind requests. The runtime strategies in Layer 3 are
-// network-first, so the bulk cache is consulted only on network failure.
-// We hook a fallback at the catch handler level (already declared above):
-// we extend it to also try BULK_CACHE before giving up.
-// (Implemented inline by augmenting the existing setCatchHandler is fragile,
-// so instead we add a route that consults the bulk cache as the last
-// fallback, matching only when navigator is offline.)
-registerRoute(
-  ({ url, request }) =>
-    (request.mode === 'navigate' ||
-      url.pathname.startsWith('/skills/') ||
-      url.pathname.startsWith('/pagefind/')) &&
-    !navigator.onLine,
-  async ({ request }) => {
-    const cache = await caches.open(BULK_CACHE);
-    const hit = await cache.match(request.url);
-    if (hit) return hit;
-    return Response.error();
-  }
-);
 
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'AIGUIDE_BULK_DOWNLOAD') {
