@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import AstroPWA from '@vite-pwa/astro';
 
 export default defineConfig({
   site: 'https://ai-guide.larosa.work',
@@ -342,6 +343,51 @@ export default defineConfig({
       ],
 
       customCss: ['./src/styles/custom.css'],
+    }),
+    AstroPWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      registerType: 'autoUpdate',
+      injectRegister: false, // we register manually inside Head.astro
+      manifest: {
+        name: 'AI-Guide',
+        short_name: 'AI-Guide',
+        description: "Impara a usare l'IA, dai fondamenti al livello avanzato.",
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        orientation: 'any',
+        theme_color: '#E07A5F',
+        background_color: '#FCEEE3',
+        lang: 'en',
+        icons: [
+          { src: '/icons/pwa-192.png',          sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icons/pwa-512.png',          sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/icons/pwa-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+      },
+      injectManifest: {
+        globPatterns: [
+          '**/*.{js,css,woff2,svg}',
+          '_astro/**/*',
+          'icons/*.png',
+          'favicon.svg',
+          'manifest.webmanifest',
+          'offline/index.html',
+          'en/offline/index.html',
+          'it/offline/index.html',
+        ],
+        globIgnores: [
+          '**/*.map',
+          '**/sa/**',
+          'sw.js',
+          'workbox-*.js',
+        ],
+      },
+      devOptions: {
+        enabled: false,
+      },
     }),
   ],
 });
