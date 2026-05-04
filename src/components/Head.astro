@@ -78,6 +78,10 @@ for (const entry of entries) {
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:image" content="https://ai-guide.larosa.work/og-image.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<meta name="theme-color" content="#FCEEE3" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1C130D" media="(prefers-color-scheme: dark)" />
 
 {import.meta.env.PROD && (
   <script async is:inline src="/sa/proxy.js" data-collect-dnt="true"></script>
@@ -87,4 +91,12 @@ for (const entry of entries) {
 
 <script>
   import '../scripts/progress.ts';
+</script>
+
+<script>
+  import { registerSW } from 'virtual:pwa-register';
+
+  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+    registerSW({ immediate: true });
+  }
 </script>
