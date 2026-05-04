@@ -21,6 +21,12 @@ const aboutHref = `/${locale}/about/`;
 const privacyHref = `/${locale}/privacy/`;
 const currentYear = new Date().getFullYear();
 
+// Build identity (vedi `astro.config.mjs > vite.define`). Mostrata nel
+// footer come riga discreta, utile a chi ha installato la PWA per
+// capire quale build sta vedendo dopo un aggiornamento del SW.
+const buildSha = __AIGUIDE_BUILD_SHA__;
+const buildTime = __AIGUIDE_BUILD_TIME__;
+
 // Share buttons solo sulle pagine "lezione", riconosciute dalla
 // presenza di `livello` nel frontmatter (stessa chiave usata dallo
 // schema content). Sono esclusi homepage, about, privacy, glossario,
@@ -67,6 +73,10 @@ const MAIL_DOMAIN = 'larosa.work';
     {ui.footerLocation}
     <span class="agf-sep" aria-hidden="true">·</span>
     {ui.footerVatLabel} {VAT}
+  </small>
+
+  <small class="agf-build" title={`commit ${buildSha} · build ${buildTime}`}>
+    v {buildSha} <span class="agf-sep" aria-hidden="true">·</span> {buildTime}
   </small>
 
   <ul class="agf-socials" aria-label={ui.footerAbout}>
@@ -178,6 +188,13 @@ const MAIL_DOMAIN = 'larosa.work';
   .agf-copyright {
     color: var(--sl-color-gray-3);
     font-size: 0.82rem;
+  }
+
+  .agf-build {
+    color: var(--sl-color-gray-4);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
   }
 
   .agf-sep {

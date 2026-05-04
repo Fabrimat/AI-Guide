@@ -1,10 +1,35 @@
 // @ts-check
+import { execSync } from 'node:child_process';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import AstroPWA from '@vite-pwa/astro';
 
+// Build identity, iniettato in build come globali Vite. Servono al
+// Footer per mostrare "v <sha> · <build-time>". Su Netlify il clone è
+// poco profondo ma `git rev-parse HEAD` funziona comunque; in tarball
+// senza .git ricadiamo su `dev` e timestamp del run.
+const BUILD_SHA = (() => {
+  try {
+    return execSync('git rev-parse --short HEAD', {
+      stdio: ['ignore', 'pipe', 'ignore'],
+    })
+      .toString()
+      .trim();
+  } catch {
+    return 'dev';
+  }
+})();
+const BUILD_TIME = `${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+
 export default defineConfig({
   site: 'https://ai-guide.larosa.work',
+
+  vite: {
+    define: {
+      __AIGUIDE_BUILD_SHA__: JSON.stringify(BUILD_SHA),
+      __AIGUIDE_BUILD_TIME__: JSON.stringify(BUILD_TIME),
+    },
+  },
 
   // Niente redirect statico per `/`. La landing root è in `src/pages/index.astro`
   // e fa detection lato client della lingua del browser, così l'utente atterra
