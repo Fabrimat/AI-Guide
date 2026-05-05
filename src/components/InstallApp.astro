@@ -119,6 +119,24 @@ const translations = {
     );
   }
 
+  // Persisted across tabs: once the user installs the PWA, every future
+  // tab on this origin should reflect that, not just the standalone
+  // window. Without this, the regular browser tab where the install
+  // happened (and any subsequent regular tab) shows an empty "App"
+  // section, because `display-mode: standalone` is per-window and
+  // `beforeinstallprompt` no longer fires for installed apps.
+  const INSTALLED_FLAG = 'aiguide:pwa-installed';
+  function readInstalledFlag(): boolean {
+    try { return localStorage.getItem(INSTALLED_FLAG) === '1'; }
+    catch { return false; }
+  }
+  function writeInstalledFlag(value: boolean): void {
+    try {
+      if (value) localStorage.setItem(INSTALLED_FLAG, '1');
+      else localStorage.removeItem(INSTALLED_FLAG);
+    } catch { /* localStorage unavailable: degrade silently */ }
+  }
+
   class InstallApp extends HTMLElement {
     private deferredPrompt: BeforeInstallPromptEvent | null = null;
     private translations!: Translations;
@@ -143,10 +161,14 @@ const translations = {
       this.modal = this.querySelector<HTMLDialogElement>('[data-install-ios-modal]')!;
       this.modalClose = this.querySelector<HTMLButtonElement>('[data-install-ios-close]')!;
 
+      // If we detect a real standalone session, persist the flag so
+      // sibling tabs and future visits know the app is installed.
+      if (isStandalone()) writeInstalledFlag(true);
+
       this.wireEvents();
       this.refresh();
 
-      if (isStandalone()) {
+      if (isStandalone() || readInstalledFlag()) {
         this.requestBulkDownload();
       }
     }
@@ -155,17 +177,21 @@ const translations = {
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         this.deferredPrompt = e as BeforeInstallPromptEvent;
+        // The browser only emits this for non-installed apps. If a
+        // stale flag survived (e.g. user uninstalled), clear it.
+        writeInstalledFlag(false);
         this.refresh();
       });
 
       window.addEventListener('appinstalled', () => {
         this.deferredPrompt = null;
+        writeInstalledFlag(true);
         this.refresh();
         this.requestBulkDownload();
       });
 
       window.addEventListener('online', () => {
-        if (isStandalone()) this.requestBulkDownload();
+        if (isStandalone() || readInstalledFlag()) this.requestBulkDownload();
       });
 
       this.btn.addEventListener('click', async () => {
@@ -197,7 +223,13 @@ const translations = {
     }
 
     private refresh() {
-      const installed = isStandalone();
+      // "Installed" is true if we're running standalone (definitive
+      // signal) OR if a previous session stored the flag. The flag
+      // covers tabs that aren't the standalone window: without it,
+      // a regular browser tab opened after install would see an
+      // empty section because `display-mode: standalone` is false
+      // there and `beforeinstallprompt` no longer fires.
+      const installed = isStandalone() || readInstalledFlag();
       const iosCanInstall = isIos() && !installed;
 
       if (installed) {
@@ -205,6 +237,7 @@ const translations = {
         this.btn.hidden = true;
         this.status.hidden = false;
         this.status.textContent = this.translations.installAlreadyInstalled;
+        this.dataset.empty = 'false';
         return;
       }
 
@@ -213,18 +246,44 @@ const translations = {
         this.btn.disabled = false;
         this.btn.textContent = this.translations.installButtonLabel;
         this.status.hidden = true;
+        this.dataset.empty = 'false';
         return;
       }
 
       // Browser doesn't support install (or hasn't fired the prompt yet).
+      // Mark the host as empty so the parent section can hide itself
+      // via CSS (see HeaderPreferences.astro): leaving an "App" header
+      // with no body underneath looks broken.
       this.btn.hidden = true;
       this.status.hidden = true;
+      this.dataset.empty = 'true';
     }
 
-    private requestBulkDownload() {
-      navigator.serviceWorker?.controller?.postMessage({
-        type: 'AIGUIDE_BULK_DOWNLOAD',
-      });
+    private async requestBulkDownload() {
+      if (!navigator.serviceWorker) return;
+      // `controller` can be null on the very first load (the SW just
+      // activated and hasn't claimed this client yet) and on the
+      // standalone window opened immediately after install. Awaiting
+      // `ready` guarantees there's an active worker; if the controller
+      // still isn't set, we wait one `controllerchange` to fire the
+      // message. Without this, postMessage no-ops silently and the
+      // bulk download never starts.
+      try { await navigator.serviceWorker.ready; } catch { return; }
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'AIGUIDE_BULK_DOWNLOAD',
+        });
+        return;
+      }
+      navigator.serviceWorker.addEventListener(
+        'controllerchange',
+        () => {
+          navigator.serviceWorker.controller?.postMessage({
+            type: 'AIGUIDE_BULK_DOWNLOAD',
+          });
+        },
+        { once: true },
+      );
     }
 
     private updateProgress(done: number, total: number) {

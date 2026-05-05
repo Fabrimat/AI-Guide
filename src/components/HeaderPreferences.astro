@@ -444,4 +444,11 @@ const headingId = `${panelId}-heading`;
   .hp-install {
     margin-top: 0.4rem;
   }
+
+  /* Quando l'install app non ha nulla da mostrare (browser senza
+     supporto install, e non installata) nascondiamo l'intera sezione
+     così non resta un titolo "App" col vuoto sotto. */
+  .hp-section:has(install-app[data-empty='true']) {
+    display: none;
+  }
 </style>
