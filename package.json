@@ -8,7 +8,7 @@
     "start": "astro dev",
     "prebuild": "node scripts/generate-pwa-icons.mjs",
     "build": "astro build",
-    "postbuild": "node scripts/generate-bulk-manifest.mjs",
+    "postbuild": "node scripts/generate-bulk-manifest.mjs && node scripts/generate-llms-txt.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

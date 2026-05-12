@@ -1,0 +1,21 @@
+# AI-Guide robots.txt
+#
+# Policy: open to every crawler, including AI training and citation bots.
+# Rationale: this is a free, educational manual about AI; being read and
+# cited by LLMs is aligned with the goal, not a leak. If you change this,
+# update CLAUDE.md too; the policy is a project-level decision, not a
+# detail.
+
+User-agent: *
+Allow: /
+
+# Keep the Simple Analytics first-party proxy and the bulk-download
+# manifest out of the index: they are infrastructure, not content.
+Disallow: /sa/
+Disallow: /aiguide-bulk-manifest.json
+
+# Curated index for LLM agents (see https://llmstxt.org). Not a robots.txt
+# directive, but a hint for crawlers that read this file.
+# llms.txt: https://ai-guide.larosa.work/llms.txt
+
+Sitemap: https://ai-guide.larosa.work/sitemap-index.xml

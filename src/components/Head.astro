@@ -50,6 +50,124 @@ for (const entry of entries) {
   url = url.replace(/\/index\/$/, '/');
   titleMap[url] = entry.data.title;
 }
+
+// --- SEO ---
+// Starlight già emette: <title>, description, canonical, hreflang,
+// og:title/type/url/locale/description/site_name, twitter:card. Qui
+// aggiungiamo i tasselli che mancano per una SEO "forte":
+//   - og:image:alt (accessibilità della preview)
+//   - og:locale:alternate (segnala l'altra lingua agli scraper social)
+//   - twitter:title + twitter:description espliciti (alcuni client
+//     non leggono la fallback OG)
+//   - meta author (Article + Open Graph article extension)
+//   - JSON-LD WebSite sitewide
+//   - JSON-LD Article + BreadcrumbList sulle pagine lezione
+//
+// Una "lezione" è una pagina con `livello` nel frontmatter (stessa
+// chiave usata da PageTitle, Footer, ShareLesson). Le splash, About,
+// Privacy, Glossary, 404 NON ricevono Article schema: non lo sono.
+
+const route = Astro.locals.starlightRoute;
+const entry = route?.entry;
+const data = entry?.data as
+  | { title?: string; description?: string; livello?: string }
+  | undefined;
+
+const currentLocale: 'en' | 'it' = Astro.currentLocale === 'it' ? 'it' : 'en';
+const alternateLocale: 'en' | 'it' = currentLocale === 'it' ? 'en' : 'it';
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const pageTitle = data?.title ?? 'AI-Guide';
+const pageDescription =
+  data?.description ?? "Learn how to use AI, from the basics to advanced.";
+
+const SITE_NAME = 'AI-Guide';
+const SITE_URL = 'https://ai-guide.larosa.work/';
+const OG_IMAGE = 'https://ai-guide.larosa.work/og-image.png';
+const OG_IMAGE_ALT =
+  'AI-Guide: a free manual to learn how to use AI, from the basics to advanced.';
+const AUTHOR_NAME = 'Fabrizio La Rosa';
+const AUTHOR_URL = 'https://larosa.work';
+
+const isLesson = Boolean(data?.livello);
+const livelloToSchema: Record<string, string> = {
+  principiante: 'beginner',
+  intermedio: 'intermediate',
+  avanzato: 'advanced',
+};
+const educationalLevel = data?.livello ? livelloToSchema[data.livello] : undefined;
+
+// Nome del modulo (Fundamentals / Everyday use / At work) per
+// article:section + articleSection del JSON-LD. Derivato dal path:
+// /en/fundamentals/foo/ → "Fundamentals". start-here/glossary/about
+// sono pagine singole, non hanno una "section" sopra di loro.
+const sectionLabels: Record<string, { en: string; it: string }> = {
+  fundamentals: { en: 'Fundamentals', it: 'Fondamenti' },
+  'everyday-use': { en: 'Everyday use', it: 'Uso quotidiano' },
+  'at-work': { en: 'At work', it: 'Sul lavoro' },
+};
+const sectionMatch = Astro.url.pathname.match(/^\/(?:en|it)\/([^/]+)\//);
+const sectionKey = sectionMatch?.[1];
+const articleSection =
+  isLesson && sectionKey && sectionLabels[sectionKey]
+    ? sectionLabels[sectionKey][currentLocale]
+    : null;
+
+// Breadcrumb a due livelli: home della lingua corrente → pagina.
+// I "moduli" intermedi (Fundamentals, Everyday use, At work) non
+// hanno una landing page propria, quindi non li includiamo come
+// nodi cliccabili: schema.org permette nodi senza `item`, ma Google
+// preferisce breadcrumb con URL veri. Tenerlo a due livelli è la
+// scelta più pulita e ben supportata.
+const localeHomeUrl = `${SITE_URL}${currentLocale}/`;
+const breadcrumbJsonLd = isLesson
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: SITE_NAME,
+          item: localeHomeUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: pageTitle,
+          item: canonicalUrl,
+        },
+      ],
+    }
+  : null;
+
+const articleJsonLd = isLesson
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: pageTitle,
+      description: pageDescription,
+      inLanguage: currentLocale,
+      url: canonicalUrl,
+      image: OG_IMAGE,
+      author: { '@type': 'Person', name: AUTHOR_NAME, url: AUTHOR_URL },
+      publisher: { '@type': 'Person', name: AUTHOR_NAME, url: AUTHOR_URL },
+      isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+      ...(educationalLevel ? { educationalLevel } : {}),
+      ...(articleSection ? { articleSection } : {}),
+      learningResourceType: 'Lesson',
+    }
+  : null;
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE_URL,
+  description:
+    'A free, bilingual (English + Italian) manual that teaches non-technical readers how to use conversational AI well, from the basics to advanced topics.',
+  inLanguage: ['en', 'it'],
+  publisher: { '@type': 'Person', name: AUTHOR_NAME, url: AUTHOR_URL },
+};
 ---
 
 <script is:inline>
@@ -74,14 +192,30 @@ for (const entry of entries) {
 
 <Default><slot /></Default>
 
-<meta property="og:image" content="https://ai-guide.larosa.work/og-image.png" />
+<meta property="og:image" content={OG_IMAGE} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta name="twitter:image" content="https://ai-guide.larosa.work/og-image.png" />
+<meta property="og:image:alt" content={OG_IMAGE_ALT} />
+<meta property="og:locale:alternate" content={alternateLocale} />
+<meta name="twitter:image" content={OG_IMAGE} />
+<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={pageDescription} />
+<meta name="author" content={AUTHOR_NAME} />
+{isLesson && <meta property="article:author" content={AUTHOR_URL} />}
+{articleSection && <meta property="article:section" content={articleSection} />}
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 <meta name="theme-color" content="#FCEEE3" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#1C130D" media="(prefers-color-scheme: dark)" />
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+{articleJsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+)}
+{breadcrumbJsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+)}
 
 {import.meta.env.PROD && (
   <script async is:inline src="/sa/proxy.js" data-collect-dnt="true"></script>
