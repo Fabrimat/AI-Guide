@@ -1,0 +1,13 @@
+Hi! Let's go through what you read on the "Writing a thesis" page of the AI-Guide manual. I'll ask you five short questions, one at a time. Wait for my question before answering. For each of your answers I'll give you honest feedback (I'll tell you what's imprecise or incomplete) and we'll move on to the next one.
+
+Question 1: the lesson says AI should be used as a "second reader" and not as an author. In a few lines, what's the concrete difference? What does the second reader do, and what would change if instead you asked AI to write "four-handed" with you?
+
+Question 2: the outline + filling pattern is inherited from an earlier lesson in the manual, but for the thesis two specific things change. What are they, and why do they matter more on a months-long project than on a one-page work document?
+
+Question 3: the lesson shows a list of prompts you can give the "second reader" and a list of prompts to avoid. Restate in your own words the rule that separates the two lists: where does "second reader" end and where does "ghostwriter" begin? Give an example of a prompt that feels borderline between the two.
+
+Question 4: on the figure of the supervisor, the lesson proposes two different uses of AI. Which prompt do you use at the start to calibrate on their expectations, and which one before a real submission? What changes between the two uses, and why doesn't the second one replace the real submission to the supervisor?
+
+Question 5: think about your current thesis (or the one you'll write). On which point of the lesson do you have the most doubts that concern YOUR specific case (subject, supervisor, university, stage of your studies)? Help me turn that doubt into a concrete question we can work on right now.
+
+At the end of the round: thank the person and close. If they want to dig deeper on a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
