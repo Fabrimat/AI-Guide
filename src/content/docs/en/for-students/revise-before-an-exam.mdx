@@ -1,0 +1,266 @@
+---
+title: Revise before an exam
+description: Simulated oral exams, written tests with corrections, mind maps and flashcards. AI as a simulated professor that generates the pressure of the test.
+livello: intermedio
+prerequisiti: [ask-well, learn-something-new]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Studying and revising are two different jobs. Studying = understanding. Revising = simulating the test until the answer comes out fluently.
+- Three techniques: **simulated oral exam** with a professor pressing you one question at a time, **written test with correction** on the step where you went wrong, **mind maps and flashcards** to fix structure and details.
+- The core prompt for the oral exam has two non-negotiable specifications: one question at a time, and an honest verdict on the answer. Without them, AI accepts vagueness.
+- The main risk of this method: AI that confirms you. It has to be forced to be strict, and the key points must be checked against the textbook.
+
+</LessonSummary>
+
+You've studied the syllabus with the techniques from [*Study a new
+topic*](/en/for-students/study-a-new-topic/) and composed the material
+with those from [*Notes from lectures and long
+texts*](/en/for-students/notes-from-lectures/). Two weeks left until
+the exam. You know the material, but the professor will ask you about
+it on your feet, under pressure, at their pace.
+
+Studying and revising are two different jobs. Studying is
+understanding the first time. Revising is repeating what you already
+know until the answer comes out fluently under exam conditions. The
+textbook alone doesn't generate those conditions: you open it, you
+read, you nod along. AI does: you can put it in the professor's shoes
+and have it question you as many times as you want, for free, at
+three in the morning if needed.
+
+## The three techniques
+
+### 1. Simulated oral exam
+
+The central move of revision. The core prompt:
+
+> *"Pretend to be my [subject] professor at the oral exam. Here's the
+> course syllabus: [paste the textbook index or the list of topics].
+> Ask me one question at a time, don't move to the next one until I've
+> answered. After my answer, give me an honest verdict (accurate /
+> imprecise / missing), and if it's imprecise tell me what you would
+> have wanted to hear. Don't move to the final grade until I ask you
+> to."*
+
+Three specifications are what matters. **One question at a time**:
+without this, AI fires four questions in a block, you answer
+sketchily, and you lose the pressure of the face-to-face. **Honest
+verdict on every answer**: by default AI wants to please, and without
+explicit instruction it accepts vagueness with a "good answer, let's
+move on". **No final grade until you ask for it**: without this, after
+three questions it closes with a B+ and you walk away happy; with the
+clause the questioning goes on until you decide, like a real oral
+exam.
+
+The syllabus pasted into the prompt prevents AI from pulling topics
+from Wikipedia that your course doesn't cover. If the textbook index
+is long, the list of chapters covered in class is enough. If the
+course has no single textbook (slides + handouts + a few articles, a
+common situation in social sciences and humanities), reconstruct the
+list of topics from lecture and slide titles. Fifteen to twenty
+concise entries are enough to define the perimeter.
+
+Practical pace of the session. A good simulated oral session lasts
+forty minutes, five to eight questions. No more in the same round:
+after eight questions your attention drops and AI starts recycling
+similar questions. Two forty-minute sessions on different days work
+better than one two-hour marathon. You know you're ready on a chapter
+when you answer three questions in a row without AI having to correct
+you on anything substantial; below that threshold, go back to the
+textbook before redoing the oral.
+
+### 2. Written test with correction
+
+For written exams, the pattern is the same but the loop changes: you
+produce a text, AI reads it and corrects you at the point where you
+went wrong, not in general.
+
+> *"Give me a typical [subject] written exam prompt on chapter X. I'll
+> answer it, then you give me an honest verdict: where I wrote
+> correct things, where I was imprecise, what I should have added. If
+> I got a specific step wrong, show me the correct step, not just the
+> final result."*
+
+It works the same way for technical problems in math, physics,
+chemistry, engineering. The important difference is asking for the
+correction of the **step**, not just the result. Knowing that "the
+result is 12 and not 14" doesn't help you avoid the same mistake
+again; knowing that you misapplied the chain rule at the third step
+does.
+
+For multiple-choice written tests (fifty questions in two hours,
+A/B/C/D) the pattern shifts slightly: ask AI to give you ten or
+fifteen questions in the style of your exam, with four alternatives
+each and the answer marked. You answer before looking at the
+solution, and for each wrong one ask *why* the others were wrong, not
+just why the right one was right. Without the explanation of *why
+not* the distractors, multiple-choice becomes pattern memorization
+and you don't grasp the structure of the question.
+
+### 3. Mind maps and flashcards
+
+Two tools complementary to questioned revision.
+
+The **mind map** is a hierarchical diagram: main concept at the top,
+sub-concepts branching out. It's useful before the oral exam to "see"
+the structure of the chapter at a glance. Ask: *"give me a textual
+mind map of chapter X, main concept at the top, four or five
+branches, two or three sub-concepts per branch."* The output is an
+indented outline. If you prefer the graphical version, paste it into
+XMind, MindMeister, or Excalidraw.
+
+**Flashcards** are the opposite of the map: no structure, many short
+questions on single concepts, to be repeated at growing intervals of
+time (the principle of *spaced repetition*: you review a card when
+you're about to forget it, so each repetition costs less than the
+previous one).
+
+:::tip[Flashcards: Anki, Quizlet, and the CSV format]
+**Anki** and **Quizlet** are the two standard tools. Anki is free,
+open source, and shows you the spaced repetition algorithm
+transparently; Quizlet is friendlier graphically, with a more limited
+free version. Both import flashcards from text files: the base format
+is `Question,Answer` (CSV) or `Question<TAB>Answer` (TSV), one card
+per line.
+
+Ask AI: *"give me twenty flashcards on chapter X in CSV format, one
+per line, comma as separator, no headers. If an answer contains
+commas, wrap it in double quotes. Focus on definitions, dates, names,
+and key formulas; avoid generic oral-exam questions."* You copy the
+output, save it as `.csv`, import it.
+
+Real limit: AI tends to ask questions that are too easy ("Who was
+Kant?") or too open-ended ("Explain the categorical imperative").
+Check the first ten cards before importing everything; if they don't
+work, send AI back with an example of a good question against a bad
+one.
+:::
+
+## Strategy for the professor
+
+Two typical profiles. The techniques stay the same, the calibration
+changes.
+
+**The predictable professor.** Every year asks about the same topics,
+with a recognizable type of question (precise definitions,
+applications to cases, links between authors). If you have a list of
+questions from past exams, even just the ones circulating in the
+course's WhatsApp groups, paste it in: *"this is the style of
+questions the professor asks. When you question me, simulate it."*
+It's the same calibration as the third technique of [*Study a new
+topic*](/en/for-students/study-a-new-topic/), carried over into
+revision.
+
+**The unpredictable professor.** Asks reasoning questions, not memory
+ones: knowing chapter 4 by heart won't save you, they'll ask you to
+link it to chapter 7. Here AI is useful for generating **transversal**
+questions: *"give me five questions that connect chapter 4 with
+chapter 7, the kind a professor would ask to see if you've integrated
+the syllabus."* They won't be perfect, but they force you to build
+bridges that you wouldn't build reading linearly.
+
+And if it's the first exam with that professor and you have no past
+questions or hints about their style? Go with the unpredictable
+profile. It's the most defensive strategy: you prepare for connecting
+questions, which require knowing the syllabus more deeply, and so
+they also cover the case where the professor turns out to be the
+predictable type.
+
+## A philosophy oral exam
+
+Student of theoretical philosophy, exam in a week. The professor is
+predictable, insists on Heidegger and in particular on the concept of
+*aletheia*. First thing: set up the core prompt of Technique 1 with
+the course syllabus and the simulation starts. AI asks the first
+question, the student answers. The exchange that follows.
+
+<ChatDemo
+  user={`For Heidegger, aletheia is the Greek concept of truth. The word literally means "unconcealment", and for Heidegger truth is not the correspondence between a proposition and a thing, but the way being manifests itself. Truth understood as idea, in the Platonic sense, is a consequence of this originary manifestation.`}
+  ai={`**Accurate** on two points: the etymology of *aletheia* as "unconcealment" (more precisely *a-letheia*, privative of *lethe*, concealment) and the critique of truth as correspondence.
+
+**Imprecise** on the last part. You said that "truth understood as idea, in the Platonic sense, is a consequence of this originary manifestation". Here you trip on one of the points the professor always comes back to. Heidegger doesn't say that Platonic truth as *idea* derives from *aletheia*: he says it *replaces* it, and that this replacement is the first fall of Western metaphysics. For Heidegger, Plato is the moment when truth stops being *disclosure* (event, happening of being) and becomes *adequation* of a gaze to an ideal form. The originary *aletheia* is covered over by the idea, not prolonged in it. You should have said: "truth as *disclosure* is what Plato, according to Heidegger, loses by introducing the idea as the measure of the true". Not a small difference: in your formulation Plato is an heir to Heidegger, in the correct formulation he is the beginning of his polemical target.
+
+When you're ready I'll move on to the second question.`}
+/>
+
+Three things to notice. The verdict isn't a generic "good answer":
+it's split into accurate / imprecise, with the imprecise zone pointed
+out down to the millimeter. The correction doesn't just say "no, it's
+the opposite": it tells you *what you should have said*, with the
+alternative formulation. And AI stops: it doesn't move to the second
+question until the student asks. The simulation holds.
+
+This is the difference between using AI as a revision tutor and as a
+serial question generator: the value isn't the number of questions
+asked, it's the detail of the correction on each one.
+
+:::caution[AI that confirms you is the risk]
+AI tends to agree with you. If you answer something vague but that
+sounds "in the ballpark", the default response is "yes, you got the
+point", followed by an addition that fills in the gaps you left. You
+walk out of the questioning convinced you knew, but you knew vaguely:
+the pieces you were missing, it put them in.
+
+Three countermeasures. The first: in the initial prompt, explicitly
+ask for a strict verdict, not an encouraging one (*"if I answer
+vaguely, tell me it's vague, don't fill in the gaps yourself"*). The
+second, and most important: the key points where AI corrected you
+need to be re-checked against the textbook. An AI correction that
+sounds right to you can be a hallucination, especially on authors,
+quotes, dates. The same rule applies as in [*When to trust it and
+when not*](/en/fundamentals/when-to-trust-it/): cross-check with the
+source on the points you'll bring to the exam.
+
+The third, optional but useful: for the points you're most unsure
+about, ask the same question to a second AI (Claude if you used
+ChatGPT, Gemini if you used Claude). If the two corrections agree,
+that's a higher signal of reliability. If they diverge, you've found
+a candidate to verify first against the textbook. It's not a
+guarantee (two AIs can hallucinate the same thing), but it raises the
+bar over a single source.
+:::
+
+When to verify against the textbook, in real time or at the end of
+the session? For pointwise corrections (a date, a name, a quote) it's
+better to jot them down on the fly during the session and verify them
+in a block afterwards. For big conceptual corrections (a thesis
+attributed to one author instead of another, a philosophical
+distinction) it's better to stop right away and open the book: if you
+revise for an hour leaning on a wrong correction, you fix the error.
+
+## What NOT to do
+
+**Don't revise on AI's answers instead of on the textbook.** An AI
+correction has to be verified against the book before you make it
+yours. AI confirms errors if you state them with confidence in the
+prompt: it tends to follow you.
+
+**Don't import a deck of flashcards without checking the first ten.**
+Wrong cards repeated with spaced repetition fix the error in place of
+the concept.
+
+**Don't treat the AI's "grade" as predictive.** A simulated B+ means
+you had a good conversation for forty minutes with a system designed
+to accommodate you. The grade is there to close the session, not to
+make predictions.
+
+## Check what you've understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to fix the method"
+  file="review-revise-before-an-exam.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask four progressive questions about the lesson, one at a time, with feedback."
+/>
+
+## What comes next
+
+Revision is set. The next lesson changes register: the thesis, where
+what's at stake isn't a twenty-minute exam but a months-long project,
+with a supervisor in place of the exam committee.
