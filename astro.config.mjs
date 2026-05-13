@@ -128,13 +128,7 @@ export default defineConfig({
           translations: { it: 'Per studenti' },
           items: [
             { slug: 'for-students/study-a-new-topic' },
-            {
-              label: 'Notes from lectures',
-              translations: { it: 'Appunti da lezioni e testi lunghi' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/notes-from-lectures' },
             {
               label: 'Revise before an exam',
               translations: { it: 'Ripassare prima di un esame' },

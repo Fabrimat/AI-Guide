@@ -576,8 +576,25 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    "davvero" difensivi rimossi). Style-checker EN: OK con un fix di
    calco ("questions of type Z" → "questions like Z").
 
-2. ✍️ **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
+2. ✅ **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
    Materiale grezzo (audio, dispense, slide) portato a forma studiabile.
+   Ciclo di revisione completo (`analyze-lesson` + `integrate-questions` +
+   `style-checker` IT e EN, 2026-05-13). Integrazioni principali
+   dall'analisi lettore: estensione del riferimento alla capienza di
+   contesto con guida pratica (un'ora di audio + slide + 40-50 pagine
+   di capitolo nello stesso prompt), tip Whisper estesa con esempi
+   concreti di nomi propri normalizzati (Husserl→Usserl, Schmitt→Smith),
+   nota sulla qualità della foto degli appunti scritti a mano + comportamento
+   dell'IA di fronte alla grafia da medico, callout `:::caution` "Verifica
+   i tag prima di fidarti" sul fatto che le attribuzioni `[Prof]
+   [Manuale] [Slide]` sono fatte dall'IA e possono sbagliare, nota
+   sul piano richiesto per Claude Projects e ChatGPT Custom GPTs (Gems
+   gratuiti, in alternativa lavoro a chat singole), estensione del "Cosa
+   NON fare 2" sulla tensione prof-vs-manuale e come gestirla all'orale.
+   Style-checker IT: OK con un fix critico (un em dash a riga 95 dentro
+   una parentesi annidata, sciolto in due frasi). Style-checker EN: OK
+   con un "actually" borderline non bloccante (mantenuto, fa lavoro
+   semantico).
 
 3. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
    Interrogazioni simulate, mappe, flashcards, strategia per il docente.
@@ -599,7 +616,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 1 su 8 pubblicate.
+**Stato attuale**: 2 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -717,9 +734,9 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 **Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezione 1
-pubblicata il 2026-05-13. Prossima bozza: lezione 2, **Appunti da
-lezioni e testi lunghi** (`for-students/notes-from-lectures`).
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1
+e 2 pubblicate il 2026-05-13. Prossima bozza: lezione 3, **Ripassare
+prima di un esame** (`for-students/revise-before-an-exam`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in
