@@ -583,6 +583,19 @@ const aiHtml = renderInlineMarkdown(ai);
     background: var(--sl-color-gray-5);
   }
 
+  /* Nel ghost il codice deve restare invisibile come tutto il resto del
+     testo: serve solo a riservare lo spazio. La regola globale
+     `.sl-markdown-content :not(pre) > code` in `custom.css` imposta un
+     `color` e un `background` non-trasparenti su tutti i tag <code>; qui
+     vinciamo per specificità e li riportiamo a trasparenti dentro il
+     ghost. Senza questa regola le pillole `<code>` si vedono dal primo
+     render e il typewriter non funziona più come "rivelazione progressiva
+     del testo". */
+  .message-ai .text-ghost code {
+    color: transparent;
+    background: transparent;
+  }
+
   .message-ai .text-content a {
     color: inherit;
     text-decoration: underline;
