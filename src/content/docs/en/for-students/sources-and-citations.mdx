@@ -6,6 +6,7 @@ prerequisiti: [ask-well, research-for-work, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
@@ -178,7 +179,7 @@ Three typical cases:
   citations;
 - blogs by doctoral students or research centers, well written but
   not peer-reviewed;
-- preprints on SSRN or ResearchGate not yet published in a journal,
+- <Def explanation="Draft of an academic article posted online before peer review. It can be revised or withdrawn, but it saves the months of waiting for journal publication.">preprints</Def> on SSRN or ResearchGate not yet published in a journal,
   which can still be modified or withdrawn.
 
 None of this is "junk": a good blog by a doctoral student can be
@@ -197,7 +198,7 @@ Three practical filters to tell them apart.
    Web of Science (free through your library's proxy: the system
    that lets you, from the campus Wi-Fi or from home logging in with
    student credentials, access databases your university subscribes
-   to). If the journal is indexed in at least one of the two, it's a
+   to). If the journal is <Def explanation="Included in an official academic database (Scopus, Web of Science) that certifies a journal as peer-reviewed and recognized in its field. Not every 'serious' journal is indexed, but indexed journals are almost always serious.">indexed</Def> in at least one of the two, it's a
    peer-reviewed journal recognized in its field.
 
 3. **Known publisher.** Springer, Elsevier, Cambridge University

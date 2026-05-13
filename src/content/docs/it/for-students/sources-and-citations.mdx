@@ -6,6 +6,7 @@ prerequisiti: [ask-well, research-for-work, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
@@ -178,7 +179,7 @@ Tre casi tipici:
 - articoli su `medium.com` con tono dotto e citazioni interne;
 - blog di dottorandi o di centri di ricerca, scritti bene ma non
   peer-reviewed;
-- preprint su SSRN o ResearchGate non ancora pubblicati su una
+- <Def explanation="Bozza di un articolo accademico messa online prima della peer review. Può essere modificata o ritirata, ma fa risparmiare i mesi di attesa della pubblicazione su rivista.">preprint</Def> su SSRN o ResearchGate non ancora pubblicati su una
   rivista, che possono essere modificati o ritirati.
 
 Niente di tutto questo è "spazzatura": un buon blog di un dottorando
@@ -195,7 +196,7 @@ Tre filtri pratici per distinguere.
    o su Web of Science (gratis dal proxy della tua biblioteca: il
    sistema con cui dal Wi-Fi del campus, o da casa loggandoti con
    credenziali studente, accedi alle banche dati a cui il tuo ateneo
-   è abbonato). Se il journal è indicizzato in almeno uno dei due,
+   è abbonato). Se il journal è <Def explanation="Compreso in un database accademico ufficiale (Scopus, Web of Science) che certifica una rivista come peer-reviewed e riconosciuta nel suo campo. Non tutte le riviste 'serie' sono indicizzate, ma quelle indicizzate sono quasi sempre serie.">indicizzato</Def> in almeno uno dei due,
    è una rivista peer-reviewed riconosciuta nella sua disciplina.
 
 3. **Editore noto.** Springer, Elsevier, Cambridge University Press,
