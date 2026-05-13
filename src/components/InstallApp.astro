@@ -89,6 +89,8 @@ const translations = {
 </install-app>
 
 <script>
+  import { track } from '../scripts/analytics';
+
   type Translations = {
     installButtonLabel: string;
     installInProgress: string;
@@ -147,6 +149,11 @@ const translations = {
     private progressLabel!: HTMLElement;
     private modal!: HTMLDialogElement;
     private modalClose!: HTMLButtonElement;
+    // Fire `pwa_bulk_complete` only on a real transition (in-progress
+    // → done) within this page lifecycle. Subsequent visits where the
+    // SW reports done==total from the first message are skipped.
+    private bulkSawProgress = false;
+    private bulkCompleteTracked = false;
 
     connectedCallback() {
       if (this.dataset.wired === 'true') return;
@@ -163,7 +170,16 @@ const translations = {
 
       // If we detect a real standalone session, persist the flag so
       // sibling tabs and future visits know the app is installed.
-      if (isStandalone()) writeInstalledFlag(true);
+      // iOS Safari has no `appinstalled` event; the first time we see
+      // standalone there with no prior flag, treat it as the install
+      // signal so the analytics event still fires.
+      const wasInstalled = readInstalledFlag();
+      if (isStandalone()) {
+        writeInstalledFlag(true);
+        if (!wasInstalled && isIos()) {
+          track('pwa_installed');
+        }
+      }
 
       this.wireEvents();
       this.refresh();
@@ -186,6 +202,7 @@ const translations = {
       window.addEventListener('appinstalled', () => {
         this.deferredPrompt = null;
         writeInstalledFlag(true);
+        track('pwa_installed');
         this.refresh();
         this.requestBulkDownload();
       });
@@ -293,10 +310,18 @@ const translations = {
         .replace('{done}', String(done))
         .replace('{total}', String(total));
 
+      if (total > 0 && done < total) {
+        this.bulkSawProgress = true;
+      }
+
       if (done >= total) {
         this.progress.hidden = true;
         this.status.textContent = this.translations.installAlreadyInstalledReady;
         this.status.hidden = false;
+        if (this.bulkSawProgress && !this.bulkCompleteTracked) {
+          this.bulkCompleteTracked = true;
+          track('pwa_bulk_complete');
+        }
       } else {
         this.progress.hidden = false;
       }

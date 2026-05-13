@@ -84,6 +84,8 @@ const ui = t(Astro.currentLocale);
 </section>
 
 <script>
+  import { track } from '../scripts/analytics';
+
   function assemble(root: HTMLElement, state: Record<string, string>): string {
     const labels = {
       task: root.dataset.i18nLabelTask || '',
@@ -164,6 +166,7 @@ const ui = t(Astro.currentLocale);
             const original = btn.textContent ?? '';
             const copied = root.dataset.i18nCopied || '';
             const error = root.dataset.i18nError || '';
+            track('prompt_builder_copy');
             try {
               await navigator.clipboard.writeText(text);
               btn.textContent = copied;

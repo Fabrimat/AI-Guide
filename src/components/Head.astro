@@ -218,7 +218,24 @@ const websiteJsonLd = {
 )}
 
 {import.meta.env.PROD && (
-  <script async is:inline src="/sa/proxy.js" data-collect-dnt="true"></script>
+  <>
+    {/*
+      Pre-init queue per `sa_event`. Lo script SA è async: senza questo
+      stub, un click molto rapido (es. sul bottone "Copia esercizio")
+      potrebbe sparare `sa_event(...)` quando la funzione non esiste
+      ancora. Lo stub la definisce come buffer: SA, al load, trova
+      `.q` e flussa la coda. In dev questo blocco non viene emesso, lo
+      stub non accumula coda fuori produzione.
+    */}
+    <script is:inline>
+      window.sa_event = window.sa_event || function () {
+        var a = [].slice.call(arguments);
+        var q = window.sa_event.q = window.sa_event.q || [];
+        q.push(a);
+      };
+    </script>
+    <script async is:inline src="/sa/proxy.js" data-collect-dnt="true"></script>
+  </>
 )}
 
 <ClientRouter />

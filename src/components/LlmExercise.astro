@@ -59,6 +59,8 @@ const { icon, badge, durationSuffix } = labels[variant];
   class:list={['llm-exercise', 'not-content', `is-${variant}`]}
   data-i18n-copied={ui.llmExerciseCopied}
   data-i18n-error={ui.llmExerciseError}
+  data-file={file}
+  data-variant={variant}
 >
   <header>
     <span class="badge">{icon} {badge}</span>
@@ -85,6 +87,8 @@ const { icon, badge, durationSuffix } = labels[variant];
 </aside>
 
 <script>
+  import { track } from '../scripts/analytics';
+
   document.addEventListener('click', async (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement) || !target.matches('button[data-copy-src]')) {
@@ -98,6 +102,11 @@ const { icon, badge, durationSuffix } = labels[variant];
     const copied = wrapper?.dataset.i18nCopied || '';
     const error = wrapper?.dataset.i18nError || '';
     const original = target.textContent ?? '';
+
+    track('exercise_copy', {
+      file: wrapper?.dataset.file || '',
+      variant: wrapper?.dataset.variant || 'practice',
+    });
 
     try {
       const res = await fetch(src);
@@ -113,6 +122,23 @@ const { icon, badge, durationSuffix } = labels[variant];
         target.textContent = original;
       }, 2000);
     }
+  });
+
+  // Download / open buttons are <a> tags handled by the browser. Track
+  // the click intent so we know which exercises are pulled in formats
+  // other than copy (downloaded to disk, opened in a new tab).
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const link = target.closest<HTMLAnchorElement>('.llm-exercise .actions a');
+    if (!link) return;
+    const wrapper = link.closest<HTMLElement>('.llm-exercise');
+    if (!wrapper) return;
+    const kind = link.hasAttribute('download') ? 'download' : 'open';
+    track(`exercise_${kind}`, {
+      file: wrapper.dataset.file || '',
+      variant: wrapper.dataset.variant || 'practice',
+    });
   });
 </script>
 

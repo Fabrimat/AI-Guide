@@ -76,6 +76,8 @@ const ui = t(Astro.currentLocale);
 </div>
 
 <script>
+  import { track } from '../scripts/analytics';
+
   const STORAGE_KEY = 'aiguide:progress:v1';
 
   // Mirror di astro.config.mjs > locales e di src/pages/index.astro.
@@ -270,6 +272,7 @@ ${instructions}`;
     generateBtn.addEventListener('click', () => {
       const lessons = loadCompletedLessons();
       if (lessons.length === 0) return;
+      track('recap_generate', { lessons: lessons.length });
       output.textContent = buildPrompt(root, lessons);
       if (typeof dialog.showModal === 'function') {
         dialog.showModal();

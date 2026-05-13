@@ -32,7 +32,7 @@ const slug = name
 const prompt = ui.glossaryPrompt(name);
 ---
 
-<article class="glossary-term not-content" id={slug}>
+<article class="glossary-term not-content" id={slug} data-term={name}>
   <h3 class="gt-name">{name}</h3>
   <div class="gt-def">
     <slot />
@@ -49,6 +49,8 @@ const prompt = ui.glossaryPrompt(name);
 </article>
 
 <script>
+  import { track } from '../scripts/analytics';
+
   function init() {
     document
       .querySelectorAll<HTMLButtonElement>('button[data-glossary-prompt]')
@@ -59,6 +61,8 @@ const prompt = ui.glossaryPrompt(name);
         btn.addEventListener('click', async () => {
           const prompt = btn.getAttribute('data-glossary-prompt') || '';
           if (!prompt) return;
+          const term = btn.closest<HTMLElement>('.glossary-term')?.dataset.term || '';
+          track('glossary_explain', { term });
           const original = btn.textContent ?? '';
           const copied = btn.dataset.i18nCopied || '';
           const error = btn.dataset.i18nError || '';
