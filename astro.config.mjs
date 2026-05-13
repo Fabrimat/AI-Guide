@@ -129,13 +129,7 @@ export default defineConfig({
           items: [
             { slug: 'for-students/study-a-new-topic' },
             { slug: 'for-students/notes-from-lectures' },
-            {
-              label: 'Revise before an exam',
-              translations: { it: 'Ripassare prima di un esame' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/revise-before-an-exam' },
             {
               label: 'Write a thesis',
               translations: { it: 'Scrivere una tesi' },

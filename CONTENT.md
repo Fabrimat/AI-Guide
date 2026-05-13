@@ -596,8 +596,23 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    con un "actually" borderline non bloccante (mantenuto, fa lavoro
    semantico).
 
-3. ✍️ **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
+3. ✅ **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
    Interrogazioni simulate, mappe, flashcards, strategia per il docente.
+   Ciclo di revisione completo (`analyze-lesson` + `integrate-questions` +
+   `style-checker` IT e EN, 2026-05-13). Integrazioni principali
+   dall'analisi lettore: paragrafo "cadenza pratica della sessione"
+   (durata 40 minuti, 5-8 domande, soglia "tre risposte di fila senza
+   correzione"), istruzioni per studenti senza manuale unico (slide +
+   dispense + articoli → ricostruire 15-20 voci dai titoli), pattern
+   per test a risposta multipla con spiegazione del "perché no" ai
+   distrattori, strategia "primo esame con prof sconosciuto" (default
+   sul profilo imprevedibile), terza contromisura cross-IA nel callout
+   "L'IA che ti conferma" (Claude vs ChatGPT vs Gemini come tripla
+   verifica), workflow di quando verificare sul manuale (in tempo reale
+   per correzioni concettuali, fine sessione per puntuali). Style-checker
+   IT: OK con un fix di accordo sintattico ("alle distrattori" → "ai
+   distrattori"). Style-checker EN: OK, conversione "28" → "B+" 
+   verificata coerente in entrambe le occorrenze.
 
 4. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`)
    Outline + riempimento, l'IA come secondo lettore, calibrazione sul
@@ -616,7 +631,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 2 su 8 pubblicate.
+**Stato attuale**: 3 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -734,9 +749,9 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 **Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1
-e 2 pubblicate il 2026-05-13. Prossima bozza: lezione 3, **Ripassare
-prima di un esame** (`for-students/revise-before-an-exam`).
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1,
+2 e 3 pubblicate il 2026-05-13. Prossima bozza: lezione 4, **Scrivere
+una tesi** (`for-students/write-a-thesis`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in
