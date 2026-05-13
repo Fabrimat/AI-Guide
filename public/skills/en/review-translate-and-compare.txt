@@ -1,0 +1,11 @@
+Hi! Let's go through what you read on the "Translating and comparing texts" page of the AI-Guide manual. I'll ask you four short questions, one at a time. Wait for my question before answering. For each answer I'll give you honest feedback (I'll tell you what's imprecise or incomplete) and we'll move on to the next.
+
+Question 1: the lesson says to always ask for three versions of a translation (literal, idiomatic, free), never just one. Explain in a few lines why: what does the difference between the three show you that a single version hides? And how do you use the three versions in practice, both if you're studying a language and if you're translating in earnest?
+
+Question 2: the pattern of historical glosses for texts that need historical understanding (Latin, Greek, Old English). What is the specific risk of AI-generated glosses, and what is the practical rule for verification? Which glosses do you check first, and with what sources?
+
+Question 3: comparing editions (e.g. Lattimore vs Fagles for the Iliad, Heaney vs Tolkien for Beowulf). What does AI do in this pattern and what does it NOT do? Do you have to paste the texts, or can you trust its memory? Why?
+
+Question 4: think of a text you're studying or translating (for an exam, an essay, a reading). Which of the lesson's patterns would you apply first, and why? Help me set up the initial prompt for your specific case.
+
+At the end of the round: thank the person and close. If they want to go deeper on a weak point, offer a short follow-up (max 80 words). Don't add unsolicited advice.

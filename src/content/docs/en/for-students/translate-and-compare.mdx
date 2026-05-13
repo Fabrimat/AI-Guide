@@ -1,0 +1,320 @@
+---
+title: Translating and comparing texts
+description: Translation is where AI looks perfect and can instead be sneaky. Use it as a study aid for the language, not as a translator you paste from.
+livello: intermedio
+prerequisiti: [ask-well, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Never ask "translate this": always ask for three versions (literal, idiomatic, free). The gap between the three is the real learning.
+- For historical texts, ask for glosses alongside the translation. Verify one gloss out of two on Treccani or the Oxford Classical Dictionary.
+- To study a literary text, compare two existing translations with AI's help: map the differences, then go and read the passages.
+- For modern languages, train register: same sentence in formal and informal, and declare which regional variant you're working in.
+- In a translation exam or assignment, AI is plagiarism. Always.
+
+</LessonSummary>
+
+Translation is one of those things where AI "looks perfect" and is
+instead sneaky. A wrong translation of a line of Catullus, or of an
+article from *Le Monde*, isn't visible at a glance: you only see it
+when you compare it with other translations, with the original text,
+or with a dictionary. The fluency of the answer tells you nothing
+about its fidelity to the text.
+
+This lesson shows how to use AI as a **help** for translation, not
+as a substitute. It applies to people studying modern languages
+(English, French, Spanish, German), to people doing classics (Latin,
+Greek), to comparative literature, to philology. The mechanics are
+the same: translation is a learning tool, not a finished object you
+paste into the assignment.
+
+## The three-versions pattern
+
+Never ask "translate this sentence for me". Always ask for **three
+versions with different angles**. For a sentence of French prose, a
+line of verse, a long period:
+
+- **Literal**: as close as possible to the original text, even at
+  the cost of sounding unnatural in English. It keeps word order,
+  lexical choices, syntactic constructions.
+- **Idiomatic**: smooth English, small syntactic liberties to avoid
+  betraying the meaning. It's the translation you'd find in a good
+  current edition.
+- **Free**: the idea comes through, but the phrasing changes. More
+  adaptation than translation, useful for seeing where you can
+  "break" the text without losing it.
+
+The difference between the three shows you what you "lose" in
+translation, and that's the real learning. People who translate
+seriously don't pick the best one: they recompose a version of their
+own by reading the three. People studying a language use the three
+versions to surface grammatical structures that a single translation
+hides (a French participle that becomes a subordinate clause in
+idiomatic English, a Latin ablative that unfolds into a whole
+sentence).
+
+The base prompt, to adapt:
+
+> *"Translate this sentence in three versions: a literal one, an
+> idiomatic one, a free one. For each one, explain in one line the
+> main choice you made."*
+
+The line of explanation matters as much as the translations: it's
+where AI shows you its move. If the three versions come back very
+similar to one another, the text is "transparent" between the two
+languages (low syntactic density, close vocabulary): not a problem,
+it's information. If instead you suspect laziness, ask explicitly
+*"push the differences, even take them to extremes"*.
+
+## Glosses and historical notes
+
+For texts that need historical understanding (Latin, Greek, Old
+Italian, Old French, Old English) a modern translation isn't
+enough. A word may have no equivalent, or have one but with a
+different historical meaning. *Let* in Shakespeare doesn't mean
+"permit", it means "hinder": *"What lets but one may enter?"* in
+*Hamlet* trips up a modern reader who only knows the current sense.
+*Patroni* in a Roman context isn't the "boss" of modern vocabulary.
+
+The move is to ask AI to **pair the translation with glosses**:
+words or concepts a modern reader doesn't recognize, explained in
+two lines. Like:
+
+> *"Translate this line of Catullus for me. For the terms *patroni*
+> and *mos maiorum*, add a two-line gloss on the historical value in
+> the Roman context of the first century BC."*
+
+Important caution. Historical glosses are one of the points where
+AI invents most readily: wrong dates, attributions to authors who
+never existed, garbled etymologies. It's not malice, it's the
+structural limit of a model that has read a lot but doesn't query a
+database while it responds. Verify at least one gloss out of two
+with a serious encyclopedic source, and prioritize the riskiest:
+proper names, dates, work titles, etymologies. Generic definitions
+of well-known concepts you can verify last. **Treccani** (the major
+Italian encyclopedia, free online) for Italian and historical
+concepts, **Oxford Classical Dictionary** for the classics (your
+library almost certainly has access).
+
+The check costs two minutes per gloss, and it saves you from making
+confident claims in an essay about things AI made up.
+
+:::tip[Without paid encyclopedia access]
+If your university doesn't have access to the Oxford Classical
+Dictionary or other commercial encyclopedias, free alternatives are
+there. **Perseus Digital Library** (perseus.tufts.edu) for Greek and
+Latin: original texts, dictionaries, clickable lemmas. **Stanford
+Encyclopedia of Philosophy** (plato.stanford.edu) for ancient and
+modern philosophy, articles written by specialists. English-language
+Wikipedia is often denser than the Italian one for the classics. For
+classical Latin, **Castiglioni-Mariotti** (Italian Latin
+dictionary); for Greek, **Rocci** (Italian Greek dictionary) or LSJ
+(Liddell-Scott-Jones, on Perseus).
+:::
+
+## Comparing editions
+
+For a student of comparative literature or classics, reading two
+translations of the same text often says more than the original
+text. A translator's choices (what gets rendered, what gets
+sacrificed, where they modernize, where they let the ancient grate)
+are a map of their critical angle.
+
+AI speeds up the mapping. Pattern: give AI two translations of the
+same passage and ask it to map the differences. Real and verifiable
+example: the *Iliad* translated by Richmond Lattimore in 1951 and
+by Robert Fagles in 1990. The prompt:
+
+> *"I'm pasting two English translations of the first ten lines of
+> the *Iliad*: the first is Richmond Lattimore (1951), the second is
+> Robert Fagles (1990). What are the three most important
+> differences, and what do they reveal about each translator's
+> angle?"*
+
+AI replies with a structured comparison: Lattimore's archaizing
+fidelity and metrical strictness vs Fagles's modern flow and
+performance-oriented rhythm, specific lexical choices (Homeric
+epithets rendered differently), the line's pacing. Always paste in
+the passages you want to compare, ten to thirty lines per side. For
+very well-known works (*Iliad*, *Divine Comedy*, Shakespeare) AI
+has pieces from memory but often gets the exact citations wrong:
+it invents a hemistich, attributes a line to a different scene. For
+modern or niche works, pasting is mandatory.
+
+AI doesn't replace reading: it gives you the **map of differences**,
+which you then deepen by reading the passages. The same pattern
+works for *Beowulf* in English (Seamus Heaney, 1999 vs J.R.R.
+Tolkien, 2014 posthumous), or for any classic with two translations
+distant in time.
+
+For people doing modern languages the pattern holds: two English
+translations of a Proust novel (Moncrieff vs Davis), two editions
+of a Sontag essay, two versions of the same Borges story. If only
+one English translation of a text exists, compare it with a
+translation into another language you know (French, German,
+Italian), or with the original text even if you only half-grasp the
+language: certain junctures show through anyway.
+
+## Formal and informal register
+
+For students of modern languages, the same sentence in two registers
+is one of the most useful exercises. Classic example: an email to a
+professor.
+
+Prompt:
+
+> *"I need to write to a professor in English to ask for an
+> appointment. Give me two versions of the same email: a formal one
+> (Anglo-American academic register, never met the person) and an
+> informal one (I've met him before, friendly relationship).
+> Underline the three differences that make the register."*
+
+You see where it changes: greeting (*Dear Professor Smith* vs *Hi
+Prof*), vocabulary (*I would like to* vs *I wanted to ask*, *kindly*
+vs *could you*), syntax (full subordinates vs broken sentences),
+contractions (*I would* vs *I'd*). And you learn to calibrate based
+on context.
+
+It also works in reverse, to check naturalness: give AI a sentence
+of yours and ask whether it sounds like a native speaker or like a
+textbook.
+
+> *"Does this sentence sound natural in Parisian French as spoken
+> by people in their thirties, or does it sound like a school
+> textbook? If it's the second, tell me where it limps."*
+
+Important: always declare the **regional variant** you're working
+in. Iberian or Latin American Spanish (and which country)? European
+or Brazilian Portuguese? British, American, or Australian English?
+AI doesn't guess it, and it mixes: it gives you a "neutral" *coger*
+that in Argentina is vulgar, or a British *takeaway* in an email
+sent to a university in Boston.
+
+## Catullus, three versions and two glosses
+
+Classics student, working on the first line of *Carmen 5* by Catullus
+(first century BC, the most famous Neoteric poet): *Vivamus, mea
+Lesbia, atque amemus*. She wants to understand the translators'
+choices and the historical weight of the two verbs.
+
+<ChatDemo
+  user={`Translate this line of Catullus into English in three versions: literal, idiomatic, free. Then add two short historical glosses on the terms "vivamus" and "amemus" in Catullus's poetic context (Neoteric poetry, first century BC).
+
+Line: Vivamus, mea Lesbia, atque amemus.`}
+  ai={`Three versions of the line *Vivamus, mea Lesbia, atque amemus*:
+
+**Literal**: "Let us live, my Lesbia, and let us love." Keeps the word order, the conjunction *atque* rendered as "and", the two hortatory subjunctives at the start and end of the period. Sounds spare, but it shows the structure.
+
+**Idiomatic**: "Let us live, my Lesbia, and let us love each other." Keeps the vocative in place, turns *amemus* from an absolute into a reciprocal. Smooth English, faithful to the sense.
+
+**Free**: "To live, to love, Lesbia: this alone." Steps away from the hortatory subjunctive for a more direct exhortation, sacrifices the *vivamus / amemus* symmetry in favor of a clipped close. Betrays the form, saves the tone.
+
+**Gloss on *vivamus***: the hortatory subjunctive "let us live" isn't a banality in Catullus. It fits into the Neoteric climate of claiming a private and sensual life **against** the civic ethic of the *mos maiorum* (the discipline inherited from the ancestors, made of public service and austerity). "To live" here has an almost programmatic value: choosing amorous *otium* as a horizon of meaning, not as a supplement to *negotium*. Close to Epicurean influences filtered through the Neoteric circle.
+
+**Gloss on *amemus***: the reading is less unanimous. Literally "let us love" as a hortatory subjunctive, parallel with *vivamus*. Some philologists, however, read *amemus* as a collective imperative that draws Lesbia into a shared choice of life, rather than as a simple invitation to an act. The difference weighs on the translation: "let us love each other" (reciprocal act) vs "let us love" (way of being in the world). It's a nuance critical editions diverge on.`}
+/>
+
+Worth noting: the three translations show different choices, one
+gloss solid and verifiable (the one on *vivamus* in the Neoteric and
+Epicurean frame) and one with an uncertainty AI declares explicitly
+(the nuance on *amemus*). That declaration of uncertainty is the
+good sign: it tells you where there's debate, and where you have to
+check yourself before backing a reading. The gloss on *mos maiorum*,
+before citing it in an essay, you check on Treccani.
+
+:::caution[When the AI doesn't flag uncertainty but is wrong]
+The good sign is when AI flags where there's debate (like the gloss
+on *amemus*). The problem is when it *doesn't*, and gets it wrong
+anyway: you aren't expert yet, and you don't have the signal to
+stop. Three countermeasures: always ask which source (author,
+manual, dictionary) the gloss comes from, then check the source; ask
+the same gloss to a second AI (Claude vs ChatGPT vs Gemini) and
+compare; for every gloss that will end up in an essay, the
+encyclopedic check isn't optional.
+:::
+
+:::caution[Linguistic traps]
+Three types of trap AI often falls into, and where you have to keep
+watch.
+
+**False friends.** Italian *attualmente* doesn't mean English
+*actually* (it means "currently"). German *Gift* means "poison", not
+"gift" as in English. Spanish *embarazada* is "pregnant", not
+"embarrassed". AI translates word by word and often stumbles. If
+you're translating into a language you barely know, check the key
+terms in a serious dictionary (Treccani, Larousse, Duden, Oxford).
+
+**Historical registers.** A sixteenth-century English expression
+doesn't mean what the same expression means today. *Let* in
+Shakespeare covers a semantic field we'd now call "hinder", not
+"permit". Same problem with Middle English (Chaucer), medieval
+French, any text more than two or three centuries old.
+
+**Dialects and regional variants.** Iberian vs Latin American
+Spanish. European vs Brazilian Portuguese. British vs American vs
+Australian English. Standard vs Austrian vs Swiss German. Always
+declare the variant to AI: if you don't, it mixes, and you end up
+with a "neutral" email that in a specific country sounds strange.
+:::
+
+:::danger[AI in a translation exam is plagiarism]
+In an exam, a translation assignment, or an interpreting test
+(Latin, Greek, modern languages) AI isn't a support tool: it's a
+**forbidden substitute**. Same thing as handing in a classmate's
+translation. There are no gray zones on this point.
+
+Where there is a gray zone instead: using AI to *study* (the three
+versions, the glosses, the comparisons) is studying. Using AI to
+prep the *specific passage* you think will come up on the exam is
+preparing plagiarism: at the real test, on a new passage, you can't
+translate anymore because you've trained the "what" and not the
+"how". The wider ethical discussion is picked up by [*Ethics of
+studying*](/en/for-students/ethics-of-studying/), the last lesson of
+the module.
+:::
+
+## What NOT to do
+
+**Don't hand in an AI translation in a translation exam.** It's
+plagiarism, and falls under the same sanctions as any other form of
+plagiarism.
+
+**Don't study a text using a single translation.** This whole lesson
+is about comparison: three angles for the same sentence, two
+editions side by side, two registers. A single translation hides the
+choices the translator made, and gives you the false certainty that
+"the text says this".
+
+**Don't trust historical glosses without an encyclopedic check.**
+They're the point where AI invents most: dates, attributions,
+etymologies. Treccani, Oxford Classical Dictionary, or a reference
+history of your field: two minutes per gloss, and you don't sign off
+on an invention.
+
+**Don't use AI to translate into a language you don't know at all.**
+If you have to send an email in Russian and you don't know a word of
+Russian, AI gives you back an email in the wrong register without
+you noticing. For uses that matter (formal letter, application,
+publication), always have a native speaker review it.
+
+## Check what you've understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions on comparison"
+  file="review-translate-and-compare.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask four questions on the three-versions pattern, historical glosses, and edition comparison."
+/>
+
+## What comes next
+
+For translations as for everything else, the background problem
+holds: AI can be convincing even when it's wrong. The next lesson
+zooms in on this, in a study context: how to spot it when you DON'T
+already know the right answer.
