@@ -596,6 +596,18 @@ const aiHtml = renderInlineMarkdown(ai);
     background: transparent;
   }
 
+  /* Nel layer visibile, il typewriter svuota i text node ma lascia gli
+     elementi <code> nel DOM. Senza questa regola le pillole apparirebbero
+     come piccoli rettangoli evidenziati anche quando ancora vuote, prima
+     che il typewriter ci scriva dentro. `code:empty` matcha solo quando
+     dentro non c'è nessun carattere: appena il typewriter rivela il primo
+     carattere, la pillola torna evidenziata. */
+  .message-ai .text-content code:empty {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+
   .message-ai .text-content a {
     color: inherit;
     text-decoration: underline;
