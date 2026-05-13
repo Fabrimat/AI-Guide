@@ -520,7 +520,7 @@ in viewport (`IntersectionObserver`).
 | `loopDelay`     | `number`  | `3500`  | ms di pausa tra un ciclo e il successivo          |
 | `userLabel`     | `string`  | `'Tu'`  | etichetta sopra la bolla utente                   |
 | `aiLabel`       | `string`  | `'IA'`  | etichetta sopra la bolla IA                       |
-| `showReplay`    | `boolean` | `true`  | mostra il pulsante "Riavvia"                      |
+| `showReplay`    | `boolean` | `true`  | mostra i pulsanti "Salta" (durante l'animazione) e "Riavvia" |
 
 ```mdx
 <ChatDemo

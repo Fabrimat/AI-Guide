@@ -68,6 +68,8 @@ export interface UIStrings {
   chatAiLabel: string;
   chatReplay: string;
   chatReplayAria: string;
+  chatSkip: string;
+  chatSkipAria: string;
   chatExampleAria: (preview: string) => string;
 
   // ReadingTime
@@ -239,6 +241,8 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   chatAiLabel: 'IA',
   chatReplay: 'Riavvia',
   chatReplayAria: "Riavvia l'animazione della conversazione",
+  chatSkip: 'Salta',
+  chatSkipAria: "Salta l'animazione e mostra subito il risultato",
   chatExampleAria: (preview) => `Esempio di conversazione: "${preview}"`,
 
   readingTimeSuffix: 'min di lettura',
@@ -407,6 +411,8 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   chatAiLabel: 'AI',
   chatReplay: 'Replay',
   chatReplayAria: 'Replay the conversation animation',
+  chatSkip: 'Skip',
+  chatSkipAria: 'Skip the animation and show the result right away',
   chatExampleAria: (preview) => `Example conversation: "${preview}"`,
 
   readingTimeSuffix: 'min read',
