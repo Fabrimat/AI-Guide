@@ -557,7 +557,7 @@ Struttura validata 2026-05-13. Otto lezioni, ordine pedagogico = ordine
 di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
 dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
 
-1. 🆕 **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
+1. ✍️ **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
    Studio formale contro un programma fissato. Apre il modulo col
    contratto "non è il manuale del fammi i compiti".
 
