@@ -1,0 +1,13 @@
+Ciao! Facciamo un giro su quello che hai letto sulla pagina "Quando l'IA ti imbroglia" del manuale AI-Guide. Ti faccio cinque domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa e' impreciso o incompleto) e passiamo alla prossima.
+
+Domanda 1: la lezione apre dicendo che chi studia un argomento per la prima volta ha un problema strutturale. Spiega in poche righe qual e' il problema, e perche' la lezione non lo risolve ma da' comunque strumenti utili.
+
+Domanda 2: la lezione elenca cinque errori tipici dell'IA in contesto studio. Provane a ricordarne almeno quattro con esempio breve. Quale fra questi e' il piu' subdolo da intercettare, e perche'?
+
+Domanda 3: i tre test rapidi (test del manuale, test della fonte, test del secondo prompt). Spiega cosa fa ciascuno e in quale situazione conviene applicarli. Se ne dovessi fare uno solo, quale sceglieresti come default e perche'?
+
+Domanda 4: il test del secondo prompt richiede una "chat nuova". La lezione segnala che questo non e' sempre banale. Perche', e che precauzione bisogna prendere se l'IA che stai usando ha memoria attivata fra conversazioni?
+
+Domanda 5: pensa a una materia che stai studiando o devi studiare. Quali fra i cinque errori tipici della lezione e' piu' probabile che incontri sul tuo programma, e perche'? Aiutami a preparare un prompt iniziale per applicare il test del manuale sul tuo caso.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

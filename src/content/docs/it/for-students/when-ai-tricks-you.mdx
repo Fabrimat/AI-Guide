@@ -1,0 +1,258 @@
+---
+title: Quando l'IA ti imbroglia
+description: Studi un argomento per la prima volta, e l'IA ti risponde con sicurezza. Come accorgerti che sta sbagliando proprio quando non puoi saperlo.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Chi studia per la prima volta non può accorgersi dell'errore: serve un metodo che non dipenda dal saper riconoscere il giusto.
+- Cinque errori tipici in contesto studio: definizioni shift, date confuse, biografie miste, formule sbagliate di segno, opere fantasma.
+- Tre test che funzionano anche senza sapere la risposta: test del manuale, test della fonte, test del secondo prompt.
+- Materie ad alto rischio di errore: matematica, fisica, medicina, diritto specifico, cronologie precise.
+- Non basta che la risposta "suoni giusta": tutte le risposte dell'IA suonano giuste. È il problema.
+
+</LessonSummary>
+
+Studi un argomento per la prima volta. L'IA ti risponde con sicurezza,
+in italiano fluente, con la stessa aria di una pagina di Treccani.
+Hai un problema strutturale: se sapessi riconoscere che sta sbagliando,
+non staresti chiedendo a un'IA, perché avresti già imparato la cosa.
+È il caso peggiore del manuale, e [*Cose da NON fare con
+un'IA*](/it/everyday-use/dont-do-with-ai/) lo dice in modo netto:
+non usarla come unica fonte su materie ad alto rischio.
+
+Questa lezione non risolve il problema strutturale (non è risolvibile).
+Ti dà gli errori tipici dell'IA quando spiega cose da studiare, e tre
+test rapidi che funzionano anche senza sapere la risposta giusta. Il
+prerequisito è [*Quando fidarsi e quando
+no*](/it/fundamentals/when-to-trust-it/): la cornice generale la
+conosci già, qui zoomiamo sul contesto studio.
+
+## Cinque errori tipici in contesto studio
+
+### 1. Definizioni shift dal manuale
+
+L'IA non legge il tuo manuale. Pesca dalle versioni di Wikipedia in
+varie lingue, da libri di testo anglosassoni tradotti, da articoli
+divulgativi. La definizione che ti dà può essere "vicina" a quella
+del manuale, ma con sfumature diverse, e all'esame contano.
+
+Esempio: studi *anomia* su un manuale italiano che segue rigorosamente
+Durkheim. L'IA ti spiega l'anomia con un taglio mertoniano: legittimo,
+ma è la rilettura americana del 1949, non l'originale del 1893. Il
+professore vuole la sua versione, non quella mediata.
+
+### 2. Date confuse
+
+Anno corretto, mese sbagliato. Decennio corretto, anno sbagliato.
+Errore sottile: lo vedi solo confrontando con una cronologia precisa.
+
+Esempio: *"La conferenza di Yalta si tenne nel marzo 1945."* L'anno
+è giusto, ma la conferenza si tenne dal 4 all'11 febbraio. Su un
+tema in cui *"prima o dopo Yalta"* discrimina una risposta,
+sbagliare il mese significa sbagliare la sequenza.
+
+### 3. Biografie miste
+
+Eventi del padre attribuiti al figlio, opere di un autore attribuite
+a un altro della stessa scuola, fatti di Pio X attribuiti a Pio IX.
+Pattern frequente per personaggi storici con omonimi (i Plinii, i
+Catoni, i Papi numerati), o per scuole filosofiche con molti
+rappresentanti.
+
+Esempio: chiedi un fatto sulla stoa media, e l'IA attribuisce a
+Panezio una posizione che era di Posidonio (o viceversa). Per
+restare trasversali: una scoperta di Marie Curie attribuita a Pierre
+Curie, un'enciclica di Pio X data a Pio IX, un quadro di un Carracci
+attribuito al fratello sbagliato. Stessa famiglia (o stessa scuola),
+periodo vicino, temi sovrapposti. L'IA "ricorda" che la cosa è di
+quell'area e tira fuori il nome più probabile. A volte indovina, a
+volte no.
+
+### 4. Formule giuste nella forma ma sbagliate nel segno
+
+Caso frequente in matematica e fisica. La formula "sembra" quella
+standard, supera la verifica visiva, ma ha un segno girato, un
+esponente sbagliato, una costante mancante. Applicata a un esercizio
+porta a un risultato sbagliato senza che tu capisca dove.
+
+L'IA è meno affidabile in matematica e fisica che in storia o
+filosofia. *F = ma* la scrive sempre giusta perché è la formula più
+ripetuta in qualunque manuale. Su cose meno standard si confonde:
+l'equazione di Schrödinger dipendente dal tempo (*iℏ ∂Ψ/∂t = ĤΨ*) può
+uscire con il segno girato o senza il fattore *ℏ*. Non si risolve
+dicendo *"controlla meglio"*: è il limite di un modello che indovina
+la formula più probabile, non la calcola.
+
+### 5. Opere fantasma
+
+Riferimenti a libri, paper, articoli che non esistono. Vicino al
+caso delle citazioni inventate in bibliografia che vedi in [*Fonti e
+citazioni*](/it/for-students/sources-and-citations/), ma qui dentro
+**il corpo del testo**: l'IA argomenta una tesi e a sostegno cita
+un'opera che non c'è.
+
+Esempio: *"Come dice Foucault in* Le tecniche del sapere normativo *…"*.
+Foucault non ha scritto un libro con quel titolo. "Suona"
+foucaultiano (potere, sapere, norma), e l'IA lo costruisce
+plausibile. Verifica: se non lo trovi su Google Scholar né nel
+catalogo della tua biblioteca, è inventato.
+
+:::tip[Riconoscere una domanda ad alto rischio]
+Due segnali da imparare a vedere subito. Primo: la domanda richiede
+una **cifra precisa** (data, dosaggio, formula, numero di articolo,
+versetto). Secondo: la domanda riguarda una persona, un'opera o un
+concetto con **omonimi o varianti** (i Plinii, i papi, le scuole
+filosofiche con molti rappresentanti, gli autori che hanno cambiato
+posizione fra opere). Su queste, verifica sempre. Sul resto, una
+lettura del manuale basta.
+:::
+
+## Tre test rapidi quando NON sai la risposta
+
+Il problema della lezione è proprio questo: non sai. I tre test
+non richiedono di sapere la risposta, richiedono di applicarli.
+
+### Test del manuale
+
+Chiedi all'IA di rispondere restando dentro un testo che hai tu:
+il paragrafo del manuale, le slide del corso, la dispensa del
+professore. Lo incolli nel prompt, e vincoli la risposta a quello.
+Se le fonti del corso sono più di una (manuale + slide + dispense +
+articolo), incollale tutte e imponi il vincolo *"resta in QUESTI
+testi"*. Se due fonti si contraddicono, è una domanda per il prof,
+non per l'IA.
+
+> *"Rispondi a questa domanda usando solo il testo qui sotto, non
+> aggiungere informazioni esterne."*
+
+Se quello che ti dice diverge dal manuale, il manuale vince. Stai
+preparando un esame su quel testo, non sull'enciclopedia generale
+dell'IA. Funziona anche al contrario: chiedi all'IA di parafrasare
+il paragrafo, di farne esempi, di renderlo più chiaro, restando
+dentro le sue affermazioni.
+
+### Test della fonte
+
+> *"Indicami la fonte primaria di questa affermazione."*
+
+Se l'IA cita una fonte verificabile (un libro con autore, anno,
+pagina, oppure un articolo con DOI), controllala. Se dice *"è
+conoscenza comune"* senza specificare, ricalibra: la "conoscenza
+comune" in contesto studio è troppo bassa per un esame, perché non
+sai se è quella di un manuale serio o di una pagina Wikipedia mal
+scritta. Pretendi precisione. Se non te la dà, prendi il dato come
+non verificato.
+
+### Test del secondo prompt
+
+In una **chat nuova**, senza il contesto della prima, rifai la
+stessa domanda con una formulazione leggermente diversa: cambia le
+parole chiave senza alterare il senso. *"Quando si tenne Yalta?"*
+diventa *"In che data si svolse la conferenza di Yalta?"*. Non
+cambia abbastanza: virgole o punteggiatura ritoccate. Cambia troppo:
+una domanda diversa che chiede un'altra cosa. Se l'IA dà una
+risposta diversa, la prima non era ben fondata: l'IA stava
+improvvisando in modo consistente con quello che aveva già detto,
+non rispondendo con sicurezza. La chat nuova rompe l'eco.
+
+Importante che sia una chat nuova: dentro la stessa conversazione
+l'IA tende a confermarsi (l'ha detto cinque messaggi fa, lo
+ripete). Una chat vergine dà una seconda risposta indipendente. Se
+le due coincidono nel sostanziale, il dato regge. Se divergono, hai
+trovato il punto debole.
+
+:::note[Quando la "chat nuova" non è davvero nuova]
+Se la tua IA ha memoria attivata fra conversazioni (ChatGPT con
+*memory* attivo, Claude dentro un Project, Gemini con cronologia
+salvata), una "chat nuova" può comunque ricordare la prima. Per il
+test del secondo prompt: disattiva la memoria nelle impostazioni,
+oppure usa la **chat temporanea** (ChatGPT *Temporary Chat*, Claude
+fuori dai Projects, Gemini in modalità ospite o cancellando la
+cronologia). Senza questa precauzione, il test perde la sua
+indipendenza.
+:::
+
+## In pratica: Yalta in marzo
+
+Studente di Storia, sta preparando il Novecento. Vuole controllare
+la data della conferenza di Yalta.
+
+<ChatDemo
+  user="In che anno si tenne la conferenza di Yalta?"
+  ai={`La conferenza di Yalta si tenne nel **marzo 1945**, in Crimea. Riunì Roosevelt, Churchill e Stalin, e definì gli assetti dell'Europa post-bellica: divisione della Germania in zone di occupazione, configurazione politica dell'Europa orientale, accordi sull'entrata in guerra dell'URSS contro il Giappone.`}
+/>
+
+La risposta suona bene. Lo studente non sa la data esatta, ma sa
+che era una conferenza dei Tre Grandi a fine guerra. Applica i test.
+
+Il **test della fonte**: chiede *"indicami la fonte primaria di
+questa affermazione"*. L'IA cita un documento generico (gli atti
+della conferenza, una storia diplomatica), ma non specifica il
+mese: parla in generale di *"inizio 1945"*. Segnale.
+
+Il **test del secondo prompt**, in una chat nuova: *"Quando si
+tenne Yalta?"*. Stavolta l'IA risponde *"dal 4 all'11 febbraio
+1945"*. Le due risposte divergono sul mese.
+
+Lo studente apre Treccani (qualunque enciclopedia seria va bene).
+La data corretta è 4-11 febbraio 1945: la prima risposta aveva
+sbagliato il mese. L'anno era giusto, il contesto era giusto, ma
+"marzo" era un errore. Senza i test, "marzo 1945" sarebbe finito
+nell'appunto sul manuale, e quel piccolo errore sarebbe arrivato
+fino all'esame.
+
+:::tip[Materie più rischiose]
+Aree dove l'IA sbaglia più spesso in contesto studio:
+
+- **Matematica e fisica**: formule, dimostrazioni, segni, costanti,
+  esponenti.
+- **Medicina e biomedicina**: dosaggi, meccanismi cellulari
+  specifici, nomi di proteine, vie metaboliche.
+- **Diritto specifico**: articoli di codice esatti, sentenze,
+  riferimenti normativi, scadenze procedurali.
+- **Date e cronologie precise** in storia.
+
+Su materie meno rischiose (filosofia, sociologia, letteratura)
+l'errore è meno frequente e più sfumato: scuola di pensiero giusta
+ma dettaglio sbagliato, autore giusto ma opera attribuita male.
+:::
+
+## Cosa NON fare
+
+**Non fidarti del fatto che la risposta *"suona giusta"*.** Tutte le
+risposte dell'IA suonano giuste: è come è costruita. Sceglie le
+parole più probabili, e il risultato è prosa fluente qualunque sia
+il contenuto. La fluidità non ti dice nulla sulla verità.
+
+**Non ricordare un'informazione solo dalla chat.** Le chat
+spariscono (cronologia cancellata, sessione persa), e l'informazione
+anche. Trasferisci ogni dato verificato in un appunto sul manuale o
+sulla dispensa. La chat è un luogo di passaggio, non un quaderno.
+
+**Non usare l'IA come unica fonte su materie ad alto rischio.**
+Matematica, fisica, medicina, diritto specifico, cronologie
+precise: qui l'IA è un secondo controllo, non una prima fonte. La
+prima fonte resta il manuale, la dispensa, il prof.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Cinque errori e tre test"
+  file="review-when-ai-tricks-you.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà cinque domande sui pattern di errore e su come applicare i tre test in pratica."
+/>
+
+## Cosa viene dopo
+
+Riconoscere gli errori è la difesa tecnica. La difesa **etica** è
+un'altra cosa: dove finisce l'aiuto e inizia il copiato? L'ultima
+lezione del modulo chiude su questo.
