@@ -135,6 +135,13 @@ export default defineConfig({
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
             },
             {
+              label: 'Notes from lectures',
+              translations: { it: 'Appunti da lezioni e testi lunghi' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
               label: 'Revise before an exam',
               translations: { it: 'Ripassare prima di un esame' },
               link: '#',
@@ -149,8 +156,8 @@ export default defineConfig({
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
             },
             {
-              label: 'Notes from lectures',
-              translations: { it: 'Appunti da lezioni e testi lunghi' },
+              label: 'Sources and citations',
+              translations: { it: 'Fonti e citazioni' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
@@ -158,13 +165,6 @@ export default defineConfig({
             {
               label: 'Translate and compare texts',
               translations: { it: 'Tradurre e confrontare testi' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Sources and citations',
-              translations: { it: 'Fonti e citazioni' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },

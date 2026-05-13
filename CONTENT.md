@@ -550,22 +550,42 @@ start-here attive, puntano alla lezione 1.
 Target: studenti dalle superiori all'università (più adulti in
 riqualificazione), che vogliono usare l'IA come supporto allo studio
 senza cadere nel "fammi i compiti". Tono pratico, attento al rischio
-plagio e al confine fra studio e sostituzione.
+plagio e al confine fra studio e sostituzione. Spec di modulo:
+`docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 
-Slug definitivi e ordine in sidebar (2026-04-23).
+Struttura validata 2026-05-13. Otto lezioni, ordine pedagogico = ordine
+di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
+dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
 
-1. 🆕 **Studiare un argomento nuovo** (`for-students/study-a-new-topic`) — dal capire al verificare.
-2. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`) — interrogazioni simulate, mappe mentali.
-3. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`) — senza farsela scrivere.
-4. 🆕 **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`) — lezioni registrate, testi lunghi.
-5. 🆕 **Tradurre e confrontare testi** (`for-students/translate-and-compare`) — lingue straniere, varianti, glosse.
-6. 🆕 **Fonti e citazioni** (`for-students/sources-and-citations`) — come non farsi inventare la bibliografia.
-7. 🆕 **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`) — riconoscere risposte plausibili ma sbagliate.
-8. 🆕 **Etica dello studio** (`for-students/ethics-of-studying`) — dove finisce l'aiuto e inizia il copiato.
+1. 🆕 **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
+   Studio formale contro un programma fissato. Apre il modulo col
+   contratto "non è il manuale del fammi i compiti".
 
-Da decidere prima di scrivere: target di età prevalente (liceo vs
-università), peso della componente etica vs operativa, se includere
-l'uso dell'IA nei test/esami proctored.
+2. 🆕 **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
+   Materiale grezzo (audio, dispense, slide) portato a forma studiabile.
+
+3. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
+   Interrogazioni simulate, mappe, flashcards, strategia per il docente.
+
+4. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`)
+   Outline + riempimento, l'IA come secondo lettore, calibrazione sul
+   relatore. Triennale vs magistrale vs dottorato.
+
+5. 🆕 **Fonti e citazioni** (`for-students/sources-and-citations`)
+   Bibliografia accademica, stili, DOI, citazioni inventate, NotebookLM.
+
+6. 🆕 **Tradurre e confrontare testi** (`for-students/translate-and-compare`)
+   Lingue straniere, classici, varianti, glosse, registri.
+
+7. 🆕 **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`)
+   Errori tipici in contesto studio, tre test rapidi.
+
+8. 🆕 **Etica dello studio** (`for-students/ethics-of-studying`)
+   Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
+   d'istituto, callout `:::caution` su esami proctored e AI detector.
+
+**Stato attuale**: 0 su 8 pubblicate. Struttura definita, scrittura da
+iniziare.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -676,31 +696,22 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 
 ## Prossima sessione
 
-**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100%
-il 2026-04-19. Modulo Uso quotidiano chiuso al 100% il
-2026-04-23. **Modulo Sul lavoro chiuso al 100% il 2026-04-25.**
+**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
+2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
+Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 
-**Prossimo blocco di lavoro**: scelta fra Modulo 4 (*Per
-studenti*), Modulo 5 (*Per docenti*), Modulo 6 (*Per chi vuole di
-più*), oppure pagine trasversali ancora pendenti (FAQ,
-Cronologia). Decisioni da prendere prima di iniziare un nuovo
-modulo:
+**Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
+`docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
+Piano di implementazione in
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Prossima
+bozza: lezione 1, **Studiare un argomento nuovo**
+(`for-students/study-a-new-topic`).
 
-- **Modulo 4 (Per studenti)**: target di età prevalente (liceo vs
-  università), peso della componente etica vs operativa, se
-  includere l'uso dell'IA nei test/esami proctored. Otto lezioni
-  pianificate, tutte 🆕.
-- **Modulo 5 (Per docenti)**: taglio (generalista vs per
-  disciplina), peso della parte "riconoscere l'uso dell'IA da
-  parte degli studenti", relazione con il modulo 4 (riferimenti
-  reciproci vs autonomia). Nove lezioni pianificate, tutte 🆕.
-- **Modulo 6 (Per chi vuole di più)**: stack degli esempi (Node?
-  Python? Entrambi?), profondità dei pattern (RAG: spiegazione
-  concettuale o tutorial con codice?). Tredici lezioni pianificate,
-  tutte 🆕.
-- **FAQ** trasversale: privacy, costi, quale IA scegliere, cosa
-  succede se l'IA sbaglia, AI Act in pillole. Pagina singola, non
-  modulo.
+**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
+atterra, sostituire la voce placeholder disabilitata in
+`astro.config.mjs` con `{ slug: 'for-students/<slug>' }` in un commit
+dedicato (pattern già stabilito con i commit "Unlock Module N lesson M
+in sidebar").
 
 **Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
 - Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
