@@ -1,0 +1,269 @@
+---
+title: Appunti da lezioni e testi lunghi
+description: Trascrizione audio, slide, capitoli, appunti tuoi. Come mettere insieme materiale di un corso e portarlo a forma studiabile.
+livello: intermedio
+prerequisiti: [ask-well, summarize-a-long-document, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Il materiale di un corso non è un singolo PDF: è un mix di voce del prof, slide, manuale, appunti tuoi. La sfida non è riassumerne uno, è comporli.
+- Per la voce del prof: trascrizione automatica (Whisper, Otter, Tactiq, Apple Voice Memos). Per le slide e gli appunti scritti a mano: foto. Per il manuale: paragrafo incollato o pagine fotografate.
+- L'output che cerchi non è un riassunto, è una **mappa di studio** che tiene insieme i pezzi e ti dice da dove viene cosa.
+- Quando il corso accumula materiale nel tempo, sposta tutto in un Progetto (Claude Project, Custom GPT, Gemini Gem) così non ricarichi ogni volta.
+- Registrare il prof è giuridicamente delicato in molti paesi. Buona pratica: chiedere all'inizio del corso.
+
+</LessonSummary>
+
+Hai il materiale, ma è ovunque. La voce del prof è in un audio del
+cellulare, le slide in un PDF scaricato dal portale, il capitolo nel
+manuale di carta, gli appunti tuoi in un quaderno. Nessuna delle tre
+fonti dice esattamente la stessa cosa: il prof in aula enfatizza
+punti che le slide tagliano e che il manuale espande, le slide sono
+ossa nude, il manuale è ricco ma generico.
+
+La sfida quando ti siedi a studiare non è riassumerne una. È
+**comporle**: tenere insieme i pezzi, capire dove parlano della stessa
+cosa e dove invece divergono. In [*Riassumere un documento
+lungo*](/it/everyday-use/summarize-a-long-document/) hai visto come
+ottenere un riassunto affidabile da un singolo testo. Qui il problema
+è diverso: non un riassunto, una mappa di studio che ti serve da bussola.
+
+## Caso 1: la voce del prof
+
+La trascrizione automatica dell'audio è uno dei casi in cui l'IA è
+matura e gratis. Strumenti pratici:
+
+- **Whisper di OpenAI**, gratuito. Lo usi via app desktop, oppure se
+  hai ChatGPT Plus carichi direttamente il file audio in chat.
+- **Otter.ai**, **Tactiq**, **Read.ai**: integrati con Zoom, Google
+  Meet, Microsoft Teams. Se la lezione è online, ti trascrivono in
+  diretta e ti danno il testo a fine call.
+- **Apple Voice Memos**: dall'app di registrazione vocale di
+  iPhone/iPad (modelli recenti, iOS 18 in poi) trascrive in
+  automatico e ti dà un pulsante per mandare la trascrizione a
+  ChatGPT/Claude.
+
+Una volta che hai il testo, lo tratti come materiale normale: lo
+incolli o lo carichi in chat insieme al resto. La trascrizione di
+un'ora di lezione è tipicamente 8000-12000 parole. Per dare un'idea
+pratica: ChatGPT, Claude e Gemini in versione attuale gestiscono
+senza problemi una trascrizione di un'ora più le slide della lezione
+più 40-50 pagine di capitolo del manuale, tutto nello stesso prompt.
+Se aggiungi un secondo audio di un'ora e un altro capitolo
+completo, cominci ad avvicinarti al limite (l'IA fa più fatica a
+collegare cose lontane nel prompt). Per più materiale ricorrente, è
+il momento del Progetto del Caso 3.
+
+:::caution[Consenso del prof e privacy]
+Registrare una lezione universitaria è giuridicamente delicato. In
+Italia, registrare per uso strettamente personale una conversazione
+di cui sei parte è generalmente lecito; diffondere la registrazione
+o caricarla su un servizio pubblico è altra cosa, e in alcuni casi
+illecito. Buona pratica: chiedere al prof all'inizio del corso se è
+d'accordo con la registrazione per uso di studio personale. La
+maggior parte dice di sì; chi dice di no ha le sue ragioni. Non
+caricare audio del prof su chat pubbliche condivisibili. Per il
+quadro generale, [*Quello che condividi quando usi
+l'IA*](/it/fundamentals/privacy-basics/).
+:::
+
+:::tip[Trascrizione audio: cosa funziona, cosa no]
+Whisper trascrive bene italiano standard, anche con qualche
+inflessione regionale. Soffre con dialetti stretti, accenti forti,
+audio sporco da ambienti rumorosi. Se il prof parla a microfono
+(anche un lavalier economico), la qualità è ottima. Se registri col
+cellulare in fondo all'aula, aspettati di dover correggere a mano
+qualche termine. Per nomi propri, cognomi stranieri, formule, sigle,
+controlla sempre: Whisper tende a "normalizzare" verso parole più
+comuni che gli suonano simili (il filosofo "Husserl" diventa
+"Usserl", l'autore "Schmitt" diventa "Smith"). Su una lezione di
+filosofia o di diritto con citazioni continue di autori stranieri,
+prevedi una passata di correzione a mano dei nomi prima di usare il
+testo per studio.
+:::
+
+## Caso 2: mettere insieme più fonti
+
+Tre input dello stesso corso, una sessione di studio. Le slide della
+lezione, il capitolo del manuale, i tuoi appunti scritti a mano. Li
+fotografi col cellulare: tieni la foto a fuoco, ben illuminata, e una
+pagina per scatto. L'IA è brava sulla calligrafia leggibile ma fa
+errori sulla grafia da medico, e in quel caso te lo dice ("non leggo
+bene queste parole") invece di tirare a indovinare. Sull'uso delle
+foto in chat vedi [*Foto, immagini e
+file*](/it/everyday-use/images-and-files/). Il prompt portante è
+questo:
+
+> *"Ti carico tre cose: le slide della lezione 7 di Storia
+> contemporanea, i miei appunti scritti a mano in classe (foto), e il
+> capitolo 12 del manuale di Sabbatucci/Vidotto. Voglio una mappa di
+> studio che tenga insieme i tre, evidenziando dove il prof in classe
+> ha enfatizzato cose che il manuale tratta diversamente o non tratta.
+> Per ogni voce della mappa, dimmi da quale fonte viene, con tag
+> `[Prof]`, `[Manuale]`, `[Slide]`."*
+
+Quello che chiedi all'IA è un lavoro diverso dal riassunto. Non una
+compressione di ciascuna fonte, ma una struttura unificata
+dell'argomento, in cui ogni voce porta in chiaro da dove arriva. È la
+differenza fra tre riassunti staccati e una mappa con i fili che li
+collegano.
+
+I tag fra parentesi quadre fanno una cosa precisa: guardi la mappa e
+capisci a colpo d'occhio dove ognuna delle fonti pesa. Una voce con
+tutti e tre i tag `[Prof] [Manuale] [Slide]` è il cuore dell'argomento,
+allineato fra le fonti. Una voce solo `[Prof]` è quello che il prof
+ha sottolineato a voce e che gli altri saltano: probabilmente cadrà
+all'orale. Una voce solo `[Manuale]` è dettaglio del libro che il
+prof ha tagliato.
+
+L'output naturale è una scaletta gerarchica di quattro o cinque
+sezioni con due o tre sotto-voci ciascuna. Sotto un esempio.
+
+:::caution[Verifica i tag prima di fidarti]
+I tag `[Prof] [Manuale] [Slide]` te li scrive l'IA. Sono utili ma
+sbagliano: l'IA può attribuire al manuale qualcosa che era solo
+nelle slide, o viceversa. Il primo controllo a colpo d'occhio è
+sulle voci che ti sorprendono. Se vedi un `[Prof]` solitario su un
+punto che ricordi di aver letto sul manuale, riapri il capitolo:
+probabilmente l'IA ha sbagliato attribuzione. Una verifica più
+sistematica: prendi due o tre voci `[Prof]` solitarie (le più
+importanti per l'orale) e controlla nella trascrizione audio o
+negli appunti se il prof le ha davvero pronunciate. Non serve
+verificare tutte le voci, ma quelle che useresti per costruire il
+tuo discorso d'esame sì.
+:::
+
+## Caso 3: organizzare un corso intero
+
+Quando il materiale di un singolo corso si accumula nel tempo (dieci
+set di slide, dieci serie di appunti, due manuali, qualche audio di
+lezione) ricaricare ogni cosa in ogni chat è una rottura. Lo strumento
+giusto è il **Progetto**: lo trovi su Claude come "Projects", su
+ChatGPT come "Custom GPTs", su Gemini come "Gems". Lo abbiamo coperto
+in [*Riusare contesto con i
+progetti*](/it/at-work/reuse-context-with-projects/). Nota pratica
+per lo studente: i Projects di Claude e i Custom GPTs di ChatGPT
+richiedono un piano a pagamento (Plus o Pro). I Gemini Gems sono
+disponibili anche in versione gratuita con qualche limite di
+contesto. Se il budget è zero, lavora a chat singole con
+ricaricamento del materiale ogni volta: meno comodo ma fattibile.
+
+L'idea applicata allo studio è semplice. Crei un progetto per ogni
+corso ("Storia contemporanea 2026", "Diritto privato I") e ci carichi
+una volta tutto il materiale. Da quel momento ogni chat aperta nel
+progetto cerca e collega nell'intero corpus senza che tu debba
+ricaricare niente. Quando arriva la lezione 11, la aggiungi al
+progetto e basta. Sotto esame, apri una chat e fai domande che
+attraversano tutto il semestre: "in quali lezioni il prof ha parlato
+di tema X?", "in quali capitoli del manuale compare l'autore Y?".
+
+## Un esempio: Italia 1943-1946
+
+Studentessa di Storia contemporanea, lezione del corso su "Italia
+1943-1946". Ha tre input pronti: la trascrizione dell'audio della
+lezione (45 minuti, da Whisper), le slide del prof (10 pagine),
+e il capitolo del manuale (Sabbatucci/Vidotto, 40 pagine). Apre la
+chat e chiede la mappa di studio.
+
+<ChatDemo
+  user={`Ti carico tre cose sulla lezione di Storia contemporanea "Italia 1943-1946": la trascrizione audio della lezione (45 min), le slide del prof (10 pagine), il capitolo 4 del manuale di Sabbatucci/Vidotto.
+
+Voglio una mappa di studio che tenga insieme i tre, evidenziando dove il prof ha enfatizzato cose che il manuale tratta diversamente o non tratta. Per ogni voce, tag [Prof], [Manuale], [Slide] per indicare da quale fonte viene.`}
+  ai={`Ho letto i tre materiali. La mappa che ne esce ha cinque sezioni di primo livello.
+
+**1. La caduta del fascismo (25 luglio 1943)**
+
+- Ordine del giorno Grandi al Gran Consiglio e arresto di Mussolini. \`[Prof] [Manuale] [Slide]\`
+- Ruolo della monarchia e di Vittorio Emanuele III nella decisione: il prof in aula insiste molto sulla *premeditazione* del Re, il manuale è più cauto e parla di "concorso di circostanze". \`[Prof] [Manuale]\`
+- Reazione popolare nelle piazze e illusione di pace immediata. \`[Manuale]\`
+
+**2. L'armistizio e l'8 settembre**
+
+- Trattative Castellano-Smith ad Algeri, annuncio Badoglio. \`[Prof] [Manuale] [Slide]\`
+- Fuga del Re e del governo a Brindisi, dissolvimento dell'esercito. \`[Prof] [Manuale]\`
+- *Il punto su cui il prof in aula ha insistito di più*: l'8 settembre come "morte della patria" nella lettura di Galli della Loggia, citato esplicitamente. Sul manuale questa lettura non c'è. \`[Prof]\`
+
+**3. La Repubblica Sociale Italiana e l'occupazione tedesca**
+
+- Liberazione di Mussolini al Gran Sasso, fondazione della RSI a Salò. \`[Prof] [Manuale] [Slide]\`
+- Manifesto di Verona del novembre 1943, socializzazione delle imprese. \`[Manuale]\`
+- Stragi naziste su territorio italiano (Marzabotto, Sant'Anna di Stazzema): il manuale dedica un paragrafo, il prof ha citato due testimonianze specifiche. \`[Prof] [Manuale]\`
+
+**4. La Resistenza**
+
+- CLN e CLNAI, composizione politica delle bande partigiane. \`[Prof] [Manuale] [Slide]\`
+- *Distinzione su cui il prof torna spesso*: guerra patriottica, guerra civile, guerra di classe (lettura di Claudio Pavone). Sul manuale è citata di sfuggita. \`[Prof]\`
+- Ruolo degli Alleati e del CVL, scioglimento delle formazioni a guerra finita. \`[Manuale] [Slide]\`
+
+**5. La svolta del 1946: referendum e Costituente**
+
+- Decreto luogotenenziale e suffragio universale (prima volta per le donne). \`[Prof] [Manuale] [Slide]\`
+- Risultato del referendum 2 giugno 1946, geografia del voto Nord/Sud. \`[Prof] [Manuale]\`
+- Elezione dell'Assemblea Costituente e composizione dei tre partiti di massa (DC, PCI, PSIUP). \`[Manuale] [Slide]\`
+
+Tre osservazioni utili per lo studio:
+
+- Le voci con solo \`[Prof]\` sono le più importanti per l'orale: sono i punti che il prof ha aggiunto a voce e che mancano nelle altre fonti. In particolare la lettura di Galli della Loggia sull'8 settembre e quella di Pavone sulla Resistenza.
+- Le voci con solo \`[Manuale]\` sono dettaglio che il prof ha scelto di tagliare in classe. Utili per uno scritto, meno per un orale.
+- Il *Manifesto di Verona* compare solo nel manuale. Se il prof ne ha parlato a voce e a me è sfuggito, vale la pena risentire l'audio intorno al minuto in cui si passa dalla caduta del fascismo alla RSI.`}
+/>
+
+Tre cose da notare. La mappa è breve, cinque sezioni con due o tre
+sotto-voci ciascuna: una scaletta che puoi appendere mentalmente, non
+un riassunto integrale. I tag tracciano la fonte, così sai senza
+riaprire i file da dove viene cosa. Le osservazioni finali sono il
+valore aggiunto del passaggio: ti dicono *cosa fare* con la mappa,
+non ripetono cosa contiene.
+
+Una nota pratica sull'audio: con la trascrizione in mano puoi chiedere
+all'IA una ricerca puntuale dentro ("in che minuto della trascrizione
+il prof parla del Manifesto di Verona?") e ti restituisce il punto.
+Senza trascrizione, lo stesso controllo richiederebbe di riascoltare
+45 minuti.
+
+## Cosa NON fare
+
+**Non trasformare gli appunti tuoi in qualcosa che non riconosci
+più.** La mappa di studio deve aiutarti a ricordare quello che hai
+visto in classe e quello che hai letto: deve quindi *somigliare* al
+tuo materiale, non sostituirlo. Se ti viene fuori una scaletta che
+non ha niente del tuo modo di scrivere o di organizzare i punti, è
+un segnale che hai delegato troppo. Rimettici dentro i tuoi accenti.
+
+**Non usare la trascrizione audio come fonte primaria se hai il
+manuale.** La voce del prof in aula è bassa fedeltà: parla a braccio,
+salta passaggi che dà per scontati, sbaglia date, fa riferimenti
+veloci. Il manuale è alta fedeltà: è stato editato, è preciso, le date
+ci sono, le citazioni anche. La trascrizione serve per i punti dove il
+prof aggiunge qualcosa di suo che non c'è nel manuale (interpretazioni
+di autori, esempi, accenti) o per ricostruire l'ordine in cui ha
+voluto trattare i temi. Per la sostanza, vince il libro. Quando le due
+fonti dicono cose diverse su un fatto verificabile (una data, una
+citazione, un articolo di legge), prendi il manuale e fai una nota al
+margine: "il prof in aula ha detto X, ma il libro dice Y". All'orale
+ti regoli leggendo la sala: alcuni prof apprezzano che lo studente
+abbia notato la discrepanza, altri preferiscono la versione del
+manuale e basta.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-notes-from-lectures.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Ora il materiale del corso è composto in una mappa che tiene insieme
+i pezzi. Quando arriva la settimana dell'esame serve un'altra cosa:
+trasformare quella mappa in qualcosa di interrogabile, simulare le
+prove, fissare i punti deboli. La lezione che segue prende in mano
+questo passaggio.

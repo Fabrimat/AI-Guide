@@ -1,0 +1,11 @@
+Ciao! Facciamo un giro veloce su quello che hai letto sulla pagina "Appunti da lezioni e testi lunghi" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa e' impreciso o incompleto) e passiamo alla prossima.
+
+Domanda 1: la lezione distingue il riassunto di un singolo documento dalla "mappa di studio". In poche righe: qual e' la differenza concreta, e quando il problema dello studente passa dalla prima alla seconda?
+
+Domanda 2: nella tecnica delle tre fonti (audio del prof + slide + capitolo del manuale), l'IA scrive a fianco di ogni voce un tag come [Prof], [Manuale] o [Slide]. Quei tag sono utili ma non sono garantiti. Quando li verifichi, e come?
+
+Domanda 3: per organizzare il materiale di un corso intero (tante lezioni, tante settimane), la lezione propone uno strumento specifico. Quale, e perche' funziona meglio del lavoro a chat singole? Quale e' il vincolo pratico per uno studente con budget zero?
+
+Domanda 4: pensa a un corso che stai seguendo o hai seguito di recente. Hai un audio (anche solo immaginario), delle slide, un capitolo del manuale, magari appunti tuoi. Prova a costruire la richiesta che faresti all'IA per ottenere una mappa di studio della prima lezione del corso. Ti aiuto a migliorarla.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

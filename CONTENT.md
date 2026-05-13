@@ -576,7 +576,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    "davvero" difensivi rimossi). Style-checker EN: OK con un fix di
    calco ("questions of type Z" → "questions like Z").
 
-2. 🆕 **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
+2. ✍️ **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
    Materiale grezzo (audio, dispense, slide) portato a forma studiabile.
 
 3. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
