@@ -123,7 +123,6 @@ export default defineConfig({
           ],
         },
         {
-          // Modulo 4 (Per studenti) — non ancora scritto.
           label: 'For students',
           translations: { it: 'Per studenti' },
           items: [
@@ -134,13 +133,7 @@ export default defineConfig({
             { slug: 'for-students/sources-and-citations' },
             { slug: 'for-students/translate-and-compare' },
             { slug: 'for-students/when-ai-tricks-you' },
-            {
-              label: 'Ethics of studying',
-              translations: { it: 'Etica dello studio' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/ethics-of-studying' },
           ],
         },
         {

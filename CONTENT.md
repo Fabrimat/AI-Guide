@@ -709,11 +709,33 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    pratiche su formulazione del secondo prompt, test del manuale per
    chi non ha un manuale unico, callout su IA con memoria attivata.
 
-8. 🆕 **Etica dello studio** (`for-students/ethics-of-studying`)
-   Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
-   d'istituto, callout `:::caution` su esami proctored e AI detector.
+8. ✅ **Etica dello studio** (`for-students/ethics-of-studying`)
+   Pubblicata IT + EN il 2026-05-13. Chiusura del modulo. Apertura
+   sul richiamo al contratto fissato nella lezione 1 e alla regola
+   "chi firma" di M2L8. Scala dei quattro livelli di uso (spiegazione/
+   tutor sempre OK; organizzazione/struttura di solito OK con
+   dichiarazione; generazione di porzioni dipende dal contesto, con
+   quattro casi distinti tesi/paper/saggio/lavori non valutati;
+   generazione completa è copiato anche se riscritta parola per
+   parola). Sezione su dichiarazione dell'uso con formula tipo
+   completa di "sono stati usati come" e "NON sono stati usati per",
+   istruzioni per compilare i placeholder con un esempio concreto
+   (ChatGPT Plus GPT-5 al 12 maggio 2026, Claude Sonnet 4.6).
+   Callout `:::note` "Le politiche d'istituto cambiano" (Polimi,
+   Bocconi, Sapienza in IT; Polimi, MIT, Stanford in EN). Callout
+   `:::caution` "Esami proctored e AI detector" con citazione del
+   disclaimer ufficiale Turnitin. Regola "chi firma" applicata in
+   tre casi (orale, tesi, esame). Ciclo di revisione completo
+   (`analyze-lesson` 8 domande + `integrate-questions` con 4
+   modifiche inline + style-checker IT e EN, 2026-05-13).
+   Integrazioni principali: linea pratica fra revisore di stile e
+   autore di paragrafi, caso limite della riscrittura completa,
+   esempio di compilazione dei placeholder, indicatori concreti che
+   un commissario riconosce. Ponte ai moduli successivi (Per docenti,
+   Per chi vuole di più). Non usa ChatDemo (lezione concettuale/etica).
 
-**Stato attuale**: 7 su 8 pubblicate.
+**Stato attuale**: 8 su 8 pubblicate, **modulo Per studenti completo
+al 100%**.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -828,13 +850,19 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
 Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 
-**Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
+**Modulo 4 (Per studenti)**: chiuso al 100% il 2026-05-13. Otto
+lezioni IT + mirror EN pubblicate in giornata seguendo il piano in
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md` e la
+spec in
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
-Piano di implementazione in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni
-1, 2, 3, 4, 5, 6 e 7 pubblicate il 2026-05-13. Prossima bozza:
-lezione 8, **Etica dello studio**
-(`for-students/ethics-of-studying`), chiusura del modulo.
+Card della homepage e di start-here già attivate con la prima
+lezione del modulo (memoria progetto: prima lezione di un modulo
+attiva subito le card).
+
+**Prossimo modulo da scrivere**: Modulo 5 (Per docenti). Da decidere
+prima di partire (vedi nota in fondo alla sezione Modulo 5):
+generalista vs per disciplina, peso della parte "riconoscere l'uso
+dell'IA da parte degli studenti", relazione con il modulo 4.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in
