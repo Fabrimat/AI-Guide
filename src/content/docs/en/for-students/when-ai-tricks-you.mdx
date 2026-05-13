@@ -1,0 +1,262 @@
+---
+title: When AI tricks you
+description: You're studying a topic for the first time, and the AI answers with confidence. How to notice it's wrong precisely when you can't know.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- If you're studying for the first time, you can't notice the error yourself: you need a method that doesn't rely on already knowing the right answer.
+- Five typical errors in a study context: definitions shifted from the textbook, jumbled dates, mixed-up biographies, formulas with the wrong sign, ghost works.
+- Three tests that work even when you don't know the answer: the textbook test, the source test, the second-prompt test.
+- Higher-risk subjects: math, physics, medicine, specific points of law, precise chronologies.
+- It's not enough for an answer to "sound right": every AI answer sounds right. That's the problem.
+
+</LessonSummary>
+
+You're studying a topic for the first time. The AI answers you with
+confidence, in fluent English, with the same poise as an
+encyclopedia entry. You have a structural problem: if you could tell
+it's wrong, you wouldn't be asking an AI, because you'd already know
+the thing. It's the worst case in the manual, and [*Things NOT to do
+with AI*](/en/everyday-use/dont-do-with-ai/) puts it bluntly: don't
+use it as your only source on high-risk subjects.
+
+This lesson doesn't fix the structural problem (it isn't fixable).
+It gives you the typical AI errors when it explains things you have
+to study, and three quick tests that work even when you don't know
+the right answer. The prerequisite is [*When to trust it (and when
+not)*](/en/fundamentals/when-to-trust-it/): you already have the
+general frame, here we zoom in on the study context.
+
+## Five typical errors in a study context
+
+### 1. Definitions shifted from your textbook
+
+The AI doesn't read your textbook. It draws from Wikipedia in
+various languages, from translated English-language textbooks, from
+popular articles. The definition it gives you can be "close" to the
+one in your textbook, but with different shades, and at the exam
+those shades count.
+
+Example: you're studying *anomie* on a textbook that strictly
+follows Durkheim. The AI explains anomie with a Mertonian slant:
+legitimate, but it's the American rereading from 1949, not the
+original from 1893. Your professor wants their version, not the
+mediated one.
+
+### 2. Jumbled dates
+
+Right year, wrong month. Right decade, wrong year. A subtle error:
+you only catch it by comparing with a precise chronology.
+
+Example: *"The Yalta Conference was held in March 1945."* The year
+is right, but the conference ran from February 4 to 11. On a topic
+where *"before or after Yalta"* decides an answer, getting the month
+wrong means getting the sequence wrong.
+
+### 3. Mixed-up biographies
+
+Events of the father attributed to the son, works of one author
+attributed to another from the same school, facts about Pius X
+attributed to Pius IX. A frequent pattern for historical figures
+with namesakes (the Plinys, the Catos, the numbered popes), or for
+philosophical schools with many representatives.
+
+Example: you ask about a position in the Middle Stoa, and the AI
+attributes to Panaetius a stance that was Posidonius's (or the
+other way around). To stay cross-disciplinary: a discovery by Marie
+Curie attributed to Pierre Curie, an encyclical of Pius X dated to
+Pius IX, a painting by one Carracci attributed to the wrong
+brother. Same family (or same school), close period, overlapping
+themes. The AI "remembers" that the thing belongs to that area and
+pulls out the most likely name. Sometimes it guesses right,
+sometimes not.
+
+### 4. Formulas that look right but have the wrong sign
+
+A frequent case in math and physics. The formula "looks" like the
+standard one, passes the visual check, but a sign is flipped, an
+exponent is off, a constant is missing. Applied to an exercise it
+leads to a wrong result without you understanding where.
+
+The AI is less reliable in math and physics than in history or
+philosophy. It writes *F = ma* correctly every time because it's
+the most repeated formula in any textbook. On less standard things
+it gets confused: the time-dependent Schrödinger equation
+(*iℏ ∂Ψ/∂t = ĤΨ*) can come out with the sign flipped or without
+the *ℏ* factor. You don't fix this by saying *"check again"*: it's
+the limit of a model that guesses the most probable formula, it
+doesn't calculate it.
+
+### 5. Ghost works
+
+References to books, papers, articles that don't exist. Close to
+the case of made-up citations in a bibliography you see in
+[*Sources and citations*](/en/for-students/sources-and-citations/),
+but here inside **the body of the text**: the AI argues a thesis and
+backs it with a work that isn't there.
+
+Example: *"As Foucault says in* The Techniques of Normative
+Knowledge *…"*. Foucault didn't write a book by that title. It
+"sounds" Foucauldian (power, knowledge, norm), and the AI builds it
+plausible. Verification: if you can't find it on Google Scholar or
+in your library catalog, it's made up.
+
+:::tip[Spotting a high-risk question]
+Two signals to learn to see right away. First: the question requires
+a **precise figure** (date, dosage, formula, article number, verse).
+Second: the question concerns a person, a work, or a concept with
+**namesakes or variants** (the Plinys, the popes, philosophical
+schools with many representatives, authors who changed their
+position between works). On these, always verify. On the rest, a
+read of your textbook is enough.
+:::
+
+## Three quick tests when you DON'T know the answer
+
+The point of the lesson is exactly this: you don't know. The three
+tests don't require knowing the answer, they require applying them.
+
+### Textbook test
+
+Ask the AI to answer while staying inside a text that you have: the
+paragraph from your textbook, the course slides, the professor's
+handout. You paste it into the prompt, and you constrain the answer
+to that. If the course sources are more than one (textbook + slides
++ handouts + article), paste them all and impose the constraint
+*"stay inside THESE texts"*. If two sources contradict each other,
+that's a question for the professor, not for the AI.
+
+> *"Answer this question using only the text below, don't add
+> outside information."*
+
+If what it tells you diverges from the textbook, the textbook wins.
+You're preparing for an exam on that text, not on the AI's general
+encyclopedia. It works in reverse too: ask the AI to paraphrase the
+paragraph, to give examples of it, to make it clearer, while staying
+within its claims.
+
+### Source test
+
+> *"Point me to the primary source for this claim."*
+
+If the AI cites a verifiable source (a book with author, year, page,
+or an article with a DOI), check it. If it says *"it's common
+knowledge"* without specifying, recalibrate: "common knowledge" in
+a study context is too low a bar for an exam, because you don't
+know whether it's the common knowledge of a serious textbook or of
+a badly written Wikipedia page. Demand precision. If it doesn't
+give it to you, treat the claim as unverified.
+
+### Second-prompt test
+
+In a **new chat**, without the context of the first, ask the same
+question again with a slightly different wording: change the
+keywords without altering the meaning. *"When was Yalta held?"*
+becomes *"On what date did the Yalta Conference take place?"*. Don't
+change too little: tweaking commas or punctuation isn't enough.
+Don't change too much: that's a different question asking for
+something else. If the AI gives a different answer, the first wasn't
+solid: the AI was improvising consistently with what it had already
+said, not answering with confidence. A new chat breaks the echo.
+
+It has to be a new chat: within the same conversation the AI tends
+to confirm itself (it said this five messages ago, so it repeats
+it). A fresh chat gives you a second independent answer. If the two
+match in substance, the claim holds. If they diverge, you've found
+the weak point.
+
+:::note[When a "new chat" isn't really new]
+If your AI has memory enabled across conversations (ChatGPT with
+*memory* on, Claude inside a Project, Gemini with saved history), a
+"new chat" can still remember the first. For the second-prompt test:
+turn memory off in the settings, or use the **temporary chat**
+(ChatGPT *Temporary Chat*, Claude outside Projects, Gemini in guest
+mode or by clearing history). Without this precaution, the test
+loses its independence.
+:::
+
+## In practice: Yalta in March
+
+History student, prepping for the twentieth century. She wants to
+check the date of the Yalta Conference.
+
+<ChatDemo
+  user="What year was the Yalta Conference held?"
+  ai={`The Yalta Conference was held in **March 1945**, in Crimea. It brought together Roosevelt, Churchill and Stalin, and shaped post-war Europe: the division of Germany into occupation zones, the political configuration of Eastern Europe, agreements on the USSR's entry into the war against Japan.`}
+/>
+
+The answer sounds good. The student doesn't know the exact date,
+but she knows it was a Big Three conference at the end of the war.
+She applies the tests.
+
+The **source test**: she asks *"point me to the primary source for
+this claim"*. The AI cites a generic document (the conference
+records, a diplomatic history), but doesn't specify the month: it
+speaks in general terms of *"early 1945"*. A signal.
+
+The **second-prompt test**, in a new chat: *"When was Yalta held?"*.
+This time the AI answers *"from February 4 to 11, 1945"*. The two
+answers diverge on the month.
+
+The student opens an encyclopedia like Treccani or Britannica (any
+serious one will do). The correct date is February 4-11, 1945: the
+first answer had the month wrong. The year was right, the context
+was right, but "March" was an error. Without the tests, "March 1945"
+would have ended up in her notes on the textbook, and that small
+error would have made it all the way to the exam.
+
+:::tip[Higher-risk subjects]
+Areas where the AI goes wrong more often in a study context:
+
+- **Math and physics**: formulas, proofs, signs, constants,
+  exponents.
+- **Medicine and biomedicine**: dosages, specific cellular
+  mechanisms, protein names, metabolic pathways.
+- **Specific points of law**: exact code articles, rulings,
+  regulatory references, procedural deadlines.
+- **Precise dates and chronologies** in history.
+
+On lower-risk subjects (philosophy, sociology, literature) the
+error is less frequent and more subtle: right school of thought
+but wrong detail, right author but work attributed wrong.
+:::
+
+## What NOT to do
+
+**Don't trust an answer just because it *"sounds right"*.** Every AI
+answer sounds right: it's how the AI is built. It picks the most
+probable words, and the result is fluent prose whatever the content
+is. Fluency tells you nothing about truth.
+
+**Don't keep a piece of information only in the chat.** Chats
+disappear (history cleared, session lost), and the information
+disappears with them. Move every verified fact into a note on your
+textbook or handout. The chat is a transit hall, not a notebook.
+
+**Don't use AI as your only source on high-risk subjects.** Math,
+physics, medicine, specific points of law, precise chronologies:
+here the AI is a second check, not a first source. The first source
+stays the textbook, the handout, the professor.
+
+## Check what you've understood
+
+<LlmExercise
+  variant="review"
+  title="Five errors and three tests"
+  file="review-when-ai-tricks-you.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask five questions on the error patterns and how to apply the three tests in practice."
+/>
+
+## What comes next
+
+Spotting the errors is the technical defense. The **ethical**
+defense is something else: where does help end and copying begin?
+The last lesson of the module closes on this.
