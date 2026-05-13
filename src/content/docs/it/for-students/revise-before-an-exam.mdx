@@ -1,0 +1,261 @@
+---
+title: Ripassare prima di un esame
+description: Interrogazioni simulate, scritto con correzione, mappe e flashcards. L'IA come prof simulato che genera la pressione dell'esame.
+livello: intermedio
+prerequisiti: [ask-well, learn-something-new]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Studiare e ripassare sono due lavori diversi. Studiare = capire. Ripassare = simulare la verifica finché la risposta non viene fluida.
+- Tre tecniche: **orale simulato** con prof che ti incalza una domanda alla volta, **scritto con correzione** sul passaggio in cui sbagli, **mappe e flashcards** per fissare struttura e dettagli.
+- Il prompt portante dell'orale ha due specifiche non negoziabili: una domanda per volta e giudizio onesto sulla risposta. Senza, l'IA accetta vaghezze.
+- Il rischio principale di questo metodo: l'IA che ti conferma. Va forzata a essere severa, e i punti chiave vanno controllati sul manuale.
+
+</LessonSummary>
+
+Hai studiato il programma con le tecniche di [*Studiare un argomento
+nuovo*](/it/for-students/study-a-new-topic/) e composto il materiale
+con quelle di [*Appunti da lezioni e testi
+lunghi*](/it/for-students/notes-from-lectures/). Mancano due settimane
+all'esame. Le cose le sai, ma il prof te le chiederà in piedi, sotto
+pressione, con i tempi suoi.
+
+Studiare e ripassare sono due lavori diversi. Studiare è capire la
+prima volta. Ripassare è ripetere quello che già sai finché la
+risposta non esce fluida nelle condizioni dell'esame. Il manuale da
+solo non genera quelle condizioni: lo apri, leggi, annuisci. L'IA sì:
+puoi metterla nei panni del prof e farti interrogare quante volte
+vuoi, gratis, alle tre di notte se serve.
+
+## Le tre tecniche
+
+### 1. Interrogazione orale simulata
+
+La mossa centrale del ripasso. Il prompt portante:
+
+> *"Fai finta di essere il mio prof di [materia] all'esame orale. Hai
+> il programma del corso: [incolla l'indice del manuale o la lista
+> degli argomenti]. Fammi una domanda alla volta, non passare alla
+> seguente finché non ti rispondo. Dopo la risposta dammi un giudizio
+> onesto (preciso / impreciso / mancante), e se è imprecisa dimmi cosa
+> avresti voluto sentire. Non passare al voto finale finché non te lo
+> chiedo io."*
+
+Tre specifiche fanno la differenza. **Una domanda per volta**: senza,
+l'IA spara quattro domande in blocco, rispondi in modo abbozzato e
+perdi la pressione del faccia a faccia. **Giudizio onesto su ogni
+risposta**: l'IA di default vuole compiacere, e senza istruzione
+esplicita accetta vaghezze con un "buona risposta, andiamo avanti".
+**Niente voto finale finché non te lo chiedi tu**: senza, dopo tre
+domande chiude con un 28 e tu esci contento; con la clausola
+l'interrogazione va avanti finché lo decidi, come all'orale vero.
+
+Il programma incollato dentro al prompt evita che l'IA peschi da
+Wikipedia argomenti che il tuo corso non tratta. Se l'indice del
+manuale è lungo, basta la lista dei capitoli affrontati a lezione.
+Se il corso non ha manuale unico (slide + dispense + qualche
+articolo, situazione comune in scienze sociali e umanistiche),
+ricostruisci la lista degli argomenti dai titoli delle lezioni e
+delle slide. Quindici-venti voci sintetiche bastano per dare il
+perimetro.
+
+Cadenza pratica della sessione. Una buona sessione di orale simulato
+dura quaranta minuti, dalle cinque alle otto domande. Non di più
+nello stesso turno: dopo otto domande la tua attenzione cala e l'IA
+ricicla domande simili. Meglio due sessioni da quaranta minuti su
+giorni diversi che una da due ore. Sai di essere pronto su un
+capitolo quando rispondi a tre domande di fila senza che l'IA debba
+correggerti su nulla di sostanziale; sotto quella soglia, torna al
+manuale prima di rifare l'orale.
+
+### 2. Interrogazione scritta con correzione
+
+Per esami scritti, il pattern è lo stesso ma il giro cambia: tu produci
+un testo, l'IA lo legge e te lo corregge nel punto dove sbagli, non in
+generale.
+
+> *"Fammi una traccia tipica di esame scritto di [materia] sul
+> capitolo X. Te la svolgo io, poi tu mi dai un giudizio onesto:
+> dove ho scritto cose corrette, dove ho impreciso, cosa avrei
+> dovuto aggiungere. Se ho sbagliato un passaggio specifico, mostrami
+> il passaggio corretto, non solo il risultato finale."*
+
+Funziona uguale per problemi tecnici di matematica, fisica, chimica,
+ingegneria. La differenza importante è chiedere la correzione del
+**passaggio**, non solo del risultato. Sapere che "il risultato è 12 e
+non 14" non ti aiuta a non rifare lo stesso errore; sapere che hai
+applicato male la regola della catena al terzo passaggio sì.
+
+Per test scritti a risposta multipla (cinquanta domande in due ore,
+A/B/C/D) il pattern cambia leggermente: chiedi all'IA di farti dieci
+o quindici domande del tipo del tuo esame, con quattro alternative
+ciascuna e la risposta segnata. Tu rispondi prima di guardare la
+soluzione, e per ogni sbagliata chiedi *perché* le altre erano
+sbagliate, non solo perché la giusta era giusta. Senza la spiegazione
+del *perché no* ai distrattori, il test a risposta multipla diventa
+memorizzazione di pattern e non capisci la struttura della domanda.
+
+### 3. Mappe mentali e flashcards
+
+Due strumenti complementari al ripasso interrogato.
+
+La **mappa mentale** è uno schema gerarchico: concetto principale in
+cima, sottoconcetti che si diramano. Serve prima dell'orale per
+"vedere" la struttura del capitolo a colpo d'occhio. Chiedi: *"fammi
+una mappa mentale testuale del capitolo X, concetto principale in
+cima, quattro o cinque rami, due o tre sottoconcetti per ramo."*
+L'output è una scaletta indentata. Se preferisci la versione grafica,
+incollala in XMind, MindMeister o Excalidraw.
+
+Le **flashcards** sono il rovescio della mappa: niente struttura,
+tante domande brevi su singoli concetti, da ripetere a distanza
+crescente di tempo (è il principio della *spaced repetition*: rivedi
+una scheda quando stai per dimenticarla, così ogni ripasso costa meno
+del precedente).
+
+:::tip[Flashcards: Anki, Quizlet, e il formato CSV]
+**Anki** e **Quizlet** sono i due strumenti standard. Anki è gratis,
+open source, ti mostra trasparentemente l'algoritmo della ripetizione
+spaziata; Quizlet è più amichevole graficamente, con una versione
+gratis più limitata. Tutti e due importano flashcards da file di
+testo: il formato base è `Domanda,Risposta` (CSV) oppure
+`Domanda<TAB>Risposta` (TSV), una scheda per riga.
+
+Chiedi all'IA: *"dammi venti flashcards sul capitolo X in formato
+CSV, una per riga, virgola come separatore, niente intestazioni. Se
+una risposta contiene virgole, racchiudila fra virgolette doppie.
+Concentrati su definizioni, date, nomi e formule chiave; evita
+domande generiche da interrogazione."* Copi l'output, lo salvi come
+`.csv`, lo importi.
+
+Limite reale: l'IA tende a fare domande troppo facili ("Chi era
+Kant?") o troppo aperte ("Spiega l'imperativo categorico"). Controlla
+le prime dieci schede prima di importare tutto; se non vanno, rimandala
+con un esempio di domanda buona contro una cattiva.
+:::
+
+## Strategia per il docente
+
+Due profili tipici. Le tecniche restano uguali, cambia la calibrazione.
+
+**Il prof prevedibile.** Ogni anno chiede gli stessi argomenti, con
+un tipo di domanda riconoscibile (definizioni precise, applicazioni a
+casi, collegamenti fra autori). Se hai un elenco di domande di esami
+precedenti, anche solo quelle che girano nei gruppi WhatsApp del
+corso, incollalo: *"questo è lo stile delle domande che il prof fa.
+Quando mi interroghi, simulalo."* È la stessa calibrazione della
+terza tecnica di [*Studiare un argomento
+nuovo*](/it/for-students/study-a-new-topic/), trasportata sul ripasso.
+
+**Il prof imprevedibile.** Fa domande di ragionamento, non di
+memoria: sapere a memoria il capitolo 4 non ti salva, ti chiederà di
+legarlo al capitolo 7. Qui l'IA serve a generare domande
+**trasversali**: *"dammi cinque domande che colleghino il capitolo 4
+con il capitolo 7, del tipo che farebbe un prof che vuole capire se
+hai integrato il programma."* Non saranno perfette, ma ti costringono
+a costruire ponti che leggendo linearmente non costruiresti.
+
+E se è il primo esame con quel prof e non hai né domande precedenti
+né indizi sullo stile? Vai sull'imprevedibile. È la strategia più
+difensiva: ti prepari a domande di collegamento, che richiedono di
+sapere il programma più a fondo, e quindi coprono anche il caso in
+cui il prof poi si rivelasse del tipo prevedibile.
+
+## Un orale di filosofia teoretica
+
+Studente di filosofia teoretica, esame fra una settimana. Il prof è
+prevedibile, insiste su Heidegger e in particolare sul concetto di
+*aletheia*. Prima cosa: imposta il prompt portante della Tecnica 1
+con il programma del corso e parte la simulazione. L'IA fa la prima
+domanda, lo studente risponde. Il giro che esce.
+
+<ChatDemo
+  user={`Per Heidegger l'aletheia è il concetto greco di verità. La parola significa letteralmente "non-nascondimento", e per Heidegger la verità non è la corrispondenza fra una proposizione e una cosa, ma il modo in cui l'essere si manifesta. La verità intesa come idea, in senso platonico, è una conseguenza di questo manifestarsi originario.`}
+  ai={`**Preciso** su due punti: l'etimologia di *aletheia* come "non-nascondimento" (più precisamente *a-letheia*, privativo di *lethe*, il nascondimento) e la critica alla verità come corrispondenza.
+
+**Impreciso** sull'ultima parte. Hai detto che "la verità intesa come idea, in senso platonico, è una conseguenza di questo manifestarsi originario". Qui inciampi su uno dei punti su cui il prof torna sempre. Heidegger non dice che la verità platonica come *idea* deriva dall'*aletheia*: dice che la *sostituisce*, e che questa sostituzione è la prima caduta della metafisica occidentale. Per Heidegger, Platone è il momento in cui la verità smette di essere *svelamento* (evento, accadimento dell'essere) e diventa *adeguazione* di uno sguardo a una forma ideale. L'*aletheia* originaria viene coperta dall'idea, non prolungata in essa. Avresti dovuto dire: "la verità come *svelamento* è ciò che Platone, secondo Heidegger, perde introducendo l'idea come misura del vero". Differenza non da poco: nella tua formulazione Platone è un erede di Heidegger, nella formulazione corretta è l'inizio del suo bersaglio polemico.
+
+Quando vuoi proseguo con la seconda domanda.`}
+/>
+
+Tre cose da notare. Il giudizio non è "buona risposta" generico: è
+spezzato in preciso / impreciso, con la zona di imprecisione indicata
+al millimetro. La correzione non dice solo "no, è il contrario": ti
+dice *cosa avresti dovuto dire*, con la formulazione alternativa. E
+l'IA si ferma: non passa alla seconda domanda finché lo studente non
+lo chiede. La simulazione tiene.
+
+È la differenza fra usare l'IA come tutor di ripasso e come motore di
+domande in serie: il valore non è il numero di domande fatte, è il
+dettaglio della correzione su ciascuna.
+
+:::caution[L'IA che ti conferma è il rischio]
+L'IA tende a dare ragione. Se rispondi qualcosa di vago ma che suona
+"in zona", la risposta tipica di default è "sì, hai colto il punto",
+seguita da un'aggiunta che riempie i buchi che hai lasciato. Tu esci
+dall'interrogazione convinto di sapere, ma sapevi vagamente: i pezzi
+che ti mancavano li ha messi lei.
+
+Tre contromisure. La prima: nel prompt iniziale chiedi esplicitamente
+giudizio severo, non incoraggiante (*"se rispondo in modo vago, dimmi
+che è vago, non riempire tu i buchi"*). La seconda, ed è la più
+importante: i punti chiave su cui l'IA ti ha corretto vanno
+ricontrollati sul manuale. Una correzione dell'IA che ti suona giusta
+può essere allucinazione, soprattutto su autori, citazioni, date.
+Funziona la stessa regola di [*Quando fidarsi e quando
+no*](/it/fundamentals/when-to-trust-it/): incrocia con la fonte sui
+punti che porterai in esame.
+
+La terza, opzionale ma utile: per i punti su cui hai più dubbio, fai
+la stessa domanda a una seconda IA (Claude se hai usato ChatGPT,
+Gemini se hai usato Claude). Se le due correzioni concordano, è un
+segnale di affidabilità più alto. Se divergono, hai trovato un
+candidato da verificare per primo sul manuale. Non è una garanzia
+(due IA possono allucinare la stessa cosa), ma alza l'asticella
+rispetto a una sola fonte.
+:::
+
+Quando verificare sul manuale, in tempo reale o a fine sessione? Per
+le correzioni puntuali (una data, un nome, una citazione) ti
+conviene appuntare al volo durante la sessione e verificare in blocco
+dopo. Per le correzioni concettuali grosse (una tesi attribuita a
+un autore al posto di un altro, una distinzione filosofica) ti
+conviene fermarti subito e aprire il libro: se ripassi un'ora
+poggiandoti su una correzione sbagliata, fissi l'errore.
+
+## Cosa NON fare
+
+**Non ripassare sulle risposte dell'IA invece che sul manuale.** Una
+correzione dell'IA va verificata sul libro prima di farla tua. L'IA
+conferma errori se li affermi con sicurezza nel prompt: tende a
+seguirti.
+
+**Non importare un mazzo di flashcards senza controllare le prime
+dieci.** Schede sbagliate ripetute con la spaced repetition fissano
+l'errore al posto del concetto.
+
+**Non considerare il "voto" dell'IA come predittivo.** Il 28 simulato
+significa che hai dialogato bene per quaranta minuti con un sistema
+disegnato per assecondarti. Il voto serve a chiudere la sessione, non
+a fare previsioni.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-revise-before-an-exam.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Ripasso fissato. La prossima lezione cambia registro: la tesi, dove
+la posta in gioco non è un esame da venti minuti ma un lavoro lungo
+mesi, con un relatore al posto del commissario d'esame.

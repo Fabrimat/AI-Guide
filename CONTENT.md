@@ -596,7 +596,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    con un "actually" borderline non bloccante (mantenuto, fa lavoro
    semantico).
 
-3. 🆕 **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
+3. ✍️ **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
    Interrogazioni simulate, mappe, flashcards, strategia per il docente.
 
 4. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`)

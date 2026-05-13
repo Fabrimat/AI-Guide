@@ -1,0 +1,11 @@
+Ciao! Facciamo un giro su quello che hai letto sulla pagina "Ripassare prima di un esame" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa e' impreciso o incompleto) e passiamo alla prossima.
+
+Domanda 1: la lezione fissa la differenza fra studiare e ripassare. In poche righe: qual e' la differenza concreta, e perche' il manuale da solo non basta in fase di ripasso?
+
+Domanda 2: il prompt portante dell'orale simulato ha tre specifiche che fanno la differenza fra una buona sessione e una inutile. Quali sono, e cosa va storto se una di esse manca?
+
+Domanda 3: il callout della lezione segnala il rischio principale del metodo: l'IA che ti conferma. Quali sono le tre contromisure, in ordine di importanza? E perche' non basta la prima da sola?
+
+Domanda 4: pensa a un esame che devi dare nelle prossime settimane (o uno gia' fatto). Quale combinazione di tecniche useresti, e perche'? Ti aiuto a impostare il prompt iniziale dell'orale simulato sul tuo caso specifico.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.
