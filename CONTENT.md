@@ -685,14 +685,35 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    sbagliata senza dichiarazione di incertezza, distinzione studio
    vs preparazione di plagio.
 
-7. 🆕 **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`)
-   Errori tipici in contesto studio, tre test rapidi.
+7. ✅ **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`)
+   Pubblicata IT + EN il 2026-05-13. Lezione di critica della risposta
+   calibrata sul contesto studio. Apertura sul problema strutturale
+   (chi studia per la prima volta non può accorgersi dell'errore).
+   Cinque errori tipici in contesto studio: definizioni shift dal
+   manuale (anomia Durkheim vs Merton), date confuse (Yalta marzo vs
+   febbraio 1945), biografie miste (stoa media, Curie, papi numerati,
+   Carracci), formule giuste nella forma ma sbagliate nel segno
+   (*F = ma* sempre giusta, equazione di Schrödinger spesso sbagliata),
+   opere fantasma (Foucault, *Le tecniche del sapere normativo*). Tre
+   test rapidi che funzionano senza sapere la risposta: test del
+   manuale, test della fonte, test del secondo prompt. ChatDemo
+   portante sullo studente di Storia che verifica la data di Yalta.
+   Callout `:::tip` "Riconoscere una domanda ad alto rischio" (cifra
+   precisa + omonimi/varianti), `:::note` "Quando la 'chat nuova' non
+   è davvero nuova" (ChatGPT memory, Claude Projects), `:::tip`
+   "Materie più rischiose" (matematica, fisica, medicina, diritto,
+   cronologie). Ciclo di revisione completo (`analyze-lesson` 8
+   domande + `integrate-questions` con 5 modifiche + style-checker
+   IT e EN, 2026-05-13). Integrazioni principali: secondo esempio
+   trasversale per biografie miste (Curie, Carracci, papi), istruzioni
+   pratiche su formulazione del secondo prompt, test del manuale per
+   chi non ha un manuale unico, callout su IA con memoria attivata.
 
 8. 🆕 **Etica dello studio** (`for-students/ethics-of-studying`)
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 6 su 8 pubblicate.
+**Stato attuale**: 7 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -811,8 +832,9 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni
-1, 2, 3, 4, 5 e 6 pubblicate il 2026-05-13. Prossima bozza: lezione
-7, **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`).
+1, 2, 3, 4, 5, 6 e 7 pubblicate il 2026-05-13. Prossima bozza:
+lezione 8, **Etica dello studio**
+(`for-students/ethics-of-studying`), chiusura del modulo.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in

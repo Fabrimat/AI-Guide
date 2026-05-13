@@ -133,13 +133,7 @@ export default defineConfig({
             { slug: 'for-students/write-a-thesis' },
             { slug: 'for-students/sources-and-citations' },
             { slug: 'for-students/translate-and-compare' },
-            {
-              label: 'When AI tricks you',
-              translations: { it: "Quando l'IA ti imbroglia" },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/when-ai-tricks-you' },
             {
               label: 'Ethics of studying',
               translations: { it: 'Etica dello studio' },
