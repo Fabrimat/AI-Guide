@@ -656,8 +656,34 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    scelta dello stile per disciplina, differenza fra NotebookLM,
    Claude Projects, Custom GPTs.
 
-6. 🆕 **Tradurre e confrontare testi** (`for-students/translate-and-compare`)
-   Lingue straniere, classici, varianti, glosse, registri.
+6. ✅ **Tradurre e confrontare testi** (`for-students/translate-and-compare`)
+   Pubblicata IT + EN il 2026-05-13. Lezione laterale per il pubblico
+   di lingue (moderne e antiche), classici, letterature comparate,
+   filologia. Pattern delle tre versioni (letterale, idiomatica,
+   libera) per non scegliere ma ricomporre; glosse storiche con
+   verifica obbligatoria; confronto fra edizioni (Monti vs Calzecchi
+   Onesti per *Iliade* in IT, Lattimore vs Fagles in EN; Pavese vs
+   Fatica per *Moby Dick* in IT, Heaney vs Tolkien per *Beowulf* in
+   EN); registri formale/informale per lingue moderne con varianti
+   regionali. ChatDemo portante: Catullo *Carme 5* (*Vivamus, mea
+   Lesbia, atque amemus*), tre versioni + glossa solida su *vivamus*
+   + glossa con incertezza dichiarata su *amemus*. Callout `:::tip`
+   "Senza accesso a enciclopedie a pagamento" (Perseus, SEP,
+   Wikipedia EN/FR, Castiglioni-Mariotti, Rocci, LSJ), `:::caution`
+   "Quando l'IA non dichiara incertezza ma sbaglia" (tre contromisure
+   per non-esperti), `:::caution` "Trabocchetti linguistici" (falsi
+   amici, registri storici, dialetti), `:::danger` "L'IA in una
+   verifica di traduzione è plagio" con zona grigia studio vs
+   preparazione di plagio. Ciclo di revisione completo
+   (`analyze-lesson` 9 domande + `integrate-questions` con 7
+   modifiche + style-checker IT e EN, 2026-05-13). Integrazioni
+   principali: priorità delle glosse da verificare (nomi propri,
+   date, etimologie), istruzioni per il confronto fra edizioni
+   (incollare sempre 10-30 versi, mai fidarsi della memoria dell'IA
+   per opere note), gestione di testi con una sola traduzione
+   italiana, alternative gratuite a OCD, contromisure per la glossa
+   sbagliata senza dichiarazione di incertezza, distinzione studio
+   vs preparazione di plagio.
 
 7. 🆕 **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`)
    Errori tipici in contesto studio, tre test rapidi.
@@ -666,7 +692,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 5 su 8 pubblicate.
+**Stato attuale**: 6 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -784,9 +810,9 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 **Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1,
-2, 3, 4 e 5 pubblicate il 2026-05-13. Prossima bozza: lezione 6,
-**Tradurre e confrontare testi** (`for-students/translate-and-compare`).
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni
+1, 2, 3, 4, 5 e 6 pubblicate il 2026-05-13. Prossima bozza: lezione
+7, **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in

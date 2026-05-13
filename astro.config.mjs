@@ -132,13 +132,7 @@ export default defineConfig({
             { slug: 'for-students/revise-before-an-exam' },
             { slug: 'for-students/write-a-thesis' },
             { slug: 'for-students/sources-and-citations' },
-            {
-              label: 'Translate and compare texts',
-              translations: { it: 'Tradurre e confrontare testi' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/translate-and-compare' },
             {
               label: 'When AI tricks you',
               translations: { it: "Quando l'IA ti imbroglia" },
