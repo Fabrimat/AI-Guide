@@ -1,0 +1,307 @@
+---
+title: Scrivere una tesi
+description: La tesi non si delega. L'IA come secondo lettore che ti aiuta a costruire un lavoro lungo mesi, senza scrivere al posto tuo.
+livello: intermedio
+prerequisiti: [ask-well, write-better, draft-professional-documents]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- La tesi non è un tema lungo: è un lavoro di costruzione di mesi, con un relatore che ti segue e una commissione che ti chiederà conto di ogni pagina. Se la scrive l'IA, alla discussione cadi.
+- Stessa meccanica della [*Bozze di documenti professionali*](/it/at-work/draft-professional-documents/): scaletta prima, riempimento dopo. Specifico della tesi: la scaletta nasce con il relatore, e ogni capitolo è una chat a parte.
+- L'IA come **secondo lettore**, non come autore: incolli tu il paragrafo, lei segnala buchi, obiezioni, transizioni deboli. Niente "scrivimi il prossimo paragrafo".
+- Usa l'IA per **simulare il relatore** prima della consegna vera. Riduce le iterazioni di correzione, non le sostituisce.
+- Molti atenei chiedono di dichiarare l'uso di LLM. Scrivilo onestamente nella prefazione e verifica la policy della tua università.
+
+</LessonSummary>
+
+La tesi non è una versione lunga di un tema. È un lavoro di
+costruzione che dura mesi, con un metodo (capitoli che si reggono
+in piedi e si collegano), e un dialogo con il relatore che la
+accompagna in ogni fase. È anche il primo lavoro accademico in cui
+la promessa del "ghostwriting facile" si fa sentire forte: cento
+pagine sono tante, l'IA le scrive in fretta, sembra una scorciatoia
+ragionevole.
+
+Non lo è. Se la tesi la scrive lei, il primo a perderci sei tu. Alla
+discussione il relatore se ne accorge (lo stile, i passaggi che non
+sai difendere, le citazioni che non ti suonano familiari), e la
+commissione ti chiederà cose che non puoi rispondere. La tesi non si
+delega: si costruisce con l'IA come **secondo lettore**, non come
+autore. Tutto quello che segue parte da qui.
+
+## Outline prima, riempimento dopo
+
+La meccanica di fondo è la stessa di [*Bozze di documenti
+professionali*](/it/at-work/draft-professional-documents/): non si
+chiede all'IA di scrivere il documento dalla pagina bianca, si
+parte da una scaletta e si riempie sezione per sezione. Su una tesi
+questo pattern vale ancora di più, perché un foglio bianco lungo
+cento pagine moltiplica il danno: se l'IA scrive duemila parole sopra
+una scaletta sbagliata, hai due giorni di lavoro buttati.
+
+Due cose cambiano rispetto al documento professionale.
+
+**La scaletta nasce con il relatore, non solo con l'IA.** L'IA può
+proporti un indice generico ("introduzione, stato dell'arte, metodo,
+risultati, discussione"), e ti serve come punto di partenza. Ma è il
+relatore che valida che la struttura tenga il discorso accademico
+del tuo campo: che lo stato dell'arte non sia una lista di autori
+senza filo, che il metodo sia adeguato alla domanda di ricerca, che
+le conclusioni rispondano alle ipotesi iniziali. Porta la
+scaletta al relatore al primo incontro, non al terzo capitolo finito.
+La scaletta validata è il vincolo da cui parte tutto il resto.
+
+**Ogni capitolo è un dialogo separato.** Una tesi è troppo lunga per
+stare in una sola chat: l'IA perde precisione quando il contesto si
+allunga, e ogni capitolo ha bibliografia propria, argomento proprio,
+problemi propri. Apri una chat dedicata per il capitolo 1, una per
+il capitolo 2, una per il capitolo 3. Quando torni a lavorare sul
+capitolo 2 dopo due settimane, riapri quella chat: l'IA ha sotto gli
+occhi quello che avete già discusso su quel capitolo, non si confonde
+con il resto della tesi. Nelle istruzioni iniziali della chat
+incolla la scaletta complessiva della tesi e il punto in cui il
+capitolo si inserisce, così l'IA sa il contesto largo senza averlo
+tutto in chat. Sono 200-300 parole, non gonfiano il prompt.
+
+## L'IA come secondo lettore
+
+Il pattern centrale di questa lezione. Tu scrivi un paragrafo. Lo
+incolli all'IA con una domanda specifica, di solito di questo tipo:
+
+> *"Questo paragrafo difende la tesi che voglio sostenere, cioè
+> X. Dove è debole? Quali obiezioni mi farebbe un commissario
+> rigoroso?"*
+
+L'IA non aggiunge contenuto: sottolinea i buchi. Ti dice dove la tua
+argomentazione salta un passaggio, dove una transizione fra paragrafi
+non tiene, quali sono le tre obiezioni più ovvie che un lettore
+critico ti farebbe. Tu poi torni sul testo, lo riscrivi tu, e
+ricontrolli.
+
+Questo modo di usare l'IA somiglia a un collega di dottorato che ti
+legge una bozza al bar: non te la riscrive, ti dice "qui non ti
+seguo", "questo passaggio è debole", "non hai chiuso il cerchio".
+Solo che il collega ce l'hai due volte all'anno, e l'IA quando vuoi.
+
+Cosa puoi chiedere senza problemi:
+
+- *"Rendi questa frase più chiara senza cambiarne il senso."*
+- *"Questa transizione fra paragrafo A e paragrafo B funziona, o c'è
+  un salto logico?"*
+- *"Questa argomentazione regge? Quali sono i tre buchi più grossi
+  che vedi?"*
+- *"Dammi tre obiezioni che potrebbe fare un critico severo a questo
+  paragrafo."*
+- *"Sto cercando di dire X. Riesce a passare? Se no, dove perdo il
+  lettore?"*
+
+Cosa NON chiedere mai:
+
+- *"Scrivi il prossimo paragrafo."*
+- *"Espandi questo paragrafo a 500 parole."*
+- *"Scrivi la conclusione del capitolo."*
+- *"Riformula questo paragrafo in modo che sembri scritto da me."*
+
+La regola che divide le due liste è semplice. La prima lista lascia
+le parole a te: l'IA reagisce a quello che hai scritto, tu poi torni
+e riscrivi. La seconda mette le parole in bocca a lei, e tu diventi
+un editor che approva. *"Rendi più chiara"* tocca lessico e fluidità,
+lascia la struttura tua. *"Riformula come se l'avessi scritto io"*
+riscrive la struttura e ti chiede di firmarla: è la stessa cosa che
+"scrivilo tu". Il commissario alla discussione lo sente. Non perché ci sia un
+detector magico (i detector di AI generated text sono inaffidabili),
+ma perché alle domande non sai rispondere: i passaggi che non hai
+costruito non ti suonano familiari quando li devi difendere a voce.
+
+## Calibrazione sul relatore
+
+Ogni relatore ha aspettative non scritte: stile di citazione
+(Chicago, APA, note a piè di pagina), taglio del lavoro
+(storico-comparato, analitico, sperimentale), severità sulle ipotesi
+("forte" se chiedi una tesi precisa da difendere, "morbida" se
+basta una rassegna ben fatta). Queste aspettative non sono in nessun
+manuale di tesistica: stanno nella testa del relatore, e se non gli
+le chiedi resti a indovinare.
+
+Prima di partire, chiedi direttamente:
+
+> *"Che tipo di tesi ti aspetti? Più sintetica o più estesa? Quale
+> taglio: storico, analitico, sperimentale? Su cosa ti aspetti che
+> insista di più?"*
+
+Questa conversazione di trenta minuti ti risparmia tre mesi di
+correzioni in direzioni che non interessano al relatore.
+
+:::tip[Relatore evasivo]
+Alcuni professori non si sbilanciano in partenza. Allora ricava le
+loro aspettative indirettamente: chiedi alla segreteria due o tre
+tesi che ha seguito di recente, leggile per indice, lunghezza, stile
+di citazione, taglio. Poi chiedigli giudizi su passaggi specifici man
+mano che scrivi: le preferenze emergono nelle correzioni meglio che
+nelle dichiarazioni.
+:::
+
+Una volta che hai una bozza di capitolo, **prima** di andarla a
+mostrare al relatore: usa l'IA come simulatore del relatore. Prompt
+tipico:
+
+> *"Fai finta di essere il mio relatore, professore di [materia] di
+> taglio [taglio], che insiste su [cosa il relatore valorizza]. Ti
+> consegno il capitolo 2 della mia tesi. Cosa mi chiederesti di
+> rivedere?"*
+
+L'IA non sostituisce la consegna vera, e la sua simulazione non sarà
+perfetta. Però intercetta il 60-70% delle correzioni più ovvie
+(passaggi poco chiari, citazioni mancanti, argomentazioni traballanti),
+e tu arrivi al relatore con un capitolo già pettinato. Le iterazioni
+di correzione scendono da quattro a due. Quello che resta sono le
+correzioni vere, quelle che il relatore ti fa perché conosce la tua
+tesi e il tuo campo: il valore di quegli incontri sale, non scende.
+
+## Un paragrafo di Storia dell'arte
+
+Studente magistrale di Storia dell'arte. Sta scrivendo la tesi sul
+Manierismo a Firenze, capitolo 3, paragrafo sul ruolo della
+committenza medicea. Ha scritto una prima versione, vuole capire se
+regge.
+
+<ChatDemo
+  user={`Questo è un paragrafo del capitolo 3 della mia tesi. La tesi che voglio sostenere è che la committenza medicea non è la sola causa della nascita del Manierismo a Firenze: è un fattore importante ma sopravvalutato dalla storiografia tradizionale.
+
+Paragrafo: "Negli anni Venti del Cinquecento, la committenza medicea ha indubbiamente dato impulso alle nuove ricerche figurative che oggi chiamiamo Manierismo, finanziando artisti come Pontormo e Rosso Fiorentino. Tuttavia, attribuire alla sola committenza medicea la nascita del Manierismo significa ignorare la dinamica autonoma del linguaggio figurativo, che a Firenze era già in trasformazione sotto la pressione del confronto con Roma e con la maniera di Michelangelo."
+
+Questo paragrafo difende la mia tesi? Dove è debole? Tre obiezioni di un commissario severo.`}
+  ai={`Il paragrafo imposta la tesi ma la sostiene a metà. Difende l'idea che la committenza medicea **non sia la sola causa**, ma non chiarisce di quanto sia sopravvalutata, né rispetto a quali alternative concrete. Un commissario severo ti farebbe almeno tre obiezioni.
+
+**Obiezione 1: manca la committenza concorrente.** Tu citi "il confronto con Roma" come fattore autonomo, ma non nomini la committenza romana parallela, che è il principale argomento *contro* la tua tesi. Se il Manierismo nasce anche a Roma, sotto Leone X e Clemente VII (che sono Medici, ma agiscono come papi non come signori di Firenze), un commissario ti chiede: stai dicendo che la committenza medicea-fiorentina è sopravvalutata, o che lo è la committenza medicea in generale? La distinzione cambia molto la tesi.
+
+**Obiezione 2: "indubbiamente" è una concessione troppo grossa.** Apri il paragrafo dicendo che la committenza medicea ha "indubbiamente dato impulso" alle ricerche manieriste. Poi a metà paragrafo dici che la storiografia tradizionale la sopravvaluta. Il commissario sente la contraddizione: se l'impulso è indubbio, su cosa basi la critica alla storiografia? Devi quantificare di che impulso parli (commesse specifiche, denaro, accesso a modelli antichi) e mostrare che gli artisti avrebbero potuto produrre quel linguaggio anche con un committente diverso. Senza questo, "sopravvalutata" resta affermato ma non difeso.
+
+**Obiezione 3: la "dinamica autonoma del linguaggio figurativo" è troppo vaga.** Frase chiave del paragrafo, ma è un'asserzione, non un argomento. *Quale* dinamica autonoma? Confronto con Michelangelo, sì, ma anche con chi? Pontormo guarda Dürer e le stampe nordiche, Rosso Fiorentino dialoga con Parmigianino: queste sono dinamiche autonome rispetto al committente. Se le nomini, il paragrafo regge. Se resta "dinamica autonoma" generica, il commissario sospetta che tu stia coprendo un vuoto.
+
+Suggerimento di rinforzo, non di riscrittura: aggiungi un confronto esplicito con la committenza romana di Clemente VII (uno o due nomi, una o due commissioni datate) e nomina almeno due fonti di influenza diverse dalla committenza che pesano sul linguaggio di Pontormo o Rosso. Da lì il paragrafo si riscrive da sé.`}
+/>
+
+Tre cose da notare. L'IA non ha scritto un paragrafo nuovo: ha
+indicato dove il tuo è debole, con tre obiezioni precise che hanno
+nome e riferimento. Le obiezioni non sono "fai meglio": sono cose
+specifiche che lo studente può controllare nelle fonti (la
+committenza di Clemente VII, le influenze di Pontormo). E il
+suggerimento finale è di rinforzo, non di sostituzione: ti dice
+*cosa* aggiungere per chiudere il buco, lasciando a te le parole.
+
+:::note[E se la mia tesi è di laboratorio?]
+L'esempio sopra è umanistico, ma il pattern è identico per tesi
+sperimentali. Cambia il tipo di buco che l'IA segnala: non "manca il
+confronto con la committenza romana" ma "il campione è troppo piccolo
+per quella conclusione", "la variabile X non è controllata", "il
+test statistico non regge l'ipotesi che vuoi sostenere". Il prompt
+portante per una tesi STEM: *"Questo paragrafo difende la conclusione
+X a partire dai dati Y. Quali metodi alternativi mi chiederebbe un
+revisore? Quali limiti dello studio non sto dichiarando?"*
+:::
+
+:::tip[Triennale, magistrale, dottorato]
+La meccanica della lezione vale per tutti e tre, ma il peso del
+contributo originale cambia, e con esso il confine etico.
+
+**Triennale (40-60 pagine)**: tesi compilativa, il lavoro consiste
+nell'organizzare la bibliografia esistente su un tema. L'IA aiuta
+molto su organizzazione e scrittura, meno sul contributo originale,
+che è minimo per definizione. Va benissimo usare l'IA come secondo
+lettore in modo intensivo.
+
+**Magistrale (80-150 pagine)**: c'è un contributo originale (analisi
+di un dataset, caso studio, lettura nuova di un autore). L'IA aiuta
+sulla strutturazione del discorso e sul dialogo critico, ma il
+contributo originale è tuo, e dovrai difenderlo a voce. Tieni un
+quaderno separato (un file `.md` va benissimo) dove per ogni idea
+originale annoti tre cose: l'idea in una frase, da cosa nasce (la
+lettura del paper X, la discussione con Y, l'incoerenza nel dataset
+Z), come pensi di difenderla in commissione. Alla discussione devi
+sapere quali pezzi della tesi sono originali e perché.
+
+**Dottorato (150-300+ pagine)**: il contributo originale è la
+sostanza, non il contorno. L'IA aiuta su scrittura, revisione,
+controllo degli argomenti, ma il contenuto è inevitabilmente tuo. Il
+confine etico è più stretto: molte riviste richiedono di dichiarare
+l'uso di LLM nei papers che pubblicherai durante o dopo il dottorato,
+e alcune commissioni di tesi chiedono lo stesso. Verifica le policy
+del tuo dipartimento prima di iniziare, non alla fine.
+:::
+
+:::caution[Dichiarazione dell'uso di LLM]
+Molte università italiane hanno introdotto l'obbligo di dichiarare
+nella prefazione (o in una sezione dedicata) come l'IA generativa è
+stata usata nella tesi. Le policy variano: alcuni atenei accettano
+l'uso come assistente di revisione, altri lo vietano per la
+generazione di testo finito, altri ancora impongono una formula
+specifica.
+
+Una dichiarazione onesta tipo:
+
+> *"ChatGPT e Claude sono stati usati come secondi lettori per
+> revisione di stile, simulazione del dialogo con il relatore, e
+> brainstorming sulle obiezioni a singoli paragrafi. Non sono stati
+> usati per generare paragrafi finiti né per produrre la
+> bibliografia."*
+
+è una buona base di partenza, ma **non sostituisce la verifica della
+policy del tuo ateneo**. Per orientarti sul confine: cambi di
+lessico, fluidità delle frasi, ordine delle parole, transizioni fra
+paragrafi cadono in "revisione". Riscritture che cambiano la
+struttura argomentativa, espansioni *"espandi a 500 parole"*,
+paragrafi generati dal nulla cadono in "generazione di testo finito".
+Se non trovi una policy ufficiale del tuo ateneo (molti dipartimenti
+italiani non ne hanno ancora una), dichiara comunque: la trasparenza
+ti copre da regole future più strette e non costa nulla rispetto al
+"non dichiarato". Cerca sul sito del tuo dipartimento "uso IA
+generativa tesi" o chiedi alla segreteria didattica. Il quadro
+generale sull'etica accademica lo riprende [*Etica dello
+studio*](/it/for-students/ethics-of-studying/), ultima lezione del
+modulo.
+:::
+
+## Cosa NON fare
+
+**Non far scrivere il paragrafo all'IA e poi "riformularlo".** È la
+scorciatoia più comune e la più rischiosa: la struttura logica resta
+quella dell'IA, e alla discussione i passaggi non ti suonano. Il
+commissario sente la differenza fra un argomento che hai costruito
+tu e uno che hai vestito a parole tue dopo.
+
+**Non usare l'IA per generare bibliografia.** Le citazioni
+inventate sono il modo più rapido di farsi affondare una tesi: nomi
+plausibili, riviste plausibili, anni plausibili, e niente di vero. Le
+fonti vanno cercate sui database accademici e verificate una per
+una. Su come gestire bibliografia e citazioni con l'IA in modo sicuro
+torna [*Fonti e citazioni*](/it/for-students/sources-and-citations/),
+lezione successiva.
+
+**Non accumulare otto capitoli senza farne leggere uno al relatore.**
+L'IA non sa cosa il relatore vuole davvero, finché non glielo
+chiedi. Mostrare il capitolo 1 dopo la prima settimana, e farne
+correggere uno ogni due-tre settimane, è il ritmo che ti tiene
+allineato. Arrivare con la tesi intera in mano un mese prima della
+discussione è la ricetta per riscriverla due volte.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Cinque domande sul tuo ruolo di autore"
+  file="review-write-a-thesis.txt"
+  duration="6-8 min"
+  description="Incolla il testo nella tua IA. Ti farà cinque domande progressive per fissare il confine fra autore e strumento."
+/>
+
+## Cosa viene dopo
+
+Il lavoro di scrittura è uno; il lavoro di bibliografia è un altro.
+La prossima lezione: come gestire le fonti senza farsene inventare
+di false.
