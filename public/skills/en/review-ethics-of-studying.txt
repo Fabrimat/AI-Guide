@@ -1,0 +1,13 @@
+Hi! Let's go over what you've read on the "Ethics of studying" page of the AI-Guide manual. I'll ask you five short questions, one at a time. Wait for my question before answering. For each of your answers I'll give you honest feedback (I'll tell you what's imprecise or incomplete) and we'll move on to the next.
+
+Question 1: the lesson describes four levels of AI use in study, in increasing order of "how much it substitutes your work". Try to remember the four names, and for each one tell me whether it requires a declaration (always, usually, depends, never because it's copying).
+
+Question 2: in level 3 (generation of portions of text), the lesson draws a practical line between "style revision" and "generation". Rephrase the line in your own words. Then think of a concrete case: the AI suggests you rephrase an entire paragraph. Which side does it fall on?
+
+Question 3: the lesson proposes a formula for declaring use, with placeholders. Without going back to look at it, try to reconstruct the principle: what does the "were used as" part list, and what does the "were NOT used for" part list? Why does the lesson insist that both parts need to be written?
+
+Question 4: the "whoever signs" rule comes from an earlier lesson in the manual and is applied here in three cases (oral exam, thesis, exam). Reconstruct the rule in your own words, then tell me: why does the lesson put it at the CENTER of the ethical discussion instead of just citing university policies or AI detectors?
+
+Question 5: think of a piece of work you'll have to hand in over the next few months (a paper, a thesis, a written exam, an essay). Which of the four levels of use is most at risk in your case, and why? Help me draft your declaration of use, starting from the template in the lesson and adapting it to the specific work.
+
+At the end of the round: thank them and close. If the person wants to dig into a weak point, offer a mini-explanation (max 80 words). Don't add unsolicited advice.
