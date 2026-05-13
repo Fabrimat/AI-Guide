@@ -557,9 +557,24 @@ Struttura validata 2026-05-13. Otto lezioni, ordine pedagogico = ordine
 di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
 dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
 
-1. ✍️ **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
+1. ✅ **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
    Studio formale contro un programma fissato. Apre il modulo col
-   contratto "non è il manuale del fammi i compiti".
+   contratto "non è il manuale del fammi i compiti". Ciclo di revisione
+   completo (`analyze-lesson` + `integrate-questions` + `style-checker`
+   IT e EN, 2026-05-13). Integrazioni principali dall'analisi lettore:
+   estensione del bullet "materiale di riferimento" per coprire mix di
+   libri + dispense + slide, esplicitazione della tensione prof vs
+   manuale, paragrafo di apertura della sezione tecniche che chiarisce
+   la combinazione fra le tre, callout `:::tip` "Quanto incollare per
+   volta", precisazione sulle slide scarne, esempio operativo concreto
+   nella Tecnica 3 (storia contemporanea, Mosse/Gentile), callout
+   `:::note` "Per chi studia matematica, fisica, ingegneria,
+   informatica", test rapido di verifica dell'ancoraggio, estensione
+   del check Feynman finale con cosa fare se inciampi. Style-checker
+   IT: OK con rifiniture (rimozione mic-drop "È tutto qui", due codici
+   M2L5 sostituiti con link espliciti a `learn-something-new`, due
+   "davvero" difensivi rimossi). Style-checker EN: OK con un fix di
+   calco ("questions of type Z" → "questions like Z").
 
 2. 🆕 **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
    Materiale grezzo (audio, dispense, slide) portato a forma studiabile.
@@ -584,8 +599,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 0 su 8 pubblicate. Struttura definita, scrittura da
-iniziare.
+**Stato attuale**: 1 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -703,9 +717,9 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 **Modulo 4 (Per studenti)**: struttura validata 2026-05-13 in
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Prossima
-bozza: lezione 1, **Studiare un argomento nuovo**
-(`for-students/study-a-new-topic`).
+`docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezione 1
+pubblicata il 2026-05-13. Prossima bozza: lezione 2, **Appunti da
+lezioni e testi lunghi** (`for-students/notes-from-lectures`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in

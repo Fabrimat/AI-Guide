@@ -127,13 +127,7 @@ export default defineConfig({
           label: 'For students',
           translations: { it: 'Per studenti' },
           items: [
-            {
-              label: 'Study a new topic',
-              translations: { it: 'Studiare un argomento nuovo' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/study-a-new-topic' },
             {
               label: 'Notes from lectures',
               translations: { it: 'Appunti da lezioni e testi lunghi' },
