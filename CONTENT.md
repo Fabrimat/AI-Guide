@@ -614,9 +614,23 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    distrattori"). Style-checker EN: OK, conversione "28" → "B+" 
    verificata coerente in entrambe le occorrenze.
 
-4. 🆕 **Scrivere una tesi** (`for-students/write-a-thesis`)
-   Outline + riempimento, l'IA come secondo lettore, calibrazione sul
-   relatore. Triennale vs magistrale vs dottorato.
+4. ✅ **Scrivere una tesi** (`for-students/write-a-thesis`)
+   Pubblicata IT + EN il 2026-05-13. La lezione più lunga del modulo
+   (~1525 parole IT). Outline + riempimento ereditato da M3L2, ogni
+   capitolo è un dialogo separato, IA come secondo lettore (non
+   autore). ChatDemo portante su Manierismo a Firenze (committenza
+   medicea vs romana). Callout `:::note` "E se la mia tesi è di
+   laboratorio?" per generalizzare il pattern alle tesi STEM, callout
+   `:::tip` "Relatore evasivo" su come ricavare aspettative
+   indirettamente, callout `:::caution` "Dichiarazione dell'uso di
+   LLM" con confine pratico fra revisione e generazione. Ciclo di
+   revisione completo (`analyze-lesson` 10 domande + `integrate-questions`
+   con 6 modifiche + style-checker IT e EN, 2026-05-13). Integrazioni
+   principali dall'analisi lettore: callout STEM (il pattern oltre
+   l'umanistica), esempio inline sul confine "rendi più chiara" vs
+   "riformula come se l'avessi scritto io", quaderno delle idee
+   originali concretizzato (tre cose da annotare), gestione dell'ateneo
+   senza policy ufficiale ("dichiara comunque"), relatore evasivo.
 
 5. 🆕 **Fonti e citazioni** (`for-students/sources-and-citations`)
    Bibliografia accademica, stili, DOI, citazioni inventate, NotebookLM.
@@ -631,7 +645,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 3 su 8 pubblicate.
+**Stato attuale**: 4 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -750,8 +764,8 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1,
-2 e 3 pubblicate il 2026-05-13. Prossima bozza: lezione 4, **Scrivere
-una tesi** (`for-students/write-a-thesis`).
+2, 3 e 4 pubblicate il 2026-05-13. Prossima bozza: lezione 5, **Fonti
+e citazioni** (`for-students/sources-and-citations`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in

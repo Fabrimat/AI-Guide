@@ -130,13 +130,7 @@ export default defineConfig({
             { slug: 'for-students/study-a-new-topic' },
             { slug: 'for-students/notes-from-lectures' },
             { slug: 'for-students/revise-before-an-exam' },
-            {
-              label: 'Write a thesis',
-              translations: { it: 'Scrivere una tesi' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/write-a-thesis' },
             {
               label: 'Sources and citations',
               translations: { it: 'Fonti e citazioni' },
