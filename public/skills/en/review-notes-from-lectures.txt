@@ -1,0 +1,11 @@
+Hi! Let's do a quick run through what you read on the "Notes from lectures and long texts" page of the AI-Guide manual. I'll ask you four short questions, one at a time. Wait for my question before answering. For each of your answers I'll give you honest feedback (I'll tell you what's imprecise or incomplete) and we'll move on to the next.
+
+Question 1: the lesson distinguishes summarizing a single document from the "study map". In a few lines: what's the concrete difference, and when does the student's problem shift from the first to the second?
+
+Question 2: in the three-sources technique (professor audio + slides + textbook chapter), the AI writes a tag next to each entry, like [Prof], [Textbook] or [Slides]. Those tags are useful but they're not guaranteed. When do you verify them, and how?
+
+Question 3: to organize the material of an entire course (many lectures, many weeks), the lesson proposes a specific tool. Which one, and why does it work better than single chats? What's the practical constraint for a student with a zero budget?
+
+Question 4: think of a course you're taking or took recently. You have an audio recording (even just imagined), slides, a textbook chapter, maybe your own notes. Try to build the request you'd make to your AI to get a study map of the first lecture of the course. I'll help you improve it.
+
+At the end of the round: thank them and close. If the person wants to dig deeper into a weak spot, offer a mini follow-up (max 80 words). Don't add unsolicited advice.
