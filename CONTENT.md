@@ -632,8 +632,29 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    originali concretizzato (tre cose da annotare), gestione dell'ateneo
    senza policy ufficiale ("dichiara comunque"), relatore evasivo.
 
-5. 🆕 **Fonti e citazioni** (`for-students/sources-and-citations`)
-   Bibliografia accademica, stili, DOI, citazioni inventate, NotebookLM.
+5. ✅ **Fonti e citazioni** (`for-students/sources-and-citations`)
+   Pubblicata IT + EN il 2026-05-13. Lezione tecnica sul tema più
+   rischioso del modulo: bibliografia. Anatomia della citazione
+   inventata (quattro pattern tipici), DOI come gate di verifica con
+   tre esiti possibili, quattro stili principali (APA, MLA, Chicago,
+   ISO 690) con guida pratica alla scelta, tre filtri per distinguere
+   fonte accademica vera da blog mascherato (DOI, journal indicizzato,
+   editore noto). ChatDemo portante: economia, tre paper sulla
+   tassazione dei consumi alimentari, due con DOI inventati e uno vero
+   (Cawley et al. 2019). Callout `:::tip` "IA con accesso al web"
+   (ChatGPT browsing, Claude web search, Perplexity), `:::note`
+   "Fonti istituzionali: caso a parte" (Banca d'Italia, OECD, ISTAT),
+   `:::tip` "NotebookLM e simili" (Claude Projects, Custom GPTs).
+   Ciclo di revisione completo (`analyze-lesson` 8 domande +
+   `integrate-questions` con 7 modifiche + style-checker IT e EN,
+   2026-05-13). Integrazioni principali dall'analisi lettore:
+   spiegazione concettuale del "perché l'IA inventa con quella
+   struttura precisa" (combinazione plausibile vs combinazione
+   esistente è informazione esterna al pattern di scrittura),
+   chiarimento operativo su proxy della biblioteca, Zotero spiegato
+   per chi non lo conosce (installazione, sync, plugin Word/Docs),
+   scelta dello stile per disciplina, differenza fra NotebookLM,
+   Claude Projects, Custom GPTs.
 
 6. 🆕 **Tradurre e confrontare testi** (`for-students/translate-and-compare`)
    Lingue straniere, classici, varianti, glosse, registri.
@@ -645,7 +666,7 @@ dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
    Chiusura. Aiuto vs copiato, dichiarazione dell'uso, politiche
    d'istituto, callout `:::caution` su esami proctored e AI detector.
 
-**Stato attuale**: 4 su 8 pubblicate.
+**Stato attuale**: 5 su 8 pubblicate.
 
 ## Modulo 5: Per docenti (livello `intermedio`)
 
@@ -764,8 +785,8 @@ Modulo Sul lavoro chiuso al 100% il 2026-04-25.
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 Piano di implementazione in
 `docs/superpowers/plans/2026-05-13-per-studenti-module.md`. Lezioni 1,
-2, 3 e 4 pubblicate il 2026-05-13. Prossima bozza: lezione 5, **Fonti
-e citazioni** (`for-students/sources-and-citations`).
+2, 3, 4 e 5 pubblicate il 2026-05-13. Prossima bozza: lezione 6,
+**Tradurre e confrontare testi** (`for-students/translate-and-compare`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
 atterra, sostituire la voce placeholder disabilitata in

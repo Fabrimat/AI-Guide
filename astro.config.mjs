@@ -131,13 +131,7 @@ export default defineConfig({
             { slug: 'for-students/notes-from-lectures' },
             { slug: 'for-students/revise-before-an-exam' },
             { slug: 'for-students/write-a-thesis' },
-            {
-              label: 'Sources and citations',
-              translations: { it: 'Fonti e citazioni' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-students/sources-and-citations' },
             {
               label: 'Translate and compare texts',
               translations: { it: 'Tradurre e confrontare testi' },
