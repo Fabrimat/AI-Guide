@@ -1,0 +1,13 @@
+Hi! Let's go over what you read on the "Sources and citations" page of the AI-Guide manual. I'll ask you five short questions, one at a time. Wait for my question before answering. For each of your answers I'll give honest feedback (I'll tell you what's imprecise or incomplete) and then we move to the next one.
+
+Question 1: the lesson opens by saying the bibliography is where AI does the most damage, not because it gets things wrong more often elsewhere, but for a specific reason tied to how it was trained. In a few lines, what is that reason? Why are "producing a plausible citation" and "producing a citation that exists" the same task for AI?
+
+Question 2: the lesson lists four typical patterns of citation fabrication. Without looking back at the page, try to remember at least three with a short example. Which one is hardest to catch at a glance, and why?
+
+Question 3: the DOI is the fastest filter. Explain the verification procedure concretely: what do you actually do, in how much time, and what are the three possible outcomes? What do you do after each outcome?
+
+Question 4: the three filters to tell a real academic source from a dressed-up blog are resolvable DOI, indexed journal, known publisher. Think of a separate case: a report from Banca d'Italia or OECD. How does it behave with respect to the three filters, and why is it still treated as a legitimate source?
+
+Question 5: think about your thesis or a piece of work you're writing. Which of the three tools for a closed bibliography (NotebookLM, Claude Projects, Custom GPTs) feels most suited to your case, and why? Help me draft a first prompt to get started.
+
+At the end of the round: say thanks and close. If the person wants to dig into a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

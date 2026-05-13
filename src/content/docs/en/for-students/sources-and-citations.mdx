@@ -1,0 +1,330 @@
+---
+title: Sources and citations
+description: The bibliography is where AI does the most damage in academic work. Telling a made-up citation from a real one is a skill you can learn.
+livello: intermedio
+prerequisiti: [ask-well, research-for-work, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- AI invents citations that "sound real": plausible author, plausible journal, none of it actual. Four typical fabrication patterns to spot at a glance.
+- The DOI is the fastest filter: ten seconds per citation. If it doesn't resolve on `doi.org`, the citation is almost always made up.
+- Three filters to tell a real academic source from a dressed-up blog: resolvable DOI, journal indexed in Scopus or Web of Science, known publisher.
+- Four main styles: APA, MLA, Chicago, ISO 690. AI formats them well if you give it the raw data, but it's not a reliable source for finding them.
+- For a closed bibliography (papers you've already selected), use NotebookLM or Claude Projects: they only answer from the documents you've uploaded, no invented citations by design.
+
+</LessonSummary>
+
+The academic bibliography is where AI does the most damage. Not
+because it gets things wrong more often than elsewhere, but because
+it has learned to "sound like a bibliography" very well without
+necessarily producing a real one. The citations it offers have the
+right shape: an author with a plausible surname, a journal that
+exists, a recent year, credible page numbers. The specific
+combination just often doesn't exist.
+
+Telling a fake citation from a real one is a skill, and it can be
+learned in one sitting. The practical consequence of not learning it:
+in thirty seconds your supervisor picks a random citation from your
+bibliography, looks up the DOI, and figures out that you've handed
+in citations that never existed. No drama, it's predictable and
+preventable. This lesson is the prevention.
+
+## Anatomy of a fabricated citation
+
+AI doesn't invent with "tags" that let you unmask it. It's been
+trained on millions of real citations and has learned the formal
+pattern very well, but "producing a plausible citation" and
+"producing a citation that exists" are the same task as far as it's
+concerned: which combination actually exists is information external
+to the way it writes, sitting in a database it doesn't query while it
+responds. So it invents with the same formal structure as real
+citations: an author with a surname that really exists, sometimes a
+well-known academic in the field; an existing journal or close to it
+(sometimes with a small distortion of the name); a plausible year,
+usually recent; credible page numbers. What's missing is the match:
+the specific author + title + journal + year combination doesn't
+exist, or the DOI doesn't resolve, or the article exists but says
+something different from what the citation attributes to it.
+
+Four typical fabrication patterns worth keeping in mind.
+
+**Real author + real paper + wrong year.** The author exists, the
+paper exists, but the citation dates it to 2018 when it's actually
+from 2014. Mean variant: the year is when you thought you read
+something similar, and you believe it.
+
+**Real author + non-existent paper attributed to that author.** A
+well-respected scholar in the field, cited as the author of an
+article they never wrote. The title is plausible ("Tax Pass-Through
+on Sugar-Sweetened Beverages in European Markets"), and you believe
+it because you know the author.
+
+**Real journal + non-existent issue/year.** The *Journal of Health
+Economics* exists, but volume 67 issue 3 from 2019 doesn't contain
+the article AI is citing. The journal is real, the article isn't.
+
+**Perfectly structured but one hundred percent fabricated citation.**
+Invented author, invented paper, invented journal (or one that
+happens to exist by chance), invented DOI. The form is impeccable.
+This is the most frequent case when you ask AI for "three recent
+papers on X" without access to a live search engine.
+
+## The DOI as a verification gate
+
+Every serious academic article published since roughly 2000 has a
+DOI, *Digital Object Identifier*. It's a unique signature for the
+article, a string that starts with `10.` followed by a publisher
+identifier, a slash, and a code. Example:
+`10.1016/j.jhealeco.2019.102225` is the DOI for an article by Cawley
+et al. from 2019 in `Journal of Health Economics`, which you'll see
+in the ChatDemo further down.
+
+The practical check is fast. Take the DOI AI gave you, paste it onto
+`doi.org/<DOI>` (like this: `https://doi.org/10.1086/675329`), or
+look it up directly on Google Scholar. Three possible outcomes.
+
+**The DOI doesn't resolve.** The page says the document doesn't
+exist, or `doi.org` sends you to an error. The citation is almost
+certainly made up. Throw it out.
+
+**The DOI resolves, but to a different paper than expected.** Open
+the link and read title, authors, year. If they don't match what AI
+cited, AI has attributed the wrong content to a real identifier.
+Throw it out.
+
+**The DOI resolves to the right paper.** Everything matches:
+authors, year, title, journal. The citation is almost certainly
+real. What remains is checking that the paper actually says what AI
+attributes to it as content: for that you need at least the
+abstract.
+
+The DOI is the fastest filter you have: ten seconds per citation.
+For pre-2000 articles or books (which often don't have a DOI),
+verification goes through WorldCat or your library's catalog: you
+search author and title, and if nothing comes up the citation needs
+checking more carefully.
+
+:::tip[AI with web access]
+Some AIs have real-time web access: ChatGPT with browsing on, Claude
+with web search, Gemini, Perplexity. With these you can add to your
+prompt *"verify every DOI on doi.org before giving it to me, and
+discard the ones that don't resolve"*: they actually do it, and the
+rate of fabricated citations drops a lot. With an AI without web
+access, the same instruction is useless: AI will simulate the check
+but invent that too.
+:::
+
+## Four citation styles
+
+Four main styles circulate in academic work, depending on the field.
+Short map.
+
+**APA** (American Psychological Association). Social sciences and
+humanities: psychology, sociology, economics, education. In-text
+citation `(Author, year)`, final bibliography ordered by author's
+surname.
+
+**MLA** (Modern Language Association). Anglo humanities: literature,
+languages, cultural studies. In-text citation `(Author, page)`, no
+year. The bibliography is called "Works Cited".
+
+**Chicago** (notes + bibliography). History, some Italian
+humanities. Footnotes with full citation the first time, shortened
+afterwards. Separate bibliography at the end.
+
+**ISO 690** (with its European variants). Technical sciences and
+theses in Italian, often in engineering and some science
+departments. Numbered references `[1], [2], ...` in the text,
+bibliography at the end in the same order.
+
+If your supervisor doesn't specify, ask: one email line settles it.
+With no guidance, follow your department's convention. Economics,
+psychology, sociology usually APA. English literatures and language
+studies MLA. History and Italian humanities Chicago. Engineering and
+technical sciences ISO 690. When in doubt, leaf through two or three
+recent theses your supervisor has supervised (ask the academic
+office) and use the style they used.
+
+For any of these four, AI is a good **formatter**: you give it the
+raw data (author, title, year, pages, journal) and ask
+*"format these five entries in Chicago style"*. The result is
+usually acceptable. What it isn't good at is remembering the exact
+rules of each style: every version gets updates, and AI can get a
+detail wrong (comma instead of period, italics on the journal title
+instead of the book title). To check whether the formatting is
+right, use an official guide (Purdue OWL is the strongest free
+reference in English) or, better, a bibliography manager like
+**Zotero** (free, open source). In practice: you install the desktop
+app, add the browser extension, and when you're on a paper's page
+you click an icon that imports author, title, year, journal, DOI in
+one move. From there you format in any style (APA, MLA, Chicago,
+ISO 690) without asking AI for anything. Free cloud sync with an
+account, plugins for Word and Google Docs.
+
+## Real academic source or dressed-up blog
+
+When you ask AI to "find me sources on X", the risk isn't only
+fabrication. It's also a confusion of register: it offers you things
+that look academic but aren't, as if they were academic sources.
+
+Three typical cases:
+
+- articles on `medium.com` with a scholarly tone and internal
+  citations;
+- blogs by doctoral students or research centers, well written but
+  not peer-reviewed;
+- preprints on SSRN or ResearchGate not yet published in a journal,
+  which can still be modified or withdrawn.
+
+None of this is "junk": a good blog by a doctoral student can be
+informed, a preprint can be a serious piece of work waiting for
+publication. But using them in a thesis as if they were
+peer-reviewed is a mistake of register that your supervisor will
+flag immediately.
+
+Three practical filters to tell them apart.
+
+1. **Resolvable DOI.** The gate seen above. If there's no DOI, or
+   there is one but it doesn't resolve, the source doesn't pass the
+   academic filter.
+
+2. **Indexed journal.** Search the journal title on `scopus.com` or
+   Web of Science (free through your library's proxy: the system
+   that lets you, from the campus Wi-Fi or from home logging in with
+   student credentials, access databases your university subscribes
+   to). If the journal is indexed in at least one of the two, it's a
+   peer-reviewed journal recognized in its field.
+
+3. **Known publisher.** Springer, Elsevier, Cambridge University
+   Press, Oxford University Press, JSTOR, Taylor & Francis, the
+   university presses of major universities. If the publisher is an
+   unknown and the DOI doesn't resolve, be suspicious.
+
+Two filters out of three passed: the source is probably solid. Zero
+filters out of three: you're citing a blog, not a paper.
+
+:::note[Institutional sources: a separate case]
+Reports from Banca d'Italia (the Bank of Italy), OECD, ISTAT,
+Eurostat, World Bank don't pass the three filters above: they're
+not peer-reviewed, they rarely have a DOI, the publisher is an
+institution and not a university press. And yet they're
+authoritative sources, especially in economics, social sciences,
+and public policy. They're cited in the bibliography with author =
+the institution (e.g., *Banca d'Italia*), year, report title,
+stable URL. In quantitative and social science theses they're
+welcome; they're often kept in a separate "Institutional sources"
+section apart from the academic literature. They aren't dressed-up
+blogs: they're institutional sources, to be cited as such and
+evaluated for the authority of the issuing body.
+:::
+
+:::tip[NotebookLM and similar: closed bibliography]
+**NotebookLM** is a Google tool built specifically to work on a
+bibliography you already have. You upload PDFs of the papers
+you've selected (or pages from books, articles, course materials),
+and AI answers **only** based on those documents. No *world
+knowledge*, no invented citations: by construction, if a piece of
+content isn't in the uploaded documents, AI won't offer it as an
+answer.
+
+It's the safest way to work when the bibliography is settled:
+thesis on a specific author whose twenty key articles you already
+have, chapter based on a known set of papers, research where
+you've already done the source selection. The limitation is
+structural: you have to already have the papers. NotebookLM
+doesn't discover them for you, it doesn't replace the source
+discovery phase, it replaces the synthesis phase.
+
+Similar tools: **Claude Projects** (you upload PDFs to a project
+and Claude answers based on them), **Custom GPTs** with a
+knowledge base (same idea on the ChatGPT side). NotebookLM is the
+most specialized for bibliography: it automatically cites the
+source inside every answer, showing which paper each sentence came
+from. For a thesis on a closed set of papers, it's the most
+solid. For more general use (brainstorming, writing), Projects and
+Custom GPTs are more flexible. The same constraint from
+[*Research for work*](/en/at-work/research-for-work/) on
+company documents applies here: before you upload PDFs of paywalled
+papers or copyrighted material, check that the platform is
+appropriate and that you aren't violating the journal's license
+terms.
+:::
+
+## Three papers on taxation and food consumption
+
+Economics student, working on a term paper. Asks AI for three
+recent papers on a specific topic. AI replies with three
+well-formatted citations, APA style, complete with DOIs.
+
+<ChatDemo
+  user={`Find me three recent papers (last five years) on the effect of taxation on food consumption, particularly on sugar-sweetened beverage taxes. APA style, include the DOI for each.`}
+  ai={`Here are three papers on the topic:
+
+1. **Marinelli, A. & Rossi, P. (2022).** Sugar tax and consumption patterns in Southern Europe: evidence from a natural experiment. *Food Policy*, 109, 102234. https://doi.org/10.1016/j.foodpol.2022.102234
+
+2. **Schmidt, K. & Weber, J. (2021).** The pass-through of sugar-sweetened beverage taxes to consumer prices: a cross-country analysis. *Journal of Public Economics*, 198, 104412. https://doi.org/10.1016/j.jpubeco.2021.104412
+
+3. **Cawley, J., Frisvold, D., Hill, A. & Jones, D. (2019).** The impact of the Philadelphia beverage tax on purchases and consumption by adults and children. *Journal of Health Economics*, 67, 102225. https://doi.org/10.1016/j.jhealeco.2019.102225`}
+/>
+
+The student opens `doi.org` and tries the three DOIs. The first
+doesn't resolve: error page, article doesn't exist. The second
+resolves, but opens a paper on a completely different topic,
+something about electric cars and public incentives in Norway. The
+third resolves correctly and opens exactly the Cawley et al. 2019
+article on the *Philadelphia beverage tax*, which really does talk
+about taxation on food consumption. Two of the three citations are
+made up: one with a fake DOI, one with a DOI that leads somewhere
+else.
+
+The next move, to paste into the same chat: *"I've verified. The
+first DOI doesn't resolve, the second opens a paper on a completely
+different topic. Let's only work on the third, Cawley et al. 2019.
+Add me three recent papers that cite or extend that one, and this
+time give me verifiable DOIs or tell me if you don't have any with
+certainty."* From here the conversation realigns: AI has a real
+anchor point (a verified paper) and an explicit safety exit (it can
+say "I don't have reliable recent sources"). It's the same pattern
+already seen in [*Research for work*](/en/at-work/research-for-work/):
+give AI an exit to admit the limit, and it invents less.
+
+## What NOT to do
+
+**Don't hand your bibliography to the supervisor without
+verifying every DOI.** In thirty seconds they pick one at random,
+search, and unmask you. Opening ten links on `doi.org` costs you
+two minutes, and it's the difference between a thesis you can hand
+in and an embarrassing moment in the middle of drafting.
+
+**Don't use "find me recent papers" as a primary source.** For
+real research you start from Google Scholar or your university's
+database (Scopus, JSTOR, ProQuest, MLA International Bibliography
+depending on the field), not from AI. AI is fine as a second
+step, when you already have a core of papers and you want to
+format, synthesize, or look for connections.
+
+**Don't trust AI when it says "this paper argues X".** Even if the
+DOI resolves to the right paper, AI can attribute a claim to the
+paper that the paper doesn't support. Verify by reading at least
+the abstract; for papers that will actually go into the
+bibliography, read the paper.
+
+## Check what you've understood
+
+<LlmExercise
+  variant="review"
+  title="Five questions on bibliography filters"
+  file="review-sources-and-citations.txt"
+  duration="6-8 min"
+  description="Paste the text into your AI. It'll ask five progressive questions on the source verification filters."
+/>
+
+## What comes next
+
+Bibliography handled. The next lesson is a side topic but useful if
+you do languages or classics: translating and comparing texts.
