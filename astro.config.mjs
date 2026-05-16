@@ -149,6 +149,13 @@ export default defineConfig({
               attrs: { 'aria-disabled': 'true', tabindex: -1 },
             },
             {
+              label: 'Explain in five different ways',
+              translations: { it: 'Spiegare in cinque modi diversi' },
+              link: '#',
+              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
+              attrs: { 'aria-disabled': 'true', tabindex: -1 },
+            },
+            {
               label: 'Differentiated materials',
               translations: { it: 'Materiali differenziati' },
               link: '#',
@@ -172,13 +179,6 @@ export default defineConfig({
             {
               label: 'Grading with criteria',
               translations: { it: 'Correggere con criterio' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Explain it five different ways',
-              translations: { it: 'Spiegare in cinque modi diversi' },
               link: '#',
               badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
               attrs: { 'aria-disabled': 'true', tabindex: -1 },

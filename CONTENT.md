@@ -742,22 +742,62 @@ al 100%**.
 Target: insegnanti di scuola primaria, secondaria e università, più
 formatori aziendali e divulgatori. Pubblico non tecnico ma con
 competenza didattica propria. Tono pratico, casi d'uso da classe.
+Spec di modulo:
+`docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`.
 
-Slug definitivi e ordine in sidebar (2026-04-23).
+Struttura validata 2026-05-16. Nove lezioni, ordine pedagogico = ordine
+di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
+dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
 
-1. 🆕 **Progettare una lezione** (`for-teachers/design-a-lesson`) — dal piano alla pratica.
-2. 🆕 **Materiali differenziati** (`for-teachers/differentiated-materials`) — stesso argomento, più livelli di difficoltà.
-3. 🆕 **Inclusività (BES e DSA)** (`for-teachers/inclusive-materials`) — adattare materiali per bisogni specifici, accessibilità non solo difficoltà.
-4. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`) — verifiche e interrogazioni.
-5. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`) — l'IA come assistente, non come giudice.
-6. 🆕 **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`) — la stessa cosa raccontata a pubblici diversi.
-7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`) — email delicate ai genitori su voti, comportamento, segnalazioni.
-8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`) — riconoscere, non demonizzare.
-9. 🆕 **Etica del docente** (`for-teachers/ethics-of-teaching`) — onestà, privacy degli studenti, valutazione.
+Pattern editoriale specifico del modulo: ogni lezione operativa (1-7)
+chiude con una sezione "Approfondisci per la tua disciplina" che
+espone via `<LlmExercise variant="practice">` un file
+`deepen-<slug>.txt` di prompt. Il prompt fa intervistare il docente
+dall'IA su disciplina/livello/classe/caso concreto e genera
+un'applicazione mirata della tecnica della lezione. Pattern assente
+nelle lezioni 8-9 (critica + chiusura, non operative).
 
-Da decidere prima di scrivere: taglio (generalista vs per disciplina),
-peso della parte "riconoscere l'uso dell'IA da parte degli studenti",
-relazione con il modulo 4 (riferimenti reciproci vs autonomia).
+Filo rosso "riconoscere l'uso dell'IA da parte degli studenti":
+callout breve in L5 e L6 con rimando esplicito alla lezione dedicata
+L8 (*Quando lo studente usa l'IA*).
+
+Autonomia totale dal Modulo 4 (Per studenti): nessun cross-link, nessuna
+disambiguazione esplicita verso le lezioni di studente, anche dove i
+temi sono specchio.
+
+1. 🆕 **Progettare una lezione** (`for-teachers/design-a-lesson`)
+   Apertura del modulo. Dal piano alla pratica: scaletta della singola
+   lezione, gradazione degli obiettivi, attività agganciate. Contratto
+   del modulo (IA in preparazione, non in classe).
+2. 🆕 **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
+   Stessa nozione raccontata a pubblici diversi (per stile, non per
+   livello). Cerniera fra preparazione e classe.
+3. 🆕 **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
+   Stesso argomento, livelli verticali di difficoltà. Pattern *un solo
+   testo base, tre derivati*.
+4. 🆕 **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
+   Adattare materiali per Bisogni Educativi Speciali e Disturbi
+   Specifici dell'Apprendimento. PEI, PDP, accessibilità.
+5. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
+   Aperte, multiple, V/F, problem-solving. Distrattori sensati,
+   tassonomia di Bloom. Callout filo rosso anti-cheating.
+6. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`)
+   Rubrica esplicita, prima passata IA, verifica a campione, decisione
+   docente. Callout filo rosso su indicatori manuali.
+7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
+   Email delicate ai genitori. Tre registri (primaria, secondaria,
+   università). Privacy rinforzata su dati di minori.
+8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
+   Riconoscere senza demonizzare. AI detector inaffidabili, indicatori
+   manuali come ipotesi, ridisegno consegne, conversazione (non
+   condanna).
+9. 🆕 **Etica del docente** (`for-teachers/ethics-of-teaching`)
+   Chiusura. Onestà verso studenti/famiglie, privacy dei minori,
+   valutazione che resta del docente. Politiche d'istituto italiane ed
+   estere. Ponte al Modulo 6.
+
+**Stato attuale**: 0 su 9 pubblicate. Struttura definita, scrittura da
+iniziare.
 
 ## Modulo 6: Per chi vuole di più (livello `avanzato`)
 
@@ -848,31 +888,22 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 
 **Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
 2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
-Modulo Sul lavoro chiuso al 100% il 2026-04-25.
+Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
+chiuso al 100% il 2026-05-13.
 
-**Modulo 4 (Per studenti)**: chiuso al 100% il 2026-05-13. Otto
-lezioni IT + mirror EN pubblicate in giornata seguendo il piano in
-`docs/superpowers/plans/2026-05-13-per-studenti-module.md` e la
-spec in
-`docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
-Card della homepage e di start-here già attivate con la prima
-lezione del modulo (memoria progetto: prima lezione di un modulo
-attiva subito le card).
+**Modulo 5 (Per docenti)**: struttura validata 2026-05-16 in
+`docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`.
+Piano di implementazione in
+`docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
+bozza: lezione 1, **Progettare una lezione**
+(`for-teachers/design-a-lesson`).
 
-**Prossimo modulo da scrivere**: Modulo 5 (Per docenti). Da decidere
-prima di partire (vedi nota in fondo alla sezione Modulo 5):
-generalista vs per disciplina, peso della parte "riconoscere l'uso
-dell'IA da parte degli studenti", relazione con il modulo 4.
-
-**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 4 che
+**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
-`astro.config.mjs` con `{ slug: 'for-students/<slug>' }` in un commit
+`astro.config.mjs` con `{ slug: 'for-teachers/<slug>' }` in un commit
 dedicato (pattern già stabilito con i commit "Unlock Module N lesson M
 in sidebar").
 
-**Audit moduli 3-6 (2026-04-19)**: aggiunti gap prima non coperti:
-- Modulo 3: *Lavorare con dati e tabelle*, *Slide e presentazioni*
-- Modulo 4: *Fonti e citazioni*
-- Modulo 5: *Inclusività (BES/DSA)*, *Comunicare con le famiglie*
-- Modulo 6: *Scegliere il modello*, *Prompt injection e sicurezza*,
-  *Evals*
+**Audit moduli 3-6 (storico)**: gap identificati e coperti nei moduli
+3, 4 (chiusi), 5 (in scrittura). Per Modulo 6 vedi piano provvisorio
+in `CONTENT.md`.
