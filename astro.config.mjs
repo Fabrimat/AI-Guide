@@ -141,13 +141,7 @@ export default defineConfig({
           label: 'For teachers',
           translations: { it: 'Per docenti' },
           items: [
-            {
-              label: 'Design a lesson',
-              translations: { it: 'Progettare una lezione' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/design-a-lesson' },
             {
               label: 'Explain in five different ways',
               translations: { it: 'Spiegare in cinque modi diversi' },

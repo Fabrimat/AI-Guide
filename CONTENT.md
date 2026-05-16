@@ -765,10 +765,27 @@ Autonomia totale dal Modulo 4 (Per studenti): nessun cross-link, nessuna
 disambiguazione esplicita verso le lezioni di studente, anche dove i
 temi sono specchio.
 
-1. ✍️ **Progettare una lezione** (`for-teachers/design-a-lesson`)
-   Apertura del modulo. Dal piano alla pratica: scaletta della singola
-   lezione, gradazione degli obiettivi, attività agganciate. Contratto
-   del modulo (IA in preparazione, non in classe).
+1. ✅ **Progettare una lezione** (`for-teachers/design-a-lesson`)
+   Pubblicata IT + EN il 2026-05-16. Apertura del modulo. Contratto
+   del modulo (IA in preparazione, non in classe, con apertura
+   tattica sull'uso on-the-fly). Scaletta in tre passaggi (obiettivo
+   di apprendimento → gradazione → tempi), critica della scaletta
+   prima dei materiali, materiali agganciati alla scaletta validata.
+   ChatDemo portante: scienze, 12 anni, ciclo dell'acqua, prima/dopo
+   con il bicchiere coperto al sole. Quattro callout (prima volta
+   costa di più; regola del meno 25-30%; durate fuori standard;
+   lezioni in più giorni + materie con altre strutture). Prima
+   lezione del progetto a usare `<LlmExercise variant="practice">`
+   per la sezione "Approfondisci per la tua disciplina". Ciclo di
+   revisione completo (`analyze-lesson` 10 domande +
+   `integrate-questions` con 10 modifiche tutte applicate + style-checker
+   IT e EN, 2026-05-16). Style-checker IT: OK senza fix richiesti.
+   Style-checker EN: OK con 7 fix di idiomaticità applicati ("makes
+   sense" splittato in due frasi, "decides whether" → "is what makes
+   it work", "experienced guess" → "educated guess", "of little use"
+   → "not much use", "Without explicit constraints" riposizionato,
+   "Under a microscope it collapses fast" → "Look closer and it
+   falls apart", "miraculously" rimosso).
 2. 🆕 **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
    Stessa nozione raccontata a pubblici diversi (per stile, non per
    livello). Cerniera fra preparazione e classe.
@@ -796,8 +813,8 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 0 su 9 pubblicate. Struttura definita, scrittura da
-iniziare.
+**Stato attuale**: 1 su 9 pubblicate. Lezione 1 live (IT + EN) con
+verifica dell'apprendimento e approfondimento per disciplina attivi.
 
 ## Modulo 6: Per chi vuole di più (livello `avanzato`)
 
@@ -891,12 +908,13 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: struttura validata 2026-05-16 in
-`docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`.
-Piano di implementazione in
+**Modulo 5 (Per docenti)**: 1 su 9 pubblicate (2026-05-16). Struttura
+validata in
+`docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
+piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 1, **Progettare una lezione**
-(`for-teachers/design-a-lesson`).
+bozza: lezione 2, **Spiegare in cinque modi diversi**
+(`for-teachers/explain-in-five-ways`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
