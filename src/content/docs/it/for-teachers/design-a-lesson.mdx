@@ -1,0 +1,348 @@
+---
+title: Progettare una lezione
+description: L'IA come collega di preparazione, non come sostituto in classe. Scaletta, critica della scaletta, materiali agganciati. Tre passaggi che ti restituiscono tempo.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation, draft-professional-documents]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- L'IA non sa cosa succede nella tua aula. Sa solo aiutarti prima e dopo: scaletta, materiali, verifica. In classe ci entri tu.
+- Tre passaggi che cambiano la qualità del lavoro: **scaletta in tre fasi** (obiettivo, gradazione, tempi), **critica della scaletta** prima di scrivere il materiale, **materiali agganciati** alla scaletta validata.
+- L'IA sovrastima quanto entra in 50 minuti. Regola operativa: somma i suoi tempi, togli il 25-30%.
+- Il pattern scala dalla singola lezione all'unità didattica, ma la voce in aula resta tua: niente lettura di scalette generate.
+
+</LessonSummary>
+
+Questo modulo non è il manuale dell'"IA che fa lezione al posto tuo".
+L'IA non sa cosa succede nella tua aula: chi è la classe, come
+reagisce a una domanda, quando un'attività di gruppo funziona e
+quando si sfilaccia. Quello lo sai tu. Il modulo ti aiuta a usare
+l'IA come collega di preparazione (scaletta, materiali, domande di
+verifica, comunicazioni delicate) e di critica (un secondo paio
+d'occhi su quello che hai già scritto). In classe ci entri tu, con
+la tua voce. Ci sono momenti in cui anche durante la lezione
+tirare fuori il cellulare e chiedere all'IA un'altra angolazione
+per uno studente che non ha capito ha senso, ed è una tecnica
+della prossima lezione: ma è uso *tattico*, non delega della
+lezione.
+
+:::tip[La prima volta costa di più]
+Le prime due o tre lezioni progettate con questo metodo ti
+prendono più tempo di quello che impiegavi a farle a mano. Dalla
+terza in avanti si rovescia: la scaletta esce in 20 minuti invece
+che in un'ora, e i materiali sono già rifiniti, non bozze. Il
+costo iniziale è di apprendimento del pattern, non del metodo in
+sé.
+:::
+
+## La scaletta in tre passaggi
+
+Per progettare una lezione singola, da 50 a 90 minuti, conviene
+chiedere all'IA tre cose in sequenza, non un blob "fammi una
+lezione su X". La sequenza ricalca il modo in cui ragioni a freddo
+sulla didattica: prima cosa, poi come, poi tempi.
+
+### 1. Obiettivo di apprendimento
+
+**Uno principale per lezione**, scritto con un verbo attivo:
+descrivere, applicare, distinguere, costruire, confrontare. Obiettivi
+secondari (uno o due) possono accompagnarlo, ma uno è centrale: è
+quello che decidi di verificare alla fine della lezione, ed è quello
+su cui costruisci la scaletta. Tre obiettivi tutti centrali in 60
+minuti è il segnale che la lezione è sovraccarica, non che è
+ambiziosa. Niente "conoscere" o "imparare" generici, sono troppo
+vaghi per misurare se la lezione ha funzionato.
+
+> *"Per una lezione di scienze in seconda media (60 minuti), aiutami
+> a scrivere un solo obiettivo di apprendimento sul ciclo dell'acqua.
+> Usa un verbo attivo della <Def explanation="Scala di sei livelli cognitivi: ricordare, comprendere, applicare, analizzare, valutare, creare. Aiuta a calibrare difficoltà di domande e attività.">tassonomia di Bloom</Def>. Proponimene tre alternative
+> con difficoltà crescente, per scegliere io."*
+
+Le tre alternative aiutano a calibrare. La più semplice ("descrivere
+le tre fasi del ciclo") ti dice che chiedi solo ricostruzione; la
+intermedia ("spiegare il ruolo del sole e della gravità") aggiunge
+causalità; la difficile ("prevedere cosa cambia in un ciclo con
+meno temperatura") chiede applicazione. Scegli la tua, in base alla
+classe specifica.
+
+Se nessuna delle tre alternative ti convince, è di solito un segnale
+che l'IA non ha capito il vincolo di classe. Rilancia con più
+dettagli: "questa classe ha già fatto X, fa fatica su Y, ha 50
+minuti effettivi non 60". Se invece le tre alternative ti sembrano
+tutte plausibili, scegli quella la cui riuscita riesci a *osservare*
+in 5 minuti di verifica formativa alla fine della lezione. Un
+obiettivo che non sai come misurare oggi è un obiettivo che non
+chiuderà la lezione.
+
+### 2. Gradazione degli stimoli
+
+Una volta scelto l'obiettivo, chiedi la struttura della lezione in
+fasi. Quattro fasi tipiche, con flessibilità:
+
+> *"Considera l'obiettivo scelto. Proponimi una struttura della
+> lezione in quattro fasi: apertura attivante, fase di scoperta o
+> spiegazione, applicazione guidata, sintesi. Per ogni fase: cosa
+> succede e cosa fa la classe (non cosa fa il docente). Niente
+> tempi ancora."*
+
+Il vincolo "cosa fa la classe" è importante. L'IA tende a scrivere
+piani didattici dal punto di vista del docente ("spiega il concetto
+di evaporazione") quando per la riuscita conta l'attività della
+classe ("gli studenti osservano un bicchiere d'acqua al sole e
+provano a spiegare cosa succede"). La differenza fra le due
+formulazioni decide se la lezione funziona.
+
+### 3. Tempi realistici
+
+Solo a questo punto chiedi i tempi. La separazione fra struttura e
+tempi non è formalismo: se chiedi entrambi insieme, l'IA tende a
+calare le attività dentro il tempo disponibile invece di calibrare
+il tempo sull'attività che hai validato. Risultato: scaletta che
+torna sulla carta ma in cui ogni fase è stretta del 30% rispetto a
+quello che richiede sul serio. Il prompt giusto, dopo la struttura
+validata, è semplice:
+
+> *"Sulla base della struttura validata, dammi una stima di durata
+> per ciascuna fase, totale 60 minuti. Considera che la classe ha
+> 24 studenti, livello medio, e che c'è bisogno di 5 minuti di
+> gestione classe all'apertura e altri 5 in chiusura."*
+
+L'output dell'IA su questo punto è sempre ottimista. Tre attività
+da 15 minuti l'una in 50 minuti suonano ragionevoli sulla carta,
+ma la realtà è che entri in classe in ritardo, la prima domanda
+prende il doppio del previsto, due studenti chiedono di andare in
+bagno nello stesso momento, e ti accorgi dieci minuti prima della
+campanella che non hai concluso la sintesi.
+
+:::tip[Regola del meno 25-30%]
+Somma i minuti che l'IA propone. Toglie il 25-30%. È il margine
+realistico per gestione classe, transizioni, domande non previste,
+piccoli inceppi tecnologici. Se l'IA propone 65 minuti per una
+lezione da 50, la lezione è già finita prima di cominciare; va
+tagliata, non compressa.
+
+Il 25-30% è una stima esperienziale, non un dato di laboratorio.
+Per classi piccole e già allenate al metodo può scendere al 15%;
+per classi grandi o agitate sale anche al 40%. Calibra sul tuo dopo
+due o tre lezioni, poi tiene.
+:::
+
+:::note[Durate fuori standard]
+Il pattern delle quattro fasi regge fino a una lezione di 90-100
+minuti. Oltre (ora tripla, laboratorio, modulo intensivo), non
+allungare le fasi: replica il ciclo. Una sessione di 3 ore tipica
+è due o tre cicli completi (attivante, scoperta, applicazione,
+sintesi parziale) più una sintesi finale che lega tutto. Per la
+compresenza, il primo passaggio cambia: chiedi all'IA chi guida
+ogni fase, poi i tempi.
+:::
+
+## Critica della scaletta prima dei materiali
+
+Hai una scaletta ragionevole. Non scrivere ancora il materiale
+(esercizi, slide, scheda di sintesi). Prima rimanda all'IA la
+scaletta intera e chiedile una critica.
+
+> *"Questa è la scaletta che ho costruito per una lezione di
+> scienze, seconda media, sul ciclo dell'acqua, 60 minuti. Falla a
+> pezzi: cosa manca, cosa è troppo, dove la classe può distrarsi o
+> perdere il filo, quale fase rischia di sforare. Niente
+> complimenti, sii diretta."*
+
+Senza il vincolo "falla a pezzi", l'IA ti risponde con una sfilza
+di "ottima impostazione, ben strutturata, considera anche di…": è
+poco utile. Il "niente complimenti" sblocca il giudizio critico,
+che è quello che ti serve adesso.
+
+La critica viene spesso fuori onesta. Tipici risultati: la fase di
+spiegazione è densa, la classe si perde a metà; l'esempio di
+apertura è troppo astratto per la fascia d'età; manca un momento
+di verifica formativa intermedia che ti dica se stai perdendo
+qualcuno; la sintesi finale è solo "ripasso", senza che gli
+studenti debbano elaborare niente.
+
+Non tutte le critiche dell'IA vanno accolte. Filtro pratico in due
+passaggi: prima tieni quelle che riconosci come problemi reali della
+tua classe (la "fase di spiegazione densa" è vera se sai che questa
+seconda media non regge 15 minuti di voce; non è vera se hai una
+quinta liceo motivata). Poi, fra quelle reali, tieni solo le due o
+tre più alte: lavorare su tutte mette in stallo. A quel punto torni
+sulla scaletta, la riscrivi in punti specifici, e *solo dopo* vai
+sui materiali.
+
+## Materiali agganciati alla scaletta validata
+
+Dopo la critica e la revisione, generi i materiali un pezzo alla
+volta, sempre incollando la scaletta validata nel prompt come
+riferimento.
+
+> *"Considerata la scaletta che ti ho appena dato: scrivi
+> l'esercizio di apertura, deve durare 5 minuti, lo studente lavora
+> da solo, output: una frase scritta. Coerente con l'obiettivo di
+> apprendimento della lezione."*
+
+Stesso pattern per la scheda di applicazione, la slide di sintesi,
+la mini-verifica formativa intermedia. Senza vincoli espliciti, l'IA
+non ti propone di default cose come "cosa ti aspetti come output
+dalla classe" o "nota di gestione classe": quel livello di dettaglio
+esce solo se lo chiedi, ed è quello che rende il materiale
+incollabile a 15 minuti dalla campanella. Vincoli sempre espliciti:
+durata, modalità (solo, coppia, gruppo), output atteso, coerenza
+con l'obiettivo.
+
+C'è una **regola di stop** importante: se durante la generazione
+dei materiali ti accorgi che la scaletta va cambiata (l'esercizio
+di apertura non riesce a sostenere 5 minuti, la fase di scoperta
+richiede materiali che non avevi previsto), torna sulla scaletta,
+non patchare il materiale. Tre materiali coerenti con una scaletta
+modificata battono cinque materiali coerenti con una scaletta
+sbagliata.
+
+## La differenza in pratica
+
+Docente di scienze, seconda media, lezione introduttiva sul ciclo
+dell'acqua, 60 minuti. Prima prova senza vincoli.
+
+<ChatDemo
+  user="Aiutami a progettare una lezione di scienze sul ciclo dell'acqua per la seconda media, 60 minuti."
+  ai={`Ecco una proposta di lezione:
+
+**Apertura (10 min)**: introduzione al concetto di ciclo dell'acqua con un'animazione video. Discussione in classe sulle preconoscenze degli studenti.
+
+**Spiegazione (25 min)**: presentazione delle quattro fasi (evaporazione, condensazione, precipitazione, raccolta). Per ogni fase: definizione, esempio, illustrazione.
+
+**Attività (15 min)**: gli studenti divisi in gruppi disegnano uno schema del ciclo dell'acqua.
+
+**Sintesi (10 min)**: ripasso delle fasi principali, domande dalla classe.
+
+Materiali consigliati: video introduttivo, slide con immagini delle quattro fasi, scheda per il disegno di gruppo.`}
+/>
+
+Sulla carta funziona. Sotto il microscopio cade subito. Venticinque
+minuti di spiegazione frontale a una seconda media sono troppi: la
+classe si stacca a metà. L'attività di gruppo (disegnare uno
+schema) è generica, non costringe gli studenti a usare l'obiettivo
+di apprendimento. La sintesi è solo ripasso, niente elaborazione.
+E i 60 minuti tornano per miracolo: nessuna gestione classe,
+nessuna transizione.
+
+Ora la stessa lezione progettata in tre passaggi con critica.
+
+<ChatDemo
+  user={`Ho seguito i tre passaggi per progettare la lezione (obiettivo, struttura, tempi) e ho ricevuto la critica. Riscrivo la scaletta tenendo conto della tua critica precedente. Te la rimando ora per generare i materiali.
+
+Scaletta validata (60 min totali, classe di 24 studenti, seconda media):
+- Apertura attivante (8 min): gli studenti osservano un bicchiere d'acqua coperto con un piatto al sole sulla cattedra, lasciato lì dall'intervallo. Devono spiegare per iscritto in due righe cosa vedono e cosa pensano stia succedendo.
+- Confronto in coppia (5 min): condividono la spiegazione col compagno di banco, scelgono la più convincente.
+- Fase di scoperta guidata (15 min): tre coppie a sorte espongono la spiegazione scelta. Il docente raccoglie le ipotesi alla lavagna, introduce i termini tecnici (evaporazione, condensazione) ancorandoli alle ipotesi degli studenti.
+- Verifica formativa intermedia (5 min): un quiz veloce di tre domande (carta o digitale) per vedere chi ha capito il legame fra calore e cambiamento di stato.
+- Applicazione (15 min): la classe estende il modello al ciclo completo, lavorando in gruppi di quattro su una scheda che chiede di disegnare e annotare il ciclo per una pozzanghera al sole, dall'inizio alla fine.
+- Sintesi (7 min): un gruppo presenta, la classe completa le parti mancanti, il docente chiude con la domanda da casa.
+- Margine: 5 min di gestione classe distribuiti.
+
+Generami ora l'esercizio dell'apertura attivante. 8 minuti, lavoro individuale, output: due righe scritte sul quaderno. Coerente con l'obiettivo "spiegare il ruolo del sole nel cambiamento di stato dell'acqua".`}
+  ai={`**Apertura attivante: il bicchiere sul davanzale**
+
+*Materiale*: un bicchiere trasparente con due dita d'acqua, coperto da un piattino. È sulla cattedra da 30-40 minuti, esposto al sole della finestra.
+
+*Consegna per gli studenti* (da scrivere alla lavagna o proiettare):
+"Guarda bene il bicchiere coperto. Senza alzarti, in due righe sul quaderno: 1) cosa vedi di diverso dentro al bicchiere rispetto a prima; 2) come provi a spiegarlo, anche se non hai una risposta scientifica."
+
+*Tempo*: 8 minuti (2 di osservazione silenziosa, 6 di scrittura). Nessun aiuto, nessuna correzione in questa fase.
+
+*Cosa ti aspetti come output dalla classe*: molti diranno "c'è acqua sul piattino" e proveranno spiegazioni del tipo "è uscita dal bicchiere", "è caduta dal piattino", "è il bicchiere che suda". Alcuni nomineranno il sole o il calore. Questo è esattamente il materiale che ti serve per la fase successiva: ipotesi grezze da raccogliere e ancorare ai termini tecnici.
+
+*Nota di gestione classe*: tieni il bicchiere coperto in un punto visibile a tutti senza che debbano alzarsi. Se la classe è agitata, leggi tu la consegna ad alta voce dopo averla scritta, una sola volta.`}
+/>
+
+La differenza non è di lunghezza, è di aderenza. Ogni minuto è
+ancorato a un'attività concreta, ogni attività è ancorata
+all'obiettivo, e il materiale prodotto non è generico ("disegnano
+uno schema del ciclo dell'acqua") ma calato sulla scaletta reale.
+
+## Progettare non è ghostwriting
+
+La voce del docente in aula deve restare la sua. Una scaletta
+"incollabile" che suona da piano didattico standard è un segnale
+che hai delegato troppo: rileggi e riscrivi a mano nei punti che
+contano davanti alla classe (il gancio iniziale, l'esempio
+narrato, la battuta che spezza il ritmo, la domanda con cui
+chiudi). La scaletta è il telaio, non il testo della lezione.
+
+Indizio pratico: se rileggendo la scaletta non senti la tua voce,
+ma una voce neutra da manuale, è da rilavorare. Spesso bastano
+piccoli interventi (sostituire un esempio con uno tuo, riscrivere
+una consegna con la formulazione che usi di solito, togliere un
+giro di parole che non diresti mai a voce).
+
+:::note[Lezioni in più giorni, materie con altre strutture]
+Il pattern scala da una singola lezione a un'unità didattica di
+quattro o sei lezioni se chiedi all'IA di trattare la scaletta come
+"lezione 1 di 4 su un'unità su X", poi iteri per le successive. Il
+vincolo da dare in apertura è quello che gli studenti devono saper
+fare alla fine dell'unità completa, non della singola lezione. Poi
+distribuisci. Tienile in una **chat sola** per tutta l'unità: il
+contesto delle lezioni precedenti aiuta l'IA a non ripetersi e a
+gradare. Se la chat diventa troppo lunga, riassumi all'inizio di
+una nuova quello che è stato deciso fino a quel punto.
+
+La struttura "apertura attivante, scoperta, applicazione, sintesi"
+è tipica ma non universale. Per musica, educazione fisica, arte,
+laboratori, esercitazioni cliniche le sequenze sono diverse
+(esempio: riscaldamento, tecnica, applicazione/gioco per ginnastica).
+Sostituisci le fasi standard con le tue al passaggio 2 della
+scaletta: il principio "cosa fa la classe in ogni fase" resta.
+:::
+
+## Cosa NON fare
+
+**Non chiedere "fammi la lezione" senza scaletta.** L'IA produce
+un blob denso, scritto in voce neutra, incollabile in classe ma
+inutile in pratica. La sequenza obiettivo-struttura-tempi non è
+una formalità: è quello che ti rende riusabile l'output.
+
+**Non incollare nel chat dati personali degli studenti.** Se nella
+preparazione fai esempi che chiamano in causa un alunno specifico
+("Marco fa fatica con i grafici, come posso strutturare la fase di
+applicazione perché non si perda?"), togli il nome. La privacy dei
+minori è uno snodo proprio, ne parla la lezione finale del modulo,
+[*Etica del docente*](/it/for-teachers/ethics-of-teaching/).
+
+**Non leggere ad alta voce in aula quello che ha scritto l'IA.** Le
+frasi dell'IA hanno un ritmo riconoscibile, anche quando il
+contenuto è giusto. In classe quel ritmo suona finto. Rielabora a
+voce, fa parte del lavoro.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-design-a-lesson.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista su disciplina, livello, classe e lezione che stai preparando, poi applica i tre passaggi al tuo caso specifico."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-design-a-lesson.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Una buona scaletta presuppone di poter spiegare la stessa cosa in
+più modi diversi, quando un solo modo non basta. La prossima
+lezione prende in mano questo lavoro: cinque versioni della stessa
+nozione, da usare in preparazione e quando uno studente non capisce
+dopo la spiegazione standard.

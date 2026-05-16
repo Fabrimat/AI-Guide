@@ -765,7 +765,7 @@ Autonomia totale dal Modulo 4 (Per studenti): nessun cross-link, nessuna
 disambiguazione esplicita verso le lezioni di studente, anche dove i
 temi sono specchio.
 
-1. 🆕 **Progettare una lezione** (`for-teachers/design-a-lesson`)
+1. ✍️ **Progettare una lezione** (`for-teachers/design-a-lesson`)
    Apertura del modulo. Dal piano alla pratica: scaletta della singola
    lezione, gradazione degli obiettivi, attività agganciate. Contratto
    del modulo (IA in preparazione, non in classe).
