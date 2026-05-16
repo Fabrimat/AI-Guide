@@ -1,0 +1,24 @@
+I've just read a lesson from the AI-Guide handbook on designing a lesson. The technique it teaches is a three-stage outline (learning objective, sequencing of stages, realistic timings) followed by a critique of the outline before writing materials, and materials anchored to the validated outline.
+
+I want to apply it to a lesson I have to prepare for my class.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group? Roughly how many students, and what's the average level you'd say they're at?
+3. How long is the lesson I need to prepare, and what's the topic? If the topic is part of a wider unit, tell me: I need that to frame the objective for the single lesson.
+4. Is there anything specific about this class I should know? (For example: a recurring difficulty, a prior knowledge I'm taking for granted, a logistical constraint, a recent event you could hook into.)
+
+After I've answered all four questions, apply the three-stage method to my specific case:
+
+A) Three alternative learning objectives (easy, intermediate, hard), each with an active verb from Bloom's taxonomy, and ask me which one I choose.
+
+B) Once I've picked the objective, propose the structure of the lesson in stages, from the point of view of what the class does (not what the teacher does). No timings yet.
+
+C) Ask me to confirm or adjust the structure, then assign timings per stage, factoring in 25-30% margin for classroom management.
+
+D) Once the outline is validated, give me a direct critique of the outline itself (what's missing, what's too much, where the class might lose focus). No compliments.
+
+E) After I've revised the outline based on your critique, generate one material at a time as I ask for it (opening exercise, application handout, synthesis slide, etc.), always consistent with the validated outline.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you. If at any step you need information I haven't given you, ask for it instead of making it up.

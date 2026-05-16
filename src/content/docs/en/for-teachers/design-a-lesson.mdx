@@ -1,0 +1,343 @@
+---
+title: Design a lesson
+description: AI as a prep colleague, not a classroom replacement. Outline, critique of the outline, materials anchored to it. Three steps that give you time back.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation, draft-professional-documents]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import Def from '../../../../components/Def.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- AI doesn't know what happens in your classroom. It can only help before and after: outline, materials, assessment. You walk in.
+- Three steps that change the quality of the work: **a three-stage outline** (objective, sequencing, timings), **critique of the outline** before writing materials, **materials anchored** to the validated outline.
+- AI overestimates how much fits in 50 minutes. Working rule: sum its timings, then subtract 25 to 30 percent.
+- The pattern scales from a single lesson to a full unit, but your voice in class stays yours: no reading out AI-generated outlines.
+
+</LessonSummary>
+
+This module isn't the "AI that teaches the lesson for you" manual.
+AI doesn't know what happens in your classroom: who the class is,
+how it reacts to a question, when group work flies and when it
+falls apart. That part is yours. The module helps you use AI as a
+prep colleague (outline, materials, assessment questions, sensitive
+emails) and as a critic (a second pair of eyes on what you've
+already written). You walk into class, with your voice. Sometimes it makes sense to
+pull out your phone during the lesson and ask AI for another
+angle for a student who didn't get it, and that's a technique
+covered in the next lesson: but it's *tactical* use, not
+delegation of the lesson itself.
+
+:::tip[The first time costs more]
+The first two or three lessons you design with this method take
+longer than doing them by hand. From the third onwards it flips:
+the outline comes out in 20 minutes instead of an hour, and the
+materials are polished, not drafts. The upfront cost is learning
+the pattern, not the method itself.
+:::
+
+## The three-stage outline
+
+For a single lesson of 50 to 90 minutes, ask the AI for three
+things in sequence, not one blob "make me a lesson on X". The
+sequence mirrors how you think about teaching when you're not in a
+rush: first what, then how, then timings.
+
+### 1. Learning objective
+
+**One main objective per lesson**, written with an active verb:
+describe, apply, distinguish, build, compare. Secondary objectives
+(one or two) can accompany it, but one is central: it's the one
+you decide to check at the end of the lesson, and it's the one
+the outline is built on. Three equally central objectives in 60
+minutes is a sign the lesson is overloaded, not ambitious. No
+generic "know" or "learn": too vague to measure whether the
+lesson worked.
+
+> *"For a science lesson with a class of around 12-year-olds (60
+> minutes), help me write a single learning objective on the
+> water cycle. Use an active verb from <Def explanation="A six-level scale of cognitive skills: remember, understand, apply, analyze, evaluate, create. Useful for calibrating the difficulty of questions and activities.">Bloom's taxonomy</Def>. Give me three
+> alternatives with increasing difficulty, so I can choose."*
+
+Three alternatives help calibration. The simplest ("describe the
+three stages of the cycle") only asks for recall; the middle one
+("explain the role of the sun and gravity") adds causality; the
+hardest ("predict what changes in a cycle with less heat") asks
+for application. Pick yours, based on the specific class.
+
+If none of the three alternatives convinces you, usually it means
+the AI hasn't picked up the class constraint. Reload with more
+detail: "this class has already covered X, struggles with Y, has
+50 effective minutes not 60." If instead all three feel
+plausible, pick the one whose success you can *observe* in five
+minutes of formative check at the end of the lesson. An objective
+you can't measure today is an objective that won't close the
+lesson.
+
+### 2. Sequencing
+
+Once you've picked the objective, ask for the structure of the
+lesson in stages. Four typical stages, with flexibility:
+
+> *"Consider the objective I chose. Propose a four-stage
+> structure: activating opener, discovery or explanation,
+> guided application, synthesis. For each stage: what happens
+> and what the class does (not what the teacher does). No
+> timings yet."*
+
+The constraint "what the class does" matters. AI tends to write
+teaching plans from the teacher's point of view ("explain the
+concept of evaporation") when what makes the lesson work is what
+the class is doing ("students observe a glass of water in the sun
+and try to explain what's happening"). The difference between the
+two formulations is what makes the lesson work.
+
+### 3. Realistic timings
+
+Only at this point do you ask for timings. Splitting structure
+and timings isn't busywork: if you ask for both together, the AI
+tends to cram activities into the available time instead of
+calibrating time to the activity you validated. The result is an
+outline that looks fine on paper but where every stage is squeezed
+30% tighter than it actually needs. The right prompt, once the
+structure is validated, is simple:
+
+> *"Based on the validated structure, give me a duration estimate
+> for each stage, 60 minutes total. The class has 24 students,
+> mixed ability, and you should factor in 5 minutes of classroom
+> management at the start and another 5 at the end."*
+
+The AI's output here is always optimistic. Three 15-minute
+activities in 50 minutes look reasonable on paper, but the reality
+is you walk in late, the first question takes twice as long as
+planned, two students ask to go to the bathroom at the same
+moment, and ten minutes before the bell you realize you haven't
+gotten to the synthesis.
+
+:::tip[The minus 25-30% rule]
+Sum the minutes the AI proposes. Subtract 25 to 30 percent. That's
+the realistic margin for classroom management, transitions,
+unplanned questions, small tech hiccups. If the AI proposes 65
+minutes for a 50-minute lesson, the lesson is over before it
+starts; it needs cutting, not compressing.
+
+The 25 to 30 percent isn't a lab measurement, it's an educated
+guess. For small, well-trained classes it can drop to 15%; for
+big or restless classes it rises to 40%. Calibrate to yours after
+two or three lessons, then it holds.
+:::
+
+:::note[Lessons outside standard durations]
+The four-stage pattern works up to a 90-100 minute lesson. Beyond
+that (triple period, lab, intensive module), don't stretch the
+stages: replicate the cycle. A typical 3-hour session is two or
+three full cycles (activating, discovery, application, partial
+synthesis) plus a final synthesis that ties it all together. For
+co-taught sessions, the first step changes: ask the AI who leads
+each stage, then ask for timings.
+:::
+
+## Critique the outline before the materials
+
+You have a reasonable outline. Don't write materials yet
+(exercises, slides, summary handouts). First, send the outline
+back to the AI and ask for a critique.
+
+> *"This is the outline I've built for a science lesson, class of
+> 12-year-olds, water cycle, 60 minutes. Tear it apart: what's
+> missing, what's too much, where the class might lose focus,
+> which stage risks running over. No compliments, be direct."*
+
+Without the "tear it apart" instruction, AI replies with a string
+of "great structure, well laid out, you could also consider…":
+not much use. "No compliments" unblocks the critical judgment,
+which is what you need now.
+
+The critique often comes out honest. Typical findings: the
+explanation stage is too dense, the class loses focus mid-way;
+the opening example is too abstract for the age group; there's no
+intermediate formative check telling you whether you're losing
+anyone; the final synthesis is just "review", with no elaboration
+demanded of the students.
+
+Not every AI critique deserves to be taken on. Practical filter,
+two passes: first keep the ones you recognize as real problems
+for your class (the "dense explanation stage" is true if you know
+this class can't hold 15 minutes of teacher talk; it isn't if you
+have a motivated senior group). Then, among the real ones, keep
+only the top two or three: working on all of them stalls you. At
+that point you go back to the outline, rewrite it in specific
+spots, and *only then* move on to the materials.
+
+## Materials anchored to the validated outline
+
+After the critique and the revision, you generate materials one
+at a time, always pasting the validated outline into the prompt
+as a reference.
+
+> *"Given the outline I just gave you: write the opening
+> exercise, it has to last 5 minutes, the student works alone,
+> output: one written sentence. Consistent with the lesson's
+> learning objective."*
+
+Same pattern for the application handout, the synthesis slide,
+the mini formative check. By default, without explicit
+constraints, the AI doesn't propose things like "what to expect
+as output from the class" or "a classroom-management note": that
+level of detail only comes out if you ask for it, and that's what
+makes a material usable 15 minutes before the bell. Always make
+constraints explicit: duration, mode (alone, pair, group),
+expected output, consistency with the objective.
+
+There's an important **stop rule**: if while generating materials
+you notice the outline needs to change (the opening exercise
+can't actually fill 5 minutes, the discovery stage needs
+materials you hadn't planned), go back to the outline, don't
+patch the material. Three materials consistent with a revised
+outline beat five materials consistent with a broken one.
+
+## The difference in practice
+
+Science teacher, class of 12-year-olds, introductory lesson on
+the water cycle, 60 minutes. First try, no constraints.
+
+<ChatDemo
+  user="Help me design a science lesson on the water cycle for a class of 12-year-olds, 60 minutes."
+  ai={`Here's a proposed lesson:
+
+**Opening (10 min)**: introduction to the water cycle using a short video animation. Class discussion of students' prior knowledge.
+
+**Explanation (25 min)**: presentation of the four phases (evaporation, condensation, precipitation, collection). For each phase: definition, example, illustration.
+
+**Activity (15 min)**: students in groups draw a diagram of the water cycle.
+
+**Synthesis (10 min)**: review of the main phases, questions from the class.
+
+Recommended materials: introductory video, slides with images of the four phases, handout for the group drawing.`}
+/>
+
+On paper it works. Look closer and it falls apart.
+Twenty-five minutes of frontal explanation to 12-year-olds is too
+much: the class tunes out halfway through. The group activity
+(drawing a diagram) is generic; it doesn't force students to use
+the learning objective. The synthesis is review only, no
+elaboration. And the 60 minutes add up perfectly: no
+classroom management, no transitions.
+
+Now the same lesson, designed in three stages with critique.
+
+<ChatDemo
+  user={`I followed the three steps to design the lesson (objective, structure, timings) and got the critique back. I'm rewriting the outline based on your critique. I'm sending it to you now to generate the materials.
+
+Validated outline (60 min total, class of 24 students, 12-year-olds):
+- Activating opener (8 min): students observe a glass of water covered with a plate placed in the sun on the desk since the break. They have to explain in writing, in two lines, what they see and what they think is happening.
+- Pair check (5 min): they share their explanation with their deskmate, pick the more convincing one.
+- Guided discovery (15 min): three pairs at random present their chosen explanation. The teacher gathers hypotheses on the board, introduces the technical terms (evaporation, condensation) anchoring them to the students' guesses.
+- Intermediate formative check (5 min): quick three-question quiz (paper or digital) to see who has grasped the link between heat and change of state.
+- Application (15 min): the class extends the model to the full cycle, working in groups of four on a worksheet asking to draw and annotate the cycle for a puddle in the sun, from start to end.
+- Synthesis (7 min): one group presents, the class fills in the missing pieces, the teacher closes with the homework question.
+- Buffer: 5 min of classroom management spread across the lesson.
+
+Now generate the opening exercise. 8 minutes, individual work, output: two written lines on the notebook. Consistent with the objective "explain the role of the sun in the water's change of state."`}
+  ai={`**Activating opener: the glass on the windowsill**
+
+*Material*: a transparent glass with two fingers of water, covered by a small plate. It's been sitting on the desk for 30-40 minutes, in the sun coming through the window.
+
+*Instruction for students* (write on the board or project):
+"Look closely at the covered glass. Without leaving your seat, in two lines on your notebook: 1) what you see different inside the glass compared to before; 2) how you try to explain it, even if you don't have a scientific answer."
+
+*Time*: 8 minutes (2 of silent observation, 6 of writing). No help, no correction at this stage.
+
+*What to expect as output from the class*: many will say "there's water on the plate" and try explanations like "it came out of the glass", "it dripped off the plate", "the glass is sweating". A few will mention the sun or heat. This is exactly the material you need for the next stage: raw hypotheses to collect and anchor to the technical terms.
+
+*Classroom-management note*: keep the covered glass in a spot visible to everyone without students having to get up. If the class is restless, read the instruction out loud yourself after writing it, just once.`}
+/>
+
+The difference isn't length, it's anchoring. Every minute is tied
+to a concrete activity, every activity is tied to the objective,
+and the material produced isn't generic ("they draw a diagram of
+the water cycle") but specific to the actual outline.
+
+## Designing isn't ghostwriting
+
+Your voice in class needs to stay yours. An outline that "reads
+copied", that sounds like a standard teaching plan, is a sign
+you've delegated too much: reread and rewrite by hand at the
+spots that count in front of the class (the opening hook, the
+example you narrate, the joke that breaks the rhythm, the
+question you close on). The outline is the frame, not the lesson
+script.
+
+Practical check: if you can't hear your own voice when you reread
+the outline, but a neutral textbook voice instead, it needs more
+work. Often small interventions are enough (swap an example for
+one of yours, rewrite an instruction with the wording you usually
+use, drop a turn of phrase you'd never say out loud).
+
+:::note[Multi-day lessons, subjects with other structures]
+The pattern scales from a single lesson to a four- or six-lesson
+unit if you ask the AI to treat the outline as "lesson 1 of 4 in
+a unit on X", then iterate for the next ones. The constraint to
+set at the start is what students should be able to do at the
+*end of the whole unit*, not the single lesson. Then distribute.
+Keep them in a **single chat** for the whole unit: context from
+previous lessons helps the AI avoid repetition and grade
+progression. If the chat gets too long, summarize at the start of
+a new one what's been decided so far.
+
+The "activating opener, discovery, application, synthesis"
+structure is typical but not universal. For music, P.E., art,
+labs, clinical practice, the sequences are different (example:
+warm-up, technique, application or game for P.E.). Swap the
+standard stages for yours at step 2 of the outline: the
+principle "what does the class do at each stage" stays.
+:::
+
+## What NOT to do
+
+**Don't ask "make me the lesson" without an outline.** AI produces
+a dense blob, written in a neutral voice, pasteable into class but
+useless in practice. The objective-structure-timings sequence
+isn't a formality: it's what makes the output reusable.
+
+**Don't paste students' personal data into the chat.** If during
+prep you make examples involving a specific student ("Marco
+struggles with charts, how can I structure the application stage
+so he doesn't get lost?"), drop the name. The privacy of minors
+is its own topic and is covered by the closing lesson of this
+module, [*Ethics of teaching*](/en/for-teachers/ethics-of-teaching/).
+
+**Don't read out loud in class what the AI wrote.** AI sentences
+have a recognizable rhythm, even when the content is correct. In
+class, that rhythm sounds fake. Rework them in your own voice;
+that's part of the work.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-design-a-lesson.txt"
+  duration="10-15 min"
+  description="The AI interviews you on subject, level, class, and the lesson you're preparing, then applies the three steps to your specific case."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-design-a-lesson.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+A good outline assumes you can explain the same thing in several
+different ways, when one isn't enough. The next lesson takes that
+on: five versions of the same idea, to use in prep and when a
+student doesn't get it after the standard explanation.

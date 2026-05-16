@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Design a lesson" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the three-stage outline is not "make me a lesson on X". What are the three steps in the right order, and why does the order matter? What changes if you ask for the timings before the structure?
+
+Question 2: after writing the outline, there's a "critique of the outline" step that comes before generating the materials. Why does it come before the materials, and what changes in the prompt that makes the critique actually useful instead of a yes-man reply?
+
+Question 3: AI tends to be optimistic about timings. The lesson gives a working rule to bring timings back to classroom reality. Which one, and why does it work better than simply asking the AI to "be stricter with your estimates"?
+
+Question 4: think of a lesson you'll need to prepare in the next few days (subject, class, duration, topic). Out loud, without using the AI, try drafting the first prompt you'd write for step 1 of the outline (the learning objective). I'll look at it and suggest one improvement.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
