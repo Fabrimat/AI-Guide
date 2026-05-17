@@ -1,0 +1,295 @@
+---
+title: Spiegare in cinque modi diversi
+description: La stessa nozione raccontata con cinque registri diversi. Si usa in preparazione, ma serve anche in classe quando la spiegazione standard non aggancia.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation, learn-something-new]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Una buona spiegazione non è una. Cinque versioni della stessa idea coprono la maggior parte dei modi in cui i ragazzi imparano.
+- Le cinque: **analogia quotidiana**, **registro tecnico**, **modalità visiva**, **narrazione storica**, **piccola attività pratica**. Si chiedono tutte insieme in un unico turno.
+- Si sceglie a freddo: 2-3 versioni che parlano *a questa classe*, non tutte e cinque.
+- Funziona anche al volo: quando uno studente non aggancia, chiedi all'IA un'altra angolazione dal tablet e la rielabori tu in voce.
+- È differenziazione **per stile**, non per livello. La differenziazione per livello (consolidamento / standard / approfondimento) è la prossima lezione.
+
+</LessonSummary>
+
+In aula non hai una mente sola davanti, ne hai venti. Ognuna
+aggancia la realtà da un punto diverso: chi capisce dall'esempio
+quotidiano, chi dalla definizione formale, chi dalla figura, chi
+dalla storia, chi solo dopo aver toccato la cosa con mano. La
+spiegazione standard, quella che il manuale propone, ne intercetta
+forse la metà. Per il resto serve preparare versioni alternative
+*prima* della lezione, e averne una di scorta *durante* la lezione
+quando vedi qualcuno staccarsi.
+
+L'IA fa questo lavoro in pochi minuti, se sai cosa chiederle.
+
+## Le cinque versioni
+
+Le cinque coprono cinque modi diversi di entrare in un concetto.
+Non sono cinque livelli: sono cinque porte. Ciascuna funziona per
+una parte della classe.
+
+1. **Analogia quotidiana**: collega il concetto a un oggetto, a
+   una situazione, a un gesto che tutti conoscono. La corrente
+   elettrica come acqua in un tubo, l'entropia come una stanza che
+   si disordina da sola, la sintassi della frase come la sintassi
+   di una ricetta.
+2. **Registro tecnico**: la definizione formale, con la
+   terminologia corretta, gli assi logici espliciti. È quello che
+   l'esame chiede e che il prof si aspetta di sentire alla
+   verifica. Funziona per chi capisce dalle parole esatte e
+   dall'ordine logico.
+3. **Modalità visiva**: schema, diagramma, mappa concettuale,
+   timeline. Per chi capisce meglio quando vede la struttura
+   piuttosto che ascoltarne il racconto. Spesso è la modalità più
+   sottostimata dai docenti che insegnano "a voce".
+4. **Narrazione storica**: come ci si è arrivati. Chi ha capito
+   per primo, in che ordine, perché era importante, cosa è cambiato
+   dopo. Per chi ricorda meglio dalle storie che dalle definizioni
+   astratte.
+5. **Piccola attività pratica**: un mini-esperimento, una
+   simulazione, una manipolazione fisica, un quiz interattivo.
+   Durata tipica fra 10 e 20 minuti, va prevista nella scaletta
+   della lezione. Per chi capisce solo dopo aver toccato (in senso
+   letterale o quasi) la cosa di cui parlate.
+
+La modalità visiva e l'attività pratica si toccano ma non
+coincidono: la visiva è **ricezione** (lo studente guarda lo
+schema e ricostruisce la struttura), la pratica è **azione** (lo
+studente fa qualcosa e dalla cosa fatta ricava il concetto). Un
+diagramma del ciclo dell'acqua proiettato sulla lavagna è visiva;
+gli studenti che fanno evaporare l'acqua su una piastra è pratica.
+
+Il pattern è chiedere all'IA **tutte e cinque insieme**, sullo
+stesso concetto, in un unico turno. Una alla volta dà l'illusione
+di più qualità ma costa il doppio del tempo e perde il
+*confronto*: il valore vero è vedere le cinque affiancate e capire
+al colpo d'occhio quale apre la classe e quale no. Poi le rileggi
+a freddo, e scegli le due o tre che parlano alla classe che hai
+di fronte.
+
+Il check rapido per scegliere: per ciascuna versione chiediti
+"questa classe ha già il vocabolario per agganciarla?". L'analogia
+quotidiana funziona se i ragazzi conoscono *l'analogia* (un'analogia
+con l'agricoltura su una classe di periferia urbana non aggancia).
+Il registro tecnico funziona se hai già introdotto il lessico della
+disciplina nelle lezioni precedenti. La narrazione storica funziona
+se hai 5 minuti di margine: senza margine cade. La modalità visiva
+è quasi sempre tenibile, l'attività pratica costa 10-20 minuti di
+lezione e va prevista nella scaletta.
+
+> *"Per una classe di terza superiore (16-17 anni), in matematica,
+> devo introdurre il concetto di funzione inversa. Generami cinque
+> versioni della stessa spiegazione, una per ciascun registro:
+> analogia quotidiana, registro tecnico, modalità visiva
+> (descrivimi lo schema con parole, lo disegnerò io alla lavagna),
+> narrazione storica, piccola attività pratica. Ogni versione max
+> 80 parole. Non scegliere tu, sono io che scelgo dopo."*
+
+I vincoli "max 80 parole" e "non scegliere tu" sono importanti.
+Senza il limite di parole, l'IA tende a scrivere mini-saggi su
+ciascuna versione e tu non puoi confrontarle a colpo d'occhio.
+Senza il "non scegliere tu", l'IA chiude con "tra queste, ti
+consiglierei la versione 2 perché…": è esattamente la scelta che
+serve fare tu, conoscendo la classe.
+
+## La differenza in pratica
+
+Docente di matematica, terza superiore, deve introdurre le
+funzioni inverse. Cinque versioni in un turno.
+
+<ChatDemo
+  user={`Per una classe di terza superiore in matematica devo introdurre il concetto di funzione inversa. Generami cinque versioni della stessa spiegazione, una per registro: analogia quotidiana, tecnica, visiva (descrivimi lo schema con parole), narrativa storica, attività pratica. Ogni versione max 80 parole.`}
+  ai={`**1. Analogia quotidiana**
+Pensa al tasto "annulla" del telefono. Se l'azione X ti porta dallo stato A allo stato B, l'azione che ti riporta da B ad A è la sua inversa. Aprire un file ha come inversa chiuderlo, allacciare una scarpa ha come inversa slacciarla. Non tutte le azioni hanno un'inversa pulita: "rompere un vaso" no. Le funzioni matematiche sono come queste azioni: alcune si possono annullare con un'altra funzione, altre no.
+
+**2. Registro tecnico**
+Data una funzione *f*: A → B, la sua inversa *f⁻¹*: B → A esiste se e solo se *f* è biettiva (iniettiva e suriettiva). Vale la condizione: *f⁻¹(f(x)) = x* per ogni x in A, e *f(f⁻¹(y)) = y* per ogni y in B. Graficamente, l'inversa è il riflesso di *f* rispetto alla retta *y = x*. Per costruirla algebricamente: scrivi *y = f(x)*, scambia *x* e *y*, risolvi per *y*.
+
+**3. Modalità visiva**
+Disegna assi cartesiani. Traccia una funzione qualunque, per esempio *f(x) = 2x + 1*, una retta che attraversa gli assi. Poi traccia la retta *y = x* (diagonale a 45°, tratteggiata). La funzione inversa è il "fantasma" di *f* riflesso rispetto a questa diagonale: ogni punto (a, b) di *f* diventa (b, a) sull'inversa. Se ribalti il foglio lungo la diagonale, le due si sovrappongono.
+
+**4. Narrazione storica**
+Il concetto matura nel Seicento, con Newton e Leibniz, ma in forma di "operazione che annulla". Newton lavora sui flussi (l'integrazione come inversa della derivazione). Solo nell'Ottocento, con Cauchy e poi Dirichlet, si arriva alla definizione moderna di funzione e quindi al concetto pulito di inversa. La domanda "una funzione è invertibile?" diventa centrale: non basta scriverla, devi controllare se "torna indietro".
+
+**5. Piccola attività pratica**
+Distribuisci coppie di numeri (x, y) da una funzione semplice, per esempio f(x) = x + 3 → (1,4), (2,5), (3,6). A coppie, gli studenti devono trovare la regola che porta da y a x. Poi tu chiedi: "scrivete la funzione che fa questo lavoro". Per finire, prova con f(x) = x² applicata a (-2, 4) e (2, 4): cosa succede? L'inversa lì non funziona pulita. Perché?`}
+/>
+
+Le cinque versioni sono ora sul tavolo. La scelta è del docente,
+in base alla classe: in una classe forte in algebra ma con poco
+intuito geometrico, le versioni 2 e 3 fanno il lavoro; in una
+classe meno tecnica ma curiosa, la 1 e la 5 aprono la lezione e
+la 2 chiude alla fine. La 4 (storica) si tiene come piccola
+divagazione di cinque minuti, da fare se la classe risponde bene
+sulle prime due.
+
+L'errore tipico è usarle *tutte e cinque* nella stessa lezione:
+non è differenziazione, è confusione. Le porte sono cinque
+perché la classe è varia, non perché tu debba aprirne cinque ogni
+volta.
+
+:::note[Vale anche per le materie senza formule]
+L'esempio sopra è matematico ma il pattern regge in letteratura,
+filosofia, storia dell'arte, lingue. La voce 2 "registro tecnico"
+si traduce nel lessico critico della disciplina: per un sonetto di
+Foscolo è la metrica e le figure retoriche; per un quadro è
+composizione, prospettiva, luce. La voce 4 "narrazione storica"
+quasi sempre c'è già nel manuale, e l'IA la riformula calibrandola.
+Le voci 1, 3, 5 funzionano identiche.
+:::
+
+:::tip[Modalità visiva senza skill di disegno]
+Se la modalità visiva richiede un diagramma e non hai tempo o
+mano ferma, hai due opzioni. La prima: chiedi all'IA di
+descrivertelo a parole (come fa l'IA al punto 3 del ChatDemo sulle
+funzioni inverse), e lo ricopi alla
+lavagna in 30 secondi (è quasi sempre fattibile). La seconda:
+generi una versione ASCII semplice direttamente in chat e la
+proietti, niente disegno da fare. Evita di chiedere all'IA di
+generare un'immagine vera con grafica complessa: nove volte su
+dieci esce una cosa che sembra giusta ma ha errori (assi
+sbagliati, etichette nei punti sbagliati, nomi inventati). La
+lavagna del docente sui temi tecnici resta più affidabile.
+:::
+
+## On the fly: quando uno studente non aggancia
+
+Hai spiegato il concetto con la versione che hai scelto. Tre
+segnali ti dicono se sta funzionando o no, prima della verifica
+formativa: gli **sguardi** (chi guarda altrove, chi guarda fuori
+dalla finestra, chi guarda il banco invece della lavagna è uno
+staccato), le **domande di applicazione veloce** (chiedi "fammi
+un esempio tuo di X" a due studenti a sorte: se inciampano, la
+versione non sta passando), le **mani che si alzano spontaneamente**
+(zero mani su una classe ricettiva di solito significa imbarazzo,
+non comprensione). Se i segnali sono negativi, ti serve
+**un'altra angolazione, subito**, non un quarto d'ora di
+rielaborazione.
+
+Pattern operativo, in 60 secondi:
+
+1. Tieni un tablet o cellulare in cattedra, con una chat IA già
+   aperta. Per i prof che usano sempre lo stesso strumento (Claude
+   Projects, ChatGPT Custom GPTs, Gemini Gems), avere un "progetto
+   docente" pre-impostato con istruzioni standard fa risparmiare i
+   primi 30 secondi.
+2. Digiti veloce: "concetto X, classe non ha agganciato con la
+   versione [tecnica/visiva/eccetera]. Dammi un'altra angolazione
+   in 3 frasi, registro [analogico/visivo/narrativo]".
+3. Leggi quello che esce, lo *traduci in voce tua* (non leggi
+   parola per parola), e torni alla lavagna o agli studenti.
+
+:::tip[Cosa metti in un "progetto docente"]
+Un Claude Project, Custom GPT o Gemini Gem pre-impostato ti
+risparmia i primi 30 secondi. Istruzioni utili da inserirci:
+disciplina insegnata, livello scolastico tipico, principio
+"rispondi in massimo 3 frasi, registro orale parlato in classe,
+niente bullet, niente preamboli, una sola angolazione per turno".
+Un file di "lessico della classe" (i termini che hai già introdotto)
+aiuta a calibrare. Più piccolo e mirato è il progetto, più
+risponde rapido nello stile giusto.
+:::
+
+:::note[Se in classe non puoi tirare fuori il telefono]
+Alcune scuole vietano cellulari e tablet al docente in aula, o la
+connettività è scarsa. In quei casi l'on-the-fly puro non è
+possibile, ma ti resta un'alternativa: prepara prima della lezione
+**due o tre angolazioni alternative pronte** (annotate alla fine
+della scaletta), non solo la versione principale. Se la prima non
+aggancia, la seconda è già nella tua memoria, non sul cellulare.
+L'IA serve nella preparazione, non nel "soccorso istantaneo".
+:::
+
+I tre passaggi non sono trasparenti: per la classe sei tu che hai
+"un'altra idea", non l'IA che te la suggerisce. Va bene così: la
+classe non ha bisogno di sapere il dettaglio del tuo workflow, ha
+bisogno della spiegazione che funziona.
+
+Il punto critico è il punto 3: la voce è tua, il ritmo è tuo, il
+contatto visivo con la classe è tuo. Leggere il chat parola per
+parola spezza la lezione e suona finto. Se la classe percepisce
+che stai leggendo, perdi più di quello che recuperi.
+
+## "Per stile" è diverso da "per livello"
+
+Cinque versioni della stessa spiegazione sono cinque **porte
+diverse sulla stessa stanza**. Non sono cinque stanze di
+difficoltà diversa. Tutti gli studenti, dopo aver passato la
+porta che funziona per loro, sono nella stessa stanza: hanno
+capito lo stesso concetto, al livello previsto dal programma.
+
+La differenziazione **per livello** è un'altra cosa: gli stessi
+studenti, sullo stesso argomento, fanno cose **di difficoltà
+diversa** (consolidamento / standard / approfondimento). È la
+prossima lezione del modulo,
+[*Materiali differenziati per
+livello*](/it/for-teachers/differentiated-materials/).
+
+Le due tecniche si combinano nelle classi reali. Per la stessa
+unità didattica, prima pensi al **livello** (chi consolida, chi
+sta in standard, chi approfondisce), poi per ciascuno scegli lo
+**stile** che aggancia. Non serve produrre 15 varianti: tre
+livelli x cinque stili coprono nove combinazioni mai usate. Le
+combinazioni utili sono di solito tre o quattro, che scegli in
+base alla classe.
+
+## Cosa NON fare
+
+**Non proporre tutte e cinque le versioni alla stessa classe nella
+stessa lezione.** Le porte sono cinque per la varietà della
+classe, non per esibire la varietà del docente. Una lezione che
+attraversa cinque angolazioni della stessa idea in 60 minuti è
+una lezione che resta a un livello superficiale su ciascuna.
+
+**Non usare la narrazione storica se non hai verificato i dati.**
+L'IA inventa volentieri date, attribuzioni, ordini cronologici
+("è stato X a capirlo per primo, nel 1832, dopo una conversazione
+con Y"). Se la tua narrazione storica si appoggia su un dato
+falso, l'aneddoto diventa un mito didattico che gli studenti
+porteranno con sé. Tre check rapidi che bastano a 10 minuti dalla
+campanella: cerca su Wikipedia il nome e l'anno (se sull'incipit
+non ci sono, è già un campanello); chiedi *a una seconda IA*
+(ChatGPT vs Claude vs Gemini) la stessa cosa, se cambiano le date
+sai che è inventata; tieni l'aneddoto sul vago se non sei sicura
+("nell'Ottocento, alcuni matematici tedeschi…") invece di mettere
+un nome falso.
+
+**Non leggere ad alta voce in aula quello che ha scritto l'IA.**
+Vale per la preparazione, vale ancora di più per l'uso on the
+fly. La voce è tua, la rielaborazione è tua.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-explain-in-five-ways.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul concetto specifico che vuoi spiegare, poi ti genera le cinque versioni calate sulla tua classe."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-explain-in-five-ways.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Cinque versioni risolvono la varietà di stile cognitivo della
+classe. Ma la classe non è omogenea anche per livello: c'è chi è
+avanti e chi è indietro sullo stesso argomento. La prossima
+lezione affronta questa seconda asimmetria, con il pattern *un
+solo testo base, tre derivati*.

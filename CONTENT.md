@@ -786,7 +786,7 @@ temi sono specchio.
    → "not much use", "Without explicit constraints" riposizionato,
    "Under a microscope it collapses fast" → "Look closer and it
    falls apart", "miraculously" rimosso).
-2. 🆕 **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
+2. ✍️ **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
    Stessa nozione raccontata a pubblici diversi (per stile, non per
    livello). Cerniera fra preparazione e classe.
 3. 🆕 **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
