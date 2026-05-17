@@ -786,9 +786,28 @@ temi sono specchio.
    → "not much use", "Without explicit constraints" riposizionato,
    "Under a microscope it collapses fast" → "Look closer and it
    falls apart", "miraculously" rimosso).
-2. ✍️ **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
-   Stessa nozione raccontata a pubblici diversi (per stile, non per
-   livello). Cerniera fra preparazione e classe.
+2. ✅ **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
+   Pubblicata IT + EN il 2026-05-17. Stessa nozione raccontata a
+   pubblici diversi (per stile, non per livello). Le cinque versioni
+   (analogia quotidiana, registro tecnico, modalità visiva,
+   narrazione storica, attività pratica) chieste in un solo turno;
+   2-3 scelte per la classe. Cerniera fra preparazione e classe:
+   funziona anche on-the-fly quando uno studente non aggancia.
+   ChatDemo portante su funzioni inverse, 16-17 anni, con cinque
+   versioni in un singolo turno. Quattro callout (materie senza
+   formule, modalità visiva senza skill di disegno, "progetto
+   docente" pre-impostato, scuole senza cellulare in aula).
+   Ciclo di revisione completo (`analyze-lesson` 9 domande +
+   `integrate-questions` con 9 modifiche tutte applicate +
+   style-checker IT e EN, 2026-05-17). Style-checker IT: OK con
+   un fix "qui sopra" (vietato dalla voice guide) sostituito con
+   ancora esplicita al passo 3 del ChatDemo. Style-checker EN: ha
+   catturato un errore numerico vero (3x5=15, il testo diceva
+   "nove combinazioni mai usate") sistemato in entrambe le lingue,
+   più 9 fix di idiomaticità EN ("aren't transparent" semantica
+   inversa → "stay invisible", "reformulates it on calibration"
+   opaco → "reframes it to fit your class", più sette calchi
+   minori).
 3. 🆕 **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
    Stesso argomento, livelli verticali di difficoltà. Pattern *un solo
    testo base, tre derivati*.
@@ -813,8 +832,9 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 1 su 9 pubblicate. Lezione 1 live (IT + EN) con
-verifica dell'apprendimento e approfondimento per disciplina attivi.
+**Stato attuale**: 2 su 9 pubblicate. Lezioni 1-2 live (IT + EN)
+con verifica dell'apprendimento e approfondimento per disciplina
+attivi.
 
 ## Modulo 6: Per chi vuole di più (livello `avanzato`)
 
@@ -908,13 +928,13 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 1 su 9 pubblicate (2026-05-16). Struttura
-validata in
+**Modulo 5 (Per docenti)**: 2 su 9 pubblicate (lezione 2 il
+2026-05-17). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 2, **Spiegare in cinque modi diversi**
-(`for-teachers/explain-in-five-ways`).
+bozza: lezione 3, **Materiali differenziati per livello**
+(`for-teachers/differentiated-materials`).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
