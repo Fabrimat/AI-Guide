@@ -945,3 +945,92 @@ in sidebar").
 **Audit moduli 3-6 (storico)**: gap identificati e coperti nei moduli
 3, 4 (chiusi), 5 (in scrittura). Per Modulo 6 vedi piano provvisorio
 in `CONTENT.md`.
+
+## Pickup da un altro PC (Modulo 5 in scrittura)
+
+Ultimo stato sincronizzato su `origin/main` il 2026-05-17. Per
+riprendere da un altro PC:
+
+1. **Clone / pull** del repo, branch `main`.
+2. **Setup ambiente**: Node 22 (pinnato in `.nvmrc`). `npm install`
+   richiede circa 3 minuti su prima esecuzione (sharp + pwa icons
+   come prebuild).
+3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
+   sito ricostruisce pulito (76+ pagine attese).
+4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
+   vedere la nuova lezione: `/it/for-teachers/explain-in-five-ways/`
+   o `/en/for-teachers/explain-in-five-ways/`.
+
+**Contesto Modulo 5**:
+
+- Fasi A-B-C completate (scaffolding + lezione 1 + lezione 2).
+- Prossima: **Fase D, lezione 3 *Materiali differenziati per livello***
+  (slug `for-teachers/differentiated-materials`).
+- Brief della Fase D in
+  `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
+  "Phase D".
+- Prerequisiti del frontmatter L3: `[ask-well, write-better,
+  draft-professional-documents]`.
+
+**Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
+seguenti)**:
+
+- Ogni lezione operativa (1-7) chiude con sezione "Approfondisci
+  per la tua disciplina" che usa `<LlmExercise variant="practice">`
+  con file `public/skills/<locale>/deepen-<slug>.txt`. Lo schema
+  del prompt nel `.txt` è standard: 4 domande all'IA (disciplina,
+  livello scolastico, concetto/caso d'uso, vincoli specifici), poi
+  applicazione operativa in fasi A-E o A-D calate sul caso del
+  lettore.
+- Verifica di fine lezione con `<LlmExercise variant="review">` e
+  file `review-<slug>.txt` (4 domande progressive, come negli altri
+  moduli).
+- Niente cross-link al Modulo 4 (autonomia totale, decisione spec).
+- Filo rosso anti-cheating in L5 e L6 (callout brevi → L8 dedicata).
+- Mirror EN in parallelo alla IT, non a modulo concluso.
+- Card homepage + start-here già attivate dalla L1 (non rifare in L3).
+
+**Workflow per lezione (sintesi a 14 passi)**:
+
+1. CONTENT.md → ✍️ per la nuova lezione (assorbito dal commit IT)
+2. Bozza IT in `src/content/docs/it/for-teachers/<slug>.mdx`
+3. `/analyze-lesson <path>` → domande in `analysis/<slug>.questions.md`
+4. `/integrate-questions <path>` → applica modifiche
+5. **Deepen IT**: `public/skills/it/deepen-<slug>.txt` +
+   `<LlmExercise variant="practice">` nella lezione
+6. **Review IT**: `public/skills/it/review-<slug>.txt` +
+   `<LlmExercise variant="review">` nella lezione
+7. style-checker IT (subagent `general-purpose` con prompt che
+   richiama `.claude/agents/style-checker.md`)
+8. Commit IT: `Module 5 lesson N: <titolo IT> + deepen and review exercises`
+9. Bozza EN in `src/content/docs/en/for-teachers/<slug>.mdx`
+10. Deepen EN: `public/skills/en/deepen-<slug>.txt`
+11. Review EN: `public/skills/en/review-<slug>.txt`
+12. style-checker EN (stesso pattern, con focus su calchi IT→EN)
+13. Commit EN: `Module 5 lesson N EN: <titolo EN> + deepen and review exercises`
+14. Sblocco sidebar in `astro.config.mjs` + CONTENT.md → ✅. Commit
+    dedicato: `Unlock Module 5 lesson N in sidebar`
+
+**File gitignored (non transitano fra PC)**: la cartella `analysis/`
+è ignorata (`.gitignore`). Le applicazioni precedenti
+(`design-a-lesson.questions.applied.md`,
+`explain-in-five-ways.questions.applied.md`) vivono solo sul
+filesystem locale. Sul nuovo PC partiranno da zero quando lanci
+`/analyze-lesson` per la prossima lezione. Non è un problema: sono
+sottoprodotti del workflow, non artefatti necessari.
+
+**Commit landed in questa sessione** (in ordine cronologico, dal
+più vecchio al più recente):
+
+```
+5082ed7 Add Module 5 'Per docenti' design spec
+5df98fb Add Module 5 'Per docenti' implementation plan
+01c0955 Scaffold Module 5 (Per docenti): 9-lesson plan, sidebar reordered, empty dirs
+82b46ab Module 5 lesson 1: Progettare una lezione + deepen and review exercises
+d20ed95 Module 5 lesson 1 EN: Design a lesson + deepen and review exercises
+3a4fb37 Unlock Module 5 lesson 1 in sidebar
+f67ccad Activate Module 5 cards on homepage and start-here (IT + EN)
+412d09a Module 5 lesson 2: Spiegare in cinque modi diversi + deepen and review exercises
+265620f Module 5 lesson 2 EN: Explain in five different ways + deepen and review exercises
+b4856ee Unlock Module 5 lesson 2 in sidebar
+```
