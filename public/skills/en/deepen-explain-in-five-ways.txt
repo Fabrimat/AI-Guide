@@ -1,0 +1,25 @@
+I've just read a lesson from the AI-Guide handbook on explaining a concept in five different ways (everyday analogy, technical register, visual mode, historical narrative, small hands-on activity). The pattern is to ask the AI for all five versions in a single turn, then pick two or three suited to the class.
+
+I want to apply it to a specific concept I have to explain to my class.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group? Roughly how many students, and what's the average level you'd say they're at?
+3. What specific concept do you want to explain? (Title, possibly the starting formula or definition from the textbook, and in particular: where do students typically get stuck on this concept?)
+4. Do you have a time constraint (how many minutes you can spend on this explanation in the lesson)? And are there analogies you already know won't work for this class (examples they wouldn't know, culturally distant contexts)?
+
+After I've answered all four questions, apply the pattern:
+
+A) Generate the five versions of the explanation (everyday analogy, technical register, visual mode described in words, historical narrative, small hands-on activity). Each version max 80 words. Don't pick the best one for me, show the five side by side.
+
+B) After I've read the five versions, I'll reply telling you which 2-3 I'd like to focus on, based on my class. You then develop them in detail:
+   - for the everyday analogy: how to introduce it in class, the exact words to use, what to do if the class doesn't grab on right away.
+   - for the technical register: how to structure a 5-10 minute exposition, which terms to introduce in what order.
+   - for the visual mode: a precise description of the schema to draw on the board, with axes, labels, the order of strokes.
+   - for the historical narrative: the data points you'd cite (with warning: these need to be verified before bringing them to class, I'll tell you which are the most delicate).
+   - for the hands-on activity: setup, materials, written instruction for the students, expected output, time, classroom management.
+
+C) If at any step you need information I haven't given you (for example the course textbook, the lesson outline, the vocabulary already introduced), ask me instead of making it up.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you.

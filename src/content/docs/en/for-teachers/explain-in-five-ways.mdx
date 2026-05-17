@@ -1,0 +1,288 @@
+---
+title: Explain in five different ways
+description: The same idea told in five registers. Used in prep, but it earns its keep in class when the standard explanation doesn't land.
+livello: intermedio
+prerequisiti: [ask-well, iterate-the-conversation, learn-something-new]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- A good explanation isn't one. Five versions of the same idea cover most of the ways students learn.
+- The five: **everyday analogy**, **technical register**, **visual mode**, **historical narrative**, **small hands-on activity**. You ask the AI for all five in one turn.
+- You pick cold: 2-3 versions that speak to *this* class, not all five.
+- It works on the fly too: when a student doesn't click, you ask AI from a tablet for another angle and rework it in your own voice.
+- It's differentiation **by style**, not by level. Differentiation by level (consolidation / standard / extension) is the next lesson.
+
+</LessonSummary>
+
+In class you don't have one mind in front of you, you have
+twenty. Each one comes at the material from a different angle:
+some get it from the everyday example, some from the formal
+definition, some from a diagram, some from a story, some only
+after having touched the thing. The standard explanation, the one
+the textbook offers, reaches maybe half. The rest needs
+alternative versions ready *before* class, and one in reserve
+*during* class for when you see someone slip.
+
+AI does this work in a few minutes, if you know what to ask for.
+
+## The five versions
+
+The five cover five different ways into a concept. They aren't
+five levels of difficulty: they're five doors. Each one works
+for a slice of the class.
+
+1. **Everyday analogy**: ties the concept to an object, a
+   situation, a gesture everyone knows. Electric current as water
+   in a pipe, entropy as a room that messes itself up, sentence
+   syntax as recipe syntax.
+2. **Technical register**: the formal definition, with the right
+   terminology, the logical structure explicit. It's what the
+   exam asks for and what the teacher expects to hear at the
+   assessment. Works for the students who get it from the precise
+   words and the logical order.
+3. **Visual mode**: diagram, schema, concept map, timeline. For
+   the students who understand better when they see the
+   structure rather than hear it told. Often the most undervalued
+   mode by teachers who teach mostly "by voice".
+4. **Historical narrative**: how we got here. Who understood it
+   first, in what order, why it mattered, what changed after. For
+   those who remember stories better than abstract definitions.
+5. **Small hands-on activity**: a mini-experiment, a simulation,
+   a physical manipulation, an interactive quiz. Typical duration
+   between 10 and 20 minutes, needs to be planned in the lesson
+   outline. For the students who only get it once they've touched
+   (literally or close to it) the thing you're talking about.
+
+Visual mode and the hands-on activity overlap but don't coincide:
+the visual is **reception** (the student looks at the schema and
+rebuilds the structure), the hands-on is **action** (the student
+does something and from the doing extracts the concept). A water
+cycle diagram projected on the board is visual; students
+evaporating water on a hot plate is hands-on.
+
+The pattern is to ask the AI for **all five at once**, on the
+same concept, in one turn. One at a time gives the illusion of
+more quality but costs twice the time and loses the *comparison*:
+the real value is seeing the five side by side and getting in one
+look which one opens the class and which one doesn't. Then you
+read them cold and pick the two or three that speak to the class
+in front of you.
+
+The quick check for choosing: for each version, ask yourself
+"does this class already have the vocabulary to grab onto it?".
+The everyday analogy works only if students know *the analogy*
+(a farming analogy on an inner-city class doesn't land). The
+technical register works if you've already introduced the
+discipline's vocabulary in earlier lessons. The historical
+narrative works if you have 5 minutes of slack: without it the
+story falls flat. The visual mode is almost always doable; the hands-on
+costs 10-20 minutes of class time and needs to be in the outline.
+
+> *"For a class of 16-17 year-olds in mathematics I need to
+> introduce the concept of inverse function. Generate me five
+> versions of the same explanation, one per register: everyday
+> analogy, technical, visual (describe the schema in words, I'll
+> draw it on the board), historical narrative, hands-on activity.
+> Each version max 80 words. Don't pick for me, I'll pick later."*
+
+The "max 80 words" and "don't pick for me" constraints matter.
+Without the word limit, the AI tends to write mini-essays on each
+version and you can't compare them at a glance. Without "don't
+pick", the AI closes with "out of these I'd recommend version 2
+because…": that's exactly the call you need to make yourself,
+knowing the class.
+
+## The difference in practice
+
+Math teacher, 16-17 year-olds, introducing inverse functions.
+Five versions in one turn.
+
+<ChatDemo
+  user={`For a class of 16-17 year-olds in mathematics I need to introduce the concept of inverse function. Generate me five versions of the same explanation, one per register: everyday analogy, technical, visual (describe the schema in words), historical narrative, hands-on activity. Each version max 80 words.`}
+  ai={`**1. Everyday analogy**
+Think of the "undo" button on your phone. If action X takes you from state A to state B, the action that takes you back from B to A is its inverse. Opening a file has closing it as inverse, tying a shoe has untying it. Not all actions have a clean inverse: "breaking a vase" doesn't. Math functions are like these actions: some can be undone by another function, others can't.
+
+**2. Technical register**
+Given a function *f*: A → B, its inverse *f⁻¹*: B → A exists if and only if *f* is bijective (injective and surjective). The condition holds: *f⁻¹(f(x)) = x* for every x in A, and *f(f⁻¹(y)) = y* for every y in B. Graphically, the inverse is the reflection of *f* across the line *y = x*. To build it algebraically: write *y = f(x)*, swap *x* and *y*, solve for *y*.
+
+**3. Visual mode**
+Draw axes. Plot any function, say *f(x) = 2x + 1*, a line crossing both axes. Then draw the line *y = x* (45° diagonal, dashed). The inverse function is the "ghost" of *f* reflected across that diagonal: every point (a, b) on *f* becomes (b, a) on the inverse. If you fold the paper along the diagonal, the two overlap.
+
+**4. Historical narrative**
+The concept matures in the 17th century with Newton and Leibniz, but as "an operation that undoes". Newton works on fluxions (integration as the inverse of differentiation). Only in the 19th century, with Cauchy and then Dirichlet, do we reach the modern definition of function and from there a clean concept of inverse. The question "is a function invertible?" becomes central: it isn't enough to write it, you have to check that it "goes back".
+
+**5. Small hands-on activity**
+Hand out pairs of numbers (x, y) from a simple function, say f(x) = x + 3 → (1,4), (2,5), (3,6). In pairs, students have to find the rule that takes you from y to x. Then you ask: "write the function that does this work". To wrap up, try f(x) = x² applied to (-2, 4) and (2, 4): what happens? The inverse there doesn't work cleanly. Why?`}
+/>
+
+Five versions on the table. The teacher's call, based on the
+class: in a class strong in algebra but light on geometric
+intuition, versions 2 and 3 do the work; in a less technical but
+curious class, 1 and 5 open the lesson and 2 closes at the end.
+Version 4 (historical) is kept as a small five-minute aside, to
+use if the class responds well to the first two.
+
+The typical mistake is using *all five* in the same lesson: it
+isn't differentiation, it's confusion. The doors are five because
+the class is varied, not because you have to open five every
+time.
+
+:::note[It also works for subjects without formulas]
+The example above is mathematical but the pattern holds in
+literature, philosophy, art history, languages. Version 2
+"technical register" translates to the critical vocabulary of the
+discipline: for a Shakespeare sonnet it's meter and rhetorical
+figures; for a painting it's composition, perspective, light.
+Version 4 "historical narrative" is almost always in the textbook
+already, and the AI reframes it to fit your class. Versions 1, 3,
+5 work identically.
+:::
+
+:::tip[Visual mode without drawing skills]
+If the visual mode calls for a diagram and you don't have time or
+a steady hand, you have two options. The first: ask the AI to
+describe it in words (as it does in step 3 of the ChatDemo on
+inverse functions), then copy it on the board in 30 seconds
+(almost always doable). The second: generate a simple ASCII
+version in chat and project it, no drawing needed. Don't ask the
+AI to generate a real image with complex graphics: nine times out
+of ten it'll come out looking right but with errors (wrong axes,
+labels in the wrong spots, invented names). On technical topics,
+the teacher's board is still more reliable.
+:::
+
+## On the fly: when a student doesn't click
+
+You've explained the concept with the version you picked. Three
+signals tell you whether it's working before the formative check:
+the **eyes** (the student looking elsewhere, looking out the
+window, looking at the desk instead of the board is one who's
+slipped), **quick application questions** (ask "give me your own
+example of X" to two students at random: if they stumble, the
+version isn't landing), **hands going up on their own** (zero
+hands in a class that's usually responsive often means
+embarrassment, not understanding). If the signals are negative,
+you need **another angle, now**, not a quarter-hour of rework.
+
+Working pattern, in 60 seconds:
+
+1. Keep a tablet or phone on the desk with an AI chat already
+   open. For teachers who always use the same tool (Claude
+   Projects, ChatGPT Custom GPTs, Gemini Gems), having a
+   pre-built "teacher project" with standard instructions saves
+   the first 30 seconds.
+2. Type fast: "concept X, class didn't grab on with the
+   [technical/visual/etc.] version. Give me another angle in 3
+   sentences, register [analogical/visual/narrative]".
+3. Read what comes out, *translate it into your own voice* (don't
+   read it word for word), and turn back to the board or to the
+   students.
+
+:::tip[What to put in a "teacher project"]
+A Claude Project, Custom GPT or Gemini Gem set up in advance
+saves you the first 30 seconds. Useful instructions to put in it:
+your subject, your typical school level, the principle "answer in
+max 3 sentences, classroom spoken register, no bullets, no
+preambles, one angle per turn". A "class vocabulary" file (the
+terms you've already introduced) helps calibration. The smaller
+and more focused the project, the faster it answers in the right
+style.
+:::
+
+:::note[If you can't pull out a phone in class]
+Some schools ban phones and tablets for teachers in class too, or
+the connection is poor. In those cases the pure on-the-fly isn't
+possible, but you have an alternative: prep **two or three
+alternative angles ahead of time** (jotted at the end of the
+outline), not just the main version. If the first doesn't land,
+the second is already in your memory, not on the phone. AI helps
+in prep, not in "instant rescue".
+:::
+
+The three steps stay invisible to the class: as far as they can
+see, *you* had "another idea", not the AI suggesting one. That's
+fine: the class doesn't need to know the detail of your workflow,
+it needs the explanation that works.
+
+The critical point is step 3: the voice is yours, the rhythm is
+yours, the eye contact with the class is yours. Reading the chat
+word for word breaks the lesson and sounds fake. If the class
+notices you're reading, you lose more than you recover.
+
+## "By style" is different from "by level"
+
+Five versions of the same explanation are five **different doors
+to the same room**. They aren't five rooms of different
+difficulty. All the students, after walking through the door
+that worked for them, are in the same room: they've understood
+the same concept, at the level the curriculum sets.
+
+Differentiation **by level** is something else: the same
+students, on the same topic, do things **of different difficulty**
+(consolidation / standard / extension). That's the next lesson
+of the module, [*Differentiated materials by
+level*](/en/for-teachers/differentiated-materials/).
+
+The two techniques combine in real classes. For the same unit,
+first you think about the **level** (who consolidates, who's at
+standard, who extends), then for each one you pick the **style**
+that lands. No need to produce fifteen variants (three levels by
+five styles): most of them you'll never use. The useful ones are
+usually three or four, picked based on the class.
+
+## What NOT to do
+
+**Don't bring all five versions to the same class in the same
+lesson.** The doors are five because the class is varied, not to
+show off the variety of the teacher. A lesson that runs through
+five angles on the same idea in 60 minutes stays at a surface
+level on each one.
+
+**Don't use the historical narrative without verifying the
+data.** AI invents dates, attributions, chronological orders
+quite easily ("X figured it out first, in 1832, after a
+conversation with Y"). If your historical narrative sits on a
+fake fact, the anecdote becomes a classroom myth your students
+will carry with them. Three quick checks that fit in 10 minutes
+before the bell: search Wikipedia for the name and the year (if
+the intro doesn't mention them, that's a first signal); ask *a
+second AI* (ChatGPT vs Claude vs Gemini) the same thing, and if
+the dates change you know it's invented; keep the anecdote vague
+if you aren't sure ("in the 19th century, some German
+mathematicians…") rather than inventing a specific name.
+
+**Don't read out loud in class what the AI wrote.** Holds for
+prep, holds even more for on-the-fly. Your voice, your rework.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-explain-in-five-ways.txt"
+  duration="10-15 min"
+  description="The AI interviews you on the specific concept you want to explain, then generates the five versions calibrated to your class."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-explain-in-five-ways.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Five versions solve the variety of cognitive style in the class.
+But the class isn't uniform on *level* either: some students are
+ahead and some are behind on the same topic. The
+next lesson takes on this second asymmetry, with the pattern *one
+base text, three derivatives*.

@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Explain in five different ways" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson proposes five versions of the same explanation (everyday analogy, technical register, visual mode, historical narrative, hands-on activity). Why do you ask the AI for all five at once in a single turn, not one at a time? And why do you then use only two or three in class, not all five?
+
+Question 2: the difference between "explain in five different ways" (this lesson) and "make materials differentiated by level" (the next lesson) isn't about terminology, it's about which axis. What's the precise difference between "style axis" (lateral) and "level axis" (vertical)? Could you say when you combine the two techniques?
+
+Question 3: during the lesson you see a student who has tuned out. The lesson proposes a three-step working pattern for using AI on the fly. What are the three steps? And what's the critical constraint at step 3, the one that decides whether the class notices you're using the AI?
+
+Question 4: think of a concept from your discipline you'll be teaching in the next few days. Without using AI, try sketching out loud two of the five versions (everyday analogy plus one of your choice). I'll comment on them and suggest how the AI could fill in the other three without making them replace your work.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
