@@ -14,6 +14,20 @@
 import Default from '@astrojs/starlight/components/Footer.astro';
 import ShareLesson from './ShareLesson.astro';
 import { t, getLocale } from '../i18n/ui';
+import { getLlmsTxtData } from '../../scripts/llms-txt-data.mjs';
+
+// Crawler-only site index: same data as `/llms.txt`, embedded on every
+// page inside a `<nav hidden>` so LLM crawlers (GPTBot, ClaudeBot,
+// PerplexityBot, etc.) that don't fetch /llms.txt separately still
+// discover the full structure of the manual from any landing page.
+// The `hidden` attribute hides it from sighted users and screen readers
+// both; the DOM is preserved, which is what crawlers parse.
+//
+// We deliberately render section labels as `<p><strong>` rather than
+// `<h2>` to avoid duplicating heading levels across every page (which
+// would dilute the actual lesson H1/H2 signals for SEO). Crawlers care
+// about the `<a href>` links here, not the heading levels.
+const llmsIndex = await getLlmsTxtData();
 
 const ui = t(Astro.currentLocale);
 const locale = getLocale(Astro.currentLocale);
@@ -253,3 +267,53 @@ const MAIL_DOMAIN = 'larosa.work';
     display: block;
   }
 </style>
+
+<nav class="aig-crawler-index not-content" hidden aria-label="Site index for crawlers">
+  <p><strong>{llmsIndex.title}</strong></p>
+  <p>{llmsIndex.summary}</p>
+  <p>{llmsIndex.intro}</p>
+
+  {llmsIndex.sections.map((section) => (
+    section.items.length > 0 && (
+      <>
+        <p><strong>{section.label}</strong></p>
+        <ul>
+          {section.items.map((item) => (
+            <li>
+              <a href={item.url}>{item.title}</a>{item.description ? `: ${item.description}` : ''}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  ))}
+
+  {llmsIndex.reference.length > 0 && (
+    <>
+      <p><strong>Reference</strong></p>
+      <ul>
+        {llmsIndex.reference.map((item) => (
+          <li>
+            <a href={item.url}>{item.title}</a>{item.description ? `: ${item.description}` : ''}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <p><strong>Translations</strong></p>
+  <p>{llmsIndex.translations}</p>
+
+  {llmsIndex.optional.length > 0 && (
+    <>
+      <p><strong>Optional</strong></p>
+      <ul>
+        {llmsIndex.optional.map((item) => (
+          <li>
+            <a href={item.url}>{item.title}</a>{item.description ? `: ${item.description}` : ''}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</nav>
