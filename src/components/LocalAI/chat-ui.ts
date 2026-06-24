@@ -8,6 +8,7 @@
 import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
 import { extractLessonContext } from './lesson-context';
 import { searchOtherLessons } from './search-context';
+import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './skill-loader';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -70,6 +71,7 @@ class LocalAI extends HTMLElement {
   private body!: HTMLElement;
   private engine: MLCEngineInterface | null = null;
   private history: Array<{ role: 'user' | 'assistant'; content: string }> = [];
+  private activeExerciseBlock: string | null = null;
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -268,6 +270,7 @@ class LocalAI extends HTMLElement {
   private renderReady() {
     this.body.innerHTML = '';
     this.history = [];
+    this.activeExerciseBlock = null;
 
     const list = document.createElement('div');
     list.className = 'lai-messages';
@@ -361,7 +364,10 @@ class LocalAI extends HTMLElement {
     const messages = [
       {
         role: 'system' as const,
-        content: this.buildSystemPrompt({ searchBlock, exerciseBlock: opts.exerciseBlock }),
+        content: this.buildSystemPrompt({
+          searchBlock,
+          exerciseBlock: opts.exerciseBlock ?? this.activeExerciseBlock ?? undefined,
+        }),
       },
       ...trimmed,
     ];
@@ -388,8 +394,46 @@ class LocalAI extends HTMLElement {
     }
   }
 
-  // Defined in Task 7; declared here so renderReady can call it safely.
-  private renderExerciseButton(_list: HTMLElement) { /* no-op until Task 7 */ }
+  private renderExerciseButton(list: HTMLElement) {
+    const skill = pickPrimarySkill(findSkillFiles());
+    if (!skill) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lai-btn lai-btn-primary lai-exercise-btn';
+    btn.textContent = this.i18n.startExercise;
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      void this.startExercise(skill);
+    });
+    // Insert above the message list so it is the first thing in the body.
+    list.parentElement?.insertBefore(btn, list);
+  }
+
+  private async startExercise(skill: SkillRef) {
+    let skillText = '';
+    try {
+      skillText = await loadSkill(skill);
+    } catch (err) {
+      console.error('[LocalAI] skill load failed', err);
+      this.appendBubble('assistant', this.i18n.errorBody);
+      return;
+    }
+    const exerciseBlock = [
+      'You are now running this exercise with the reader. Follow it exactly.',
+      'Ask the first question. Wait for the reader to answer before continuing.',
+      'Give short feedback after each answer. Do not ask more than one question at a time.',
+      '',
+      'EXERCISE INSTRUCTIONS:',
+      skillText,
+    ].join('\n');
+    this.activeExerciseBlock = exerciseBlock;
+
+    // Silent trigger: not shown as a user bubble.
+    const trigger = this.locale === 'it'
+      ? "Inizia l'esercizio adesso."
+      : 'Start the exercise now.';
+    await this.send(trigger, { display: false, exerciseBlock });
+  }
 }
 
 function define() {
