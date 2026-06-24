@@ -106,6 +106,9 @@ async function main() {
       }
     }
     const dim = chunks[0]?.vector.length ?? 0;
+    if (chunks.length === 0) {
+      console.warn(`[embeddings] ${locale}: no lessons found, writing empty index`);
+    }
     const outFile = join(OUT_DIR, `${locale}.json`);
     writeFileSync(outFile, JSON.stringify({ model: MODEL_ID, dim, chunks }));
     console.log(`[embeddings] ${locale}: ${chunks.length} chunks -> ${outFile}`);
