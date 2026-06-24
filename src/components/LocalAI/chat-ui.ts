@@ -5,11 +5,35 @@
  * transitions). This task wires open/close, WebGPU detection and the
  * fallback view only. Later tasks add consent, the engine and chat.
  */
-import type { MLCEngineInterface } from '@mlc-ai/web-llm';
+import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
 let activeModelId: string | null = null;
+
+/**
+ * Creates (or reuses) the singleton engine. If a different model was
+ * requested than the active one, reloads in place. Survives view
+ * transitions via the module-level enginePromise.
+ *
+ * web-llm (~6 MB) is imported dynamically here, not at module top level,
+ * so it is never part of the per-page bundle: it loads only once the
+ * reader has consented and the download starts. The worker bundle is
+ * likewise instantiated lazily here.
+ */
+function getEngine(
+  modelId: string,
+  onProgress: (r: InitProgressReport) => void,
+): Promise<MLCEngineInterface> {
+  if (enginePromise && activeModelId === modelId) return enginePromise;
+  activeModelId = modelId;
+  enginePromise = (async () => {
+    const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
+    const worker = new Worker(new URL('./chat-worker.ts', import.meta.url), { type: 'module' });
+    return CreateWebWorkerMLCEngine(worker, modelId, { initProgressCallback: onProgress });
+  })();
+  return enginePromise;
+}
 
 type View = 'closed' | 'fallback' | 'consent' | 'downloading' | 'ready' | 'error';
 
@@ -42,6 +66,7 @@ class LocalAI extends HTMLElement {
   private launcher!: HTMLButtonElement;
   private panel!: HTMLElement;
   private body!: HTMLElement;
+  private engine: MLCEngineInterface | null = null;
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -179,9 +204,70 @@ class LocalAI extends HTMLElement {
     this.body.appendChild(wrap);
   }
 
-  // Real implementation in Task 4.
-  private startDownload(modelId: string) {
-    this.body.textContent = this.i18n.downloading + ' (' + modelId + ')';
+  private async startDownload(modelId: string) {
+    this.renderDownloading();
+    const bar = this.body.querySelector<HTMLElement>('[data-progress-bar]');
+    const label = this.body.querySelector<HTMLElement>('[data-progress-label]');
+    try {
+      this.engine = await getEngine(modelId, (r) => {
+        if (bar) bar.style.width = `${Math.round((r.progress || 0) * 100)}%`;
+        if (label) label.textContent = r.text || this.i18n.downloading;
+      });
+      this.renderReady();
+    } catch (err) {
+      console.error('[LocalAI] engine load failed', err);
+      enginePromise = null;
+      activeModelId = null;
+      this.renderError(modelId);
+    }
+  }
+
+  private renderDownloading() {
+    this.body.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'lai-loading';
+    const label = document.createElement('p');
+    label.className = 'lai-progress-label';
+    label.setAttribute('data-progress-label', '');
+    label.textContent = this.i18n.downloading;
+    const track = document.createElement('div');
+    track.className = 'lai-progress-track';
+    const bar = document.createElement('div');
+    bar.className = 'lai-progress-bar';
+    bar.setAttribute('data-progress-bar', '');
+    track.appendChild(bar);
+    wrap.append(label, track);
+    this.body.appendChild(wrap);
+  }
+
+  private renderError(modelId: string) {
+    this.body.innerHTML = '';
+    const h = document.createElement('p');
+    h.className = 'lai-msg-title';
+    h.textContent = this.i18n.errorTitle;
+    const p = document.createElement('p');
+    p.textContent = this.i18n.errorBody;
+    this.body.append(h, p);
+    const lightId = this.models.find((m) => m.tier === 'light')?.id;
+    if (lightId && modelId !== lightId) {
+      const retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'lai-btn lai-btn-primary';
+      retry.textContent = this.i18n.retryLight;
+      retry.addEventListener('click', () => {
+        this.setConsentedModel(lightId);
+        this.startDownload(lightId);
+      });
+      this.body.appendChild(retry);
+    }
+  }
+
+  // Filled in Task 5. For now confirms readiness.
+  private renderReady() {
+    this.body.innerHTML = '';
+    const p = document.createElement('p');
+    p.textContent = this.i18n.disclaimer;
+    this.body.appendChild(p);
   }
 }
 

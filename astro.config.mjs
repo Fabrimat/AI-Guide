@@ -29,6 +29,19 @@ export default defineConfig({
       __AIGUIDE_BUILD_SHA__: JSON.stringify(BUILD_SHA),
       __AIGUIDE_BUILD_TIME__: JSON.stringify(BUILD_TIME),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // Give web-llm a stable chunk name so the PWA precache can
+          // exclude it: it is ~6 MB and loads lazily only after the
+          // reader consents, so it must not bloat the offline shell.
+          // See `injectManifest.globIgnores` below.
+          manualChunks(id) {
+            if (id.includes('@mlc-ai/web-llm')) return 'webllm';
+          },
+        },
+      },
+    },
   },
 
   // Niente redirect statico per `/`. La landing root è in `src/pages/index.astro`

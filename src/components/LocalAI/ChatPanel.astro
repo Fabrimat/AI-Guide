@@ -183,6 +183,19 @@ const i18n = {
   .lai-btn-primary:hover { background: var(--sl-color-accent-high); }
   .lai-btn:focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset: 2px; }
 
+  .lai-loading { display: flex; flex-direction: column; gap: 0.6rem; }
+  .lai-progress-label { margin: 0; font-size: 0.9rem; color: var(--sl-color-gray-2); }
+  .lai-progress-track {
+    width: 100%; height: 0.5rem;
+    background: var(--sl-color-accent-low);
+    border-radius: 999px; overflow: hidden;
+  }
+  .lai-progress-bar {
+    width: 0%; height: 100%;
+    background: var(--sl-color-accent);
+    transition: width 0.2s ease;
+  }
+
   /* Mobile: full-width bottom sheet */
   @media (max-width: 30rem) {
     .lai-launcher-text { display: none; }
