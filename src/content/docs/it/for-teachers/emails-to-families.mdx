@@ -1,0 +1,220 @@
+---
+title: Comunicare con le famiglie
+description: Email delicate ai genitori, dai voti bassi alle convocazioni. L'IA comprime il tempo, non sostituisce la sensibilità. Tre registri, pattern in tre passi, privacy dei minori rinforzata.
+livello: intermedio
+prerequisiti: [ask-well, write-better, hard-emails]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- L'IA comprime il tempo delle email ai genitori, non sostituisce la tua sensibilità. Il tono lo sai gestire; il problema è che tre email delicate a settimana mangiano ore.
+- Tre registri secondo l'ordine di scuola: **primaria** (cordiale, vicino), **secondaria** (istituzionale ma vicino, letta in famiglia), **università** (formale, e spesso lo studente è maggiorenne).
+- Pattern in tre passi: racconta la situazione completa (anonimizzata), chiedi tre versioni di registro diverso, componi la tua da pezzi e rileggila a freddo.
+- Casi sensibili: niente parole emotive sui voti, niente etichette di carattere sul comportamento, mai una diagnosi in mail, convocazioni con date concrete.
+- Privacy dei minori rinforzata: niente nome del bambino, dei compagni, dati sanitari o familiari nella chat. Anche se tu sai tutto, la chat non lo deve sapere.
+
+</LessonSummary>
+
+Una parola sbagliata nella mail a un genitore può costare un
+colloquio che non risolve niente, una scalata in segreteria, in
+qualche caso un ricorso. Ma il tono, di solito, lo sai gestire: lo
+fai da anni. Il problema vero è il tempo. Tre mail delicate in una
+settimana, scritte e ripensate parola per parola, sono due ore che
+non hai. L'IA serve a questo: comprimere il tempo della scrittura,
+non sostituire la sensibilità con cui scegli cosa dire e cosa no.
+La sensibilità resta tua, l'IA ti dà le bozze su cui lavorarla più
+in fretta.
+
+## Tre registri, secondo l'ordine di scuola
+
+La stessa notizia si scrive in modo diverso a seconda di chi la
+riceve e di quanti anni ha lo studente di cui parli.
+
+**Primaria.** Tono cordiale e vicino. Il bambino ha fra i sei e i
+dieci anni, e gli inciampi sono inciampi di crescita: la mail lo
+dice senza drammatizzare. Un'apertura calda ("Cara/o [genitore],
+volevo aggiornarLa su una cosa che ho notato in classe") prepara
+meglio di un incipit burocratico.
+
+**Secondaria** (medie e superiori). Tono istituzionale ma non
+freddo. Qui il ragazzo è un destinatario implicito: la mail viene
+letta in famiglia, spesso davanti a lui. Scrivere come se non
+esistesse, o come se fosse solo un problema da gestire, si sente.
+("Gentile [genitore], Le scrivo per condividere un'osservazione su
+[nome]…").
+
+**Università.** Tono formale. Qui cambia una cosa giuridica, non
+solo di stile: lo studente è quasi sempre maggiorenne, e
+comunicare con la famiglia può essere inappropriato o vietato senza
+il suo consenso. Prima di scrivere al genitore di uno studente
+adulto, verifica che sia una comunicazione legittima e, se serve,
+autorizzata dallo studente.
+
+## Il pattern in tre passi
+
+Lo scheletro è lo stesso, qualunque sia il registro.
+
+**1. Racconta la situazione completa all'IA.** Cosa è successo,
+cosa hai osservato, cosa vuoi che la famiglia sappia o faccia, e
+qual è l'obiettivo della mail: informare, convocare, chiedere
+collaborazione, preparare un passaggio al sostegno. Più il contesto
+è chiaro, meno la bozza è generica. Con un vincolo assoluto: niente
+nomi e niente dati sensibili nella chat (i dettagli nella nota
+*Privacy dei minori*).
+
+**2. Chiedi tre versioni di registro diverso.** Una più asciutta,
+una più calda, una più formale. Non per scegliere "la giusta", ma
+per avere materiale da cui pescare. Spesso la mail buona è
+un'apertura presa dalla versione calda, un corpo preso
+dall'asciutta, una chiusura dalla formale.
+
+**3. Componi la tua da pezzi e rileggila a freddo.** Assembli la
+versione che suona tua, poi la lasci decantare. Per le mail
+delicate la regola è scriverle la sera e rileggerle (e inviarle) la
+mattina dopo: a freddo si vedono la frase che suona accusatoria,
+l'aggettivo di troppo, la porta chiusa dove volevi lasciarla
+aperta. Controlla anche che l'IA non abbia aggiunto un dettaglio
+che non le hai dato: capita che riempia i vuoti con particolari
+plausibili e inventati, e in una mail a una famiglia un fatto
+inventato è un guaio.
+
+## La differenza in pratica
+
+Secondaria di primo grado: uno studente che andava bene è crollato
+a insufficiente in più materie nel giro di un mese, e in classe è
+più chiuso. Il docente vuole informare la famiglia e proporre un
+colloquio.
+
+<ChatDemo
+  user={`Aiutami a scrivere una mail a un genitore. Contesto: secondaria di primo grado, uno studente che fino a un mese fa andava molto bene ed è crollato a insufficiente in più materie, e in classe è più chiuso del solito. Voglio informare la famiglia e proporre un colloquio, senza allarmare e senza dare etichette. Niente nomi: usa "[nome]" e "[genitore]". Dammi tre versioni: una asciutta, una calda, una formale.`}
+  ai={`**Versione asciutta**
+Gentile [genitore], Le scrivo per un aggiornamento su [nome]. Nell'ultimo mese ho notato un calo nel rendimento in più materie e un atteggiamento più chiuso rispetto a prima. Vorrei parlarne con Lei: può indicarmi due o tre momenti in cui sarebbe disponibile per un colloquio? Cordiali saluti.
+
+**Versione calda**
+Gentile [genitore], Le scrivo perché tengo a [nome] e ho notato un cambiamento che mi sta a cuore. Nell'ultimo periodo i risultati sono calati e lo vedo più silenzioso in classe, lui che di solito partecipa volentieri. Spesso dietro questi cambiamenti c'è qualcosa di semplice da capire insieme. Le andrebbe di trovarci per un colloquio nei prossimi giorni?
+
+**Versione formale**
+Gentile [genitore], con la presente desidero segnalarLe un calo nel profitto di [nome] nell'ultimo mese, riscontrato in più discipline e accompagnato da un atteggiamento meno partecipativo. Ritengo opportuno un colloquio per condividere le rispettive osservazioni. Resto a disposizione per concordare un appuntamento.`}
+/>
+
+La mail che il docente invia non è nessuna delle tre intera.
+Prende l'apertura della calda ("tengo a [nome]"), il corpo fattuale
+dell'asciutta (il calo, l'atteggiamento, senza aggettivi forti), e
+la chiusura della formale aperta al colloquio, con tre date
+proposte al posto del vago "quando vuole". Tre versioni servono a
+questo: non a scegliere, a comporre.
+
+:::caution[Privacy dei minori]
+Anche se tu sai tutto dello studente, la chat non lo deve sapere.
+Nel prompt: niente nome del bambino (scrivi "[nome]"), niente nomi
+dei compagni coinvolti ("ha litigato con [nome]" diventa "ha
+litigato con un compagno"), niente dati sanitari ("è asmatico",
+"prende un farmaco"), niente dettagli familiari ("i genitori sono
+separati", "il padre lavora all'estero"). Quei dettagli servono al
+tuo giudizio, non alla bozza. I dati di un minore sono fra i più
+delicati che esistano, e una chat consumer non è il posto dove
+versarli per comodità.
+:::
+
+:::tip[Se la famiglia non parla bene l'italiano]
+In una classe con famiglie straniere la mail rischia di non essere
+capita, e il problema non è più il registro ma la comprensibilità.
+L'IA può tradurla nella lingua della famiglia o riscriverla in
+italiano più semplice (frasi corte, niente burocratese). Due
+cautele: sui temi delicati una traduzione automatica può perdere
+una sfumatura o suonare brusca, quindi falla rileggere a un collega
+o a un mediatore culturale se la scuola ne ha uno; e manda comunque
+anche la versione italiana, così resta agli atti quello che hai
+scritto tu.
+:::
+
+## Casi con trappole specifiche
+
+**Voto basso.** Niente parole emotive ("preoccupante", "grave",
+"serio"): descrivi il fatto e apri al colloquio. L'emozione la
+mette il genitore quando legge, non serve aggiungerla tu.
+
+**Comportamento.** Niente etichette di carattere ("è aggressivo",
+"è pigro", "è maleducato"): descrivono la persona, e un genitore le
+difende. Descrivi gli episodi ("martedì ha interrotto la lezione
+tre volte"), che si possono guardare insieme senza che nessuno si
+metta sulla difensiva.
+
+**Sospetto di un disturbo dell'apprendimento.** La mail non è il
+posto per dirlo, e l'IA non è lo strumento per ipotizzarlo. Mai
+scrivere una diagnosi in una mail. La mail apre solo a un colloquio
+in presenza, dove ci sarà anche chi segue lo studente.
+
+**Convocazione.** Niente "al più presto" o "appena possibile" senza
+date: proponi due o tre giorni e fasce orarie concrete. Una
+convocazione vaga genera ansia e non fissa niente.
+
+:::tip[Rispondere a un genitore arrabbiato]
+La mail più difficile spesso non è quella che scrivi tu, è la
+risposta a un genitore che protesta, a volte in modo aggressivo. Lo
+stesso pattern regge, con due aggiustamenti. L'obiettivo non è
+avere ragione, è abbassare la temperatura e riportare al fatto:
+chiedi all'IA una versione fattuale e non difensiva, che riconosca
+il punto del genitore senza ammettere colpe che non ci sono. E qui
+il "rileggi a freddo" non è opzionale: a caldo si risponde di
+pancia, e una riga difensiva di troppo trasforma una lamentela in
+un caso. Se l'aggressività supera il segno, la mail non basta:
+porta tutto a un colloquio in presenza, meglio se non da solo.
+:::
+
+:::tip[Quando NON è la mail lo strumento]
+Per i fatti gravi (violenza, episodi a sfondo sessuale, sospetto di
+violenza in famiglia, autolesionismo) la mail non basta, e l'IA non
+c'entra. Esiste una procedura interna che coinvolge la dirigenza,
+il referente per il bullismo, eventualmente i servizi sociali.
+Quella si segue, non si improvvisa una mail al genitore. L'IA è per
+le comunicazioni di routine: sul grave, la procedura viene prima di
+tutto.
+:::
+
+## Cosa NON fare
+
+**Non inviare la mail senza rileggerla a freddo.** La fretta è la
+causa numero uno delle mail che si rimpiangono. Una notte di
+distanza costa niente e salva colloqui.
+
+**Non lasciare i nomi nella chat "solo per fartela scrivere
+meglio".** Non c'è una comodità che giustifichi versare i dati di
+un minore in uno strumento esterno. Anonimizza prima, sempre.
+
+**Non citare l'IA come fonte di autorità.** Un "l'intelligenza
+artificiale suggerisce che…" in una comunicazione a una famiglia è
+un autogol istituzionale. La mail è tua, la firmi tu, la
+responsabilità è tua.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-emails-to-families.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul caso e sull'ordine di scuola, poi ti prepara le tre versioni della mail anonimizzata, da ricomporre e rileggere a freddo prima di inviare."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-emails-to-families.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Hai i materiali, le verifiche, le comunicazioni. Resta una parte
+del lavoro del docente che l'IA non aiuta ad accelerare, ma a
+riconoscere: quando l'IA entra in classe non dalla tua parte, nelle
+mani degli studenti. La prossima lezione parla di come vederla
+senza demonizzarla.

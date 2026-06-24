@@ -893,9 +893,11 @@ temi sono specchio.
    modifiche + style-checker IT e EN, 2026-06-24). Style-checker IT: OK
    con una rifinitura applicata ("In sintesi" → "Nel complesso" nella
    battuta IA del ChatDemo). Style-checker EN: OK.
-7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
+7. ✍️ **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
    Email delicate ai genitori. Tre registri (primaria, secondaria,
-   università). Privacy rinforzata su dati di minori.
+   università). Privacy rinforzata su dati di minori. Bozza IT +
+   integrate-questions + deepen + review + style-check OK (2026-06-24).
+   Mirror EN in corso.
 8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
    Riconoscere senza demonizzare. AI detector inaffidabili, indicatori
    manuali come ipotesi, ridisegno consegne, conversazione (non

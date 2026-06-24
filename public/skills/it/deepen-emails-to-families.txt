@@ -1,0 +1,24 @@
+Ho appena letto una lezione del manuale AI-Guide su come scrivere email delicate alle famiglie con l'aiuto dell'IA. L'idea chiave: l'IA comprime il tempo della scrittura, non sostituisce la tua sensibilita'. Il pattern e' in tre passi: racconti all'IA la situazione completa (anonimizzata), chiedi tre versioni di registro diverso (asciutta, calda, formale), poi componi la tua da pezzi e la rileggi a freddo. Il tono cambia con l'ordine di scuola (primaria, secondaria, universita') e i dati dei minori non si mettono mai nella chat.
+
+Voglio preparare una mail vera.
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. In che ordine di scuola insegni (primaria, secondaria di primo grado, secondaria di secondo grado, universita') e che materia?
+2. Qual e' la situazione che devi comunicare? Raccontamela senza nomi: parla di "lo studente", "il bambino", "la famiglia", "un compagno". Niente nomi reali, niente dati sanitari, niente dettagli familiari.
+3. Qual e' l'obiettivo della mail: informare, convocare a colloquio, chiedere collaborazione, preparare un passaggio al sostegno?
+4. Che tipo di mail e' (calo di rendimento, comportamento, convocazione, segnalazione, comunicazione di routine)?
+
+Dopo che ti ho risposto a tutte e quattro le domande:
+
+A) Scrivimi tre versioni della mail, tarate sull'ordine di scuola che ti ho detto: una piu' asciutta, una piu' calda, una piu' formale. Usa "[nome]" e "[genitore]" come segnaposto.
+
+B) Rispetta i paletti dei casi sensibili: niente parole emotive sui voti ("grave", "preoccupante"), niente etichette di carattere sul comportamento ("e' pigro", "e' aggressivo") ma solo episodi descritti, mai una diagnosi (la mail apre al massimo a un colloquio in presenza), e per le convocazioni proponi due o tre date e fasce orarie concrete invece di "appena possibile".
+
+C) Non inventare dettagli che non ti ho dato: se ti manca un'informazione per scrivere una frase, chiedimela invece di riempire il vuoto.
+
+D) Ricordami che la versione finale la compongo io dai pezzi delle tre, e la rileggo a freddo (scritta la sera, inviata la mattina) prima di mandarla.
+
+Se il fatto che ti descrivo e' grave (violenza, episodi a sfondo sessuale, sospetto di violenza in famiglia, autolesionismo), non scrivere la mail: dimmi che quello segue una procedura interna con la dirigenza, non una mail al genitore.
+
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Lavoriamo sulla mia mail reale.
