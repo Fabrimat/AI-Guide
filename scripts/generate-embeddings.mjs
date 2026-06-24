@@ -115,7 +115,9 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.warn('[embeddings] skipped (non-fatal):', err?.message || err);
-  process.exit(0); // never fail the build
-});
+main()
+  .then(() => process.exit(0)) // onnxruntime-node can keep the loop alive; exit cleanly
+  .catch((err) => {
+    console.warn('[embeddings] skipped (non-fatal):', err?.message || err);
+    process.exit(0); // never fail the build
+  });

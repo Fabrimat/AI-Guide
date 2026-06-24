@@ -58,6 +58,9 @@ export async function searchOtherLessons(
     const index = await loadIndex(locale);
     if (!index || !index.chunks.length) return [];
     const qvec = await embedQuery(query);
+    // Guard against a stale index built with a different-dimension model:
+    // skip rather than silently rank on a truncated dot product.
+    if (index.dim && index.dim !== qvec.length) return [];
     const ranked = index.chunks
       .filter((c) => !opts.currentPath || !c.url.startsWith(opts.currentPath))
       .map((c) => ({ c, score: cosineSim(qvec, c.vector) }))
