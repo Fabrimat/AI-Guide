@@ -358,6 +358,9 @@ export default defineConfig({
           '_astro/chat-worker-*.js',
           '_astro/transformers-*.js',
           '_astro/transformers.*.js',
+          // ONNX-runtime wasm binaries (shipped by @huggingface/transformers,
+          // >2 MiB each); loaded lazily on first embedQuery call.
+          '**/*.wasm',
         ],
       },
       devOptions: {
