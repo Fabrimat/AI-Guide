@@ -1,0 +1,24 @@
+I've just read a lesson from the AI-Guide handbook on writing delicate emails to families with AI. The key idea: the AI compresses the writing time, it doesn't replace your sensitivity. The pattern is three steps: you tell the AI the full situation (anonymized), ask for three versions in different registers (dry, warm, formal), then compose your own from the pieces and reread it cold. The tone changes with the school level (primary, secondary, university), and minors' data never goes into the chat.
+
+I want to prepare a real email.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What school level do you teach at (primary, middle / lower secondary, high / upper secondary, university) and what subject?
+2. What's the situation you need to communicate? Tell me without names: say "the student", "the child", "the family", "a classmate". No real names, no health data, no family details.
+3. What's the goal of the email: to inform, to call a meeting, to ask for cooperation, to prepare a handover to learning support?
+4. What kind of email is it (drop in performance, behavior, meeting request, a flag to support, routine communication)?
+
+After I've answered all four questions:
+
+A) Write me three versions of the email, calibrated to the school level I gave you: a drier one, a warmer one, a more formal one. Use "[name]" and "[parent]" as placeholders.
+
+B) Respect the sensitive-case limits: no emotional words on grades ("serious", "worrying"), no character labels on behavior ("is lazy", "is aggressive") but only described episodes, never a diagnosis (the email opens at most to an in-person meeting), and for meeting requests propose two or three concrete dates and time slots instead of "as soon as possible".
+
+C) Don't invent details I haven't given you: if you're missing information to write a sentence, ask me instead of filling the gap.
+
+D) Remind me that I compose the final version myself from the pieces of the three, and reread it cold (written in the evening, sent in the morning) before sending it.
+
+If the matter I describe is serious (violence, incidents of a sexual nature, suspected abuse at home, self-harm), don't write the email: tell me that follows an internal procedure with the head, not an email to the parent.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Let's work on my real email.

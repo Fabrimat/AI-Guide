@@ -1,0 +1,217 @@
+---
+title: Emails to families
+description: Delicate emails to parents, from low grades to meeting requests. AI compresses the time, not the sensitivity. Three registers, a three-step pattern, reinforced privacy for minors.
+livello: intermedio
+prerequisiti: [ask-well, write-better, hard-emails]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- AI compresses the time of parent emails, not your sensitivity. You can handle the tone; the problem is that three delicate emails a week eat hours.
+- Three registers by school level: **primary** (warm, close), **secondary** (institutional but close, read at home), **university** (formal, and the student is often an adult).
+- Three-step pattern: tell the AI the full situation (anonymized), ask for three versions in different registers, compose your own from the pieces and reread it cold.
+- Sensitive cases: no emotional words on grades, no character labels on behavior, never a diagnosis in an email, meeting requests with concrete dates.
+- Reinforced privacy for minors: no name of the child, classmates, health or family details in the chat. Even if you know everything, the chat must not.
+
+</LessonSummary>
+
+A wrong word in an email to a parent can cost a meeting that solves
+nothing, an escalation to the head's office, in some cases a formal
+complaint. But the tone, usually, you can handle: you've done it
+for years. The real problem is time. Three delicate emails in a
+week, written and rethought word by word, are two hours you don't
+have. The AI is for this: compressing the writing time, not
+replacing the sensitivity with which you choose what to say and
+what not to. The sensitivity stays yours, the AI gives you drafts
+to work it on faster.
+
+## Three registers, by school level
+
+The same news is written differently depending on who receives it
+and how old the student you're talking about is.
+
+**Primary.** Warm and close in tone. The child is between six and
+ten, and the stumbles are stumbles of growing up: the email says so
+without dramatizing. A warm opening ("Dear [parent], I wanted to
+update you on something I've noticed in class") prepares better than
+a bureaucratic one.
+
+**Secondary** (middle and high school). Institutional but not cold
+in tone. Here the student is an implicit recipient: the email is
+read at home, often in front of them. Writing as if they didn't
+exist, or as if they were only a problem to manage, shows. ("Dear
+[parent], I'm writing to share an observation about [name]…").
+
+**University.** Formal in tone. Here something legal changes, not
+just style: the student is almost always an adult, and
+communicating with the family can be inappropriate or forbidden
+without their consent. Before writing to the parent of an adult
+student, check that it's a legitimate communication and, if needed,
+authorized by the student.
+
+## The three-step pattern
+
+The skeleton is the same, whatever the register.
+
+**1. Tell the AI the full situation.** What happened, what you
+observed, what you want the family to know or do, and the goal of
+the email: to inform, to call a meeting, to ask for cooperation, to
+prepare a handover to learning support. The clearer the context,
+the less generic the draft. With one absolute constraint: no names
+and no sensitive data in the chat (the details are in the note
+*Privacy of minors*).
+
+**2. Ask for three versions in different registers.** One drier,
+one warmer, one more formal. Not to pick "the right one", but to
+have material to draw from. Often the good email is an opening taken
+from the warm version, a body from the dry one, a closing from the
+formal one.
+
+**3. Compose your own from the pieces and reread it cold.** You
+assemble the version that sounds like you, then let it settle. For
+delicate emails the rule is to write them in the evening and reread
+(and send) them the next morning: cold, you spot the line that
+sounds accusatory, the adjective too many, the door closed where
+you meant to leave it open. As you reread, also check the AI hasn't
+added a detail you didn't give it: it sometimes fills gaps with
+plausible, invented particulars, and in an email to a family an
+invented fact is trouble.
+
+## The difference in practice
+
+Middle school: a student who was doing well has dropped to failing
+in several subjects within a month, and is more withdrawn in class.
+The teacher wants to inform the family and propose a meeting.
+
+<ChatDemo
+  user={`Help me write an email to a parent. Context: middle school, a student who until a month ago was doing very well has dropped to failing in several subjects, and is more withdrawn in class than usual. I want to inform the family and propose a meeting, without alarming them and without labels. No names: use "[name]" and "[parent]". Give me three versions: a dry one, a warm one, a formal one.`}
+  ai={`**Dry version**
+Dear [parent], I'm writing with an update on [name]. Over the past month I've noticed a drop in performance across several subjects and a more withdrawn attitude than before. I'd like to talk it over with you: could you suggest two or three times when you'd be free for a meeting? Best regards.
+
+**Warm version**
+Dear [parent], I'm writing because I care about [name] and I've noticed a change that's on my mind. Lately the results have dropped and I see [name] quieter in class, when usually they take part gladly. Often behind these changes there's something simple we can understand together. Would you be up for meeting in the next few days?
+
+**Formal version**
+Dear [parent], I am writing to report a decline in [name]'s academic performance over the past month, observed across several subjects and accompanied by reduced participation. I believe a meeting would be appropriate to share our respective observations. I remain available to arrange an appointment.`}
+/>
+
+The email the teacher sends isn't any of the three whole. It takes
+the opening of the warm one ("I care about [name]"), the factual
+body of the dry one (the drop, the attitude, without strong
+adjectives), and the closing of the formal one, open to a meeting,
+with three proposed dates instead of the vague "whenever you like".
+Three versions are for this: not to choose, to compose.
+
+:::caution[Privacy of minors]
+Even if you know everything about the student, the chat must not.
+In the prompt: no name of the child (write "[name]"), no names of
+classmates involved ("argued with [name]" becomes "argued with a
+classmate"), no health data ("is asthmatic", "takes a medication"),
+no family details ("the parents are separated", "the father works
+abroad"). Those details serve your judgment, not the draft. A
+minor's data is among the most sensitive there is, and a consumer
+chat isn't the place to enter it for convenience.
+:::
+
+## Cases with specific traps
+
+**Low grade.** No emotional words ("worrying", "serious", "grave"):
+describe the fact and open to a meeting. The emotion is added by
+the parent when they read it, you don't need to add it.
+
+**Behavior.** No character labels ("is aggressive", "is lazy", "is
+rude"): they describe the person, and a parent defends them.
+Describe the episodes ("on Tuesday they interrupted the lesson
+three times"), which you can look at together without anyone
+getting defensive.
+
+**Suspected learning difficulty.** The email isn't the place to say
+it, and the AI isn't the tool to hypothesize it. Never write a
+diagnosis in an email. The email opens only to an in-person
+meeting, where whoever supports the student will also be present.
+
+**Meeting request.** No "as soon as possible" or "at your earliest
+convenience" without dates: propose two or three days and concrete
+time slots. A
+vague request creates anxiety and fixes nothing.
+
+:::tip[If the family doesn't speak English well]
+In a class with families who don't speak the language of the school
+well, the email risks not being understood, and the problem is no
+longer register but comprehensibility. The AI can translate it into
+the family's language or rewrite it in simpler English (short
+sentences, no bureaucratese). Two cautions: on delicate topics an
+automatic translation can lose a nuance or sound blunt, so have it
+reread by a colleague or a cultural mediator if the school has one;
+and send the original version too, so what you actually wrote stays
+on record.
+:::
+
+:::tip[Replying to an angry parent]
+The hardest email often isn't the one you write, it's the reply to
+a parent who complains, sometimes aggressively. The same pattern
+holds, with two adjustments. The goal isn't to be right, it's to
+lower the temperature and bring it back to the facts: ask the AI
+for a factual, non-defensive version that acknowledges the parent's
+point without admitting fault that isn't there. And here the
+"reread cold" isn't optional: in the heat you reply from the gut,
+and one defensive line too many turns a complaint into a case. If
+the aggression goes over the line, the email isn't enough: take it
+to an in-person meeting, better not alone.
+:::
+
+:::tip[When the email isn't the tool]
+For serious matters (violence, incidents of a sexual nature,
+suspected abuse at home, self-harm) the email isn't enough, and the
+AI has nothing to do with it. There's an internal procedure
+involving the head, the safeguarding lead, possibly social
+services. You follow that, you don't improvise an email to the
+parent. The AI is for routine communications: on the serious, the
+procedure comes before everything.
+:::
+
+## What NOT to do
+
+**Don't send the email without rereading it cold.** Haste is the
+number-one cause of emails you regret. A night's distance costs
+nothing and saves meetings.
+
+**Don't leave the names in the chat "just to have it written
+better".** There's no convenience that justifies putting a minor's
+data into an external tool. Anonymize first, always.
+
+**Don't cite the AI as a source of authority.** An "the AI suggests
+that…" in a communication to a family is an institutional own goal.
+The email is yours, you sign it, the responsibility is yours.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-emails-to-families.txt"
+  duration="10-15 min"
+  description="The AI interviews you on the case and the school level, then prepares the three versions of the anonymized email, to recompose and reread cold before sending."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-emails-to-families.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You have the materials, the tests, the communications. There's one
+part of a teacher's work the AI doesn't help you speed up, but
+recognize: when the AI is in the classroom not on your side, in the
+students' hands. The next lesson is about seeing it without
+demonizing it.
