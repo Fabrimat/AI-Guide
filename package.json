@@ -8,13 +8,14 @@
     "start": "astro dev",
     "prebuild": "node scripts/generate-pwa-icons.mjs",
     "build": "astro build",
-    "postbuild": "node scripts/generate-bulk-manifest.mjs && node scripts/generate-llms-txt.mjs",
+    "postbuild": "node scripts/generate-bulk-manifest.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-embeddings.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.38.0",
     "@fontsource-variable/outfit": "^5.2.8",
+    "@huggingface/transformers": "^4.2.0",
     "@mlc-ai/web-llm": "^0.2.84",
     "astro": "^6.0.0",
     "sharp": "^0.34.0"
