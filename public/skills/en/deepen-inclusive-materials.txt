@@ -1,0 +1,28 @@
+I've just read a lesson from the AI-Guide handbook on adapting teaching materials for students with special educational needs (SEN) and specific learning difficulties. The key idea: inclusion isn't "making the easy version", it's accessibility. Three axes: the shape of the page (short sentences, short lines), visual synthesis (maps, diagrams), syntactic simplification that does NOT cut the key terms. AI speeds up the adapting, but whoever knows the student (the SEN coordinator, the learning-support teacher) always validates.
+
+I want to apply it to a material I have to adapt for my class.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group?
+3. Which specific need do you want to address (a specific learning difficulty: dyslexia, dysgraphia, dyscalculia; ADHD; another SEN; learning support) and what does the student's support plan say about strategies already agreed, if you know it? Don't give me the student's name or details of the diagnosis: just describe the type of need.
+4. What material are you working on (a textbook paragraph, a worksheet, an assessment) and which key terms have to stay, because the student will meet them again at the assessment like their classmates?
+
+After I've answered all four questions, apply the technique:
+
+A) Start from my material and produce an accessible version, calibrated to the need I described:
+   - on the form: shorter sentences, direct order, split-up long sentences (I'll choose the font and line spacing myself in the word processor; you work on the text);
+   - on the terms: keep them all, glossing them in parentheses on first use, don't replace them with vaguer synonyms;
+   - add, if useful for this need, the skeleton of a diagram or a map (as a list or ASCII, not as an image).
+
+B) At the end, tell me explicitly:
+   - which key terms you kept;
+   - what you did NOT change in the content (the facts the assessment will ask everyone);
+   - where you simplified the syntax at the risk of touching a nuance, so I can double-check it.
+
+C) Remind me at the end of your answer that this is a draft to be validated by whoever supports the student (SEN coordinator or learning-support teacher) before taking it to class, and that I shouldn't ask you to assess the severity of the difficulty or to override the existing plan.
+
+If at any step you need information I haven't given you (the full material, the key terms, what the plan provides for), ask me instead of making it up.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you.

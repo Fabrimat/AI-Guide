@@ -1,0 +1,231 @@
+---
+title: Inclusive materials (SEN)
+description: Adapting materials for students with special educational needs isn't about making an easier version, it's about making it accessible. Where AI speeds things up and where the work stays with whoever knows the student.
+livello: intermedio
+prerequisiti: [ask-well, write-better, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Inclusion isn't differentiating by level. A student with a specific learning difficulty can be one of your best: they need accessibility, not an easier sheet.
+- Three axes: **graphic accessibility** (font, line spacing, short lines), **visual synthesis** (maps, diagrams), **syntactic simplification** that does NOT cut the key terms.
+- AI speeds up adapting the materials, but the SEN coordinator or learning-support teacher always validates: they know the student, the support plan, the agreements with the family.
+- Privacy of minors: no name, no diagnosis, no family details in the chat. You talk about "a student with dyslexia", not "Marco in year 9, class B".
+- Never ask the AI to "assess the severity" of a difficulty: it isn't a diagnostic tool, and don't override the plan that already exists.
+
+</LessonSummary>
+
+Differentiating by level and including are two different things,
+and confusing them does harm.
+[The previous lesson](/en/for-teachers/differentiated-materials/)
+was about levels: same topic, different difficulty. Inclusion is a
+different axis. A student with a specific learning difficulty can
+be among the brightest in the class: they don't need an easier
+version, they need to be able to read without the page scrambling
+in front of them. The need is accessibility, not a discount on the
+content.
+
+Two terms recur in this lesson. **SEN** (special educational
+needs) is the broad umbrella: it covers specific learning
+difficulties (dyslexia, dysgraphia, dyscalculia) but also
+language, social, or temporary disadvantages. Each student with
+needs has a written support plan: an IEP, a 504 plan, or whatever
+your system calls it. Those documents already say what the student
+needs. The AI works within those constraints, it doesn't rewrite
+them.
+
+## Three axes of adaptation
+
+Adapting a material for accessibility moves along three axes.
+Often you combine two or three on the same sheet.
+
+**The shape of the page.** For a student with dyslexia, how the
+text is laid out matters as much as what it says. High-legibility
+fonts (Atkinson Hyperlegible, Easy Reading, OpenDyslexic), wide
+line spacing, generous spacing between words, short lines, text
+aligned left and never justified: justification opens "rivers" of
+white space that make you lose your line. You set the font and the
+spacing yourself in your word processor, not the AI in the chat.
+What the AI does is rewrite the text so it fits this format
+without getting poorer: it splits long sentences, breaks lines
+where it makes sense, drops the asides that stretch the line.
+
+**From paragraph to diagram.** For dyslexia, ADHD, and several
+attention difficulties a concept map or a block diagram is often
+more readable than ten lines of linear prose. The AI is good at
+proposing the structure: you give it the chapter's themes and
+their relationships, and it gives you back the skeleton of a
+diagram, usually as an indented list or ASCII, not as a finished
+image. You validate it and draw it as a real map, or have the
+student draw it, which is an exercise in itself. The AI proposes
+the skeleton, not the last word: a wrong map confuses more than a
+paragraph does, and an AI-generated image often comes out with the
+labels in the wrong spots.
+
+**Shorter sentences, same terms.** This is the axis where the AI
+goes wrong most often, and it goes wrong in the direction that
+looks kind. You ask it for a "simpler" version and, to simplify,
+it throws out the technical terms: "sonnet" becomes "poem",
+"enjambment" disappears. But the student has to know those terms
+at the assessment, the same as their classmates. The right
+simplification touches the syntax (short sentences, fewer
+subordinate clauses, direct subject-verb-object order) and keeps
+the key vocabulary, glossing it if anything: "the sonnet (a
+14-line poem)". The constraint to put in the prompt is explicit:
+"shorter sentences, but keep all the technical terms and explain
+them in parentheses the first time".
+
+:::note[Beyond dyslexia: dyscalculia, dysgraphia, ADHD]
+The three axes start from reading, but they adapt. For
+**dyscalculia** what counts is the shape of the numbers and the
+steps: more worked examples, one operation per line, a number
+line, no compressed notation. For **dysgraphia** the weight is on
+output: give structures to fill in instead of a blank page, allow
+typing instead of handwriting. For **ADHD** and attention
+difficulties chunking is the move: one task per screen, short
+numbered instructions, less text at a time. The prompt changes,
+the method doesn't: adapt the form, keep the content.
+:::
+
+## The difference in practice
+
+English literature, year 2 of high school, a textbook paragraph on
+Shakespeare's *Sonnets*. There's a student with dyslexia in the
+class. The teacher pastes the standard paragraph and asks for the
+accessible version.
+
+<ChatDemo
+  user={`Adapt this textbook paragraph for a student with dyslexia, year 2 of high school. Shorter sentences, direct order, keep the technical terms and gloss them in parentheses on first use. Add a theme map at the end. Don't cut content.
+
+"Shakespeare's Sonnets, a sequence of 154 poems wrought over an uncertain span and circulated in manuscript before their 1609 printing, trace an intricate emotional triangle among the poet, a fair youth urged toward procreation and poetic immortality, and a dark lady of vexed and sensual attachment."`}
+  ai={`**Accessible version**
+
+Shakespeare's Sonnets are a set of 154 poems (a sonnet is a 14-line poem). They were shared in handwritten copies first, then printed in 1609.
+
+The poems are about three people: the poet, a young man (the "fair youth"), and a woman (the "dark lady"). The poet urges the young man to have children and to live on through poetry. The dark lady stands for a difficult, sensual kind of love.
+
+**Theme map**
+- Work: the Sonnets -> 154 poems, printed in 1609
+- Fair youth -> urged toward children and poetic immortality
+- Dark lady -> difficult, sensual attachment`}
+/>
+
+The content is all there. The single textbook sentence, four lines
+long and full of subordinate clauses, has become a handful of
+short sentences in direct order. The terms stayed (*sonnet*, *fair
+youth*, *dark lady*) with a gloss in parentheses on first use. The
+theme map gives the student the visual skeleton to hang the
+details on. What didn't change: the number of poems, the 1609
+date, the three figures. Those are the facts the assessment will
+ask the whole class.
+
+On a literary text, though, simplifying can flatten a nuance:
+"wrought" isn't quite "made", "vexed and sensual attachment" says
+more than "a difficult kind of love". Reread the accessible
+version against the original and, where the nuance matters for your
+subject, put it back by hand with a gloss rather than letting it
+drop.
+
+Before you use this version, it also has to go to whoever supports
+the student. The chat gave you a quick draft, not a validated
+material.
+
+:::caution[AI doesn't replace the SEN coordinator]
+The person who knows the student is the SEN coordinator or the
+learning-support teacher: they know what's in the support plan,
+which strategies have already been agreed with the family, what
+worked and what didn't last year. The AI saves you the time of the
+rewrite, not the pedagogical judgment. Always pass the adapted
+version to whoever supports the student before taking it to class.
+:::
+
+:::tip[If the formal network is missing]
+Not every school has a SEN coordinator or a learning-support
+teacher on hand, and the plan isn't always ready. If the
+validating figure isn't there, lean on what exists (the support
+plan if there is one, a colleague who had the student, what the
+family tells you works at home) and stay more conservative: a
+cautious adaptation beats a reckless one. If the plan doesn't
+exist yet (an unconfirmed need, an assessment in progress), you
+can still make a material more accessible, but the concern goes
+through the school's proper channels: the AI doesn't certify and
+you don't diagnose.
+:::
+
+:::tip[Adapting material you already have]
+Often you don't start from scratch: you have a standard sheet
+ready and have to adapt it fast. Photograph or scan the page,
+upload it to the AI (see
+[Photos, images, and files](/en/everyday-use/images-and-files/))
+and ask: "rewrite this sheet keeping the same objectives and the
+same key terms, with short sentences and a gloss of the hard
+terms". It's faster than retyping it all. Check that the AI read
+the text from the photo correctly: on crooked scans or difficult
+handwriting it sometimes gets a word wrong.
+:::
+
+:::caution[Privacy: the student has no name in the chat]
+When you describe the case to the AI, no name, no details of the
+diagnosis, no family situation. Write "a student with dyslexia",
+not "Marco in year 9, class B, diagnosed in 2024". The tool
+doesn't need the identity to adapt a text, and the data of a minor
+with a formal assessment is among the most sensitive there is. The
+handling of minors' data comes back in detail in the last lesson
+of the module.
+:::
+
+## What NOT to do
+
+**Don't ask the AI to "assess the severity" of the difficulty.** It
+isn't a diagnostic tool and it hasn't seen the student. Questions
+like "how severe is this dyslexia" or "what level of support is
+needed" get invented answers that sound competent. Diagnosis and
+the plan are made by specialists, and they're already written in
+the support plan.
+
+**Don't override the plan that already exists.** If the plan says
+"maps yes, audio material no" and you have the AI generate an audio
+version because it seems like a good idea, you're contradicting
+strategies decided with the family and the specialists. The AI
+adapts within the plan's constraints, not in place of the plan.
+
+**Don't put labels on the material.** The sheet the student
+receives isn't called "the SEN version" and doesn't carry a
+different badge. It has to be accessible without being marked. The
+same logic as the neutral labels in the lesson on levels applies:
+adapting is there to include, not to flag. Often an accessible
+version (short sentences, a diagram, glosses) is clearer for
+everyone, and nothing stops you from giving it to the whole class:
+if everyone gets it, it flags no one.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-inclusive-materials.txt"
+  duration="10-15 min"
+  description="The AI interviews you on the specific need and the material you're adapting, then proposes an accessible version to validate with whoever supports the student."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-inclusive-materials.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You've designed the lessons, differentiated by level, made the
+materials accessible. The next step in the teaching cycle is
+assessing what students have learned. The next lesson takes on how
+AI helps you build assessment questions, without their turning
+trivial or ambiguous.
