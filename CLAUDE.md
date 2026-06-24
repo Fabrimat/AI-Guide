@@ -180,6 +180,20 @@ chunk né i pesi del modello da Hugging Face (cross-origin): nessuna
 `registerRoute` li matcha. È un componente **interno**, NON va nel
 catalogo "Componenti del progetto".
 
+Ricerca cross-lezione (RAG): `search-context.ts` non usa più Pagefind ma un
+indice di embeddings statico. A build time `scripts/generate-embeddings.mjs`
+(step `postbuild`, **non-fatal**: se fallisce non rompe la build) legge le
+lezioni MDX, le spezza per sezione H2, le embedda con `multilingual-e5-small`
+via `@huggingface/transformers` e scrive `dist/embeddings/<locale>.json`. A
+runtime `embedder.ts` carica Transformers.js in modo lazy (solo dentro il
+percorso di chat, dopo il consenso; backend WASM) ed embedda la domanda;
+`search-context.ts` fa cosine similarity e passa al prompt le lezioni più
+pertinenti. Indice servito dal nostro dominio (cache Cloudflare); modello
+embedder dalla CDN di Hugging Face, on demand. Niente di tutto questo è nel
+precache PWA: il chunk client `transformers` è escluso via `globIgnores`
+(come `webllm`) e l'indice non entra nel bulk manifest. Pagefind resta solo
+per la ricerca Ctrl+K in `Search.astro`.
+
 ## Direzione visiva — Pastello
 
 Il sito usa **una palette warm in due modalità** ("Pastello"), pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
