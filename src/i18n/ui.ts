@@ -269,7 +269,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   localAiClose: 'Chiudi',
   localAiConsentHeading: 'Fai girare una piccola IA qui, sul tuo dispositivo',
   localAiConsentBody:
-    "Questo assistente gira nel tuo browser. La prima volta scarica un file del modello, una volta sola, da un fornitore esterno (Hugging Face). Dopo funziona offline e niente di quello che scrivi esce dal tuo dispositivo.",
+    "Questo assistente gira nel tuo browser. La prima volta scarica i suoi file di modello una volta sola da un fornitore esterno (Hugging Face): il modello di chat e un piccolo modello di ricerca. Dopo funziona offline e niente di quello che scrivi esce dal tuo dispositivo.",
   localAiConsentPrivacy: 'I tuoi messaggi restano in questo browser. Non vengono mai inviati a me né a un server.',
   localAiConsentPrivacyLink: 'Leggi la pagina sulla privacy',
   localAiModelLightLabel: 'Leggero · circa 0,4 GB · veloce, risposte basilari',
@@ -467,7 +467,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   localAiClose: 'Close',
   localAiConsentHeading: 'Run a small AI here, on your device',
   localAiConsentBody:
-    'This assistant runs in your browser. The first time, it downloads a model file once from an external provider (Hugging Face). After that it works offline and nothing you type leaves your device.',
+    'This assistant runs in your browser. The first time, it downloads its model files once from an external provider (Hugging Face): the chat model and a small search model. After that it works offline and nothing you type leaves your device.',
   localAiConsentPrivacy: 'Your messages stay in this browser. They are never sent to me or to any server.',
   localAiConsentPrivacyLink: 'Read the privacy page',
   localAiModelLightLabel: 'Light · about 0.4 GB · fast, basic answers',
