@@ -347,6 +347,14 @@ export default defineConfig({
           '**/sa/**',
           'sw.js',
           'workbox-*.js',
+          // Local AI assistant: the web-llm engine (named `webllm` via
+          // manualChunks) and its Web Worker are ~6 MB each and load on
+          // demand only after the reader consents. They must stay out of
+          // the precached offline shell, and Workbox's injectManifest
+          // throws (not warns) on files above its 2 MiB limit.
+          '_astro/webllm-*.js',
+          '_astro/webllm.*.js',
+          '_astro/chat-worker-*.js',
         ],
       },
       devOptions: {
