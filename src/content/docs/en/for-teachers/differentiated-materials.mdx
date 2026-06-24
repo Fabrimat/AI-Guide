@@ -1,0 +1,238 @@
+---
+title: Differentiated materials by level
+description: Same topic, three difficulty levels. The one-base-text, three-derivatives pattern keeps the fast and the slow students on board without the content drifting apart.
+livello: intermedio
+prerequisiti: [ask-well, write-better, draft-professional-documents]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Differentiating by level is **vertical**: same topic, different difficulty. Different from "explain in five ways", which is lateral (same level, different styles).
+- The pattern is **one base text, three derivatives**: you write the standard text, the AI derives a consolidation version and an extension version. The variants are adaptations, not independent rewrites.
+- Three constraints that keep the levels aligned: **same answers** to the base questions, **same working time**, **same glossary** of key terms.
+- In class you label them **neutrally** (A/B/C, colors), never "easy/medium/hard".
+- Primary school: different scheme. The three variants are too close together for young children. Base text plus a single consolidation variant.
+
+</LessonSummary>
+
+A class isn't uniform. On the same topic, some students arrive
+ready and get bored, some are right on track, and some struggle
+and fall behind. Give everyone the same sheet and you lose
+two-thirds of them: the first because it's too little, the last
+because it's too much. The teaching answer is to differentiate by
+level: same content, versions of different difficulty.
+
+This is a different axis from the previous lesson.
+[Explain in five different ways](/en/for-teachers/explain-in-five-ways/)
+works *by style*: the same difficulty, told from different angles.
+Here you work *by level*: the same angle, at different depths. You
+need it when the class is mixed, when you run catch-up in parallel
+with the main group, or when a unit runs over several days and you
+have to keep the fast and the slow together.
+
+## One base text, three derivatives
+
+The weak spot of differentiating by hand is time: writing three
+sheets from scratch is work few teachers actually do, so you end
+up giving everyone the same one. The weak spot of differentiating
+with AI, if you use it badly, is the opposite: you ask for three
+separate sheets and the AI reinvents the content at each pass, so
+the "easy" sheet and the "hard" sheet no longer talk about the
+same topic.
+
+The pattern that avoids both problems is this: **write a single
+base text**, the one at your class's standard (you write it, or
+assemble it from the textbook). Then ask the AI to *derive* two
+variants from it, not to write two new ones:
+
+- a **consolidation** version: simpler vocabulary, shorter
+  sentences, more concrete examples, exercises that ask students
+  to apply rather than analyze;
+- an **extension** version: richer vocabulary, more abstract
+  examples, exercises that ask students to compare or argue.
+
+The levels in class are three (consolidation, standard,
+extension), but the base text is already the standard: you only
+ask the AI for the two ends. The base text stays the reference.
+The two variants are adaptations of the same content, up and down
+from the standard line. That way the three levels stay aligned:
+they talk about the same topic, with the same facts, at three
+different depths.
+
+The typical prompt is explicit about this:
+
+> *"This is my base text for a first-year high school class. Derive
+> two variants of the same content: a consolidation one (shorter
+> sentences, simpler vocabulary, application exercises) and an
+> extension one (comparison and argumentation exercises). Keep the
+> same key terms and the same facts. Don't add new topics."*
+
+## Three rules that keep the levels aligned
+
+Deriving the variants is half the work. The other half is checking
+they stay the same lesson at three speeds, not three different
+lessons. Three constraints to put in the prompt and to verify
+afterward.
+
+**Same answers to the base questions.** The exercises on the three
+sheets can differ: the consolidation one asks students to apply,
+the extension one to argue. What has to stay identical is the core
+of facts and definitions under the exercises, the same core the
+final assessment will ask everyone. On the underlying question the
+three sheets must allow compatible correct answers: what varies is
+the depth the student reaches it at, not the fact. If the student
+on sheet A and the one on sheet C give irreconcilable answers to
+"what does the Edict of Milan establish", one of the two variants
+has changed the content, not just the level.
+
+**Same working time.** The three sheets have to take the same
+nominal time. The classic mistake is the extension one ending up
+with twice the exercises of the consolidation one: the student
+who's ahead is punished with more work, the one who's behind with
+less. Ask the AI for the constraint explicitly ("each must be
+completable in 25 minutes") and time one sheet yourself to check.
+
+**Same glossary.** The key terms of the base text appear in all
+three variants. Students need to be able to use them in oral
+discussion and in the assessment that follows, which is the same
+for everyone. What changes is *how* they're explained, not *which*
+ones are there. A consolidation variant that strips out the
+technical terms looks kinder, but it puts those students at a
+disadvantage when everyone comes back to the same ground.
+
+## The difference in practice
+
+History, first year of high school, Constantine's reforms. The
+teacher pastes their base text, at the class standard, and asks
+the AI for the two variants.
+
+<ChatDemo
+  user={`This is my base text (standard level) on Constantine's reforms for a first-year high school class:
+
+"Constantine, emperor in the early 4th century, reorganizes the empire with three reforms. With the Edict of Milan (313) he grants Christians freedom of worship and ends the age of persecutions. He reforms taxation with the capitatio, a tax calculated on people and farmed land, to make revenue more stable. He then shifts the political center east, founding Constantinople on the Bosphorus. Exercise: explain what problem each reform addresses."
+
+Derive two variants: a consolidation one and an extension one. Same key terms (Edict of Milan, capitatio, Constantinople), same facts, same working time. Don't add topics.`}
+  ai={`**Consolidation version (level A)**
+Constantine rules the Roman Empire in the early 300s AD. He makes three important decisions.
+1. With the **Edict of Milan** (313) he lets Christians worship freely. Before, they were persecuted.
+2. He changes how taxes are paid: the **capitatio** is a tax you pay based on the people and the land you work.
+3. He moves the capital east and founds **Constantinople** (today's Istanbul).
+*Exercise:* match each reform to the problem it was meant to solve.
+
+**Extension version (level C)**
+Constantine's reforms (early 4th century) respond to a crisis Rome could no longer govern on its own.
+- The **Edict of Milan** (313) closes the era of persecutions and opens one in which the empire will use Christianity as political glue.
+- The **capitatio**, a tax tied to people and land, tries to stabilize revenue made fragile by inflation and the depopulation of the countryside.
+- Founding **Constantinople** shifts the center of gravity east, closer to the hot borders and the rich trade routes.
+*Exercise:* argue why the city of Rome alone was no longer enough as the empire's center, using at least two of the three reforms.`}
+/>
+
+The two variants say the same things. The consolidation one lines
+them up with short sentences and an application exercise ("match
+each reform to the problem"). The extension one ties the reforms
+together and asks for an argument ("why Rome wasn't enough
+anymore"). The three key terms (Edict of Milan, capitatio,
+Constantinople) stay in both: what changes is how much they're
+contextualized, not whether they're there. The standard base
+text, the one pasted into the prompt, sits in between: plain
+sentences and an explanation exercise, without the connections
+the extension version asks for.
+
+To catch whether the AI shifted a fact rather than just the level,
+reread each variant against the base text, not against your
+memory. The base text is the yardstick: if a variant states
+something that isn't there, the AI derived it wrong.
+
+:::note[For subjects with problems and exercises]
+In math, physics, chemistry the "base text" is a core of concepts
+plus a set of problems. Differentiating doesn't mean "more
+problems" or "harder problems" for the consolidation version: that
+would break the same-time rule. What changes instead is the
+*support*. The consolidation version keeps the same problem but
+with more scaffolding (a worked example, then a near-identical
+twin, the steps guided). The extension version removes the
+scaffolding and adds transfer (the same method on a new case, or
+"explain why this step works"). Same number of problems, same
+expected results, different support.
+:::
+
+:::tip[For primary school the scheme changes]
+With children between 6 and 10 the three variants tend not to
+work: the levels are too close to feel distinct, and they end up
+confusing. Alternative pattern: base text plus **a single**
+consolidation variant (more images, shorter sentences, a hands-on
+or movement exercise). Extension for the more advanced children
+takes other forms, not a harder sheet: a real-world task, the role
+of tutor to a classmate, a small piece of research to report back
+to the class.
+:::
+
+:::note[Combining by style and by level]
+The teacher's real-world pattern combines
+[style](/en/for-teachers/explain-in-five-ways/) and level. For the
+same unit you pick the level first (consolidation, standard,
+extension), then for each one the style that lands (analogy,
+technical register, visual, historical, activity). No need to
+produce fifteen variants by crossing everything: three levels by
+five styles is a warehouse you'll never use. The combinations
+useful to a real class are usually three or four, picked knowing
+your students.
+:::
+
+## What NOT to do
+
+**Don't have the variants generated without the base text.** It's
+the difference between differentiating and improvising. If you ask
+"make me an easy sheet and a hard one on Constantine's reforms"
+without giving it your text, the AI invents the content from
+scratch for each variant, decides for itself what matters, and you
+lose control over which facts and which terms end up where. The
+base text is what keeps the derivatives anchored.
+
+**Don't label the sheets "easy / medium / hard".** Students notice
+right away, and the "easy" sheet becomes a brand. The one who gets
+it feels cornered, the one who sees a classmate with the "hard"
+one reads a hierarchy. Use neutral labels: A, B, C, or three
+colors, or no visible label at all and a map you keep yourself.
+Differentiation is there to include, not to rank in public.
+
+**Don't let the variants drift apart by assessment time.** If the
+final assessment is the same for everyone (and it usually is), a
+consolidation variant that has cut the key terms or skipped a fact
+leaves those students exposed on test day. Reread the three sheets
+side by side before handing them out, with the question: "can a
+student who studied A answer the assessment I give to C?".
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-differentiated-materials.txt"
+  duration="10-15 min"
+  description="The AI interviews you on your base text and your class, then derives the consolidation and extension variants while keeping facts, timing, and glossary aligned."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-differentiated-materials.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Differentiating by level covers classes that are mixed by
+preparation. But some students have needs that aren't a question
+of level: dyslexia, attention disorders, learning support. There a
+simpler sheet isn't what's needed, an *accessible* one is. The
+next lesson takes on inclusion and special educational needs, and
+where AI genuinely helps and where the work stays with whoever
+knows the student.
