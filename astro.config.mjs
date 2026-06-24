@@ -143,13 +143,7 @@ export default defineConfig({
           items: [
             { slug: 'for-teachers/design-a-lesson' },
             { slug: 'for-teachers/explain-in-five-ways' },
-            {
-              label: 'Differentiated materials',
-              translations: { it: 'Materiali differenziati' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/differentiated-materials' },
             {
               label: 'Inclusive materials (SEN)',
               translations: { it: 'Inclusività (BES e DSA)' },

@@ -808,10 +808,31 @@ temi sono specchio.
    inversa → "stay invisible", "reformulates it on calibration"
    opaco → "reframes it to fit your class", più sette calchi
    minori).
-3. ✍️ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
-   Stesso argomento, livelli verticali di difficoltà. Pattern *un solo
-   testo base, tre derivati*. Bozza IT + integrate-questions + deepen +
-   review + style-check OK (2026-06-24). Mirror EN in corso.
+3. ✅ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
+   Pubblicata IT + EN il 2026-06-24. Stesso argomento, livelli
+   verticali di difficoltà, distinta dall'asse per stile della L2.
+   Pattern *un solo testo base, tre derivati*: il docente scrive lo
+   standard, l'IA deriva consolidamento e approfondimento (lo standard
+   è già il testo base, all'IA si chiedono i due estremi). Tre regole
+   di allineamento (stesse risposte alle domande di base, stesso tempo
+   di lavoro, stesso glossario). ChatDemo portante su storia, prima
+   superiore, riforme di Costantino, con testo base visibile nel prompt
+   e le due varianti derivate. Callout `:::note` per le materie STEM
+   (differenziare = cambiare il sostegno, non il numero di problemi),
+   `:::tip` scuola primaria (schema a due livelli), `:::note` combinare
+   stile × livello. Cosa NON fare: varianti senza testo base, etichette
+   facile/medio/difficile, scollamento alla verifica. Ciclo di
+   revisione completo (`analyze-lesson` 9 domande + `integrate-questions`
+   con 6 modifiche + style-checker IT e EN, 2026-06-24). Integrazioni
+   principali dall'analisi lettore: testo base reso visibile nel
+   ChatDemo (prima assente), callout STEM, chiarimento esercizi diversi
+   ma stesse risposte di fondo, esplicitazione due varianti / tre
+   livelli, controllo anti-deriva contro il testo base, glossa di
+   "drift" in italiano. Style-checker IT: verdetto OK, applicata la
+   sola rifinitura della description. Style-checker EN: OK con
+   rifiniture opzionali (consolidation/extension, real-world task,
+   "genuinely"), nessuna applicata (gergo didattico inglese reale e
+   più chiaro per pubblico internazionale).
 4. 🆕 **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
    Adattare materiali per Bisogni Educativi Speciali e Disturbi
    Specifici dell'Apprendimento. PEI, PDP, accessibilità.
@@ -833,7 +854,7 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 2 su 9 pubblicate. Lezioni 1-2 live (IT + EN)
+**Stato attuale**: 3 su 9 pubblicate. Lezioni 1-3 live (IT + EN)
 con verifica dell'apprendimento e approfondimento per disciplina
 attivi.
 
@@ -929,13 +950,15 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 2 su 9 pubblicate (lezione 2 il
-2026-05-17). Struttura validata in
+**Modulo 5 (Per docenti)**: 3 su 9 pubblicate (lezione 3 il
+2026-06-24). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 3, **Materiali differenziati per livello**
-(`for-teachers/differentiated-materials`).
+bozza: lezione 4, **Inclusività: BES e DSA**
+(`for-teachers/inclusive-materials`). Brief nella "Phase E" del
+piano; prerequisiti del frontmatter L4: `[ask-well, write-better,
+images-and-files]`.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
@@ -949,8 +972,10 @@ in `CONTENT.md`.
 
 ## Pickup da un altro PC (Modulo 5 in scrittura)
 
-Ultimo stato sincronizzato su `origin/main` il 2026-05-17. Per
-riprendere da un altro PC:
+Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
+della lezione 3 (2026-06-24) sono **in locale su `main`, non ancora
+pushati**: fare `git push origin main` per renderli disponibili da
+un altro PC. Per riprendere da un altro PC:
 
 1. **Clone / pull** del repo, branch `main`.
 2. **Setup ambiente**: Node 22 (pinnato in `.nvmrc`). `npm install`
@@ -959,19 +984,19 @@ riprendere da un altro PC:
 3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
    sito ricostruisce pulito (76+ pagine attese).
 4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere la nuova lezione: `/it/for-teachers/explain-in-five-ways/`
-   o `/en/for-teachers/explain-in-five-ways/`.
+   vedere l'ultima lezione: `/it/for-teachers/differentiated-materials/`
+   o `/en/for-teachers/differentiated-materials/`.
 
 **Contesto Modulo 5**:
 
-- Fasi A-B-C completate (scaffolding + lezione 1 + lezione 2).
-- Prossima: **Fase D, lezione 3 *Materiali differenziati per livello***
-  (slug `for-teachers/differentiated-materials`).
-- Brief della Fase D in
+- Fasi A-D completate (scaffolding + lezioni 1-3).
+- Prossima: **Fase E, lezione 4 *Inclusività: BES e DSA***
+  (slug `for-teachers/inclusive-materials`).
+- Brief della Fase E in
   `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
-  "Phase D".
-- Prerequisiti del frontmatter L3: `[ask-well, write-better,
-  draft-professional-documents]`.
+  "Phase E".
+- Prerequisiti del frontmatter L4: `[ask-well, write-better,
+  images-and-files]`.
 
 **Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
 seguenti)**:
@@ -1020,7 +1045,7 @@ filesystem locale. Sul nuovo PC partiranno da zero quando lanci
 `/analyze-lesson` per la prossima lezione. Non è un problema: sono
 sottoprodotti del workflow, non artefatti necessari.
 
-**Commit landed in questa sessione** (in ordine cronologico, dal
+**Commit landed per il Modulo 5** (in ordine cronologico, dal
 più vecchio al più recente):
 
 ```
@@ -1034,4 +1059,7 @@ f67ccad Activate Module 5 cards on homepage and start-here (IT + EN)
 412d09a Module 5 lesson 2: Spiegare in cinque modi diversi + deepen and review exercises
 265620f Module 5 lesson 2 EN: Explain in five different ways + deepen and review exercises
 b4856ee Unlock Module 5 lesson 2 in sidebar
+c17df37 Module 5 lesson 3: Materiali differenziati per livello + deepen and review exercises
+6c4f4f5 Module 5 lesson 3 EN: Differentiated materials by level + deepen and review exercises
+(questo commit) Unlock Module 5 lesson 3 in sidebar
 ```
