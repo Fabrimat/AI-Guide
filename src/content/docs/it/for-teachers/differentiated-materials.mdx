@@ -1,0 +1,242 @@
+---
+title: Materiali differenziati per livello
+description: Stesso argomento, tre livelli di difficoltà. Un solo testo base e tre derivati, per tenere agganciati i veloci e i lenti senza che il contenuto vada alla deriva.
+livello: intermedio
+prerequisiti: [ask-well, write-better, draft-professional-documents]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Differenziare per livello è **verticale**: stesso argomento, difficoltà diverse. Diverso dallo "spiegare in cinque modi", che è laterale (stesso livello, stili diversi).
+- Il pattern è **un solo testo base, tre derivati**: scrivi tu il testo standard, l'IA ne ricava una versione di consolidamento e una di approfondimento. Le varianti sono adattamenti, non riscritture indipendenti.
+- Tre vincoli che tengono i livelli allineati: **stesse risposte** alle domande di base, **stesso tempo** di lavoro, **stesso glossario** di termini chiave.
+- In classe le etichetti **neutre** (A/B/C, colori), mai "facile/medio/difficile".
+- Scuola primaria: schema diverso, le tre varianti sono troppo vicine per i bambini. Testo base più una sola variante di consolidamento.
+
+</LessonSummary>
+
+Una classe non è omogenea. Sullo stesso argomento c'è chi arriva
+già pronto e si annoia, chi è in pari, e chi fatica e resta
+indietro. Se dai a tutti lo stesso foglio, ne perdi due terzi:
+i primi perché è troppo poco, gli ultimi perché è troppo. La
+risposta didattica è differenziare per livello: stesso contenuto,
+versioni di difficoltà diversa.
+
+Questo è un asse diverso da quello della lezione precedente.
+[Spiegare in cinque modi diversi](/it/for-teachers/explain-in-five-ways/)
+lavora *per stile*: la stessa difficoltà, raccontata da angolazioni
+diverse. Qui si lavora *per livello*: la stessa angolazione, a
+profondità diverse. Serve quando la classe è disomogenea, quando
+fai recupero in parallelo al gruppo principale, o quando un'unità
+didattica dura più giorni e devi tenere insieme i veloci e i lenti.
+
+## Un solo testo base, tre derivati
+
+Il punto debole del differenziare a mano è il tempo: scrivere tre
+schede da zero è un lavoro che pochi docenti fanno davvero, e si
+finisce per dare a tutti la stessa. Il punto debole del
+differenziare con l'IA, se la usi male, è il contrario: chiedi tre
+schede separate e l'IA reinventa il contenuto a ogni passaggio,
+così la scheda "facile" e la scheda "difficile" non parlano più
+dello stesso argomento.
+
+Il pattern che evita entrambi i problemi è questo: **scrivi un
+solo testo base**, quello allo standard della tua classe (lo
+scrivi tu, o lo assembli dal manuale). Poi chiedi all'IA di
+*derivarne* due varianti, non di scriverne due nuove:
+
+- una **di consolidamento**: lessico più semplice, frasi più
+  corte, esempi più concreti, esercizi che chiedono di applicare
+  invece di analizzare;
+- una **di approfondimento**: lessico più ricco, esempi più
+  astratti, esercizi che chiedono di confrontare o argomentare.
+
+I livelli in classe sono tre (consolidamento, standard,
+approfondimento), ma il testo base è già lo standard: all'IA chiedi
+solo i due estremi. Il testo base resta il riferimento. Le due
+varianti sono adattamenti dello stesso contenuto, su e giù dalla
+linea standard. Così i tre livelli restano allineati: parlano dello
+stesso argomento, con gli stessi fatti, a tre profondità diverse.
+
+Il prompt tipo è esplicito su questo:
+
+> *"Questo è il mio testo base per una classe di prima superiore.
+> Derivane due varianti dello stesso contenuto: una di
+> consolidamento (frasi più corte, lessico più semplice, esercizi
+> di applicazione) e una di approfondimento (esercizi di confronto
+> e argomentazione). Mantieni gli stessi termini chiave e gli
+> stessi fatti. Non aggiungere argomenti nuovi."*
+
+## Tre regole che tengono i livelli allineati
+
+Derivare le varianti è metà del lavoro. L'altra metà è controllare
+che restino davvero la stessa lezione a tre velocità, non tre
+lezioni diverse. Tre vincoli da mettere nel prompt e da verificare
+dopo.
+
+**Stesse risposte alle domande di base.** Gli esercizi delle tre
+schede possono essere diversi: la consolidamento fa applicare,
+l'approfondimento fa argomentare. Quello che deve restare identico
+è il nucleo di fatti e definizioni sotto agli esercizi, lo stesso
+che la verifica finale chiederà a tutti. Sulla domanda di fondo le
+tre schede devono ammettere risposte corrette compatibili: varia la
+profondità con cui lo studente ci arriva, non il fatto. Se lo
+studente della scheda A e quello della scheda C danno risposte
+inconciliabili a "cosa stabilisce l'Editto di Milano", una delle
+due varianti ha cambiato il contenuto, non solo il livello.
+
+**Stesso tempo di lavoro.** Le tre schede devono richiedere lo
+stesso tempo nominale. L'errore classico è che l'approfondimento
+finisce con il doppio degli esercizi della consolidamento: chi è
+più avanti viene punito con più lavoro, chi è indietro con meno.
+Chiedi all'IA il vincolo esplicito ("ognuna deve essere
+completabile in 25 minuti") e cronometra tu una scheda per
+controllare.
+
+**Stesso glossario.** I termini chiave del testo base compaiono in
+tutte e tre le varianti. Gli studenti devono poterli usare al
+confronto orale e nella verifica successiva, che è uguale per
+tutti. Cambia il *come* sono spiegati, non *quali* ci sono. Una
+variante di consolidamento che elimina i termini tecnici sembra
+più gentile, ma mette quegli studenti in svantaggio quando si
+torna tutti sullo stesso piano.
+
+## La differenza in pratica
+
+Storia, prima superiore, le riforme di Costantino. Il docente
+incolla il suo testo base, allo standard di classe, e chiede
+all'IA le due varianti.
+
+<ChatDemo
+  user={`Questo è il mio testo base (livello standard) sulle riforme di Costantino per una prima superiore:
+
+"Costantino, imperatore all'inizio del IV secolo, riorganizza l'impero con tre riforme. Con l'Editto di Milano (313) concede ai cristiani libertà di culto e chiude l'età delle persecuzioni. Riforma il fisco con la capitatio, una tassa calcolata su persone e terra coltivata, per rendere più stabile il gettito. Sposta poi il centro politico a est, fondando Costantinopoli sul Bosforo. Esercizio: spiega quale problema affronta ciascuna riforma."
+
+Derivane due varianti: una di consolidamento e una di approfondimento. Stessi termini chiave (Editto di Milano, capitatio, Costantinopoli), stessi fatti, stesso tempo di lavoro. Non aggiungere argomenti.`}
+  ai={`**Versione di consolidamento (livello A)**
+Costantino governa l'Impero romano all'inizio del 300 d.C. Prende tre decisioni importanti.
+1. Con l'**Editto di Milano** (313) permette ai cristiani di pregare liberamente. Prima erano perseguitati.
+2. Cambia il modo di pagare le tasse: la **capitatio** è una tassa che si paga in base alle persone e alla terra che lavori.
+3. Sposta la capitale a est e fonda **Costantinopoli** (l'odierna Istanbul).
+*Esercizio:* collega ogni riforma al problema che voleva risolvere.
+
+**Versione di approfondimento (livello C)**
+Le riforme di Costantino (inizio IV secolo) rispondono a una crisi che Roma da sola non riusciva più a governare.
+- L'**Editto di Milano** (313) chiude l'epoca delle persecuzioni e apre quella di un impero che userà il cristianesimo come collante politico.
+- La **capitatio**, tassa legata a persone e terra, prova a stabilizzare un gettito reso fragile dall'inflazione e dallo spopolamento delle campagne.
+- La fondazione di **Costantinopoli** sposta il baricentro a est, più vicino ai confini caldi e alle rotte commerciali ricche.
+*Esercizio:* argomenta perché la sola città di Roma non bastava più come centro dell'impero, usando almeno due delle tre riforme.`}
+/>
+
+Le due varianti dicono le stesse cose. La consolidamento le mette
+in fila con frasi corte e un esercizio di applicazione ("collega
+ogni riforma al problema"). L'approfondimento aggancia le riforme
+fra loro e chiede un'argomentazione ("perché Roma non bastava
+più"). I tre termini chiave (Editto di Milano, capitatio,
+Costantinopoli) restano in entrambe: cambia quanto vengono
+contestualizzati, non il fatto che ci siano. Il testo base
+standard, quello incollato nel prompt, sta in mezzo: frasi piane e
+un esercizio di spiegazione, senza i collegamenti che chiede
+l'approfondimento.
+
+Per accorgerti se l'IA ha spostato un fatto invece del solo
+livello, rileggi ogni variante contro il testo base, non contro la
+tua memoria. Il testo base è il metro di paragone: se una variante
+afferma qualcosa che lì non c'è, l'IA ha derivato male.
+
+:::note[Per le materie con problemi ed esercizi]
+In matematica, fisica, chimica il "testo base" è un nucleo di
+concetti più una serie di problemi. Differenziare non vuol dire
+"più problemi" o "problemi più difficili" alla consolidamento:
+violerebbe la regola del tempo uguale. Cambia invece il *sostegno*.
+La consolidamento tiene lo stesso problema con più impalcatura (un
+esempio svolto, poi un gemello quasi identico, i passaggi guidati).
+L'approfondimento toglie l'impalcatura e aggiunge il trasferimento
+(lo stesso metodo su un caso nuovo, oppure "spiega perché questo
+passaggio funziona"). Stesso numero di problemi, stessi risultati
+attesi, sostegno diverso.
+:::
+
+:::tip[Per la scuola primaria lo schema cambia]
+Con bambini fra 6 e 10 anni le tre varianti tendono a non
+funzionare: i livelli sono troppo vicini per essere percepiti
+come distinti, e finiscono per confondere. Pattern alternativo:
+testo base più **una sola** variante di consolidamento (più
+immagini, frasi più corte, un esercizio manipolativo o motorio).
+L'approfondimento per i bambini più avanti prende altre forme,
+non una scheda più difficile: un compito di realtà, il ruolo di
+tutor di un compagno, una piccola ricerca da raccontare alla
+classe.
+:::
+
+:::note[Combinare per stile e per livello]
+Il pattern del docente nella pratica combina
+[*lo stile*](/it/for-teachers/explain-in-five-ways/) e il livello.
+Per la stessa unità didattica scegli prima il livello
+(consolidamento, standard, approfondimento), poi per ciascuno lo
+stile che aggancia (analogia, registro tecnico, visivo, storico,
+attività). Non serve produrre quindici varianti incrociando tutto:
+tre livelli per cinque stili è un magazzino che non userai mai. Le
+combinazioni utili a una classe reale sono di solito tre o quattro,
+che scegli conoscendo i tuoi studenti.
+:::
+
+## Cosa NON fare
+
+**Non far generare le varianti senza il testo base.** È la
+differenza fra differenziare e improvvisare. Se chiedi "fammi una
+scheda facile e una difficile sulle riforme di Costantino" senza
+darle il tuo testo, l'IA inventa il contenuto da capo a ogni
+variante, sceglie lei cosa è importante, e tu perdi il controllo
+su quali fatti e quali termini finiscono dove. Il testo base è
+quello che tiene ancorate le derivate.
+
+**Non etichettare le schede come "facile / medio / difficile".**
+Gli studenti se ne accorgono subito, e la scheda "facile" diventa
+un marchio. Chi la riceve si sente messo nell'angolo, chi vede il
+compagno con la "difficile" legge una gerarchia. Usa etichette
+neutre: A, B, C, oppure tre colori, oppure nessuna etichetta
+visibile e una mappa che tieni tu. La differenziazione serve a
+includere, non a classificare in pubblico.
+
+**Non lasciare che le varianti si scollino alla verifica.** Se la
+verifica finale è uguale per tutti (e di solito lo è), una variante
+di consolidamento che ha tagliato i termini chiave o saltato un
+fatto lascia quegli studenti scoperti il giorno del compito.
+Rileggi le tre schede una accanto all'altra prima di distribuirle,
+con la domanda: "chi ha studiato sulla A può rispondere alla
+verifica che do alla C?".
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-differentiated-materials.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul tuo testo base e sulla tua classe, poi ti deriva le varianti di consolidamento e approfondimento tenendo allineati fatti, tempi e glossario."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-differentiated-materials.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Differenziare per livello copre le classi disomogenee per
+preparazione. Ma alcuni studenti hanno bisogni che non sono una
+questione di livello: dislessia, disturbi dell'attenzione,
+sostegno. Lì non serve una scheda più semplice, serve una scheda
+*accessibile*. La prossima lezione affronta l'inclusività, BES e
+DSA, e dove l'IA aiuta davvero e dove invece il lavoro resta di
+chi conosce lo studente.

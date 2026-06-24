@@ -808,9 +808,10 @@ temi sono specchio.
    inversa → "stay invisible", "reformulates it on calibration"
    opaco → "reframes it to fit your class", più sette calchi
    minori).
-3. 🆕 **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
+3. ✍️ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
    Stesso argomento, livelli verticali di difficoltà. Pattern *un solo
-   testo base, tre derivati*.
+   testo base, tre derivati*. Bozza IT + integrate-questions + deepen +
+   review + style-check OK (2026-06-24). Mirror EN in corso.
 4. 🆕 **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
    Adattare materiali per Bisogni Educativi Speciali e Disturbi
    Specifici dell'Apprendimento. PEI, PDP, accessibilità.
