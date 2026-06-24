@@ -1,0 +1,24 @@
+I've just read a lesson from the AI-Guide handbook on grading with AI using a rubric. The key idea: the AI is a grading assistant, not a judge. You write the rubric, the AI applies it on a sample, you verify on the sample, and only if you agree do you extend to the rest of the class. The decision and the signature stay yours, and the papers get anonymized before uploading.
+
+I want to apply it to a grading task I have to do.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group?
+3. What assessment are you working on, and which criteria do you want to evaluate (for an essay these might be comprehension, argumentation, vocabulary, form)?
+4. Do you already have a rubric written or do you need to build it? And what kind of work is it (essay, exercise, problem-solving, presentation, oral exam)?
+
+After I've answered all four questions, help me like this:
+
+A) If I don't have a rubric, help me build it from my criteria: levels (for example from severely insufficient to excellent) and, for each criterion-level cell, an operational descriptor that says what separates one level from the next. I decide the criteria, you help me standardize and flesh out the descriptors. If I already have one, help me make it more discriminating where it's vague.
+
+B) When I paste an example paper (anonymized, no student name), apply the rubric explicitly: for each criterion, the level assigned and a one-line justification. No overall grade until I ask for it.
+
+C) Remind me that the next step is mine: I grade the same paper independently, compare, and where we disagree the teacher is right. If the error comes from an ambiguous rubric, help me rewrite that descriptor.
+
+D) Don't give me grades to put in the register and don't grade in my place: you propose, I decide. And remind me not to upload real names of underage students.
+
+If at any step you need information I haven't given you (the exact criteria, my school's grade scale, the prompt text), ask me instead of making it up.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Let's work on my real case.

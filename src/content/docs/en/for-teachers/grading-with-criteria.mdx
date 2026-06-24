@@ -1,0 +1,218 @@
+---
+title: Grading with criteria
+description: AI as a grading assistant, not a judge. Your rubric, a first pass on a sample, the teacher's check, the decision and the signature always yours.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it, data-and-tables]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- The AI grades as an assistant, not a judge. Three principles: **you write the rubric**, **the decision is yours**, **anonymize the work** before uploading.
+- Five-step workflow: explicit rubric, a first AI pass on 3-5 papers, the teacher's check on the same, extension if it holds, feedback written by you.
+- Where you and the AI disagree, the teacher is right. But the *why* of the AI's error tells you whether the rubric is ambiguous.
+- Anti-cheating: signs of suspected AI in a paper are clues, not proof. What to do about them is in a dedicated lesson later.
+- No names in the chat, no AI grade in the register without rereading it.
+
+</LessonSummary>
+
+The AI is a good grading assistant and a poor judge. The
+difference isn't subtle, and before you open the chat it's worth
+setting three principles that don't bend.
+
+First: the rubric comes before the AI, and you write it. The AI can
+help you put it into shape and flesh out the descriptors that come
+out thin, but the assessment criteria are a teaching choice of
+yours, not an output to generate. Second: the final decision is
+yours. The AI proposes, you decide, and the grade in the register
+you put there. Third: the work gets anonymized before uploading.
+The student's name isn't needed for the AI to apply a rubric, and a
+minor's data doesn't get poured into a consumer chat.
+
+## The five-step workflow
+
+With the three principles set, assisted grading is a five-step
+loop.
+
+**1. Write the explicit rubric.** Criteria (for an essay:
+comprehension of the text, argumentation, vocabulary, form), levels
+(from severely insufficient to excellent), and for each cell a
+descriptor that says what separates one level from the next. It's
+the step that decides everything: a vague rubric produces vague
+grading, human or AI. The AI here helps standardize the descriptors
+and fill the cells that come out halting, starting from your
+criteria.
+
+**2. The AI's first pass on a sample.** Take 3-5 anonymized papers,
+upload them with the rubric, and ask the AI to apply it explicitly:
+for each paper, for each criterion, the level assigned plus a
+one-line justification. The line of justification is the part that
+counts: without it, you have a grade you can't check.
+
+**3. Spot-check.** Grade the same 3-5 papers yourself,
+independently. Then compare. Where you and the AI diverge the rule
+is simple, the teacher is right. But stop to understand *why* the
+AI got it wrong: often it isn't the AI that fails to understand,
+it's the rubric that's ambiguous on that criterion. There you
+rewrite it, and your own grading improves too.
+
+**4. Extension to the rest of the class.** If you and the AI agree
+on the sample, have the rubric applied to the whole set. On a class
+of 25-30 papers it's worth uploading them in batches, five or six
+at a time: a chat that's too loaded loses the thread and applies
+the rubric less consistently toward the end. At that point your job
+isn't to regrade everything from scratch, it's to scan the
+assessments, catch the obvious gaps, and pull two or three papers
+at random from the pile to check the rubric still holds far from
+the initial sample. Then you sign. If you didn't agree on the
+sample, don't extend: go back to step 1 and fix the rubric.
+
+**5. Individual feedback.** The comment that reaches the student
+you write, with the rubric as a skeleton. The AI can propose a
+draft of feedback per criterion, but the comment must be reread
+cold and re-signed by hand: it's the part of the assessment the
+student actually reads, and it has to carry your voice and what you
+know about them.
+
+## The difference in practice
+
+English literature, final year of high school, a close reading of
+Keats's sonnet *When I have fears that I may cease to be*. A
+four-criterion rubric, applied to an anonymized paper.
+
+<ChatDemo
+  user={`Apply this rubric to the paper below (close reading, final year of high school, Keats's sonnet "When I have fears that I may cease to be"). For each criterion: level (insufficient / sufficient / good / excellent) and a one-line justification. Rubric: Comprehension, Formal analysis, Contextualization, Vocabulary.
+
+Paper: "In the sonnet the poet fears dying before his pen has gathered all his thoughts. Love and fame appear as things he may never fully grasp. The image of the night sky and the 'huge cloudy symbols' points to the vastness of what he might lose. His melancholy, like the rest of his work influenced by Tennyson, comes from a Romantic sense of mortality."`}
+  ai={`**Comprehension: good.** Grasps the core: the fear of dying young, unfulfilled love and fame, the vastness of what is lost.
+
+**Formal analysis: sufficient.** Identifies the themes but doesn't touch the form: nothing on the sonnet structure, the volta, the enjambment, the build-up of "when... when... when".
+
+**Contextualization: good.** Places the poem in a Romantic sense of mortality.
+
+**Vocabulary: sufficient.** Correct but generic ("melancholy", "vastness"), little specific critical vocabulary.
+
+Overall: a fair piece, stronger on comprehension than on formal analysis, which is the criterion to push.`}
+/>
+
+The AI gave **good** on contextualization. You reread and give
+**sufficient**: the student writes that Keats is "influenced by
+Tennyson", a clear chronological error, since Tennyson is later
+(Victorian, while Keats is Romantic). The AI missed it, and not out
+of carelessness: the rubric asked to "place the text in context",
+not to "place it without factual errors". The criterion was
+ambiguous. You rewrite it, adding to the contextualization
+descriptor the line "penalize chronological and attribution
+errors". Now, across the whole class, the AI will flag the same
+kind of error instead of letting it pass. The disagreement on the
+sample isn't a nuisance: it's how the rubric becomes more
+discriminating.
+
+:::tip[Signs of suspected AI]
+As you grade, certain signs raise an eyebrow. They aren't proof,
+they're hypotheses: a register too uniform and too high for the
+class level, perfect citations you can't verify, a structure too
+geometric for an average student, the sudden disappearance of the
+typical personal mistakes (the one who always wrote "definately"
+suddenly flawless), rare words never heard in class. On their own
+they prove nothing. What to do with them, and how to handle a
+suspicion without accusing anyone, is the subject of the lesson
+*When students use AI*, later in the module.
+:::
+
+:::caution[Privacy: anonymize before uploading]
+Before uploading the papers to a consumer chat (ChatGPT, Claude,
+Gemini), remove the names. Rename the files "paper-01", "paper-02",
+delete the header with name, class, and date, or use a tool that
+masks the names. If your school has a business plan (Team,
+Enterprise) the rules change and the data doesn't go into training,
+but the principle of giving the minimum stays. For a paper with
+personal data beyond the name, like an autobiographical essay,
+weigh whether it's worth uploading or whether that grading stays
+entirely by hand. On the privacy of minors' data the module's
+closing lesson comes back.
+:::
+
+:::tip[Handwritten papers]
+The in-class essay is almost always on paper. To get it into the
+chat you photograph or scan it and upload it as an image or PDF
+(see [Photos, images, and files](/en/everyday-use/images-and-files/)).
+Two caveats. Handwriting: on neat writing the AI transcribes well,
+on difficult writing it gets words wrong, so on the passages that
+weigh on the grade reread the original instead of trusting the
+transcription. The name: if it's handwritten on the sheet, the
+"rename the file" anonymization isn't enough, because the name is
+inside the image. Cover the name before taking the photo, crop the
+header, or shoot from the second line down.
+:::
+
+:::note[Bringing the levels to the register]
+If you want to pour the applied levels into a spreadsheet for the
+register, the AI can give you a table directly (student, criterion,
+level, grade). To handle it, what you saw in
+[Working with data and tables](/en/at-work/data-and-tables/)
+applies: check cell by cell before copying, because a level shifted
+by one row is a wrong grade for a real student.
+:::
+
+:::note[For math and problem-solving]
+Where grading is more right/wrong than levels, the rubric becomes a
+*solution key*: the correct procedure step by step, plus how much
+credit each step is worth, so a student who sets it up well but
+slips on a calculation doesn't get zero. You upload the key with
+the papers and ask the AI to flag where each working departs from
+it. The verification step stays the same: on calculations the AI
+gets things wrong, so you check the sample before extending.
+Building the problems and the key is the subject of
+[Generate assessment questions](/en/for-teachers/generate-assessment-questions/).
+:::
+
+## What NOT to do
+
+**Don't upload students' real names.** It's the rule that comes
+before the others: a minor's data doesn't get poured into a
+consumer chat for convenience.
+
+**Don't use the AI as a co-grader on equal footing.** The AI
+without the teacher's verification pass on the sample isn't a
+colleague who grades, it's a generator of plausible grades. Step 3
+isn't optional: it's what separates assisted grading from
+delegating the judgment.
+
+**Don't transcribe the AI's grade into the register without
+rereading it.** The grade you sign is yours, with your
+responsibility to the student and the family. A number you haven't
+checked doesn't stop being yours just because a machine proposed
+it.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-grading-with-criteria.txt"
+  duration="10-15 min"
+  description="The AI helps you build or sharpen the rubric and guides you through the first pass on a sample, leaving the verification and the decision to you."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-grading-with-criteria.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You've designed the lessons, differentiated the materials, built
+the tests, and graded with criteria. There's one part of a
+teacher's work, as delicate as grading, that the AI can lighten:
+communicating with families. The next lesson is about writing those
+emails without making them sound cold and without missing the
+register.
