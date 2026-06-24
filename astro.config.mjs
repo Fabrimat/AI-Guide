@@ -159,13 +159,7 @@ export default defineConfig({
             { slug: 'for-teachers/differentiated-materials' },
             { slug: 'for-teachers/inclusive-materials' },
             { slug: 'for-teachers/generate-assessment-questions' },
-            {
-              label: 'Grading with criteria',
-              translations: { it: 'Correggere con criterio' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/grading-with-criteria' },
             {
               label: 'Emails to families',
               translations: { it: 'Comunicare con le famiglie' },

@@ -873,11 +873,26 @@ temi sono specchio.
    (`analyze-lesson` 7 domande + `integrate-questions` con 5 modifiche +
    style-checker IT e EN, 2026-06-24). Style-checker IT ed EN: verdetto
    OK, nessuna modifica richiesta.
-6. ✍️ **Correggere con criterio** (`for-teachers/grading-with-criteria`)
-   Rubrica esplicita, prima passata IA, verifica a campione, decisione
-   docente. Callout filo rosso su indicatori manuali. Bozza IT +
-   integrate-questions + deepen + review + style-check OK (2026-06-24).
-   Mirror EN in corso.
+6. ✅ **Correggere con criterio** (`for-teachers/grading-with-criteria`)
+   Pubblicata IT + EN il 2026-06-24. L'IA come assistente di
+   correzione, non come giudice. Tre principi (rubrica del docente,
+   decisione del docente, anonimizzazione) e workflow in cinque passi:
+   rubrica esplicita, prima passata IA su 3-5 elaborati, verifica del
+   docente sugli stessi, estensione a lotti se regge (con spot-check sul
+   set intero), restituzione scritta dal docente. ChatDemo portante su
+   italiano, quinta superiore, analisi del testo di *A Zacinto* di
+   Foscolo: l'IA applica la rubrica, sbaglia su un criterio ambiguo
+   (errore cronologico Foscolo/Leopardi non colto) e il disaccordo col
+   docente affina la rubrica. EN localizzato su Keats (*When I have
+   fears*) con errore Keats/Tennyson. Filo rosso anti-cheating: callout
+   indicatori manuali di sospetta IA (indizi, non prove), rimando per
+   nome a L8. Altri callout: temi manoscritti (foto, calligrafia,
+   anonimizzazione del nome), STEM/chiave di soluzione, privacy, tabella
+   per il registro (link a M3L5 *data-and-tables*). Ciclo di revisione
+   completo (`analyze-lesson` 6 domande + `integrate-questions` con 3
+   modifiche + style-checker IT e EN, 2026-06-24). Style-checker IT: OK
+   con una rifinitura applicata ("In sintesi" → "Nel complesso" nella
+   battuta IA del ChatDemo). Style-checker EN: OK.
 7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
    Email delicate ai genitori. Tre registri (primaria, secondaria,
    università). Privacy rinforzata su dati di minori.
@@ -890,7 +905,7 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 5 su 9 pubblicate. Lezioni 1-5 live (IT + EN)
+**Stato attuale**: 6 su 9 pubblicate. Lezioni 1-6 live (IT + EN)
 con verifica dell'apprendimento e approfondimento per disciplina
 attivi.
 
@@ -986,15 +1001,15 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 5 su 9 pubblicate (lezione 5 il
+**Modulo 5 (Per docenti)**: 6 su 9 pubblicate (lezione 6 il
 2026-06-24). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 6, **Correggere con criterio**
-(`for-teachers/grading-with-criteria`). Brief nella "Phase G" del
-piano; prerequisiti del frontmatter L6: `[ask-well, when-to-trust-it,
-data-and-tables]`.
+bozza: lezione 7, **Comunicare con le famiglie**
+(`for-teachers/emails-to-families`). Brief nella "Phase H" del
+piano; prerequisiti del frontmatter L7: `[ask-well, write-better,
+hard-emails]`.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
@@ -1009,8 +1024,8 @@ in `CONTENT.md`.
 ## Pickup da un altro PC (Modulo 5 in scrittura)
 
 Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
-delle lezioni 3, 4 e 5 (2026-06-24) sono **in locale su `main`, non
-ancora pushati**: fare `git push origin main` per renderli
+delle lezioni 3, 4, 5 e 6 (2026-06-24) sono **in locale su `main`,
+non ancora pushati**: fare `git push origin main` per renderli
 disponibili da un altro PC. Per riprendere da un altro PC:
 
 1. **Clone / pull** del repo, branch `main`.
@@ -1020,19 +1035,19 @@ disponibili da un altro PC. Per riprendere da un altro PC:
 3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
    sito ricostruisce pulito (76+ pagine attese).
 4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere l'ultima lezione: `/it/for-teachers/generate-assessment-questions/`
-   o `/en/for-teachers/generate-assessment-questions/`.
+   vedere l'ultima lezione: `/it/for-teachers/grading-with-criteria/`
+   o `/en/for-teachers/grading-with-criteria/`.
 
 **Contesto Modulo 5**:
 
-- Fasi A-F completate (scaffolding + lezioni 1-5).
-- Prossima: **Fase G, lezione 6 *Correggere con criterio***
-  (slug `for-teachers/grading-with-criteria`).
-- Brief della Fase G in
+- Fasi A-G completate (scaffolding + lezioni 1-6).
+- Prossima: **Fase H, lezione 7 *Comunicare con le famiglie***
+  (slug `for-teachers/emails-to-families`).
+- Brief della Fase H in
   `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
-  "Phase G".
-- Prerequisiti del frontmatter L6: `[ask-well, when-to-trust-it,
-  data-and-tables]`.
+  "Phase H".
+- Prerequisiti del frontmatter L7: `[ask-well, write-better,
+  hard-emails]`.
 
 **Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
 seguenti)**:
@@ -1103,7 +1118,10 @@ ada052f Module 5 lesson 4: Inclusivita BES e DSA + deepen and review exercises
 382184f Unlock Module 5 lesson 4 in sidebar
 9f69915 Module 5 lesson 5: Domande per verifiche + deepen and review exercises (cherry-pick su main)
 7da761a Module 5 lesson 5 EN: Generate assessment questions + deepen and review exercises
-(questo commit) Unlock Module 5 lesson 5 in sidebar
+06e057a Unlock Module 5 lesson 5 in sidebar
+1a83144 Module 5 lesson 6: Correggere con criterio + deepen and review exercises
+c300f04 Module 5 lesson 6 EN: Grading with criteria + deepen and review exercises
+(questo commit) Unlock Module 5 lesson 6 in sidebar
 ```
 
 **Nota branch (sessione 2026-06-24)**: durante la scrittura della L5 il
