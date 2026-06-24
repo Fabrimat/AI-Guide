@@ -147,6 +147,39 @@ Lo schema è validato in `src/content.config.ts`.
   - `<InstallApp>` è un componente **interno**, montato solo dentro `HeaderPreferences.astro`. NON va nel catalogo "Componenti del progetto" (quello cataloga solo i componenti riusabili dalle lezioni `.mdx`).
   - Il SW non intercetta `/sa/**` (Simple Analytics): quel traffico continua a passare attraverso il Worker `sa-proxy` su Cloudflare e a raggiungere SA in tempo reale, anche con la PWA attiva.
 
+## Assistente IA locale (in-browser)
+
+`src/components/LocalAI/` aggiunge un assistente che gira interamente
+nel browser via `@mlc-ai/web-llm` (WebGPU), montato su ogni pagina da
+`Footer.astro`. Niente backend, niente API key: il modello (Qwen2.5,
+tre tagli scelti dall'utente al consenso: 0.5B / 1.5B / 3B) si scarica
+una sola volta da CDN terza (Hugging Face) **solo dopo consenso
+esplicito**, poi resta in cache (web-llm, Cache API) e gira offline.
+`ChatPanel.astro` rende launcher + drawer e passa stringhe/config via
+`data-*`; `chat-ui.ts` è il custom element `<local-ai>` che guida la
+macchina a stati (consent → download con progress → ready, oppure
+fallback no-WebGPU / errore con retry sul modello leggero);
+`chat-worker.ts` ospita l'engine fuori dal main thread;
+`lesson-context.ts` estrae il testo della lezione corrente (budget
+~1500 token); `search-context.ts` interroga Pagefind per estratti da
+altre lezioni; `skill-loader.ts` legge i file `.txt` di check-in dalle
+card `<LlmExercise>` (via `data-file`/`data-variant`) ed esegue
+l'esercizio in modo interattivo. Consenso persistito in
+`localStorage['aiguide:localai:consent']` (valore = id del modello).
+Nessuna conversazione viene salvata o inviata. È un'aggiunta: i
+pulsanti Copy/Download/Open di `<LlmExercise>` restano.
+
+web-llm è importato **dinamicamente** in `chat-ui.ts` (non a top level)
+e ha un chunk con nome stabile `webllm` (via `vite.build.rollupOptions.
+output.manualChunks` in `astro.config.mjs`): così non finisce nel bundle
+di ogni pagina e si scarica solo dopo il consenso. I chunk `webllm.*` e
+`chat-worker-*` (~6 MB l'uno) sono esclusi dal precache PWA via
+`injectManifest.globIgnores`, sennò Workbox (modalità injectManifest)
+fallisce la build sui file oltre 2 MiB. Il SW non intercetta né questi
+chunk né i pesi del modello da Hugging Face (cross-origin): nessuna
+`registerRoute` li matcha. È un componente **interno**, NON va nel
+catalogo "Componenti del progetto".
+
 ## Direzione visiva — Pastello
 
 Il sito usa **una palette warm in due modalità** ("Pastello"), pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
