@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Inclusivita': BES e DSA" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la lezione distingue nettamente "differenziare per livello" (la lezione precedente) dall'"inclusivita'" (questa). Qual e' la differenza? E perche' uno studente con un DSA puo' essere fra i piu' bravi della classe e avere comunque bisogno di un materiale adattato?
+
+Domanda 2: la lezione propone tre assi di adattamento (forma della pagina, sintesi visiva, semplificazione sintattica). Sull'asse della semplificazione, qual e' l'errore che l'IA fa piu' spesso quando le chiedi una versione "piu' semplice"? E come glielo impedisci nel prompt?
+
+Domanda 3: chi deve validare il materiale adattato prima che arrivi allo studente, e perche' non basta l'IA? Indicami anche almeno due cose che NON devi mai chiedere o fare con l'IA in questo ambito.
+
+Domanda 4: pensa a un materiale della tua disciplina e a un bisogno specifico di uno studente (senza nominare lo studente). Dimmi una cosa che cambieresti per renderlo accessibile, tenendo i termini chiave. Ti commento la scelta e ti dico se rischia di tagliare contenuto o di lasciare un'etichetta di troppo.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

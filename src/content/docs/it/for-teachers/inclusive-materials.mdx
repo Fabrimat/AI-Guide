@@ -1,0 +1,233 @@
+---
+title: "Inclusività: BES e DSA"
+description: Adattare i materiali per studenti con bisogni educativi speciali non è fare la versione facile, è renderla accessibile. Dove l'IA accelera e dove il lavoro resta di chi conosce lo studente.
+livello: intermedio
+prerequisiti: [ask-well, write-better, images-and-files]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Inclusività non è differenziare per livello. Uno studente con DSA può essere fra i più bravi: gli serve accessibilità, non una scheda più facile.
+- Tre assi: **accessibilità grafica** (font, interlinea, righe corte), **sintesi visiva** (mappe, schemi), **semplificazione sintattica** che NON taglia i termini chiave.
+- L'IA accelera l'adattamento dei materiali, ma il referente DSA o il docente di sostegno valida sempre: conosce lo studente, il PDP o il PEI, gli accordi con la famiglia.
+- Privacy dei minori: niente nome, niente diagnosi, niente dettagli familiari nella chat. Parli di "uno studente con dislessia", non di "Marco di seconda B".
+- Mai chiedere all'IA di "valutare la gravità" di un disturbo: non è uno strumento diagnostico, e non scavalcare il piano che esiste già.
+
+</LessonSummary>
+
+Differenziare per livello e includere sono due cose diverse, e
+confonderle fa danni.
+[La lezione precedente](/it/for-teachers/differentiated-materials/)
+parlava di livelli: stesso argomento, difficoltà diverse.
+L'inclusività è un altro asse. Uno studente con un disturbo
+specifico dell'apprendimento può essere fra i più brillanti della
+classe: non gli serve una versione più facile, gli serve poter
+leggere senza che la pagina gli si rimescoli davanti. Il bisogno è
+di accessibilità, non di sconto sul contenuto.
+
+Due sigle ricorrono in questa lezione. **BES** (Bisogni Educativi
+Speciali) è l'ombrello largo: dentro ci stanno i **DSA** (Disturbi
+Specifici dell'Apprendimento: dislessia, disgrafia, disortografia,
+discalculia), ma anche svantaggi linguistici, socio-economici,
+situazioni temporanee. A ogni studente con bisogni corrisponde un
+piano scritto: il **PDP** (Piano Didattico Personalizzato) per DSA
+e BES, il **PEI** (Piano Educativo Individualizzato) per la
+disabilità certificata. Quei documenti dicono già cosa serve a
+quello studente. L'IA lavora dentro quei vincoli, non li riscrive.
+
+## Tre assi di adattamento
+
+Adattare un materiale per l'accessibilità si muove su tre assi.
+Spesso se ne combinano due o tre sullo stesso foglio.
+
+**La forma della pagina.** Per chi ha dislessia, come è composto
+il testo conta quanto cosa dice. Font ad alta leggibilità
+(Atkinson Hyperlegible, Easy Reading, OpenDyslexic), interlinea
+ampia, spaziatura generosa fra le parole, righe corte, testo
+allineato a sinistra e mai giustificato: la giustificazione apre
+"fiumi" di spazio bianco che fanno perdere il rigo. Il font e
+l'interlinea li imposti tu nel programma di scrittura, non l'IA
+nella chat. Quello che l'IA fa è riscrivere il testo perché entri
+in questo formato senza diventare più povero: spezza i periodi
+lunghi, manda a capo dove ha senso, toglie le incidentali che
+allungano il rigo.
+
+**Dal paragrafo allo schema.** Per dislessia, ADHD e diversi
+disturbi dell'attenzione una mappa concettuale o uno schema a
+blocchi è spesso più leggibile di dieci righe di prosa lineare.
+L'IA è brava a proporre la struttura: le dai i temi del capitolo e
+le loro relazioni, e ti restituisce l'ossatura di uno schema, di
+solito come elenco indentato o ASCII, non come immagine finita. Tu
+la validi e la disegni come mappa vera, oppure la fai disegnare
+allo studente, che è già un esercizio. L'IA propone l'ossatura, non
+l'ultima parola: una mappa sbagliata confonde più di un paragrafo,
+e un'immagine generata dall'IA spesso esce con le etichette nei
+punti sbagliati.
+
+**Frasi più corte, stessi termini.** Questo è l'asse dove l'IA
+sbaglia più spesso, e sbaglia nella direzione che sembra gentile.
+Le chiedi una versione "più semplice" e lei, per semplificare,
+butta via i termini tecnici: "sonetto" diventa "poesia",
+"enjambement" sparisce. Ma quei termini lo studente li deve sapere
+alla verifica, uguale ai compagni. La semplificazione giusta tocca
+la sintassi (periodi corti, meno subordinate, ordine diretto
+soggetto-verbo-complemento) e tiene il lessico chiave, semmai
+glossandolo: "il sonetto (una poesia di 14 versi)". Il vincolo da
+mettere nel prompt è esplicito: "frasi più corte, ma tieni tutti i
+termini tecnici e spiegali tra parentesi la prima volta".
+
+:::note[Oltre la dislessia: discalculia, disgrafia, ADHD]
+I tre assi nascono pensando alla lettura, ma si adattano. Per la
+**discalculia** conta la forma dei numeri e dei passaggi: più
+esempi svolti, una operazione per riga, la linea dei numeri, niente
+notazione compressa. Per la **disgrafia** il peso è sull'output:
+dare strutture da completare invece della pagina bianca, ammettere
+la digitazione al posto della scrittura a mano. Per l'**ADHD** e i
+disturbi dell'attenzione vale lo spezzettamento: un compito per
+schermata, consegne brevi e numerate, meno testo per volta. Cambia
+il prompt, non il metodo: adatta la forma, tieni il contenuto.
+:::
+
+## La differenza in pratica
+
+Italiano, secondo anno di superiori, un paragrafo del manuale su
+Petrarca e il *Canzoniere*. In classe c'è uno studente con
+dislessia. Il docente incolla il paragrafo standard e chiede la
+versione accessibile.
+
+<ChatDemo
+  user={`Adatta questo paragrafo del manuale per uno studente con dislessia, secondo superiore. Frasi più corte, ordine diretto, tieni i termini tecnici e glossali tra parentesi la prima volta. Aggiungi alla fine uno schema dei temi. Non tagliare contenuto.
+
+"Il Canzoniere di Petrarca, summa lirica composta nell'arco di un quarantennio e più volte rimaneggiata, raccoglie in 366 componimenti l'itinerario interiore del poeta attorno alla figura di Laura, emblema di un amore vagheggiato e mai appagato, in una tensione costante tra desiderio terreno e aspirazione spirituale."`}
+  ai={`**Versione accessibile**
+
+Il Canzoniere è la grande raccolta di poesie di Petrarca. La scrive in più di quarant'anni e la corregge molte volte. Contiene 366 componimenti (cioè 366 testi poetici).
+
+Il tema centrale è Laura, la donna amata. È un amore desiderato ma mai realizzato. Petrarca vive un conflitto continuo: da una parte il desiderio terreno, dall'altra l'aspirazione spirituale.
+
+**Schema dei temi**
+- Opera: Canzoniere -> 366 componimenti, scritti in 40+ anni
+- Figura centrale: Laura -> amore desiderato, mai appagato
+- Conflitto interiore: desiderio terreno <-> aspirazione spirituale`}
+/>
+
+Il contenuto è tutto lì. La frase unica del manuale, lunga sei
+righe e piena di subordinate, è diventata cinque frasi brevi in
+ordine diretto. I termini sono rimasti (*Canzoniere*,
+*componimenti*) con una glossa tra parentesi alla prima comparsa.
+Lo schema finale dà allo studente l'ossatura visiva su cui
+riagganciare i dettagli. Quello che non è cambiato: il numero di
+componimenti, il nome di Laura, il conflitto di fondo. Sono i
+fatti che la verifica chiederà a tutta la classe.
+
+Su un testo letterario, però, semplificare può appiattire una
+sfumatura: "vagheggiato" non è esattamente "desiderato", "summa
+lirica" dice più di "grande raccolta". Rileggi la versione
+accessibile contro l'originale e, dove la sfumatura conta per la
+tua materia, rimettila tu a mano con una glossa invece di lasciarla
+cadere.
+
+Prima di usare questa versione va anche passata a chi segue lo
+studente. La chat ti ha dato una bozza veloce, non un materiale
+validato.
+
+:::caution[L'IA non sostituisce il referente DSA]
+Chi conosce lo studente è il docente di sostegno o il referente
+DSA dell'istituto: sanno cosa c'è nel suo PDP, quali strategie
+sono già state concordate con la famiglia, cosa ha funzionato e
+cosa no l'anno prima. L'IA ti fa risparmiare il tempo della
+riscrittura, non il giudizio pedagogico. Passa sempre la versione
+adattata a chi segue lo studente prima di portarla in classe.
+:::
+
+:::tip[Se manca la rete formale]
+Non tutte le scuole hanno un referente DSA o un docente di sostegno
+a disposizione, e non sempre il piano è già pronto. Se la figura di
+validazione non c'è, appoggiati a quello che esiste (il PDP o il
+PEI se ci sono, un collega che ha avuto lo studente, quello che la
+famiglia racconta di cosa funziona a casa) e resta più
+conservativo: meglio un adattamento prudente che uno azzardato. Se
+invece il piano non esiste ancora (un BES non certificato, un
+sospetto in corso), puoi comunque rendere un materiale più
+accessibile, ma il sospetto va segnalato attraverso i canali della
+scuola: l'IA non certifica e tu non diagnostichi.
+:::
+
+:::tip[Adattare un materiale che hai già]
+Spesso non parti da zero: hai una scheda standard già pronta e
+devi adattarla in fretta. Fotografa o scansiona la pagina,
+caricala nell'IA (vedi
+[Foto, immagini e file](/it/everyday-use/images-and-files/)) e
+chiedi: "riscrivi questa scheda mantenendo gli stessi obiettivi e
+gli stessi termini chiave, con frasi corte e una glossa dei
+termini difficili". È più veloce che ribattere tutto a mano.
+Controlla che l'IA abbia letto bene il testo dalla foto: su
+scansioni storte o grafie difficili capita che sbagli qualche
+parola.
+:::
+
+:::caution[Privacy: lo studente non ha nome nella chat]
+Quando descrivi il caso all'IA, niente nome, niente dettagli della
+diagnosi, niente situazione familiare. Scrivi "uno studente con
+dislessia", non "Marco di seconda B con diagnosi del 2024". Lo
+strumento non ha bisogno dell'identità per adattare un testo, e i
+dati di un minore con una certificazione sono fra i più delicati
+che esistano. Sul trattamento dei dati dei minori torna in
+dettaglio l'ultima lezione del modulo.
+:::
+
+## Cosa NON fare
+
+**Non chiedere all'IA di "valutare la gravità" del disturbo.** Non
+è uno strumento diagnostico e non ha visto lo studente. Domande
+come "quanto è grave questa dislessia" o "che livello di supporto
+serve" hanno risposte inventate che suonano competenti. La
+diagnosi e il piano li fanno gli specialisti, e sono già scritti
+nel PDP o nel PEI.
+
+**Non scavalcare il piano che esiste già.** Se il PDP dice "mappe
+sì, materiale audio no" e tu fai generare all'IA una versione
+audio perché sembra una buona idea, stai contraddicendo strategie
+decise con la famiglia e gli specialisti. L'IA adatta dentro i
+vincoli del piano, non al posto del piano.
+
+**Non mettere etichette sul materiale.** La scheda che riceve lo
+studente non si chiama "versione DSA" e non ha un bollino diverso.
+Dev'essere accessibile senza essere marcata. Vale la stessa logica
+delle etichette neutre della lezione sui livelli: l'adattamento
+serve a includere, non a segnalare. Spesso una versione accessibile
+(frasi corte, schema, glosse) è più chiara per tutti, e niente ti
+vieta di darla all'intera classe: se la ricevono tutti, non segnala
+nessuno.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-inclusive-materials.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul bisogno specifico e sul materiale che stai adattando, poi ti propone una versione accessibile da validare con chi segue lo studente."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-inclusive-materials.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Hai progettato le lezioni, differenziato per livello, reso i
+materiali accessibili. Il passo successivo del ciclo didattico è
+valutare quello che gli studenti hanno imparato. La prossima
+lezione affronta come l'IA aiuta a costruire le domande di
+verifica, senza che diventino banali o ambigue.

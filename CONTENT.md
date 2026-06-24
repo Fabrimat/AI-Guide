@@ -833,9 +833,11 @@ temi sono specchio.
    rifiniture opzionali (consolidation/extension, real-world task,
    "genuinely"), nessuna applicata (gergo didattico inglese reale e
    più chiaro per pubblico internazionale).
-4. 🆕 **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
+4. ✍️ **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
    Adattare materiali per Bisogni Educativi Speciali e Disturbi
-   Specifici dell'Apprendimento. PEI, PDP, accessibilità.
+   Specifici dell'Apprendimento. PEI, PDP, accessibilità. Bozza IT +
+   integrate-questions + deepen + review + style-check OK (2026-06-24).
+   Mirror EN in corso.
 5. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
    Aperte, multiple, V/F, problem-solving. Distrattori sensati,
    tassonomia di Bloom. Callout filo rosso anti-cheating.
