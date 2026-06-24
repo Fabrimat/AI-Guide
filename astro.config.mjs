@@ -144,13 +144,7 @@ export default defineConfig({
             { slug: 'for-teachers/design-a-lesson' },
             { slug: 'for-teachers/explain-in-five-ways' },
             { slug: 'for-teachers/differentiated-materials' },
-            {
-              label: 'Inclusive materials (SEN)',
-              translations: { it: 'Inclusività (BES e DSA)' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/inclusive-materials' },
             {
               label: 'Generate assessment questions',
               translations: { it: 'Domande per verifiche' },
