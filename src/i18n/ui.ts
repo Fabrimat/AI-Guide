@@ -88,6 +88,11 @@ export interface UIStrings {
   localAiErrorBody: string;
   localAiRetryLight: string;
   localAiDisclaimer: string;        // "answers are local, can be wrong"
+  localAiRecommended: string;       // "Recommended" chip on Light model card
+  localAiModelsTitle: string;       // title of models view ("Models")
+  localAiNewChatAria: string;       // aria-label for new-chat icon button
+  localAiModelsAria: string;        // aria-label for models gear icon button
+  localAiBackAria: string;          // aria-label for back button in models view
 
   // ChatDemo
   chatUserLabel: string;
@@ -290,6 +295,11 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
     "Il tuo dispositivo potrebbe non avere memoria a sufficienza per questo modello. Prova il più leggero, oppure usa i pulsanti nella lezione per aprire un'IA esterna.",
   localAiRetryLight: 'Prova il modello leggero',
   localAiDisclaimer: "Le risposte sono generate qui sul tuo dispositivo e possono contenere errori.",
+  localAiRecommended: 'Consigliato',
+  localAiModelsTitle: 'Modelli',
+  localAiNewChatAria: 'Nuova chat',
+  localAiModelsAria: 'Gestisci modelli',
+  localAiBackAria: 'Torna alla chat',
 
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
@@ -488,6 +498,11 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
     'Your device may not have enough memory for this model. Try the lightest one, or use the buttons in the lesson to open an external AI.',
   localAiRetryLight: 'Try the Light model',
   localAiDisclaimer: 'Answers are generated here on your device and can be wrong.',
+  localAiRecommended: 'Recommended',
+  localAiModelsTitle: 'Models',
+  localAiNewChatAria: 'New chat',
+  localAiModelsAria: 'Manage models',
+  localAiBackAria: 'Back to chat',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',
