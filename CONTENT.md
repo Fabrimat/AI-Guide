@@ -858,11 +858,21 @@ temi sono specchio.
    rompeva il parsing YAML del frontmatter (stesso caso di M3L7),
    riscritta senza colon-space. Style-checker IT ed EN: verdetto OK,
    nessuna modifica richiesta.
-5. ✍️ **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
-   Aperte, multiple, V/F, problem-solving. Distrattori sensati,
-   tassonomia di Bloom. Callout filo rosso anti-cheating. Bozza IT +
-   integrate-questions + deepen + review + style-check OK (2026-06-24).
-   Mirror EN in corso.
+5. ✅ **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
+   Pubblicata IT + EN il 2026-06-24. Quattro formati (aperte, scelta
+   multipla, vero/falso, problem-solving) ognuno con il suo criterio,
+   taratura sulla scala di Bloom, distrattori come errori tipici col
+   "perché" di ciascuno. ChatDemo portante su storia, terza superiore,
+   Prima guerra mondiale (sei domande miste). Filo rosso anti-cheating:
+   callout "domande che reggono allo studio con l'IA", con rimando per
+   nome (senza link, lezione non ancora pubblicata) a L8 *Quando lo
+   studente usa l'IA*. Altri callout: interrogazioni orali, materie
+   senza fatti netti (multipla debole, meglio le aperte), Anki/Quizlet/
+   quiz online, "rileggi prima di somministrare" col controllo del
+   livello di Bloom dichiarato dall'IA. Ciclo di revisione completo
+   (`analyze-lesson` 7 domande + `integrate-questions` con 5 modifiche +
+   style-checker IT e EN, 2026-06-24). Style-checker IT ed EN: verdetto
+   OK, nessuna modifica richiesta.
 6. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`)
    Rubrica esplicita, prima passata IA, verifica a campione, decisione
    docente. Callout filo rosso su indicatori manuali.
@@ -878,7 +888,7 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 4 su 9 pubblicate. Lezioni 1-4 live (IT + EN)
+**Stato attuale**: 5 su 9 pubblicate. Lezioni 1-5 live (IT + EN)
 con verifica dell'apprendimento e approfondimento per disciplina
 attivi.
 
@@ -974,15 +984,15 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 4 su 9 pubblicate (lezione 4 il
+**Modulo 5 (Per docenti)**: 5 su 9 pubblicate (lezione 5 il
 2026-06-24). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 5, **Domande per verifiche**
-(`for-teachers/generate-assessment-questions`). Brief nella "Phase F"
-del piano; prerequisiti del frontmatter L5: `[ask-well,
-when-to-trust-it]`.
+bozza: lezione 6, **Correggere con criterio**
+(`for-teachers/grading-with-criteria`). Brief nella "Phase G" del
+piano; prerequisiti del frontmatter L6: `[ask-well, when-to-trust-it,
+data-and-tables]`.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
@@ -997,7 +1007,7 @@ in `CONTENT.md`.
 ## Pickup da un altro PC (Modulo 5 in scrittura)
 
 Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
-delle lezioni 3 e 4 (2026-06-24) sono **in locale su `main`, non
+delle lezioni 3, 4 e 5 (2026-06-24) sono **in locale su `main`, non
 ancora pushati**: fare `git push origin main` per renderli
 disponibili da un altro PC. Per riprendere da un altro PC:
 
@@ -1008,18 +1018,19 @@ disponibili da un altro PC. Per riprendere da un altro PC:
 3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
    sito ricostruisce pulito (76+ pagine attese).
 4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere l'ultima lezione: `/it/for-teachers/inclusive-materials/`
-   o `/en/for-teachers/inclusive-materials/`.
+   vedere l'ultima lezione: `/it/for-teachers/generate-assessment-questions/`
+   o `/en/for-teachers/generate-assessment-questions/`.
 
 **Contesto Modulo 5**:
 
-- Fasi A-E completate (scaffolding + lezioni 1-4).
-- Prossima: **Fase F, lezione 5 *Domande per verifiche***
-  (slug `for-teachers/generate-assessment-questions`).
-- Brief della Fase F in
+- Fasi A-F completate (scaffolding + lezioni 1-5).
+- Prossima: **Fase G, lezione 6 *Correggere con criterio***
+  (slug `for-teachers/grading-with-criteria`).
+- Brief della Fase G in
   `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
-  "Phase F".
-- Prerequisiti del frontmatter L5: `[ask-well, when-to-trust-it]`.
+  "Phase G".
+- Prerequisiti del frontmatter L6: `[ask-well, when-to-trust-it,
+  data-and-tables]`.
 
 **Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
 seguenti)**:
@@ -1087,5 +1098,16 @@ c17df37 Module 5 lesson 3: Materiali differenziati per livello + deepen and revi
 ba484e0 Unlock Module 5 lesson 3 in sidebar
 ada052f Module 5 lesson 4: Inclusivita BES e DSA + deepen and review exercises
 57f3616 Module 5 lesson 4 EN: Inclusive materials (SEN) + deepen and review exercises
-(questo commit) Unlock Module 5 lesson 4 in sidebar
+382184f Unlock Module 5 lesson 4 in sidebar
+9f69915 Module 5 lesson 5: Domande per verifiche + deepen and review exercises (cherry-pick su main)
+7da761a Module 5 lesson 5 EN: Generate assessment questions + deepen and review exercises
+(questo commit) Unlock Module 5 lesson 5 in sidebar
 ```
+
+**Nota branch (sessione 2026-06-24)**: durante la scrittura della L5 il
+working tree principale era stato spostato dal workstream parallelo
+(`feat/local-ai-assistant`, assistente IA in-browser). Il commit IT della
+L5 era finito per errore su quel branch (`f829409`) ed è stato riportato
+su `main` via cherry-pick (`9f69915`) in un worktree isolato
+(`../AI-Guide-l5`), per non disturbare l'altro workstream. Il commit
+`f829409` resta su `feat/local-ai-assistant`: si deduplica al merge.

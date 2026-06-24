@@ -158,13 +158,7 @@ export default defineConfig({
             { slug: 'for-teachers/explain-in-five-ways' },
             { slug: 'for-teachers/differentiated-materials' },
             { slug: 'for-teachers/inclusive-materials' },
-            {
-              label: 'Generate assessment questions',
-              translations: { it: 'Domande per verifiche' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/generate-assessment-questions' },
             {
               label: 'Grading with criteria',
               translations: { it: 'Correggere con criterio' },
