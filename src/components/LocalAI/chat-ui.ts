@@ -126,6 +126,20 @@ class LocalAI extends HTMLElement {
       const p = document.createElement('p');
       p.textContent = this.i18n.noWebgpuBody;
       this.body.append(h, p);
+
+      const skills = findSkillFiles();
+      if (skills.length) {
+        const link = document.createElement('button');
+        link.type = 'button';
+        link.className = 'lai-btn lai-btn-primary';
+        link.textContent = this.i18n.startExercise;
+        link.addEventListener('click', () => {
+          this.close();
+          const card = document.querySelector('.llm-exercise');
+          card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        this.body.appendChild(link);
+      }
       return;
     }
   }
