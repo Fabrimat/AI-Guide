@@ -1,0 +1,166 @@
+---
+/**
+ * Local in-browser AI assistant.
+ *
+ * Floating launcher (bottom-right) + side drawer / bottom sheet. The
+ * model runs entirely in the browser via @mlc-ai/web-llm in a Web
+ * Worker; nothing is downloaded or sent until the reader consents on
+ * the consent screen. Rendered once per page by Footer.astro.
+ *
+ * All UI strings and config are server-rendered and handed to the
+ * client custom element (`<local-ai>`) via data-* attributes, the same
+ * pattern as Search.astro / LlmExercise.astro.
+ */
+import { t, getLocale } from '../../i18n/ui';
+
+const ui = t(Astro.currentLocale);
+const locale = getLocale(Astro.currentLocale);
+const privacyHref = `/${locale}/privacy/`;
+
+const models = [
+  { id: 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC', tier: 'light',  label: ui.localAiModelLightLabel,  size: '0.4 GB', vram: '0.95 GB' },
+  { id: 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC', tier: 'better', label: ui.localAiModelBetterLabel, size: '1.1 GB', vram: '1.6 GB'  },
+  { id: 'Qwen2.5-3B-Instruct-q4f16_1-MLC',   tier: 'best',   label: ui.localAiModelBestLabel,   size: '1.9 GB', vram: '2.5 GB', warn: ui.localAiModelBestWarn },
+] as const;
+
+const i18n = {
+  panelTitle: ui.localAiPanelTitle,
+  close: ui.localAiClose,
+  consentHeading: ui.localAiConsentHeading,
+  consentBody: ui.localAiConsentBody,
+  consentPrivacy: ui.localAiConsentPrivacy,
+  consentPrivacyLink: ui.localAiConsentPrivacyLink,
+  consentConfirm: ui.localAiConsentConfirm,
+  downloading: ui.localAiDownloading,
+  inputPlaceholder: ui.localAiInputPlaceholder,
+  send: ui.localAiSend,
+  thinking: ui.localAiThinking,
+  startExercise: ui.localAiStartExercise,
+  noWebgpuTitle: ui.localAiNoWebgpuTitle,
+  noWebgpuBody: ui.localAiNoWebgpuBody,
+  errorTitle: ui.localAiErrorTitle,
+  errorBody: ui.localAiErrorBody,
+  retryLight: ui.localAiRetryLight,
+  disclaimer: ui.localAiDisclaimer,
+};
+---
+
+<local-ai
+  data-locale={locale}
+  data-privacy-href={privacyHref}
+  data-models={JSON.stringify(models)}
+  data-i18n={JSON.stringify(i18n)}
+>
+  <button type="button" class="lai-launcher" aria-expanded="false" aria-label={ui.localAiLauncherAria}>
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.4A8.5 8.5 0 1 1 21 11.5z" />
+    </svg>
+    <span class="lai-launcher-text">{ui.localAiLauncherLabel}</span>
+  </button>
+
+  <section class="lai-panel" role="dialog" aria-label={ui.localAiPanelTitle} aria-modal="false" hidden>
+    <header class="lai-head">
+      <h2>{ui.localAiPanelTitle}</h2>
+      <button type="button" class="lai-close" aria-label={ui.localAiClose} data-close>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </header>
+    <div class="lai-body" data-body></div>
+  </section>
+</local-ai>
+
+<script>
+  import './chat-ui.ts';
+</script>
+
+<style>
+  local-ai { display: contents; }
+
+  .lai-launcher {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    font-family: var(--sl-font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(var(--aig-shadow-color), 0.22);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .lai-launcher:hover { background: var(--sl-color-accent-high); }
+  .lai-launcher:focus-visible { outline: 2px solid var(--sl-color-accent); outline-offset: 2px; }
+
+  .lai-panel {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 81;
+    width: 380px;
+    max-width: calc(100vw - 2rem);
+    height: min(620px, calc(100vh - 2rem));
+    display: flex;
+    flex-direction: column;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow: 0 12px 40px rgba(var(--aig-shadow-color), 0.2);
+    overflow: hidden;
+  }
+  .lai-panel[hidden] { display: none; }
+
+  .lai-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .lai-head h2 { margin: 0; font-size: 1.05rem; }
+  .lai-close {
+    display: inline-flex;
+    width: 2rem; height: 2rem;
+    align-items: center; justify-content: center;
+    border: 0; border-radius: 999px;
+    background: transparent; color: var(--sl-color-text);
+    cursor: pointer;
+  }
+  .lai-close:hover { background: var(--aig-hover-wash); }
+
+  .lai-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  /* Mobile: full-width bottom sheet */
+  @media (max-width: 30rem) {
+    .lai-launcher-text { display: none; }
+    .lai-launcher { padding: 0.8rem; }
+    .lai-panel {
+      right: 0; left: 0; bottom: 0;
+      width: 100%;
+      max-width: 100%;
+      height: 85vh;
+      border-radius: 1rem 1rem 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lai-launcher { transition: none; }
+  }
+</style>

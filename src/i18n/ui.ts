@@ -63,6 +63,32 @@ export interface UIStrings {
   llmExerciseCopied: string;
   llmExerciseError: string;
 
+  // LocalAI (in-browser assistant)
+  localAiLauncherLabel: string;
+  localAiLauncherAria: string;
+  localAiPanelTitle: string;
+  localAiClose: string;
+  localAiConsentHeading: string;
+  localAiConsentBody: string;       // explains local + one-time CDN download
+  localAiConsentPrivacy: string;    // short privacy line
+  localAiConsentPrivacyLink: string;
+  localAiModelLightLabel: string;
+  localAiModelBetterLabel: string;
+  localAiModelBestLabel: string;
+  localAiModelBestWarn: string;     // GPU warning shown under "Best"
+  localAiConsentConfirm: string;    // "Download & enable"
+  localAiDownloading: string;       // status while weights download
+  localAiInputPlaceholder: string;
+  localAiSend: string;
+  localAiThinking: string;          // status while generating
+  localAiStartExercise: string;
+  localAiNoWebgpuTitle: string;
+  localAiNoWebgpuBody: string;      // points to the buttons below
+  localAiErrorTitle: string;
+  localAiErrorBody: string;
+  localAiRetryLight: string;
+  localAiDisclaimer: string;        // "answers are local, can be wrong"
+
   // ChatDemo
   chatUserLabel: string;
   chatAiLabel: string;
@@ -237,6 +263,34 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   llmExerciseCopied: '✅ Copiato!',
   llmExerciseError: '❌ Errore, riprova',
 
+  localAiLauncherLabel: "Chiedi all'IA locale",
+  localAiLauncherAria: "Apri l'assistente IA locale",
+  localAiPanelTitle: 'Assistente IA locale',
+  localAiClose: 'Chiudi',
+  localAiConsentHeading: 'Fai girare una piccola IA qui, sul tuo dispositivo',
+  localAiConsentBody:
+    "Questo assistente gira nel tuo browser. La prima volta scarica un file del modello, una volta sola, da un fornitore esterno (Hugging Face). Dopo funziona offline e niente di quello che scrivi esce dal tuo dispositivo.",
+  localAiConsentPrivacy: 'I tuoi messaggi restano in questo browser. Non vengono mai inviati a me né a un server.',
+  localAiConsentPrivacyLink: 'Leggi la pagina sulla privacy',
+  localAiModelLightLabel: 'Leggero · circa 0,4 GB · veloce, risposte basilari',
+  localAiModelBetterLabel: 'Migliore · circa 1,1 GB · più lento da caricare, italiano migliore',
+  localAiModelBestLabel: 'Massimo · circa 1,9 GB · risposte migliori',
+  localAiModelBestWarn: 'Richiede una scheda grafica potente. Sulla maggior parte dei telefoni non si carica.',
+  localAiConsentConfirm: 'Scarica e attiva',
+  localAiDownloading: 'Sto scaricando il modello, solo questa volta',
+  localAiInputPlaceholder: 'Chiedi qualcosa su questa lezione',
+  localAiSend: 'Invia',
+  localAiThinking: 'Sto pensando',
+  localAiStartExercise: "Inizia l'esercizio",
+  localAiNoWebgpuTitle: "L'IA locale non è disponibile in questo browser",
+  localAiNoWebgpuBody:
+    "Il tuo browser non può far girare l'IA sul dispositivo. Usa i pulsanti nella lezione per aprire l'esercizio in Claude, ChatGPT o Gemini.",
+  localAiErrorTitle: 'Il modello non è partito',
+  localAiErrorBody:
+    "Il tuo dispositivo potrebbe non avere memoria a sufficienza per questo modello. Prova il più leggero, oppure usa i pulsanti nella lezione per aprire un'IA esterna.",
+  localAiRetryLight: 'Prova il modello leggero',
+  localAiDisclaimer: "Le risposte sono generate qui sul tuo dispositivo e possono contenere errori.",
+
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
   chatReplay: 'Riavvia',
@@ -406,6 +460,34 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   llmExerciseOpen: 'Open',
   llmExerciseCopied: '✅ Copied!',
   llmExerciseError: '❌ Error, please retry',
+
+  localAiLauncherLabel: 'Ask the local AI',
+  localAiLauncherAria: 'Open the local AI assistant',
+  localAiPanelTitle: 'Local AI assistant',
+  localAiClose: 'Close',
+  localAiConsentHeading: 'Run a small AI here, on your device',
+  localAiConsentBody:
+    'This assistant runs in your browser. The first time, it downloads a model file once from an external provider (Hugging Face). After that it works offline and nothing you type leaves your device.',
+  localAiConsentPrivacy: 'Your messages stay in this browser. They are never sent to me or to any server.',
+  localAiConsentPrivacyLink: 'Read the privacy page',
+  localAiModelLightLabel: 'Light · about 0.4 GB · fast, basic answers',
+  localAiModelBetterLabel: 'Better · about 1.1 GB · slower to load, better Italian',
+  localAiModelBestLabel: 'Best · about 1.9 GB · best answers',
+  localAiModelBestWarn: 'Needs a strong graphics card. It will not load on most phones.',
+  localAiConsentConfirm: 'Download and enable',
+  localAiDownloading: 'Downloading the model, one time only',
+  localAiInputPlaceholder: 'Ask about this lesson',
+  localAiSend: 'Send',
+  localAiThinking: 'Thinking',
+  localAiStartExercise: 'Start the exercise',
+  localAiNoWebgpuTitle: 'Local AI is not available in this browser',
+  localAiNoWebgpuBody:
+    'Your browser cannot run AI on the device. Use the buttons in the lesson to open the exercise in Claude, ChatGPT, or Gemini instead.',
+  localAiErrorTitle: 'The model could not start',
+  localAiErrorBody:
+    'Your device may not have enough memory for this model. Try the lightest one, or use the buttons in the lesson to open an external AI.',
+  localAiRetryLight: 'Try the Light model',
+  localAiDisclaimer: 'Answers are generated here on your device and can be wrong.',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',
