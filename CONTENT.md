@@ -858,9 +858,11 @@ temi sono specchio.
    rompeva il parsing YAML del frontmatter (stesso caso di M3L7),
    riscritta senza colon-space. Style-checker IT ed EN: verdetto OK,
    nessuna modifica richiesta.
-5. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
+5. ✍️ **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
    Aperte, multiple, V/F, problem-solving. Distrattori sensati,
-   tassonomia di Bloom. Callout filo rosso anti-cheating.
+   tassonomia di Bloom. Callout filo rosso anti-cheating. Bozza IT +
+   integrate-questions + deepen + review + style-check OK (2026-06-24).
+   Mirror EN in corso.
 6. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`)
    Rubrica esplicita, prima passata IA, verifica a campione, decisione
    docente. Callout filo rosso su indicatori manuali.

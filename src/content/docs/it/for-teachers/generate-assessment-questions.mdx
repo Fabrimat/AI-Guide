@@ -1,0 +1,238 @@
+---
+title: Domande per verifiche
+description: Costruire domande di verifica con l'IA, dalle aperte alle multiple al problem-solving. Il valore è nella scelta e nella taratura dei distrattori, non nel volume.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- L'IA genera venti domande in un minuto. Il problema è che metà sono banali e qualcuna ambigua: il tuo lavoro è scegliere e tarare, non produrre in volume.
+- Quattro formati, ognuno con il suo criterio: **aperte** (una cosa precisa, non un saggio mascherato), **multiple** (distrattori = errori tipici, non assurdità), **vero/falso** (solo per fatti netti), **problem-solving** (soluzione passo-passo, staccata dalla consegna).
+- Tara la difficoltà sulla **scala di Bloom**: una verifica equilibrata copre tre o quattro livelli, non solo la memoria.
+- Domande che reggono allo studio con l'IA: applicazione a casi nuovi visti in classe, collegamenti a tuoi esempi, vincoli formali stretti.
+- Due passate prima di somministrare: leggi tutto da correttore, poi rispondi tu come uno studente medio. L'IA produce domande ambigue o fattualmente sbagliate.
+
+</LessonSummary>
+
+Chiedere all'IA venti domande di verifica su un capitolo è
+questione di un minuto. Il problema è quello che torna indietro:
+cinque domande banali che chiunque ricaverebbe dal titolo del
+paragrafo, qualcuna ambigua dove non si capisce cosa stai
+chiedendo, e in mezzo tre o quattro che funzionano. Il valore che
+aggiungi tu non è la produzione in volume, che l'IA fa più in
+fretta di te. È la scelta delle domande giuste e la loro taratura
+sul livello della classe.
+
+## Quattro formati, quattro criteri
+
+Ogni formato misura una cosa diversa e si chiede in modo diverso.
+Questi quattro coprono quasi tutto.
+
+**Domande aperte.** Misurano la comprensione e la capacità di
+costruire un ragionamento. Il prompt utile è stretto: "tre domande
+aperte sul capitolo X, rispondibili in 5-10 righe, livello
+*applicare*". Il controllo da fare: ogni domanda deve chiedere una
+cosa precisa. L'IA tende a produrre domande-saggio mascherate
+("Analizza cause, conseguenze e significato di...") che in dieci
+righe sono irrispondibili e impossibili da correggere allo stesso
+modo per tutti.
+
+**Scelta multipla.** Misura riconoscimento e applicazione. Quattro
+alternative, una corretta, tre distrattori. Il distrattore buono è
+un errore che uno studente fa davvero, non un'assurdità che si
+scarta a colpo d'occhio. Il prompt che alza la qualità: "per ogni
+distrattore, dimmi perché uno studente potrebbe sceglierlo". Se
+l'IA non sa giustificare un distrattore, quel distrattore non è
+plausibile e va buttato. Nelle materie dove quasi tutto è
+interpretazione (filosofia, storia dell'arte) la scelta multipla
+regge male, perché costringe a una precisione finta: lì conviene
+puntare sulle domande aperte.
+
+**Vero/falso.** Utile solo per fatti netti, e raro nelle materie
+dove quasi tutto ha sfumature. Il rischio è che l'IA generi
+vero/falso su affermazioni interpretabili, dove la risposta dipende
+dal contesto e lo studente ha ragione a contestare. Il vincolo da
+mettere nel prompt: "evita vero/falso su questioni che ammettono
+eccezioni o interpretazioni".
+
+**Problem-solving.** Per matematica, fisica, chimica, economia,
+informatica: casi ed esercizi con dati. Il prompt utile: "tre
+problemi di difficoltà crescente sul tema X, ognuno con la
+soluzione passo-passo, ma tieni le soluzioni separate dalle
+consegne". La soluzione passo-passo ti serve per correggere e per
+controllare che il problema sia ben posto, ma non deve finire sul
+foglio dello studente. Funziona identico per un problema di fisica
+o un esercizio di matematica: stessa richiesta, stessa soluzione
+passo-passo da staccare. L'esercizio di approfondimento a fine
+lezione te ne fa costruire uno sul tuo programma.
+
+:::note[E per le interrogazioni orali?]
+Le stesse tecniche valgono per preparare una traccia d'orale:
+chiedi all'IA una scaletta di domande di difficoltà crescente sul
+tema, taratura Bloom inclusa, e tienila come canovaccio. La
+differenza è che l'orale è un dialogo, non una lista: la traccia ti
+serve per partire e per non dimenticare i nodi, ma le domande di
+rilancio nascono da come risponde lo studente, e quelle le fai tu
+sul momento. L'IA prepara il punto di partenza, non conduce
+l'interrogazione.
+:::
+
+## Tarare la difficoltà: la scala di Bloom
+
+Il livello di una domanda non è "facile" o "difficile" a
+sentimento. La scala di Bloom dà sei gradini di operazione mentale,
+dal più meccanico al più impegnativo: ricordare, comprendere,
+applicare, analizzare, valutare, creare. Una verifica equilibrata
+ne tocca tre o quattro, invece di appiattirsi su un gradino solo.
+Tutta sul "ricordare" misura la memoria e nient'altro, ed è anche
+la più facile da aggirare con l'IA. Tutta sul "creare" ("cosa ne
+pensi di...") diventa vaga e impossibile da correggere con
+criterio.
+
+Il confine fra un gradino e l'altro è dove ci si perde. Sullo
+stesso capitolo di storia: "elenca le cause della guerra" è
+*ricordare*; "spiega come il sistema di alleanze trasformò un
+attentato locale in una guerra continentale" è *applicare*, perché
+usi un meccanismo su un caso; "pesa le cause profonde contro quelle
+scatenanti e stabilisci quale conta di più" è *analizzare*, perché
+scomponi e metti in relazione. Mettere il livello nel prompt
+("domande di livello *applicare* e *analizzare*") è il modo più
+rapido per spostare la verifica dove la vuoi.
+
+## La differenza in pratica
+
+Storia, terza superiore, il capitolo sulla Prima guerra mondiale.
+Sei domande di formati misti in un turno.
+
+<ChatDemo
+  user={`Genera 6 domande di verifica sul capitolo della Prima guerra mondiale, terza superiore. Mix: 2 aperte (5-10 righe, livello analizzare), 3 a scelta multipla con 4 alternative, 1 problem-solving su un caso storico. Per ogni distrattore delle multiple, dimmi perché uno studente potrebbe sceglierlo. Tieni le soluzioni separate dalle consegne.`}
+  ai={`**Domande aperte (analizzare)**
+1. Spiega perché il sistema di alleanze trasformò un attentato locale in una guerra continentale.
+2. Confronta la guerra di movimento del 1914 con la guerra di trincea che seguì: cosa cambiò e perché.
+
+**Scelta multipla**
+3. L'Italia entra in guerra nel 1915 a fianco di:
+a) Germania e Austria-Ungheria
+b) Francia, Regno Unito e Russia [corretta]
+c) Impero ottomano
+d) resta neutrale fino al 1917
+
+4. Una causa profonda (non scatenante) della guerra fu:
+a) l'attentato di Sarajevo
+b) la corsa agli armamenti e i nazionalismi [corretta]
+c) l'affondamento del Lusitania
+d) la rivoluzione russa
+
+5. Il Patto di Londra (1915):
+a) sanciva una pace separata tra Italia e Austria
+b) prometteva all'Italia territori in cambio dell'intervento [corretta]
+c) era l'armistizio finale del 1918
+d) istituiva la Società delle Nazioni
+
+**Problem-solving (caso storico)**
+6. Immagina che l'Italia sia rimasta neutrale per tutto il conflitto. Argomenta due conseguenze plausibili sul fronte italo-austriaco e una sul dopoguerra italiano, usando fatti del capitolo.
+
+---
+**Soluzioni (da staccare) e perché dei distrattori**
+3-b. a) confonde la Triplice Alleanza pre-guerra con gli schieramenti del 1915; c) associa l'Italia agli Imperi centrali; d) confonde l'Italia con gli Stati Uniti.
+4-b. a) è la causa scatenante, non profonda (errore di categoria tipico); c) e d) sono eventi successivi allo scoppio del conflitto.
+5-b. a) inverte il senso del patto; c) e d) confondono con eventi di fine guerra o del dopoguerra.`}
+/>
+
+Le sei domande coprono più livelli di Bloom (ricordare con le
+multiple, analizzare con le aperte, applicare e valutare con il
+problem-solving) e quattro formati in uno. Il pezzo che fa la
+differenza è la riga del "perché" sotto ogni distrattore: ti dice
+se l'alternativa sbagliata è un errore vero (la 3a, che confonde la
+Triplice Alleanza con gli schieramenti di guerra, è l'errore
+classico) o un riempitivo da scartare. Dove la giustificazione è
+debole, riscrivi il distrattore o butti la domanda.
+
+:::tip[Domande che reggono allo studio con l'IA]
+I tuoi studenti hanno l'IA per ripassare, ed è inutile fingere di
+no. Una verifica significativa non è "fare domande che l'IA non sa
+rispondere": è impossibile, e comunque le saprebbe. È fare domande
+che lo studente non può passare solo memorizzando le risposte
+dell'IA. Reggono meglio: l'applicazione a un caso nuovo visto in
+classe (l'articolo di ieri, l'esperimento di mercoledì), il
+collegamento a un esempio che hai fatto tu in un'altra lezione, il
+vincolo formale stretto (in cinque righe esatte, con almeno due
+termini del glossario dell'unità). Il quadro completo del problema,
+e cosa farci, è nella lezione *Quando lo studente usa l'IA*, più
+avanti nel modulo.
+:::
+
+:::tip[Esportare in Anki, Quizlet, quiz online]
+Se usi strumenti di ripasso o quiz in classe, l'IA può darti
+direttamente il formato giusto: il CSV per importare flashcard in
+Anki, il set di domande per Kahoot o Mentimeter, il testo per
+Quizlet o Wooclap. Chiediglielo esplicitamente ("dammi queste 10
+domande in formato CSV per Anki, fronte e retro") e ti risparmi la
+formattazione a mano.
+:::
+
+:::caution[Rileggi prima di somministrare]
+Una domanda generata dall'IA può essere ambigua, fattualmente
+sbagliata, o presupporre un contenuto che la classe non ha visto. E
+l'etichetta di livello che ti dà non sempre regge: capita che
+chiami "analizzare" una domanda che chiede solo di ricordare. Due
+passate, sempre, prima di stampare: leggi tutta la verifica da
+correttore, poi provala da studente medio, rispondendo davvero alle
+domande. Mentre rispondi senti anche se il livello dichiarato è
+quello vero: se te la cavi con la sola memoria, non era
+"analizzare". Gli errori che non avevi notato saltano fuori solo
+quando provi a rispondere.
+:::
+
+## Cosa NON fare
+
+**Non somministrare la verifica così com'esce.** Una batteria
+interamente generata dall'IA ha un'uniformità di tono che si
+riconosce, e contiene quasi sempre una domanda ambigua o
+sbilanciata. Scegli le domande buone, taglia le ambigue, riscrivi
+quelle che quasi funzionano: la verifica è tua perché è tua la
+responsabilità del voto.
+
+**Non fidarti dell'IA sulla correttezza tecnica.** Date storiche,
+formule chimiche, passaggi matematici, definizioni giuridiche: l'IA
+li sbaglia con la stessa sicurezza con cui li azzecca. Ogni domanda
+che poggia su un fatto preciso va verificata su una fonte, non
+sulla seconda risposta dell'IA.
+
+**Non fare domande trabocchetto su dettagli mai visti.** Se le
+chiedi domande "difficili", l'IA pesca volentieri da trafiletti e
+note a margine che la tua classe non ha mai trattato. Difficile
+deve voler dire alto sulla scala di Bloom, non oscuro.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-generate-assessment-questions.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sull'argomento e sul formato di verifica che ti serve, poi ti genera una batteria tarata sul tuo programma, con il perché di ogni distrattore."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-generate-assessment-questions.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Domande pronte significa verifiche somministrabili. Ma una
+verifica, dopo, va corretta, e lì il rischio è opposto: lasciare
+che sia l'IA a dare il voto. La prossima lezione parla di come
+usarla come assistente di correzione, con una rubrica esplicita,
+senza che diventi lei il giudice.

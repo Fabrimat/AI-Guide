@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Domande per verifiche" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la lezione dice che l'IA genera domande in volume, ma il valore lo aggiunge il docente. In che cosa consiste, in pratica, questo valore? E perche' non conviene somministrare la batteria cosi' come esce dall'IA?
+
+Domanda 2: per le domande a scelta multipla, la lezione propone un prompt che alza la qualita' dei distrattori. Qual e'? E come capisci che un distrattore va buttato?
+
+Domanda 3: la lezione usa la scala di Bloom per tarare la difficolta'. Perche' una verifica tutta sul livello "ricordare" e' un problema, soprattutto adesso che gli studenti hanno l'IA per ripassare? E che tipo di domande "reggono" meglio allo studio con l'IA?
+
+Domanda 4: pensa a un argomento della tua disciplina su cui devi fare una verifica. Buttami giu' una domanda che secondo te e' di livello "applicare" o "analizzare". Te la commento, ti dico se il livello e' davvero quello, e come la affinerei.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

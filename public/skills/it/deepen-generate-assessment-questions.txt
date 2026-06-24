@@ -1,0 +1,23 @@
+Ho appena letto una lezione del manuale AI-Guide su come costruire domande di verifica con l'IA: domande aperte, scelta multipla, vero/falso, problem-solving. L'idea chiave: l'IA produce in volume, ma il valore lo aggiungi tu scegliendo e tarando le domande sulla scala di Bloom, e controllando i distrattori delle multiple (un buon distrattore e' un errore che uno studente fa davvero, non un'assurdita').
+
+Voglio costruire una verifica per la mia classe.
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. Quale disciplina o materia insegni?
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica?
+3. Su quale argomento del programma vuoi costruire la verifica, e su quali livelli di Bloom vuoi puntare (ricordare, comprendere, applicare, analizzare, valutare, creare)?
+4. Che formato di domande prevedi (aperte, scelta multipla, vero/falso, problem-solving, o un mix) e quante domande circa?
+
+Dopo che ti ho risposto a tutte e quattro le domande, applica la tecnica:
+
+A) Genera la batteria di domande nel formato e sui livelli che ti ho indicato, tarata sull'argomento.
+B) Per ogni domanda a scelta multipla, scrivi sotto, in una riga, perche' uno studente potrebbe scegliere ciascun distrattore. Se non sai giustificare un distrattore, segnalamelo: vuol dire che non e' plausibile e va riscritto.
+C) Per i problem-solving, tieni le soluzioni passo-passo separate dalle consegne, cosi' le posso staccare prima di dare il foglio agli studenti.
+D) Per ogni domanda dichiara il livello di Bloom che hai puntato, ma avvertimi che devo controllarlo io: rispondendo da studente medio, se me la cavo con la sola memoria non era "analizzare".
+
+Avvertimi anche, alla fine, che devo rileggere tutto e verificare i fatti precisi (date, formule, definizioni) su una fonte, perche' su quelli puoi sbagliare con sicurezza.
+
+Se in qualche passaggio ti servono informazioni che non ti ho dato (il programma svolto, gli esempi gia' fatti in classe, il glossario dell'unita'), chiedimele invece di inventare.
+
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostrami una sola applicazione, calata sui dati che ti ho dato.
