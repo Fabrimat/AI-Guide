@@ -160,13 +160,7 @@ export default defineConfig({
             { slug: 'for-teachers/inclusive-materials' },
             { slug: 'for-teachers/generate-assessment-questions' },
             { slug: 'for-teachers/grading-with-criteria' },
-            {
-              label: 'Emails to families',
-              translations: { it: 'Comunicare con le famiglie' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/emails-to-families' },
             {
               label: 'When students use AI',
               translations: { it: "Quando lo studente usa l'IA" },

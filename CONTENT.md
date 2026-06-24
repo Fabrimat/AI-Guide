@@ -893,11 +893,25 @@ temi sono specchio.
    modifiche + style-checker IT e EN, 2026-06-24). Style-checker IT: OK
    con una rifinitura applicata ("In sintesi" → "Nel complesso" nella
    battuta IA del ChatDemo). Style-checker EN: OK.
-7. ✍️ **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
-   Email delicate ai genitori. Tre registri (primaria, secondaria,
-   università). Privacy rinforzata su dati di minori. Bozza IT +
-   integrate-questions + deepen + review + style-check OK (2026-06-24).
-   Mirror EN in corso.
+7. ✅ **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
+   Pubblicata IT + EN il 2026-06-24. Email delicate ai genitori: l'IA
+   comprime il tempo, non la sensibilità. Tre registri secondo
+   l'ordine di scuola (primaria cordiale, secondaria istituzionale ma
+   vicina, università formale con nota sul consenso dello studente
+   maggiorenne). Pattern in tre passi (situazione anonimizzata, tre
+   versioni di registro diverso, componi da pezzi e rileggi a freddo).
+   ChatDemo portante su secondaria di primo grado, calo improvviso di
+   rendimento: tre versioni (asciutta, calda, formale) ricomposte in
+   una. Casi con trappole (voto basso, comportamento, sospetto disturbo
+   dell'apprendimento, convocazione). Callout privacy minori
+   rinforzata, famiglie non italofone (EN: non anglofone), rispondere a
+   un genitore arrabbiato, quando NON è la mail lo strumento (fatti
+   gravi → procedura interna). Ciclo di revisione completo
+   (`analyze-lesson` 6 domande + `integrate-questions` con 3 modifiche +
+   style-checker IT e EN, 2026-06-24). Style-checker IT: OK con due
+   rifiniture applicate ("davvero", un riferimento posizionale).
+   Style-checker EN: OK con due rifiniture applicate ("pour data" →
+   "enter/put", "at your earliest convenience").
 8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
    Riconoscere senza demonizzare. AI detector inaffidabili, indicatori
    manuali come ipotesi, ridisegno consegne, conversazione (non
@@ -907,7 +921,7 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 6 su 9 pubblicate. Lezioni 1-6 live (IT + EN)
+**Stato attuale**: 7 su 9 pubblicate. Lezioni 1-7 live (IT + EN)
 con verifica dell'apprendimento e approfondimento per disciplina
 attivi.
 
@@ -1003,15 +1017,16 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 6 su 9 pubblicate (lezione 6 il
+**Modulo 5 (Per docenti)**: 7 su 9 pubblicate (lezione 7 il
 2026-06-24). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 7, **Comunicare con le famiglie**
-(`for-teachers/emails-to-families`). Brief nella "Phase H" del
-piano; prerequisiti del frontmatter L7: `[ask-well, write-better,
-hard-emails]`.
+bozza: lezione 8, **Quando lo studente usa l'IA**
+(`for-teachers/when-students-use-ai`). Brief nella "Phase I" del
+piano; prerequisiti del frontmatter L8: `[ask-well, when-to-trust-it]`.
+Lezioni 8-9 senza "Approfondisci per la tua disciplina" (solo
+verifica di fine lezione).
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
@@ -1026,9 +1041,9 @@ in `CONTENT.md`.
 ## Pickup da un altro PC (Modulo 5 in scrittura)
 
 Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
-delle lezioni 3, 4, 5 e 6 (2026-06-24) sono **in locale su `main`,
-non ancora pushati**: fare `git push origin main` per renderli
-disponibili da un altro PC. Per riprendere da un altro PC:
+delle lezioni 3, 4, 5, 6 e 7 (2026-06-24) sono **in locale su
+`main`, non ancora pushati**: fare `git push origin main` per
+renderli disponibili da un altro PC. Per riprendere da un altro PC:
 
 1. **Clone / pull** del repo, branch `main`.
 2. **Setup ambiente**: Node 22 (pinnato in `.nvmrc`). `npm install`
@@ -1037,19 +1052,19 @@ disponibili da un altro PC. Per riprendere da un altro PC:
 3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
    sito ricostruisce pulito (76+ pagine attese).
 4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere l'ultima lezione: `/it/for-teachers/grading-with-criteria/`
-   o `/en/for-teachers/grading-with-criteria/`.
+   vedere l'ultima lezione: `/it/for-teachers/emails-to-families/`
+   o `/en/for-teachers/emails-to-families/`.
 
 **Contesto Modulo 5**:
 
-- Fasi A-G completate (scaffolding + lezioni 1-6).
-- Prossima: **Fase H, lezione 7 *Comunicare con le famiglie***
-  (slug `for-teachers/emails-to-families`).
-- Brief della Fase H in
+- Fasi A-H completate (scaffolding + lezioni 1-7).
+- Prossima: **Fase I, lezione 8 *Quando lo studente usa l'IA***
+  (slug `for-teachers/when-students-use-ai`). Senza deepen: le
+  lezioni 8-9 hanno solo la verifica di fine lezione.
+- Brief della Fase I in
   `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
-  "Phase H".
-- Prerequisiti del frontmatter L7: `[ask-well, write-better,
-  hard-emails]`.
+  "Phase I".
+- Prerequisiti del frontmatter L8: `[ask-well, when-to-trust-it]`.
 
 **Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
 seguenti)**:
@@ -1123,7 +1138,10 @@ ada052f Module 5 lesson 4: Inclusivita BES e DSA + deepen and review exercises
 06e057a Unlock Module 5 lesson 5 in sidebar
 1a83144 Module 5 lesson 6: Correggere con criterio + deepen and review exercises
 c300f04 Module 5 lesson 6 EN: Grading with criteria + deepen and review exercises
-(questo commit) Unlock Module 5 lesson 6 in sidebar
+c87dadd Unlock Module 5 lesson 6 in sidebar
+d2e1988 Module 5 lesson 7: Comunicare con le famiglie + deepen and review exercises
+905adaa Module 5 lesson 7 EN: Emails to families + deepen and review exercises
+(questo commit) Unlock Module 5 lesson 7 in sidebar
 ```
 
 **Nota branch (sessione 2026-06-24)**: durante la scrittura della L5 il
