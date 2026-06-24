@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Correggere con criterio" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la lezione fissa tre principi non negoziabili prima ancora di aprire la chat. Quali sono? E perche' la rubrica deve venire prima dell'IA, scritta da te, e non farsela generare?
+
+Domanda 2: il workflow e' in cinque passi. A cosa serve il passo 3 (la verifica del docente su un campione), e cosa fai quando tu e l'IA non siete d'accordo su un elaborato del campione? Cosa ti dice quel disaccordo sulla tua rubrica?
+
+Domanda 3: la lezione parla di "indicatori di sospetta IA" in un elaborato. Dimmene un paio, e soprattutto: che statuto hanno (sono prove?) e cosa dice la lezione di farci?
+
+Domanda 4: pensa a una correzione che devi fare a breve. Dimmi che tipo di elaborato e' e quali criteri metteresti nella rubrica. Ti commento i criteri, ti dico se sono abbastanza discriminanti e dove l'IA rischia di sbagliare ad applicarli.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

@@ -1,0 +1,24 @@
+Ho appena letto una lezione del manuale AI-Guide su come correggere con l'IA usando una rubrica. L'idea chiave: l'IA e' un assistente di correzione, non un giudice. La rubrica la scrivi tu, l'IA la applica su un campione, tu verifichi sul campione, e solo se siete allineati estendi al resto della classe. La decisione e la firma restano tue, e gli elaborati si anonimizzano prima di caricarli.
+
+Voglio applicarlo a una correzione che devo fare.
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. Quale disciplina o materia insegni?
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica?
+3. Su quale prova devi lavorare e quali sono i criteri che vuoi valutare (per un tema potrebbero essere comprensione, argomentazione, lessico, forma)?
+4. Hai gia' una rubrica scritta o devi costruirla? E di che tipo di elaborato si tratta (tema, esercizio, problem-solving, presentazione, esposizione orale)?
+
+Dopo che ti ho risposto a tutte e quattro le domande, aiutami cosi':
+
+A) Se non ho una rubrica, aiutami a costruirla a partire dai miei criteri: livelli (per esempio da gravemente insufficiente a eccellente) e, per ogni incrocio criterio-livello, un descrittore operativo che dica cosa distingue un livello dal successivo. I criteri li decido io, tu mi aiuti a uniformare e a sciogliere i descrittori. Se ne ho gia' una, aiutami a renderla piu' discriminante dove e' vaga.
+
+B) Quando ti incollo un elaborato di esempio (anonimizzato, senza nome dello studente), applica la rubrica in modo esplicito: per ogni criterio, il livello assegnato e una riga di motivazione. Niente voto complessivo finche' non te lo chiedo.
+
+C) Ricordami che il passo successivo lo faccio io: correggo lo stesso elaborato in autonomia, confronto, e dove non siamo d'accordo ha ragione il docente. Se l'errore nasce da una rubrica ambigua, aiutami a riscrivere quel descrittore.
+
+D) Non darmi voti da mettere sul registro e non valutare al posto mio: tu proponi, io decido. E ricordami di non caricare nomi reali di studenti minorenni.
+
+Se in qualche passaggio ti servono informazioni che non ti ho dato (i criteri esatti, la scala dei voti della mia scuola, il testo della consegna), chiedimele invece di inventare.
+
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Lavoriamo sul mio caso reale.

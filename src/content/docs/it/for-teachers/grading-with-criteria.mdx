@@ -1,0 +1,217 @@
+---
+title: Correggere con criterio
+description: L'IA come assistente di correzione, non come giudice. Rubrica tua, prima passata su un campione, verifica del docente, decisione e firma sempre tue.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it, data-and-tables]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- L'IA corregge come assistente, non come giudice. Tre principi: la **rubrica la scrivi tu**, la **decisione finale è tua**, gli **elaborati si anonimizzano** prima di caricarli.
+- Workflow in cinque passi: rubrica esplicita, prima passata IA su 3-5 elaborati, verifica del docente sugli stessi, estensione se regge, restituzione scritta da te.
+- Dove tu e l'IA non concordate ha ragione il docente. Ma il *perché* dell'errore dell'IA ti dice se la rubrica è ambigua.
+- Anti-cheating: gli indicatori di sospetta IA in un elaborato sono indizi, non prove. Cosa farne è in una lezione dedicata più avanti.
+- Niente nomi nella chat, niente voto dell'IA sul registro senza rileggerlo.
+
+</LessonSummary>
+
+L'IA è un buon assistente di correzione e un pessimo giudice. La
+differenza non è sottile, e prima di aprire la chat conviene
+fissare tre principi che non si negoziano.
+
+Primo: la rubrica viene prima dell'IA, e la scrivi tu. L'IA può
+aiutarti a metterla in forma e a sciogliere i descrittori che ti
+vengono asciutti, ma i criteri di valutazione sono una tua scelta
+didattica, non un output da generare. Secondo: la decisione finale
+è tua. L'IA propone, tu disponi, e il voto sul registro lo metti
+tu. Terzo: gli elaborati si anonimizzano prima di caricarli. Il
+nome dello studente non serve all'IA per applicare una rubrica, e i
+dati di un minore non si versano in una chat consumer.
+
+## Il workflow in cinque passi
+
+Con i tre principi fissati, la correzione assistita è un giro in
+cinque passi.
+
+**1. Scrivi la rubrica esplicita.** Criteri (per un tema:
+comprensione del testo, argomentazione, lessico, forma), livelli
+(da gravemente insufficiente a eccellente), e per ogni incrocio un
+descrittore che dica cosa distingue un livello dal successivo. È il
+passo che decide tutto: una rubrica vaga produce una correzione
+vaga, umana o IA che sia. L'IA qui aiuta a uniformare i descrittori
+e a riempire le caselle che ti vengono stentate, partendo dai tuoi
+criteri.
+
+**2. Prima passata dell'IA su un campione.** Prendi 3-5 elaborati
+anonimizzati, li carichi insieme alla rubrica, e chiedi all'IA di
+applicarla in modo esplicito: per ogni elaborato, per ogni
+criterio, il livello assegnato più una riga di motivazione. La riga
+di motivazione è la parte che conta: senza, hai un voto che non
+puoi controllare.
+
+**3. Verifica a campione.** Correggi tu, in autonomia, gli stessi
+3-5 elaborati. Poi confronta. Dove tu e l'IA divergete la regola è
+semplice, ha ragione il docente. Ma fermati a capire *perché* l'IA
+ha sbagliato: spesso non è l'IA che non capisce, è la rubrica che è
+ambigua su quel criterio. Lì la riscrivi, e migliora anche la tua
+correzione.
+
+**4. Estensione al resto della classe.** Se sul campione tu e l'IA
+siete allineati, fai applicare la rubrica all'intero set. Su una
+classe da 25-30 elaborati conviene caricarli a lotti, cinque o sei
+per volta: una chat troppo carica perde il filo e applica la
+rubrica in modo meno coerente verso la fine. A quel punto il tuo
+lavoro non è ricorreggere tutto da capo, è scorrere le valutazioni,
+intercettare gli scarti evidenti, e ripescare due o tre elaborati a
+caso dal mucchio per controllare che la rubrica regga anche lontano
+dal campione iniziale. Poi firmi. Se sul campione non eravate
+allineati, non estendere: torna al passo 1 e sistema la rubrica.
+
+**5. Restituzione individuale.** Il commento che arriva allo
+studente lo scrivi tu, con la rubrica come scheletro. L'IA può
+proporti una bozza di feedback per criterio, ma il commento va
+riletto a freddo e rifirmato a mano: è la parte della valutazione
+che lo studente legge davvero, e deve avere la tua voce e quello
+che sai di lui.
+
+## La differenza in pratica
+
+Italiano, quinta superiore, un'analisi del testo sul sonetto *A
+Zacinto* di Foscolo. Rubrica a quattro criteri, applicata a un
+elaborato anonimizzato.
+
+<ChatDemo
+  user={`Applica questa rubrica all'elaborato qui sotto (analisi del testo, quinta superiore, sonetto "A Zacinto" di Foscolo). Per ogni criterio: livello (insufficiente / sufficiente / buono / ottimo) e una riga di motivazione. Rubrica: Comprensione, Analisi formale, Contestualizzazione, Lessico.
+
+Elaborato: "Nel sonetto il poeta si rivolge alla sua isola natale, Zacinto, da cui è esule. Il mare e Venere richiamano il mito greco e la bellezza. Foscolo sa che non avrà sepoltura in patria, e questo lega la poesia al tema della tomba. Il suo pessimismo, come nel resto della sua opera ispirata a Leopardi, nasce dalla delusione storica dopo Napoleone."`}
+  ai={`**Comprensione: buono.** Coglie i nuclei centrali: l'esilio, l'isola natale, il mito (Venere, il mare greco), la sepoltura negata.
+
+**Analisi formale: sufficiente.** Individua i temi ma non tocca la forma: niente sulla struttura del sonetto, sulle figure retoriche, sugli enjambement.
+
+**Contestualizzazione: buono.** Colloca il testo nell'esilio foscoliano e nella delusione post-napoleonica.
+
+**Lessico: sufficiente.** Corretto ma generico ("bellezza", "pessimismo"), poco lessico critico specifico.
+
+Nel complesso: elaborato discreto, più solido sulla comprensione che sull'analisi formale, che è il criterio da spingere.`}
+/>
+
+L'IA ha dato **buono** a contestualizzazione. Tu rileggi e dai
+**sufficiente**: lo studente scrive che Foscolo è "ispirato a
+Leopardi", un errore cronologico netto, perché Leopardi è
+successivo. L'IA non l'ha colto, e non per distrazione: la rubrica
+chiedeva di "collocare il testo nel contesto", non di "collocarlo
+senza errori di fatto". Il criterio era ambiguo. Lo riscrivi
+aggiungendo al descrittore di contestualizzazione la riga
+"penalizza gli errori cronologici e di attribuzione". Adesso,
+sull'intera classe, l'IA segnalerà lo stesso tipo di errore invece
+di lasciarlo passare. Il disaccordo sul campione non è un
+fastidio: è il modo in cui la rubrica diventa più discriminante.
+
+:::tip[Indicatori manuali di sospetta IA]
+Mentre correggi, certi segnali fanno alzare un sopracciglio. Non
+sono prove, sono ipotesi: un registro troppo uniforme e alto per il
+livello della classe, citazioni perfette ma che non riesci a
+verificare, una struttura troppo geometrica per uno studente medio,
+la scomparsa improvvisa degli errori personali tipici (chi scriveva
+sempre "perchè" che di colpo è impeccabile), parole rare mai
+sentite in aula. Presi da soli non dimostrano niente. Cosa farne, e
+come gestire un sospetto senza accusare nessuno, è il tema della
+lezione *Quando lo studente usa l'IA*, più avanti nel modulo.
+:::
+
+:::caution[Privacy: anonimizza prima di caricare]
+Prima di caricare gli elaborati in una chat consumer (ChatGPT,
+Claude, Gemini), togli i nomi. Rinomina i file "elaborato-01",
+"elaborato-02", cancella l'intestazione con nome, classe e data, o
+usa uno strumento che oscura i nomi. Se la tua scuola ha un piano
+business (Team, Enterprise) le regole cambiano e i dati non
+finiscono nell'allenamento, ma il principio di dare il minimo
+indispensabile resta. Per un elaborato con dati personali oltre il
+nome, come un tema autobiografico, valuta se valga la pena
+caricarlo o se quella correzione resta tutta a mano. Sulla privacy
+dei dati dei minori torna la lezione di chiusura del modulo.
+:::
+
+:::tip[Temi scritti a mano]
+Il tema in classe quasi sempre è su carta. Per portarlo nella chat
+lo fotografi o lo scansioni e lo carichi come immagine o PDF (vedi
+[Foto, immagini e file](/it/everyday-use/images-and-files/)). Due
+avvertenze. La calligrafia: su una grafia ordinata l'IA trascrive
+bene, su una difficile sbaglia parole, quindi sui passaggi che
+pesano per il voto rileggi l'originale invece di fidarti della
+trascrizione. Il nome: se è scritto a mano sul foglio,
+l'anonimizzazione "rinomina il file" non basta, perché il nome è
+dentro l'immagine. Copri il nome prima di scattare la foto, ritaglia
+l'intestazione, o fotografa dalla seconda riga in giù.
+:::
+
+:::note[Portare i livelli sul registro]
+Se vuoi versare i livelli applicati in un foglio per il registro,
+l'IA può darti direttamente una tabella (studente, criterio,
+livello, voto). Per gestirla vale quello che hai visto in
+[Lavorare con dati e tabelle](/it/at-work/data-and-tables/):
+controlla cella per cella prima di copiare, perché un livello
+spostato di una riga è un voto sbagliato a uno studente vero.
+:::
+
+:::note[Per matematica e problem-solving]
+Dove la correzione è più giusto/sbagliato che a livelli, la rubrica
+diventa una *chiave di soluzione*: il procedimento corretto passo
+per passo, più quanto credito vale ogni passaggio, così chi imposta
+bene ma sbaglia un conto non prende zero. Carichi la chiave insieme
+agli elaborati e chiedi all'IA di segnalare dove ogni svolgimento
+se ne discosta. Il passo di verifica resta identico: sui conti l'IA
+sbaglia, quindi controlli tu il campione prima di estendere.
+Costruire i problemi e la chiave è il tema di
+[Domande per verifiche](/it/for-teachers/generate-assessment-questions/).
+:::
+
+## Cosa NON fare
+
+**Non caricare i nomi reali degli studenti.** È la regola che viene
+prima delle altre: i dati di un minore non si versano in una chat
+consumer per comodità.
+
+**Non usare l'IA come secondo correttore alla pari.** L'IA senza la
+passata di verifica del docente sul campione non è un collega che
+corregge, è un generatore di voti plausibili. Il passo 3 non è
+opzionale: è quello che distingue la correzione assistita dal
+delegare il giudizio.
+
+**Non trascrivere il voto dell'IA sul registro senza rileggerlo.**
+Il voto che firmi è tuo, con la tua responsabilità davanti allo
+studente e alla famiglia. Un numero che non hai verificato non
+smette di essere tuo solo perché l'ha proposto una macchina.
+
+## Approfondisci per la tua disciplina
+
+<LlmExercise
+  variant="practice"
+  title="Approfondisci per la tua disciplina"
+  file="deepen-grading-with-criteria.txt"
+  duration="10-15 min"
+  description="L'IA ti aiuta a costruire o affinare la rubrica e ti guida nella prima passata su un campione, lasciando a te la verifica e la decisione."
+/>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-grading-with-criteria.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Hai progettato le lezioni, differenziato i materiali, costruito le
+verifiche e corretto con criterio. Resta una parte del lavoro del
+docente, delicata quanto la correzione, che l'IA può alleggerire:
+comunicare con le famiglie. La prossima lezione parla di come
+scrivere quelle email senza farle suonare fredde e senza sbagliare
+il registro.

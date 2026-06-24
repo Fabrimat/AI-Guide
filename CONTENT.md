@@ -873,9 +873,11 @@ temi sono specchio.
    (`analyze-lesson` 7 domande + `integrate-questions` con 5 modifiche +
    style-checker IT e EN, 2026-06-24). Style-checker IT ed EN: verdetto
    OK, nessuna modifica richiesta.
-6. 🆕 **Correggere con criterio** (`for-teachers/grading-with-criteria`)
+6. ✍️ **Correggere con criterio** (`for-teachers/grading-with-criteria`)
    Rubrica esplicita, prima passata IA, verifica a campione, decisione
-   docente. Callout filo rosso su indicatori manuali.
+   docente. Callout filo rosso su indicatori manuali. Bozza IT +
+   integrate-questions + deepen + review + style-check OK (2026-06-24).
+   Mirror EN in corso.
 7. 🆕 **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
    Email delicate ai genitori. Tre registri (primaria, secondaria,
    università). Privacy rinforzata su dati di minori.
