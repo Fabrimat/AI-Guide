@@ -196,6 +196,43 @@ const i18n = {
     transition: width 0.2s ease;
   }
 
+  .lai-messages { display: flex; flex-direction: column; gap: 0.6rem; flex: 1; min-height: 0; }
+  .lai-bubble {
+    max-width: 90%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.8rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .lai-bubble-user {
+    align-self: flex-end;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border-bottom-right-radius: 0.2rem;
+  }
+  .lai-bubble-assistant {
+    align-self: flex-start;
+    background: var(--aig-elevated-bg-warm);
+    border: 1px solid var(--sl-color-hairline);
+    border-bottom-left-radius: 0.2rem;
+  }
+  .lai-disclaimer { margin: 0; font-size: 0.74rem; color: var(--sl-color-gray-4); }
+  .lai-input-row { display: flex; gap: 0.5rem; }
+  .lai-input {
+    flex: 1;
+    height: 2.6rem;
+    padding: 0 0.8rem;
+    border: 2px solid var(--sl-color-hairline-shade);
+    border-radius: 0.6rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    font-family: var(--sl-font); font-size: 0.95rem;
+  }
+  .lai-input:focus-visible { outline: none; border-color: var(--sl-color-accent); }
+  .lai-send { align-self: stretch; }
+
   /* Mobile: full-width bottom sheet */
   @media (max-width: 30rem) {
     .lai-launcher-text { display: none; }

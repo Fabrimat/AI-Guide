@@ -6,6 +6,7 @@
  * fallback view only. Later tasks add consent, the engine and chat.
  */
 import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
+import { extractLessonContext } from './lesson-context';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -67,6 +68,7 @@ class LocalAI extends HTMLElement {
   private panel!: HTMLElement;
   private body!: HTMLElement;
   private engine: MLCEngineInterface | null = null;
+  private history: Array<{ role: 'user' | 'assistant'; content: string }> = [];
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -262,13 +264,116 @@ class LocalAI extends HTMLElement {
     }
   }
 
-  // Filled in Task 5. For now confirms readiness.
   private renderReady() {
     this.body.innerHTML = '';
-    const p = document.createElement('p');
-    p.textContent = this.i18n.disclaimer;
-    this.body.appendChild(p);
+    this.history = [];
+
+    const list = document.createElement('div');
+    list.className = 'lai-messages';
+    list.setAttribute('data-messages', '');
+
+    const disclaimer = document.createElement('p');
+    disclaimer.className = 'lai-disclaimer';
+    disclaimer.textContent = this.i18n.disclaimer;
+
+    const form = document.createElement('form');
+    form.className = 'lai-input-row';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'lai-input';
+    input.placeholder = this.i18n.inputPlaceholder;
+    input.setAttribute('data-input', '');
+    const send = document.createElement('button');
+    send.type = 'submit';
+    send.className = 'lai-btn lai-btn-primary lai-send';
+    send.textContent = this.i18n.send;
+    form.append(input, send);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      void this.send(text);
+    });
+
+    this.body.append(list, disclaimer, form);
+    this.renderExerciseButton(list); // no-op until Task 7 defines it
+    input.focus();
   }
+
+  private appendBubble(role: 'user' | 'assistant', text: string): HTMLElement {
+    const list = this.body.querySelector('[data-messages]') as HTMLElement;
+    const bubble = document.createElement('div');
+    bubble.className = `lai-bubble lai-bubble-${role}`;
+    bubble.textContent = text;
+    list.appendChild(bubble);
+    list.scrollTop = list.scrollHeight;
+    return bubble;
+  }
+
+  private buildSystemPrompt(opts: { searchBlock?: string; exerciseBlock?: string } = {}): string {
+    const { title, text } = extractLessonContext();
+    const search = opts.searchBlock ? opts.searchBlock : '(none)';
+    const exercise = opts.exerciseBlock ? `\n\n${opts.exerciseBlock}` : '';
+    return [
+      'You are the built-in assistant for AI-Guide, a free manual that teaches people how to use AI. You run entirely in the browser, no data leaves this device.',
+      `Current lesson: ${title}`,
+      '',
+      'Current lesson content:',
+      text || '(not available)',
+      '',
+      'Relevant excerpts from other lessons (if any):',
+      search,
+      '',
+      'Rules:',
+      '- Answer questions about the current lesson and the guide in general.',
+      '- If the user asks about something not covered in the guide, say so clearly and suggest they ask a full AI like Claude or ChatGPT.',
+      '- Be concise. This is a study guide, not a chatbot.',
+      "- Match the language of the user's message (the guide is bilingual en/it).",
+      '- Never reproduce large blocks of the lesson verbatim. Paraphrase and explain.',
+      exercise,
+    ].join('\n');
+  }
+
+  private async send(userText: string, opts: { display?: boolean; exerciseBlock?: string } = {}) {
+    const display = opts.display !== false;
+    if (display) this.appendBubble('user', userText);
+    this.history.push({ role: 'user', content: userText });
+
+    const replyBubble = this.appendBubble('assistant', this.i18n.thinking + '…');
+
+    // Keep the last 6 turns to stay within the 4096-token window.
+    const trimmed = this.history.slice(-6);
+    const messages = [
+      { role: 'system' as const, content: this.buildSystemPrompt({ exerciseBlock: opts.exerciseBlock }) },
+      ...trimmed,
+    ];
+
+    try {
+      if (!this.engine) throw new Error('engine not ready');
+      const stream = await this.engine.chat.completions.create({
+        messages,
+        stream: true,
+        temperature: 0.6,
+        max_tokens: 800,
+      });
+      let full = '';
+      for await (const chunk of stream) {
+        full += chunk.choices[0]?.delta?.content ?? '';
+        replyBubble.textContent = full;
+        const list = this.body.querySelector('[data-messages]') as HTMLElement;
+        list.scrollTop = list.scrollHeight;
+      }
+      this.history.push({ role: 'assistant', content: full });
+    } catch (err) {
+      console.error('[LocalAI] generation failed', err);
+      replyBubble.textContent = this.i18n.errorBody;
+    }
+  }
+
+  // Defined in Task 7; declared here so renderReady can call it safely.
+  private renderExerciseButton(_list: HTMLElement) { /* no-op until Task 7 */ }
 }
 
 function define() {
