@@ -72,8 +72,9 @@ class LocalAI extends HTMLElement {
     this.panel.hidden = false;
     this.launcher.setAttribute('aria-expanded', 'true');
     if (!('gpu' in navigator)) { this.showFallback(); return; }
-    // Later tasks: consent / downloading / ready routing goes here.
-    this.setView('consent');
+    const consented = this.getConsentedModel();
+    if (consented) this.startDownload(consented);
+    else this.renderConsent();
   }
 
   private close() {
@@ -97,11 +98,90 @@ class LocalAI extends HTMLElement {
       this.body.append(h, p);
       return;
     }
-    if (view === 'consent') {
-      // Placeholder until Task 3; keeps the panel non-empty.
-      this.body.textContent = this.i18n.consentHeading;
-      return;
-    }
+  }
+
+  private getConsentedModel(): string | null {
+    try {
+      const v = localStorage.getItem(CONSENT_KEY);
+      return v && this.models.some((m) => m.id === v) ? v : null;
+    } catch { return null; }
+  }
+
+  private setConsentedModel(id: string) {
+    try { localStorage.setItem(CONSENT_KEY, id); } catch { /* ignore */ }
+  }
+
+  private renderConsent() {
+    this.body.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'lai-consent';
+
+    const h = document.createElement('p');
+    h.className = 'lai-msg-title';
+    h.textContent = this.i18n.consentHeading;
+
+    const body = document.createElement('p');
+    body.textContent = this.i18n.consentBody;
+
+    const form = document.createElement('form');
+    form.className = 'lai-model-picker';
+
+    this.models.forEach((m, i) => {
+      const id = `lai-model-${m.tier}`;
+      const row = document.createElement('label');
+      row.className = 'lai-model-row';
+      row.setAttribute('for', id);
+
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'lai-model';
+      radio.id = id;
+      radio.value = m.id;
+      if (i === 0) radio.checked = true;
+
+      const text = document.createElement('span');
+      text.className = 'lai-model-text';
+      const label = document.createElement('span');
+      label.className = 'lai-model-label';
+      label.textContent = m.label;
+      text.appendChild(label);
+      if (m.warn) {
+        const warn = document.createElement('span');
+        warn.className = 'lai-model-warn';
+        warn.textContent = m.warn;
+        text.appendChild(warn);
+      }
+      row.append(radio, text);
+      form.appendChild(row);
+    });
+
+    const confirm = document.createElement('button');
+    confirm.type = 'button';
+    confirm.className = 'lai-btn lai-btn-primary';
+    confirm.textContent = this.i18n.consentConfirm;
+    confirm.addEventListener('click', () => {
+      const chosen = form.querySelector<HTMLInputElement>('input[name="lai-model"]:checked');
+      const id = chosen?.value || this.models[0]?.id;
+      if (!id) return;
+      this.setConsentedModel(id);
+      this.startDownload(id);
+    });
+
+    const privacy = document.createElement('p');
+    privacy.className = 'lai-consent-privacy';
+    privacy.textContent = this.i18n.consentPrivacy + ' ';
+    const link = document.createElement('a');
+    link.href = this.privacyHref;
+    link.textContent = this.i18n.consentPrivacyLink;
+    privacy.appendChild(link);
+
+    wrap.append(h, body, form, confirm, privacy);
+    this.body.appendChild(wrap);
+  }
+
+  // Real implementation in Task 4.
+  private startDownload(modelId: string) {
+    this.body.textContent = this.i18n.downloading + ' (' + modelId + ')';
   }
 }
 
