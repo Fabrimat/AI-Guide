@@ -7,6 +7,7 @@
  */
 import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
 import { extractLessonContext } from './lesson-context';
+import { searchOtherLessons } from './search-context';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -343,10 +344,25 @@ class LocalAI extends HTMLElement {
 
     const replyBubble = this.appendBubble('assistant', this.i18n.thinking + '…');
 
+    let searchBlock = '';
+    try {
+      const excerpts = await searchOtherLessons(userText, this.locale, {
+        currentPath: location.pathname,
+      });
+      if (excerpts.length) {
+        searchBlock = excerpts
+          .map((e) => `- ${e.title}: ${e.excerpt}`)
+          .join('\n');
+      }
+    } catch { /* fail soft */ }
+
     // Keep the last 6 turns to stay within the 4096-token window.
     const trimmed = this.history.slice(-6);
     const messages = [
-      { role: 'system' as const, content: this.buildSystemPrompt({ exerciseBlock: opts.exerciseBlock }) },
+      {
+        role: 'system' as const,
+        content: this.buildSystemPrompt({ searchBlock, exerciseBlock: opts.exerciseBlock }),
+      },
       ...trimmed,
     ];
 
