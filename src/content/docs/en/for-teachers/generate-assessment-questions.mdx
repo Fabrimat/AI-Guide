@@ -1,0 +1,233 @@
+---
+title: Generate assessment questions
+description: Building assessment questions with AI, from open-ended to multiple choice to problem-solving. The value is in the choice and the calibration of the distractors, not the volume.
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- The AI generates twenty questions in a minute. The problem is half are trivial and some ambiguous: your job is to choose and calibrate, not to produce in volume.
+- Four formats, each with its own criterion: **open-ended** (one precise thing, not a disguised essay), **multiple choice** (distractors = typical errors, not absurdities), **true/false** (only for clean facts), **problem-solving** (step-by-step solution, kept separate from the prompt).
+- Calibrate difficulty on **Bloom's scale**: a balanced test covers three or four levels, not just memory.
+- Questions that hold up against studying with AI: application to new cases seen in class, links to your own examples, tight formal constraints.
+- Two passes before handing it out: read it all as a marker, then answer it yourself as an average student. The AI produces ambiguous or factually wrong questions.
+
+</LessonSummary>
+
+Asking the AI for twenty assessment questions on a chapter takes a
+minute. The problem is what comes back: five trivial questions
+anyone could derive from the section title, a few ambiguous ones
+where it isn't clear what you're asking, and three or four in the
+middle that work. The value you add isn't the volume, which the AI
+does faster than you. It's choosing the right questions and
+calibrating them to the class's level.
+
+## Four formats, four criteria
+
+Each format measures something different and is asked for
+differently. These four cover almost everything.
+
+**Open-ended questions.** Measure comprehension and the ability to
+build an argument. The useful prompt is tight: "three open-ended
+questions on chapter X, answerable in 5-10 lines, level *apply*".
+The check to make: each question must ask one precise thing. The AI
+tends to produce disguised essay questions ("Analyze the causes,
+consequences, and significance of...") that are unanswerable in ten
+lines and impossible to grade the same way for everyone.
+
+**Multiple choice.** Measures recognition and application. Four
+options, one correct, three distractors. A good distractor is an
+error a student actually makes, not an absurdity you discard at a
+glance. The prompt that raises quality: "for each distractor, tell
+me why a student might pick it". If the AI can't justify a
+distractor, that distractor isn't plausible and should be cut. In
+subjects where almost everything is interpretation (philosophy, art
+history) multiple choice holds up poorly, because it forces a false
+precision: there, lean on open-ended questions.
+
+**True/false.** Useful only for clean facts, and rare in subjects
+where almost everything has nuance. The risk is the AI generating
+true/false on interpretable statements, where the answer depends on
+context and the student is right to object. The constraint to put
+in the prompt: "avoid true/false on questions that admit exceptions
+or interpretations".
+
+**Problem-solving.** For mathematics, physics, chemistry,
+economics, computer science: cases and exercises with data. The
+useful prompt: "three problems of increasing difficulty on topic X,
+each with the step-by-step solution, but keep the solutions
+separate from the prompts". The step-by-step solution is for you to
+grade and to check the problem is well-posed, but it must not end
+up on the student's sheet. It works identically for a physics
+problem or a math exercise: same request, same separated
+step-by-step solution. The deep-dive exercise at the end of this
+lesson has you build one on your own syllabus.
+
+:::note[What about oral exams?]
+The same techniques work for preparing an oral-exam outline: ask
+the AI for a sequence of questions of increasing difficulty on the
+topic, Bloom calibration included, and keep it as a script. The
+difference is that an oral exam is a dialogue, not a list: the
+outline gets you started and keeps you from forgetting the key
+points, but the follow-up questions come from how the student
+answers, and those you ask on the spot. The AI prepares the
+starting point, it doesn't run the exam.
+:::
+
+## Calibrating difficulty: Bloom's scale
+
+A question's level isn't "easy" or "hard" by gut feel. Bloom's
+scale gives six rungs of mental operation, from the most mechanical
+to the most demanding: remember, understand, apply, analyze,
+evaluate, create. A balanced test touches three or four, instead of
+flattening onto a single rung. All on "remember" measures memory
+and nothing else, and it's also the easiest to get around with AI.
+All on "create" ("what do you think of...") becomes vague and
+impossible to grade with criteria.
+
+The boundary between one rung and the next is where people get lost.
+On the same history chapter: "list the causes of the war" is
+*remember*; "explain how the alliance system turned a local
+assassination into a continental war" is *apply*, because you use a
+mechanism on a case; "weigh the deep causes against the trigger
+causes and decide which counted more" is *analyze*, because you
+break apart and relate. Putting the level in the prompt ("questions
+at the *apply* and *analyze* level") is the fastest way to move the
+test where you want it.
+
+## The difference in practice
+
+History, third year of high school, the chapter on the First World
+War. Six mixed-format questions in one turn.
+
+<ChatDemo
+  user={`Generate 6 assessment questions on the First World War chapter, third year of high school. Mix: 2 open-ended (5-10 lines, analyze level), 3 multiple choice with 4 options, 1 problem-solving on a historical case. For each multiple-choice distractor, tell me why a student might pick it. Keep the solutions separate from the prompts.`}
+  ai={`**Open-ended questions (analyze)**
+1. Explain why the system of alliances turned a local assassination into a continental war.
+2. Compare the war of movement of 1914 with the trench war that followed: what changed and why.
+
+**Multiple choice**
+3. Italy enters the war in 1915 on the side of:
+a) Germany and Austria-Hungary
+b) France, the UK, and Russia [correct]
+c) the Ottoman Empire
+d) it stays neutral until 1917
+
+4. A deep (not trigger) cause of the war was:
+a) the assassination in Sarajevo
+b) the arms race and nationalisms [correct]
+c) the sinking of the Lusitania
+d) the Russian Revolution
+
+5. The Treaty of London (1915):
+a) sealed a separate peace between Italy and Austria
+b) promised Italy territory in exchange for entering the war [correct]
+c) was the final 1918 armistice
+d) established the League of Nations
+
+**Problem-solving (historical case)**
+6. Imagine Italy had stayed neutral for the whole conflict. Argue two plausible consequences for the Italian-Austrian front and one for postwar Italy, using facts from the chapter.
+
+---
+**Solutions (to detach) and the why of the distractors**
+3-b. a) confuses the pre-war Triple Alliance with the 1915 line-up; c) ties Italy to the Central Powers; d) confuses Italy with the United States.
+4-b. a) is the trigger cause, not the deep one (typical category error); c) and d) are events after the war broke out.
+5-b. a) reverses the meaning of the treaty; c) and d) confuse it with end-of-war or postwar events.`}
+/>
+
+The six questions cover several Bloom levels (remember with the
+multiple choice, analyze with the open-ended, apply and evaluate
+with the problem-solving) and four formats in one. The piece that
+makes the difference is the "why" line under each distractor: it
+tells you whether the wrong option is a real error (3a, which
+confuses the Triple Alliance with the wartime line-up, is the
+classic one) or filler to discard. Where the justification is weak,
+rewrite the distractor or drop the question.
+
+:::tip[Questions that hold up against studying with AI]
+Your students have AI to revise with, and there's no point
+pretending otherwise. A meaningful test isn't "asking questions the
+AI can't answer": that's impossible, and it would answer them
+anyway. It's asking questions a student can't pass just by
+memorizing the AI's answers. What holds up better: application to a
+new case seen in class (yesterday's article, Wednesday's
+experiment), a link to an example you gave in another lesson, a
+tight formal constraint (in exactly five lines, using at least two
+terms from the unit glossary). The full picture of the problem, and
+what to do about it, is in the lesson *When students use AI*, later
+in the module.
+:::
+
+:::tip[Exporting to Anki, Quizlet, online quizzes]
+If you use revision tools or in-class quizzes, the AI can give you
+the right format directly: the CSV to import flashcards into Anki,
+the question set for Kahoot or Mentimeter, the text for Quizlet or
+Wooclap. Ask for it explicitly ("give me these 10 questions in CSV
+format for Anki, front and back") and you save the manual
+formatting.
+:::
+
+:::caution[Reread before administering]
+A question generated by the AI can be ambiguous, factually wrong,
+or assume content the class hasn't seen. And the level label it
+gives you doesn't always hold: it sometimes calls "analyze" a
+question that only asks you to remember. Two passes, always, before
+printing: read the whole test as a marker, then try it as an
+average student, actually answering the questions. As you answer
+you also feel whether the stated level is the real one: if you get
+by on memory alone, it wasn't "analyze". The errors you hadn't
+noticed only surface when you try to answer.
+:::
+
+## What NOT to do
+
+**Don't administer the test as it comes out.** A set generated
+entirely by the AI has a uniformity of tone you can spot, and
+almost always contains an ambiguous or unbalanced question. Choose
+the good questions, cut the ambiguous ones, rewrite the ones that
+almost work: the test is yours because the grade is your
+responsibility.
+
+**Don't trust the AI on technical correctness.** Historical dates,
+chemical formulas, mathematical steps, legal definitions: the AI
+gets them wrong with the same confidence it gets them right. Every
+question resting on a precise fact must be checked against a source,
+not against the AI's second answer.
+
+**Don't make trick questions on details never covered.** If you ask
+for "hard" questions, the AI happily pulls from sidebars and
+footnotes your class has never touched. Hard should mean high on
+Bloom's scale, not obscure.
+
+## Take it deeper for your subject
+
+<LlmExercise
+  variant="practice"
+  title="Take it deeper for your subject"
+  file="deepen-generate-assessment-questions.txt"
+  duration="10-15 min"
+  description="The AI interviews you on the topic and the test format you need, then generates a set calibrated to your syllabus, with the why of each distractor."
+/>
+
+## Check what you got
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-generate-assessment-questions.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It'll ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Ready questions means tests you can administer. But a test,
+afterward, has to be graded, and there the risk is the opposite:
+letting the AI assign the grade. The next lesson is about using it
+as a grading assistant, with an explicit rubric, without it
+becoming the judge.

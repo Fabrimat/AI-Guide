@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Generate assessment questions" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson says the AI generates questions in volume, but the teacher adds the value. What does this value consist of, in practice? And why is it a bad idea to administer the set just as it comes out of the AI?
+
+Question 2: for multiple-choice questions, the lesson proposes a prompt that raises the quality of the distractors. What is it? And how do you tell that a distractor should be cut?
+
+Question 3: the lesson uses Bloom's scale to calibrate difficulty. Why is a test entirely on the "remember" level a problem, especially now that students have AI to revise with? And what kind of questions "hold up" better against studying with AI?
+
+Question 4: think of a topic from your subject you have to test. Throw me a question you think is at the "apply" or "analyze" level. I'll comment on it, tell you whether the level is really that, and how I'd refine it.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

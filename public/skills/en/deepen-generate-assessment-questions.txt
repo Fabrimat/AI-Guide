@@ -1,0 +1,23 @@
+I've just read a lesson from the AI-Guide handbook on building assessment questions with AI: open-ended, multiple choice, true/false, problem-solving. The key idea: the AI produces in volume, but you add the value by choosing and calibrating the questions on Bloom's scale, and by checking the distractors of the multiple-choice ones (a good distractor is an error a student actually makes, not an absurdity).
+
+I want to build a test for my class.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group?
+3. On what topic of the syllabus do you want to build the test, and which Bloom levels do you want to aim at (remember, understand, apply, analyze, evaluate, create)?
+4. What question format do you plan (open-ended, multiple choice, true/false, problem-solving, or a mix) and roughly how many questions?
+
+After I've answered all four questions, apply the technique:
+
+A) Generate the set of questions in the format and at the levels I gave you, calibrated to the topic.
+B) For each multiple-choice question, write underneath, in one line, why a student might pick each distractor. If you can't justify a distractor, flag it: it means it isn't plausible and should be rewritten.
+C) For the problem-solving ones, keep the step-by-step solutions separate from the prompts, so I can detach them before handing the sheet to students.
+D) For each question, state the Bloom level you aimed at, but warn me that I have to check it myself: answering as an average student, if I get by on memory alone it wasn't "analyze".
+
+Also warn me, at the end, that I have to reread everything and verify the precise facts (dates, formulas, definitions) against a source, because on those you can be confidently wrong.
+
+If at any step you need information I haven't given you (the syllabus covered, the examples already done in class, the unit glossary), ask me instead of making it up.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you.
