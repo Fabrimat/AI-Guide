@@ -359,8 +359,10 @@ export default defineConfig({
           '_astro/transformers-*.js',
           '_astro/transformers.*.js',
           // ONNX-runtime wasm binaries (shipped by @huggingface/transformers,
-          // >2 MiB each); loaded lazily on first embedQuery call.
-          '**/*.wasm',
+          // >2 MiB each); loaded lazily on first embedQuery call. Scoped to
+          // _astro/ where all Vite-emitted assets land, so a future small
+          // wasm elsewhere can still be precached.
+          '_astro/**/*.wasm',
         ],
       },
       devOptions: {
