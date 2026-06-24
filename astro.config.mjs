@@ -38,6 +38,7 @@ export default defineConfig({
           // See `injectManifest.globIgnores` below.
           manualChunks(id) {
             if (id.includes('@mlc-ai/web-llm')) return 'webllm';
+            if (id.includes('@huggingface/transformers')) return 'transformers';
           },
         },
       },
@@ -355,6 +356,8 @@ export default defineConfig({
           '_astro/webllm-*.js',
           '_astro/webllm.*.js',
           '_astro/chat-worker-*.js',
+          '_astro/transformers-*.js',
+          '_astro/transformers.*.js',
         ],
       },
       devOptions: {
