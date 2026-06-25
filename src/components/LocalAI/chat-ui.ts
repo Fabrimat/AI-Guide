@@ -496,13 +496,17 @@ class LocalAI extends HTMLElement {
   // ---- Sending messages ------------------------------------------------------
 
   private appendBubble(role: 'user' | 'assistant', text: string): HTMLElement {
-    const list = this.body.querySelector('[data-messages]') as HTMLElement;
+    const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
     const bubble = document.createElement('div');
     bubble.className = `lai-bubble lai-${role === 'user' ? 'u' : 'a'}`;
     if (role === 'assistant') bubble.innerHTML = renderMarkdown(text);
     else bubble.textContent = text;
-    list.appendChild(bubble);
-    list.scrollTop = list.scrollHeight;
+    // Guard: the message list should always exist when this runs, but stay
+    // resilient if the view was swapped (e.g. across a view transition).
+    if (list) {
+      list.appendChild(bubble);
+      list.scrollTop = list.scrollHeight;
+    }
     return bubble;
   }
 
