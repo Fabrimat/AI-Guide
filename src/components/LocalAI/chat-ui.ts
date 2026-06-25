@@ -125,6 +125,7 @@ class LocalAI extends HTMLElement {
   private engine: MLCEngineInterface | null = null;
   private history: ChatMsg[] = [];
   private activeExerciseBlock: string | null = null;
+  private switching = false;
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -497,13 +498,25 @@ class LocalAI extends HTMLElement {
 
   /** Switch to another tier: persist consent, free the old engine, download. */
   private async switchModel(modelId: string) {
-    this.setConsentedModel(modelId);
-    await disposeEngine();
+    // Guard against rapid double-clicks: a second switch mid-dispose would
+    // orphan an engine (its worker never terminated) and race enginePromise.
+    if (this.switching) return;
+    this.switching = true;
+    try {
+      this.setConsentedModel(modelId);
+      await disposeEngine();
+    } finally {
+      this.switching = false;
+    }
     this.startDownload(modelId); // shows the ring; back to chat on ready
   }
 
   /** Delete a cached, non-active model, then refresh statuses. */
   private async removeModel(modelId: string) {
+    // Never delete the model currently loaded (status may have changed since
+    // the row was rendered); a deleted active model can't be recovered without
+    // re-downloading. Refresh instead.
+    if (modelId === activeModelId) { this.renderModels(); return; }
     try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
     this.renderModels();
   }
