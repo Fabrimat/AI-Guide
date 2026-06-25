@@ -150,35 +150,36 @@ Lo schema è validato in `src/content.config.ts`.
 ## Assistente IA locale (in-browser)
 
 `src/components/LocalAI/` aggiunge un assistente che gira interamente
-nel browser via `@mlc-ai/web-llm` (WebGPU), montato su ogni pagina da
-`Footer.astro`. Niente backend, niente API key: il modello (Qwen2.5,
-tre tagli scelti dall'utente al consenso: 0.5B / 1.5B / 3B) si scarica
-una sola volta da CDN terza (Hugging Face) **solo dopo consenso
-esplicito**, poi resta in cache (web-llm, Cache API) e gira offline.
-`ChatPanel.astro` rende launcher + drawer e passa stringhe/config via
-`data-*`; `chat-ui.ts` è il custom element `<local-ai>` che guida la
-macchina a stati (consent → download con progress → ready, oppure
-fallback no-WebGPU / errore con retry sul modello leggero);
-`chat-worker.ts` ospita l'engine fuori dal main thread;
-`lesson-context.ts` estrae il testo della lezione corrente (budget
-~1500 token); `search-context.ts` interroga Pagefind per estratti da
-altre lezioni; `skill-loader.ts` legge i file `.txt` di check-in dalle
-card `<LlmExercise>` (via `data-file`/`data-variant`) ed esegue
-l'esercizio in modo interattivo. Consenso persistito in
+nel browser, montato su ogni pagina da `Footer.astro`. Niente backend,
+niente API key: il modello si scarica una sola volta da CDN terza
+(Hugging Face) **solo dopo consenso esplicito**, poi resta in cache
+(Cache API) e gira offline. `ChatPanel.astro` rende launcher + drawer
+e passa stringhe/config via `data-*`; `chat-ui.ts` è il custom element
+`<local-ai>` che guida la macchina a stati (consent → download con
+progress → ready, oppure fallback no-WebGPU / errore con retry sul
+modello leggero); `lesson-context.ts` estrae il testo della lezione
+corrente (budget ~1500 token); `skill-loader.ts` legge i file `.txt`
+di check-in dalle card `<LlmExercise>` (via `data-file`/`data-variant`)
+ed esegue l'esercizio in modo interattivo. Consenso persistito in
 `localStorage['aiguide:localai:consent']` (valore = id del modello).
 Nessuna conversazione viene salvata o inviata. È un'aggiunta: i
 pulsanti Copy/Download/Open di `<LlmExercise>` restano.
 
-web-llm è importato **dinamicamente** in `chat-ui.ts` (non a top level)
-e ha un chunk con nome stabile `webllm` (via `vite.build.rollupOptions.
-output.manualChunks` in `astro.config.mjs`): così non finisce nel bundle
-di ogni pagina e si scarica solo dopo il consenso. I chunk `webllm.*` e
-`chat-worker-*` (~6 MB l'uno) sono esclusi dal precache PWA via
-`injectManifest.globIgnores`, sennò Workbox (modalità injectManifest)
-fallisce la build sui file oltre 2 MiB. Il SW non intercetta né questi
-chunk né i pesi del modello da Hugging Face (cross-origin): nessuna
-`registerRoute` li matcha. È un componente **interno**, NON va nel
-catalogo "Componenti del progetto".
+Motore: la chat gira su `@huggingface/transformers` (Transformers.js, ONNX +
+WebGPU), lo stesso runtime dell'embedder RAG: niente più `@mlc-ai/web-llm`.
+`gen-worker.ts` ospita la pipeline `text-generation` in un Web Worker;
+`chat-engine.ts` lo pilota (load/generate/dispose + stato ready/active);
+`chat-ui.ts` lo consuma. Modelli (ONNX, `onnx-community`): Qwen2.5 0.5B (`q4`,
+~0.4 GB), Qwen2.5 1.5B e Gemma 4 E2B (`q4f16`). `model-cache.ts` ispeziona la
+Cache API (`transformers-cache`) per stato/eliminazione (Transformers.js non
+espone `hasModelInCache`). Lo streaming usa `TextStreamer`.
+
+Il chunk `chat-worker-*` e le dipendenze `@huggingface/transformers` sono
+esclusi dal precache PWA via `injectManifest.globIgnores`, sennò Workbox
+(modalità injectManifest) fallisce la build sui file oltre 2 MiB. Il SW non
+intercetta né questi chunk né i pesi del modello da Hugging Face
+(cross-origin): nessuna `registerRoute` li matcha. È un componente
+**interno**, NON va nel catalogo "Componenti del progetto".
 
 Ricerca cross-lezione (RAG): `search-context.ts` non usa più Pagefind ma un
 indice di embeddings statico. A build time `scripts/generate-embeddings.mjs`
@@ -191,8 +192,8 @@ percorso di chat, dopo il consenso; backend WASM) ed embedda la domanda;
 pertinenti. Indice servito dal nostro dominio (cache Cloudflare); modello
 embedder dalla CDN di Hugging Face, on demand. Niente di tutto questo è nel
 precache PWA: il chunk client `transformers` è escluso via `globIgnores`
-(come `webllm`) e l'indice non entra nel bulk manifest. Pagefind resta solo
-per la ricerca Ctrl+K in `Search.astro`.
+(come i chunk del motore chat) e l'indice non entra nel bulk manifest.
+Pagefind resta solo per la ricerca Ctrl+K in `Search.astro`.
 
 UI del pannello: `ChatPanel.astro` usa `<style is:global>` con selettori
 prefissati `local-ai ` (gli elementi creati a runtime da `chat-ui.ts` non
@@ -202,10 +203,10 @@ risposte dell'IA sono renderizzate in markdown da `markdown.ts`
 `localStorage['aiguide:localai:chat:<path>']` (via `history.ts`, cap 50
 messaggi), col pulsante "Nuova chat" che lo svuota. Il gestore modelli
 (`model-cache.ts`) mostra lo stato per modello (attivo / in cache / non
-scaricato) via `hasModelInCache`, permette lo switch (con `disposeEngine()`:
-unload + terminate del worker precedente prima di caricare il nuovo) e il
-delete dalla cache via `deleteModelAllInfoInCache`. Tutte le stringhe visibili
-stanno in `src/i18n/ui.ts` (it + en).
+scaricato) ispezionando direttamente la Cache API (`transformers-cache`),
+permette lo switch (con `disposeEngine()`: unload + terminate del worker
+precedente prima di caricare il nuovo) e il delete dalla cache. Tutte le
+stringhe visibili stanno in `src/i18n/ui.ts` (it + en).
 
 ## Direzione visiva — Pastello
 
