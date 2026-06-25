@@ -24,9 +24,9 @@ const locale = getLocale(Astro.currentLocale);
 const privacyHref = `/${locale}/privacy/`;
 
 const models = [
-  { id: 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC', tier: 'light',  name: 'Qwen2.5 0.5B', size: '0.4 GB', vram: '0.95 GB' },
-  { id: 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC', tier: 'better', name: 'Qwen2.5 1.5B', size: '1.1 GB', vram: '1.6 GB'  },
-  { id: 'Qwen2.5-3B-Instruct-q4f16_1-MLC',   tier: 'best',   name: 'Qwen2.5 3B',   size: '1.9 GB', vram: '2.5 GB' },
+  { id: 'onnx-community/Qwen2.5-0.5B-Instruct', tier: 'light',  name: 'Qwen2.5 0.5B', size: '0.4 GB', dtype: 'q4' },
+  { id: 'onnx-community/Qwen2.5-1.5B-Instruct', tier: 'better', name: 'Qwen2.5 1.5B', size: '1.0 GB', dtype: 'q4f16' },
+  { id: 'onnx-community/gemma-4-E2B-it-ONNX',   tier: 'best',   name: 'Gemma 4 E2B',  size: '1.5 GB', dtype: 'q4f16' },
 ] as const;
 
 const i18n = {

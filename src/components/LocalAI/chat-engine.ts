@@ -94,7 +94,14 @@ export function disposeEngine(): Promise<void> {
   worker = null;
   activeModelId = null;
   readyModelId = null;
-  loadWaiter = null;
+  // Reject any pending waiters so in-flight promises don't hang forever.
+  if (loadWaiter) {
+    loadWaiter.reject(new Error('Engine disposed'));
+    loadWaiter = null;
+  }
+  for (const waiter of genWaiters.values()) {
+    waiter.reject(new Error('Engine disposed'));
+  }
   genWaiters.clear();
   return Promise.resolve();
 }

@@ -4,7 +4,14 @@
  * connectedCallback, module-level singletons that survive view
  * transitions). Redesigned in Task 1: is:global CSS + mockup DOM structure.
  */
-import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
+import {
+  loadModel,
+  generate,
+  disposeEngine,
+  getReadyModelId,
+  getActiveModelId,
+  type ChatMessage,
+} from './chat-engine';
 import { extractLessonContext } from './lesson-context';
 import { searchOtherLessons } from './search-context';
 import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './skill-loader';
@@ -12,73 +19,6 @@ import { renderMarkdown } from './markdown';
 import { loadHistory, saveHistory, clearHistory, type ChatMsg } from './history';
 import { getStatuses, deleteModel, type CacheStatus } from './model-cache';
 import { recommendedTier } from './device';
-
-// Survives Astro view transitions (page swaps don't reload JS).
-let enginePromise: Promise<MLCEngineInterface> | null = null;
-// The model the engine is currently loading OR has loaded (used to dedupe
-// getEngine calls and to decide whether a switch must dispose first).
-let activeModelId: string | null = null;
-// The model whose engine has FINISHED loading and is ready for chat. This is
-// what the UI treats as "active": a model that is mid-download is NOT active
-// yet, so its row must not show as active and must not be deletable-as-active.
-let readyModelId: string | null = null;
-// The worker backing the active engine. Tracked so a model switch can
-// terminate it (freeing its WebGPU context) before loading a new model.
-let activeWorker: Worker | null = null;
-
-/**
- * Creates (or reuses) the singleton engine. If a different model was
- * requested than the active one, reloads in place. Survives view
- * transitions via the module-level enginePromise.
- *
- * web-llm (~6 MB) is imported dynamically here, not at module top level,
- * so it is never part of the per-page bundle: it loads only once the
- * reader has consented and the download starts.
- */
-function getEngine(
-  modelId: string,
-  onProgress: (r: InitProgressReport) => void,
-): Promise<MLCEngineInterface> {
-  if (enginePromise && activeModelId === modelId) return enginePromise;
-  activeModelId = modelId;
-  readyModelId = null; // a (re)load is starting: nothing is "active" until it resolves
-  enginePromise = (async () => {
-    const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
-    const worker = new Worker(new URL('./chat-worker.ts', import.meta.url), { type: 'module' });
-    activeWorker = worker;
-    const eng = await CreateWebWorkerMLCEngine(worker, modelId, { initProgressCallback: onProgress });
-    // Only mark ready if this load wasn't superseded/disposed meanwhile.
-    if (activeModelId === modelId) readyModelId = modelId;
-    return eng;
-  })();
-  return enginePromise;
-}
-
-/**
- * Tears down the active engine and its worker, freeing the WebGPU context,
- * then resets the module-level singletons. Called before switching models so
- * two engines never hold a GPU context at once.
- */
-async function disposeEngine(): Promise<void> {
-  try { const eng = await enginePromise; await eng?.unload?.(); } catch { /* ignore */ }
-  try { activeWorker?.terminate(); } catch { /* ignore */ }
-  activeWorker = null;
-  enginePromise = null;
-  activeModelId = null;
-  readyModelId = null;
-}
-
-/**
- * web-llm's `report.progress` stays ~0 for the whole param-fetch phase (the
- * bulk of a download); the real percentage only lives in `report.text`
- * (e.g. "... 234MB fetched. 88% completed"). Prefer the text percentage and
- * fall back to `report.progress` for the phases that lack one.
- */
-function progressPct(r: InitProgressReport): number {
-  const m = /(\d+)\s*%/.exec(r.text || '');
-  if (m) return Math.min(100, Math.max(0, parseInt(m[1], 10)));
-  return Math.round((r.progress ?? 0) * 100);
-}
 
 // ---- SVG icon string constants -------------------------------------------
 // Inline SVGs with class `lai-ic` so they inherit stroke styling from CSS.
@@ -114,7 +54,7 @@ interface ModelTier {
   tier: 'light' | 'better' | 'best';
   name: string;
   size: string;
-  vram: string;
+  dtype: string;
 }
 
 interface I18n {
@@ -149,7 +89,6 @@ class LocalAI extends HTMLElement {
   private panel!: HTMLElement;
   private body!: HTMLElement;
   private statusSub!: HTMLElement;
-  private engine: MLCEngineInterface | null = null;
   private history: ChatMsg[] = [];
   private activeExerciseBlock: string | null = null;
   private switching = false;
@@ -398,7 +337,7 @@ class LocalAI extends HTMLElement {
     this.setPanelTitle(this.i18n.panelTitle); // Fix 3: restore panel title
 
     // Find active model name for status dot
-    const m = this.models.find((x) => x.id === readyModelId);
+    const m = this.models.find((x) => x.id === getReadyModelId());
     const tierName = m ? this.tierI18n(m.tier).name : '';
     this.setSubtitle(`<span class="lai-dot"></span>${tierName}`);
 
@@ -478,7 +417,7 @@ class LocalAI extends HTMLElement {
   /** Re-query cache statuses and update each row in place. Skips rows whose
    *  download is in flight (marked busy) so progress is never clobbered. */
   private async refreshModelStatuses(): Promise<void> {
-    const statuses = await getStatuses(this.models.map((m) => m.id), readyModelId);
+    const statuses = await getStatuses(this.models.map((m) => m.id), getReadyModelId());
     const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
     if (!list) return; // view swapped away while resolving
     for (const m of this.models) {
@@ -527,7 +466,7 @@ class LocalAI extends HTMLElement {
     const actions = row.querySelector('[data-actions-slot]') as HTMLElement | null;
     if (!statusSlot || !actions) return;
 
-    const effective: CacheStatus = status ?? (m.id === readyModelId ? 'active' : 'idle');
+    const effective: CacheStatus = status ?? (m.id === getReadyModelId() ? 'active' : 'idle');
     const label =
       effective === 'active' ? this.i18n.statusActive
       : effective === 'cached' ? this.i18n.statusCached
@@ -624,13 +563,13 @@ class LocalAI extends HTMLElement {
       actions.appendChild(inlineProgress);
     }
 
+    const m = this.models.find((x) => x.id === modelId);
     try {
       this.setConsentedModel(modelId);
-      if (activeModelId && activeModelId !== modelId) {
+      if (getActiveModelId() && getActiveModelId() !== modelId) {
         await disposeEngine();
       }
-      this.engine = await getEngine(modelId, (r) => {
-        const pct = progressPct(r);
+      await loadModel(modelId, m?.dtype ?? 'q4', (pct) => {
         if (barFill) barFill.style.width = `${pct}%`;
         if (pctText) pctText.textContent = `${pct}%`;
       });
@@ -640,9 +579,7 @@ class LocalAI extends HTMLElement {
       await this.refreshModelStatuses();
     } catch (err) {
       console.error('[LocalAI] inline download failed', err);
-      enginePromise = null;
-      activeModelId = null;
-      readyModelId = null;
+      await disposeEngine();
       if (row) delete row.dataset.busy;
       if (actions) {
         actions.innerHTML = '';
@@ -663,14 +600,13 @@ class LocalAI extends HTMLElement {
   private async removeModel(modelId: string) {
     if (this.switching) return; // a download/switch is running; don't interfere
 
-    if (modelId === readyModelId) {
+    if (modelId === getReadyModelId()) {
       // Deleting the model currently in use: free it, then keep the assistant
       // on by switching to another cached model if one exists.
       this.switching = true;
       let fallback: ModelTier | undefined;
       try {
         await disposeEngine();
-        this.engine = null;
         try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
         const statuses = await getStatuses(this.models.map((m) => m.id), null);
         fallback = this.models.find((m) => m.id !== modelId && statuses[m.id] === 'cached');
@@ -784,34 +720,21 @@ class LocalAI extends HTMLElement {
     const bar = this.body.querySelector<SVGCircleElement>('[data-progress-bar]');
     const pct = this.body.querySelector<HTMLElement>('[data-progress-pct]');
     const label = this.body.querySelector<HTMLElement>('[data-progress-label]');
-    const elapsedEl = this.body.querySelector<HTMLElement>('[data-progress-elapsed]');
+    const m = this.models.find((x) => x.id === modelId);
     try {
-      this.engine = await getEngine(modelId, (r: InitProgressReport) => {
-        const pctInt = progressPct(r);
-        if (bar) {
-          bar.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - pctInt / 100));
-        }
+      await loadModel(modelId, m?.dtype ?? 'q4', (pctInt) => {
+        if (bar) bar.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - pctInt / 100));
         if (pct) {
-          // Preserve the <small> tag inside .lai-pct
           const small = pct.querySelector('small');
           pct.textContent = `${pctInt}%`;
           if (small) pct.appendChild(small);
         }
-        if (label) label.textContent = r.text || this.i18n.downloading;
-        // Fix 4: show elapsed time as m:ss
-        if (elapsedEl && r.timeElapsed != null && r.timeElapsed > 0) {
-          const secs = Math.round(r.timeElapsed);
-          const m = Math.floor(secs / 60);
-          const s = secs % 60;
-          elapsedEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
-        }
+        if (label) label.textContent = this.i18n.downloading;
       });
       this.renderReady();
     } catch (err) {
-      console.error('[LocalAI] engine load failed', err);
-      enginePromise = null;
-      activeModelId = null;
-      readyModelId = null;
+      console.error('[LocalAI] model load failed', err);
+      await disposeEngine();
       this.renderError(modelId);
     }
   }
@@ -909,54 +832,29 @@ class LocalAI extends HTMLElement {
     ];
 
     try {
-      if (!this.engine) throw new Error('engine not ready');
-      const stream = await this.engine.chat.completions.create({
-        messages,
-        stream: true,
-        temperature: 0.35,        // focused, less rambly for a study assistant
-        top_p: 0.9,               // trim the unlikely-token tail
-        frequency_penalty: 0.4,   // small models repeat; discourage it
-        presence_penalty: 0.2,
-        max_tokens: 360,
-      });
-      let full = '';
       let replyBubble: HTMLElement | null = null;
-      for await (const chunk of stream) {
-        // Fix 1: stop writing if the generation was superseded
-        if (gen !== this.genId) break;
-        const token = chunk.choices[0]?.delta?.content ?? '';
-        if (!token) continue;
-        full += token;
-        if (!replyBubble) {
-          // Fix 2: first token — swap typing indicator for the real bubble
-          typingEl.remove();
-          replyBubble = this.appendBubble('assistant', '');
-        }
-        replyBubble.innerHTML = renderMarkdown(full);
-        const msgs = this.body.querySelector('[data-messages]') as HTMLElement | null;
-        if (msgs) msgs.scrollTop = msgs.scrollHeight;
-      }
-      // Fix 1: only persist if still the current generation
+      const full = await generate(
+        messages as ChatMessage[],
+        { max_new_tokens: 360, temperature: 0.35, top_p: 0.9, repetition_penalty: 1.2 },
+        (running) => {
+          if (!replyBubble) {
+            typingEl?.remove();
+            replyBubble = this.appendBubble('assistant', '');
+          }
+          if (gen !== this.genId) return;
+          replyBubble.innerHTML = renderMarkdown(running);
+          const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
+          if (list) list.scrollTop = list.scrollHeight;
+        },
+      );
       if (gen === this.genId) {
-        if (full) {
-          this.history.push({ role: 'assistant', content: full });
-          saveHistory(location.pathname, this.history);
-        } else if (!replyBubble) {
-          // Stream ended with no tokens and we are still current: clear indicator
-          typingEl.remove();
-        }
-      } else {
-        // Cancelled: remove typing indicator if it's still in the DOM
-        typingEl.remove();
+        this.history.push({ role: 'assistant', content: full });
+        saveHistory(location.pathname, this.history);
       }
     } catch (err) {
       console.error('[LocalAI] generation failed', err);
-      // Fix 2: replace typing indicator with error bubble
-      typingEl.remove();
-      if (gen === this.genId) {
-        const errBubble = this.appendBubble('assistant', '');
-        errBubble.textContent = this.i18n.errorBody;
-      }
+      typingEl?.remove();
+      this.appendBubble('assistant', this.i18n.errorBody);
     }
   }
 
