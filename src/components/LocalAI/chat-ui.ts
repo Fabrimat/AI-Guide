@@ -11,6 +11,7 @@ import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './sk
 import { renderMarkdown } from './markdown';
 import { loadHistory, saveHistory, clearHistory, type ChatMsg } from './history';
 import { getStatuses, deleteModel, type CacheStatus } from './model-cache';
+import { recommendedTier } from './device';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -88,10 +89,9 @@ type View = 'closed' | 'fallback' | 'consent' | 'downloading' | 'ready' | 'model
 interface ModelTier {
   id: string;
   tier: 'light' | 'better' | 'best';
-  label: string;
+  name: string;
   size: string;
   vram: string;
-  warn?: string;
 }
 
 interface I18n {
@@ -105,6 +105,10 @@ interface I18n {
   oneTime: string;
   use: string; downloadModel: string; deleteModel: string;
   statusActive: string; statusCached: string; statusIdle: string;
+  tierLight: string; tierBetter: string; tierBest: string;
+  descLight: string; descBetter: string; descBest: string;
+  bestWarn: string;
+  confirmDelete: string;
 }
 
 const CONSENT_KEY = 'aiguide:localai:consent';
@@ -202,7 +206,10 @@ class LocalAI extends HTMLElement {
     this.setSubtitle('');
     this.body.innerHTML = '';
 
+    const recommended = recommendedTier();
+
     const wrap = document.createElement('div');
+    wrap.className = 'lai-consent-wrap';
 
     // Lead text
     const lead = document.createElement('div');
@@ -214,51 +221,53 @@ class LocalAI extends HTMLElement {
     lead.append(h3, p);
     wrap.appendChild(lead);
 
-    // Model cards
-    this.models.forEach((m, i) => {
+    this.models.forEach((m) => {
+      const isRecommended = m.tier === recommended;
       const card = document.createElement('div');
-      card.className = 'lai-opt' + (i === 0 ? ' lai-sel' : '');
+      card.className = 'lai-opt' + (isRecommended ? ' lai-sel' : '');
       card.dataset.modelId = m.id;
 
-      // Split label: "Light · about 0.4 GB · fast answers" → name + meta
-      const parts = m.label.split('·');
-      const name = parts[0]?.trim() ?? m.tier;
-      const meta = parts.slice(1).join('·').trim();
+      const { name: tierName, desc } = this.tierI18n(m.tier);
 
       const radio = document.createElement('span');
       radio.className = 'lai-radio';
 
       const info = document.createElement('div');
 
-      const nameLine = document.createElement('div');
-      nameLine.className = 'lai-opt-name';
-      nameLine.textContent = name;
+      // Row 1: tier name + size + optional Recommended chip
+      const tierRow = document.createElement('div');
+      tierRow.className = 'lai-opt-tier';
+      tierRow.textContent = `${tierName} (${m.size})`;
 
-      // "Recommended" chip on the first model (Light)
-      if (i === 0) {
+      if (isRecommended) {
         const chip = document.createElement('span');
         chip.className = 'lai-chip';
         chip.textContent = this.i18n.recommended;
-        nameLine.appendChild(chip);
+        tierRow.appendChild(chip);
       }
 
-      const metaLine = document.createElement('div');
-      metaLine.className = 'lai-opt-meta';
-      metaLine.textContent = meta;
+      // Row 2: model name (muted, smaller)
+      const modelNameEl = document.createElement('div');
+      modelNameEl.className = 'lai-opt-model-name';
+      modelNameEl.textContent = m.name;
 
-      info.append(nameLine, metaLine);
+      // Row 3: description
+      const descEl = document.createElement('div');
+      descEl.className = 'lai-opt-desc';
+      descEl.textContent = desc;
+
+      info.append(tierRow, modelNameEl, descEl);
 
       // Warning (Best tier)
-      if (m.warn) {
+      if (m.tier === 'best') {
         const warnDiv = document.createElement('div');
         warnDiv.className = 'lai-warn';
-        warnDiv.innerHTML = ICON.warn + m.warn;
+        warnDiv.innerHTML = ICON.warn + this.i18n.bestWarn;
         info.appendChild(warnDiv);
       }
 
       card.append(radio, info);
 
-      // Click to select
       card.addEventListener('click', () => {
         wrap.querySelectorAll<HTMLElement>('.lai-opt').forEach((el) => el.classList.remove('lai-sel'));
         card.classList.add('lai-sel');
@@ -267,7 +276,9 @@ class LocalAI extends HTMLElement {
       wrap.appendChild(card);
     });
 
-    // Primary CTA
+    // CTA
+    const ctaWrap = document.createElement('div');
+    ctaWrap.className = 'lai-consent-cta';
     const confirm = document.createElement('button');
     confirm.type = 'button';
     confirm.className = 'lai-btn lai-primary lai-block';
@@ -279,7 +290,8 @@ class LocalAI extends HTMLElement {
       this.setConsentedModel(id);
       this.startDownload(id);
     });
-    wrap.appendChild(confirm);
+    ctaWrap.appendChild(confirm);
+    wrap.appendChild(ctaWrap);
 
     // Privacy line
     const privacy = document.createElement('p');
@@ -299,16 +311,15 @@ class LocalAI extends HTMLElement {
   private renderDownloading(modelId?: string) {
     this.setViewAttr('downloading');
 
-    // Find model tier label for the ring subtitle
     const m = this.models.find((x) => x.id === modelId);
-    const tierName = m ? m.label.split('·')[0]?.trim() : '';
+    const tierName = m ? this.tierI18n(m.tier).name : '';
     this.setSubtitle(this.i18n.downloading);
 
     this.body.innerHTML = '';
     const dl = document.createElement('div');
     dl.className = 'lai-dl';
 
-    // Progress ring
+    // Progress ring — tier name below %, model name as title below ring
     const ring = document.createElement('div');
     ring.className = 'lai-ring';
     ring.innerHTML = `
@@ -327,13 +338,12 @@ class LocalAI extends HTMLElement {
 
     const dlTitle = document.createElement('h3');
     dlTitle.className = 'lai-dl-title';
-    dlTitle.textContent = this.i18n.downloading;
+    dlTitle.textContent = m ? m.name : this.i18n.downloading;
 
     const stage = document.createElement('p');
     stage.className = 'lai-stage lai-live';
     stage.setAttribute('data-progress-label', '');
 
-    // Fix 4: elapsed time display
     const elapsed = document.createElement('p');
     elapsed.className = 'lai-stage lai-elapsed';
     elapsed.setAttribute('data-progress-elapsed', '');
@@ -355,10 +365,8 @@ class LocalAI extends HTMLElement {
 
     // Find active model name for status dot
     const m = this.models.find((x) => x.id === activeModelId);
-    const tierName = m ? m.label.split('·')[0]?.trim() : '';
-    this.setSubtitle(
-      `<span class="lai-dot"></span>${tierName}`,
-    );
+    const tierName = m ? this.tierI18n(m.tier).name : '';
+    this.setSubtitle(`<span class="lai-dot"></span>${tierName}`);
 
     this.body.innerHTML = '';
     this.history = [];
@@ -450,56 +458,61 @@ class LocalAI extends HTMLElement {
   private buildModelRow(m: ModelTier, status: CacheStatus | null): HTMLElement {
     const row = document.createElement('div');
     row.className = 'lai-model';
+    row.dataset.modelRowId = m.id;
 
-    // Left: name + meta (reuse the consent card label split).
-    const parts = m.label.split('·');
-    const name = parts[0]?.trim() ?? m.tier;
-    const meta = parts.slice(1).join('·').trim();
+    const { name: tierName } = this.tierI18n(m.tier);
 
     const idCol = document.createElement('div');
     idCol.className = 'lai-model-id';
     const b = document.createElement('b');
-    b.textContent = name;
-    const desc = document.createElement('span');
-    desc.className = 'lai-model-desc';
-    desc.textContent = meta;
-    idCol.append(b, desc);
+    b.textContent = tierName;
+    const modelNameSpan = document.createElement('span');
+    modelNameSpan.className = 'lai-model-desc';
+    modelNameSpan.textContent = m.name;
+    const sizeSpan = document.createElement('span');
+    sizeSpan.className = 'lai-model-desc';
+    sizeSpan.textContent = m.size;
+    idCol.append(b, modelNameSpan, sizeSpan);
 
-    // Right: status pill + actions.
+    // Right: status dot + label + actions.
     const actions = document.createElement('div');
     actions.className = 'lai-model-actions';
 
     if (status === 'active') {
-      actions.appendChild(this.buildPill('active', this.i18n.statusActive));
+      actions.appendChild(this.buildStatusDot('active', this.i18n.statusActive));
     } else if (status === 'cached') {
-      actions.appendChild(this.buildPill('cached', this.i18n.statusCached));
+      actions.appendChild(this.buildStatusDot('cached', this.i18n.statusCached));
       const use = this.buildModelButton(this.i18n.use, false);
-      use.addEventListener('click', () => void this.switchModel(m.id));
+      use.addEventListener('click', () => void this.downloadInModels(m.id));
       const del = this.buildModelButton(this.i18n.deleteModel, true);
-      del.addEventListener('click', () => void this.removeModel(m.id));
+      this.wireDeleteConfirm(del, () => void this.removeModel(m.id));
       actions.append(use, del);
     } else if (status === 'idle') {
-      actions.appendChild(this.buildPill('idle', this.i18n.statusIdle));
+      actions.appendChild(this.buildStatusDot('idle', this.i18n.statusIdle));
       const dl = this.buildModelButton(this.i18n.downloadModel, false);
-      dl.addEventListener('click', () => void this.switchModel(m.id));
+      dl.addEventListener('click', () => void this.downloadInModels(m.id));
       actions.appendChild(dl);
     } else {
-      // Loading: show whichever pill we already know (active) or idle, no
+      // Loading: show whichever status we already know (active) or idle, no
       // actions until the real status resolves.
       const loadingStatus: CacheStatus = m.id === activeModelId ? 'active' : 'idle';
       const loadingLabel = loadingStatus === 'active' ? this.i18n.statusActive : this.i18n.statusIdle;
-      actions.appendChild(this.buildPill(loadingStatus, loadingLabel));
+      actions.appendChild(this.buildStatusDot(loadingStatus, loadingLabel));
     }
 
     row.append(idCol, actions);
     return row;
   }
 
-  private buildPill(kind: CacheStatus, label: string): HTMLElement {
-    const pill = document.createElement('span');
-    pill.className = `lai-pill ${kind}`;
-    pill.textContent = label;
-    return pill;
+  private buildStatusDot(kind: CacheStatus, label: string): HTMLElement {
+    const wrap = document.createElement('span');
+    wrap.className = 'lai-status-label';
+    const dot = document.createElement('span');
+    dot.className = `lai-status-dot ${kind}`;
+    const text = document.createElement('span');
+    text.textContent = label;
+    wrap.append(dot, text);
+    return wrap;
   }
 
   private buildModelButton(label: string, danger: boolean): HTMLButtonElement {
@@ -510,29 +523,105 @@ class LocalAI extends HTMLElement {
     return btn;
   }
 
-  /** Switch to another tier: persist consent, free the old engine, download. */
-  private async switchModel(modelId: string) {
-    // Guard against rapid double-clicks: a second switch mid-dispose would
-    // orphan an engine (its worker never terminated) and race enginePromise.
+  private wireDeleteConfirm(btn: HTMLButtonElement, action: () => void): void {
+    let confirming = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    btn.addEventListener('click', () => {
+      if (confirming) {
+        if (timer) clearTimeout(timer);
+        action();
+        return;
+      }
+      confirming = true;
+      const original = btn.textContent;
+      btn.textContent = this.i18n.confirmDelete;
+      btn.classList.add('lai-danger');
+      timer = setTimeout(() => {
+        confirming = false;
+        btn.textContent = original;
+      }, 3000);
+    });
+  }
+
+  private async downloadInModels(modelId: string): Promise<void> {
     if (this.switching) return;
     this.switching = true;
+
+    // Find the row DOM element for this model
+    const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
+    const row = list?.querySelector<HTMLElement>(`[data-model-row-id="${modelId}"]`);
+
+    // Update the row actions area to show inline progress
+    const actions = row?.querySelector('.lai-model-actions') as HTMLElement | null;
+    let barFill: HTMLElement | null = null;
+    let pctText: HTMLElement | null = null;
+
+    if (actions) {
+      actions.innerHTML = '';
+      const inlineProgress = document.createElement('div');
+      inlineProgress.className = 'lai-inline-progress';
+      const barWrap = document.createElement('div');
+      barWrap.className = 'lai-progress-bar-wrap';
+      barFill = document.createElement('div');
+      barFill.className = 'lai-progress-bar-fill';
+      barWrap.appendChild(barFill);
+      pctText = document.createElement('span');
+      pctText.textContent = '0%';
+      inlineProgress.append(barWrap, pctText);
+      actions.appendChild(inlineProgress);
+    }
+
     try {
       this.setConsentedModel(modelId);
-      await disposeEngine();
+      if (activeModelId && activeModelId !== modelId) {
+        await disposeEngine();
+      }
+      this.engine = await getEngine(modelId, (r) => {
+        const pct = Math.round((r.progress ?? 0) * 100);
+        if (barFill) barFill.style.width = `${pct}%`;
+        if (pctText) pctText.textContent = `${pct}%`;
+      });
+      // Done — refresh the whole list to reflect new active status
+      this.renderModels();
+    } catch (err) {
+      console.error('[LocalAI] inline download failed', err);
+      enginePromise = null;
+      activeModelId = null;
+      // Show error inline if possible
+      if (actions) {
+        actions.innerHTML = '';
+        const errSpan = document.createElement('span');
+        errSpan.className = 'lai-status-label';
+        errSpan.style.color = 'var(--aig-danger-text)';
+        errSpan.textContent = this.i18n.errorBody;
+        actions.appendChild(errSpan);
+      }
     } finally {
       this.switching = false;
     }
-    this.startDownload(modelId); // shows the ring; back to chat on ready
   }
 
-  /** Delete a cached, non-active model, then refresh statuses. */
+  /** Delete a cached model (including active model). */
   private async removeModel(modelId: string) {
-    // Never delete the model currently loaded (status may have changed since
-    // the row was rendered); a deleted active model can't be recovered without
-    // re-downloading. Refresh instead.
-    if (modelId === activeModelId) { this.renderModels(); return; }
+    if (modelId === activeModelId) {
+      // Deleting active model = turn off the assistant
+      await disposeEngine();
+      try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
+      try { localStorage.removeItem(CONSENT_KEY); } catch { /* ignore */ }
+      this.engine = null;
+      this.renderConsent();
+      return;
+    }
     try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
     this.renderModels();
+  }
+
+  private tierI18n(tier: 'light' | 'better' | 'best'): { name: string; desc: string } {
+    const cap = (tier.charAt(0).toUpperCase() + tier.slice(1)) as 'Light' | 'Better' | 'Best';
+    return {
+      name: this.i18n[`tier${cap}` as keyof I18n] as string,
+      desc: this.i18n[`desc${cap}` as keyof I18n] as string,
+    };
   }
 
   /** Open the models view (gear button). */

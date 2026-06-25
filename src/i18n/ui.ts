@@ -100,6 +100,13 @@ export interface UIStrings {
   localAiStatusActive: string;      // models view pill: active model
   localAiStatusCached: string;      // models view pill: downloaded/cached
   localAiStatusIdle: string;        // models view pill: not downloaded
+  localAiTierLight: string;
+  localAiTierBetter: string;
+  localAiTierBest: string;
+  localAiDescLight: string;
+  localAiDescBetter: string;
+  localAiDescBest: string;
+  localAiConfirmDelete: string;
 
   // ChatDemo
   chatUserLabel: string;
@@ -314,6 +321,13 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   localAiStatusActive: 'Attivo',
   localAiStatusCached: 'Scaricato',
   localAiStatusIdle: 'Non scaricato',
+  localAiTierLight: 'Leggero',
+  localAiTierBetter: 'Migliore',
+  localAiTierBest: 'Massimo',
+  localAiDescLight: 'Risposte molto semplici e limitate',
+  localAiDescBetter: 'Risposte migliori, italiano piu accurato',
+  localAiDescBest: 'Le risposte migliori',
+  localAiConfirmDelete: 'Conferma eliminazione',
 
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
@@ -524,6 +538,13 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   localAiStatusActive: 'Active',
   localAiStatusCached: 'Cached',
   localAiStatusIdle: 'Not downloaded',
+  localAiTierLight: 'Light',
+  localAiTierBetter: 'Better',
+  localAiTierBest: 'Best',
+  localAiDescLight: 'Very simple, limited answers',
+  localAiDescBetter: 'Stronger, more detailed answers',
+  localAiDescBest: 'The best answers',
+  localAiConfirmDelete: 'Confirm delete',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',
