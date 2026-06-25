@@ -5,6 +5,9 @@
  */
 export interface LessonContext {
   title: string;
+  /** The lesson's one-line summary (frontmatter `description`, surfaced in the
+   *  page `<meta name="description">` and in llms.txt). High-signal framing. */
+  summary: string;
   text: string;
 }
 
@@ -26,8 +29,11 @@ export function extractLessonContext(budgetTokens = 1500): LessonContext {
   const main = document.querySelector('main .sl-markdown-content');
   const titleEl = document.querySelector('main h1, .sl-markdown-content h1');
   const title = (titleEl?.textContent || document.title || '').trim();
+  const summary = (
+    document.querySelector('meta[name="description"]')?.getAttribute('content') || ''
+  ).trim();
 
-  if (!main) return { title, text: '' };
+  if (!main) return { title, summary, text: '' };
 
   // Clone so we can strip chrome without touching the live page.
   const clone = main.cloneNode(true) as HTMLElement;
@@ -37,5 +43,5 @@ export function extractLessonContext(budgetTokens = 1500): LessonContext {
 
   const raw = clone.textContent || '';
   const text = raw.replace(/\s+/g, ' ').trim();
-  return { title, text: clampToTokenBudget(text, budgetTokens) };
+  return { title, summary, text: clampToTokenBudget(text, budgetTokens) };
 }
