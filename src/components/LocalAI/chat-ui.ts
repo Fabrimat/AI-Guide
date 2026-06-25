@@ -126,6 +126,7 @@ class LocalAI extends HTMLElement {
   private history: ChatMsg[] = [];
   private activeExerciseBlock: string | null = null;
   private switching = false;
+  private genId = 0;
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -186,6 +187,12 @@ class LocalAI extends HTMLElement {
   /** Update the subtitle text next to the spark icon. */
   private setSubtitle(html: string) {
     this.statusSub.innerHTML = html;
+  }
+
+  /** Fix 3: update the panel header title text. */
+  private setPanelTitle(text: string) {
+    const titleEl = this.panel.querySelector<HTMLElement>('[data-panel-title]');
+    if (titleEl) titleEl.textContent = text;
   }
 
   // ---- Consent ---------------------------------------------------------------
@@ -326,18 +333,25 @@ class LocalAI extends HTMLElement {
     stage.className = 'lai-stage lai-live';
     stage.setAttribute('data-progress-label', '');
 
+    // Fix 4: elapsed time display
+    const elapsed = document.createElement('p');
+    elapsed.className = 'lai-stage lai-elapsed';
+    elapsed.setAttribute('data-progress-elapsed', '');
+
     const reassure = document.createElement('p');
     reassure.className = 'lai-reassure';
     reassure.innerHTML = ICON.check + this.i18n.oneTime;
 
-    dl.append(dlTitle, stage, reassure);
+    dl.append(dlTitle, stage, elapsed, reassure);
     this.body.appendChild(dl);
   }
 
   // ---- Chat (ready) ----------------------------------------------------------
 
   private renderReady() {
+    this.genId++;          // Fix 1: invalidate any in-flight generation
     this.setViewAttr('chat');
+    this.setPanelTitle(this.i18n.panelTitle); // Fix 3: restore panel title
 
     // Find active model name for status dot
     const m = this.models.find((x) => x.id === activeModelId);
@@ -523,12 +537,13 @@ class LocalAI extends HTMLElement {
 
   /** Open the models view (gear button). */
   private openModels() {
+    this.setPanelTitle(this.i18n.modelsTitle); // Fix 3: show models title
     this.renderModels();
   }
 
   /** Return to chat from models view (back button). */
   private closeModels() {
-    this.renderReady();
+    this.renderReady(); // renderReady already calls setPanelTitle(panelTitle)
   }
 
   // ---- Fallback (no WebGPU) --------------------------------------------------
@@ -603,6 +618,7 @@ class LocalAI extends HTMLElement {
     const bar = this.body.querySelector<SVGCircleElement>('[data-progress-bar]');
     const pct = this.body.querySelector<HTMLElement>('[data-progress-pct]');
     const label = this.body.querySelector<HTMLElement>('[data-progress-label]');
+    const elapsedEl = this.body.querySelector<HTMLElement>('[data-progress-elapsed]');
     try {
       this.engine = await getEngine(modelId, (r: InitProgressReport) => {
         const progress = r.progress ?? 0;
@@ -617,6 +633,13 @@ class LocalAI extends HTMLElement {
           if (small) pct.appendChild(small);
         }
         if (label) label.textContent = r.text || this.i18n.downloading;
+        // Fix 4: show elapsed time as m:ss
+        if (elapsedEl && r.timeElapsed != null && r.timeElapsed > 0) {
+          const secs = Math.round(r.timeElapsed);
+          const m = Math.floor(secs / 60);
+          const s = secs % 60;
+          elapsedEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+        }
       });
       this.renderReady();
     } catch (err) {
@@ -669,12 +692,23 @@ class LocalAI extends HTMLElement {
   }
 
   private async send(userText: string, opts: { display?: boolean; exerciseBlock?: string } = {}) {
+    // Fix 1: capture generation id at the start; changes on renderReady/newChat/switchModel
+    const gen = this.genId;
+
     const display = opts.display !== false;
     if (display) this.appendBubble('user', userText);
     this.history.push({ role: 'user', content: userText });
     saveHistory(location.pathname, this.history);
 
-    const replyBubble = this.appendBubble('assistant', this.i18n.thinking + '…');
+    // Fix 2: show typing indicator instead of a placeholder text bubble
+    const typingEl = document.createElement('div');
+    typingEl.className = 'lai-typing';
+    typingEl.innerHTML = '<i></i><i></i><i></i>';
+    const msgList = this.body.querySelector('[data-messages]') as HTMLElement | null;
+    if (msgList) {
+      msgList.appendChild(typingEl);
+      msgList.scrollTop = msgList.scrollHeight;
+    }
 
     let searchBlock = '';
     try {
@@ -708,17 +742,43 @@ class LocalAI extends HTMLElement {
         max_tokens: 800,
       });
       let full = '';
+      let replyBubble: HTMLElement | null = null;
       for await (const chunk of stream) {
-        full += chunk.choices[0]?.delta?.content ?? '';
+        // Fix 1: stop writing if the generation was superseded
+        if (gen !== this.genId) break;
+        const token = chunk.choices[0]?.delta?.content ?? '';
+        if (!token) continue;
+        full += token;
+        if (!replyBubble) {
+          // Fix 2: first token — swap typing indicator for the real bubble
+          typingEl.remove();
+          replyBubble = this.appendBubble('assistant', '');
+        }
         replyBubble.innerHTML = renderMarkdown(full);
         const msgs = this.body.querySelector('[data-messages]') as HTMLElement | null;
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
       }
-      this.history.push({ role: 'assistant', content: full });
-      saveHistory(location.pathname, this.history);
+      // Fix 1: only persist if still the current generation
+      if (gen === this.genId) {
+        if (full) {
+          this.history.push({ role: 'assistant', content: full });
+          saveHistory(location.pathname, this.history);
+        } else if (!replyBubble) {
+          // Stream ended with no tokens and we are still current: clear indicator
+          typingEl.remove();
+        }
+      } else {
+        // Cancelled: remove typing indicator if it's still in the DOM
+        typingEl.remove();
+      }
     } catch (err) {
       console.error('[LocalAI] generation failed', err);
-      replyBubble.textContent = this.i18n.errorBody;
+      // Fix 2: replace typing indicator with error bubble
+      typingEl.remove();
+      if (gen === this.genId) {
+        const errBubble = this.appendBubble('assistant', '');
+        errBubble.textContent = this.i18n.errorBody;
+      }
     }
   }
 

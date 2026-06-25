@@ -84,7 +84,7 @@ const i18n = {
         </svg>
       </span>
       <div class="lai-title">
-        <b>{ui.localAiPanelTitle}</b>
+        <b data-panel-title>{ui.localAiPanelTitle}</b>
         <span class="lai-sub" data-status-sub></span>
       </div>
       <!-- Chat-view controls (shown only when data-view="chat") -->
@@ -494,6 +494,9 @@ const i18n = {
     color: var(--sl-color-gray-2);
     font-variant-numeric: tabular-nums;
   }
+  /* Fix 4: elapsed time — hidden until web-llm reports a value */
+  local-ai .lai-elapsed:empty { display: none; }
+
   local-ai .lai-reassure {
     margin: 1rem 0 0;
     font-size: 0.76rem;
