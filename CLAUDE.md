@@ -194,6 +194,19 @@ precache PWA: il chunk client `transformers` è escluso via `globIgnores`
 (come `webllm`) e l'indice non entra nel bulk manifest. Pagefind resta solo
 per la ricerca Ctrl+K in `Search.astro`.
 
+UI del pannello: `ChatPanel.astro` usa `<style is:global>` con selettori
+prefissati `local-ai ` (gli elementi creati a runtime da `chat-ui.ts` non
+ricevono il `data-astro-cid` dello scoping, come per `Search.astro`). Le
+risposte dell'IA sono renderizzate in markdown da `markdown.ts`
+(escape-then-format, XSS-safe). Lo storico è per-lezione in
+`localStorage['aiguide:localai:chat:<path>']` (via `history.ts`, cap 50
+messaggi), col pulsante "Nuova chat" che lo svuota. Il gestore modelli
+(`model-cache.ts`) mostra lo stato per modello (attivo / in cache / non
+scaricato) via `hasModelInCache`, permette lo switch (con `disposeEngine()`:
+unload + terminate del worker precedente prima di caricare il nuovo) e il
+delete dalla cache via `deleteModelAllInfoInCache`. Tutte le stringhe visibili
+stanno in `src/i18n/ui.ts` (it + en).
+
 ## Direzione visiva — Pastello
 
 Il sito usa **una palette warm in due modalità** ("Pastello"), pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
