@@ -174,7 +174,7 @@ WebGPU), lo stesso runtime dell'embedder RAG: niente più `@mlc-ai/web-llm`.
 Cache API (`transformers-cache`) per stato/eliminazione (Transformers.js non
 espone `hasModelInCache`). Lo streaming usa `TextStreamer`.
 
-Il chunk `chat-worker-*` e le dipendenze `@huggingface/transformers` sono
+Il chunk `gen-worker-*` e le dipendenze `@huggingface/transformers` sono
 esclusi dal precache PWA via `injectManifest.globIgnores`, sennò Workbox
 (modalità injectManifest) fallisce la build sui file oltre 2 MiB. Il SW non
 intercetta né questi chunk né i pesi del modello da Hugging Face
