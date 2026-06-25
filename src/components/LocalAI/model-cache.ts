@@ -1,35 +1,50 @@
 /**
- * Per-model cache status + deletion, lazily importing web-llm's cache helpers
- * so nothing AI-related loads before consent. Status: active (the loaded
- * model), cached (downloaded, in browser cache), idle (not downloaded).
+ * Per-model cache status + deletion for Transformers.js models. Transformers.js
+ * stores downloaded model files in the browser Cache API (cache name
+ * 'transformers-cache'); there is no hasModelInCache helper, so we inspect that
+ * cache: a model is "cached" if at least one entry's URL contains its id.
  */
 export type CacheStatus = 'active' | 'cached' | 'idle';
+
+const CACHE_NAME = 'transformers-cache';
+
+async function cachedIds(modelIds: string[]): Promise<Set<string>> {
+  const present = new Set<string>();
+  try {
+    if (!('caches' in self)) return present;
+    const cache = await caches.open(CACHE_NAME);
+    const keys = await cache.keys();
+    const urls = keys.map((r) => r.url);
+    for (const id of modelIds) {
+      if (urls.some((u) => u.includes(id))) present.add(id);
+    }
+  } catch {
+    /* cache unavailable: treat all as not cached */
+  }
+  return present;
+}
 
 export async function getStatuses(
   modelIds: string[],
   activeId: string | null,
 ): Promise<Record<string, CacheStatus>> {
+  const present = await cachedIds(modelIds);
   const result: Record<string, CacheStatus> = {};
-  let has: ((id: string) => Promise<boolean>) | null = null;
-  try {
-    const mod = await import('@mlc-ai/web-llm');
-    has = mod.hasModelInCache as (id: string) => Promise<boolean>;
-  } catch {
-    has = null;
+  for (const id of modelIds) {
+    result[id] = id === activeId ? 'active' : present.has(id) ? 'cached' : 'idle';
   }
-  await Promise.all(
-    modelIds.map(async (id) => {
-      if (id === activeId) { result[id] = 'active'; return; }
-      if (!has) { result[id] = 'idle'; return; }
-      try { result[id] = (await has(id)) ? 'cached' : 'idle'; }
-      catch { result[id] = 'idle'; }
-    }),
-  );
   return result;
 }
 
 export async function deleteModel(modelId: string): Promise<void> {
-  const mod = await import('@mlc-ai/web-llm');
-  const del = mod.deleteModelAllInfoInCache as (id: string) => Promise<void>;
-  await del(modelId);
+  try {
+    if (!('caches' in self)) return;
+    const cache = await caches.open(CACHE_NAME);
+    const keys = await cache.keys();
+    await Promise.all(
+      keys.filter((r) => r.url.includes(modelId)).map((r) => cache.delete(r)),
+    );
+  } catch {
+    /* ignore */
+  }
 }
