@@ -426,36 +426,39 @@ class LocalAI extends HTMLElement {
 
   private renderModels() {
     this.setViewAttr('models');
+    this.setPanelTitle(this.i18n.modelsTitle);
     this.setSubtitle('');
 
     this.body.innerHTML = '';
+    const list = document.createElement('div');
+    list.setAttribute('data-model-list', '');
+    this.body.appendChild(list);
 
-    const container = document.createElement('div');
-    container.setAttribute('data-model-list', '');
-    this.body.appendChild(container);
-
-    // Render rows immediately in a loading state (no actions yet), then
-    // resolve real cache statuses asynchronously and re-render the rows.
-    for (const m of this.models) {
-      container.appendChild(this.buildModelRow(m, null));
-    }
-
-    void getStatuses(this.models.map((m) => m.id), activeModelId).then((statuses) => {
-      // Bail if the view was swapped away while statuses resolved.
-      const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
-      if (!list) return;
-      list.innerHTML = '';
-      for (const m of this.models) {
-        list.appendChild(this.buildModelRow(m, statuses[m.id] ?? 'idle'));
-      }
-    });
+    // Build stable row skeletons (loading), then fill statuses IN PLACE.
+    // We never rebuild the list, so a row whose download is in flight is
+    // never orphaned (which previously froze its progress bar at 0%).
+    for (const m of this.models) list.appendChild(this.buildModelRow(m));
+    void this.refreshModelStatuses();
   }
 
-  /**
-   * One row of the models view. `status === null` means the cache status is
-   * still resolving: show no destructive/switch actions yet.
-   */
-  private buildModelRow(m: ModelTier, status: CacheStatus | null): HTMLElement {
+  /** Re-query cache statuses and update each row in place. Skips rows whose
+   *  download is in flight (marked busy) so progress is never clobbered. */
+  private async refreshModelStatuses(): Promise<void> {
+    const statuses = await getStatuses(this.models.map((m) => m.id), activeModelId);
+    const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
+    if (!list) return; // view swapped away while resolving
+    for (const m of this.models) {
+      const row = list.querySelector<HTMLElement>(`[data-model-row-id="${m.id}"]`);
+      if (row && row.dataset.busy !== 'true') {
+        this.applyRowState(row, m, statuses[m.id] ?? 'idle');
+      }
+    }
+  }
+
+  /** Build a row skeleton: tier name + model name/size + a status slot on the
+   *  left, an actions slot on the right. Status + buttons are filled by
+   *  applyRowState so the row element stays stable across updates. */
+  private buildModelRow(m: ModelTier): HTMLElement {
     const row = document.createElement('div');
     row.className = 'lai-model';
     row.dataset.modelRowId = m.id;
@@ -466,42 +469,57 @@ class LocalAI extends HTMLElement {
     idCol.className = 'lai-model-id';
     const b = document.createElement('b');
     b.textContent = tierName;
-    const modelNameSpan = document.createElement('span');
-    modelNameSpan.className = 'lai-model-desc';
-    modelNameSpan.textContent = m.name;
-    const sizeSpan = document.createElement('span');
-    sizeSpan.className = 'lai-model-desc';
-    sizeSpan.textContent = m.size;
-    idCol.append(b, modelNameSpan, sizeSpan);
+    const meta = document.createElement('span');
+    meta.className = 'lai-model-desc';
+    meta.textContent = `${m.name} · ${m.size}`;
+    const statusSlot = document.createElement('span');
+    statusSlot.className = 'lai-model-status';
+    statusSlot.setAttribute('data-status-slot', '');
+    idCol.append(b, meta, statusSlot);
 
-    // Right: status dot + label + actions.
     const actions = document.createElement('div');
     actions.className = 'lai-model-actions';
+    actions.setAttribute('data-actions-slot', '');
 
-    if (status === 'active') {
-      actions.appendChild(this.buildStatusDot('active', this.i18n.statusActive));
-    } else if (status === 'cached') {
-      actions.appendChild(this.buildStatusDot('cached', this.i18n.statusCached));
+    row.append(idCol, actions);
+    this.applyRowState(row, m, null); // loading
+    return row;
+  }
+
+  /** Fill a row's status (left) + action buttons (right) in place.
+   *  `status === null` = still resolving: show the dot, no buttons yet. */
+  private applyRowState(row: HTMLElement, m: ModelTier, status: CacheStatus | null): void {
+    const statusSlot = row.querySelector('[data-status-slot]') as HTMLElement | null;
+    const actions = row.querySelector('[data-actions-slot]') as HTMLElement | null;
+    if (!statusSlot || !actions) return;
+
+    const effective: CacheStatus = status ?? (m.id === activeModelId ? 'active' : 'idle');
+    const label =
+      effective === 'active' ? this.i18n.statusActive
+      : effective === 'cached' ? this.i18n.statusCached
+      : this.i18n.statusIdle;
+    statusSlot.innerHTML = '';
+    statusSlot.appendChild(this.buildStatusDot(effective, label));
+
+    actions.innerHTML = '';
+    if (status === null) return; // loading: no actions yet
+
+    if (effective === 'active') {
+      // Delete the active model = turn the assistant off and free its space.
+      const del = this.buildModelButton(this.i18n.deleteModel, true);
+      this.wireDeleteConfirm(del, () => void this.removeModel(m.id));
+      actions.appendChild(del);
+    } else if (effective === 'cached') {
       const use = this.buildModelButton(this.i18n.use, false);
       use.addEventListener('click', () => void this.downloadInModels(m.id));
       const del = this.buildModelButton(this.i18n.deleteModel, true);
       this.wireDeleteConfirm(del, () => void this.removeModel(m.id));
       actions.append(use, del);
-    } else if (status === 'idle') {
-      actions.appendChild(this.buildStatusDot('idle', this.i18n.statusIdle));
+    } else {
       const dl = this.buildModelButton(this.i18n.downloadModel, false);
       dl.addEventListener('click', () => void this.downloadInModels(m.id));
       actions.appendChild(dl);
-    } else {
-      // Loading: show whichever status we already know (active) or idle, no
-      // actions until the real status resolves.
-      const loadingStatus: CacheStatus = m.id === activeModelId ? 'active' : 'idle';
-      const loadingLabel = loadingStatus === 'active' ? this.i18n.statusActive : this.i18n.statusIdle;
-      actions.appendChild(this.buildStatusDot(loadingStatus, loadingLabel));
     }
-
-    row.append(idCol, actions);
-    return row;
   }
 
   private buildStatusDot(kind: CacheStatus, label: string): HTMLElement {
@@ -547,15 +565,16 @@ class LocalAI extends HTMLElement {
     if (this.switching) return;
     this.switching = true;
 
-    // Find the row DOM element for this model
+    // Mark the row busy so an async status refresh can't clobber its progress.
     const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
-    const row = list?.querySelector<HTMLElement>(`[data-model-row-id="${modelId}"]`);
+    const row = list?.querySelector<HTMLElement>(`[data-model-row-id="${modelId}"]`) ?? null;
+    if (row) row.dataset.busy = 'true';
 
-    // Update the row actions area to show inline progress
-    const actions = row?.querySelector('.lai-model-actions') as HTMLElement | null;
+    // Show inline progress in the row's actions slot (the row element is stable,
+    // so these stay live for the whole download).
+    const actions = row?.querySelector('[data-actions-slot]') as HTMLElement | null;
     let barFill: HTMLElement | null = null;
     let pctText: HTMLElement | null = null;
-
     if (actions) {
       actions.innerHTML = '';
       const inlineProgress = document.createElement('div');
@@ -581,18 +600,19 @@ class LocalAI extends HTMLElement {
         if (barFill) barFill.style.width = `${pct}%`;
         if (pctText) pctText.textContent = `${pct}%`;
       });
-      // Done — refresh the whole list to reflect new active status
-      this.renderModels();
+      if (row) delete row.dataset.busy;
+      // Update rows in place: the downloaded model becomes active, the
+      // previously active one becomes cached. No list rebuild, no flicker.
+      await this.refreshModelStatuses();
     } catch (err) {
       console.error('[LocalAI] inline download failed', err);
       enginePromise = null;
       activeModelId = null;
-      // Show error inline if possible
+      if (row) delete row.dataset.busy;
       if (actions) {
         actions.innerHTML = '';
         const errSpan = document.createElement('span');
-        errSpan.className = 'lai-status-label';
-        errSpan.style.color = 'var(--aig-danger-text)';
+        errSpan.className = 'lai-status-label lai-status-error';
         errSpan.textContent = this.i18n.errorBody;
         actions.appendChild(errSpan);
       }
