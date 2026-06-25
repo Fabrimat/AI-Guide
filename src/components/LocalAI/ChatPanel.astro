@@ -3,8 +3,8 @@
  * Local in-browser AI assistant.
  *
  * Floating launcher (bottom-right) + side drawer / bottom sheet. The
- * model runs entirely in the browser via @mlc-ai/web-llm in a Web
- * Worker; nothing is downloaded or sent until the reader consents on
+ * model runs entirely in the browser via @huggingface/transformers in a
+ * Web Worker; nothing is downloaded or sent until the reader consents on
  * the consent screen. Rendered once per page by Footer.astro.
  *
  * All UI strings and config are server-rendered and handed to the
@@ -529,9 +529,6 @@ const i18n = {
     overflow-wrap: break-word;
     word-break: break-word;
   }
-  /* Fix 4: elapsed time — hidden until web-llm reports a value */
-  local-ai .lai-elapsed:empty { display: none; }
-
   local-ai .lai-reassure {
     margin: 1rem 0 0;
     font-size: 0.76rem;

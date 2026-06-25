@@ -2,7 +2,7 @@
  * Lazy in-browser text embedder (Transformers.js, multilingual-e5-small).
  * The library + model load only when embedQuery is first called, which only
  * happens inside the assistant's chat-send path (post-consent). Runs on the
- * default WASM backend so it does not contend with web-llm's WebGPU use.
+ * WASM backend so the embedder does not contend with the chat model's WebGPU use.
  */
 import type { FeatureExtractionPipeline } from '@huggingface/transformers';
 

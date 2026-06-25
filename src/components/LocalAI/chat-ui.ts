@@ -317,15 +317,11 @@ class LocalAI extends HTMLElement {
     stage.className = 'lai-stage lai-live';
     stage.setAttribute('data-progress-label', '');
 
-    const elapsed = document.createElement('p');
-    elapsed.className = 'lai-stage lai-elapsed';
-    elapsed.setAttribute('data-progress-elapsed', '');
-
     const reassure = document.createElement('p');
     reassure.className = 'lai-reassure';
     reassure.innerHTML = ICON.check + this.i18n.oneTime;
 
-    dl.append(dlTitle, stage, elapsed, reassure);
+    dl.append(dlTitle, stage, reassure);
     this.body.appendChild(dl);
   }
 
@@ -837,11 +833,11 @@ class LocalAI extends HTMLElement {
         messages as ChatMessage[],
         { max_new_tokens: 360, temperature: 0.35, top_p: 0.9, repetition_penalty: 1.2 },
         (running) => {
+          if (gen !== this.genId) return;
           if (!replyBubble) {
             typingEl?.remove();
             replyBubble = this.appendBubble('assistant', '');
           }
-          if (gen !== this.genId) return;
           replyBubble.innerHTML = renderMarkdown(running);
           const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
           if (list) list.scrollTop = list.scrollHeight;
@@ -854,7 +850,7 @@ class LocalAI extends HTMLElement {
     } catch (err) {
       console.error('[LocalAI] generation failed', err);
       typingEl?.remove();
-      this.appendBubble('assistant', this.i18n.errorBody);
+      if (gen === this.genId) this.appendBubble('assistant', this.i18n.errorBody);
     }
   }
 

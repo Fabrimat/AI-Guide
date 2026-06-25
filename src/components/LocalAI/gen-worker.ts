@@ -3,6 +3,8 @@
  * never blocks the UI thread. Protocol (main -> worker):
  *   { type:'load', modelId, dtype }         -> 'progress'{pct}... then 'ready' | 'error'{message}
  *   { type:'generate', id, messages, opts }  -> 'token'{id,text}... then 'done'{id,full} | 'error'{id,message}
+ *     NOTE: token.text is the CUMULATIVE running text so far (a snapshot, not a per-chunk delta).
+ *     Consumers must assign it directly — do NOT accumulate on top of it.
  *   { type:'dispose' }
  */
 import {
