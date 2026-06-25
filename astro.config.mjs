@@ -32,12 +32,11 @@ export default defineConfig({
     build: {
       rollupOptions: {
         output: {
-          // Give web-llm a stable chunk name so the PWA precache can
-          // exclude it: it is ~6 MB and loads lazily only after the
+          // Give Transformers.js a stable chunk name so the PWA precache
+          // can exclude it: it is large and loads lazily only after the
           // reader consents, so it must not bloat the offline shell.
           // See `injectManifest.globIgnores` below.
           manualChunks(id) {
-            if (id.includes('@mlc-ai/web-llm')) return 'webllm';
             if (id.includes('@huggingface/transformers')) return 'transformers';
           },
         },
@@ -348,14 +347,15 @@ export default defineConfig({
           '**/sa/**',
           'sw.js',
           'workbox-*.js',
-          // Local AI assistant: the web-llm engine (named `webllm` via
-          // manualChunks) and its Web Worker are ~6 MB each and load on
-          // demand only after the reader consents. They must stay out of
-          // the precached offline shell, and Workbox's injectManifest
-          // throws (not warns) on files above its 2 MiB limit.
-          '_astro/webllm-*.js',
-          '_astro/webllm.*.js',
-          '_astro/chat-worker-*.js',
+          // Local AI assistant: Transformers.js engine (named `transformers`
+          // via manualChunks) and the gen-worker (Transformers.js + ORT wasm)
+          // are large and load on demand only after the reader consents.
+          // They must stay out of the precached offline shell; Workbox's
+          // injectManifest throws (not warns) on files above its 2 MiB limit.
+          // Both dash- and dot-separated hash variants are listed to match
+          // whatever Vite emits (worker chunks can use either separator).
+          '_astro/gen-worker-*.js',
+          '_astro/gen-worker.*.js',
           '_astro/transformers-*.js',
           '_astro/transformers.*.js',
           // ONNX-runtime wasm binaries (shipped by @huggingface/transformers,
