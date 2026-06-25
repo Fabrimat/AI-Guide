@@ -9,6 +9,7 @@ import { extractLessonContext } from './lesson-context';
 import { searchOtherLessons } from './search-context';
 import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './skill-loader';
 import { renderMarkdown } from './markdown';
+import { loadHistory, saveHistory, clearHistory, type ChatMsg } from './history';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -102,7 +103,7 @@ class LocalAI extends HTMLElement {
   private body!: HTMLElement;
   private statusSub!: HTMLElement;
   private engine: MLCEngineInterface | null = null;
-  private history: Array<{ role: 'user' | 'assistant'; content: string }> = [];
+  private history: ChatMsg[] = [];
   private activeExerciseBlock: string | null = null;
 
   connectedCallback() {
@@ -337,6 +338,10 @@ class LocalAI extends HTMLElement {
     msgs.setAttribute('data-messages', '');
     this.body.appendChild(msgs);
 
+    // Restore this lesson's saved conversation.
+    this.history = loadHistory(location.pathname);
+    for (const m of this.history) this.appendBubble(m.role, m.content);
+
     // Composer
     const composer = document.createElement('div');
     composer.className = 'lai-composer';
@@ -458,7 +463,8 @@ class LocalAI extends HTMLElement {
   // ---- New chat (header button) ----------------------------------------------
 
   private onNewChat() {
-    this.activeExerciseBlock = null;
+    clearHistory(location.pathname);
+    this.history = [];
     this.renderReady();
   }
 
@@ -538,6 +544,7 @@ class LocalAI extends HTMLElement {
     const display = opts.display !== false;
     if (display) this.appendBubble('user', userText);
     this.history.push({ role: 'user', content: userText });
+    saveHistory(location.pathname, this.history);
 
     const replyBubble = this.appendBubble('assistant', this.i18n.thinking + '…');
 
@@ -580,6 +587,7 @@ class LocalAI extends HTMLElement {
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
       }
       this.history.push({ role: 'assistant', content: full });
+      saveHistory(location.pathname, this.history);
     } catch (err) {
       console.error('[LocalAI] generation failed', err);
       replyBubble.textContent = this.i18n.errorBody;
