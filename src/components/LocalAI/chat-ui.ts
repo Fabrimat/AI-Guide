@@ -8,6 +8,7 @@ import type { MLCEngineInterface, InitProgressReport } from '@mlc-ai/web-llm';
 import { extractLessonContext } from './lesson-context';
 import { searchOtherLessons } from './search-context';
 import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './skill-loader';
+import { renderMarkdown } from './markdown';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
@@ -495,19 +496,13 @@ class LocalAI extends HTMLElement {
   // ---- Sending messages ------------------------------------------------------
 
   private appendBubble(role: 'user' | 'assistant', text: string): HTMLElement {
-    const msgs = this.body.querySelector('[data-messages]') as HTMLElement | null;
-    if (!msgs) {
-      // Should not happen but guard gracefully
-      const fallback = document.createElement('div');
-      fallback.textContent = text;
-      this.body.appendChild(fallback);
-      return fallback;
-    }
+    const list = this.body.querySelector('[data-messages]') as HTMLElement;
     const bubble = document.createElement('div');
-    bubble.className = `lai-bubble ${role === 'user' ? 'lai-u' : 'lai-a'}`;
-    bubble.textContent = text;
-    msgs.appendChild(bubble);
-    msgs.scrollTop = msgs.scrollHeight;
+    bubble.className = `lai-bubble lai-${role === 'user' ? 'u' : 'a'}`;
+    if (role === 'assistant') bubble.innerHTML = renderMarkdown(text);
+    else bubble.textContent = text;
+    list.appendChild(bubble);
+    list.scrollTop = list.scrollHeight;
     return bubble;
   }
 
@@ -576,7 +571,7 @@ class LocalAI extends HTMLElement {
       let full = '';
       for await (const chunk of stream) {
         full += chunk.choices[0]?.delta?.content ?? '';
-        replyBubble.textContent = full;
+        replyBubble.innerHTML = renderMarkdown(full);
         const msgs = this.body.querySelector('[data-messages]') as HTMLElement | null;
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
       }
