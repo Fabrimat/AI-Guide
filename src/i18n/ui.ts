@@ -72,9 +72,6 @@ export interface UIStrings {
   localAiConsentBody: string;       // explains local + one-time CDN download
   localAiConsentPrivacy: string;    // short privacy line
   localAiConsentPrivacyLink: string;
-  localAiModelLightLabel: string;
-  localAiModelBetterLabel: string;
-  localAiModelBestLabel: string;
   localAiModelBestWarn: string;     // GPU warning shown under "Best"
   localAiConsentConfirm: string;    // "Download & enable"
   localAiDownloading: string;       // status while weights download
@@ -291,9 +288,6 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
     "Questo assistente gira nel tuo browser. La prima volta scarica i suoi file di modello una volta sola da un fornitore esterno (Hugging Face): il modello di chat e un piccolo modello di ricerca. Dopo funziona offline e niente di quello che scrivi esce dal tuo dispositivo.",
   localAiConsentPrivacy: 'I tuoi messaggi restano in questo browser. Non vengono mai inviati a me né a un server.',
   localAiConsentPrivacyLink: 'Leggi la pagina sulla privacy',
-  localAiModelLightLabel: 'Leggero · circa 0,4 GB · veloce, risposte basilari',
-  localAiModelBetterLabel: 'Migliore · circa 1,1 GB · più lento da caricare, italiano migliore',
-  localAiModelBestLabel: 'Massimo · circa 1,9 GB · risposte migliori',
   localAiModelBestWarn: 'Richiede una scheda grafica potente. Sulla maggior parte dei telefoni non si carica.',
   localAiConsentConfirm: 'Scarica e attiva',
   localAiDownloading: 'Sto scaricando il modello, solo questa volta',
@@ -508,9 +502,6 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
     'This assistant runs in your browser. The first time, it downloads its model files once from an external provider (Hugging Face): the chat model and a small search model. After that it works offline and nothing you type leaves your device.',
   localAiConsentPrivacy: 'Your messages stay in this browser. They are never sent to me or to any server.',
   localAiConsentPrivacyLink: 'Read the privacy page',
-  localAiModelLightLabel: 'Light · about 0.4 GB · fast, basic answers',
-  localAiModelBetterLabel: 'Better · about 1.1 GB · slower to load, better Italian',
-  localAiModelBestLabel: 'Best · about 1.9 GB · best answers',
   localAiModelBestWarn: 'Needs a strong graphics card. It will not load on most phones.',
   localAiConsentConfirm: 'Download and enable',
   localAiDownloading: 'Downloading the model, one time only',
