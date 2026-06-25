@@ -177,6 +177,17 @@ class LocalAI extends HTMLElement {
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !this.panel.hidden) this.close();
     });
+
+    // Escape Starlight's `.main-pane`, which sets `isolation: isolate` and so
+    // creates a stacking context that traps our fixed launcher/panel beneath
+    // the page's sidebars and column-separator borders. Re-parenting to <body>
+    // puts them in the root stacking context, where z-index actually wins.
+    // (Re-appending fires connectedCallback again, but the `wired` guard above
+    // returns early. On view transitions Astro's swap removes this body-level
+    // node and the next page's element re-mounts, so there is no duplication.)
+    if (this.parentElement && this.parentElement !== document.body) {
+      document.body.appendChild(this);
+    }
   }
 
   // ---- Open / close ----------------------------------------------------------
