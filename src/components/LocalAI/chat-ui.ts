@@ -10,10 +10,14 @@ import { searchOtherLessons } from './search-context';
 import { findSkillFiles, pickPrimarySkill, loadSkill, type SkillRef } from './skill-loader';
 import { renderMarkdown } from './markdown';
 import { loadHistory, saveHistory, clearHistory, type ChatMsg } from './history';
+import { getStatuses, deleteModel, type CacheStatus } from './model-cache';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
 let activeModelId: string | null = null;
+// The worker backing the active engine. Tracked so a model switch can
+// terminate it (freeing its WebGPU context) before loading a new model.
+let activeWorker: Worker | null = null;
 
 /**
  * Creates (or reuses) the singleton engine. If a different model was
@@ -33,9 +37,23 @@ function getEngine(
   enginePromise = (async () => {
     const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
     const worker = new Worker(new URL('./chat-worker.ts', import.meta.url), { type: 'module' });
+    activeWorker = worker;
     return CreateWebWorkerMLCEngine(worker, modelId, { initProgressCallback: onProgress });
   })();
   return enginePromise;
+}
+
+/**
+ * Tears down the active engine and its worker, freeing the WebGPU context,
+ * then resets the module-level singletons. Called before switching models so
+ * two engines never hold a GPU context at once.
+ */
+async function disposeEngine(): Promise<void> {
+  try { const eng = await enginePromise; await eng?.unload?.(); } catch { /* ignore */ }
+  try { activeWorker?.terminate(); } catch { /* ignore */ }
+  activeWorker = null;
+  enginePromise = null;
+  activeModelId = null;
 }
 
 // ---- SVG icon string constants -------------------------------------------
@@ -85,6 +103,8 @@ interface I18n {
   errorTitle: string; errorBody: string; retryLight: string; disclaimer: string;
   modelsTitle: string; newChatAria: string; modelsAria: string; backAria: string;
   oneTime: string;
+  use: string; downloadModel: string; deleteModel: string;
+  statusActive: string; statusCached: string; statusIdle: string;
 }
 
 const CONSENT_KEY = 'aiguide:localai:consent';
@@ -379,7 +399,7 @@ class LocalAI extends HTMLElement {
     input.focus();
   }
 
-  // ---- Models view scaffold --------------------------------------------------
+  // ---- Models view -----------------------------------------------------------
 
   private renderModels() {
     this.setViewAttr('models');
@@ -389,8 +409,103 @@ class LocalAI extends HTMLElement {
 
     const container = document.createElement('div');
     container.setAttribute('data-model-list', '');
-    // Task 4 fills this container with the actual model rows.
     this.body.appendChild(container);
+
+    // Render rows immediately in a loading state (no actions yet), then
+    // resolve real cache statuses asynchronously and re-render the rows.
+    for (const m of this.models) {
+      container.appendChild(this.buildModelRow(m, null));
+    }
+
+    void getStatuses(this.models.map((m) => m.id), activeModelId).then((statuses) => {
+      // Bail if the view was swapped away while statuses resolved.
+      const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
+      if (!list) return;
+      list.innerHTML = '';
+      for (const m of this.models) {
+        list.appendChild(this.buildModelRow(m, statuses[m.id] ?? 'idle'));
+      }
+    });
+  }
+
+  /**
+   * One row of the models view. `status === null` means the cache status is
+   * still resolving: show no destructive/switch actions yet.
+   */
+  private buildModelRow(m: ModelTier, status: CacheStatus | null): HTMLElement {
+    const row = document.createElement('div');
+    row.className = 'lai-model';
+
+    // Left: name + meta (reuse the consent card label split).
+    const parts = m.label.split('·');
+    const name = parts[0]?.trim() ?? m.tier;
+    const meta = parts.slice(1).join('·').trim();
+
+    const idCol = document.createElement('div');
+    idCol.className = 'lai-model-id';
+    const b = document.createElement('b');
+    b.textContent = name;
+    const desc = document.createElement('span');
+    desc.className = 'lai-model-desc';
+    desc.textContent = meta;
+    idCol.append(b, desc);
+
+    // Right: status pill + actions.
+    const actions = document.createElement('div');
+    actions.className = 'lai-model-actions';
+
+    if (status === 'active') {
+      actions.appendChild(this.buildPill('active', this.i18n.statusActive));
+    } else if (status === 'cached') {
+      actions.appendChild(this.buildPill('cached', this.i18n.statusCached));
+      const use = this.buildModelButton(this.i18n.use, false);
+      use.addEventListener('click', () => void this.switchModel(m.id));
+      const del = this.buildModelButton(this.i18n.deleteModel, true);
+      del.addEventListener('click', () => void this.removeModel(m.id));
+      actions.append(use, del);
+    } else if (status === 'idle') {
+      actions.appendChild(this.buildPill('idle', this.i18n.statusIdle));
+      const dl = this.buildModelButton(this.i18n.downloadModel, false);
+      dl.addEventListener('click', () => void this.switchModel(m.id));
+      actions.appendChild(dl);
+    } else {
+      // Loading: show whichever pill we already know (active) or idle, no
+      // actions until the real status resolves.
+      const loadingStatus: CacheStatus = m.id === activeModelId ? 'active' : 'idle';
+      const loadingLabel = loadingStatus === 'active' ? this.i18n.statusActive : this.i18n.statusIdle;
+      actions.appendChild(this.buildPill(loadingStatus, loadingLabel));
+    }
+
+    row.append(idCol, actions);
+    return row;
+  }
+
+  private buildPill(kind: CacheStatus, label: string): HTMLElement {
+    const pill = document.createElement('span');
+    pill.className = `lai-pill ${kind}`;
+    pill.textContent = label;
+    return pill;
+  }
+
+  private buildModelButton(label: string, danger: boolean): HTMLButtonElement {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lai-btn lai-sm' + (danger ? ' lai-danger' : '');
+    btn.textContent = label;
+    return btn;
+  }
+
+  /** Switch to another tier: persist consent, free the old engine, download. */
+  private async switchModel(modelId: string) {
+    this.setConsentedModel(modelId);
+    await disposeEngine();
+    this.startDownload(modelId); // shows the ring; back to chat on ready
+  }
+
+  /** Delete a cached, non-active model, then refresh statuses. */
+  private async removeModel(modelId: string) {
+    try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
+    this.renderModels();
   }
 
   /** Open the models view (gear button). */

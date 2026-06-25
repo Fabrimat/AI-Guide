@@ -94,6 +94,12 @@ export interface UIStrings {
   localAiModelsAria: string;        // aria-label for models gear icon button
   localAiBackAria: string;          // aria-label for back button in models view
   localAiOneTime: string;           // reassurance in download view: one-time + local
+  localAiUse: string;               // models view: switch to a cached model
+  localAiDownloadModel: string;     // models view: download + activate an idle model
+  localAiDeleteModel: string;       // models view: delete a cached non-active model
+  localAiStatusActive: string;      // models view pill: active model
+  localAiStatusCached: string;      // models view pill: downloaded/cached
+  localAiStatusIdle: string;        // models view pill: not downloaded
 
   // ChatDemo
   chatUserLabel: string;
@@ -302,6 +308,12 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   localAiModelsAria: 'Gestisci modelli',
   localAiBackAria: 'Torna alla chat',
   localAiOneTime: 'Scaricato una volta sola. I tuoi dati non lasciano mai il dispositivo.',
+  localAiUse: 'Usa',
+  localAiDownloadModel: 'Scarica',
+  localAiDeleteModel: 'Elimina',
+  localAiStatusActive: 'Attivo',
+  localAiStatusCached: 'Scaricato',
+  localAiStatusIdle: 'Non scaricato',
 
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
@@ -506,6 +518,12 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   localAiModelsAria: 'Manage models',
   localAiBackAria: 'Back to chat',
   localAiOneTime: 'One-time download. Your data never leaves this device.',
+  localAiUse: 'Use',
+  localAiDownloadModel: 'Download',
+  localAiDeleteModel: 'Delete',
+  localAiStatusActive: 'Active',
+  localAiStatusCached: 'Cached',
+  localAiStatusIdle: 'Not downloaded',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',
