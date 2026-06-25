@@ -57,6 +57,18 @@ async function disposeEngine(): Promise<void> {
   activeModelId = null;
 }
 
+/**
+ * web-llm's `report.progress` stays ~0 for the whole param-fetch phase (the
+ * bulk of a download); the real percentage only lives in `report.text`
+ * (e.g. "... 234MB fetched. 88% completed"). Prefer the text percentage and
+ * fall back to `report.progress` for the phases that lack one.
+ */
+function progressPct(r: InitProgressReport): number {
+  const m = /(\d+)\s*%/.exec(r.text || '');
+  if (m) return Math.min(100, Math.max(0, parseInt(m[1], 10)));
+  return Math.round((r.progress ?? 0) * 100);
+}
+
 // ---- SVG icon string constants -------------------------------------------
 // Inline SVGs with class `lai-ic` so they inherit stroke styling from CSS.
 const ICON = {
@@ -596,7 +608,7 @@ class LocalAI extends HTMLElement {
         await disposeEngine();
       }
       this.engine = await getEngine(modelId, (r) => {
-        const pct = Math.round((r.progress ?? 0) * 100);
+        const pct = progressPct(r);
         if (barFill) barFill.style.width = `${pct}%`;
         if (pctText) pctText.textContent = `${pct}%`;
       });
@@ -730,11 +742,10 @@ class LocalAI extends HTMLElement {
     const elapsedEl = this.body.querySelector<HTMLElement>('[data-progress-elapsed]');
     try {
       this.engine = await getEngine(modelId, (r: InitProgressReport) => {
-        const progress = r.progress ?? 0;
+        const pctInt = progressPct(r);
         if (bar) {
-          bar.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - progress));
+          bar.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - pctInt / 100));
         }
-        const pctInt = Math.round(progress * 100);
         if (pct) {
           // Preserve the <small> tag inside .lai-pct
           const small = pct.querySelector('small');
