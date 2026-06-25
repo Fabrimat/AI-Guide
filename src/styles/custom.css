@@ -120,6 +120,9 @@
      resta visibile dentro i popover. */
   --aig-switch-track-off: #d8c9b0;
   --aig-switch-thumb: #ffffff;
+  /* Code block inside AI chat bubbles: deep indigo bg + cream text. */
+  --aig-code-bg: #2a2447;
+  --aig-code-text: #f3e5d0;
 
   color-scheme: light;
 }
@@ -198,6 +201,10 @@
      stacca), thumb cream (come il testo) per stare leggibile. */
   --aig-switch-track-off: #7a6452;
   --aig-switch-thumb: #f3e5d0;
+  /* Code block inside AI chat bubbles: slightly lighter indigo so it
+     reads as distinct from the chocolate page bg. */
+  --aig-code-bg: #322a40;
+  --aig-code-text: #f3e5d0;
 
   color-scheme: dark;
 }

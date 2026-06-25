@@ -93,6 +93,7 @@ export interface UIStrings {
   localAiNewChatAria: string;       // aria-label for new-chat icon button
   localAiModelsAria: string;        // aria-label for models gear icon button
   localAiBackAria: string;          // aria-label for back button in models view
+  localAiOneTime: string;           // reassurance in download view: one-time + local
 
   // ChatDemo
   chatUserLabel: string;
@@ -300,6 +301,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   localAiNewChatAria: 'Nuova chat',
   localAiModelsAria: 'Gestisci modelli',
   localAiBackAria: 'Torna alla chat',
+  localAiOneTime: 'Scaricato una volta sola. I tuoi dati non lasciano mai il dispositivo.',
 
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
@@ -503,6 +505,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   localAiNewChatAria: 'New chat',
   localAiModelsAria: 'Manage models',
   localAiBackAria: 'Back to chat',
+  localAiOneTime: 'One-time download. Your data never leaves this device.',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',

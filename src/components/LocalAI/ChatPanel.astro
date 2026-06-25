@@ -53,6 +53,7 @@ const i18n = {
   newChatAria:        ui.localAiNewChatAria,
   modelsAria:         ui.localAiModelsAria,
   backAria:           ui.localAiBackAria,
+  oneTime:            ui.localAiOneTime,
 };
 ---
 
@@ -129,7 +130,7 @@ const i18n = {
     border: 0;
     border-radius: 999px;
     background: var(--sl-color-accent);
-    color: #fff;
+    color: var(--sl-color-text-invert);
     font-family: var(--sl-font);
     font-size: 0.92rem;
     font-weight: 600;
@@ -173,7 +174,7 @@ const i18n = {
   local-ai .lai-head {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.7rem;
     padding: 0.85rem 0.9rem 0.85rem 1.1rem;
     border-bottom: 1px solid var(--sl-color-hairline);
     background: linear-gradient(180deg, var(--aig-elevated-bg-warm), var(--aig-elevated-bg));
@@ -315,7 +316,7 @@ const i18n = {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 2px solid #9A93AC; /* muted, intentional status color */
+    border: 2px solid var(--sl-color-gray-4);
     margin-top: 2px;
     flex: none;
     transition: border-color 0.12s, box-shadow 0.12s;
@@ -399,7 +400,7 @@ const i18n = {
   local-ai .lai-btn.lai-primary {
     background: var(--sl-color-accent);
     border-color: var(--sl-color-accent);
-    color: #fff;
+    color: var(--sl-color-text-invert);
   }
   local-ai .lai-btn.lai-primary:hover {
     background: var(--sl-color-accent-high);
@@ -411,8 +412,8 @@ const i18n = {
     font-size: 0.8rem;
     border-radius: 8px;
   }
-  local-ai .lai-btn.lai-danger { color: #B23B3B; } /* danger red — intentional, no Pastello token */
-  local-ai .lai-btn.lai-danger:hover { background: #FBECEC; } /* danger red tint — intentional */
+  local-ai .lai-btn.lai-danger { color: var(--aig-danger-text); }
+  local-ai .lai-btn.lai-danger:hover { background: var(--aig-danger-bg); }
   local-ai .lai-btn:disabled { opacity: 0.5; cursor: default; }
 
   /* Privacy footnote in consent */
@@ -533,7 +534,7 @@ const i18n = {
   local-ai .lai-bubble.lai-u {
     align-self: flex-end;
     background: var(--sl-color-accent);
-    color: #fff;
+    color: var(--sl-color-text-invert);
     border-bottom-right-radius: 5px;
   }
   /* Assistant bubble */
@@ -558,8 +559,8 @@ const i18n = {
   }
   local-ai .lai-bubble.lai-a pre {
     margin: 0.4rem 0 0.2rem;
-    background: #2A2447;   /* indigo dark bg for code blocks, same in both themes */
-    color: #F3E5D0;        /* crema text for code blocks, same in both themes */
+    background: var(--aig-code-bg);
+    color: var(--aig-code-text);
     border-radius: 9px;
     padding: 0.6rem 0.7rem;
     overflow-x: auto;
@@ -668,7 +669,7 @@ const i18n = {
     border: 0;
     cursor: pointer;
     background: var(--sl-color-accent);
-    color: #fff;
+    color: var(--sl-color-text-invert);
     display: grid;
     place-items: center;
     transition: background 0.12s;
@@ -730,15 +731,15 @@ const i18n = {
   }
   local-ai .lai-pill.active {
     background: var(--sl-color-accent);
-    color: #fff;
+    color: var(--sl-color-text-invert);
   }
   local-ai .lai-pill.cached {
     background: #E7F0E8;      /* sage-bg: intentional status color */
     color: #5E8B6A;           /* sage: intentional status color */
   }
   local-ai .lai-pill.idle {
-    background: #EFE9DF;      /* warm-light idle bg — intentional status color */
-    color: #9A93AC;           /* muted: intentional status color */
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-3);
   }
 
   local-ai .lai-model-actions {

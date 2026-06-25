@@ -82,6 +82,7 @@ interface I18n {
   startExercise: string; noWebgpuTitle: string; noWebgpuBody: string;
   errorTitle: string; errorBody: string; retryLight: string; disclaimer: string;
   modelsTitle: string; newChatAria: string; modelsAria: string; backAria: string;
+  oneTime: string;
 }
 
 const CONSENT_KEY = 'aiguide:localai:consent';
@@ -304,7 +305,7 @@ class LocalAI extends HTMLElement {
 
     const reassure = document.createElement('p');
     reassure.className = 'lai-reassure';
-    reassure.innerHTML = ICON.check + this.i18n.downloading;
+    reassure.innerHTML = ICON.check + this.i18n.oneTime;
 
     dl.append(dlTitle, stage, reassure);
     this.body.appendChild(dl);
@@ -456,7 +457,6 @@ class LocalAI extends HTMLElement {
   // ---- New chat (header button) ----------------------------------------------
 
   private onNewChat() {
-    this.history = [];
     this.activeExerciseBlock = null;
     this.renderReady();
   }
