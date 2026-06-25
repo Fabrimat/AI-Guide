@@ -15,7 +15,13 @@ import { recommendedTier } from './device';
 
 // Survives Astro view transitions (page swaps don't reload JS).
 let enginePromise: Promise<MLCEngineInterface> | null = null;
+// The model the engine is currently loading OR has loaded (used to dedupe
+// getEngine calls and to decide whether a switch must dispose first).
 let activeModelId: string | null = null;
+// The model whose engine has FINISHED loading and is ready for chat. This is
+// what the UI treats as "active": a model that is mid-download is NOT active
+// yet, so its row must not show as active and must not be deletable-as-active.
+let readyModelId: string | null = null;
 // The worker backing the active engine. Tracked so a model switch can
 // terminate it (freeing its WebGPU context) before loading a new model.
 let activeWorker: Worker | null = null;
@@ -35,11 +41,15 @@ function getEngine(
 ): Promise<MLCEngineInterface> {
   if (enginePromise && activeModelId === modelId) return enginePromise;
   activeModelId = modelId;
+  readyModelId = null; // a (re)load is starting: nothing is "active" until it resolves
   enginePromise = (async () => {
     const { CreateWebWorkerMLCEngine } = await import('@mlc-ai/web-llm');
     const worker = new Worker(new URL('./chat-worker.ts', import.meta.url), { type: 'module' });
     activeWorker = worker;
-    return CreateWebWorkerMLCEngine(worker, modelId, { initProgressCallback: onProgress });
+    const eng = await CreateWebWorkerMLCEngine(worker, modelId, { initProgressCallback: onProgress });
+    // Only mark ready if this load wasn't superseded/disposed meanwhile.
+    if (activeModelId === modelId) readyModelId = modelId;
+    return eng;
   })();
   return enginePromise;
 }
@@ -55,6 +65,7 @@ async function disposeEngine(): Promise<void> {
   activeWorker = null;
   enginePromise = null;
   activeModelId = null;
+  readyModelId = null;
 }
 
 /**
@@ -376,7 +387,7 @@ class LocalAI extends HTMLElement {
     this.setPanelTitle(this.i18n.panelTitle); // Fix 3: restore panel title
 
     // Find active model name for status dot
-    const m = this.models.find((x) => x.id === activeModelId);
+    const m = this.models.find((x) => x.id === readyModelId);
     const tierName = m ? this.tierI18n(m.tier).name : '';
     this.setSubtitle(`<span class="lai-dot"></span>${tierName}`);
 
@@ -456,7 +467,7 @@ class LocalAI extends HTMLElement {
   /** Re-query cache statuses and update each row in place. Skips rows whose
    *  download is in flight (marked busy) so progress is never clobbered. */
   private async refreshModelStatuses(): Promise<void> {
-    const statuses = await getStatuses(this.models.map((m) => m.id), activeModelId);
+    const statuses = await getStatuses(this.models.map((m) => m.id), readyModelId);
     const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
     if (!list) return; // view swapped away while resolving
     for (const m of this.models) {
@@ -505,7 +516,7 @@ class LocalAI extends HTMLElement {
     const actions = row.querySelector('[data-actions-slot]') as HTMLElement | null;
     if (!statusSlot || !actions) return;
 
-    const effective: CacheStatus = status ?? (m.id === activeModelId ? 'active' : 'idle');
+    const effective: CacheStatus = status ?? (m.id === readyModelId ? 'active' : 'idle');
     const label =
       effective === 'active' ? this.i18n.statusActive
       : effective === 'cached' ? this.i18n.statusCached
@@ -620,6 +631,7 @@ class LocalAI extends HTMLElement {
       console.error('[LocalAI] inline download failed', err);
       enginePromise = null;
       activeModelId = null;
+      readyModelId = null;
       if (row) delete row.dataset.busy;
       if (actions) {
         actions.innerHTML = '';
@@ -633,19 +645,41 @@ class LocalAI extends HTMLElement {
     }
   }
 
-  /** Delete a cached model (including active model). */
+  /** Delete a model from cache. Deleting the active model frees its engine and
+   *  either falls back to another cached model or, if none, turns the
+   *  assistant off. Blocked while a download is in flight to avoid corrupting
+   *  that operation's state. */
   private async removeModel(modelId: string) {
-    if (modelId === activeModelId) {
-      // Deleting active model = turn off the assistant
-      await disposeEngine();
-      try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
-      try { localStorage.removeItem(CONSENT_KEY); } catch { /* ignore */ }
-      this.engine = null;
-      this.renderConsent();
+    if (this.switching) return; // a download/switch is running; don't interfere
+
+    if (modelId === readyModelId) {
+      // Deleting the model currently in use: free it, then keep the assistant
+      // on by switching to another cached model if one exists.
+      this.switching = true;
+      let fallback: ModelTier | undefined;
+      try {
+        await disposeEngine();
+        this.engine = null;
+        try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
+        const statuses = await getStatuses(this.models.map((m) => m.id), null);
+        fallback = this.models.find((m) => m.id !== modelId && statuses[m.id] === 'cached');
+      } finally {
+        this.switching = false;
+      }
+      if (fallback) {
+        this.setConsentedModel(fallback.id);
+        this.renderModels();          // rebuild so the deleted row is gone
+        await this.downloadInModels(fallback.id); // load the cached fallback (fast)
+      } else {
+        try { localStorage.removeItem(CONSENT_KEY); } catch { /* ignore */ }
+        this.renderConsent();         // no model left: off state
+      }
       return;
     }
+
+    // Deleting a non-active cached model: free it and refresh in place.
     try { await deleteModel(modelId); } catch (e) { console.error('[LocalAI] delete failed', e); }
-    this.renderModels();
+    await this.refreshModelStatuses();
   }
 
   private tierI18n(tier: 'light' | 'better' | 'best'): { name: string; desc: string } {
@@ -766,6 +800,7 @@ class LocalAI extends HTMLElement {
       console.error('[LocalAI] engine load failed', err);
       enginePromise = null;
       activeModelId = null;
+      readyModelId = null;
       this.renderError(modelId);
     }
   }
@@ -804,7 +839,7 @@ class LocalAI extends HTMLElement {
       'Rules:',
       '- Answer questions about the current lesson and the guide in general.',
       '- If the user asks about something not covered in the guide, say so clearly and suggest they ask a full AI like Claude or ChatGPT.',
-      '- Be concise. This is a study guide, not a chatbot.',
+      '- Keep answers short: at most 3 or 4 sentences, unless the reader explicitly asks for more detail. This is a study guide, not a chatbot. Do not pad or repeat.',
       "- Match the language of the user's message (the guide is bilingual en/it).",
       '- Never reproduce large blocks of the lesson verbatim. Paraphrase and explain.',
       exercise,
@@ -859,7 +894,7 @@ class LocalAI extends HTMLElement {
         messages,
         stream: true,
         temperature: 0.6,
-        max_tokens: 800,
+        max_tokens: 360,
       });
       let full = '';
       let replyBubble: HTMLElement | null = null;
