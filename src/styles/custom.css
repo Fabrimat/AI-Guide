@@ -120,6 +120,9 @@
      resta visibile dentro i popover. */
   --aig-switch-track-off: #d8c9b0;
   --aig-switch-thumb: #ffffff;
+  /* Code block inside AI chat bubbles: deep indigo bg + cream text. */
+  --aig-code-bg: #2a2447;
+  --aig-code-text: #f3e5d0;
 
   color-scheme: light;
 }
@@ -198,6 +201,10 @@
      stacca), thumb cream (come il testo) per stare leggibile. */
   --aig-switch-track-off: #7a6452;
   --aig-switch-thumb: #f3e5d0;
+  /* Code block inside AI chat bubbles: slightly lighter indigo so it
+     reads as distinct from the chocolate page bg. */
+  --aig-code-bg: #322a40;
+  --aig-code-text: #f3e5d0;
 
   color-scheme: dark;
 }
@@ -559,4 +566,16 @@ nav.sidebar a[aria-disabled='true'] .sl-badge {
   font-size: 0.7rem;
   padding: 0.05rem 0.4rem;
   margin-inline-start: 0; /* gap gestisce la distanza */
+}
+
+/* La TOC laterale destra è rimossa in tutto il sito (PageSidebar override
+   vuoto), ma Starlight tiene comunque il contenitore `.right-sidebar`
+   `position: fixed` che, su viewport larghi, copre l'angolo in basso a
+   destra e intercetta i click sul launcher flottante dell'assistente IA
+   (`.lai-launcher`) e sul pannello aperto. Il launcher non può uscire dal
+   suo stacking context con il solo z-index, quindi rendiamo il contenitore
+   vuoto trasparente ai puntatori. `pointer-events` è ereditato, così copre
+   tutto il sottoalbero (che è comunque vuoto). */
+.right-sidebar-container {
+  pointer-events: none;
 }

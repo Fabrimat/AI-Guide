@@ -808,12 +808,56 @@ temi sono specchio.
    inversa → "stay invisible", "reformulates it on calibration"
    opaco → "reframes it to fit your class", più sette calchi
    minori).
-3. 🆕 **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
-   Stesso argomento, livelli verticali di difficoltà. Pattern *un solo
-   testo base, tre derivati*.
-4. 🆕 **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
-   Adattare materiali per Bisogni Educativi Speciali e Disturbi
-   Specifici dell'Apprendimento. PEI, PDP, accessibilità.
+3. ✅ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
+   Pubblicata IT + EN il 2026-06-24. Stesso argomento, livelli
+   verticali di difficoltà, distinta dall'asse per stile della L2.
+   Pattern *un solo testo base, tre derivati*: il docente scrive lo
+   standard, l'IA deriva consolidamento e approfondimento (lo standard
+   è già il testo base, all'IA si chiedono i due estremi). Tre regole
+   di allineamento (stesse risposte alle domande di base, stesso tempo
+   di lavoro, stesso glossario). ChatDemo portante su storia, prima
+   superiore, riforme di Costantino, con testo base visibile nel prompt
+   e le due varianti derivate. Callout `:::note` per le materie STEM
+   (differenziare = cambiare il sostegno, non il numero di problemi),
+   `:::tip` scuola primaria (schema a due livelli), `:::note` combinare
+   stile × livello. Cosa NON fare: varianti senza testo base, etichette
+   facile/medio/difficile, scollamento alla verifica. Ciclo di
+   revisione completo (`analyze-lesson` 9 domande + `integrate-questions`
+   con 6 modifiche + style-checker IT e EN, 2026-06-24). Integrazioni
+   principali dall'analisi lettore: testo base reso visibile nel
+   ChatDemo (prima assente), callout STEM, chiarimento esercizi diversi
+   ma stesse risposte di fondo, esplicitazione due varianti / tre
+   livelli, controllo anti-deriva contro il testo base, glossa di
+   "drift" in italiano. Style-checker IT: verdetto OK, applicata la
+   sola rifinitura della description. Style-checker EN: OK con
+   rifiniture opzionali (consolidation/extension, real-world task,
+   "genuinely"), nessuna applicata (gergo didattico inglese reale e
+   più chiaro per pubblico internazionale).
+4. ✅ **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
+   Pubblicata IT + EN il 2026-06-24. Inclusione come accessibilità,
+   non come "versione facile", distinta dall'asse per livello della L3.
+   Glossa di BES, DSA, PDP, PEI in apertura. Tre assi di adattamento
+   (forma della pagina, sintesi visiva, semplificazione sintattica che
+   tiene i termini chiave). ChatDemo portante su italiano, secondo
+   superiore, Petrarca/Canzoniere adattato per uno studente con
+   dislessia (EN localizzato sui Sonetti di Shakespeare). Guardrail:
+   validazione col referente DSA o docente di sostegno, privacy dei
+   minori (niente nome o diagnosi nella chat), niente diagnosi né
+   valutazione di gravità, adattare dentro il PDP/PEI non al posto del
+   piano. Callout `:::tip` "Se manca la rete formale" (scuole senza
+   referente, BES non certificati), `:::note` oltre la dislessia
+   (discalculia, disgrafia, ADHD), `:::tip` adattare un materiale
+   esistente via foto. Ciclo di revisione completo (`analyze-lesson` 8
+   domande + `integrate-questions` con 5 modifiche + style-checker IT e
+   EN, 2026-06-24). Integrazioni principali dall'analisi lettore:
+   callout sulla rete formale assente, estensione a discalculia/
+   disgrafia/ADHD, controllo della sfumatura sul testo letterario,
+   formato dello schema (testo o ASCII, non immagine), riga sulla
+   progettazione universale (dare l'accessibile a tutti). Bug di build
+   intercettato e corretto: la description IT con `: ` non quotato
+   rompeva il parsing YAML del frontmatter (stesso caso di M3L7),
+   riscritta senza colon-space. Style-checker IT ed EN: verdetto OK,
+   nessuna modifica richiesta.
 5. 🆕 **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
    Aperte, multiple, V/F, problem-solving. Distrattori sensati,
    tassonomia di Bloom. Callout filo rosso anti-cheating.
@@ -832,7 +876,7 @@ temi sono specchio.
    valutazione che resta del docente. Politiche d'istituto italiane ed
    estere. Ponte al Modulo 6.
 
-**Stato attuale**: 2 su 9 pubblicate. Lezioni 1-2 live (IT + EN)
+**Stato attuale**: 4 su 9 pubblicate. Lezioni 1-4 live (IT + EN)
 con verifica dell'apprendimento e approfondimento per disciplina
 attivi.
 
@@ -928,13 +972,15 @@ state attivate con la pubblicazione di *Ask well* (commit b64e411,
 Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
 chiuso al 100% il 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 2 su 9 pubblicate (lezione 2 il
-2026-05-17). Struttura validata in
+**Modulo 5 (Per docenti)**: 4 su 9 pubblicate (lezione 4 il
+2026-06-24). Struttura validata in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 piano di implementazione in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 3, **Materiali differenziati per livello**
-(`for-teachers/differentiated-materials`).
+bozza: lezione 5, **Domande per verifiche**
+(`for-teachers/generate-assessment-questions`). Brief nella "Phase F"
+del piano; prerequisiti del frontmatter L5: `[ask-well,
+when-to-trust-it]`.
 
 **Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
 atterra, sostituire la voce placeholder disabilitata in
@@ -948,8 +994,10 @@ in `CONTENT.md`.
 
 ## Pickup da un altro PC (Modulo 5 in scrittura)
 
-Ultimo stato sincronizzato su `origin/main` il 2026-05-17. Per
-riprendere da un altro PC:
+Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
+delle lezioni 3 e 4 (2026-06-24) sono **in locale su `main`, non
+ancora pushati**: fare `git push origin main` per renderli
+disponibili da un altro PC. Per riprendere da un altro PC:
 
 1. **Clone / pull** del repo, branch `main`.
 2. **Setup ambiente**: Node 22 (pinnato in `.nvmrc`). `npm install`
@@ -958,19 +1006,18 @@ riprendere da un altro PC:
 3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
    sito ricostruisce pulito (76+ pagine attese).
 4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere la nuova lezione: `/it/for-teachers/explain-in-five-ways/`
-   o `/en/for-teachers/explain-in-five-ways/`.
+   vedere l'ultima lezione: `/it/for-teachers/inclusive-materials/`
+   o `/en/for-teachers/inclusive-materials/`.
 
 **Contesto Modulo 5**:
 
-- Fasi A-B-C completate (scaffolding + lezione 1 + lezione 2).
-- Prossima: **Fase D, lezione 3 *Materiali differenziati per livello***
-  (slug `for-teachers/differentiated-materials`).
-- Brief della Fase D in
+- Fasi A-E completate (scaffolding + lezioni 1-4).
+- Prossima: **Fase F, lezione 5 *Domande per verifiche***
+  (slug `for-teachers/generate-assessment-questions`).
+- Brief della Fase F in
   `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
-  "Phase D".
-- Prerequisiti del frontmatter L3: `[ask-well, write-better,
-  draft-professional-documents]`.
+  "Phase F".
+- Prerequisiti del frontmatter L5: `[ask-well, when-to-trust-it]`.
 
 **Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
 seguenti)**:
@@ -1019,7 +1066,7 @@ filesystem locale. Sul nuovo PC partiranno da zero quando lanci
 `/analyze-lesson` per la prossima lezione. Non è un problema: sono
 sottoprodotti del workflow, non artefatti necessari.
 
-**Commit landed in questa sessione** (in ordine cronologico, dal
+**Commit landed per il Modulo 5** (in ordine cronologico, dal
 più vecchio al più recente):
 
 ```
@@ -1033,4 +1080,10 @@ f67ccad Activate Module 5 cards on homepage and start-here (IT + EN)
 412d09a Module 5 lesson 2: Spiegare in cinque modi diversi + deepen and review exercises
 265620f Module 5 lesson 2 EN: Explain in five different ways + deepen and review exercises
 b4856ee Unlock Module 5 lesson 2 in sidebar
+c17df37 Module 5 lesson 3: Materiali differenziati per livello + deepen and review exercises
+6c4f4f5 Module 5 lesson 3 EN: Differentiated materials by level + deepen and review exercises
+ba484e0 Unlock Module 5 lesson 3 in sidebar
+ada052f Module 5 lesson 4: Inclusivita BES e DSA + deepen and review exercises
+57f3616 Module 5 lesson 4 EN: Inclusive materials (SEN) + deepen and review exercises
+(questo commit) Unlock Module 5 lesson 4 in sidebar
 ```

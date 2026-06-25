@@ -29,6 +29,19 @@ export default defineConfig({
       __AIGUIDE_BUILD_SHA__: JSON.stringify(BUILD_SHA),
       __AIGUIDE_BUILD_TIME__: JSON.stringify(BUILD_TIME),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // Give Transformers.js a stable chunk name so the PWA precache
+          // can exclude it: it is large and loads lazily only after the
+          // reader consents, so it must not bloat the offline shell.
+          // See `injectManifest.globIgnores` below.
+          manualChunks(id) {
+            if (id.includes('@huggingface/transformers')) return 'transformers';
+          },
+        },
+      },
+    },
   },
 
   // Niente redirect statico per `/`. La landing root è in `src/pages/index.astro`
@@ -143,20 +156,8 @@ export default defineConfig({
           items: [
             { slug: 'for-teachers/design-a-lesson' },
             { slug: 'for-teachers/explain-in-five-ways' },
-            {
-              label: 'Differentiated materials',
-              translations: { it: 'Materiali differenziati' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Inclusive materials (SEN)',
-              translations: { it: 'Inclusività (BES e DSA)' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/differentiated-materials' },
+            { slug: 'for-teachers/inclusive-materials' },
             {
               label: 'Generate assessment questions',
               translations: { it: 'Domande per verifiche' },
@@ -346,6 +347,22 @@ export default defineConfig({
           '**/sa/**',
           'sw.js',
           'workbox-*.js',
+          // Local AI assistant: Transformers.js engine (named `transformers`
+          // via manualChunks) and the gen-worker (Transformers.js + ORT wasm)
+          // are large and load on demand only after the reader consents.
+          // They must stay out of the precached offline shell; Workbox's
+          // injectManifest throws (not warns) on files above its 2 MiB limit.
+          // Both dash- and dot-separated hash variants are listed to match
+          // whatever Vite emits (worker chunks can use either separator).
+          '_astro/gen-worker-*.js',
+          '_astro/gen-worker.*.js',
+          '_astro/transformers-*.js',
+          '_astro/transformers.*.js',
+          // ONNX-runtime wasm binaries (shipped by @huggingface/transformers,
+          // >2 MiB each); loaded lazily on first embedQuery call. Scoped to
+          // _astro/ where all Vite-emitted assets land, so a future small
+          // wasm elsewhere can still be precached.
+          '_astro/**/*.wasm',
         ],
       },
       devOptions: {

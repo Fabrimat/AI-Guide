@@ -13,6 +13,7 @@
  */
 import Default from '@astrojs/starlight/components/Footer.astro';
 import ShareLesson from './ShareLesson.astro';
+import ChatPanel from './LocalAI/ChatPanel.astro';
 import { t, getLocale } from '../i18n/ui';
 import { getLlmsTxtData } from '../../scripts/llms-txt-data.mjs';
 
@@ -317,3 +318,5 @@ const MAIL_DOMAIN = 'larosa.work';
     </>
   )}
 </nav>
+
+<ChatPanel />

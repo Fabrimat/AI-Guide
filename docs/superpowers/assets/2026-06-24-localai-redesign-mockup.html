@@ -1,0 +1,389 @@
+<title>Local AI panel — redesign mockup</title>
+<style>
+  :root {
+    --bg: #FCEEE3;
+    --text: #2A2447;
+    --text-soft: #6E6488;
+    --text-accent: #C25A3F;
+    --accent: #E07A5F;
+    --accent-low: #FAD0C2;
+    --accent-high: #B85D44;
+    --hairline: #F0DCC9;
+    --hairline-shade: #E8D3BE;
+    --card: #ffffff;
+    --warm: #FFF7EF;
+    --caution-bg: #FBEED6;
+    --caution-border: #E8C883;
+    --caution-text: #97681A;
+    --ok: #5E8B6A;
+    --ok-bg: #E7F0E8;
+    --idle: #9A93AC;
+    --shadow: 42, 36, 71;
+    --font: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #FFF4EA 0%, rgba(255,244,234,0) 60%),
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; }
+
+  .page-head { max-width: 640px; margin-bottom: 2.75rem; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-accent);
+    margin: 0 0 0.6rem;
+  }
+  .page-head h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+    text-wrap: balance;
+  }
+  .page-head p { margin: 0; color: var(--text-soft); font-size: 1.05rem; max-width: 52ch; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2.25rem;
+  }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+
+  .state { display: flex; flex-direction: column; gap: 0.85rem; }
+  .state-cap { display: flex; align-items: baseline; gap: 0.6rem; }
+  .state-cap .n {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700; color: var(--accent);
+    font-size: 0.8rem; letter-spacing: 0.04em;
+  }
+  .state-cap h2 { font-size: 1.05rem; margin: 0; letter-spacing: -0.01em; }
+  .state-note { margin: 0; color: var(--text-soft); font-size: 0.85rem; }
+
+  /* ============ the panel ============ */
+  .panel {
+    width: 100%;
+    max-width: 384px;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 18px;
+    box-shadow: 0 18px 48px rgba(var(--shadow), 0.16), 0 3px 10px rgba(var(--shadow), 0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .p-head {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.85rem 0.9rem 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--hairline);
+    background: linear-gradient(180deg, var(--warm), var(--card));
+  }
+  .p-head .spark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: var(--accent-low); color: var(--accent-high);
+    display: grid; place-items: center; flex: none;
+  }
+  .p-title { flex: 1; min-width: 0; }
+  .p-title b { display: block; font-size: 0.95rem; line-height: 1.2; }
+  .p-title .sub { display: flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; color: var(--text-soft); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-bg); flex: none; }
+  .icon-btn {
+    width: 30px; height: 30px; border-radius: 8px; border: 0;
+    background: transparent; color: var(--text); cursor: pointer;
+    display: grid; place-items: center;
+  }
+  .icon-btn:hover { background: var(--accent-low); color: var(--accent-high); }
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  .p-body { padding: 1.05rem; display: flex; flex-direction: column; gap: 0.9rem; }
+
+  svg { display: block; }
+  .ic { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---- consent ---- */
+  .lead h3 { margin: 0 0 0.35rem; font-size: 1.12rem; letter-spacing: -0.01em; }
+  .lead p { margin: 0; color: var(--text-soft); font-size: 0.88rem; line-height: 1.55; }
+
+  .opt {
+    display: grid; grid-template-columns: 22px 1fr; gap: 0.7rem;
+    padding: 0.8rem 0.85rem; border: 1.5px solid var(--hairline-shade);
+    border-radius: 12px; cursor: pointer; position: relative;
+    transition: border-color .15s, background .15s;
+  }
+  .opt:hover { border-color: var(--accent); }
+  .opt.sel { border-color: var(--accent); background: #FFF3EC; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--idle); margin-top: 2px; }
+  .opt.sel .radio { border-color: var(--accent); box-shadow: inset 0 0 0 3.5px var(--accent); }
+  .opt .name { font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .opt .meta { color: var(--text-soft); font-size: 0.82rem; margin-top: 0.1rem; }
+  .opt .size { font-variant-numeric: tabular-nums; }
+  .chip {
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    padding: 0.12rem 0.45rem; border-radius: 999px; background: var(--accent-low); color: var(--accent-high);
+  }
+  .warn { display: flex; gap: 0.4rem; align-items: flex-start; margin-top: 0.45rem;
+    font-size: 0.78rem; color: var(--caution-text); background: var(--caution-bg);
+    border: 1px solid var(--caution-border); border-radius: 8px; padding: 0.4rem 0.55rem; }
+  .warn .ic { width: 15px; height: 15px; flex: none; margin-top: 1px; }
+
+  .btn {
+    appearance: none; border: 1px solid var(--hairline-shade); background: var(--card);
+    color: var(--text); font-family: var(--font); font-weight: 600; font-size: 0.9rem;
+    padding: 0.6rem 1rem; border-radius: 10px; cursor: pointer; display: inline-flex;
+    align-items: center; justify-content: center; gap: 0.45rem;
+  }
+  .btn:hover { background: var(--warm); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent-high); }
+  .btn.block { width: 100%; }
+  .btn.sm { padding: 0.38rem 0.7rem; font-size: 0.8rem; border-radius: 8px; }
+  .btn.danger { color: #B23B3B; }
+  .btn.danger:hover { background: #FBECEC; }
+
+  .privacy { font-size: 0.78rem; color: var(--text-soft); margin: 0; }
+  .privacy a { color: var(--text-accent); text-underline-offset: 2px; }
+
+  /* ---- downloading ---- */
+  .dl { align-items: center; text-align: center; padding-top: 1.6rem; padding-bottom: 1.6rem; }
+  .ring { position: relative; width: 132px; height: 132px; }
+  .ring svg { transform: rotate(-90deg); width: 132px; height: 132px; }
+  .ring .track { stroke: var(--accent-low); }
+  .ring .bar { stroke: var(--accent); stroke-linecap: round; }
+  .ring .pct {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 1.7rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+  }
+  .ring .pct small { display: block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-soft); margin-top: 0.1rem; }
+  .dl h3 { margin: 1rem 0 0.2rem; font-size: 1.05rem; }
+  .dl .stage { margin: 0; font-size: 0.85rem; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+  .dl .meta-row { display: flex; gap: 1.1rem; margin-top: 0.85rem; font-size: 0.74rem; color: var(--text-soft); }
+  .dl .meta-row b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .dl .reassure { margin: 1rem 0 0; font-size: 0.76rem; color: var(--text-soft); display: flex; align-items: center; gap: 0.4rem; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+  .live { animation: pulse 1.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .live { animation: none; } }
+
+  /* ---- chat ---- */
+  .msgs { display: flex; flex-direction: column; gap: 0.7rem; max-height: 340px; overflow: hidden; padding-right: 2px; }
+  .bubble { max-width: 88%; padding: 0.6rem 0.8rem; border-radius: 14px; font-size: 0.9rem; line-height: 1.55; }
+  .bubble.u { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
+  .bubble.a { align-self: flex-start; background: var(--warm); border: 1px solid var(--hairline); border-bottom-left-radius: 5px; }
+  .bubble.a p { margin: 0 0 0.5rem; }
+  .bubble.a p:last-child { margin-bottom: 0; }
+  .bubble.a strong { font-weight: 700; }
+  .bubble.a ul { margin: 0.2rem 0 0.5rem; padding-left: 1.1rem; }
+  .bubble.a li { margin: 0.15rem 0; }
+  .bubble.a code { font-family: var(--mono); font-size: 0.82em; background: var(--accent-low); padding: 0.05em 0.32em; border-radius: 5px; }
+  .bubble.a pre { margin: 0.4rem 0 0.2rem; background: #2A2447; color: #F3E5D0; border-radius: 9px; padding: 0.6rem 0.7rem; overflow-x: auto; }
+  .bubble.a pre code { font-family: var(--mono); font-size: 0.8rem; background: none; padding: 0; color: inherit; }
+  .typing { align-self: flex-start; display: flex; gap: 4px; padding: 0.7rem 0.85rem; background: var(--warm); border: 1px solid var(--hairline); border-radius: 14px; border-bottom-left-radius: 5px; }
+  .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--idle); display: block; animation: blink 1.2s infinite; }
+  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,60%,100% { opacity: .3; } 30% { opacity: 1; } }
+
+  .ex-pill {
+    display: flex; align-items: center; gap: 0.5rem; width: 100%;
+    background: var(--caution-bg); border: 1px solid var(--caution-border); color: var(--caution-text);
+    padding: 0.55rem 0.75rem; border-radius: 11px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  }
+  .ex-pill .ic { width: 16px; height: 16px; }
+  .ex-pill .go { margin-left: auto; }
+
+  .composer { display: flex; gap: 0.5rem; align-items: flex-end; }
+  .composer .field {
+    flex: 1; min-height: 42px; border: 1.5px solid var(--hairline-shade); border-radius: 12px;
+    padding: 0.6rem 0.8rem; font-size: 0.9rem; color: var(--text-soft); background: var(--bg);
+  }
+  .send {
+    width: 42px; height: 42px; flex: none; border-radius: 12px; border: 0; cursor: pointer;
+    background: var(--accent); color: #fff; display: grid; place-items: center;
+  }
+  .send:hover { background: var(--accent-high); }
+  .footnote { margin: 0.1rem 0 0; font-size: 0.68rem; color: var(--idle); text-align: center; }
+
+  /* ---- models ---- */
+  .m-head { display: flex; align-items: center; gap: 0.5rem; }
+  .m-head .ic { width: 17px; height: 17px; color: var(--accent-high); }
+  .m-head h3 { margin: 0; font-size: 1.02rem; }
+  .model {
+    display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 0.75rem; align-items: center;
+    padding: 0.7rem 0.2rem; border-bottom: 1px solid var(--hairline);
+  }
+  .model:last-of-type { border-bottom: 0; }
+  .model .id { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+  .model .id b { font-size: 0.9rem; display: flex; align-items: center; gap: 0.45rem; }
+  .model .id .desc { font-size: 0.76rem; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+  .pill {
+    font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.12rem 0.45rem; border-radius: 999px; display: inline-flex; align-items: center; gap: 0.25rem;
+  }
+  .pill.active { background: var(--accent); color: #fff; }
+  .pill.cached { background: var(--ok-bg); color: var(--ok); }
+  .pill.idle { background: #EFE9DF; color: var(--idle); }
+  .actions { display: flex; gap: 0.35rem; justify-self: end; }
+  .free { margin: 0.4rem 0 0; font-size: 0.74rem; color: var(--text-soft); display: flex; align-items: center; gap: 0.4rem; }
+
+  .legend { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); color: var(--text-soft); font-size: 0.85rem; max-width: 60ch; }
+  .legend b { color: var(--text); }
+</style>
+
+<div class="wrap">
+  <header class="page-head">
+    <p class="eyebrow">AI-Guide · Local assistant</p>
+    <h1>Panel redesign</h1>
+    <p>The four states of the in-browser assistant, redrawn in the site's Pastello system. Shown at true panel width so you can judge them as the real thing. Production type is Outfit.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- 1. CONSENT -->
+    <section class="state">
+      <div class="state-cap"><span class="n">01</span><h2>Consent &amp; model</h2></div>
+      <p class="state-note">Model picker as selectable cards, sizes legible, the heavy tier flagged inline.</p>
+      <div class="panel">
+        <div class="p-head">
+          <span class="spark"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2.1 4.9L19 10l-4.9 2.1L12 17l-2.1-4.9L5 10l4.9-2.1z"/></svg></span>
+          <div class="p-title"><b>Local AI assistant</b><span class="sub">Private · runs on your device</span></div>
+          <button class="icon-btn" aria-label="Close"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="p-body">
+          <div class="lead">
+            <h3>Run a small AI, right here</h3>
+            <p>It runs in your browser. The first time, it downloads the model once — then it works offline and nothing you type leaves your device.</p>
+          </div>
+          <div class="opt sel">
+            <span class="radio"></span>
+            <div><div class="name">Light <span class="chip">Recommended</span></div>
+              <div class="meta"><span class="size">~0.4 GB</span> · fast, good for most devices</div></div>
+          </div>
+          <div class="opt">
+            <span class="radio"></span>
+            <div><div class="name">Better</div>
+              <div class="meta"><span class="size">~1.1 GB</span> · slower to load, stronger answers</div></div>
+          </div>
+          <div class="opt">
+            <span class="radio"></span>
+            <div><div class="name">Best</div>
+              <div class="meta"><span class="size">~1.9 GB</span> · highest quality</div>
+              <div class="warn"><svg class="ic" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>Needs a strong graphics card. Won't load on most phones.</div>
+            </div>
+          </div>
+          <button class="btn primary block">Download &amp; enable</button>
+          <p class="privacy">Your messages stay in this browser. <a href="#">Read the privacy page</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. DOWNLOADING -->
+    <section class="state">
+      <div class="state-cap"><span class="n">02</span><h2>Downloading</h2></div>
+      <p class="state-note">A progress ring with live stage, share of files, and elapsed time — calm, not a bare bar.</p>
+      <div class="panel">
+        <div class="p-head">
+          <span class="spark"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2.1 4.9L19 10l-4.9 2.1L12 17l-2.1-4.9L5 10l4.9-2.1z"/></svg></span>
+          <div class="p-title"><b>Local AI assistant</b><span class="sub">Setting things up</span></div>
+          <button class="icon-btn" aria-label="Close"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="p-body dl">
+          <div class="ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="10"></circle>
+              <circle class="bar" cx="60" cy="60" r="52" fill="none" stroke-width="10"
+                stroke-dasharray="326.7" stroke-dashoffset="124"></circle>
+            </svg>
+            <div class="pct">62%<small>Light model</small></div>
+          </div>
+          <h3>Downloading your assistant</h3>
+          <p class="stage live">Fetching weights · 24 / 38 files</p>
+          <div class="meta-row"><span>Downloaded <b>248 MB</b></span><span>Elapsed <b>0:41</b></span></div>
+          <p class="reassure"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>One time only — then it's cached and works offline.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CHAT -->
+    <section class="state">
+      <div class="state-cap"><span class="n">03</span><h2>Chat</h2></div>
+      <p class="state-note">Rendered markdown, real bubbles, header with model + new-chat + models, exercise launcher.</p>
+      <div class="panel">
+        <div class="p-head">
+          <span class="spark"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2.1 4.9L19 10l-4.9 2.1L12 17l-2.1-4.9L5 10l4.9-2.1z"/></svg></span>
+          <div class="p-title"><b>Local AI assistant</b><span class="sub"><span class="dot"></span>Light · ready</span></div>
+          <button class="icon-btn" aria-label="New chat"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="icon-btn" aria-label="Models"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 2.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H7a1.6 1.6 0 0 0 1-1.5V1a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V7a1.6 1.6 0 0 0 1.5 1H23a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></button>
+          <button class="icon-btn" aria-label="Close"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="p-body">
+          <button class="ex-pill"><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Start the check-in exercise<span class="go">→</span></button>
+          <div class="msgs">
+            <div class="bubble u">What's a prompt, in one line?</div>
+            <div class="bubble a">
+              <p>A <strong>prompt</strong> is simply what you ask the AI — your instruction plus any context it needs.</p>
+              <p>Good prompts usually have:</p>
+              <ul>
+                <li>a clear <strong>task</strong> ("summarise", "rewrite")</li>
+                <li>the <strong>context</strong> it should use</li>
+                <li>the <strong>format</strong> you want back</li>
+              </ul>
+              <p>Try it like <code>summarise this in 3 bullets</code>.</p>
+            </div>
+            <div class="bubble u">Show a tiny example</div>
+            <div class="typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="composer">
+            <div class="field">Ask about this lesson…</div>
+            <button class="send" aria-label="Send"><svg class="ic" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+          </div>
+          <p class="footnote">Answers are generated on your device and can be wrong.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MODELS -->
+    <section class="state">
+      <div class="state-cap"><span class="n">04</span><h2>Models</h2></div>
+      <p class="state-note">Per-tier status — active, cached, or not downloaded — with switch, download, and free-space.</p>
+      <div class="panel">
+        <div class="p-head">
+          <button class="icon-btn" aria-label="Back"><svg class="ic" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="p-title"><b>Models</b><span class="sub">Manage what's on your device</span></div>
+          <button class="icon-btn" aria-label="Close"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="p-body" style="gap:0.2rem;">
+          <div class="model">
+            <div class="id"><b>Light <span class="pill active">Active</span></b><span class="desc">0.4 GB · Qwen2.5 0.5B</span></div>
+            <div class="actions"><span class="pill cached"><svg class="ic" viewBox="0 0 24 24" style="width:12px;height:12px"><path d="M20 6 9 17l-5-5"/></svg>Cached</span></div>
+          </div>
+          <div class="model">
+            <div class="id"><b>Better</b><span class="desc">1.1 GB · Qwen2.5 1.5B</span></div>
+            <div class="actions"><button class="btn sm primary">Use</button><button class="btn sm danger" aria-label="Delete">Delete</button></div>
+          </div>
+          <div class="model">
+            <div class="id"><b>Best <span class="pill idle">Not downloaded</span></b><span class="desc">1.9 GB · Qwen2.5 3B</span></div>
+            <div class="actions"><button class="btn sm">Download</button></div>
+          </div>
+          <p class="free"><svg class="ic" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/><path d="M12 8v4l2 2"/></svg>1.5 GB on this device · delete a model to free space</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="legend"><b>What changes from today:</b> selectable model cards instead of bare radios; a progress ring with stage/size/elapsed instead of a thin bar; markdown-rendered replies with real bubbles, a typing indicator, new-chat &amp; models controls; a dedicated models manager with cache status and delete. Dark mode reuses the existing warm-dark tokens. Per-lesson chat history persists in <b>localStorage</b>.</p>
+</div>

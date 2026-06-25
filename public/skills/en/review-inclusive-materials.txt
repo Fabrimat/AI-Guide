@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Inclusive materials (SEN)" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson draws a sharp line between "differentiating by level" (the previous lesson) and "inclusion" (this one). What's the difference? And why can a student with a specific learning difficulty be among the best in the class and still need an adapted material?
+
+Question 2: the lesson proposes three axes of adaptation (the shape of the page, visual synthesis, syntactic simplification). On the simplification axis, what's the mistake the AI makes most often when you ask it for a "simpler" version? And how do you stop it in the prompt?
+
+Question 3: who has to validate the adapted material before it reaches the student, and why isn't the AI enough? Also name at least two things you must never ask or do with the AI in this area.
+
+Question 4: think of a material from your subject and a specific need of a student (without naming the student). Tell me one thing you'd change to make it accessible, keeping the key terms. I'll comment on the choice and tell you whether it risks cutting content or leaving an extra label.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

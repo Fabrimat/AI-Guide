@@ -67,6 +67,11 @@ registerRoute(
 // the network so that the SA Worker proxy and SA backend see real-time hits.
 // No registerRoute → no interception.
 
+// Local AI assistant assets are intentionally NOT routed/precached: the RAG
+// embeddings index (/embeddings/*.json) and the on-demand model + ONNX wasm
+// chunks load only after consent and are large. Leave them to the browser
+// cache; do not add a registerRoute for them.
+
 // ---------------------------------------------------------------------------
 // Offline navigation fallback.
 //

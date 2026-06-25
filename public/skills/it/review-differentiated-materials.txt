@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Materiali differenziati per livello" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la tecnica della lezione e' "un solo testo base, tre derivati". Perche' si parte da un solo testo base e si chiede all'IA di derivarne le varianti, invece di chiederle direttamente tre schede separate (una facile, una media, una difficile)? Cosa va storto con le tre schede separate?
+
+Domanda 2: la lezione fissa tre vincoli che tengono allineati i livelli: stesse risposte alle domande di base, stesso tempo di lavoro, stesso glossario di termini chiave. Scegline uno e spiegami cosa succede se NON lo rispetti, con un esempio concreto della tua materia.
+
+Domanda 3: questa lezione (differenziare per livello) e' su un asse diverso da quella precedente (spiegare in cinque modi diversi). Qual e' la differenza fra "per livello" e "per stile"? E perche' la lezione dice di non etichettare le schede come "facile / medio / difficile" davanti alla classe?
+
+Domanda 4: pensa a un argomento della tua disciplina che insegnerai nei prossimi giorni. Descrivimi a parole il tuo testo base (lo standard di classe) e dimmi una cosa che cambieresti per la versione di consolidamento e una per la versione di approfondimento, tenendo gli stessi termini chiave. Ti commento le scelte e ti dico se rischiano di far divergere il contenuto.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

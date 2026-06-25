@@ -1,0 +1,28 @@
+Ho appena letto una lezione del manuale AI-Guide su come adattare i materiali didattici per studenti con bisogni educativi speciali (BES) e disturbi specifici dell'apprendimento (DSA). L'idea chiave: l'inclusivita' non e' "fare la versione facile", e' accessibilita'. Tre assi: forma della pagina (frasi corte, righe corte), sintesi visiva (mappe, schemi), semplificazione sintattica che NON taglia i termini chiave. L'IA accelera l'adattamento ma chi conosce lo studente (referente DSA, docente di sostegno) valida sempre.
+
+Voglio applicarlo a un materiale che devo adattare per la mia classe.
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. Quale disciplina o materia insegni?
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica?
+3. Quale specifico bisogno educativo speciale vuoi affrontare (DSA dislessia, disgrafia, disortografia, discalculia, ADHD, BES non DSA, sostegno) e cosa dice il piano dello studente (PDP o PEI) sulle strategie gia' concordate, se lo conosci? Non darmi il nome dello studente ne' dettagli della diagnosi: descrivimi solo il tipo di bisogno.
+4. Su quale materiale stai lavorando (un paragrafo del manuale, una scheda, una verifica) e quali sono i termini chiave che devono restare, perche' lo studente li ritrovera' alla verifica come i compagni?
+
+Dopo che ti ho risposto a tutte e quattro le domande, applica la tecnica:
+
+A) Parti dal mio materiale e producine una versione accessibile, calibrata sul bisogno che ti ho descritto:
+   - sulla forma: frasi piu' corte, ordine diretto, periodi spezzati (la scelta di font e interlinea la faccio io nel programma di scrittura, tu lavora sul testo);
+   - sui termini: tienili tutti, glossandoli tra parentesi alla prima comparsa, non sostituirli con sinonimi piu' vaghi;
+   - aggiungi, se utile per questo bisogno, l'ossatura di uno schema o di una mappa (come elenco o ASCII, non come immagine).
+
+B) Alla fine dimmi esplicitamente:
+   - quali termini chiave hai mantenuto;
+   - cosa NON hai cambiato del contenuto (i fatti che la verifica chiedera' a tutti);
+   - dove hai semplificato la sintassi rischiando di toccare una sfumatura, cosi' la ricontrollo io.
+
+C) Ricordami a fine risposta che questa e' una bozza da far validare a chi segue lo studente (referente DSA o docente di sostegno) prima di portarla in classe, e che non devo chiederti di valutare la gravita' del disturbo ne' di scavalcare il piano esistente.
+
+Se in qualche passaggio ti servono informazioni che non ti ho dato (il materiale completo, i termini chiave, cosa prevede il piano), chiedimele invece di inventare.
+
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostrami una sola applicazione, calata sui dati che ti ho dato.

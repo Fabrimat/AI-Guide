@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Differentiated materials by level" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson's technique is "one base text, three derivatives". Why do you start from a single base text and ask the AI to derive the variants, instead of asking it directly for three separate sheets (an easy one, a medium one, a hard one)? What goes wrong with the three separate sheets?
+
+Question 2: the lesson sets three constraints that keep the levels aligned: same answers to the base questions, same working time, same glossary of key terms. Pick one and explain what happens if you DON'T respect it, with a concrete example from your subject.
+
+Question 3: this lesson (differentiating by level) is on a different axis from the previous one (explaining in five different ways). What's the difference between "by level" and "by style"? And why does the lesson say not to label the sheets "easy / medium / hard" in front of the class?
+
+Question 4: think of a topic from your discipline you'll be teaching in the next few days. Describe your base text (the class standard) in words and tell me one thing you'd change for the consolidation version and one for the extension version, keeping the same key terms. I'll comment on the choices and tell you whether they risk drifting the content apart.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

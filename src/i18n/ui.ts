@@ -63,6 +63,48 @@ export interface UIStrings {
   llmExerciseCopied: string;
   llmExerciseError: string;
 
+  // LocalAI (in-browser assistant)
+  localAiLauncherLabel: string;
+  localAiLauncherAria: string;
+  localAiPanelTitle: string;
+  localAiClose: string;
+  localAiConsentHeading: string;
+  localAiConsentBody: string;       // explains local + one-time CDN download
+  localAiConsentPrivacy: string;    // short privacy line
+  localAiConsentPrivacyLink: string;
+  localAiModelBestWarn: string;     // GPU warning shown under "Best"
+  localAiConsentConfirm: string;    // "Download & enable"
+  localAiDownloading: string;       // status while weights download
+  localAiInputPlaceholder: string;
+  localAiSend: string;
+  localAiThinking: string;          // status while generating
+  localAiStartExercise: string;
+  localAiNoWebgpuTitle: string;
+  localAiNoWebgpuBody: string;      // points to the buttons below
+  localAiErrorTitle: string;
+  localAiErrorBody: string;
+  localAiRetryLight: string;
+  localAiDisclaimer: string;        // "answers are local, can be wrong"
+  localAiRecommended: string;       // "Recommended" chip on Light model card
+  localAiModelsTitle: string;       // title of models view ("Models")
+  localAiNewChatAria: string;       // aria-label for new-chat icon button
+  localAiModelsAria: string;        // aria-label for models gear icon button
+  localAiBackAria: string;          // aria-label for back button in models view
+  localAiOneTime: string;           // reassurance in download view: one-time + local
+  localAiUse: string;               // models view: switch to a cached model
+  localAiDownloadModel: string;     // models view: download + activate an idle model
+  localAiDeleteModel: string;       // models view: delete a cached non-active model
+  localAiStatusActive: string;      // models view pill: active model
+  localAiStatusCached: string;      // models view pill: downloaded/cached
+  localAiStatusIdle: string;        // models view pill: not downloaded
+  localAiTierLight: string;
+  localAiTierBetter: string;
+  localAiTierBest: string;
+  localAiDescLight: string;
+  localAiDescBetter: string;
+  localAiDescBest: string;
+  localAiConfirmDelete: string;
+
   // ChatDemo
   chatUserLabel: string;
   chatAiLabel: string;
@@ -237,6 +279,50 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   llmExerciseCopied: '✅ Copiato!',
   llmExerciseError: '❌ Errore, riprova',
 
+  localAiLauncherLabel: "Chiedi all'IA locale",
+  localAiLauncherAria: "Apri l'assistente IA locale",
+  localAiPanelTitle: 'Assistente IA locale',
+  localAiClose: 'Chiudi',
+  localAiConsentHeading: 'Fai girare una piccola IA qui, sul tuo dispositivo',
+  localAiConsentBody:
+    "Questo assistente gira nel tuo browser. La prima volta scarica i suoi file di modello una volta sola da un fornitore esterno (Hugging Face): il modello di chat e un piccolo modello di ricerca. Dopo funziona offline e niente di quello che scrivi esce dal tuo dispositivo.",
+  localAiConsentPrivacy: 'I tuoi messaggi restano in questo browser. Non vengono mai inviati a me né a un server.',
+  localAiConsentPrivacyLink: 'Leggi la pagina sulla privacy',
+  localAiModelBestWarn: 'Richiede una scheda grafica potente. Sulla maggior parte dei telefoni non si carica.',
+  localAiConsentConfirm: 'Scarica e attiva',
+  localAiDownloading: 'Sto scaricando il modello, solo questa volta',
+  localAiInputPlaceholder: 'Chiedi qualcosa su questa lezione',
+  localAiSend: 'Invia',
+  localAiThinking: 'Sto pensando',
+  localAiStartExercise: "Inizia l'esercizio",
+  localAiNoWebgpuTitle: "L'IA locale non è disponibile in questo browser",
+  localAiNoWebgpuBody:
+    "Il tuo browser non può far girare l'IA sul dispositivo. Usa i pulsanti nella lezione per aprire l'esercizio in Claude, ChatGPT o Gemini.",
+  localAiErrorTitle: 'Il modello non è partito',
+  localAiErrorBody:
+    "Il tuo dispositivo potrebbe non avere memoria a sufficienza per questo modello. Prova il più leggero, oppure usa i pulsanti nella lezione per aprire un'IA esterna.",
+  localAiRetryLight: 'Prova il modello leggero',
+  localAiDisclaimer: "Le risposte sono generate qui sul tuo dispositivo e possono contenere errori.",
+  localAiRecommended: 'Consigliato',
+  localAiModelsTitle: 'Modelli',
+  localAiNewChatAria: 'Nuova chat',
+  localAiModelsAria: 'Gestisci modelli',
+  localAiBackAria: 'Torna alla chat',
+  localAiOneTime: 'Scaricato una volta sola. I tuoi dati non lasciano mai il dispositivo.',
+  localAiUse: 'Usa',
+  localAiDownloadModel: 'Scarica',
+  localAiDeleteModel: 'Elimina',
+  localAiStatusActive: 'Attivo',
+  localAiStatusCached: 'Scaricato',
+  localAiStatusIdle: 'Non scaricato',
+  localAiTierLight: 'Leggero',
+  localAiTierBetter: 'Migliore',
+  localAiTierBest: 'Massimo',
+  localAiDescLight: 'Risposte molto semplici e limitate',
+  localAiDescBetter: 'Risposte migliori, italiano piu accurato',
+  localAiDescBest: 'Le risposte migliori',
+  localAiConfirmDelete: 'Conferma eliminazione',
+
   chatUserLabel: 'Tu',
   chatAiLabel: 'IA',
   chatReplay: 'Riavvia',
@@ -406,6 +492,50 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   llmExerciseOpen: 'Open',
   llmExerciseCopied: '✅ Copied!',
   llmExerciseError: '❌ Error, please retry',
+
+  localAiLauncherLabel: 'Ask the local AI',
+  localAiLauncherAria: 'Open the local AI assistant',
+  localAiPanelTitle: 'Local AI assistant',
+  localAiClose: 'Close',
+  localAiConsentHeading: 'Run a small AI here, on your device',
+  localAiConsentBody:
+    'This assistant runs in your browser. The first time, it downloads its model files once from an external provider (Hugging Face): the chat model and a small search model. After that it works offline and nothing you type leaves your device.',
+  localAiConsentPrivacy: 'Your messages stay in this browser. They are never sent to me or to any server.',
+  localAiConsentPrivacyLink: 'Read the privacy page',
+  localAiModelBestWarn: 'Needs a strong graphics card. It will not load on most phones.',
+  localAiConsentConfirm: 'Download and enable',
+  localAiDownloading: 'Downloading the model, one time only',
+  localAiInputPlaceholder: 'Ask about this lesson',
+  localAiSend: 'Send',
+  localAiThinking: 'Thinking',
+  localAiStartExercise: 'Start the exercise',
+  localAiNoWebgpuTitle: 'Local AI is not available in this browser',
+  localAiNoWebgpuBody:
+    'Your browser cannot run AI on the device. Use the buttons in the lesson to open the exercise in Claude, ChatGPT, or Gemini instead.',
+  localAiErrorTitle: 'The model could not start',
+  localAiErrorBody:
+    'Your device may not have enough memory for this model. Try the lightest one, or use the buttons in the lesson to open an external AI.',
+  localAiRetryLight: 'Try the Light model',
+  localAiDisclaimer: 'Answers are generated here on your device and can be wrong.',
+  localAiRecommended: 'Recommended',
+  localAiModelsTitle: 'Models',
+  localAiNewChatAria: 'New chat',
+  localAiModelsAria: 'Manage models',
+  localAiBackAria: 'Back to chat',
+  localAiOneTime: 'One-time download. Your data never leaves this device.',
+  localAiUse: 'Use',
+  localAiDownloadModel: 'Download',
+  localAiDeleteModel: 'Delete',
+  localAiStatusActive: 'Active',
+  localAiStatusCached: 'Cached',
+  localAiStatusIdle: 'Not downloaded',
+  localAiTierLight: 'Light',
+  localAiTierBetter: 'Better',
+  localAiTierBest: 'Best',
+  localAiDescLight: 'Very simple, limited answers',
+  localAiDescBetter: 'Stronger, more detailed answers',
+  localAiDescBest: 'The best answers',
+  localAiConfirmDelete: 'Confirm delete',
 
   chatUserLabel: 'You',
   chatAiLabel: 'AI',

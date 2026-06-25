@@ -1,0 +1,28 @@
+I've just read a lesson from the AI-Guide handbook on differentiating materials by level. The technique is "one base text, three derivatives": the teacher writes a base text at the class standard, then asks the AI to derive two variants from it (a consolidation one, simpler, and an extension one, richer), keeping the facts, the key terms, and the working time aligned across versions.
+
+I want to apply it to material I have to prepare for my class.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject or discipline do you teach?
+2. At what level (primary school, lower secondary, upper secondary / high school, university, adult learners) and which specific class or year group? Roughly how many students, and how mixed is the class in preparation on this topic?
+3. What topic are you working on, and what's the base text to start from (a textbook paragraph, a standard worksheet you already use, your own notes)? Paste it, or describe it in detail.
+4. How many levels do you need (usually consolidation + standard + extension, but you may want just two) and do you have a time constraint for each sheet (how many minutes it should run in class or at home)?
+
+After I've answered all four questions, apply the technique:
+
+A) Start from my base text without reinventing it: it's the standard, it stays the reference. From there derive the variants I asked for. For each, show me:
+   - the adapted text (for consolidation: shorter sentences, simpler vocabulary, more concrete examples; for extension: richer vocabulary, more abstract examples);
+   - the exercise (application for consolidation, comparison or argumentation for extension);
+   - how much time you estimate it takes, since the sheets should run about the same.
+
+B) Respect three constraints, and tell me explicitly at the end:
+   - same key terms in every variant (list them, so I can check none got cut);
+   - same facts and same answers to the underlying questions (vary the depth, not the content);
+   - similar working time across sheets (no variant with twice the exercises).
+
+C) At the end give me a quick check: list the key terms of the base text and mark which variants they appear in, so I can see at a glance whether the alignment holds.
+
+If at any step you need information I haven't given you (the full base text, the unit glossary, the type of final assessment I'll give everyone), ask me instead of making it up.
+
+Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you.
