@@ -93,6 +93,15 @@ class LocalAI extends HTMLElement {
   private activeExerciseBlock: string | null = null;
   private switching = false;
   private genId = 0;
+  // In-flight (or streaming) assistant reply, held on the instance so it
+  // survives view switches: opening the models view and returning must not
+  // drop or cancel the answer (it lives here, not only in the chat DOM).
+  private pending: { gen: number; text: string } | null = null;
+  // Model id currently downloading/switching + its last progress %, so the
+  // models view can re-render the right row's progress after a view rebuild
+  // and the chat subtitle can show "loading X" instead of "no active model".
+  private switchingTo: string | null = null;
+  private switchPct = 0;
 
   connectedCallback() {
     if (this.dataset.wired === 'true') return;
@@ -170,6 +179,58 @@ class LocalAI extends HTMLElement {
   private setPanelTitle(text: string) {
     const titleEl = this.panel.querySelector<HTMLElement>('[data-panel-title]');
     if (titleEl) titleEl.textContent = text;
+  }
+
+  /** Invalidate any in-flight generation and drop its pending reply. Call when
+   *  starting a new chat or switching models (the old answer no longer belongs
+   *  to the current context). Plain view navigation must NOT call this. */
+  private cancelGeneration() {
+    this.genId++;
+    this.pending = null;
+  }
+
+  /** Subtitle for the chat header: while a model is loading show "loading X",
+   *  otherwise the active (ready) model name, otherwise empty. Prevents the
+   *  "no active model" flash during a switch. */
+  private activeSubtitle(): string {
+    if (this.switchingTo) {
+      const m = this.models.find((x) => x.id === this.switchingTo);
+      const name = m ? this.tierI18n(m.tier).name : '';
+      return `<span class="lai-dot"></span>${this.i18n.downloading}${name ? ' ' + name : ''}`;
+    }
+    const m = this.models.find((x) => x.id === getReadyModelId());
+    return m ? `<span class="lai-dot"></span>${this.tierI18n(m.tier).name}` : '';
+  }
+
+  /** Reflect this.pending into the chat DOM: a typing indicator while the
+   *  reply is still empty (prefill), then a live bubble that grows with the
+   *  streamed text. Safe to call repeatedly and after a view rebuild; no-op
+   *  unless the chat view is showing and the pending reply is current. */
+  private renderLiveReply() {
+    if (this.panel.dataset.view !== 'chat') return;
+    if (!this.pending || this.pending.gen !== this.genId) return;
+    const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
+    if (!list) return;
+    if (this.pending.text === '') {
+      if (!list.querySelector('[data-typing]')) {
+        const typing = document.createElement('div');
+        typing.className = 'lai-typing';
+        typing.setAttribute('data-typing', '');
+        typing.innerHTML = '<i></i><i></i><i></i>';
+        list.appendChild(typing);
+      }
+    } else {
+      list.querySelector('[data-typing]')?.remove();
+      let bubble = list.querySelector('[data-live]') as HTMLElement | null;
+      if (!bubble) {
+        bubble = document.createElement('div');
+        bubble.className = 'lai-bubble lai-a';
+        bubble.setAttribute('data-live', '');
+        list.appendChild(bubble);
+      }
+      bubble.innerHTML = renderMarkdown(this.pending.text);
+    }
+    list.scrollTop = list.scrollHeight;
   }
 
   // ---- Consent ---------------------------------------------------------------
@@ -328,17 +389,18 @@ class LocalAI extends HTMLElement {
   // ---- Chat (ready) ----------------------------------------------------------
 
   private renderReady() {
-    this.genId++;          // Fix 1: invalidate any in-flight generation
+    // NOTE: do NOT bump genId here. Rendering the chat view is also how we
+    // return from the models view (closeModels), and merely peeking at
+    // settings must not cancel an in-flight answer. genId is bumped only where
+    // a generation should truly be cancelled: onNewChat() and model switches
+    // (startDownload / downloadInModels), via cancelGeneration().
     this.setViewAttr('chat');
-    this.setPanelTitle(this.i18n.panelTitle); // Fix 3: restore panel title
+    this.setPanelTitle(this.i18n.panelTitle);
 
-    // Find active model name for status dot
-    const m = this.models.find((x) => x.id === getReadyModelId());
-    const tierName = m ? this.tierI18n(m.tier).name : '';
-    this.setSubtitle(`<span class="lai-dot"></span>${tierName}`);
+    // Subtitle: "loading X" during a switch, else the ready model, else empty.
+    this.setSubtitle(this.activeSubtitle());
 
     this.body.innerHTML = '';
-    this.history = [];
     this.activeExerciseBlock = null;
 
     // Exercise pill (above msgs)
@@ -350,9 +412,11 @@ class LocalAI extends HTMLElement {
     msgs.setAttribute('data-messages', '');
     this.body.appendChild(msgs);
 
-    // Restore this lesson's saved conversation.
+    // Restore this lesson's saved conversation, then any streaming reply that
+    // is still in flight (so it keeps rendering after a view switch).
     this.history = loadHistory(location.pathname);
     for (const m of this.history) this.appendBubble(m.role, m.content);
+    this.renderLiveReply();
 
     // Composer
     const composer = document.createElement('div');
@@ -403,25 +467,56 @@ class LocalAI extends HTMLElement {
     list.setAttribute('data-model-list', '');
     this.body.appendChild(list);
 
-    // Build stable row skeletons (loading), then fill statuses IN PLACE.
-    // We never rebuild the list, so a row whose download is in flight is
-    // never orphaned (which previously froze its progress bar at 0%).
+    // Build stable row skeletons, then fill statuses in place. If a switch is
+    // in flight, show its progress on the right row immediately (no stale
+    // skeleton during the async status fetch, no frozen bar after a rebuild).
     for (const m of this.models) list.appendChild(this.buildModelRow(m));
+    if (this.switchingTo) {
+      const r = list.querySelector<HTMLElement>(`[data-model-row-id="${this.switchingTo}"]`);
+      if (r) this.renderRowProgress(r);
+    }
     void this.refreshModelStatuses();
   }
 
-  /** Re-query cache statuses and update each row in place. Skips rows whose
-   *  download is in flight (marked busy) so progress is never clobbered. */
+  /** Re-query cache statuses and update each row in place. The model currently
+   *  being switched to keeps its live progress bar; the rest show their cache
+   *  status (with actions disabled while a switch is running). */
   private async refreshModelStatuses(): Promise<void> {
     const statuses = await getStatuses(this.models.map((m) => m.id), getReadyModelId());
     const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
     if (!list) return; // view swapped away while resolving
     for (const m of this.models) {
       const row = list.querySelector<HTMLElement>(`[data-model-row-id="${m.id}"]`);
-      if (row && row.dataset.busy !== 'true') {
-        this.applyRowState(row, m, statuses[m.id] ?? 'idle');
-      }
+      if (!row) continue;
+      if (m.id === this.switchingTo) { this.renderRowProgress(row); continue; }
+      this.applyRowState(row, m, statuses[m.id] ?? 'idle');
     }
+  }
+
+  /** Render the in-progress download/switch bar (driven by this.switchPct)
+   *  into a row's actions slot. Re-creates the bar only if missing, so repeated
+   *  calls (progress ticks, view restores) just update width/percent. */
+  private renderRowProgress(row: HTMLElement): void {
+    const actions = row.querySelector('[data-actions-slot]') as HTMLElement | null;
+    if (!actions) return;
+    let fill = actions.querySelector('.lai-progress-bar-fill') as HTMLElement | null;
+    let pctText = actions.querySelector('[data-row-pct]') as HTMLElement | null;
+    if (!fill || !pctText) {
+      actions.innerHTML = '';
+      const inlineProgress = document.createElement('div');
+      inlineProgress.className = 'lai-inline-progress';
+      const barWrap = document.createElement('div');
+      barWrap.className = 'lai-progress-bar-wrap';
+      fill = document.createElement('div');
+      fill.className = 'lai-progress-bar-fill';
+      barWrap.appendChild(fill);
+      pctText = document.createElement('span');
+      pctText.setAttribute('data-row-pct', '');
+      inlineProgress.append(barWrap, pctText);
+      actions.appendChild(inlineProgress);
+    }
+    fill.style.width = `${this.switchPct}%`;
+    pctText.textContent = `${this.switchPct}%`;
   }
 
   /** Build a row skeleton: tier name + model name/size + a status slot on the
@@ -473,19 +568,28 @@ class LocalAI extends HTMLElement {
     actions.innerHTML = '';
     if (status === null) return; // loading: no actions yet
 
+    // While a switch/download runs elsewhere, disable this row's actions so a
+    // click can't silently no-op against the in-flight guard (the old "Use
+    // does nothing" symptom). They re-enable on the next refresh.
+    const busy = this.switching;
+
     if (effective === 'active') {
       // Delete the active model = turn the assistant off and free its space.
       const del = this.buildModelButton(this.i18n.deleteModel, true);
+      del.disabled = busy;
       this.wireDeleteConfirm(del, () => void this.removeModel(m.id));
       actions.appendChild(del);
     } else if (effective === 'cached') {
       const use = this.buildModelButton(this.i18n.use, false);
+      use.disabled = busy;
       use.addEventListener('click', () => void this.downloadInModels(m.id));
       const del = this.buildModelButton(this.i18n.deleteModel, true);
+      del.disabled = busy;
       this.wireDeleteConfirm(del, () => void this.removeModel(m.id));
       actions.append(use, del);
     } else {
       const dl = this.buildModelButton(this.i18n.downloadModel, false);
+      dl.disabled = busy;
       dl.addEventListener('click', () => void this.downloadInModels(m.id));
       actions.appendChild(dl);
     }
@@ -533,50 +637,46 @@ class LocalAI extends HTMLElement {
   private async downloadInModels(modelId: string): Promise<void> {
     if (this.switching) return;
     this.switching = true;
+    this.switchingTo = modelId;
+    this.switchPct = 0;
+    this.cancelGeneration(); // switching models invalidates any in-flight answer
 
-    // Mark the row busy so an async status refresh can't clobber its progress.
-    const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
-    const row = list?.querySelector<HTMLElement>(`[data-model-row-id="${modelId}"]`) ?? null;
-    if (row) row.dataset.busy = 'true';
-
-    // Show inline progress in the row's actions slot (the row element is stable,
-    // so these stay live for the whole download).
-    const actions = row?.querySelector('[data-actions-slot]') as HTMLElement | null;
-    let barFill: HTMLElement | null = null;
-    let pctText: HTMLElement | null = null;
-    if (actions) {
-      actions.innerHTML = '';
-      const inlineProgress = document.createElement('div');
-      inlineProgress.className = 'lai-inline-progress';
-      const barWrap = document.createElement('div');
-      barWrap.className = 'lai-progress-bar-wrap';
-      barFill = document.createElement('div');
-      barFill.className = 'lai-progress-bar-fill';
-      barWrap.appendChild(barFill);
-      pctText = document.createElement('span');
-      pctText.textContent = '0%';
-      inlineProgress.append(barWrap, pctText);
-      actions.appendChild(inlineProgress);
-    }
+    // Reflect progress onto the live row; re-query the row each tick so it keeps
+    // working even if the models view was rebuilt (navigated away and back).
+    const reflect = () => {
+      const list = this.body.querySelector('[data-model-list]') as HTMLElement | null;
+      const row = list?.querySelector<HTMLElement>(`[data-model-row-id="${modelId}"]`) ?? null;
+      if (row) this.renderRowProgress(row);
+    };
+    reflect();
 
     const m = this.models.find((x) => x.id === modelId);
+    let failed = false;
     try {
       this.setConsentedModel(modelId);
       if (getActiveModelId() && getActiveModelId() !== modelId) {
         await disposeEngine();
       }
       await loadModel(modelId, m?.dtype ?? 'q4', (pct) => {
-        if (barFill) barFill.style.width = `${pct}%`;
-        if (pctText) pctText.textContent = `${pct}%`;
+        this.switchPct = pct;
+        reflect();
       });
-      if (row) delete row.dataset.busy;
-      // Update rows in place: the downloaded model becomes active, the
-      // previously active one becomes cached. No list rebuild, no flicker.
-      await this.refreshModelStatuses();
     } catch (err) {
       console.error('[LocalAI] inline download failed', err);
+      failed = true;
       await disposeEngine();
-      if (row) delete row.dataset.busy;
+    } finally {
+      // Clear switch state BEFORE reconciling so rows re-enable and the
+      // switched-to row shows its real status instead of a frozen bar.
+      this.switching = false;
+      this.switchingTo = null;
+    }
+
+    await this.refreshModelStatuses();
+    if (failed) {
+      const actions = this.body
+        .querySelector(`[data-model-row-id="${modelId}"]`)
+        ?.querySelector('[data-actions-slot]') as HTMLElement | null;
       if (actions) {
         actions.innerHTML = '';
         const errSpan = document.createElement('span');
@@ -584,8 +684,6 @@ class LocalAI extends HTMLElement {
         errSpan.textContent = this.i18n.errorBody;
         actions.appendChild(errSpan);
       }
-    } finally {
-      this.switching = false;
     }
   }
 
@@ -704,6 +802,7 @@ class LocalAI extends HTMLElement {
   // ---- New chat (header button) ----------------------------------------------
 
   private onNewChat() {
+    this.cancelGeneration();   // new thread: drop any in-flight answer
     clearHistory(location.pathname);
     this.history = [];
     this.renderReady();
@@ -712,6 +811,7 @@ class LocalAI extends HTMLElement {
   // ---- Download + engine load ------------------------------------------------
 
   private async startDownload(modelId: string) {
+    this.cancelGeneration();   // loading a model invalidates any prior answer
     this.renderDownloading(modelId);
     const bar = this.body.querySelector<SVGCircleElement>('[data-progress-bar]');
     const pct = this.body.querySelector<HTMLElement>('[data-progress-pct]');
@@ -786,7 +886,8 @@ class LocalAI extends HTMLElement {
   }
 
   private async send(userText: string, opts: { display?: boolean; exerciseBlock?: string } = {}) {
-    // Fix 1: capture generation id at the start; changes on renderReady/newChat/switchModel
+    // Capture the generation id; cancelGeneration() bumps it on new chat /
+    // model switch so a superseded answer can't land in the wrong thread.
     const gen = this.genId;
 
     const display = opts.display !== false;
@@ -794,15 +895,11 @@ class LocalAI extends HTMLElement {
     this.history.push({ role: 'user', content: userText });
     saveHistory(location.pathname, this.history);
 
-    // Fix 2: show typing indicator instead of a placeholder text bubble
-    const typingEl = document.createElement('div');
-    typingEl.className = 'lai-typing';
-    typingEl.innerHTML = '<i></i><i></i><i></i>';
-    const msgList = this.body.querySelector('[data-messages]') as HTMLElement | null;
-    if (msgList) {
-      msgList.appendChild(typingEl);
-      msgList.scrollTop = msgList.scrollHeight;
-    }
+    // The reply is held on the instance so it survives view switches (opening
+    // settings and returning keeps streaming). Empty text renders as a typing
+    // indicator; renderLiveReply() reflects it into whatever chat DOM exists.
+    this.pending = { gen, text: '' };
+    this.renderLiveReply();
 
     let searchBlock = '';
     try {
@@ -814,7 +911,10 @@ class LocalAI extends HTMLElement {
       }
     } catch { /* fail soft */ }
 
-    // Keep the last 6 turns to stay within the 4096-token window.
+    // A new chat or model switch may have superseded us while RAG resolved.
+    if (gen !== this.genId) return;
+
+    // Keep the last 6 turns to stay within the context window.
     const trimmed = this.history.slice(-6);
     const messages = [
       {
@@ -828,29 +928,35 @@ class LocalAI extends HTMLElement {
     ];
 
     try {
-      let replyBubble: HTMLElement | null = null;
       const full = await generate(
         messages as ChatMessage[],
         { max_new_tokens: 360, temperature: 0.35, top_p: 0.9, repetition_penalty: 1.2 },
         (running) => {
-          if (gen !== this.genId) return;
-          if (!replyBubble) {
-            typingEl?.remove();
-            replyBubble = this.appendBubble('assistant', '');
-          }
-          replyBubble.innerHTML = renderMarkdown(running);
-          const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
-          if (list) list.scrollTop = list.scrollHeight;
+          if (gen !== this.genId || !this.pending) return;
+          this.pending.text = running;
+          this.renderLiveReply();
         },
       );
       if (gen === this.genId) {
         this.history.push({ role: 'assistant', content: full });
         saveHistory(location.pathname, this.history);
+        this.pending = null;
+        // Settle the streaming bubble into a permanent one (no-op if the user
+        // is not currently viewing this chat; history restores it on return).
+        const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
+        list?.querySelector('[data-typing]')?.remove();
+        const live = list?.querySelector('[data-live]') as HTMLElement | null;
+        if (live) { live.innerHTML = renderMarkdown(full); live.removeAttribute('data-live'); }
       }
     } catch (err) {
       console.error('[LocalAI] generation failed', err);
-      typingEl?.remove();
-      if (gen === this.genId) this.appendBubble('assistant', this.i18n.errorBody);
+      if (gen === this.genId) {
+        this.pending = null;
+        const list = this.body.querySelector('[data-messages]') as HTMLElement | null;
+        list?.querySelector('[data-typing]')?.remove();
+        list?.querySelector('[data-live]')?.remove();
+        this.appendBubble('assistant', this.i18n.errorBody);
+      }
     }
   }
 
