@@ -34,6 +34,11 @@ function post(m: unknown): void {
 }
 
 async function load(modelId: string, dtype: string): Promise<void> {
+  // Diagnostic: confirm WebGPU is actually available in the worker scope. If
+  // this logs false, device:'webgpu' cannot engage and inference would be far
+  // slower — the first thing to check when generation feels sluggish.
+  // eslint-disable-next-line no-console
+  console.log(`[LocalAI] loading ${modelId} (dtype ${dtype}); WebGPU in worker: ${'gpu' in navigator}`);
   if (pipe && pipeModelId === modelId) {
     post({ type: 'ready' });
     return;
@@ -70,10 +75,18 @@ async function generate(id: number, messages: ChatMessage[], opts: GenOpts): Pro
     return;
   }
   let full = '';
+  // Lightweight throughput diagnostic: count streamed chunks and time decode,
+  // so the console shows prefill latency + tok/s. A WASM fallback shows up here
+  // as ~1-3 tok/s vs WebGPU's tens of tok/s.
+  let chunks = 0;
+  let firstTokenAt = 0;
+  const startedAt = performance.now();
   const streamer = new TextStreamer(pipe.tokenizer, {
     skip_prompt: true,
     skip_special_tokens: true,
     callback_function: (text: string) => {
+      if (firstTokenAt === 0) firstTokenAt = performance.now();
+      chunks++;
       full += text;
       post({ type: 'token', id, text: full });
     },
@@ -87,6 +100,13 @@ async function generate(id: number, messages: ChatMessage[], opts: GenOpts): Pro
       do_sample: true,
       streamer,
     });
+    const now = performance.now();
+    const decodeMs = now - (firstTokenAt || now);
+    const tps = decodeMs > 0 ? chunks / (decodeMs / 1000) : 0;
+    // eslint-disable-next-line no-console
+    console.log(
+      `[LocalAI] gen: ${chunks} tokens · prefill ${((firstTokenAt || now) - startedAt).toFixed(0)}ms · ${tps.toFixed(1)} tok/s`,
+    );
     post({ type: 'done', id, full });
   } catch (e) {
     post({ type: 'error', id, message: e instanceof Error ? e.message : String(e) });
