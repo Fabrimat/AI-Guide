@@ -213,6 +213,7 @@ export interface UIStrings {
   footerEmailAria: string;
   footerSiteAria: string;
   footerKofiAria: string;
+  footerGithubAria: string;
   footerTagline: string;
   footerCopyright: (year: number) => string;
   footerLocation: string;
@@ -427,6 +428,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   footerEmailAria: 'Scrivi una mail ad AI-Guide',
   footerSiteAria: 'Sito personale di Fabrizio La Rosa',
   footerKofiAria: 'Offrimi un caffè su Ko-fi',
+  footerGithubAria: 'Codice sorgente su GitHub',
   footerTagline: "Manuale aperto, scritto da una persona vera, in collaborazione con l'IA.",
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
   footerLocation: 'Gent, Belgio',
@@ -641,6 +643,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   footerEmailAria: 'Send an email to AI-Guide',
   footerSiteAria: "Fabrizio La Rosa's personal site",
   footerKofiAria: 'Buy me a coffee on Ko-fi',
+  footerGithubAria: 'Source code on GitHub',
   footerTagline: 'Open manual, written by a real person, in collaboration with AI.',
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
   footerLocation: 'Ghent, Belgium',

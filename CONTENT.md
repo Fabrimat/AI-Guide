@@ -1,395 +1,394 @@
-# Piano dei contenuti
+# Content plan
 
-Roadmap editoriale di AI-Guide. Aggiornare questo file **nello stesso commit**
-in cui una lezione viene scritta, spostata, o eliminata. Serve per sapere in
-ogni momento cosa c'è, cosa manca, e cosa arriva dopo.
+AI-Guide's editorial roadmap. Update this file **in the same commit**
+where a lesson gets written, moved, or deleted. Serves to know at
+any moment what exists, what's missing, and what's coming next.
 
-## Obiettivo e pubblico
+## Goal and audience
 
-AI-Guide insegna a usare l'IA in modo pratico e consapevole, con priorità al
-pubblico italiano **non tecnico**. Il percorso va dal "non so cosa sia"
-("Fondamenti") al "so usarla ogni giorno" ("Uso quotidiano") al "la uso
-sul lavoro" ("Sul lavoro"), con due moduli dedicati al mondo della scuola
-("Per studenti" e "Per docenti") e un modulo avanzato finale per developer
-e chi vuole integrarla in strumenti propri ("Per chi vuole di più").
+AI-Guide teaches how to use AI in a practical and aware way, prioritizing the
+**non-technical** Italian audience. The path goes from "I don't know what it is"
+("Fondamenti", Fundamentals) to "I use it every day" ("Uso quotidiano", Everyday use) to "I use it
+at work" ("Sul lavoro", At work), with two modules dedicated to the school
+world ("Per studenti", For students, and "Per docenti", For teachers) and a final advanced module for developers
+and anyone who wants to integrate it into their own tools ("Per chi vuole di più", For those who want more).
 
-Principi editoriali:
+Editorial principles:
 
-- **Ogni lezione è autoesplicativa**: 400-1200 parole, almeno un esempio concreto.
-- **Niente gergo non spiegato** rispetto al livello dichiarato nel frontmatter.
-- **Zero pattern AI**: voice guide in `.claude/skills/voice-guide/SKILL.md`.
-- **Pratica prima della teoria** quando possibile. Le lezioni che lo giustificano
-  hanno un `<EsercizioLLM>` o un `<ChatDemo>` (vedi catalogo in `CLAUDE.md`).
+- **Every lesson is self-explanatory**: 400-1200 words, at least one concrete example.
+- **No unexplained jargon** relative to the level declared in the frontmatter.
+- **Zero AI patterns**: voice guide in `.claude/skills/voice-guide/SKILL.md`.
+- **Practice before theory** whenever it makes sense. Lessons that warrant it
+  have an `<EsercizioLLM>` or a `<ChatDemo>` (see catalog in `CLAUDE.md`).
 
-## Legenda degli stati
+## Status legend
 
-- ✅ scritta e pubblicata
-- ✍️ in lavorazione (bozza o QA in corso)
-- ⏳ prevista, non ancora scritta
-- 🆕 idea da valutare, non confermata
+- ✅ written and published
+- ✍️ in progress (draft or QA underway)
+- ⏳ planned, not yet written
+- 🆕 idea to evaluate, not confirmed
 
-## Modulo 1: Fondamenti (livello `principiante`)
+## Module 1: Fondamenti (level `principiante`)
 
-Target: chi non ha mai usato ChatGPT o un'IA conversazionale. Zero gergo.
-Sei lezioni da 5-8 minuti ciascuna, pensate come percorso lineare.
+Target: people who have never used ChatGPT or a conversational AI. Zero jargon.
+Six lessons of 5-8 minutes each, designed as a linear path.
 
 1. ✅ **Ma cos'è l'IA?** (`fundamentals/what-is-ai`)
-   Demistificazione generale. Cosa è davvero, cosa no. Le due famiglie
-   (IA specializzate vs conversazionali). Quattro miti da chiarire subito.
-   **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
+   General demystification. What it really is, what it isn't. The two families
+   (specialized AI vs conversational AI). Four myths to clear up right away.
+   **Full review cycle** (`analyze-lesson` + `integrate-questions` +
    `style-checker`, 2026-04-18).
 
 2. ✅ **Cos'è un prompt?** (`fundamentals/what-is-a-prompt`)
-   La parola "prompt" e il modello mentale "è come scrivere un messaggio
-   chiaro a qualcuno che vuole aiutarti". Esempio prima/dopo con `<ChatDemo>`
-   (vago vs chiaro). Quattro ingredienti di un prompt chiaro, avvertimento
-   sui "prompt magici". **Ciclo di revisione completo** (`analyze-lesson` +
-   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker ha
-   restituito OK senza richiedere modifiche.
+   The word "prompt" and the mental model "it's like writing a clear
+   message to someone who wants to help you". Before/after example with `<ChatDemo>`
+   (vague vs clear). Four ingredients of a clear prompt, a warning
+   about "magic prompts". **Full review cycle** (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker
+   returned OK with no changes requested.
 
 3. ✅ **La tua prima conversazione** (`fundamentals/first-conversation`)
-   La lezione più pratica del modulo. Lista delle IA conversazionali
-   principali con link, `<ChatDemo>` come anteprima, `<EsercizioLLM>` che
-   riusa `public/skills/primo-esercizio.txt` per il primo dialogo guidato.
-   **Ciclo di revisione completo** (`analyze-lesson` + `integrate-questions` +
-   `style-checker`, 2026-04-18). Style-checker ha catturato una
-   incoerenza fattuale residua dopo l'integrazione delle domande
-   ("Tre situazioni tipiche" mentre la lista era cresciuta a quattro
-   bullet), corretta in "Le situazioni più comuni".
+   The most practical lesson in the module. List of the main conversational
+   AIs with links, `<ChatDemo>` as a preview, `<EsercizioLLM>` that
+   reuses `public/skills/primo-esercizio.txt` for the first guided dialogue.
+   **Full review cycle** (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-18). Style-checker caught a
+   remaining factual inconsistency after integrating the questions
+   ("Three typical situations" while the list had grown to four
+   bullets), fixed as "The most common situations".
 
 4. ✅ **Come fa l'IA a "capire"?** (`fundamentals/how-ai-understands`)
-   Spiegazione del meccanismo "una parola alla volta", come ha imparato
-   (testo enorme, schemi non memorie), tre conseguenze pratiche per il
-   lettore (non sa, contesto conta, memoria solo nella stessa chat),
-   perché sembra intelligente, e infine il termine "LLM" come etichetta
-   tecnica a fine pagina. Riusa il `<ChatDemo>` dei buchi neri come ancora
-   visiva. **Ciclo di revisione completo** (`analyze-lesson` +
-   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker ha
-   restituito OK senza richiedere modifiche.
+   Explanation of the "one word at a time" mechanism, how it learned
+   (huge text, patterns not memories), three practical consequences for the
+   reader (it doesn't know, context matters, memory only within the same chat),
+   why it seems intelligent, and finally the term "LLM" as a
+   technical label at the end of the page. Reuses the black holes `<ChatDemo>` as a visual
+   anchor. **Full review cycle** (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-18). Style-checker
+   returned OK with no changes requested.
 
 5. ✅ **Quando fidarsi e quando no** (`fundamentals/when-to-trust-it`)
-   Apre con il problema del "convincente anche quando sbaglia". `<ChatDemo>`
-   con riassunto di un libro inventato per mostrare un'allucinazione in
-   atto. Mappa "dove va bene / dove va male" pratica, tre mosse per
-   verificare a sforzo crescente, e una mentalità di chiusura ("assistente
-   brillante ma incostante"). Termine "allucinazione" introdotto a metà
-   come etichetta. Ponte verso la lezione 6. **Ciclo di revisione completo**
+   Opens with the problem of "convincing even when wrong". `<ChatDemo>`
+   with a summary of a made-up book to show a hallucination in
+   action. Practical "where it's good / where it's bad" map, three moves
+   to verify with increasing effort, and a closing mindset ("brilliant
+   but inconsistent assistant"). Term "hallucination" introduced halfway
+   through as a label. Bridge to lesson 6. **Full review cycle**
    (`analyze-lesson` + `integrate-questions` + `style-checker`, 2026-04-18).
-   Style-checker ha catturato "come hai visto sopra" (vietato dalla regola
-   "vedi sopra/sotto" della voice guide), corretto con riferimento esplicito
-   all'esempio del libro inventato.
+   Style-checker caught "as you saw above" (forbidden by the voice guide's
+   "see above/below" rule), fixed with an explicit reference to
+   the made-up book example.
 
 6. ✅ **Quello che condividi quando usi l'IA** (`fundamentals/privacy-basics`)
-   Lezione sulla privacy delle proprie conversazioni, non sui dati del
-   sito (per quella c'è già `/it/privacy/`). Tono non legale, "la nonna
-   chiede". Cinque blocchi: cosa vede l'IA quando le parli, cosa succede
-   dopo il messaggio (conservazione, allenamento, revisione per sicurezza
-   + differenze Free / Plus / Team / Enterprise), cosa non condividere
-   (dati di terzi, documenti sensibili di altri, segreti professionali,
-   credenziali), impostazioni che puoi cambiare (opt-out dal training,
-   chat temporanee, cancellazione), modello mentale di chiusura
-   ("trattala come un collega fidato ma con una catena informativa
-   ignota"). Chiude il modulo Fondamenti e fa da ponte verso *Uso
-   quotidiano*. **Ciclo di revisione completo** (`analyze-lesson` +
-   `integrate-questions` + `style-checker`, 2026-04-19). Quattro
-   callout aggiunti in integrazione: memorization fear, anonimizzare
-   prima di incollare, verificare che l'opt-out sia andato a buon fine,
-   cautela con app di IA meno famose. Style-checker ha suggerito di
-   neutralizzare "Impostazioni che esistono davvero" (lievemente
-   difensivo) in "Impostazioni che puoi cambiare", applicato.
+   Lesson on the privacy of your own conversations, not about the site's
+   data (there's already `/it/privacy/` for that). Non-legal tone, "your
+   grandmother asks". Five blocks: what the AI sees when you talk to it, what
+   happens after the message (retention, training, safety review
+   + differences between Free / Plus / Team / Enterprise), what not to share
+   (third-party data, other people's sensitive documents, professional secrets,
+   credentials), settings you can change (training opt-out,
+   temporary chats, deletion), a closing mental model
+   ("treat it like a trusted colleague but with an unknown information
+   chain"). Closes the Fondamenti module and bridges to *Uso
+   quotidiano*. **Full review cycle** (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-19). Four
+   callouts added during integration: memorization fear, anonymizing
+   before pasting, verifying the opt-out went through, caution
+   with lesser-known AI apps. Style-checker suggested neutralizing
+   "Settings that really exist" (slightly defensive) into "Settings you can change", applied.
 
-**Stato attuale**: 6 su 6 pubblicate, **modulo Fondamenti completo al
-100%**. Ciclo di revisione chiuso su tutte le lezioni, verifica
-dell'apprendimento attiva su tutte (sezione `<LlmExercise variant="review">`
-prima di "Cosa viene dopo", con prompt dedicato in
+**Current status**: 6 out of 6 published, **Fondamenti module complete at
+100%**. Review cycle closed on all lessons, learning check-in
+active on all of them (`<LlmExercise variant="review">` section
+before "What comes next", with a dedicated prompt in
 `public/skills/<locale>/review-<slug>.txt`).
-La vecchia `cos-e-un-llm.mdx` era stata rinominata `come-capisce-l-ia.mdx`
-e riscritta da capo: il vecchio URL `/it/fondamenti/cos-e-un-llm/` non
-esiste più (per ora non è un problema, il sito non è ancora pubblicato).
+The old `cos-e-un-llm.mdx` had been renamed to `come-capisce-l-ia.mdx`
+and rewritten from scratch: the old URL `/it/fondamenti/cos-e-un-llm/` no
+longer exists (not an issue for now, the site isn't published yet).
 
-## Modulo 2: Uso quotidiano (livello misto `principiante` / `intermedio`)
+## Module 2: Uso quotidiano (mixed level `principiante` / `intermedio`)
 
-Target: chi ha usato ChatGPT / Claude / Gemini qualche volta e vuole
-portarli nel quotidiano con più consapevolezza. Spec di modulo:
+Target: people who have used ChatGPT / Claude / Gemini a few times and want
+to bring them into daily life with more awareness. Module spec:
 `docs/superpowers/specs/2026-04-20-uso-quotidiano-module-design.md`.
 
-Struttura validata 2026-04-20. Otto lezioni, ordine pedagogico =
-ordine di scrittura. Livello misto per lezione (5 `principiante`, 3
-`intermedio`): il tag riflette la difficoltà reale della singola
-lezione, non un'etichetta di modulo.
+Structure validated 2026-04-20. Eight lessons, pedagogical order =
+writing order. Mixed level per lesson (5 `principiante`, 3
+`intermedio`): the tag reflects the real difficulty of the single
+lesson, not a module-wide label.
 
 1. ✅ **Chiedere bene** (`everyday-use/ask-well`, `principiante`)
-   Tecniche per scrivere una richiesta che funziona: chiarezza,
-   contesto, formato atteso, ruolo. Ponte da *Cos'è un prompt?* di
-   Fondamenti. Assorbe il caso "IA vs Google" come callout. **Ciclo di
-   revisione completo** (`analyze-lesson` + `integrate-questions` +
-   `add-defs` + style-check, 2026-04-20). Integrazioni principali:
-   ponte esplicito alle quattro leve di Fondamenti 2, etichettatura
-   delle leve nell'esempio buono, distinzione ruolo vs "prompt magici",
-   callout IA vs Google sfumato sul "Google no".
+   Techniques for writing a request that works: clarity,
+   context, expected format, role. Bridge from *Cos'è un prompt?* in
+   Fondamenti. Absorbs the "AI vs Google" case as a callout. **Full
+   review cycle** (`analyze-lesson` + `integrate-questions` +
+   `add-defs` + style-check, 2026-04-20). Main integrations:
+   explicit bridge to the four levers of Fondamenti 2, labeling
+   the levers in the good example, distinguishing role vs "magic prompts",
+   AI vs Google callout nuanced around "not Google".
 
 2. ✅ **Iterare la conversazione** (`everyday-use/iterate-the-conversation`, `principiante`)
-   Il prompt come dialogo, non comando singolo. "Prompt magici"
-   demistificati. Esempio portante: pianificare un weekend a Firenze
-   in quattro giri (vincoli, approfondimento, cambio di taglio). Ciclo
-   di revisione completo (`analyze-lesson` + `integrate-questions` +
-   `style-checker`, 2026-04-21). Integrazioni principali: callout sul
-   limite della memoria della chat, paragrafo "quando aprire una chat
-   nuova", Giro 4 "cambio taglio" per coprire tutti e tre i tipi di
-   follow-up nell'esempio portante.
+   The prompt as a dialogue, not a single command. "Magic prompts"
+   demystified. Central example: planning a weekend in Florence
+   over four rounds (constraints, deep dive, change of angle). Full
+   review cycle (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-21). Main integrations: callout on the
+   chat memory limit, "when to open a new chat" paragraph,
+   round 4 "change of angle" to cover all three types of
+   follow-up in the central example.
 
 3. ✅ **Capire una cosa complicata** (`everyday-use/understand-something-complex`, `principiante`)
-   Tradurre dal burocratese al quotidiano: contratto, referto,
-   bolletta, regolamento condominiale. Ciclo di revisione completo
+   Translating bureaucratese into everyday language: contract, medical report,
+   utility bill, condo regulations. Full review cycle
    (`analyze-lesson` + `integrate-questions` + `style-checker`,
-   2026-04-23). Integrazioni principali: callout `:::tip` su PDF e
-   documenti cartacei tra le tecniche e la privacy, riga di
-   precisazione referto medico in apertura (ponte a *Cose da NON
-   fare*), differenza esplicita tecnica 1 vs tecnica 2, paragrafo
-   "le parole" nella sezione verifica per coprire le imprecisioni
-   non numeriche, callout privacy esteso a documenti di terzi e con
-   glossa di POD.
+   2026-04-23). Main integrations: `:::tip` callout on PDFs and
+   paper documents between the techniques and privacy sections, a
+   clarifying line on medical reports at the opening (bridge to *Cose da NON
+   fare*), explicit difference between technique 1 and technique 2, "the
+   words" paragraph in the verification section to cover non-numeric
+   inaccuracies, privacy callout extended to third-party documents and with
+   a gloss on POD (meter reading point).
 
 4. ✅ **Riassumere un documento lungo** (`everyday-use/summarize-a-long-document`, `principiante`)
-   PDF, articoli, libri. Come chiedere un riassunto affidabile e come
-   verificarlo. Ciclo di revisione completo (`analyze-lesson` +
-   `integrate-questions` + `style-checker`, 2026-04-23). Integrazioni
-   principali: differenza esplicita con la lezione 3 in apertura
-   (scala vs complessità, con combinazione delle tecniche sui
-   documenti sia lunghi sia difficili), Tecnica 1 con esempi
-   contestuali di "profondità" e "va bene per te" vs "va bene per
-   chiunque", Tecnica 3 estesa a documenti senza sezioni numerate e
-   con differenza esplicita dalla Tecnica 1, callout `:::tip`
-   riscritto con istruzioni concrete su upload e su cosa succede
-   quando il documento è "troppo grande", sezione *Cosa verificare*
-   con le due ragioni della maggiore frequenza di invenzioni sui
-   documenti lunghi. Style-checker ha catturato "spot-check" residuo
-   nel sommario, quattro occorrenze di "davvero" (parola difensiva),
-   "di fatto" (buzzword), una ripetizione ravvicinata di "plausibile"
-   e una tripla parallela nella chiusura: tutti sistemati.
+   PDFs, articles, books. How to ask for a reliable summary and how to
+   verify it. Full review cycle (`analyze-lesson` +
+   `integrate-questions` + `style-checker`, 2026-04-23). Main
+   integrations: explicit difference from lesson 3 at the opening
+   (scale vs complexity, with a combination of techniques for
+   documents that are both long and difficult), Technique 1 with
+   contextual examples of "depth" and "good for you" vs "good for
+   anyone", Technique 3 extended to documents without numbered sections and
+   with an explicit difference from Technique 1, `:::tip` callout
+   rewritten with concrete instructions on uploading and on what happens
+   when the document is "too big", *What to verify* section
+   with the two reasons behind the higher frequency of fabrications on
+   long documents. Style-checker caught a leftover "spot-check"
+   in the summary, four occurrences of "davvero" (a defensive word),
+   "di fatto" (buzzword), a close repetition of "plausible"
+   and a parallel triad in the closing: all fixed.
 
 5. ✅ **Imparare un argomento nuovo** (`everyday-use/learn-something-new`, `intermedio`)
-   L'IA come tutor: spiegazioni a più livelli, interrogazioni di
-   ritorno, verifica della qualità. Prerequisiti estesi a
-   `when-to-trust-it` oltre a `what-is-a-prompt` (lezione a posta
-   più alta sulla verifica). Ciclo di revisione completo
+   AI as a tutor: multi-level explanations, follow-up
+   quizzing, quality verification. Prerequisites extended to
+   `when-to-trust-it` in addition to `what-is-a-prompt` (a lesson placed
+   higher up on verification). Full review cycle
    (`analyze-lesson` + `integrate-questions` + `style-checker`,
-   2026-04-23). Integrazioni principali: "regola rapida" sul livello
-   di partenza nella Tecnica 1, rimpiazzo della metafora opaca
-   "scalpello locale" con "a grana fine", motivo per cui le analogie
-   generiche (*"libro mastro"*) falliscono, paragrafo sull'analogia
-   che si rompe, variante "chiedila all'IA", differenza esplicita
-   fra Tecnica 1 e Tecnica 2, aggiustamento del quiz e cautela sul
-   feedback nella Tecnica 3, quarta `<ChatDemo>` col turno completo
-   utente/IA per far vedere il loop dell'interrogazione,
-   escalation sul caso "l'IA insiste che è tutto ok",
-   chiarimento su cosa sia una "fonte seria" + callout su
-   argomenti di nicchia, spiegazione meccanica del test di
-   Feynman, motivo strutturale per cui matematica/programmazione/
-   medicina sono le aree più rischiose, callout finale su
-   competenze vs concetti. Style-checker: verdetto OK, applicati 3
-   fix su "davvero/veramente" nell'asse "capire sul serio".
+   2026-04-23). Main integrations: a "quick rule" on the starting
+   level in Technique 1, replacing the opaque metaphor
+   "local chisel" with "fine-grained", the reason why generic
+   analogies (*"ledger book"*) fail, a paragraph on the analogy
+   breaking down, an "ask the AI" variant, an explicit difference
+   between Technique 1 and Technique 2, adjusting the quiz and adding
+   caution about feedback in Technique 3, a fourth `<ChatDemo>` with the
+   full user/AI turn to show the quizzing loop,
+   an escalation for the case "the AI insists everything is fine",
+   a clarification of what a "credible source" is + a callout on
+   niche topics, a mechanical explanation of the Feynman
+   test, a structural reason why math/programming/
+   medicine are the riskiest areas, a final callout on
+   skills vs concepts. Style-checker: OK verdict, 3 fixes
+   applied on "davvero/veramente" in the "really understanding" thread.
 
 6. ✅ **Scrivere meglio** (`everyday-use/write-better`, `intermedio`)
-   L'IA come editor sulla propria bozza, non come ghostwriter.
-   Tre pattern che tengono la voce (bozza + critica, più versioni,
-   temperatura emotiva), trappola della voce media con istruzione
-   "standing" per smorzare il default, matrice sì/cautela/no.
-   Ciclo di revisione completo (`analyze-lesson` +
+   AI as an editor on your own draft, not as a ghostwriter.
+   Three patterns that keep your voice (draft + critique, multiple versions,
+   emotional temperature), the average-voice trap with a "standing"
+   instruction to dampen the default, a yes/caution/no matrix.
+   Full review cycle (`analyze-lesson` +
    `integrate-questions` + `style-checker`, 2026-04-23).
-   Integrazioni principali: secondo ChatDemo sul pattern 1
-   (email ritardo cliente), mini-paragrafo su "come identifichi
-   la tua voce" nel pattern 2, variante "incolla testi passati"
-   per evitare la voce media, caveat "la diagnosi può sbagliare"
-   nel pattern 3, callout privacy per anonimizzare prima di
-   incollare, callout "lavoro quasi tutto cautela" per HR/customer
-   success, glosse inline di *AI-polish* e *imbottitura*.
-   Style-checker: verdetto OK senza fix richiesti.
+   Main integrations: a second ChatDemo on pattern 1
+   (client delay email), a mini-paragraph on "how you identify
+   your voice" in pattern 2, a "paste past texts" variant
+   to avoid the average voice, a "diagnosis can be wrong" caveat
+   in pattern 3, a privacy callout for anonymizing before
+   pasting, a "work is almost all caution" callout for HR/customer
+   success, inline glosses of *AI-polish* and *padding*.
+   Style-checker: OK verdict, no fixes required.
 
 7. ✅ **Foto, immagini e file** (`everyday-use/images-and-files`, `intermedio`)
-   Multimodalità: foto, screenshot, PDF, fogli di calcolo. Tre casi
-   d'uso canonici (foto di documento cartaceo, screenshot, PDF/file),
-   quattro criteri per orientarsi fra ChatGPT / Claude / Gemini,
-   cosa va bene e cosa va male per ogni formato, privacy. Ciclo di
-   revisione completo (`analyze-lesson` + `integrate-questions` +
-   `style-checker`, 2026-04-23). Integrazioni principali: callout
-   `:::tip` su come si carica un file (graffetta / drag-and-drop /
-   fotocamera), callout `:::caution` sull'allenamento con opt-out
-   (la domanda chiave del lettore intermedio sui file caricati),
-   callout `:::note` sui documenti in altre lingue, paragrafo sulla
-   scrittura a mano (stampatello vs corsivo del medico) in caso
-   d'uso 1, distinzione PDF digitale vs PDF scansionato in caso
-   d'uso 3, chiarimento sui File Office "via allegato" su Claude.
-   Style-checker: verdetto OK, applicate quattro rifiniture
-   opzionali (glossa inline di *opt-out*, rimpiazzo di "quel
-   territorio" con formulazione più piana, linking ancora esplicito
-   alla sezione "Cosa va bene, cosa va male", variazione di una
-   ripetizione di "vale/valgono le cautele").
+   Multimodality: photos, screenshots, PDFs, spreadsheets. Three canonical
+   use cases (photo of a paper document, screenshot, PDF/file),
+   four criteria for choosing between ChatGPT / Claude / Gemini,
+   what works and what doesn't for each format, privacy. Full
+   review cycle (`analyze-lesson` + `integrate-questions` +
+   `style-checker`, 2026-04-23). Main integrations: a
+   `:::tip` callout on how to upload a file (paperclip / drag-and-drop /
+   camera), a `:::caution` callout on training with opt-out
+   (the key question for the intermediate reader about uploaded files),
+   a `:::note` callout on documents in other languages, a paragraph on
+   handwriting (block letters vs a doctor's cursive) in use
+   case 1, an explicit digital-PDF vs scanned-PDF distinction in use
+   case 3, a clarification on Office Files "via attachment" on Claude.
+   Style-checker: OK verdict, four optional refinements
+   applied (an inline gloss of *opt-out*, replacing "that
+   territory" with a plainer phrasing, an explicit anchor link
+   to the "What works, what doesn't" section, varying a
+   repetition of "the same cautions apply").
 
 8. ✅ **Cose da NON fare** (`everyday-use/what-not-to-do`, `principiante`)
-   Chiusura del modulo. La tesi non è "l'IA sbaglia" (quello è in
-   Fondamenti 5) né privacy (Fondamenti 6): è dove non delegare la
-   **decisione** anche se la risposta fosse giusta, per chi si
-   prende la responsabilità. Regola madre (costo alto + non te ne
-   accorgi → solo capire, non decidere) con due test, caso peggiore
-   su argomenti specialistici dove il test "me ne accorgo in tempo"
-   non regge. Cinque aree: salute, soldi, questioni legali,
-   decisioni che toccano altre persone, lavori dove la firma vale
-   competenza tua. Bussola finale: differenza concreta è "chi
-   firma". Ciclo di revisione completo (`analyze-lesson` +
+   Closes the module. The thesis isn't "AI gets things wrong" (that's in
+   Fondamenti 5) nor privacy (Fondamenti 6): it's about where not to delegate the
+   **decision** even if the answer were right, for whoever
+   takes responsibility. A master rule (high cost + you won't
+   notice → only understand, don't decide) with two tests, a worst case
+   on specialized topics where the "I'll notice in time" test
+   doesn't hold. Five areas: health, money, legal matters,
+   decisions that affect other people, jobs where your signature
+   equals your own competence. Final compass: the concrete
+   difference is "who signs". Full review cycle (`analyze-lesson` +
    `integrate-questions` + `style-checker`, 2026-04-23).
-   Integrazioni principali: estensione della regola madre per il
-   caso specialistico (non hai competenza per accorgerti
-   dell'errore), callout `:::tip` sull'emergenza sanitaria (112 o
-   pronto soccorso, non l'IA), chiarimento nella sezione "medico vs
-   IA", mini-esempio sulla linea fra delega totale e aiuto a pensare
-   una conversazione difficile, callout `:::tip` su editor vs
-   ghostwriter (chi ha l'idea iniziale), estensione del "Perché"
-   della sezione firma con il boomerang del colloquio. Style-checker:
-   verdetto OK, applicate due rifiniture nella bussola ("Guarda i
-   cinque casi sopra" → "In tutti e cinque i casi", triade
-   **Non/Sì** allentata).
+   Main integrations: extending the master rule for the
+   specialized case (you lack the competence to notice
+   the error), a `:::tip` callout on medical emergencies (call 112 or
+   the ER, not the AI), a clarification in the "doctor vs
+   AI" section, a mini-example on the line between full delegation
+   and help thinking through a difficult conversation, a
+   `:::tip` callout on editor vs ghostwriter (who has the initial idea),
+   extending the "Why" of the signature section with the interview
+   boomerang. Style-checker: OK verdict, two refinements applied
+   in the compass ("Look at the five cases above" → "In all five
+   cases", the **Non/Sì** triad loosened).
 
-**Stato attuale**: 8 su 8 pubblicate, **modulo Uso quotidiano
-completo al 100%**.
+**Current status**: 8 out of 8 published, **Uso quotidiano module
+complete at 100%**.
 
-## Modulo 3: Sul lavoro (livello `intermedio`)
+## Module 3: Sul lavoro (level `intermedio`)
 
-Target: knowledge worker non developer (project manager, marketing,
-HR, consulenza, sales, didattica, design, comunicazione) che sanno già
-usare l'IA per cose personali e vogliono portarla nel proprio lavoro.
-Taglio trasversale per attività (non per professione). Spec di
-modulo: `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
+Target: non-developer knowledge workers (project manager, marketing,
+HR, consulting, sales, teaching, design, communication) who already
+know how to use AI for personal things and want to bring it into their work.
+Cross-cutting by activity (not by profession). Module
+spec: `docs/superpowers/specs/2026-04-23-sul-lavoro-module-design.md`.
 
-Struttura validata 2026-04-23. Nove lezioni, ordine pedagogico = ordine
-di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
-dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
+Structure validated 2026-04-23. Nine lessons, pedagogical order = writing
+order. Uniform level `intermedio`: the audience arrives here
+after Fondamenti + Uso quotidiano or with equivalent experience.
 
 1. ✅ **Email difficili** (`at-work/hard-emails`)
-   Dire di no, rispondere a chi ha sbagliato, dare feedback delicato.
-   Taglio specifico "parola sbagliata costa caro". Tre situazioni,
-   pattern in tre passi (racconta la situazione completa, chiedi
-   versioni con registri diversi, componi la tua da pezzi), ChatDemo
-   portante anonimizzato, callout sul tono per il capo, cosa NON fare.
-   Assorbe le due voci provvisorie "Email che funzionano" e
-   "Riformulare comunicazioni difficili". **Ciclo di revisione
-   completo** (`analyze-lesson` + integrazione manuale curata con
-   l'utente + `style-checker` IT e EN, 2026-04-24). Integrazioni
-   principali: anonimizzazione completa del ChatDemo (tre modi:
-   generico, nome fittizio, iniziali), mini-esempio in *Dire di no*
-   (no + ragione + ponte, variante senza ponte), prompt concreto per
-   diagnosi del tono in *Rispondere a chi ha sbagliato*, differenza
-   reattivo/proattivo tra le due sezioni, nota sull'urgenza al passo
-   1 del pattern. Style-checker IT ha richiesto solo un fix
-   sull'apertura ("temperatura della stanza" → "chi legge registra
-   come reagisci"); EN ha richiesto 11 aggiustamenti di idiomaticità
-   (calchi IT→EN).
+   Saying no, replying to someone who made a mistake, giving delicate feedback.
+   Specific angle: "the wrong word costs you". Three situations,
+   a three-step pattern (tell the full situation, ask for
+   versions in different registers, compose your own from the pieces), an
+   anonymized central ChatDemo, a callout on tone for the boss, what NOT to do.
+   Absorbs the two provisional entries "Email che funzionano" and
+   "Riformulare comunicazioni difficili". **Full review
+   cycle** (`analyze-lesson` + manual integration curated with
+   the user + `style-checker` IT and EN, 2026-04-24). Main
+   integrations: full anonymization of the ChatDemo (three ways:
+   generic, fictional name, initials), a mini-example in *Dire di no*
+   (no + reason + bridge, variant without a bridge), a concrete prompt for
+   diagnosing tone in *Rispondere a chi ha sbagliato*, an explicit
+   reactive/proactive difference between the two sections, a note on urgency at step
+   1 of the pattern. Style-checker IT requested only one fix
+   on the opening ("room temperature" → "the reader clocks
+   how you react"); EN requested 11 idiomaticity adjustments
+   (IT→EN calques).
 
 2. ✅ **Bozze di documenti professionali** (`at-work/draft-professional-documents`)
-   Proposte, brief, report. Struttura (exec summary, audience, sezioni),
-   non solo scrittura. Il taglio scelto è *struttura prima del testo*: l'IA
-   come prima bozza strutturata, non ghostwriter. Tre documenti canonici
-   (proposta, brief interno, report), pattern *outline + riempimento*,
-   stop-rule sulla scaletta, callout sul template imposto (procurement,
-   bandi), calibrazione esplicita sul pubblico. Ciclo di revisione
-   completo (`analyze-lesson` + integrazione + `style-checker` IT e EN,
-   2026-04-24). Integrazioni principali: riga su "quando ghostwriter va
-   bene" in apertura, glossa inline di *handoff* + struttura a quattro
-   voci del brief, mini-esempio dati → interpretazione nel report,
-   paragrafo "ma io non so criticare" con la domanda-filtro "parla al
-   mio cliente o a un cliente generico?", callout `:::tip` stop-rule
-   scaletta, callout `:::note` template imposto, chiarimento "sezione
-   per sezione tiene una chat unica". Style-checker IT ha richiesto fix
-   su due em dash in ChatDemo (righe 178 e 206), "letteralmente" come
-   avverbio magico, pattern "Primo/Secondo" listicle mascherato,
-   coerenza "executive summary" vs "exec summary". Style-checker EN ha
-   richiesto tre fix di idiomaticità ("It happens often" calco dall'IT,
-   cascata "so does X, so does Y", "which" relativo in coda).
+   Proposals, briefs, reports. Structure (exec summary, audience, sections),
+   not just writing. The chosen angle is *structure before text*: AI
+   as a first structured draft, not a ghostwriter. Three canonical documents
+   (proposal, internal brief, report), the *outline + fill-in* pattern,
+   a stop-rule on the outline, a callout on imposed templates (procurement,
+   tenders), explicit calibration for the audience. Full review
+   cycle (`analyze-lesson` + integration + `style-checker` IT and EN,
+   2026-04-24). Main integrations: a line on "when a ghostwriter is
+   fine" at the opening, an inline gloss of *handoff* + a four-item
+   structure for the brief, a data → interpretation mini-example in the report,
+   a "but I don't know how to critique" paragraph with the filter question "does it speak to
+   my client or to a generic client?", a `:::tip` callout on the outline
+   stop-rule, a `:::note` callout on imposed templates, a clarification that "section
+   by section keeps a single chat". Style-checker IT requested fixes
+   on two em dashes in the ChatDemo (lines 178 and 206), "literally" as
+   a magic adverb, a disguised "First/Second" listicle pattern,
+   consistency between "executive summary" and "exec summary". Style-checker EN
+   requested three idiomaticity fixes ("It happens often" calque from IT,
+   the "so does X, so does Y" cascade, a trailing relative "which").
 
 3. ✅ **Preparare una riunione** (`at-work/prepare-a-meeting`)
-   Ordine del giorno strutturato (obiettivo, owner, tempo, decisione
-   attesa), brief di preparazione sotto le 150 parole, anticipazione
-   delle obiezioni con l'IA come devil's advocate. "Durante" è una
-   sezione breve: l'IA non è al tavolo. Dopo, estratto azionabile a
-   tre sezioni (decisioni, action item con owner e scadenza, domande
-   aperte) invece di "riassumi la riunione". ChatDemo su una
-   trascrizione finta di uno status settimanale. Callout `:::note`
-   sulle IA integrate nei tool di call (Zoom Companion, Teams
-   Copilot, Gemini in Meet) e `:::caution` sulla privacy delle
-   trascrizioni come dato di terzi, con criterio pratico per
-   decidere se la riunione è "sensibile". Ciclo di revisione
-   completo (`analyze-lesson` + integrazione + `style-checker` IT e
-   EN, 2026-04-24). Integrazioni principali dall'analisi lettore:
-   contesto concreto per il prompt "anticipare obiezioni" (ruoli,
-   posta in gioco, storia recente), controllo di completezza
-   sull'estratto (scorri l'ordine del giorno), criterio pratico per
-   "sensibile" + caso non-sensibile con nomi, specifica sulle
-   modalità di consenso (orale per routine, scritto per formale),
-   callout `:::note` sulle IA nei tool di call. Style-checker IT ha
-   richiesto il fix della frase "questa parte la riprendiamo più
-   giù" (regola "vedi sopra/sotto") e due rifiniture opzionali
-   (ritrovo → riunione, glossa inline su devil's advocate).
-   Style-checker EN ha richiesto 8 fix di idiomaticità (calchi
-   IT→EN come "pays a high return", "buy you double", "don't
+   A structured agenda (goal, owner, time, expected
+   decision), a prep brief under 150 words, anticipating
+   objections with AI as a devil's advocate. "During" is a
+   short section: AI isn't at the table. Afterward, an actionable
+   three-section extract (decisions, action items with owner and deadline,
+   open questions) instead of "summarize the meeting". A ChatDemo on a
+   fake transcript of a weekly status update. A `:::note` callout
+   on AIs built into call tools (Zoom Companion, Teams
+   Copilot, Gemini in Meet) and a `:::caution` on the privacy of
+   transcripts as third-party data, with a practical criterion for
+   deciding whether the meeting is "sensitive". Full review
+   cycle (`analyze-lesson` + integration + `style-checker` IT and
+   EN, 2026-04-24). Main integrations from the reader analysis:
+   concrete context for the "anticipate objections" prompt (roles,
+   stakes, recent history), a completeness check
+   on the extract (scan the agenda), a practical criterion for
+   "sensitive" + a non-sensitive case with names, a note on
+   consent methods (verbal for routine, written for formal),
+   a `:::note` callout on AIs in call tools. Style-checker IT
+   requested fixing the phrase "we'll get back to this part further
+   down" ("see above/below" rule) and two optional refinements
+   (ritrovo → riunione, an inline gloss on devil's advocate).
+   Style-checker EN requested 8 idiomaticity fixes (IT→EN
+   calques like "pays a high return", "buy you double", "don't
    land", "beats the benefit", "record only if you're the one
    recording", "paper minutes", "jotted down too", "straight away
    the two topics").
 
 4. ✅ **Slide e presentazioni** (`at-work/slides-and-presentations`)
-   Contenuto, non design. Tre prompt rigidi per invertire il default
-   "slide piene di testo": scaletta dal documento (filo narrativo in
-   N slide, una idea per slide, 30 parole massime), bullet asciutti
-   (max 4-6 bullet di max 10 parole, senza verbi alla terza persona,
-   telegrafico, cifre e nomi che restano), speaker notes (quello che
-   dici a voce, non quello che sta sulla slide, niente ripetizione
-   parola per parola). Esempio portante su una slide "Risultati Q2"
-   con ChatDemo prima/dopo. Callout `:::note` sui tool di slide
-   generate dall'IA (Gamma, Tome, Beautiful.ai, Decktopus) con
-   criterio di scelta rispetto al percorso ChatGPT + PowerPoint.
-   "Cosa NON chiedere": design, colori, font, animazioni, template.
-   Ciclo di revisione completo (`analyze-lesson` + integrazione +
-   `style-checker` IT e EN, 2026-04-24). Integrazioni principali
-   dall'analisi lettore: decisioni fuori dal prompt (numero di
-   slide dal tempo di presentazione, documento lungo da riassumere
-   prima), ponte esplicito sul perché "niente verbi alla terza
-   persona" fa più lavoro, criterio di scelta Gamma/Tome vs
-   ChatGPT+PowerPoint, speaker notes una alla volta non in blocco,
-   eccezione pratica per chi non ha template aziendale.
-   Style-checker IT: verdetto OK, applicate due rifiniture (link
-   mancante a *Bozze di documenti professionali* al secondo
-   riferimento, "è importante" → "fa la differenza"). Style-checker
-   EN ha richiesto 5 fix di idiomaticità (doppio inciso "which are
+   Content, not design. Three rigid prompts to reverse the default
+   "slides full of text": an outline from the document (narrative thread over
+   N slides, one idea per slide, 30 words max), lean bullets
+   (max 4-6 bullets of max 10 words, no third-person verbs,
+   telegraphic, figures and names kept), speaker notes (what
+   you say out loud, not what's on the slide, no word-for-word
+   repetition). A central example on a "Q2 Results" slide
+   with a before/after ChatDemo. A `:::note` callout on
+   AI-generated slide tools (Gamma, Tome, Beautiful.ai, Decktopus) with
+   a criterion for choosing between them and the ChatGPT + PowerPoint route.
+   "What NOT to ask for": design, colors, fonts, animations, templates.
+   Full review cycle (`analyze-lesson` + integration +
+   `style-checker` IT and EN, 2026-04-24). Main integrations
+   from the reader analysis: decisions outside the prompt (number of
+   slides from presentation time, a long document to summarize
+   first), an explicit bridge on why "no third-person
+   verbs" makes more work, a criterion for choosing Gamma/Tome vs
+   ChatGPT+PowerPoint, speaker notes one at a time not in bulk,
+   a practical exception for those without a company template.
+   Style-checker IT: OK verdict, two refinements applied (a missing
+   link to *Bozze di documenti professionali* on the second
+   reference, "is important" → "makes the difference"). Style-checker
+   EN requested 5 idiomaticity fixes (a double aside "which are
    numbers and names, that is...", "carry the narrative" → "tell
-   the story", concordanza "are worth" → "is worth", "And what to
+   the story", agreement "are worth" → "is worth", "And what to
    feed in" → "What to feed in", "the dedicated tool" → "your slide
    tool or a designer").
 
 5. ✅ **Lavorare con dati e tabelle** (`at-work/data-and-tables`)
-   Tre casi d'uso canonici (pulizia di dati incoerenti, formule
-   Excel/Sheets, piccole analisi su estratti), tre mosse di privacy
-   prima di caricare in una chat pubblica (policy o test del
-   giornale, estrai solo le colonne necessarie, anonimizza i
-   nomi), callout *IA pubblica o IA aziendale?* con criterio
-   pratico per distinguere consumer vs business, callout *IA per
-   l'ad-hoc, BI per il ricorrente* con regola del mese, ChatDemo
-   portante sulla pulizia di cinque righe con il vincolo "più una
-   riga con i dubbi aperti". Ciclo di revisione completo
-   (`analyze-lesson` + integrazione + `style-checker` IT e EN,
-   2026-04-24). Integrazioni principali dall'analisi lettore:
-   regola 5% con minimo tre per la verifica a campione, pattern
-   *campione, regola, estensione* per dataset grandi, mini-paragrafo
-   sul rimbalzare l'errore di Excel (`#NOME?`, `#VALORE!`, `#RIF!`)
-   alla chat, criterio del giornale per freelance senza IT/legale,
-   aggiunta al callout *IA pubblica o IA aziendale?* su come
-   distinguere consumer da business dal nome del piano. Style-checker
-   IT: verdetto OK con rifiniture opzionali, applicati sei fix
-   (link esplicito "vedi sopra/sotto" in due punti, "fa davvero la
-   differenza" nell'intro, "veramente utile", titolo "Tre casi
-   d'uso concreti", scioglimento di "BI" in Business Intelligence,
-   paragrafo "E se le righe sono cinquecento" spezzato).
-   Style-checker EN ha richiesto un fix strutturale (*management
-   system* come calco di "gestionale", sostituito con *CRM*/*ERP*
-   in cinque occorrenze) e nove rifiniture di idiomaticità
+   Three canonical use cases (cleaning inconsistent data, Excel/Sheets
+   formulas, small analyses on extracts), three privacy moves
+   before uploading to a public chat (the newspaper policy/test,
+   extract only the necessary columns, anonymize
+   names), a *Public AI or company AI?* callout with a practical
+   criterion to distinguish consumer vs business, a *AI for
+   ad-hoc, BI for recurring* callout with a monthly rule, a central
+   ChatDemo on cleaning up five rows with the constraint "plus a
+   row for open doubts". Full review cycle
+   (`analyze-lesson` + integration + `style-checker` IT and EN,
+   2026-04-24). Main integrations from the reader analysis:
+   a 5% rule with a minimum of three for sample verification, a
+   *sample, rule, extension* pattern for large datasets, a mini-paragraph
+   on bouncing an Excel error (`#NOME?`, `#VALORE!`, `#RIF!`)
+   back to the chat, the newspaper criterion for freelancers without IT/legal,
+   an addition to the *Public AI or company AI?* callout on how to
+   distinguish consumer from business by the plan name. Style-checker
+   IT: OK verdict with optional refinements, six fixes applied
+   (explicit "see above/below" link in two spots, "really makes the
+   difference" in the intro, "genuinely useful", the title "Three
+   concrete use cases", spelling out "BI" as Business Intelligence,
+   splitting the "What if there are five hundred rows" paragraph).
+   Style-checker EN requested a structural fix (*management
+   system* as a calque of "gestionale", replaced with *CRM*/*ERP*
+   in five occurrences) and nine idiomaticity refinements
    ("caveat you can't skip" → "catch", "hand over" → "give",
    "more robust" + "keeps control" → "safer" + "keeps you in
    control", "The useful part is" → "The real value is",
@@ -400,721 +399,721 @@ dopo Fondamenti + Uso quotidiano o con esperienza equivalente.
    two", "less risk surface" → "less risk").
 
 6. ✅ **Ricerca per il lavoro** (`at-work/research-for-work`)
-   Tre modi di usare l'IA per la ricerca (mappare un territorio
-   nuovo, sintetizzare più fonti che hai, fare ricerca live con
-   citazioni), tre forme di allucinazione professionale (citazioni
-   inventate, numeri tondi senza fonte, sintesi che inventa
-   attribuzione), pattern verifica-cita-traccia in tre passi con
-   mini-template di tracciamento, callout `:::caution` sulle fonti
-   aziendali riservate (coerenza con la sezione privacy della
-   lezione 5), ChatDemo portante su un brief competitivo nel
-   settore abbigliamento sportivo italiano. Ciclo di revisione
-   completo (`analyze-lesson` + integrazione + `style-checker` IT
-   e EN, 2026-04-25). Integrazioni principali dall'analisi
-   lettore: differenza esplicita tra mappa di un argomento e
-   indice di un documento (lezione 4 Modulo 2), volumi oltre il
-   limite di contesto + rimando a NotebookLM, callout privacy
-   sulle fonti riservate, criterio di scelta tra Perplexity e gli
-   altri motori live, regola operativa per quanti link aprire
-   (cinque punti del brief = cinque fonti), nota sul vincolo
-   "se non hai fonte dillo" (freno non garanzia), Deep Research e
-   ricerca agentica con glossa inline. Style-checker IT: una
-   violazione netta (em dash dentro l'esempio di tracciamento,
-   sostituito con slash) e tre rifiniture opzionali applicate
-   ("Vale la pena" → "conviene", due "Lo vedrai/leggerai sotto"
-   sostituiti con ancore esplicite, "letteralmente" → "parola
-   per parola"). Style-checker EN: OK con rifiniture opzionali,
-   applicate cinque polish di idiomaticità ("it happens that"
-   calco → "Sometimes", grappolo di "actually" ridotto, "different
-   weight" calco → "more weight than", triplo "It [verb]" merged
-   in una frase variata, doppio "usually X, usually Y" rimosso).
+   Three ways to use AI for research (mapping a new
+   territory, synthesizing sources you already have, doing live research with
+   citations), three forms of professional hallucination (made-up
+   citations, round numbers with no source, a summary that invents
+   attribution), a verify-cite-track pattern in three steps with
+   a mini tracking template, a `:::caution` callout on confidential
+   company sources (consistent with the privacy section of
+   lesson 5), a central ChatDemo on a competitive brief in the
+   Italian sportswear sector. Full review
+   cycle (`analyze-lesson` + integration + `style-checker` IT
+   and EN, 2026-04-25). Main integrations from the reader
+   analysis: an explicit difference between mapping a topic and
+   a document's index (Module 2 lesson 4), volumes beyond the
+   context limit + a pointer to NotebookLM, a privacy callout
+   on confidential sources, a criterion for choosing between Perplexity and the
+   other live search engines, an operational rule for how many links to open
+   (five points in the brief = five sources), a note on the
+   "say so if you have no source" constraint (a brake, not a guarantee), Deep Research and
+   agentic research with an inline gloss. Style-checker IT: one
+   clear violation (an em dash inside the tracking example,
+   replaced with a slash) and three optional refinements applied
+   ("Vale la pena" → "conviene", two "you'll see/read below"
+   replaced with explicit anchors, "literally" → "word
+   for word"). Style-checker EN: OK with optional refinements,
+   five idiomaticity polishes applied ("it happens that"
+   calque → "Sometimes", a cluster of "actually" reduced, "different
+   weight" calque → "more weight than", a triple "It [verb]" merged
+   into one varied sentence, a double "usually X, usually Y" removed).
 
 7. ✅ **L'IA come collega che ti aiuta a pensare** (`at-work/ai-as-thinking-partner`)
-   Cambio di postura: l'IA non produce un output, aiuta a tirare
-   fuori un pensiero. Tre modi (devil's advocate sulla tua idea,
-   brainstorming strutturato divergi-converti, anticipare obiezioni
-   in role-play). Sycophancy come rischio specifico, con
-   spiegazione di RLHF e tre prompt di sfida (ruolo specifico +
-   blocco preamboli + numero/intensità). Test di chiusura "almeno
-   una cosa è cambiata" con anti-test su "cambiamento in peggio"
-   (rileggi a freddo, verifica i fatti su cui poggia la nuova
-   posizione). ChatDemo portante: CFO scettico sul programma di
-   mentoring per junior con tre obiezioni (causa-effetto turnover,
-   costo nascosto del tempo dei senior, orizzonte di sei mesi
-   troppo corto). Ciclo di revisione completo (`analyze-lesson` +
-   integrazione + `style-checker` IT e EN, 2026-04-25).
-   Integrazioni principali dall'analisi lettore: callout `:::tip`
-   "quanto contesto dare" (setup minimo, non brief di pagina),
-   traduzione del "critico specifico" per chi non ha ruoli classici
-   da consiglio (ONG, freelance, scuola), secondo round di
-   brainstorming per uscire dagli angoli ovvi, paragrafo privacy
-   nel role-play (riusa la sezione di *Lavorare con dati e
-   tabelle*), nota sulla sycophancy che varia tra modelli ma con
-   vincoli espliciti come difesa principale, anti-test
-   rileggi-a-freddo + verifica fatti per il rischio di cambiare in
-   peggio, paragrafo dedicato in *Cosa NON fare* sul thinking
-   partner ammesso anche su salute/soldi/legali ma solo per
-   pensare meglio (capire opzioni, formulare le domande da fare a
-   un professionista). Style-checker IT: OK con rifiniture
-   opzionali, applicate quattro correzioni (due deittici
-   "sopra/paragrafo precedente" sostituiti con ancore esplicite,
-   due "davvero" diradati, "che vedremo fra poco" sostituito con
-   link esplicito). Style-checker EN: OK con rifiniture opzionali,
-   applicate tre polish ("make the difference" calco di "fare la
+   A change of posture: AI doesn't produce an output, it helps pull
+   out a thought. Three ways (devil's advocate on your idea,
+   structured diverge-converge brainstorming, anticipating objections
+   in role-play). Sycophancy as a specific risk, with an
+   explanation of RLHF and three challenge prompts (specific role +
+   blocking preambles + number/intensity). A closing test "at least
+   one thing changed" with an anti-test on "changing for the worse"
+   (reread it cold, verify the facts the new
+   position rests on). Central ChatDemo: a skeptical CFO on a
+   mentoring program for juniors with three objections (turnover
+   cause-and-effect, the hidden cost of senior time, a six-month
+   horizon that's too short). Full review cycle (`analyze-lesson` +
+   integration + `style-checker` IT and EN, 2026-04-25).
+   Main integrations from the reader analysis: a `:::tip` callout
+   on "how much context to give" (a minimal setup, not a page-long brief),
+   translating the "specific critic" for those without classic board
+   roles (NGOs, freelancers, schools), a second round of
+   brainstorming to get past the obvious angles, a privacy paragraph
+   in the role-play (reuses the section from *Lavorare con dati e
+   tabelle*), a note that sycophancy varies across models but with
+   explicit constraints as the main defense, an anti-test
+   of rereading cold + fact-checking for the risk of changing for the
+   worse, a dedicated paragraph in *Cosa NON fare* on the thinking
+   partner being allowed even on health/money/legal matters but only for
+   thinking better (understanding options, formulating the questions to ask
+   a professional). Style-checker IT: OK with optional
+   refinements, four corrections applied (two deictic
+   "above/previous paragraph" replaced with explicit anchors,
+   two "davvero" thinned out, "which we'll see shortly" replaced with an
+   explicit link). Style-checker EN: OK with optional refinements,
+   three polishes applied ("make the difference" calque of "fare la
    differenza" → "that matter", typo "a accommodating" → "an
-   accommodating", "actually" difensivo rimosso). Bug fix di
-   contorno: la description in entrambi i frontmatter conteneva un
-   `: ` non quotato che YAML parsava come mapping; quotata in
-   entrambe le lingue per stabilizzare il build.
+   accommodating", a defensive "actually" removed). Side bug fix:
+   the description in both frontmatters contained an unquoted
+   `: ` that YAML parsed as a mapping; quoted in
+   both languages to stabilize the build.
 
 8. ✅ **Riusare contesto con i progetti** (`at-work/reuse-context-with-projects`)
-   Stesso pattern su Claude Projects, ChatGPT Custom GPTs, Gemini
-   Gems: contenitore persistente con istruzioni + file di knowledge
-   + esempi, ereditato da ogni chat aperta dentro. Tre ingredienti
-   spiegati uno per uno con buone pratiche e cose da evitare.
-   Tabella comparativa delle tre piattaforme con punti di forza
-   specifici (Claude per i file lunghi, ChatGPT per Actions e
-   marketplace, Gemini per la semplicità free). Tre criteri di
-   applicabilità (ricorrenza, contesto stabile, più persone o
-   canali). Esempio portante: setup di un progetto per la
-   newsletter del giovedì di uno studio di consulenza con
-   istruzioni complete + tre file mirati di knowledge + esempi
-   inline. Cinque cose da non fare: magazzino di file, materiale
-   riservato in account consumer, confusione con Memory personale,
-   troppi progetti, mancanza di manutenzione. Ciclo di revisione
-   completo (`analyze-lesson` + integrazione + `style-checker` IT
-   e EN, 2026-04-25). Integrazioni principali dall'analisi
-   lettore: ragione meccanica per cui pochi file mirati battono
-   molti generici (rilevanza diluita, rischio di pescaggio
-   sbagliato), formati dei file (PDF e Markdown affidabili,
-   scansionati no), callout `:::tip` su come aggiornare la
-   knowledge (cancella e ricarica, no versioning automatico, riga
-   "documenti caricati" in calce alle istruzioni), distinzione tra
-   creare un Custom GPT (Plus in su) e usarne uno pubblico
-   (anche Free), spiegazione di cosa vince fra istruzioni del
-   progetto e request del singolo turno (turno esplicito vince,
-   default del progetto altrimenti), paragrafo finale su
-   manutenzione e fine vita del progetto (passata trimestrale,
-   soglia dei due mesi senza aprire). Style-checker IT: OK con
-   rifiniture opzionali, applicate due polish lessicali ("La
-   knowledge invecchia" → "I documenti caricati invecchiano",
-   "overingegnerizzando" → "complicando troppo"). Style-checker
-   EN: OK con rifiniture opzionali, applicato un piccolo polish
-   ("Below that threshold" → "Below that" per ritmo); il sweep
-   sui calchi italiani-inglese non ha trovato nulla.
+   Same pattern across Claude Projects, ChatGPT Custom GPTs, Gemini
+   Gems: a persistent container with instructions + knowledge files
+   + examples, inherited by every chat opened inside it. Three ingredients
+   explained one by one with good practices and things to avoid.
+   A comparison table of the three platforms with specific
+   strengths (Claude for long files, ChatGPT for Actions and
+   the marketplace, Gemini for free-tier simplicity). Three applicability
+   criteria (recurrence, stable context, multiple people or
+   channels). Central example: setting up a project for a
+   consulting firm's Thursday newsletter with
+   complete instructions + three targeted knowledge files + inline
+   examples. Five things not to do: turning it into a file warehouse, confidential
+   material in a consumer account, confusion with personal Memory,
+   too many projects, lack of maintenance. Full review
+   cycle (`analyze-lesson` + integration + `style-checker` IT
+   and EN, 2026-04-25). Main integrations from the reader
+   analysis: the mechanical reason why a few targeted files beat
+   many generic ones (diluted relevance, risk of retrieving the
+   wrong one), file formats (PDF and Markdown reliable,
+   scanned ones not), a `:::tip` callout on how to update the
+   knowledge (delete and reupload, no automatic versioning, an
+   "uploaded documents" line at the bottom of the instructions), the
+   distinction between creating a Custom GPT (Plus and up) and using a
+   public one (Free too), an explanation of what wins between project
+   instructions and a single turn's request (an explicit turn wins,
+   the project default otherwise), a final paragraph on
+   maintenance and the project's end of life (a quarterly review,
+   a two-month no-open threshold). Style-checker IT: OK with
+   optional refinements, two lexical polishes applied ("The
+   knowledge ages" → "Uploaded documents age",
+   "over-engineering" → "overcomplicating"). Style-checker
+   EN: OK with optional refinements, one small polish applied
+   ("Below that threshold" → "Below that" for rhythm); the
+   sweep for Italian-English calques found nothing.
 
 9. ✅ **Privacy e dati aziendali** (`at-work/company-data-and-privacy`)
-   Chiusura del modulo. Scala il modello di privacy personale di
-   Fondamenti 6 al contesto aziendale: tre livelli di rischio
-   (rosso/giallo/verde), come anonimizzare in pratica (nomi,
-   identificatori numerici, dettagli combinabili), piani business
-   veri (Team/Enterprise/Workspace/Copilot for Business) vs piani
-   consumer (Plus/Pro/Advanced) con il criterio "cerca data
-   retention, training opt-out, DPA", NDA come primo filtro,
-   GDPR e categorie particolari, AI Act per usi ad alto rischio,
-   policy aziendale e variante freelance. Ponte ai moduli
-   successivi (4, 5, 6) come chiusura naturale del modulo.
-   Ciclo di revisione completo (`analyze-lesson` + integrazione +
-   `style-checker` IT e EN, 2026-04-25). Integrazioni principali
-   dall'analisi lettore: glossa inline su DPA e DPO, chiarimento
-   "Plus/Pro/Advanced sono consumer, non business", callout
-   `:::tip` "se ho già incollato dati in passato" con tre
-   contromisure, callout `:::tip` su PDF scansionati/foto/audio
-   (anonimizzazione alla fonte, riscrittura, OCR locale), check
-   rapido "leggi come un estraneo" prima di incollare,
-   distinzione fra numeri di business che servono al ragionamento
-   e numeri da tagliare, glossa su backend Azure OpenAI di
-   Microsoft Copilot, esempio pratico AI Act ("studio piccolo che
-   fa screening di CV"), variante freelance con clausola tipo
-   nei contratti. Style-checker IT: OK con rifiniture opzionali,
-   applicate due polish ("qui sotto" → "tipiche dei piani
-   business" per evitare deittico, chiusura "Lo strumento
-   amplifica chi sei" attenuata in formula meno keynote).
-   Style-checker EN: OK con rifiniture opzionali, applicate
-   quattro polish (variazione "usually" → "typically" / "likely",
+   Closes the module. Scales the personal privacy model from
+   Fondamenti 6 to the company context: three risk levels
+   (red/yellow/green), how to anonymize in practice (names,
+   numeric identifiers, combinable details), real business
+   plans (Team/Enterprise/Workspace/Copilot for Business) vs
+   consumer plans (Plus/Pro/Advanced) with the criterion "look for data
+   retention, training opt-out, DPA", an NDA as the first filter,
+   GDPR and special categories, the AI Act for high-risk uses,
+   company policy and a freelance variant. Bridge to the following
+   modules (4, 5, 6) as the module's natural close.
+   Full review cycle (`analyze-lesson` + integration +
+   `style-checker` IT and EN, 2026-04-25). Main integrations
+   from the reader analysis: an inline gloss on DPA and DPO, a clarification that
+   "Plus/Pro/Advanced are consumer, not business", a
+   `:::tip` callout "if I've already pasted data in the past" with three
+   countermeasures, a `:::tip` callout on scanned PDFs/photos/audio
+   (anonymizing at the source, rewriting, local OCR), a
+   quick "read it like a stranger" check before pasting,
+   a distinction between business numbers needed for reasoning
+   and numbers to cut, a gloss on Microsoft Copilot's Azure
+   OpenAI backend, a practical AI Act example ("a small firm
+   screening CVs"), a freelance variant with a standard clause
+   in contracts. Style-checker IT: OK with optional refinements,
+   two polishes applied ("below" → "typical of
+   business plans" to avoid a deictic, softening the closing "The
+   tool amplifies who you are" into a less keynote-style phrase).
+   Style-checker EN: OK with optional refinements, four
+   polishes applied (varying "usually" → "typically" / "likely",
    "roughly these three" → "Business plans usually offer three",
-   periodo lungo del DPA spezzato in due frasi, "may move you in"
+   splitting a long DPA sentence into two, "may move you in"
    → "may put you in scope").
 
-**Stato attuale**: **9 su 9 pubblicate, modulo Sul lavoro
-completo al 100%** (2026-04-25). Tutte le lezioni live (IT + EN)
-con verifica dell'apprendimento attiva (sezione `<LlmExercise
-variant="review">` prima di "Cosa viene dopo", con prompt
-dedicato in `public/skills/<locale>/review-<slug>.txt`); sidebar
-Modulo 3 con tutte e 9 le lezioni attive, nessun placeholder
-disabilitato; card "Sul lavoro" / "At work" in homepage e
-start-here attive, puntano alla lezione 1.
+**Current status**: **9 out of 9 published, Sul lavoro module
+complete at 100%** (2026-04-25). All lessons live (IT + EN)
+with an active learning check-in (`<LlmExercise
+variant="review">` section before "What comes next", with a
+dedicated prompt in `public/skills/<locale>/review-<slug>.txt`); the
+Module 3 sidebar with all 9 lessons active, no disabled
+placeholders; the "Sul lavoro" / "At work" cards on the homepage and
+start-here active, pointing to lesson 1.
 
-## Modulo 4: Per studenti (livello `intermedio`)
+## Module 4: Per studenti (level `intermedio`)
 
-Target: studenti dalle superiori all'università (più adulti in
-riqualificazione), che vogliono usare l'IA come supporto allo studio
-senza cadere nel "fammi i compiti". Tono pratico, attento al rischio
-plagio e al confine fra studio e sostituzione. Spec di modulo:
+Target: students from high school through university (plus adults in
+career retraining), who want to use AI as study support
+without falling into "do my homework for me". Practical tone, mindful of the
+plagiarism risk and the boundary between studying and substitution. Module spec:
 `docs/superpowers/specs/2026-05-13-per-studenti-module-design.md`.
 
-Struttura validata 2026-05-13. Otto lezioni, ordine pedagogico = ordine
-di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
-dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
+Structure validated 2026-05-13. Eight lessons, pedagogical order = writing
+order. Uniform level `intermedio`: the audience arrives here
+after Fondamenti + Uso quotidiano (or with equivalent experience).
 
 1. ✅ **Studiare un argomento nuovo** (`for-students/study-a-new-topic`)
-   Studio formale contro un programma fissato. Apre il modulo col
-   contratto "non è il manuale del fammi i compiti". Ciclo di revisione
-   completo (`analyze-lesson` + `integrate-questions` + `style-checker`
-   IT e EN, 2026-05-13). Integrazioni principali dall'analisi lettore:
-   estensione del bullet "materiale di riferimento" per coprire mix di
-   libri + dispense + slide, esplicitazione della tensione prof vs
-   manuale, paragrafo di apertura della sezione tecniche che chiarisce
-   la combinazione fra le tre, callout `:::tip` "Quanto incollare per
-   volta", precisazione sulle slide scarne, esempio operativo concreto
-   nella Tecnica 3 (storia contemporanea, Mosse/Gentile), callout
-   `:::note` "Per chi studia matematica, fisica, ingegneria,
-   informatica", test rapido di verifica dell'ancoraggio, estensione
-   del check Feynman finale con cosa fare se inciampi. Style-checker
-   IT: OK con rifiniture (rimozione mic-drop "È tutto qui", due codici
-   M2L5 sostituiti con link espliciti a `learn-something-new`, due
-   "davvero" difensivi rimossi). Style-checker EN: OK con un fix di
-   calco ("questions of type Z" → "questions like Z").
+   Formal study against a fixed syllabus. Opens the module with
+   the contract "this isn't the do-my-homework manual". Full review
+   cycle (`analyze-lesson` + `integrate-questions` + `style-checker`
+   IT and EN, 2026-05-13). Main integrations from the reader analysis:
+   extending the "reference material" bullet to cover a mix of
+   books + handouts + slides, making the professor-vs-textbook
+   tension explicit, an opening paragraph for the techniques section that clarifies
+   how the three combine, a `:::tip` callout "How much to paste at a
+   time", a clarification on sparse slides, a concrete operational example
+   in Technique 3 (contemporary history, Mosse/Gentile), a
+   `:::note` callout "For those studying math, physics, engineering,
+   computer science", a quick anchoring-verification test, extending
+   the final Feynman check with what to do if you stumble. Style-checker
+   IT: OK with refinements (removing the mic-drop "That's all there is",
+   two M2L5 codes replaced with explicit links to `learn-something-new`, two
+   defensive "davvero" removed). Style-checker EN: OK with one
+   calque fix ("questions of type Z" → "questions like Z").
 
 2. ✅ **Appunti da lezioni e testi lunghi** (`for-students/notes-from-lectures`)
-   Materiale grezzo (audio, dispense, slide) portato a forma studiabile.
-   Ciclo di revisione completo (`analyze-lesson` + `integrate-questions` +
-   `style-checker` IT e EN, 2026-05-13). Integrazioni principali
-   dall'analisi lettore: estensione del riferimento alla capienza di
-   contesto con guida pratica (un'ora di audio + slide + 40-50 pagine
-   di capitolo nello stesso prompt), tip Whisper estesa con esempi
-   concreti di nomi propri normalizzati (Husserl→Usserl, Schmitt→Smith),
-   nota sulla qualità della foto degli appunti scritti a mano + comportamento
-   dell'IA di fronte alla grafia da medico, callout `:::caution` "Verifica
-   i tag prima di fidarti" sul fatto che le attribuzioni `[Prof]
-   [Manuale] [Slide]` sono fatte dall'IA e possono sbagliare, nota
-   sul piano richiesto per Claude Projects e ChatGPT Custom GPTs (Gems
-   gratuiti, in alternativa lavoro a chat singole), estensione del "Cosa
-   NON fare 2" sulla tensione prof-vs-manuale e come gestirla all'orale.
-   Style-checker IT: OK con un fix critico (un em dash a riga 95 dentro
-   una parentesi annidata, sciolto in due frasi). Style-checker EN: OK
-   con un "actually" borderline non bloccante (mantenuto, fa lavoro
-   semantico).
+   Raw material (audio, handouts, slides) turned into a studyable form.
+   Full review cycle (`analyze-lesson` + `integrate-questions` +
+   `style-checker` IT and EN, 2026-05-13). Main integrations
+   from the reader analysis: extending the reference to context
+   capacity with practical guidance (an hour of audio + slides + 40-50 pages
+   of a chapter in the same prompt), an extended Whisper tip with
+   concrete examples of normalized proper names (Husserl→Usserl, Schmitt→Smith),
+   a note on the photo quality of handwritten notes + how the
+   AI behaves faced with a doctor's handwriting, a `:::caution` callout "Verify
+   the tags before trusting them" on the fact that the `[Prof]
+   [Textbook] [Slide]` attributions are made by the AI and can be wrong, a note
+   on the plan required for Claude Projects and ChatGPT Custom GPTs (Gems
+   are free, otherwise work in single chats), extending "What
+   NOT to do 2" on the professor-vs-textbook tension and how to handle it orally.
+   Style-checker IT: OK with one critical fix (an em dash on line 95 inside
+   a nested parenthetical, resolved into two sentences). Style-checker EN: OK
+   with one borderline non-blocking "actually" (kept, it does semantic
+   work).
 
 3. ✅ **Ripassare prima di un esame** (`for-students/revise-before-an-exam`)
-   Interrogazioni simulate, mappe, flashcards, strategia per il docente.
-   Ciclo di revisione completo (`analyze-lesson` + `integrate-questions` +
-   `style-checker` IT e EN, 2026-05-13). Integrazioni principali
-   dall'analisi lettore: paragrafo "cadenza pratica della sessione"
-   (durata 40 minuti, 5-8 domande, soglia "tre risposte di fila senza
-   correzione"), istruzioni per studenti senza manuale unico (slide +
-   dispense + articoli → ricostruire 15-20 voci dai titoli), pattern
-   per test a risposta multipla con spiegazione del "perché no" ai
-   distrattori, strategia "primo esame con prof sconosciuto" (default
-   sul profilo imprevedibile), terza contromisura cross-IA nel callout
-   "L'IA che ti conferma" (Claude vs ChatGPT vs Gemini come tripla
-   verifica), workflow di quando verificare sul manuale (in tempo reale
-   per correzioni concettuali, fine sessione per puntuali). Style-checker
-   IT: OK con un fix di accordo sintattico ("alle distrattori" → "ai
-   distrattori"). Style-checker EN: OK, conversione "28" → "B+" 
-   verificata coerente in entrambe le occorrenze.
+   Simulated oral exams, maps, flashcards, a strategy for the professor.
+   Full review cycle (`analyze-lesson` + `integrate-questions` +
+   `style-checker` IT and EN, 2026-05-13). Main integrations
+   from the reader analysis: a "practical session pace" paragraph
+   (40-minute duration, 5-8 questions, a "three answers in a row without
+   correction" threshold), instructions for students without a single textbook (slides +
+   handouts + articles → reconstructing 15-20 entries from the titles), a pattern
+   for multiple-choice tests with an explanation of the "why not" for
+   distractors, a "first exam with an unfamiliar professor" strategy (defaulting
+   to an unpredictable profile), a third cross-AI countermeasure in the callout
+   "The AI that agrees with you" (Claude vs ChatGPT vs Gemini as a triple
+   check), a workflow for when to verify against the textbook (in real time
+   for conceptual corrections, at session's end for minor ones). Style-checker
+   IT: OK with a syntactic agreement fix ("alle distrattori" → "ai
+   distrattori"). Style-checker EN: OK, the "28" → "B+"
+   conversion checked as consistent in both occurrences.
 
 4. ✅ **Scrivere una tesi** (`for-students/write-a-thesis`)
-   Pubblicata IT + EN il 2026-05-13. La lezione più lunga del modulo
-   (~1525 parole IT). Outline + riempimento ereditato da M3L2, ogni
-   capitolo è un dialogo separato, IA come secondo lettore (non
-   autore). ChatDemo portante su Manierismo a Firenze (committenza
-   medicea vs romana). Callout `:::note` "E se la mia tesi è di
-   laboratorio?" per generalizzare il pattern alle tesi STEM, callout
-   `:::tip` "Relatore evasivo" su come ricavare aspettative
-   indirettamente, callout `:::caution` "Dichiarazione dell'uso di
-   LLM" con confine pratico fra revisione e generazione. Ciclo di
-   revisione completo (`analyze-lesson` 10 domande + `integrate-questions`
-   con 6 modifiche + style-checker IT e EN, 2026-05-13). Integrazioni
-   principali dall'analisi lettore: callout STEM (il pattern oltre
-   l'umanistica), esempio inline sul confine "rendi più chiara" vs
-   "riformula come se l'avessi scritto io", quaderno delle idee
-   originali concretizzato (tre cose da annotare), gestione dell'ateneo
-   senza policy ufficiale ("dichiara comunque"), relatore evasivo.
+   Published IT + EN on 2026-05-13. The longest lesson in the module
+   (~1525 words IT). Outline + fill-in inherited from M3L2, each
+   chapter is a separate dialogue, AI as a second reader (not an
+   author). Central ChatDemo on Mannerism in Florence (Medici
+   vs Roman patronage). `:::note` callout "What if my thesis is
+   lab-based?" to generalize the pattern to STEM theses, a
+   `:::tip` callout "Evasive advisor" on how to extract expectations
+   indirectly, a `:::caution` callout "Declaring LLM use"
+   with a practical boundary between revision and generation. Full
+   review cycle (`analyze-lesson` 10 questions + `integrate-questions`
+   with 6 changes + style-checker IT and EN, 2026-05-13). Main
+   integrations from the reader analysis: a STEM callout (the pattern beyond
+   the humanities), an inline example on the boundary between "make it clearer"
+   and "rephrase it as if I'd written it myself", a concrete notebook
+   for original ideas (three things to jot down), handling a university
+   with no official policy ("declare it anyway"), the evasive advisor.
 
 5. ✅ **Fonti e citazioni** (`for-students/sources-and-citations`)
-   Pubblicata IT + EN il 2026-05-13. Lezione tecnica sul tema più
-   rischioso del modulo: bibliografia. Anatomia della citazione
-   inventata (quattro pattern tipici), DOI come gate di verifica con
-   tre esiti possibili, quattro stili principali (APA, MLA, Chicago,
-   ISO 690) con guida pratica alla scelta, tre filtri per distinguere
-   fonte accademica vera da blog mascherato (DOI, journal indicizzato,
-   editore noto). ChatDemo portante: economia, tre paper sulla
-   tassazione dei consumi alimentari, due con DOI inventati e uno vero
-   (Cawley et al. 2019). Callout `:::tip` "IA con accesso al web"
+   Published IT + EN on 2026-05-13. A technical lesson on the module's
+   riskiest topic: the bibliography. Anatomy of a made-up
+   citation (four typical patterns), the DOI as a verification gate with
+   three possible outcomes, four main styles (APA, MLA, Chicago,
+   ISO 690) with practical guidance for choosing, three filters to distinguish
+   a real academic source from a disguised blog (DOI, indexed journal,
+   known publisher). Central ChatDemo: economics, three papers on
+   food consumption taxation, two with made-up DOIs and one real
+   (Cawley et al. 2019). `:::tip` callout "AI with web access"
    (ChatGPT browsing, Claude web search, Perplexity), `:::note`
-   "Fonti istituzionali: caso a parte" (Banca d'Italia, OECD, ISTAT),
-   `:::tip` "NotebookLM e simili" (Claude Projects, Custom GPTs).
-   Ciclo di revisione completo (`analyze-lesson` 8 domande +
-   `integrate-questions` con 7 modifiche + style-checker IT e EN,
-   2026-05-13). Integrazioni principali dall'analisi lettore:
-   spiegazione concettuale del "perché l'IA inventa con quella
-   struttura precisa" (combinazione plausibile vs combinazione
-   esistente è informazione esterna al pattern di scrittura),
-   chiarimento operativo su proxy della biblioteca, Zotero spiegato
-   per chi non lo conosce (installazione, sync, plugin Word/Docs),
-   scelta dello stile per disciplina, differenza fra NotebookLM,
-   Claude Projects, Custom GPTs.
+   "Institutional sources: a special case" (Banca d'Italia, OECD, ISTAT),
+   `:::tip` "NotebookLM and similar tools" (Claude Projects, Custom GPTs).
+   Full review cycle (`analyze-lesson` 8 questions +
+   `integrate-questions` with 7 changes + style-checker IT and EN,
+   2026-05-13). Main integrations from the reader analysis:
+   a conceptual explanation of "why the AI invents with that
+   exact structure" (a plausible combination vs an existing
+   combination is information external to the writing pattern),
+   an operational clarification on library proxies, Zotero explained
+   for those who don't know it (installation, sync, Word/Docs plugin),
+   choosing a style by discipline, the difference between NotebookLM,
+   Claude Projects, and Custom GPTs.
 
 6. ✅ **Tradurre e confrontare testi** (`for-students/translate-and-compare`)
-   Pubblicata IT + EN il 2026-05-13. Lezione laterale per il pubblico
-   di lingue (moderne e antiche), classici, letterature comparate,
-   filologia. Pattern delle tre versioni (letterale, idiomatica,
-   libera) per non scegliere ma ricomporre; glosse storiche con
-   verifica obbligatoria; confronto fra edizioni (Monti vs Calzecchi
-   Onesti per *Iliade* in IT, Lattimore vs Fagles in EN; Pavese vs
-   Fatica per *Moby Dick* in IT, Heaney vs Tolkien per *Beowulf* in
-   EN); registri formale/informale per lingue moderne con varianti
-   regionali. ChatDemo portante: Catullo *Carme 5* (*Vivamus, mea
-   Lesbia, atque amemus*), tre versioni + glossa solida su *vivamus*
-   + glossa con incertezza dichiarata su *amemus*. Callout `:::tip`
-   "Senza accesso a enciclopedie a pagamento" (Perseus, SEP,
+   Published IT + EN on 2026-05-13. A side lesson for the audience of
+   language students (modern and ancient), classics, comparative literature,
+   philology. The three-versions pattern (literal, idiomatic,
+   free) to recompose rather than choose; historical glosses with
+   mandatory verification; a comparison between editions (Monti vs Calzecchi
+   Onesti for the *Iliad* in IT, Lattimore vs Fagles in EN; Pavese vs
+   Fatica for *Moby Dick* in IT, Heaney vs Tolkien for *Beowulf* in
+   EN); formal/informal registers for modern languages with regional
+   variants. Central ChatDemo: Catullus's *Carmen 5* (*Vivamus, mea
+   Lesbia, atque amemus*), three versions + a solid gloss on *vivamus*
+   + a gloss with declared uncertainty on *amemus*. `:::tip` callout
+   "Without access to paid encyclopedias" (Perseus, SEP,
    Wikipedia EN/FR, Castiglioni-Mariotti, Rocci, LSJ), `:::caution`
-   "Quando l'IA non dichiara incertezza ma sbaglia" (tre contromisure
-   per non-esperti), `:::caution` "Trabocchetti linguistici" (falsi
-   amici, registri storici, dialetti), `:::danger` "L'IA in una
-   verifica di traduzione è plagio" con zona grigia studio vs
-   preparazione di plagio. Ciclo di revisione completo
-   (`analyze-lesson` 9 domande + `integrate-questions` con 7
-   modifiche + style-checker IT e EN, 2026-05-13). Integrazioni
-   principali: priorità delle glosse da verificare (nomi propri,
-   date, etimologie), istruzioni per il confronto fra edizioni
-   (incollare sempre 10-30 versi, mai fidarsi della memoria dell'IA
-   per opere note), gestione di testi con una sola traduzione
-   italiana, alternative gratuite a OCD, contromisure per la glossa
-   sbagliata senza dichiarazione di incertezza, distinzione studio
-   vs preparazione di plagio.
+   "When the AI doesn't flag uncertainty but is wrong" (three countermeasures
+   for non-experts), `:::caution` "Linguistic traps" (false
+   friends, historical registers, dialects), `:::danger` "AI in a
+   translation exam is plagiarism" with the gray zone between studying and
+   preparing to plagiarize. Full review cycle
+   (`analyze-lesson` 9 questions + `integrate-questions` with 7
+   changes + style-checker IT and EN, 2026-05-13). Main
+   integrations: a priority order for glosses to verify (proper names,
+   dates, etymologies), instructions for comparing editions
+   (always paste 10-30 lines, never trust the AI's memory
+   for well-known works), handling texts with only one Italian
+   translation, free alternatives to OCD, countermeasures for a
+   wrong gloss with no declared uncertainty, the distinction between studying
+   and preparing to plagiarize.
 
 7. ✅ **Quando l'IA ti imbroglia** (`for-students/when-ai-tricks-you`)
-   Pubblicata IT + EN il 2026-05-13. Lezione di critica della risposta
-   calibrata sul contesto studio. Apertura sul problema strutturale
-   (chi studia per la prima volta non può accorgersi dell'errore).
-   Cinque errori tipici in contesto studio: definizioni shift dal
-   manuale (anomia Durkheim vs Merton), date confuse (Yalta marzo vs
-   febbraio 1945), biografie miste (stoa media, Curie, papi numerati,
-   Carracci), formule giuste nella forma ma sbagliate nel segno
-   (*F = ma* sempre giusta, equazione di Schrödinger spesso sbagliata),
-   opere fantasma (Foucault, *Le tecniche del sapere normativo*). Tre
-   test rapidi che funzionano senza sapere la risposta: test del
-   manuale, test della fonte, test del secondo prompt. ChatDemo
-   portante sullo studente di Storia che verifica la data di Yalta.
-   Callout `:::tip` "Riconoscere una domanda ad alto rischio" (cifra
-   precisa + omonimi/varianti), `:::note` "Quando la 'chat nuova' non
-   è davvero nuova" (ChatGPT memory, Claude Projects), `:::tip`
-   "Materie più rischiose" (matematica, fisica, medicina, diritto,
-   cronologie). Ciclo di revisione completo (`analyze-lesson` 8
-   domande + `integrate-questions` con 5 modifiche + style-checker
-   IT e EN, 2026-05-13). Integrazioni principali: secondo esempio
-   trasversale per biografie miste (Curie, Carracci, papi), istruzioni
-   pratiche su formulazione del secondo prompt, test del manuale per
-   chi non ha un manuale unico, callout su IA con memoria attivata.
+   Published IT + EN on 2026-05-13. A response-critique lesson
+   calibrated for the study context. Opens on the structural problem
+   (someone studying a topic for the first time can't notice the error).
+   Five typical errors in a study context: definitions that shift from the
+   textbook (Durkheim's vs Merton's anomie), confused dates (Yalta in March vs
+   February 1945), mixed-up biographies (the middle stoa, Curie, numbered popes,
+   Carracci), formulas correct in form but wrong in meaning
+   (*F = ma* always right, the Schrödinger equation often wrong),
+   phantom works (Foucault, *Le tecniche del sapere normativo*). Three
+   quick tests that work without knowing the answer: the textbook
+   test, the source test, the second-prompt test. A ChatDemo
+   on a history student verifying the date of Yalta.
+   `:::tip` callout "Recognizing a high-risk question" (a precise
+   figure + homonyms/variants), `:::note` "When a 'new chat' isn't
+   really new" (ChatGPT memory, Claude Projects), `:::tip`
+   "Riskier subjects" (math, physics, medicine, law,
+   chronologies). Full review cycle (`analyze-lesson` 8
+   questions + `integrate-questions` with 5 changes + style-checker
+   IT and EN, 2026-05-13). Main integrations: a second cross-cutting
+   example for mixed-up biographies (Curie, Carracci, popes), practical
+   instructions on phrasing the second prompt, the textbook test for
+   those without a single textbook, a callout on AI with memory turned on.
 
 8. ✅ **Etica dello studio** (`for-students/ethics-of-studying`)
-   Pubblicata IT + EN il 2026-05-13. Chiusura del modulo. Apertura
-   sul richiamo al contratto fissato nella lezione 1 e alla regola
-   "chi firma" di M2L8. Scala dei quattro livelli di uso (spiegazione/
-   tutor sempre OK; organizzazione/struttura di solito OK con
-   dichiarazione; generazione di porzioni dipende dal contesto, con
-   quattro casi distinti tesi/paper/saggio/lavori non valutati;
-   generazione completa è copiato anche se riscritta parola per
-   parola). Sezione su dichiarazione dell'uso con formula tipo
-   completa di "sono stati usati come" e "NON sono stati usati per",
-   istruzioni per compilare i placeholder con un esempio concreto
-   (ChatGPT Plus GPT-5 al 12 maggio 2026, Claude Sonnet 4.6).
-   Callout `:::note` "Le politiche d'istituto cambiano" (Polimi,
-   Bocconi, Sapienza in IT; Polimi, MIT, Stanford in EN). Callout
-   `:::caution` "Esami proctored e AI detector" con citazione del
-   disclaimer ufficiale Turnitin. Regola "chi firma" applicata in
-   tre casi (orale, tesi, esame). Ciclo di revisione completo
-   (`analyze-lesson` 8 domande + `integrate-questions` con 4
-   modifiche inline + style-checker IT e EN, 2026-05-13).
-   Integrazioni principali: linea pratica fra revisore di stile e
-   autore di paragrafi, caso limite della riscrittura completa,
-   esempio di compilazione dei placeholder, indicatori concreti che
-   un commissario riconosce. Ponte ai moduli successivi (Per docenti,
-   Per chi vuole di più). Non usa ChatDemo (lezione concettuale/etica).
+   Published IT + EN on 2026-05-13. Closes the module. Opens
+   by recalling the contract set in lesson 1 and the
+   "who signs" rule from M2L8. A four-level usage scale (explanation/
+   tutoring always OK; organization/structure usually OK with
+   disclosure; generating portions depends on context, with
+   four distinct cases: thesis/paper/essay/ungraded work;
+   full generation counts as copying even if rewritten word for
+   word). A section on declaring AI use with a complete standard
+   formula of "were used as" and "were NOT used for",
+   instructions for filling in the placeholders with a concrete example
+   (ChatGPT Plus GPT-5 on May 12, 2026, Claude Sonnet 4.6).
+   `:::note` callout "Institutional policies change" (Polimi,
+   Bocconi, Sapienza in IT; Polimi, MIT, Stanford in EN). `:::caution`
+   callout "Proctored exams and AI detectors" quoting Turnitin's
+   official disclaimer. The "who signs" rule applied to
+   three cases (oral exam, thesis, written exam). Full review cycle
+   (`analyze-lesson` 8 questions + `integrate-questions` with 4
+   inline changes + style-checker IT and EN, 2026-05-13).
+   Main integrations: a practical line between a style reviewer and
+   a paragraph author, the edge case of a complete rewrite,
+   an example of filling in the placeholders, concrete indicators that
+   an exam board recognizes. Bridge to the following modules (Per docenti,
+   Per chi vuole di più). Doesn't use ChatDemo (a conceptual/ethical lesson).
 
-**Stato attuale**: 8 su 8 pubblicate, **modulo Per studenti completo
-al 100%**.
+**Current status**: 8 out of 8 published, **Per studenti module complete
+at 100%**.
 
-## Modulo 5: Per docenti (livello `intermedio`)
+## Module 5: Per docenti (level `intermedio`)
 
-Target: insegnanti di scuola primaria, secondaria e università, più
-formatori aziendali e divulgatori. Pubblico non tecnico ma con
-competenza didattica propria. Tono pratico, casi d'uso da classe.
-Spec di modulo:
+Target: primary, secondary, and university teachers, plus
+corporate trainers and educators. Non-technical audience but with their
+own teaching expertise. Practical tone, classroom use cases.
+Module spec:
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`.
 
-Struttura validata 2026-05-16. Nove lezioni, ordine pedagogico = ordine
-di scrittura. Livello uniforme `intermedio`: il pubblico ci arriva
-dopo Fondamenti + Uso quotidiano (o con esperienza equivalente).
+Structure validated 2026-05-16. Nine lessons, pedagogical order = writing
+order. Uniform level `intermedio`: the audience arrives here
+after Fondamenti + Uso quotidiano (or with equivalent experience).
 
-Pattern editoriale specifico del modulo: ogni lezione operativa (1-7)
-chiude con una sezione "Approfondisci per la tua disciplina" che
-espone via `<LlmExercise variant="practice">` un file
-`deepen-<slug>.txt` di prompt. Il prompt fa intervistare il docente
-dall'IA su disciplina/livello/classe/caso concreto e genera
-un'applicazione mirata della tecnica della lezione. Pattern assente
-nelle lezioni 8-9 (critica + chiusura, non operative).
+Module-specific editorial pattern: every operational lesson (1-7)
+closes with an "Approfondisci per la tua disciplina" section that
+exposes a `deepen-<slug>.txt` prompt file via
+`<LlmExercise variant="practice">`. The prompt has the AI interview the
+teacher on discipline/level/class/concrete case and generates
+a targeted application of the lesson's technique. Pattern absent
+in lessons 8-9 (critique + closing, not operational).
 
-Filo rosso "riconoscere l'uso dell'IA da parte degli studenti":
-callout breve in L5 e L6 con rimando esplicito alla lezione dedicata
-L8 (*Quando lo studente usa l'IA*).
+Recurring thread "recognizing AI use by students":
+a short callout in L5 and L6 with an explicit pointer to the dedicated
+lesson L8 (*Quando lo studente usa l'IA*).
 
-Autonomia totale dal Modulo 4 (Per studenti): nessun cross-link, nessuna
-disambiguazione esplicita verso le lezioni di studente, anche dove i
-temi sono specchio.
+Total independence from Module 4 (Per studenti): no cross-links, no
+explicit disambiguation toward the student lessons, even where the
+topics mirror each other.
 
 1. ✅ **Progettare una lezione** (`for-teachers/design-a-lesson`)
-   Pubblicata IT + EN il 2026-05-16. Apertura del modulo. Contratto
-   del modulo (IA in preparazione, non in classe, con apertura
-   tattica sull'uso on-the-fly). Scaletta in tre passaggi (obiettivo
-   di apprendimento → gradazione → tempi), critica della scaletta
-   prima dei materiali, materiali agganciati alla scaletta validata.
-   ChatDemo portante: scienze, 12 anni, ciclo dell'acqua, prima/dopo
-   con il bicchiere coperto al sole. Quattro callout (prima volta
-   costa di più; regola del meno 25-30%; durate fuori standard;
-   lezioni in più giorni + materie con altre strutture). Prima
-   lezione del progetto a usare `<LlmExercise variant="practice">`
-   per la sezione "Approfondisci per la tua disciplina". Ciclo di
-   revisione completo (`analyze-lesson` 10 domande +
-   `integrate-questions` con 10 modifiche tutte applicate + style-checker
-   IT e EN, 2026-05-16). Style-checker IT: OK senza fix richiesti.
-   Style-checker EN: OK con 7 fix di idiomaticità applicati ("makes
-   sense" splittato in due frasi, "decides whether" → "is what makes
+   Published IT + EN on 2026-05-16. Opens the module. The module's
+   contract (AI in preparation, not in class, with a tactical
+   opening on on-the-fly use). A three-step outline (learning
+   objective → grading → timing), critiquing the outline
+   before the materials, materials hooked to the validated outline.
+   Central ChatDemo: science, age 12, the water cycle, before/after
+   with a glass covered in the sun. Four callouts (the first time
+   costs more; the minus-25-30% rule; non-standard durations;
+   multi-day lessons + subjects with other structures). The project's
+   first lesson to use `<LlmExercise variant="practice">`
+   for the "Approfondisci per la tua disciplina" section. Full
+   review cycle (`analyze-lesson` 10 questions +
+   `integrate-questions` with 10 changes all applied + style-checker
+   IT and EN, 2026-05-16). Style-checker IT: OK with no fixes requested.
+   Style-checker EN: OK with 7 idiomaticity fixes applied ("makes
+   sense" split into two sentences, "decides whether" → "is what makes
    it work", "experienced guess" → "educated guess", "of little use"
-   → "not much use", "Without explicit constraints" riposizionato,
+   → "not much use", "Without explicit constraints" repositioned,
    "Under a microscope it collapses fast" → "Look closer and it
-   falls apart", "miraculously" rimosso).
+   falls apart", "miraculously" removed).
 2. ✅ **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
-   Pubblicata IT + EN il 2026-05-17. Stessa nozione raccontata a
-   pubblici diversi (per stile, non per livello). Le cinque versioni
-   (analogia quotidiana, registro tecnico, modalità visiva,
-   narrazione storica, attività pratica) chieste in un solo turno;
-   2-3 scelte per la classe. Cerniera fra preparazione e classe:
-   funziona anche on-the-fly quando uno studente non aggancia.
-   ChatDemo portante su funzioni inverse, 16-17 anni, con cinque
-   versioni in un singolo turno. Quattro callout (materie senza
-   formule, modalità visiva senza skill di disegno, "progetto
-   docente" pre-impostato, scuole senza cellulare in aula).
-   Ciclo di revisione completo (`analyze-lesson` 9 domande +
-   `integrate-questions` con 9 modifiche tutte applicate +
-   style-checker IT e EN, 2026-05-17). Style-checker IT: OK con
-   un fix "qui sopra" (vietato dalla voice guide) sostituito con
-   ancora esplicita al passo 3 del ChatDemo. Style-checker EN: ha
-   catturato un errore numerico vero (3x5=15, il testo diceva
-   "nove combinazioni mai usate") sistemato in entrambe le lingue,
-   più 9 fix di idiomaticità EN ("aren't transparent" semantica
-   inversa → "stay invisible", "reformulates it on calibration"
-   opaco → "reframes it to fit your class", più sette calchi
-   minori).
+   Published IT + EN on 2026-05-17. The same notion told to
+   different audiences (by style, not by level). The five versions
+   (everyday analogy, technical register, visual mode,
+   historical narrative, hands-on activity) requested in a single turn;
+   2-3 chosen for the class. A hinge between prep and classroom:
+   also works on-the-fly when a student doesn't connect.
+   Central ChatDemo on inverse functions, ages 16-17, with five
+   versions in a single turn. Four callouts (subjects without
+   formulas, visual mode without drawing skills, a preset
+   "teacher project", schools without phones in class).
+   Full review cycle (`analyze-lesson` 9 questions +
+   `integrate-questions` with 9 changes all applied +
+   style-checker IT and EN, 2026-05-17). Style-checker IT: OK with
+   a "qui sopra" fix (forbidden by the voice guide) replaced with
+   an explicit anchor at step 3 of the ChatDemo. Style-checker EN
+   caught a genuine numeric error (3x5=15, the text said
+   "nine combinations never used") fixed in both languages,
+   plus 9 EN idiomaticity fixes ("aren't transparent" with reversed
+   meaning → "stay invisible", opaque "reformulates it on calibration"
+   → "reframes it to fit your class", plus seven minor
+   calques).
 3. ✅ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
-   Pubblicata IT + EN il 2026-06-24. Stesso argomento, livelli
-   verticali di difficoltà, distinta dall'asse per stile della L2.
-   Pattern *un solo testo base, tre derivati*: il docente scrive lo
-   standard, l'IA deriva consolidamento e approfondimento (lo standard
-   è già il testo base, all'IA si chiedono i due estremi). Tre regole
-   di allineamento (stesse risposte alle domande di base, stesso tempo
-   di lavoro, stesso glossario). ChatDemo portante su storia, prima
-   superiore, riforme di Costantino, con testo base visibile nel prompt
-   e le due varianti derivate. Callout `:::note` per le materie STEM
-   (differenziare = cambiare il sostegno, non il numero di problemi),
-   `:::tip` scuola primaria (schema a due livelli), `:::note` combinare
-   stile × livello. Cosa NON fare: varianti senza testo base, etichette
-   facile/medio/difficile, scollamento alla verifica. Ciclo di
-   revisione completo (`analyze-lesson` 9 domande + `integrate-questions`
-   con 6 modifiche + style-checker IT e EN, 2026-06-24). Integrazioni
-   principali dall'analisi lettore: testo base reso visibile nel
-   ChatDemo (prima assente), callout STEM, chiarimento esercizi diversi
-   ma stesse risposte di fondo, esplicitazione due varianti / tre
-   livelli, controllo anti-deriva contro il testo base, glossa di
-   "drift" in italiano. Style-checker IT: verdetto OK, applicata la
-   sola rifinitura della description. Style-checker EN: OK con
-   rifiniture opzionali (consolidation/extension, real-world task,
-   "genuinely"), nessuna applicata (gergo didattico inglese reale e
-   più chiaro per pubblico internazionale).
+   Published IT + EN on 2026-06-24. Same topic, vertical difficulty
+   levels, distinct from L2's by-style axis.
+   Pattern *one base text, three derivatives*: the teacher writes the
+   standard, the AI derives consolidation and extension (the standard
+   is already the base text, the AI is asked for the two extremes). Three
+   alignment rules (same answers to the base questions, same work
+   time, same glossary). Central ChatDemo on history, first year of
+   high school, Constantine's reforms, with the base text visible in the prompt
+   and the two derived variants. `:::note` callout for STEM subjects
+   (differentiating = changing the support, not the number of problems),
+   `:::tip` primary school (a two-level scheme), `:::note` combining
+   style × level. What NOT to do: variants without a base text, easy/
+   medium/hard labels, drifting away from the assessment. Full
+   review cycle (`analyze-lesson` 9 questions + `integrate-questions`
+   with 6 changes + style-checker IT and EN, 2026-06-24). Main
+   integrations from the reader analysis: the base text made visible in
+   the ChatDemo (previously absent), the STEM callout, a clarification that exercises differ
+   but the underlying answers stay the same, making the two variants / three
+   levels explicit, an anti-drift check against the base text, a gloss
+   of "drift" in Italian. Style-checker IT: OK verdict, only the
+   description refinement applied. Style-checker EN: OK with
+   optional refinements (consolidation/extension, real-world task,
+   "genuinely"), none applied (real, clearer teaching jargon in English
+   for an international audience).
 4. ✅ **Inclusività: BES e DSA** (`for-teachers/inclusive-materials`)
-   Pubblicata IT + EN il 2026-06-24. Inclusione come accessibilità,
-   non come "versione facile", distinta dall'asse per livello della L3.
-   Glossa di BES, DSA, PDP, PEI in apertura. Tre assi di adattamento
-   (forma della pagina, sintesi visiva, semplificazione sintattica che
-   tiene i termini chiave). ChatDemo portante su italiano, secondo
-   superiore, Petrarca/Canzoniere adattato per uno studente con
-   dislessia (EN localizzato sui Sonetti di Shakespeare). Guardrail:
-   validazione col referente DSA o docente di sostegno, privacy dei
-   minori (niente nome o diagnosi nella chat), niente diagnosi né
-   valutazione di gravità, adattare dentro il PDP/PEI non al posto del
-   piano. Callout `:::tip` "Se manca la rete formale" (scuole senza
-   referente, BES non certificati), `:::note` oltre la dislessia
-   (discalculia, disgrafia, ADHD), `:::tip` adattare un materiale
-   esistente via foto. Ciclo di revisione completo (`analyze-lesson` 8
-   domande + `integrate-questions` con 5 modifiche + style-checker IT e
-   EN, 2026-06-24). Integrazioni principali dall'analisi lettore:
-   callout sulla rete formale assente, estensione a discalculia/
-   disgrafia/ADHD, controllo della sfumatura sul testo letterario,
-   formato dello schema (testo o ASCII, non immagine), riga sulla
-   progettazione universale (dare l'accessibile a tutti). Bug di build
-   intercettato e corretto: la description IT con `: ` non quotato
-   rompeva il parsing YAML del frontmatter (stesso caso di M3L7),
-   riscritta senza colon-space. Style-checker IT ed EN: verdetto OK,
-   nessuna modifica richiesta.
+   Published IT + EN on 2026-06-24. Inclusion as accessibility,
+   not as an "easy version", distinct from L3's by-level axis.
+   A gloss of BES, DSA, PDP, PEI at the opening. Three adaptation
+   axes (page layout, visual summary, syntactic simplification that
+   keeps the key terms). Central ChatDemo on Italian, second year of
+   high school, Petrarch/Canzoniere adapted for a student with
+   dyslexia (EN localized on Shakespeare's Sonnets). Guardrails:
+   validation with the SEN specialist or support teacher, minors'
+   privacy (no name or diagnosis in the chat), no diagnosing or
+   severity assessment, adapting within the PDP/PEI plan, not instead of the
+   plan. `:::tip` callout "If there's no formal support network" (schools without
+   a specialist, uncertified SEN), `:::note` beyond dyslexia
+   (dyscalculia, dysgraphia, ADHD), `:::tip` adapting existing
+   material via a photo. Full review cycle (`analyze-lesson` 8
+   questions + `integrate-questions` with 5 changes + style-checker IT and
+   EN, 2026-06-24). Main integrations from the reader analysis:
+   a callout on a missing formal support network, extension to dyscalculia/
+   dysgraphia/ADHD, a check on the nuance of the literary text,
+   the scheme's format (text or ASCII, not an image), a line on
+   universal design (making accessibility the default for everyone). Build bug
+   caught and fixed: the IT description with an unquoted `: `
+   broke the frontmatter's YAML parsing (same case as M3L7),
+   rewritten without a colon-space. Style-checker IT and EN: OK verdict,
+   no changes required.
 5. ✅ **Domande per verifiche** (`for-teachers/generate-assessment-questions`)
-   Pubblicata IT + EN il 2026-06-24. Quattro formati (aperte, scelta
-   multipla, vero/falso, problem-solving) ognuno con il suo criterio,
-   taratura sulla scala di Bloom, distrattori come errori tipici col
-   "perché" di ciascuno. ChatDemo portante su storia, terza superiore,
-   Prima guerra mondiale (sei domande miste). Filo rosso anti-cheating:
-   callout "domande che reggono allo studio con l'IA", con rimando per
-   nome (senza link, lezione non ancora pubblicata) a L8 *Quando lo
-   studente usa l'IA*. Altri callout: interrogazioni orali, materie
-   senza fatti netti (multipla debole, meglio le aperte), Anki/Quizlet/
-   quiz online, "rileggi prima di somministrare" col controllo del
-   livello di Bloom dichiarato dall'IA. Ciclo di revisione completo
-   (`analyze-lesson` 7 domande + `integrate-questions` con 5 modifiche +
-   style-checker IT e EN, 2026-06-24). Style-checker IT ed EN: verdetto
-   OK, nessuna modifica richiesta.
+   Published IT + EN on 2026-06-24. Four formats (open-ended, multiple
+   choice, true/false, problem-solving) each with its own criterion,
+   calibrated on Bloom's taxonomy, distractors as typical errors with
+   the "why" for each. Central ChatDemo on history, third year of
+   high school, World War I (six mixed questions). Anti-cheating
+   thread: a callout "questions that hold up to AI-assisted studying", with a pointer by
+   name (no link, lesson not yet published) to L8 *Quando lo
+   studente usa l'IA*. Other callouts: oral exams, subjects
+   without clear-cut facts (multiple choice is weak, open-ended is better), Anki/Quizlet/
+   online quizzes, "reread before administering it" with a check on the
+   Bloom level the AI claims. Full review cycle
+   (`analyze-lesson` 7 questions + `integrate-questions` with 5 changes +
+   style-checker IT and EN, 2026-06-24). Style-checker IT and EN: OK
+   verdict, no changes required.
 6. ✅ **Correggere con criterio** (`for-teachers/grading-with-criteria`)
-   Pubblicata IT + EN il 2026-06-24. L'IA come assistente di
-   correzione, non come giudice. Tre principi (rubrica del docente,
-   decisione del docente, anonimizzazione) e workflow in cinque passi:
-   rubrica esplicita, prima passata IA su 3-5 elaborati, verifica del
-   docente sugli stessi, estensione a lotti se regge (con spot-check sul
-   set intero), restituzione scritta dal docente. ChatDemo portante su
-   italiano, quinta superiore, analisi del testo di *A Zacinto* di
-   Foscolo: l'IA applica la rubrica, sbaglia su un criterio ambiguo
-   (errore cronologico Foscolo/Leopardi non colto) e il disaccordo col
-   docente affina la rubrica. EN localizzato su Keats (*When I have
-   fears*) con errore Keats/Tennyson. Filo rosso anti-cheating: callout
-   indicatori manuali di sospetta IA (indizi, non prove), rimando per
-   nome a L8. Altri callout: temi manoscritti (foto, calligrafia,
-   anonimizzazione del nome), STEM/chiave di soluzione, privacy, tabella
-   per il registro (link a M3L5 *data-and-tables*). Ciclo di revisione
-   completo (`analyze-lesson` 6 domande + `integrate-questions` con 3
-   modifiche + style-checker IT e EN, 2026-06-24). Style-checker IT: OK
-   con una rifinitura applicata ("In sintesi" → "Nel complesso" nella
-   battuta IA del ChatDemo). Style-checker EN: OK.
+   Published IT + EN on 2026-06-24. AI as a grading
+   assistant, not as a judge. Three principles (the teacher's rubric,
+   the teacher's decision, anonymization) and a five-step workflow:
+   explicit rubric, a first AI pass on 3-5 papers, the teacher's
+   verification on the same ones, extension to batches if it holds up (with a spot-check on
+   the full set), written feedback from the teacher. Central ChatDemo on
+   Italian, fifth year of high school, text analysis of Foscolo's *A
+   Zacinto*: the AI applies the rubric, gets an ambiguous criterion
+   wrong (a Foscolo/Leopardi chronological error it misses), and disagreement with the
+   teacher refines the rubric. EN localized on Keats (*When I have
+   fears*) with a Keats/Tennyson error. Anti-cheating thread: a callout on
+   manual indicators of suspected AI use (clues, not proof), a pointer by
+   name to L8. Other callouts: handwritten essays (photo, handwriting,
+   name anonymization), STEM/answer key, privacy, a table
+   for the gradebook (link to M3L5 *data-and-tables*). Full review
+   cycle (`analyze-lesson` 6 questions + `integrate-questions` with 3
+   changes + style-checker IT and EN, 2026-06-24). Style-checker IT: OK
+   with one refinement applied ("In sintesi" → "Nel complesso" in
+   the AI's line in the ChatDemo). Style-checker EN: OK.
 7. ✅ **Comunicare con le famiglie** (`for-teachers/emails-to-families`)
-   Pubblicata IT + EN il 2026-06-24. Email delicate ai genitori: l'IA
-   comprime il tempo, non la sensibilità. Tre registri secondo
-   l'ordine di scuola (primaria cordiale, secondaria istituzionale ma
-   vicina, università formale con nota sul consenso dello studente
-   maggiorenne). Pattern in tre passi (situazione anonimizzata, tre
-   versioni di registro diverso, componi da pezzi e rileggi a freddo).
-   ChatDemo portante su secondaria di primo grado, calo improvviso di
-   rendimento: tre versioni (asciutta, calda, formale) ricomposte in
-   una. Casi con trappole (voto basso, comportamento, sospetto disturbo
-   dell'apprendimento, convocazione). Callout privacy minori
-   rinforzata, famiglie non italofone (EN: non anglofone), rispondere a
-   un genitore arrabbiato, quando NON è la mail lo strumento (fatti
-   gravi → procedura interna). Ciclo di revisione completo
-   (`analyze-lesson` 6 domande + `integrate-questions` con 3 modifiche +
-   style-checker IT e EN, 2026-06-24). Style-checker IT: OK con due
-   rifiniture applicate ("davvero", un riferimento posizionale).
-   Style-checker EN: OK con due rifiniture applicate ("pour data" →
+   Published IT + EN on 2026-06-24. Delicate emails to parents: AI
+   compresses time, not sensitivity. Three registers according to
+   school level (primary friendly, secondary institutional but
+   close, university formal with a note on the adult student's
+   consent). A three-step pattern (an anonymized situation, three
+   versions in different registers, compose from the pieces and reread it cold).
+   Central ChatDemo on lower secondary school, a sudden drop in
+   performance: three versions (dry, warm, formal) recomposed into
+   one. Cases with pitfalls (low grade, behavior, a suspected learning
+   disability, a summons). A reinforced minors' privacy callout,
+   non-Italian-speaking families (EN: non-English-speaking), replying to
+   an angry parent, when email is NOT the right tool (serious
+   facts → an internal procedure). Full review cycle
+   (`analyze-lesson` 6 questions + `integrate-questions` with 3 changes +
+   style-checker IT and EN, 2026-06-24). Style-checker IT: OK with two
+   refinements applied ("davvero", a positional reference).
+   Style-checker EN: OK with two refinements applied ("pour data" →
    "enter/put", "at your earliest convenience").
 8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
-   Riconoscere senza demonizzare. AI detector inaffidabili, indicatori
-   manuali come ipotesi, ridisegno consegne, conversazione (non
-   condanna).
+   Recognizing without demonizing. Unreliable AI detectors, manual
+   indicators as hypotheses, redesigning assignments, conversation (not
+   condemnation).
 9. 🆕 **Etica del docente** (`for-teachers/ethics-of-teaching`)
-   Chiusura. Onestà verso studenti/famiglie, privacy dei minori,
-   valutazione che resta del docente. Politiche d'istituto italiane ed
-   estere. Ponte al Modulo 6.
+   Closing. Honesty toward students/families, minors' privacy,
+   grading that stays with the teacher. Italian and foreign institutional
+   policies. Bridge to Module 6.
 
-**Stato attuale**: 7 su 9 pubblicate. Lezioni 1-7 live (IT + EN)
-con verifica dell'apprendimento e approfondimento per disciplina
-attivi.
+**Current status**: 7 out of 9 published. Lessons 1-7 live (IT + EN)
+with the learning check-in and the discipline deepen-dive
+active.
 
-## Modulo 6: Per chi vuole di più (livello `avanzato`)
+## Module 6: Per chi vuole di più (level `avanzato`)
 
-Target: developer e professionisti che vogliono integrare l'IA in strumenti
-propri. Pubblico tecnico: tono più diretto, meno propedeutico.
+Target: developers and professionals who want to integrate AI into their own
+tools. Technical audience: more direct tone, less hand-holding.
 
-Slug definitivi e ordine in sidebar (2026-04-23). Decisione 2026-04-23:
-il modulo resta un blocco unico da 13 voci finché non ne vengono scritte
-le prime 3-4 lezioni; se cresce, valutare lo split in "Core APIs" +
+Final slugs and sidebar order (2026-04-23). Decision 2026-04-23:
+the module stays a single block of 13 entries until the first 3-4
+lessons are written; if it grows, consider splitting it into "Core APIs" +
 "Beyond APIs".
 
-1. 🆕 **Dalle chat alle API** (`going-deeper/from-chats-to-apis`) — cosa cambia, quando conviene.
-2. 🆕 **Scegliere il modello** (`going-deeper/choose-the-model`) — Claude / GPT / Gemini / open source: criteri, non tifoseria.
-3. 🆕 **Il contesto in token** (`going-deeper/context-in-tokens`) — limiti, cosa entra e cosa no.
-4. 🆕 **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`) — separare istruzioni da input.
+1. 🆕 **Dalle chat alle API** (`going-deeper/from-chats-to-apis`): what changes, when it's worth it.
+2. 🆕 **Scegliere il modello** (`going-deeper/choose-the-model`): Claude / GPT / Gemini / open source: criteria, not tribalism.
+3. 🆕 **Il contesto in token** (`going-deeper/context-in-tokens`): limits, what fits and what doesn't.
+4. 🆕 **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`): separating instructions from input.
 5. 🆕 **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`).
-6. 🆕 **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`) — concetti e quando serve davvero.
-7. 🆕 **Agenti** (`going-deeper/agents`) — panoramica realistica, non hype.
-8. 🆕 **MCP e integrazioni** (`going-deeper/mcp-and-integrations`) — standard emergenti.
-9. 🆕 **Prompt injection e sicurezza** (`going-deeper/prompt-injection`) — input utente, jailbreak, difese pratiche.
-10. 🆕 **Evals** (`going-deeper/evals`) — come testi se il tuo sistema IA funziona.
-11. 🆕 **Costi e prompt caching** (`going-deeper/costs-and-caching`) — pattern di ottimizzazione.
+6. 🆕 **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`): concepts and when it's actually needed.
+7. 🆕 **Agenti** (`going-deeper/agents`): a realistic overview, not hype.
+8. 🆕 **MCP e integrazioni** (`going-deeper/mcp-and-integrations`): emerging standards.
+9. 🆕 **Prompt injection e sicurezza** (`going-deeper/prompt-injection`): user input, jailbreaks, practical defenses.
+10. 🆕 **Evals** (`going-deeper/evals`): how to test whether your AI system works.
+11. 🆕 **Costi e prompt caching** (`going-deeper/costs-and-caching`): optimization patterns.
 12. 🆕 **Privacy e dati nelle API** (`going-deeper/privacy-in-apis`).
-13. 🆕 **Mini progetto end-to-end** (`going-deeper/mini-project`) — mettere insieme quello che si è visto.
+13. 🆕 **Mini progetto end-to-end** (`going-deeper/mini-project`): putting together what's been covered.
 
-Da decidere prima di scrivere: stack degli esempi (Node? Python?
-Entrambi?), profondità dei pattern (RAG: spiegazione concettuale o
-tutorial con codice?).
+To decide before writing: example stack (Node? Python?
+Both?), depth of the patterns (RAG: conceptual explanation or
+a code tutorial?).
 
-## Pagine trasversali (fuori dai moduli)
+## Cross-cutting pages (outside the modules)
 
-- ✅ **Glossario** (`/it/glossary/`) — termini tecnici (Allenamento,
-  Allucinazione, Contesto, Freemium, IA, LLM, Memoria, Modello, Prompt)
-  con definizione breve e bottone "Spiegamelo meglio con la tua IA"
-  che genera un prompt calibrato sul termine.
-- ✅ **Chi sono / About** (`/it/about/`, `/en/about/`) — pagina autoriale
-  in prima persona: cosa faccio, da dove vengo, perché AI-Guide. Include
-  `<MailtoComposer>` verso `ai-guide@larosa.work` per raccolta feedback e
-  link a LinkedIn + sito personale. Linkata dal footer (override
-  `Footer.astro`) su tutte le pagine.
-- ✅ **Privacy del sito** (`/it/privacy/`, `/en/privacy/`) — cosa raccoglie
-  il sito stesso (cookie zero, `localStorage` locale, analytics via proxy
-  Cloudflare). Non va confusa con la lezione *Quello che condividi quando
-  usi l'IA* (Modulo 1, lezione 6), che riguarda le conversazioni del
-  lettore con la propria IA.
-- 🆕 **FAQ** — privacy, costi, quale IA scegliere, cosa succede se l'IA
-  sbaglia, AI Act in pillole.
-- 🆕 **Cronologia** (opzionale) — breve storia di come siamo arrivati qui,
-  tono narrativo non Wikipedia. Antidoto all'hype: "non è la prima volta
-  che l'IA 'arriva'".
+- ✅ **Glossario** (`/it/glossary/`): technical terms (Allenamento
+  [Training], Allucinazione [Hallucination], Contesto [Context], Freemium, IA [AI], LLM, Memoria [Memory], Modello [Model], Prompt)
+  with a short definition and an "Explain it better with your AI" button
+  that generates a prompt calibrated on the term.
+- ✅ **Chi sono / About** (`/it/about/`, `/en/about/`): an authorial first-person
+  page: what I do, where I come from, why AI-Guide. Includes
+  `<MailtoComposer>` pointed at `ai-guide@larosa.work` for feedback collection and
+  a link to LinkedIn + personal site. Linked from the footer (override
+  `Footer.astro`) on every page.
+- ✅ **Privacy del sito** (`/it/privacy/`, `/en/privacy/`): what the site
+  itself collects (zero cookies, local `localStorage`, analytics via a
+  Cloudflare proxy). Not to be confused with the *Quello che condividi quando
+  usi l'IA* lesson (Module 1, lesson 6), which covers the reader's
+  conversations with their own AI.
+- 🆕 **FAQ**: privacy, costs, which AI to choose, what happens if the AI
+  gets it wrong, the AI Act in a nutshell.
+- 🆕 **Timeline** (optional): a short history of how we got here,
+  narrative tone, not Wikipedia. An antidote to hype: "this isn't the first time
+  AI has 'arrived'".
 
-## Traduzione
+## Translation
 
-**Inglese live al 100% per i moduli Fondamenti e Uso quotidiano**.
-La traduzione EN del Modulo 2 è avanzata lezione per lezione in
-pari passo con la stesura IT (decisione 2026-04-20): 8 su 8
-tradotte (*Chiedere bene* / *Ask well*, *Iterare la conversazione*
+**English live at 100% for the Fondamenti and Uso quotidiano modules**.
+The EN translation of Module 2 progressed lesson by lesson in
+step with the IT drafting (decision 2026-04-20): 8 out of 8
+translated (*Chiedere bene* / *Ask well*, *Iterare la conversazione*
 / *Iterate the conversation*, *Capire una cosa complicata* /
 *Understanding something complicated*, *Riassumere un documento
 lungo* / *Summarize a long document*, *Imparare un argomento
 nuovo* / *Learn something new*, *Scrivere meglio* / *Write better*,
 *Foto, immagini e file* / *Photos, images, and files*, *Cose da
 NON fare* / *Things NOT to do*).
-Cataloghi tradotti, file `.txt` di skill mirror in
-`public/skills/en/`, stringhe UI dei componenti in
-`src/i18n/ui.ts`. Per aggiungere una terza lingua: aggiungere la voce
-in `astro.config.mjs > locales` e in `src/i18n/ui.ts > STRINGS`,
-mirrorare `src/content/docs/<lang>/` e `public/skills/<lang>/`.
+Catalogs translated, mirror skill `.txt` files in
+`public/skills/en/`, component UI strings in
+`src/i18n/ui.ts`. To add a third language: add the entry
+in `astro.config.mjs > locales` and in `src/i18n/ui.ts > STRINGS`,
+mirror `src/content/docs/<lang>/` and `public/skills/<lang>/`.
 
-Le card della homepage e della start-here EN per il Modulo 2 sono
-state attivate con la pubblicazione di *Ask well* (commit b64e411,
-2026-04-20) e puntano alla prima lezione EN del modulo.
+The homepage and EN start-here cards for Module 2 were
+activated with the publication of *Ask well* (commit b64e411,
+2026-04-20) and point to the module's first EN lesson.
 
-## Workflow per scrivere una lezione
+## Workflow for writing a lesson
 
-1. Aggiungere la voce nel modulo con stato ✍️ (in questo file).
-2. Bozza in `src/content/docs/it/<sezione>/<slug>.mdx` seguendo voice-guide.
-3. `/analyze-lesson <path>` per generare domande del lettore.
-4. Curare le domande generate in `analysis/<slug>.questions.md` (scartare
-   quelle che non convincono, aggiungere le proprie).
-5. `/integrate-questions <path>` per applicare le risposte inline, come
-   callout, esempio, o FAQ.
-6. Agent `style-checker` per QA finale (em dash, pattern AI, voice).
-7. Aggiornare lo stato a ✅ in questo file, **nello stesso commit** che
-   pubblica la lezione.
+1. Add the entry in the module with status ✍️ (in this file).
+2. Draft in `src/content/docs/it/<sezione>/<slug>.mdx` following the voice guide.
+3. `/analyze-lesson <path>` to generate reader questions.
+4. Curate the generated questions in `analysis/<slug>.questions.md` (discard
+   the ones that don't convince, add your own).
+5. `/integrate-questions <path>` to apply the answers inline, as
+   callouts, examples, or FAQ.
+6. `style-checker` agent for final QA (em dash, AI patterns, voice).
+7. Update the status to ✅ in this file, **in the same commit** that
+   publishes the lesson.
 
-## Prossima sessione
+## Next session
 
-**Revisioni pendenti**: nessuna. Modulo Fondamenti chiuso al 100% il
-2026-04-19. Modulo Uso quotidiano chiuso al 100% il 2026-04-23.
-Modulo Sul lavoro chiuso al 100% il 2026-04-25. Modulo Per studenti
-chiuso al 100% il 2026-05-13.
+**Pending revisions**: none. Fondamenti module closed at 100% on
+2026-04-19. Uso quotidiano module closed at 100% on 2026-04-23.
+Sul lavoro module closed at 100% on 2026-04-25. Per studenti module
+closed at 100% on 2026-05-13.
 
-**Modulo 5 (Per docenti)**: 7 su 9 pubblicate (lezione 7 il
-2026-06-24). Struttura validata in
+**Module 5 (Per docenti)**: 7 out of 9 published (lesson 7 on
+2026-06-24). Structure validated in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
-piano di implementazione in
-`docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Prossima
-bozza: lezione 8, **Quando lo studente usa l'IA**
-(`for-teachers/when-students-use-ai`). Brief nella "Phase I" del
-piano; prerequisiti del frontmatter L8: `[ask-well, when-to-trust-it]`.
-Lezioni 8-9 senza "Approfondisci per la tua disciplina" (solo
-verifica di fine lezione).
+implementation plan in
+`docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Next
+draft: lesson 8, **Quando lo studente usa l'IA**
+(`for-teachers/when-students-use-ai`). Brief in the "Phase I" of
+the plan; L8 frontmatter prerequisites: `[ask-well, when-to-trust-it]`.
+Lessons 8-9 without "Approfondisci per la tua disciplina" (only
+an end-of-lesson check-in).
 
-**Sblocco placeholder in sidebar**: per ogni lezione del Modulo 5 che
-atterra, sostituire la voce placeholder disabilitata in
-`astro.config.mjs` con `{ slug: 'for-teachers/<slug>' }` in un commit
-dedicato (pattern già stabilito con i commit "Unlock Module N lesson M
-in sidebar").
+**Unlocking sidebar placeholders**: for every Module 5 lesson that
+lands, replace the disabled placeholder entry in
+`astro.config.mjs` with `{ slug: 'for-teachers/<slug>' }` in a
+dedicated commit (a pattern already established with the "Unlock Module N lesson M
+in sidebar" commits).
 
-**Audit moduli 3-6 (storico)**: gap identificati e coperti nei moduli
-3, 4 (chiusi), 5 (in scrittura). Per Modulo 6 vedi piano provvisorio
+**Modules 3-6 audit (historical)**: gaps identified and covered in
+modules 3, 4 (closed), 5 (in progress). For Module 6 see the provisional plan
 in `CONTENT.md`.
 
-## Pickup da un altro PC (Modulo 5 in scrittura)
+## Picking up from another PC (Module 5 in progress)
 
-Ultimo stato sincronizzato su `origin/main` il 2026-05-17. I commit
-delle lezioni 3, 4, 5, 6 e 7 (2026-06-24) sono **in locale su
-`main`, non ancora pushati**: fare `git push origin main` per
-renderli disponibili da un altro PC. Per riprendere da un altro PC:
+Last state synced to `origin/main` on 2026-05-17. The commits
+for lessons 3, 4, 5, 6, and 7 (2026-06-24) are **local on
+`main`, not yet pushed**: run `git push origin main` to
+make them available from another PC. To resume from another PC:
 
-1. **Clone / pull** del repo, branch `main`.
-2. **Setup ambiente**: Node 22 (pinnato in `.nvmrc`). `npm install`
-   richiede circa 3 minuti su prima esecuzione (sharp + pwa icons
-   come prebuild).
-3. **Verifica build**: `npm run build` (~60 sec). Smoke test che il
-   sito ricostruisce pulito (76+ pagine attese).
-4. **Avvio dev**: `npm run dev` su `http://localhost:4321`. Per
-   vedere l'ultima lezione: `/it/for-teachers/emails-to-families/`
-   o `/en/for-teachers/emails-to-families/`.
+1. **Clone / pull** the repo, branch `main`.
+2. **Environment setup**: Node 22 (pinned in `.nvmrc`). `npm install`
+   takes about 3 minutes on the first run (sharp + pwa icons
+   as a prebuild step).
+3. **Build check**: `npm run build` (~60 sec). Smoke test that the
+   site rebuilds clean (76+ pages expected).
+4. **Start dev**: `npm run dev` at `http://localhost:4321`. To
+   see the latest lesson: `/it/for-teachers/emails-to-families/`
+   or `/en/for-teachers/emails-to-families/`.
 
-**Contesto Modulo 5**:
+**Module 5 context**:
 
-- Fasi A-H completate (scaffolding + lezioni 1-7).
-- Prossima: **Fase I, lezione 8 *Quando lo studente usa l'IA***
-  (slug `for-teachers/when-students-use-ai`). Senza deepen: le
-  lezioni 8-9 hanno solo la verifica di fine lezione.
-- Brief della Fase I in
-  `docs/superpowers/plans/2026-05-16-per-docenti-module.md` sezione
+- Phases A-H completed (scaffolding + lessons 1-7).
+- Next: **Phase I, lesson 8 *Quando lo studente usa l'IA***
+  (slug `for-teachers/when-students-use-ai`). No deepen: lessons
+  8-9 only have the end-of-lesson check-in.
+- Phase I brief in
+  `docs/superpowers/plans/2026-05-16-per-docenti-module.md` section
   "Phase I".
-- Prerequisiti del frontmatter L8: `[ask-well, when-to-trust-it]`.
+- L8 frontmatter prerequisites: `[ask-well, when-to-trust-it]`.
 
-**Pattern editoriale stabilito dal Modulo 5 (da rispettare in L3 e
-seguenti)**:
+**Editorial pattern established by Module 5 (to follow in L3 and
+onward)**:
 
-- Ogni lezione operativa (1-7) chiude con sezione "Approfondisci
-  per la tua disciplina" che usa `<LlmExercise variant="practice">`
-  con file `public/skills/<locale>/deepen-<slug>.txt`. Lo schema
-  del prompt nel `.txt` è standard: 4 domande all'IA (disciplina,
-  livello scolastico, concetto/caso d'uso, vincoli specifici), poi
-  applicazione operativa in fasi A-E o A-D calate sul caso del
-  lettore.
-- Verifica di fine lezione con `<LlmExercise variant="review">` e
-  file `review-<slug>.txt` (4 domande progressive, come negli altri
-  moduli).
-- Niente cross-link al Modulo 4 (autonomia totale, decisione spec).
-- Filo rosso anti-cheating in L5 e L6 (callout brevi → L8 dedicata).
-- Mirror EN in parallelo alla IT, non a modulo concluso.
-- Card homepage + start-here già attivate dalla L1 (non rifare in L3).
+- Every operational lesson (1-7) closes with an "Approfondisci
+  per la tua disciplina" section that uses `<LlmExercise variant="practice">`
+  with the file `public/skills/<locale>/deepen-<slug>.txt`. The
+  prompt schema in the `.txt` is standard: 4 questions to the AI (discipline,
+  school level, concept/use case, specific constraints), then an
+  operational application in phases A-E or A-D applied to the
+  reader's case.
+- End-of-lesson check-in with `<LlmExercise variant="review">` and
+  a `review-<slug>.txt` file (4 progressive questions, as in the other
+  modules).
+- No cross-link to Module 4 (total independence, a spec decision).
+- Anti-cheating thread in L5 and L6 (short callouts → dedicated L8).
+- EN mirror in parallel with IT, not once the module is finished.
+- Homepage + start-here cards already activated from L1 (don't redo it in L3).
 
-**Workflow per lezione (sintesi a 14 passi)**:
+**Lesson workflow (14-step summary)**:
 
-1. CONTENT.md → ✍️ per la nuova lezione (assorbito dal commit IT)
-2. Bozza IT in `src/content/docs/it/for-teachers/<slug>.mdx`
-3. `/analyze-lesson <path>` → domande in `analysis/<slug>.questions.md`
-4. `/integrate-questions <path>` → applica modifiche
+1. CONTENT.md → ✍️ for the new lesson (absorbed by the IT commit)
+2. IT draft in `src/content/docs/it/for-teachers/<slug>.mdx`
+3. `/analyze-lesson <path>` → questions in `analysis/<slug>.questions.md`
+4. `/integrate-questions <path>` → applies changes
 5. **Deepen IT**: `public/skills/it/deepen-<slug>.txt` +
-   `<LlmExercise variant="practice">` nella lezione
+   `<LlmExercise variant="practice">` in the lesson
 6. **Review IT**: `public/skills/it/review-<slug>.txt` +
-   `<LlmExercise variant="review">` nella lezione
-7. style-checker IT (subagent `general-purpose` con prompt che
-   richiama `.claude/agents/style-checker.md`)
-8. Commit IT: `Module 5 lesson N: <titolo IT> + deepen and review exercises`
-9. Bozza EN in `src/content/docs/en/for-teachers/<slug>.mdx`
+   `<LlmExercise variant="review">` in the lesson
+7. style-checker IT (a `general-purpose` subagent with a prompt that
+   references `.claude/agents/style-checker.md`)
+8. IT commit: `Module 5 lesson N: <titolo IT> + deepen and review exercises`
+9. EN draft in `src/content/docs/en/for-teachers/<slug>.mdx`
 10. Deepen EN: `public/skills/en/deepen-<slug>.txt`
 11. Review EN: `public/skills/en/review-<slug>.txt`
-12. style-checker EN (stesso pattern, con focus su calchi IT→EN)
-13. Commit EN: `Module 5 lesson N EN: <titolo EN> + deepen and review exercises`
-14. Sblocco sidebar in `astro.config.mjs` + CONTENT.md → ✅. Commit
-    dedicato: `Unlock Module 5 lesson N in sidebar`
+12. style-checker EN (same pattern, with a focus on IT→EN calques)
+13. EN commit: `Module 5 lesson N EN: <titolo EN> + deepen and review exercises`
+14. Unlock sidebar in `astro.config.mjs` + CONTENT.md → ✅. Dedicated
+    commit: `Unlock Module 5 lesson N in sidebar`
 
-**File gitignored (non transitano fra PC)**: la cartella `analysis/`
-è ignorata (`.gitignore`). Le applicazioni precedenti
+**Gitignored files (don't transfer between PCs)**: the `analysis/`
+folder is ignored (`.gitignore`). Previous applied files
 (`design-a-lesson.questions.applied.md`,
-`explain-in-five-ways.questions.applied.md`) vivono solo sul
-filesystem locale. Sul nuovo PC partiranno da zero quando lanci
-`/analyze-lesson` per la prossima lezione. Non è un problema: sono
-sottoprodotti del workflow, non artefatti necessari.
+`explain-in-five-ways.questions.applied.md`) live only on the
+local filesystem. On the new PC they'll start from scratch when you run
+`/analyze-lesson` for the next lesson. Not an issue: they're
+byproducts of the workflow, not necessary artifacts.
 
-**Commit landed per il Modulo 5** (in ordine cronologico, dal
-più vecchio al più recente):
+**Commits landed for Module 5** (in chronological order, from
+oldest to most recent):
 
 ```
 5082ed7 Add Module 5 'Per docenti' design spec
@@ -1144,10 +1143,10 @@ d2e1988 Module 5 lesson 7: Comunicare con le famiglie + deepen and review exerci
 (questo commit) Unlock Module 5 lesson 7 in sidebar
 ```
 
-**Nota branch (sessione 2026-06-24)**: durante la scrittura della L5 il
-working tree principale era stato spostato dal workstream parallelo
-(`feat/local-ai-assistant`, assistente IA in-browser). Il commit IT della
-L5 era finito per errore su quel branch (`f829409`) ed è stato riportato
-su `main` via cherry-pick (`9f69915`) in un worktree isolato
-(`../AI-Guide-l5`), per non disturbare l'altro workstream. Il commit
-`f829409` resta su `feat/local-ai-assistant`: si deduplica al merge.
+**Branch note (2026-06-24 session)**: while writing L5, the main
+working tree had been moved by the parallel workstream
+(`feat/local-ai-assistant`, the in-browser AI assistant). The IT commit for
+L5 had ended up by mistake on that branch (`f829409`) and was brought
+back to `main` via cherry-pick (`9f69915`) in an isolated worktree
+(`../AI-Guide-l5`), to avoid disturbing the other workstream. The commit
+`f829409` stays on `feat/local-ai-assistant`: it gets deduplicated at merge time.

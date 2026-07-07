@@ -1,60 +1,60 @@
 # sa-proxy
 
-Cloudflare Worker che fa da proxy first-party per **Simple Analytics**,
-così lo script non viene bloccato dagli adblocker (che bloccano
-`simpleanalyticscdn.com` per dominio).
+Cloudflare Worker that acts as a first-party proxy for **Simple Analytics**,
+so the script doesn't get blocked by adblockers (which block
+`simpleanalyticscdn.com` by domain).
 
-Path serviti su `ai-guide.larosa.work/sa/*`:
+Paths served on `ai-guide.larosa.work/sa/*`:
 
-| Path                  | Forward a                                              |
+| Path                  | Forwards to                                            |
 |-----------------------|--------------------------------------------------------|
 | `/sa/proxy.js`        | `simpleanalyticsexternal.com/proxy.js`                 |
 | `/sa/auto-events.js`  | `scripts.simpleanalyticscdn.com/auto-events.js`        |
 | `/sa/simple/*`        | `queue.simpleanalyticscdn.com/*`                       |
 
-Il resto del traffico del dominio continua ad andare a Netlify
-(che è l'origin dietro al proxy Cloudflare).
+The rest of the domain's traffic keeps going to Netlify
+(which is the origin behind the Cloudflare proxy).
 
 ## Deploy
 
-Una volta sola, login a Cloudflare:
+Once, log in to Cloudflare:
 
 ```bash
 npx wrangler login
 ```
 
-Poi, da questa cartella (`workers/sa-proxy/`):
+Then, from this folder (`workers/sa-proxy/`):
 
 ```bash
 npx wrangler deploy
 ```
 
-Wrangler legge `wrangler.toml`, deploya il Worker e crea la route
-`ai-guide.larosa.work/sa/*` sulla zone `larosa.work`.
+Wrangler reads `wrangler.toml`, deploys the Worker, and creates the route
+`ai-guide.larosa.work/sa/*` on the zone `larosa.work`.
 
-Per testare in locale:
+To test locally:
 
 ```bash
 npx wrangler dev
 ```
 
-Espone il Worker su `http://localhost:8787` (puoi colpire
-`http://localhost:8787/sa/proxy.js` per verificare il forward).
+Exposes the Worker at `http://localhost:8787` (you can hit
+`http://localhost:8787/sa/proxy.js` to verify the forward).
 
-## Verifica post-deploy
+## Post-deploy verification
 
-Dopo il deploy, su `ai-guide.larosa.work/sa/proxy.js` deve rispondere
-lo script di Simple Analytics (200 OK, content-type
-`application/javascript`). Da DevTools del browser, sulla home, devi
-vedere:
+After deploying, `ai-guide.larosa.work/sa/proxy.js` should respond
+with the Simple Analytics script (200 OK, content-type
+`application/javascript`). From the browser's DevTools, on the homepage, you should
+see:
 
 - `GET /sa/proxy.js` → 200
-- al primo evento, `POST /sa/simple/...` → 200 / 204
+- on the first event, `POST /sa/simple/...` → 200 / 204
 
-Nessuna richiesta verso `simpleanalyticscdn.com` dal browser: tutto
-passa via dominio nostro.
+No requests to `simpleanalyticscdn.com` from the browser: everything
+passes through our own domain.
 
-## Riferimenti
+## References
 
-- Documentazione Simple Analytics proxy: https://docs.simpleanalytics.com/proxy
+- Simple Analytics proxy documentation: https://docs.simpleanalytics.com/proxy
 - Cloudflare Workers Routes: https://developers.cloudflare.com/workers/configuration/routing/routes/

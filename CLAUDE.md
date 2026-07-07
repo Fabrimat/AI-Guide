@@ -2,116 +2,116 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Cos'è questo progetto
+## What this project is
 
-**AI-Guide** è un sito pubblico (Astro + Starlight) che insegna a usare l'IA in italiano, dai fondamenti al livello avanzato. I contenuti sono file Markdown/MDX didattici. L'integrazione con l'IA avviene lato lettore: ogni esercizio o verifica è un file `.txt` in `public/skills/` (plain text, niente markdown) che il lettore copia e incolla nel proprio LLM (Claude, ChatGPT, Gemini, ecc.).
+**AI-Guide** is a public site (Astro + Starlight) that teaches how to use AI in Italian, from the basics to advanced level. The content is educational Markdown/MDX files. AI integration happens reader-side: every exercise or check-in is a `.txt` file in `public/skills/` (plain text, no markdown) that the reader copies and pastes into their own LLM (Claude, ChatGPT, Gemini, etc.).
 
-## Comandi
+## Commands
 
 ```bash
-npm install       # installa le dipendenze
-npm run dev       # dev server su http://localhost:4321
-npm run build     # genera il sito statico in dist/
-npm run preview   # serve dist/ localmente
+npm install       # install dependencies
+npm run dev       # dev server at http://localhost:4321
+npm run build     # build the static site into dist/
+npm run preview   # serve dist/ locally
 ```
 
-Nessun linter/test configurato al momento. Lo "smoke test" è `npm run build`: se gira pulito, la build è OK.
+No linter/test configured at the moment. The "smoke test" is `npm run build`: if it runs clean, the build is OK.
 
-## Hosting e deploy
+## Hosting and deploy
 
-**Hosting**: [Netlify](https://netlify.com), free tier. Sito statico,
-build server-side da Git push. Astro è auto-rilevato (`npm run build`,
+**Hosting**: [Netlify](https://netlify.com), free tier. Static site,
+server-side build from a Git push. Astro is auto-detected (`npm run build`,
 output in `dist/`).
 
-**DNS / dominio**: `ai-guide.larosa.work`. Il dominio `larosa.work` è
-gestito su Cloudflare DNS. Record CNAME `ai-guide` → dominio Netlify
-del progetto, in modalità **proxied (nuvola arancione)**. Cloudflare
-fa da reverse proxy davanti a Netlify: termina TLS lato visitatore
-con un suo certificato e ne apre uno separato verso Netlify. Perché
-funzioni, l'SSL mode di Cloudflare deve essere **Full** o **Full
-(strict)** (Settings → SSL/TLS), sennò Netlify rifiuta la connessione
-o si crea un loop di redirect. Cloudflare in questa modalità vede IP,
-fa caching/CDN/anti-DDoS, è il layer descritto in `privacy.mdx` →
-"Cloudflare davanti al sito".
+**DNS / domain**: `ai-guide.larosa.work`. The `larosa.work` domain is
+managed on Cloudflare DNS. CNAME record `ai-guide` → the project's
+Netlify domain, in **proxied (orange cloud)** mode. Cloudflare
+acts as a reverse proxy in front of Netlify: it terminates TLS on the
+visitor's side with its own certificate and opens a separate one toward
+Netlify. For this to work, Cloudflare's SSL mode must be **Full** or **Full
+(strict)** (Settings → SSL/TLS), otherwise Netlify refuses the connection
+or a redirect loop is created. In this mode Cloudflare sees the visitor's IP,
+does caching/CDN/anti-DDoS, and is the layer described in `privacy.mdx` →
+"Cloudflare in front of the site".
 
 **Branch strategy**:
 
-- `main` — sviluppo. Netlify **non** è agganciato a `main`: pushare
-  qui non genera nessun deploy (né preview né live). Serve solo per
-  accumulare i commit prima di mandarli live.
-- `production` — produzione. È l'unico branch che Netlify deploya, e
-  va su `ai-guide.larosa.work`. Solo fast-forward da `main`, mai
-  commit diretti.
+- `main`: development. Netlify is **not** hooked up to `main`: pushing
+  here triggers no deploy (neither preview nor live). It's only used to
+  accumulate commits before shipping them live.
+- `production`: production. This is the only branch Netlify deploys, and it
+  goes live at `ai-guide.larosa.work`. Fast-forward only from `main`, never
+  direct commits.
 
-**Workflow per andare live:**
+**Workflow to go live:**
 
 ```bash
-# Sviluppi su main e pushi (nessun deploy parte da qui)
+# You develop on main and push (no deploy starts from here)
 git push origin main
 
-# Quando vuoi mandare live
+# When you want to go live
 git checkout production
 git merge --ff-only main
 git push origin production     # → deploy live
 git checkout main
 ```
 
-`--ff-only` evita merge commit accidentali. Se la merge non è
-fast-forward c'è qualcosa che non va (rebase, divergenza), investigare
-prima di forzare.
+`--ff-only` avoids accidental merge commits. If the merge isn't
+a fast-forward, something is off (rebase, divergence): investigate
+before forcing it.
 
-Quindi per "pushare per generare un preview" non c'è scorciatoia: o
-si va direttamente su `production` (che è live, non preview), o si
-testa in locale con `npm run dev` / `npm run preview`.
+So there's no shortcut for "push to generate a preview": either you
+go straight to `production` (which is live, not a preview), or you
+test locally with `npm run dev` / `npm run preview`.
 
-**Env var lato build**: nessuna richiesta. Il sito è completamente
-statico, non legge segreti a build time.
+**Build-time env vars**: none required. The site is completely
+static and doesn't read secrets at build time.
 
-**Env var lato runtime**: zero, è statico.
+**Runtime env vars**: zero, it's static.
 
-**Node version**: 22, pinnata in `.nvmrc` al root del repo. Netlify
-e nvm/fnm locali la rispettano automaticamente.
+**Node version**: 22, pinned in `.nvmrc` at the repo root. Netlify
+and local nvm/fnm respect it automatically.
 
-**Niente Cloudflare Pages**: tentato e abbandonato per friction della
-loro UI in transizione (Workers Builds + token interni che si
-invalidavano). Non riprovarci senza una motivazione forte.
+**No Cloudflare Pages**: tried and abandoned due to friction in
+their UI during a transition period (Workers Builds + internal tokens that
+kept invalidating). Don't try again without a strong reason.
 
-**Cloudflare Worker `sa-proxy`** (`workers/sa-proxy/`): proxy
-first-party per Simple Analytics. Lo script di SA caricato dal CDN
-ufficiale è bloccato da molti adblocker per dominio; servirlo da
-`ai-guide.larosa.work/sa/proxy.js` lo rende invisibile alle blocklist.
-Il Worker inoltra `/sa/proxy.js`, `/sa/auto-events.js`, `/sa/simple/*`
-ai relativi endpoint di Simple Analytics, strippando header con IP del
-visitatore prima del forward. Deploy: `cd workers/sa-proxy && npx
-wrangler deploy` (richiede `npx wrangler login` la prima volta). Il
-Worker è bound alla route `ai-guide.larosa.work/sa/*` su zone
-`larosa.work`; tutto il resto del traffico continua ad andare a
-Netlify. Vedi `workers/sa-proxy/README.md` per il dettaglio. Se si
-cambia provider analytics o si tocca lo script lato `Head.astro`,
-aggiornare anche questo Worker.
+**Cloudflare Worker `sa-proxy`** (`workers/sa-proxy/`): first-party
+proxy for Simple Analytics. The SA script loaded from the official
+CDN is blocked by many adblockers by domain; serving it from
+`ai-guide.larosa.work/sa/proxy.js` makes it invisible to blocklists.
+The Worker forwards `/sa/proxy.js`, `/sa/auto-events.js`, `/sa/simple/*`
+to the corresponding Simple Analytics endpoints, stripping headers with the
+visitor's IP before forwarding. Deploy: `cd workers/sa-proxy && npx
+wrangler deploy` (requires `npx wrangler login` the first time). The
+Worker is bound to the route `ai-guide.larosa.work/sa/*` on the zone
+`larosa.work`; all other traffic keeps going to
+Netlify. See `workers/sa-proxy/README.md` for details. If the
+analytics provider changes or the script in `Head.astro` is touched,
+update this Worker too.
 
-## Scrittura di contenuti — regole vincolanti
+## Content writing rules
 
-Prima di scrivere o modificare qualunque pagina di `src/content/docs/`, leggi
-per intero **`.claude/skills/voice-guide/SKILL.md`**. È la voice guide del
-progetto e contiene la lista completa dei pattern da evitare.
+Before writing or editing any page in `src/content/docs/`, read
+**`.claude/skills/voice-guide/SKILL.md`** in full. It's the project's
+voice guide and contains the complete list of patterns to avoid.
 
-Regole non negoziabili (estratto):
+Non-negotiable rules (excerpt):
 
-1. **Zero em dash (—).** Mai. Usare virgola, due punti, parentesi, o spezzare la frase.
-2. **Zero lessico AI italiano**: niente `panorama`, `scenario`, `cruciale`, `dirompente`, `sinergia`, `ecosistema`, `mindset`, `strategico`, `imprescindibile`, `paradigmatico`.
-3. **Zero buzzword aziendalese**: niente `un vero e proprio`, `a 360 gradi`, `in un'ottica di`, `di fatto`, `a tutti gli effetti`, `di eccellenza`.
-4. **Zero passivi impersonali AI**: niente `si ritiene`, `si osserva`, `va notato che`.
-5. **Zero formule burocratiche**: niente `al fine di` (usare `per`), `in merito a`, `per quanto concerne`.
-6. **Zero verbi burocratici**: niente `optare`, `usufruire`, `effettuare`, `porre in essere`.
-7. **Zero chiusure scolastiche**: niente `In conclusione`, `In sintesi`, `In definitiva`, `Per concludere`.
-8. **Zero aperture hype**: niente `In un mondo in cui…`, `Nell'era digitale…`, `Oggigiorno…`.
+1. **Zero em dash (—).** Never. Use a comma, colon, parentheses, or split the sentence.
+2. **Zero Italian AI jargon**: no `panorama`, `scenario`, `cruciale`, `dirompente`, `sinergia`, `ecosistema`, `mindset`, `strategico`, `imprescindibile`, `paradigmatico`.
+3. **Zero corporate buzzwords**: no `un vero e proprio`, `a 360 gradi`, `in un'ottica di`, `di fatto`, `a tutti gli effetti`, `di eccellenza`.
+4. **Zero impersonal AI passive voice**: no `si ritiene`, `si osserva`, `va notato che`.
+5. **Zero bureaucratic formulas**: no `al fine di` (use `per`), `in merito a`, `per quanto concerne`.
+6. **Zero bureaucratic verbs**: no `optare`, `usufruire`, `effettuare`, `porre in essere`.
+7. **Zero textbook closings**: no `In conclusione`, `In sintesi`, `In definitiva`, `Per concludere`.
+8. **Zero hype openings**: no `In un mondo in cui…`, `Nell'era digitale…`, `Oggigiorno…`.
 
-Per il dettaglio completo (pattern universali, specifici IT, controlli di autenticità, checklist), vedi `.claude/skills/voice-guide/SKILL.md`.
+For the full detail (universal patterns, Italian-specific patterns, authenticity checks, checklist), see `.claude/skills/voice-guide/SKILL.md`.
 
-## Frontmatter delle lezioni
+## Lesson frontmatter
 
-Ogni lezione in `src/content/docs/` (esclusi `index.mdx` e pagine meta) deve avere:
+Every lesson in `src/content/docs/` (excluding `index.mdx` and meta pages) must have:
 
 ```yaml
 ---
@@ -122,159 +122,159 @@ prerequisiti: [slug-altra-lezione]    # opzionale
 ---
 ```
 
-Lo schema è validato in `src/content.config.ts`.
+The schema is validated in `src/content.config.ts`.
 
-## Architettura (alto livello)
+## Architecture (high level)
 
-- **Astro 6 + Starlight**: sito statico, contenuti MD/MDX in `src/content/docs/<lingua>/`.
-- **i18n nativo Starlight con prefisso uniforme**: tutte le lingue hanno URL prefissato (`/en/...`, `/it/...`). La root `/` non è un redirect statico: `src/pages/index.astro` legge `navigator.languages` e fa replace verso `/en/` o `/it/` lato client. Default e fallback (no-JS o lingua non supportata): `/en/`. Le pagine senza traduzione ricadono automaticamente sull'inglese.
-- **View transitions abilitate** via override del componente `Head` (`src/components/Head.astro`). Permettono navigazione SPA-like e cambio lingua senza reset visivo.
-- **Tempo di lettura stimato** sotto l'H1 di ogni lezione, calcolato lato client da `src/components/ReadingTime.astro` (220 parole/minuto sul testo di `.sl-markdown-content`). Iniettato dall'override di `PageTitle` (`src/components/PageTitle.astro`) solo sulle pagine con `livello` nel frontmatter, così la splash hero non lo riceve.
-- **Componenti riutilizzabili in `src/components/`**: vedi sezione "Componenti del progetto" più sotto.
-- **Tracker dei progressi** (`src/scripts/progress.ts`): caricato via `Head.astro` su ogni pagina. Registra in `localStorage` (chiave `aiguide:progress:v1`) visite/tempo/scroll/letture/click sui pulsanti. **Niente backend, niente cookie, niente analytics terze: tutto resta sul browser dell'utente.** Il componente `<Resume>` (vedi catalogo sotto) lo consuma per mostrare "Riprendi da dove hai lasciato".
-- **Sidebar auto-scroll** (`src/scripts/sidebar-scroll.ts`): caricato via `Head.astro`. Su ogni navigazione scrolla `#starlight__sidebar` in modo che il **modulo corrente** (il `<details>` antenato del link `a[aria-current="page"]`) sia in cima, con 8px di padding. Per le pagine top-level senza modulo (Start here, Glossary, About) il fallback è il link stesso. Sovrascrive intenzionalmente il restore di Starlight.
-- **Popover "Preferenze" in header** (`src/components/Header.astro` + `src/components/HeaderPreferences.astro`): override del Header di Starlight, un solo bottone sliders che apre un popover con tre sezioni etichettate (Lettura assistita + descrizione, Tema, Lingua). Theme e Language select sono riusati invariati da Starlight via virtual import (`virtual:starlight/components/ThemeSelect` e `.../LanguageSelect`), così conservano la loro logica custom element + persistence. Il `MobileMenuFooter` è overridden a vuoto: theme e lang vivono nel popover, che resta visibile anche su mobile.
-- **Lettura assistita** (`src/scripts/reading-mode.ts`): on/off toggle dentro il popover "Preferenze". Lo script cammina i nodi testo dentro `main .sl-markdown-content` (non tocca header/sidebar/footer/componenti con `.not-content`) con `TreeWalker` e li sostituisce con `<span data-bionic-wrap>` contenenti `<b data-bionic>` (1-4 caratteri iniziali della parola, a scaglioni per lunghezza) + testo residuo; disattivare fa unwrap + `normalize()`. Preferenza persistita in `localStorage['aiguide:reading-mode']`, stato rispecchiato pre-paint in `<html data-reading-mode="on">` da uno script inline in `Head.astro`. Re-applicato su `astro:page-load` per view transitions.
-- **Condivisione lezione** (`src/components/ShareLesson.astro`): riga di icone (X, LinkedIn, WhatsApp, email, copia link) auto-iniettata dal `Footer.astro` override subito prima della card "Prossima lezione". Appare solo sulle pagine con `livello` nel frontmatter (= lezioni), assente su homepage/about/privacy/glossary/404. Solo intent URL (`twitter.com/intent/tweet`, `linkedin.com/sharing/share-offsite`, `wa.me/?text=`, `mailto:`), niente SDK o tracker.
-- **PWA installabile e lezioni offline** (`src/sw.ts`, `src/components/InstallApp.astro`, integration `@vite-pwa/astro` in `astro.config.mjs`). Il sito è installabile come Progressive Web App su Chrome/Edge desktop, Chrome Android, e iOS Safari (via "Aggiungi alla schermata Home"). Caching a due livelli:
-  - **Layer 1**: Workbox precachea lo "shell" (JS, CSS, font, icone, manifest, pagine `/offline/`) per chiunque visiti il sito, anche senza installare. Atomico, ~200–500 KB.
-  - **Layer 2**: bulk download di tutto il manuale (HTML lezioni IT+EN, `.txt` di `public/skills/<lang>/`, intero index Pagefind) gestito a mano dal SW. La lista vive in `dist/aiguide-bulk-manifest.json`, generata a build time da `scripts/generate-bulk-manifest.mjs`. Il SW la fetcha a ogni trigger (`AIGUIDE_BULK_DOWNLOAD` postMessage), skippa idempotentemente i file già in cache, scarica i mancanti, fa prune delle entry obsolete. Trigger: evento `appinstalled`, ogni `astro:page-load` se in `display-mode: standalone`, evento `online` se standalone. Resume automatico dopo interruzione.
-  - **Update strategy**: `registerType: 'autoUpdate'` con `skipWaiting()` + `clients.claim()`. Aggiornamenti silenziosi al prossimo navigation event. Il content hashing degli asset Astro + il revision hashing di Workbox rendono l'update incrementale: solo i file cambiati vengono riscaricati.
-  - **Bottone "Installa l'app"**: in `HeaderPreferences.astro`, quarta sezione del popover. Chrome/Edge/Android: cattura `beforeinstallprompt`. iOS: apre un modale di istruzioni passo-passo. Già installato (`display-mode: standalone` o `navigator.standalone`): bottone nascosto, mostra stato "App installata · pronta offline" + progress bar durante il bulk DL.
-  - **Pagine `/offline/`**: `src/content/docs/<lang>/offline.mdx`, mostrate come fallback solo per navigation request a URL non in cache. Localizzate in IT/EN, scelte dal SW in base al path del documento richiesto.
-  - **Icone PWA**: generate a `prebuild` da `scripts/generate-pwa-icons.mjs` (rasterizza `public/favicon.svg` con `sharp` a 192/512/180 standard + 512 maskable con safe-zone Android). Output in `public/icons/`.
-  - **Headers di deploy**: `public/_headers` (Netlify) imposta `Cache-Control: max-age=0, must-revalidate` per `/sw.js`, `/registerSW.js`, e `/aiguide-bulk-manifest.json`: sennò Cloudflare/Netlify potrebbero servire una versione obsoleta del SW e bloccare gli update.
-  - `<InstallApp>` è un componente **interno**, montato solo dentro `HeaderPreferences.astro`. NON va nel catalogo "Componenti del progetto" (quello cataloga solo i componenti riusabili dalle lezioni `.mdx`).
-  - Il SW non intercetta `/sa/**` (Simple Analytics): quel traffico continua a passare attraverso il Worker `sa-proxy` su Cloudflare e a raggiungere SA in tempo reale, anche con la PWA attiva.
+- **Astro 6 + Starlight**: static site, MD/MDX content in `src/content/docs/<language>/`.
+- **Native Starlight i18n with a uniform prefix**: every language has a prefixed URL (`/en/...`, `/it/...`). The root `/` is not a static redirect: `src/pages/index.astro` reads `navigator.languages` and replaces the URL toward `/en/` or `/it/` client-side. Default and fallback (no-JS or unsupported language): `/en/`. Pages without a translation automatically fall back to English.
+- **View transitions enabled** via an override of the `Head` component (`src/components/Head.astro`). They allow SPA-like navigation and language switching without a visual reset.
+- **Estimated reading time** under each lesson's H1, computed client-side by `src/components/ReadingTime.astro` (220 words/minute over the text of `.sl-markdown-content`). Injected by the `PageTitle` override (`src/components/PageTitle.astro`) only on pages with `livello` in the frontmatter, so the splash hero doesn't get it.
+- **Reusable components in `src/components/`**: see the "Project components" section below.
+- **Progress tracker** (`src/scripts/progress.ts`): loaded via `Head.astro` on every page. Records visits/time/scroll/reads/button clicks in `localStorage` (key `aiguide:progress:v1`). **No backend, no cookies, no third-party analytics: everything stays in the user's browser.** The `<Resume>` component (see catalog below) consumes it to show "Resume where you left off".
+- **Sidebar auto-scroll** (`src/scripts/sidebar-scroll.ts`): loaded via `Head.astro`. On every navigation it scrolls `#starlight__sidebar` so that the **current module** (the `<details>` ancestor of the `a[aria-current="page"]` link) sits at the top, with 8px of padding. For top-level pages without a module (Start here, Glossary, About) the fallback is the link itself. It intentionally overrides Starlight's own scroll restore.
+- **"Preferences" popover in the header** (`src/components/Header.astro` + `src/components/HeaderPreferences.astro`): override of Starlight's Header, a single sliders button that opens a popover with three labeled sections (Assisted reading + description, Theme, Language). The Theme and Language selects are reused unchanged from Starlight via a virtual import (`virtual:starlight/components/ThemeSelect` and `.../LanguageSelect`), so they keep their custom element logic + persistence. `MobileMenuFooter` is overridden to be empty: theme and language live in the popover, which stays visible on mobile too.
+- **Assisted reading** (`src/scripts/reading-mode.ts`): on/off toggle inside the "Preferences" popover. The script walks the text nodes inside `main .sl-markdown-content` (it doesn't touch header/sidebar/footer/components with `.not-content`) with a `TreeWalker` and replaces them with `<span data-bionic-wrap>` containing `<b data-bionic>` (1-4 leading characters of the word, tiered by length) + the remaining text; turning it off unwraps and calls `normalize()`. The preference is persisted in `localStorage['aiguide:reading-mode']`, its state mirrored pre-paint in `<html data-reading-mode="on">` by an inline script in `Head.astro`. Re-applied on `astro:page-load` for view transitions.
+- **Lesson sharing** (`src/components/ShareLesson.astro`): a row of icons (X, LinkedIn, WhatsApp, email, copy link) auto-injected by the `Footer.astro` override right before the "Next lesson" card. It only appears on pages with `livello` in the frontmatter (= lessons), absent on homepage/about/privacy/glossary/404. Intent URLs only (`twitter.com/intent/tweet`, `linkedin.com/sharing/share-offsite`, `wa.me/?text=`, `mailto:`), no SDK or tracker.
+- **Installable PWA and offline lessons** (`src/sw.ts`, `src/components/InstallApp.astro`, the `@vite-pwa/astro` integration in `astro.config.mjs`). The site is installable as a Progressive Web App on Chrome/Edge desktop, Chrome Android, and iOS Safari (via "Add to Home Screen"). Two-tier caching:
+  - **Layer 1**: Workbox precaches the "shell" (JS, CSS, fonts, icons, manifest, `/offline/` pages) for anyone visiting the site, even without installing. Atomic, ~200-500 KB.
+  - **Layer 2**: a bulk download of the whole manual (IT+EN lesson HTML, `.txt` from `public/skills/<lang>/`, the full Pagefind index) handled manually by the SW. The list lives in `dist/aiguide-bulk-manifest.json`, generated at build time by `scripts/generate-bulk-manifest.mjs`. The SW fetches it on every trigger (`AIGUIDE_BULK_DOWNLOAD` postMessage), idempotently skips files already in cache, downloads the missing ones, and prunes stale entries. Triggers: `appinstalled` event, every `astro:page-load` if in `display-mode: standalone`, `online` event if standalone. Resumes automatically after an interruption.
+  - **Update strategy**: `registerType: 'autoUpdate'` with `skipWaiting()` + `clients.claim()`. Silent updates on the next navigation event. Astro's content hashing of assets plus Workbox's revision hashing make updates incremental: only changed files get re-downloaded.
+  - **"Install the app" button**: in `HeaderPreferences.astro`, the fourth section of the popover. Chrome/Edge/Android: captures `beforeinstallprompt`. iOS: opens a step-by-step instructions modal. Already installed (`display-mode: standalone` or `navigator.standalone`): the button is hidden, showing an "App installed · ready offline" status + a progress bar during the bulk download.
+  - **`/offline/` pages**: `src/content/docs/<lang>/offline.mdx`, shown as a fallback only for navigation requests to a URL not in cache. Localized in IT/EN, chosen by the SW based on the path of the requested document.
+  - **PWA icons**: generated at `prebuild` by `scripts/generate-pwa-icons.mjs` (rasterizes `public/favicon.svg` with `sharp` at standard 192/512/180 plus a 512 maskable icon with an Android safe zone). Output in `public/icons/`.
+  - **Deploy headers**: `public/_headers` (Netlify) sets `Cache-Control: max-age=0, must-revalidate` for `/sw.js`, `/registerSW.js`, and `/aiguide-bulk-manifest.json`: otherwise Cloudflare/Netlify might serve a stale version of the SW and block updates.
+  - `<InstallApp>` is an **internal** component, mounted only inside `HeaderPreferences.astro`. It does NOT go in the "Project components" catalog (that one only catalogs components reusable from `.mdx` lessons).
+  - The SW doesn't intercept `/sa/**` (Simple Analytics): that traffic keeps passing through the `sa-proxy` Worker on Cloudflare and reaching SA in real time, even with the PWA active.
 
-## Assistente IA locale (in-browser)
+## Local AI assistant (in-browser)
 
-`src/components/LocalAI/` aggiunge un assistente che gira interamente
-nel browser, montato su ogni pagina da `Footer.astro`. Niente backend,
-niente API key: il modello si scarica una sola volta da CDN terza
-(Hugging Face) **solo dopo consenso esplicito**, poi resta in cache
-(Cache API) e gira offline. `ChatPanel.astro` rende launcher + drawer
-e passa stringhe/config via `data-*`; `chat-ui.ts` è il custom element
-`<local-ai>` che guida la macchina a stati (consent → download con
-progress → ready, oppure fallback no-WebGPU / errore con retry sul
-modello leggero); `lesson-context.ts` estrae il testo della lezione
-corrente (budget ~1500 token); `skill-loader.ts` legge i file `.txt`
-di check-in dalle card `<LlmExercise>` (via `data-file`/`data-variant`)
-ed esegue l'esercizio in modo interattivo. Consenso persistito in
-`localStorage['aiguide:localai:consent']` (valore = id del modello).
-Nessuna conversazione viene salvata o inviata. È un'aggiunta: i
-pulsanti Copy/Download/Open di `<LlmExercise>` restano.
+`src/components/LocalAI/` adds an assistant that runs entirely
+in the browser, mounted on every page by `Footer.astro`. No backend,
+no API key: the model downloads once from a third-party CDN
+(Hugging Face) **only after explicit consent**, then stays cached
+(Cache API) and runs offline. `ChatPanel.astro` renders the launcher + drawer
+and passes strings/config via `data-*`; `chat-ui.ts` is the `<local-ai>`
+custom element that drives the state machine (consent → download with
+progress → ready, or a no-WebGPU fallback / error with retry on the
+lightweight model); `lesson-context.ts` extracts the text of the
+current lesson (budget ~1500 tokens); `skill-loader.ts` reads the check-in
+`.txt` files from the `<LlmExercise>` cards (via `data-file`/`data-variant`)
+and runs the exercise interactively. Consent is persisted in
+`localStorage['aiguide:localai:consent']` (value = model id).
+No conversation is ever saved or sent anywhere. It's an addition: the
+Copy/Download/Open buttons of `<LlmExercise>` stay in place.
 
-Motore: la chat gira su `@huggingface/transformers` (Transformers.js, ONNX +
-WebGPU), lo stesso runtime dell'embedder RAG: niente più `@mlc-ai/web-llm`.
-`gen-worker.ts` ospita la pipeline `text-generation` in un Web Worker;
-`chat-engine.ts` lo pilota (load/generate/dispose + stato ready/active);
-`chat-ui.ts` lo consuma. Modelli (ONNX, `onnx-community`): Qwen2.5 0.5B (`q4`,
-~0.4 GB), Qwen2.5 1.5B e Gemma 4 E2B (`q4f16`). `model-cache.ts` ispeziona la
-Cache API (`transformers-cache`) per stato/eliminazione (Transformers.js non
-espone `hasModelInCache`). Lo streaming usa `TextStreamer`.
+Engine: the chat runs on `@huggingface/transformers` (Transformers.js, ONNX +
+WebGPU), the same runtime as the RAG embedder: no more `@mlc-ai/web-llm`.
+`gen-worker.ts` hosts the `text-generation` pipeline in a Web Worker;
+`chat-engine.ts` drives it (load/generate/dispose + ready/active state);
+`chat-ui.ts` consumes it. Models (ONNX, `onnx-community`): Qwen2.5 0.5B (`q4`,
+~0.4 GB), Qwen2.5 1.5B, and Gemma 4 E2B (`q4f16`). `model-cache.ts` inspects the
+Cache API (`transformers-cache`) for status/deletion (Transformers.js doesn't
+expose `hasModelInCache`). Streaming uses `TextStreamer`.
 
-Il chunk `gen-worker-*` e le dipendenze `@huggingface/transformers` sono
-esclusi dal precache PWA via `injectManifest.globIgnores`, sennò Workbox
-(modalità injectManifest) fallisce la build sui file oltre 2 MiB. Il SW non
-intercetta né questi chunk né i pesi del modello da Hugging Face
-(cross-origin): nessuna `registerRoute` li matcha. È un componente
-**interno**, NON va nel catalogo "Componenti del progetto".
+The `gen-worker-*` chunk and the `@huggingface/transformers` dependencies are
+excluded from the PWA precache via `injectManifest.globIgnores`, otherwise Workbox
+(injectManifest mode) fails the build on files over 2 MiB. The SW doesn't
+intercept either these chunks or the model weights from Hugging Face
+(cross-origin): no `registerRoute` matches them. It's an **internal**
+component, it does NOT go in the "Project components" catalog.
 
-Ricerca cross-lezione (RAG): `search-context.ts` non usa più Pagefind ma un
-indice di embeddings statico. A build time `scripts/generate-embeddings.mjs`
-(step `postbuild`, **non-fatal**: se fallisce non rompe la build) legge le
-lezioni MDX, le spezza per sezione H2, le embedda con `multilingual-e5-small`
-via `@huggingface/transformers` e scrive `dist/embeddings/<locale>.json`. A
-runtime `embedder.ts` carica Transformers.js in modo lazy (solo dentro il
-percorso di chat, dopo il consenso; backend WASM) ed embedda la domanda;
-`search-context.ts` fa cosine similarity e passa al prompt le lezioni più
-pertinenti. Indice servito dal nostro dominio (cache Cloudflare); modello
-embedder dalla CDN di Hugging Face, on demand. Niente di tutto questo è nel
-precache PWA: il chunk client `transformers` è escluso via `globIgnores`
-(come i chunk del motore chat) e l'indice non entra nel bulk manifest.
-Pagefind resta solo per la ricerca Ctrl+K in `Search.astro`.
+Cross-lesson search (RAG): `search-context.ts` no longer uses Pagefind but a
+static embeddings index. At build time `scripts/generate-embeddings.mjs`
+(a `postbuild` step, **non-fatal**: if it fails it doesn't break the build) reads
+the MDX lessons, splits them by H2 section, embeds them with `multilingual-e5-small`
+via `@huggingface/transformers`, and writes `dist/embeddings/<locale>.json`. At
+runtime `embedder.ts` lazy-loads Transformers.js (only inside the chat
+flow, after consent; WASM backend) and embeds the question;
+`search-context.ts` runs cosine similarity and passes the most relevant
+lessons to the prompt. The index is served from our own domain (Cloudflare
+cache); the embedder model comes from the Hugging Face CDN, on demand. None of this is in the
+PWA precache: the client `transformers` chunk is excluded via `globIgnores`
+(like the chat engine chunks) and the index doesn't go into the bulk manifest.
+Pagefind remains only for the Ctrl+K search in `Search.astro`.
 
-UI del pannello: `ChatPanel.astro` usa `<style is:global>` con selettori
-prefissati `local-ai ` (gli elementi creati a runtime da `chat-ui.ts` non
-ricevono il `data-astro-cid` dello scoping, come per `Search.astro`). Le
-risposte dell'IA sono renderizzate in markdown da `markdown.ts`
-(escape-then-format, XSS-safe). Lo storico è per-lezione in
-`localStorage['aiguide:localai:chat:<path>']` (via `history.ts`, cap 50
-messaggi), col pulsante "Nuova chat" che lo svuota. Il gestore modelli
-(`model-cache.ts`) mostra lo stato per modello (attivo / in cache / non
-scaricato) ispezionando direttamente la Cache API (`transformers-cache`),
-permette lo switch (con `disposeEngine()`: unload + terminate del worker
-precedente prima di caricare il nuovo) e il delete dalla cache. Tutte le
-stringhe visibili stanno in `src/i18n/ui.ts` (it + en).
+Panel UI: `ChatPanel.astro` uses `<style is:global>` with `local-ai `-prefixed
+selectors (elements created at runtime by `chat-ui.ts` don't get the
+scoping `data-astro-cid`, same as `Search.astro`). The AI's
+responses are rendered as markdown by `markdown.ts`
+(escape-then-format, XSS-safe). History is per-lesson in
+`localStorage['aiguide:localai:chat:<path>']` (via `history.ts`, capped at 50
+messages), with a "New chat" button that clears it. The model manager
+(`model-cache.ts`) shows the status per model (active / cached / not
+downloaded) by inspecting the Cache API directly (`transformers-cache`),
+allows switching (via `disposeEngine()`: unload + terminate of the
+previous worker before loading the new one) and deleting from the cache. All
+visible strings live in `src/i18n/ui.ts` (it + en).
 
-## Direzione visiva — Pastello
+## Visual direction: Pastello
 
-Il sito usa **una palette warm in due modalità** ("Pastello"), pensata per un pubblico non-tecnico con pregiudizi su IA/tecnologia. Il design è "manuale amichevole", non "documentazione corporate".
+The site uses **a single warm palette in two modes** ("Pastello"), designed for a non-technical audience with preconceptions about AI/technology. The design is a "friendly manual", not "corporate documentation".
 
-**Palette Light (CSS vars in `src/styles/custom.css`)**:
+**Light palette (CSS vars in `src/styles/custom.css`)**:
 
-| Token                       | Valore     | Uso                          |
+| Token                       | Value      | Use                          |
 |-----------------------------|------------|------------------------------|
-| `--sl-color-bg`             | `#FCEEE3`  | sfondo pagina (pesca)        |
-| `--sl-color-text`           | `#2A2447`  | testo principale (indigo)    |
-| `--sl-color-text-accent`    | `#C25A3F`  | link nel corpo (coral scuro) |
-| `--sl-color-accent`         | `#E07A5F`  | accento, CTA (coral)         |
-| `--sl-color-accent-low`     | `#FAD0C2`  | accento soffuso              |
-| `--sl-color-accent-high`    | `#B85D44`  | hover su accento             |
-| `--sl-color-hairline`       | `#F0DCC9`  | bordi                        |
+| `--sl-color-bg`             | `#FCEEE3`  | page background (peach)      |
+| `--sl-color-text`           | `#2A2447`  | main text (indigo)           |
+| `--sl-color-text-accent`    | `#C25A3F`  | links in body text (dark coral) |
+| `--sl-color-accent`         | `#E07A5F`  | accent, CTA (coral)          |
+| `--sl-color-accent-low`     | `#FAD0C2`  | muted accent                 |
+| `--sl-color-accent-high`    | `#B85D44`  | accent hover                 |
+| `--sl-color-hairline`       | `#F0DCC9`  | borders                      |
 
-**Palette Dark (warm dark)**:
+**Dark palette (warm dark)**:
 
-| Token                       | Valore     | Uso                             |
+| Token                       | Value      | Use                             |
 |-----------------------------|------------|---------------------------------|
-| `--sl-color-bg`             | `#1C130D`  | sfondo pagina (cioccolato)      |
-| `--sl-color-text`           | `#F3E5D0`  | testo principale (crema)        |
-| `--sl-color-text-accent`    | `#F29A82`  | link nel corpo (coral chiaro)   |
-| `--sl-color-accent`         | `#E07A5F`  | accento, CTA (coral invariato)  |
-| `--sl-color-accent-low`     | `#5A3025`  | accento soffuso (coral scuro)   |
-| `--sl-color-accent-high`    | `#F29A82`  | hover su accento (più chiaro)   |
-| `--sl-color-hairline`       | `#3D2D22`  | bordi                           |
+| `--sl-color-bg`             | `#1C130D`  | page background (chocolate)     |
+| `--sl-color-text`           | `#F3E5D0`  | main text (cream)               |
+| `--sl-color-text-accent`    | `#F29A82`  | links in body text (light coral)|
+| `--sl-color-accent`         | `#E07A5F`  | accent, CTA (coral, unchanged)  |
+| `--sl-color-accent-low`     | `#5A3025`  | muted accent (dark coral)       |
+| `--sl-color-accent-high`    | `#F29A82`  | accent hover (lighter)          |
+| `--sl-color-hairline`       | `#3D2D22`  | borders                         |
 
-Il coral (`--sl-color-accent`) è identico in entrambi i temi: è il tratto di continuità del sito.
+Coral (`--sl-color-accent`) is identical in both themes: it's the site's thread of continuity.
 
-**Token custom `--aig-*`**: usati dai componenti per sostituire `#ffffff` e `rgba(42, 36, 71, X)` hardcoded, così il tema scuro funziona senza toccare ogni file.
+**Custom `--aig-*` tokens**: used by components to replace hardcoded `#ffffff` and `rgba(42, 36, 71, X)`, so dark mode works without touching every file.
 
-| Token                    | Uso                                                |
+| Token                    | Use                                                |
 |--------------------------|----------------------------------------------------|
-| `--aig-elevated-bg`      | sfondo di card, popover, modali (`#fff` in light)  |
-| `--aig-elevated-bg-warm` | aside `:::note`                                    |
-| `--aig-caution-*`        | aside `:::caution` e `<LlmExercise variant="review">` |
-| `--aig-danger-*`         | aside `:::danger`                                  |
-| `--aig-success-*`        | variante verde custom: avvolgi un `:::note` in `<div class="aig-success-wrap">…</div>` (Starlight non ha un tipo `success` nativo) |
-| `--aig-shadow-color`     | tripletta rgb usata in `rgba(var(--aig-shadow-color), X)` per le box-shadow |
-| `--aig-scrim`            | backdrop dei `<dialog>` modali                     |
-| `--aig-hover-wash`       | hover wash su bottoni minimali / ghost             |
+| `--aig-elevated-bg`      | background of cards, popovers, modals (`#fff` in light) |
+| `--aig-elevated-bg-warm` | `:::note` aside                                    |
+| `--aig-caution-*`        | `:::caution` aside and `<LlmExercise variant="review">` |
+| `--aig-danger-*`         | `:::danger` aside                                  |
+| `--aig-success-*`        | custom green variant: wrap a `:::note` in `<div class="aig-success-wrap">…</div>` (Starlight has no native `success` type) |
+| `--aig-shadow-color`     | rgb triplet used in `rgba(var(--aig-shadow-color), X)` for box-shadows |
+| `--aig-scrim`            | backdrop of modal `<dialog>`s                      |
+| `--aig-hover-wash`       | hover wash on minimal / ghost buttons              |
 
-Quando aggiungi un componente con fondo "bianco" o ombre, usa questi token, non hardcodare `#ffffff` né `rgba(42, 36, 71, X)`.
+When adding a component with a "white" background or shadows, use these tokens, don't hardcode `#ffffff` or `rgba(42, 36, 71, X)`.
 
-**Tipografia**: [Outfit Variable](https://fonts.google.com/specimen/Outfit) via `@fontsource-variable/outfit`. Base 17px, line-height 1.7, heading tracking `-0.005em`.
+**Typography**: [Outfit Variable](https://fonts.google.com/specimen/Outfit) via `@fontsource-variable/outfit`. Base 17px, line-height 1.7, heading tracking `-0.005em`.
 
-**Vincoli**:
+**Constraints**:
 
-- **Due modalità, stessa identità.** Light (Pastello) e dark (warm dark cioccolato+crema). Il selettore è lo `ThemeSelect` di default di Starlight, persistito in `localStorage['starlight-theme']`. Rispetta `prefers-color-scheme`.
-- **Niente TOC laterale.** `PageSidebar.astro` è override-vuoto. Le lezioni sono brevi e auto-contenute.
-- **Niente blu/cyber/neri puri/densità "da docs".** Quando aggiungi UI: usa le CSS vars di Starlight e i token `--aig-*`, mai hardcodare colori.
-- **Outfit è la voce dominante.** Aggiungere font solo con discussione esplicita.
-- **Riferimenti mentali**: NYT Cooking, Brain Pickings, guide illustrate di carta. NON: Stripe / Linear / Vercel docs.
-- **Custom CSS**: `src/styles/custom.css` (caricato da Starlight via `customCss`).
+- **Two modes, one identity.** Light (Pastello) and dark (warm dark chocolate+cream). The selector is Starlight's default `ThemeSelect`, persisted in `localStorage['starlight-theme']`. Respects `prefers-color-scheme`.
+- **No side TOC.** `PageSidebar.astro` is an empty override. Lessons are short and self-contained.
+- **No blue/cyber/pure black/"docs" density.** When adding UI: use Starlight's CSS vars and the `--aig-*` tokens, never hardcode colors.
+- **Outfit is the dominant voice.** Add fonts only with explicit discussion.
+- **Mental references**: NYT Cooking, Brain Pickings, illustrated paper guides. NOT: Stripe / Linear / Vercel docs.
+- **Custom CSS**: `src/styles/custom.css` (loaded by Starlight via `customCss`).
 
-## Componenti del progetto
+## Project components
 
-Catalogo dei componenti riutilizzabili nei file `.mdx` delle lezioni. Mantenere
-sincronizzato: **ogni nuovo componente che può essere usato in una pagina deve
-avere una voce qui, aggiornata nello stesso commit che lo introduce o lo modifica.**
+Catalog of the components reusable in the lessons' `.mdx` files. Keep it
+in sync: **every new component that can be used on a page must have an
+entry here, updated in the same commit that introduces or modifies it.**
 
-I componenti **interni** (override di Starlight, layout, helper non destinati ai
-file `.mdx`) NON vanno catalogati qui: vivono solo in `src/components/`.
+**Internal** components (Starlight overrides, layout, helpers not meant for
+`.mdx` files) do NOT go in this catalog: they live only in `src/components/`.
 
-Per importare un componente in una lezione `.mdx`, calcolare la profondità relativa.
-Per una lezione standard a `src/content/docs/it/<sezione>/<lezione>.mdx`:
+To import a component in an `.mdx` lesson, compute the relative depth.
+For a standard lesson at `src/content/docs/it/<sezione>/<lezione>.mdx`:
 
 ```mdx
 import NomeComponente from '../../../../components/NomeComponente.astro';
@@ -282,18 +282,18 @@ import NomeComponente from '../../../../components/NomeComponente.astro';
 
 ### `<Resume>`
 
-Card "Riprendi da dove hai lasciato". Da posizionare su pagine di
-orientamento (homepage, `start-here`). Legge `localStorage`
-(`aiguide:progress:v1`, popolata da `src/scripts/progress.ts`) e mostra
-l'ultima pagina leggibile che l'utente ha lasciato in una sessione
-precedente.
+"Resume where you left off" card. To be placed on orientation pages
+(homepage, `start-here`). Reads `localStorage`
+(`aiguide:progress:v1`, populated by `src/scripts/progress.ts`) and shows
+the last readable page the user left in a previous
+session.
 
-Si nasconde da sola se non c'è cronologia (prima visita) o se l'ultima
-pagina coincide con quella corrente. Include la riga di privacy ("salvati
-solo sul tuo browser, mai inviati altrove") e un pulsante "Cancella
-progressi" che svuota `localStorage` con conferma.
+It hides itself if there's no history (first visit) or if the last
+page matches the current one. Includes the privacy line ("saved
+only in your browser, never sent elsewhere") and a "Clear
+progress" button that empties `localStorage` after confirmation.
 
-Nessun prop. Si include come `<Resume />`.
+No props. Included as `<Resume />`.
 
 ```mdx
 import Resume from '../../../components/Resume.astro';
@@ -303,28 +303,28 @@ import Resume from '../../../components/Resume.astro';
 
 ### `<LessonSummary>`
 
-Riepilogo della lezione in 30 secondi. Da posizionare in alto alla
-lezione, subito dopo gli import: chi skimma lo apre, chi legge tutto
-lo ignora. Usa `<details>` nativo (collassato di default, funziona
-senza JS, accessibile).
+30-second summary of the lesson. To be placed near the top of the
+lesson, right after the imports: skimmers open it, thorough readers
+ignore it. Uses a native `<details>` (collapsed by default, works
+without JS, accessible).
 
-Il summary ha l'aspetto di un bottone (background coral-soft, testo
-coral scuro, chevron che ruota all'apertura). Il body aperto flowa
-sotto con una barra coral-soft a sinistra che lo collega visivamente
-al summary, senza creare un box chiuso che possa disallineare col
-resto della pagina.
+The summary looks like a button (coral-soft background, dark coral
+text, a chevron that rotates on open). The open body flows
+below with a coral-soft bar on the left that visually connects it
+to the summary, without creating a closed box that could misalign with
+the rest of the page.
 
-L'etichetta è localizzata (`ui.lessonSummaryLabel`: "Riepilogo in 30
-secondi" / "30-second summary"). Il contenuto è uno slot markdown:
-tipicamente una lista di 3-5 punti che sintetizzano i takeaway della
-lezione.
+The label is localized (`ui.lessonSummaryLabel`: "Riepilogo in 30
+secondi" / "30-second summary"). The content is a markdown slot:
+typically a list of 3-5 points that summarize the lesson's
+takeaways.
 
-Linea guida editoriale: i bullet non devono ripetere i titoli delle
-sezioni, ma dare il takeaway azionabile di ciascuna.
+Editorial guideline: the bullets shouldn't repeat the section
+titles, but give the actionable takeaway of each one.
 
-| Prop    | Tipo     | Default                   | Note                                    |
+| Prop    | Type     | Default                   | Notes                                    |
 |---------|----------|---------------------------|------------------------------------------|
-| `label` | `string` | `ui.lessonSummaryLabel`   | opzionale, per sovrascrivere l'etichetta |
+| `label` | `string` | `ui.lessonSummaryLabel`   | optional, to override the label |
 
 ```mdx
 import LessonSummary from '../../../../components/LessonSummary.astro';
@@ -338,23 +338,23 @@ import LessonSummary from '../../../../components/LessonSummary.astro';
 </LessonSummary>
 ```
 
-Nota: le righe vuote sopra e sotto la lista sono necessarie perché
-MDX parsi il markdown dentro il componente.
+Note: the blank lines above and below the list are necessary because
+MDX parses the markdown inside the component.
 
 ### `<GlossaryTerm>`
 
-Voce singola di un glossario: nome del termine come prop, definizione
-come slot (puoi usare `<em>`, `<strong>`, link, ecc. dentro la
-definizione). Aggiunge un bottone "Spiegamelo meglio con la tua IA"
-che, al click, copia nel clipboard un prompt calibrato sul termine
-specifico, pronto da incollare nella propria IA.
+A single glossary entry: term name as a prop, definition
+as a slot (you can use `<em>`, `<strong>`, links, etc. inside the
+definition). Adds an "Explain it better with your AI" button
+that, on click, copies to the clipboard a prompt calibrated on the
+specific term, ready to paste into your own AI.
 
-| Prop  | Tipo     | Default | Note                                 |
+| Prop  | Type     | Default | Notes                                 |
 |-------|----------|---------|--------------------------------------|
-| `name`| `string` | —       | obbligatorio, nome del termine       |
+| `name`| `string` | —       | required, name of the term       |
 
-L'`id` dell'elemento viene generato dal nome (slugificato), così è
-linkabile via ancora.
+The element's `id` is generated from the name (slugified), so it's
+linkable via anchor.
 
 ```mdx
 import GlossaryTerm from '../../../components/GlossaryTerm.astro';
@@ -365,36 +365,36 @@ import GlossaryTerm from '../../../components/GlossaryTerm.astro';
 </GlossaryTerm>
 ```
 
-Pagina di riferimento: `src/content/docs/it/glossary.mdx`.
+Reference page: `src/content/docs/it/glossary.mdx`.
 
 ### `<Def>`
 
-Termine inline cliccabile con una breve spiegazione in popover. Pensato
-per le lezioni: quando nel testo compare una parola che potrebbe non
-essere familiare, la si avvolge in `<Def>` e il lettore al click o al
-passaggio del mouse vede la definizione senza lasciare la pagina.
+Clickable inline term with a short explanation in a popover. Meant
+for lessons: when a word that might not be familiar appears in the
+text, wrap it in `<Def>` and the reader, on click or mouse hover, sees
+the definition without leaving the page.
 
-La parola è evidenziata nel testo con sottolineatura tratteggiata
-coral (stesso colore dei link nel corpo). Il popover appare sotto al
-termine, max 280px, con background bianco e bordo hairline. Coerente
-con la palette Pastello, indipendente dal `<GlossaryTerm>` (che resta
-dedicato alla pagina Glossary dove compare l'elenco completo con
-prompt "Spiegamelo meglio con la tua IA").
+The word is highlighted in the text with a dashed coral
+underline (same color as links in body text). The popover appears below the
+term, max 280px, with a white background and hairline border. Consistent
+with the Pastello palette, independent from `<GlossaryTerm>` (which stays
+dedicated to the Glossary page where the full list appears with the
+"Explain it better with your AI" prompt).
 
-Comportamento:
-- hover desktop e focus da tastiera: popover aperto via CSS.
-- click / tap: toggle persistente (resta aperto finché l'utente clicca
-  fuori o preme Escape).
+Behavior:
+- desktop hover and keyboard focus: popover opens via CSS.
+- click / tap: persistent toggle (stays open until the user clicks
+  outside or presses Escape).
 
-A11y: il termine è un `<button>` (focusable nativo), con
-`aria-expanded` sincronizzato e `aria-describedby` che collega al
+A11y: the term is a `<button>` (natively focusable), with
+`aria-expanded` kept in sync and `aria-describedby` linking to the
 popover (`role="tooltip"`).
 
-| Prop          | Tipo     | Default | Note                                                                 |
+| Prop          | Type     | Default | Notes                                                                 |
 |---------------|----------|---------|----------------------------------------------------------------------|
-| `explanation` | `string` | —       | obbligatorio, testo puro. Per markup (link, grassetto) rinegoziare il componente con uno slot. |
+| `explanation` | `string` | —       | required, plain text. For markup (links, bold) renegotiate the component with a slot. |
 
-Il termine visibile passa come child.
+The visible term is passed as a child.
 
 ```mdx
 import Def from '../../../../components/Def.astro';
@@ -404,27 +404,27 @@ Un <Def explanation="Il programma matematico dietro all'IA.">modello</Def>
 conversazionale.
 ```
 
-Nota sulla profondità di import: dentro una lezione a
-`src/content/docs/it/<sezione>/<slug>.mdx` il path è
-`../../../../components/Def.astro` (quattro livelli di risalita).
+Note on import depth: inside a lesson at
+`src/content/docs/it/<sezione>/<slug>.mdx` the path is
+`../../../../components/Def.astro` (four levels up).
 
 ### `<RecapWithAi>`
 
-Card che trasforma la tua IA in un tutor delle lezioni che hai
-effettivamente letto. Legge `localStorage` (chiave
-`aiguide:progress:v1`), filtra le pagine con `read: true` dentro un
-modulo (es. `/it/fundamentals/...` o `/en/fundamentals/...`), e al
-click di "Genera prompt di ripasso" assembla un prompt che contiene
-la lista delle lezioni completate + istruzioni per ripasso socratico.
-Mostrato in un `<dialog>` con bottone copia.
+Card that turns your AI into a tutor on the lessons you've
+actually read. Reads `localStorage` (key
+`aiguide:progress:v1`), filters pages with `read: true` inside a
+module (e.g. `/it/fundamentals/...` or `/en/fundamentals/...`), and on
+click of "Generate review prompt" assembles a prompt containing
+the list of completed lessons + instructions for a Socratic review.
+Shown in a `<dialog>` with a copy button.
 
-Quando 0 lezioni sono state completate il bottone è disabilitato e
-una riga di stato lo spiega ("Completa almeno una lezione…"). Reagisce
-all'evento `aiguide:progress-cleared` per aggiornarsi quando l'utente
-cancella i progressi.
+When 0 lessons have been completed the button is disabled and
+a status line explains it ("Complete at least one lesson…"). It reacts
+to the `aiguide:progress-cleared` event to refresh itself when the user
+clears their progress.
 
-Pensato per pagine di orientamento e fine modulo. Nessun prop, si
-include come `<RecapWithAi />`.
+Meant for orientation and end-of-module pages. No props, included
+as `<RecapWithAi />`.
 
 ```mdx
 import RecapWithAi from '../../../components/RecapWithAi.astro';
@@ -434,17 +434,17 @@ import RecapWithAi from '../../../components/RecapWithAi.astro';
 
 ### `<PromptBuilder>`
 
-Widget interattivo che porta la lettrice step-by-step a costruire un
-prompt chiaro per il suo problema reale. Quattro campi (cosa vuoi,
-contesto, destinatario, formato), preview live a destra, bottone
-"Copia il prompt" per portare il risultato nella propria IA.
+Interactive widget that walks the reader step-by-step through building a
+clear prompt for their real problem. Four fields (what you want,
+context, audience, format), live preview on the right, "Copy
+the prompt" button to bring the result into your own AI.
 
-Pensato come naturale follow-up della lezione *Cos'è un prompt?*: la
-teoria viene applicata sul problema della lettrice. Il prompt
-assemblato è plain text, etichetta-style, pronto per Claude/ChatGPT/
+Meant as a natural follow-up to the *What's a prompt?* lesson: the
+theory gets applied to the reader's own problem. The assembled
+prompt is plain text, label-style, ready for Claude/ChatGPT/
 Gemini.
 
-Nessun prop. Si include come `<PromptBuilder />`.
+No props. Included as `<PromptBuilder />`.
 
 ```mdx
 import PromptBuilder from '../../../../components/PromptBuilder.astro';
@@ -454,34 +454,34 @@ import PromptBuilder from '../../../../components/PromptBuilder.astro';
 
 ### `<LlmExercise>`
 
-Card che propone alla lettrice un'attività da svolgere con il proprio LLM:
-mostra titolo, descrizione, e pulsanti per copiare/scaricare/aprire un file
-`.txt` di istruzioni. Il file vive in `public/skills/<name>.txt` per IT e
-in `public/skills/en/<name>.txt` per EN (plain text, niente markdown). Il
-componente risolve il path automaticamente in base al locale corrente: il
-prop `file` resta uguale fra le due lingue.
+Card that proposes an activity for the reader to do with their own LLM:
+shows a title, description, and buttons to copy/download/open a
+`.txt` instructions file. The file lives in `public/skills/<name>.txt` for IT and
+in `public/skills/en/<name>.txt` for EN (plain text, no markdown). The
+component resolves the path automatically based on the current locale: the
+`file` prop stays the same across both languages.
 
-Due varianti, scelte con `variant`:
+Two variants, chosen with `variant`:
 
-- `practice` (default): pratica guidata. Accento coral. Badge "🤖 Esercizio
+- `practice` (default): guided practice. Coral accent. Badge "🤖 Esercizio
   con la tua IA" / "🤖 Exercise with your AI".
-- `review`: verifica dell'apprendimento a fine lezione. Accento ocra.
+- `review`: end-of-lesson learning check-in. Ochre accent.
   Badge "📝 Verifica con la tua IA" / "📝 Check-in with your AI".
 
-Il meccanismo (file scaricabile + copia + apri) è identico nelle due
-varianti. Convenzione: i file di review si chiamano
-`review-<slug-lezione>.txt`. Le label visibili sono in `src/i18n/ui.ts`.
+The mechanism (downloadable file + copy + open) is identical in both
+variants. Convention: review files are named
+`review-<slug-lezione>.txt`. Visible labels are in `src/i18n/ui.ts`.
 
-| Prop          | Tipo                          | Default      | Note                                                                              |
+| Prop          | Type                          | Default      | Notes                                                                              |
 |---------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
-| `title`       | `string`                      | —            | obbligatorio                                                                      |
-| `file`        | `string`                      | —            | nome del file in `public/skills/<locale>/`, es. `review-what-is-ai.txt`           |
-| `description` | `string`                      | —            | opzionale, breve descrizione sotto il titolo                                      |
-| `duration`    | `string`                      | —            | opzionale, formato `"X min"` o `"X-Y min"` (es. `"5-7 min"`). Mostrato sotto il titolo come "X min di esercizio" o "X min di verifica" a seconda del variant. |
-| `variant`     | `'practice' \| 'review'`      | `'practice'` | scegli il framing visivo                                                          |
+| `title`       | `string`                      | —            | required                                                                      |
+| `file`        | `string`                      | —            | file name in `public/skills/<locale>/`, e.g. `review-what-is-ai.txt`           |
+| `description` | `string`                      | —            | optional, short description under the title                                      |
+| `duration`    | `string`                      | —            | optional, format `"X min"` or `"X-Y min"` (e.g. `"5-7 min"`). Shown under the title as "X min di esercizio" or "X min di verifica" depending on the variant. |
+| `variant`     | `'practice' \| 'review'`      | `'practice'` | choose the visual framing                                                          |
 
 ```mdx
-{/* Esercizio pratico nel corpo della lezione */}
+{/* Practice exercise in the body of the lesson */}
 <LlmExercise
   title="La tua prima conversazione consapevole"
   file="first-exercise.txt"
@@ -489,7 +489,7 @@ varianti. Convenzione: i file di review si chiamano
   description="Un esercizio guidato in cui l'IA ti aiuta a capire come formulare una richiesta chiara."
 />
 
-{/* Verifica a fine lezione */}
+{/* End-of-lesson check-in */}
 <LlmExercise
   variant="review"
   title="Quattro domande per fissare le idee"
@@ -501,26 +501,26 @@ varianti. Convenzione: i file di review si chiamano
 
 ### `<HomeCards>`
 
-Griglia di card visive per la landing. Sostituisce le liste a punti
-"da docs". Ogni card ha icona, titolo, descrizione, e link opzionale.
-Le card non ancora pronte si segnalano con `comingSoon: true`: niente
-link, badge "Presto" in alto a destra.
+Grid of visual cards for the landing page. Replaces "docs-style"
+bullet lists. Each card has an icon, title, description, and optional link.
+Cards that aren't ready yet are flagged with `comingSoon: true`: no
+link, "Presto" badge in the top right.
 
-| Prop              | Tipo            | Default   | Note                                                |
+| Prop              | Type            | Default   | Notes                                                |
 |-------------------|-----------------|-----------|------------------------------------------------------|
-| `heading`         | `string`        | —         | opzionale, titolo di sezione sopra le card           |
-| `cards`           | `HomeCard[]`    | —         | obbligatorio, almeno una card                        |
-| `comingSoonLabel` | `string`        | `'Presto'`| testo del badge per le card `comingSoon`             |
+| `heading`         | `string`        | —         | optional, section title above the cards           |
+| `cards`           | `HomeCard[]`    | —         | required, at least one card                        |
+| `comingSoonLabel` | `string`        | `'Presto'`| badge text for `comingSoon` cards             |
 
 `HomeCard`:
 
-| Campo         | Tipo       | Default | Note                                                                       |
+| Field         | Type       | Default | Notes                                                                       |
 |---------------|------------|---------|----------------------------------------------------------------------------|
-| `icon`        | `IconName` | —       | obbligatorio, id di un'icona del set `Icon.astro` (es. `'sprout'`)         |
-| `title`       | `string`   | —       | obbligatorio                                                               |
-| `description` | `string`   | —       | obbligatorio                                                               |
-| `href`        | `string`   | —       | opzionale, URL della pagina target                                         |
-| `comingSoon`  | `boolean`  | `false` | se true: card non cliccabile, badge "Presto"                               |
+| `icon`        | `IconName` | —       | required, id of an icon from the `Icon.astro` set (e.g. `'sprout'`)         |
+| `title`       | `string`   | —       | required                                                               |
+| `description` | `string`   | —       | required                                                               |
+| `href`        | `string`   | —       | optional, URL of the target page                                         |
+| `comingSoon`  | `boolean`  | `false` | if true: card not clickable, "Presto" badge                               |
 
 ```mdx
 <HomeCards
@@ -544,19 +544,19 @@ link, badge "Presto" in alto a destra.
 
 ### `<Icon>`
 
-Set curato di icone SVG inline usate dalle card di navigazione
-(`HomeCards`). Stile duotone: stroke coral scuro + fill coral chiaro,
-wrapper squircle con sfondo `--sl-color-accent-low`. Palette Pastello
-rispettata, aspetto stabile tra OS (a differenza delle emoji).
+Curated set of inline SVG icons used by the navigation cards
+(`HomeCards`). Duotone style: dark coral stroke + light coral fill,
+squircle wrapper with `--sl-color-accent-low` background. Respects the
+Pastello palette, stable appearance across OSes (unlike emoji).
 
-Icone disponibili (`IconName`): `sprout`, `pencil`, `briefcase`,
-`graduation-cap`, `users`, `wrench`, `message-circle`. Aggiungerne
-una significa estendere l'union type e aggiungere il blocco SVG in
+Available icons (`IconName`): `sprout`, `pencil`, `briefcase`,
+`graduation-cap`, `users`, `wrench`, `message-circle`. Adding one
+means extending the union type and adding the SVG block in
 `Icon.astro`.
 
-Generalmente non serve importarlo direttamente dall'`.mdx`: le card
-prendono `icon: IconName` e `HomeCards` lo monta da solo. Se in
-futuro serve un'icona standalone fuori dalle card, importalo così:
+Generally there's no need to import it directly from `.mdx`: cards
+take `icon: IconName` and `HomeCards` mounts it on their own. If in
+the future you need a standalone icon outside of cards, import it like this:
 
 ```mdx
 import Icon from '../../../components/Icon.astro';
@@ -566,23 +566,23 @@ import Icon from '../../../components/Icon.astro';
 
 ### `<ChatDemo>`
 
-Conversazione utente/IA animata (typewriter + dots di "thinking"). Sostituisce
-le GIF di esempio. No-JS friendly (mostra il testo finale statico). Rispetta
-`prefers-reduced-motion: reduce` (rendering statico). Parte solo quando entra
-in viewport (`IntersectionObserver`).
+Animated user/AI conversation (typewriter + "thinking" dots). Replaces
+example GIFs. No-JS friendly (shows the final static text). Respects
+`prefers-reduced-motion: reduce` (static rendering). Starts only when it
+enters the viewport (`IntersectionObserver`).
 
-| Prop            | Tipo      | Default | Note                                              |
+| Prop            | Type      | Default | Notes                                              |
 |-----------------|-----------|---------|---------------------------------------------------|
-| `user`          | `string`  | —       | obbligatorio: il messaggio dell'utente            |
-| `ai`            | `string`  | —       | obbligatorio: la risposta dell'IA                 |
-| `typingSpeed`   | `number`  | `28`    | ms per carattere                                  |
-| `thinkingTime`  | `number`  | `900`   | ms di pausa fra invio utente e risposta IA       |
-| `autoPlay`      | `boolean` | `true`  | parte automaticamente al viewport                 |
-| `loop`          | `boolean` | `false` | riavvia in loop                                   |
-| `loopDelay`     | `number`  | `3500`  | ms di pausa tra un ciclo e il successivo          |
-| `userLabel`     | `string`  | `'Tu'`  | etichetta sopra la bolla utente                   |
-| `aiLabel`       | `string`  | `'IA'`  | etichetta sopra la bolla IA                       |
-| `showReplay`    | `boolean` | `true`  | mostra i pulsanti "Salta" (durante l'animazione) e "Riavvia" |
+| `user`          | `string`  | —       | required: the user's message            |
+| `ai`            | `string`  | —       | required: the AI's response                 |
+| `typingSpeed`   | `number`  | `28`    | ms per character                                  |
+| `thinkingTime`  | `number`  | `900`   | ms pause between user send and AI response       |
+| `autoPlay`      | `boolean` | `true`  | starts automatically on viewport entry                 |
+| `loop`          | `boolean` | `false` | restarts in a loop                                   |
+| `loopDelay`     | `number`  | `3500`  | ms pause between one cycle and the next          |
+| `userLabel`     | `string`  | `'Tu'`  | label above the user bubble                   |
+| `aiLabel`       | `string`  | `'IA'`  | label above the AI bubble                       |
+| `showReplay`    | `boolean` | `true`  | shows the "Salta" (during the animation) and "Riavvia" buttons |
 
 ```mdx
 <ChatDemo
@@ -593,41 +593,41 @@ Si forma quando una stella molto massiccia, a fine vita, collassa su se stessa.`
 />
 ```
 
-I newline dentro la stringa `ai` (uso del template literal con backtick) vengono
-preservati e renderizzati come a-capo grazie a `white-space: pre-wrap`.
+Newlines inside the `ai` string (using a backtick template literal) are
+preserved and rendered as line breaks thanks to `white-space: pre-wrap`.
 
-**Markdown inline nella risposta IA.** La stringa `ai` supporta un
-sottoinsieme di markdown inline renderizzato in SSR: `**grassetto**` /
-`__grassetto__`, `*corsivo*` / `_corsivo_`, `` `inline code` ``, e link
-`[testo](url)` (solo schemi `http(s)`, `mailto:`, path interno `/`, ancora
-`#`; schemi diversi ricadono su `#` per sicurezza). Niente block element
-(liste, heading, citazioni restano testo piano). Il typewriter walka i nodi
-di testo lasciando i tag in place, così il grassetto nel titolo di una
-risposta appare già formattato dalla prima lettera digitata. La stringa
-`user` resta testo piano e non viene parsata.
+**Inline markdown in the AI response.** The `ai` string supports a
+subset of inline markdown rendered in SSR: `**grassetto**` /
+`__grassetto__`, `*corsivo*` / `_corsivo_`, `` `inline code` ``, and links
+`[testo](url)` (only `http(s)` schemes, `mailto:`, internal `/` paths, `#`
+anchors; other schemes fall back to `#` for safety). No block elements
+(lists, headings, quotes stay plain text). The typewriter walks the
+text nodes leaving the tags in place, so bold text in the title of a
+response already appears formatted from the first letter typed. The
+`user` string stays plain text and isn't parsed.
 
 ### `<MailtoComposer>`
 
-Textarea + bottone "Apri email" che lancia un `mailto:` precompilato con
-oggetto e corpo. Niente backend, niente fetch: il messaggio parte dal client
-di posta dell'utente, coerente con la postura privacy del sito (vedi
+Textarea + "Apri email" button that launches a pre-filled `mailto:` with
+subject and body. No backend, no fetch: the message leaves from the user's
+own mail client, consistent with the site's privacy posture (see
 `src/scripts/progress.ts`).
 
-La mail passata in `to` viene splittata server-side in user/domain e
-scritta come due `data-*` attributes separati (obfuscation contro crawler
-spam). Lo script del componente ricompone l'indirizzo solo al click del
-bottone "Apri email".
+The mail address passed in `to` is split server-side into user/domain and
+written as two separate `data-*` attributes (obfuscation against spam
+crawlers). The component's script recomposes the address only on click of
+the "Apri email" button.
 
-Pensato per pagine "scrivimi" tipo About, raccolta feedback a costo zero. Le
-label visibili (badge, titolo, hint, bottone, messaggi di errore) sono in
-`src/i18n/ui.ts` sotto le chiavi `composer*`.
+Meant for "write to me" pages like About, zero-cost feedback collection. The
+visible labels (badge, title, hint, button, error messages) are in
+`src/i18n/ui.ts` under the `composer*` keys.
 
-| Prop            | Tipo     | Default                        | Note                                                            |
+| Prop            | Type     | Default                        | Notes                                                            |
 |-----------------|----------|--------------------------------|------------------------------------------------------------------|
-| `to`            | `string` | —                              | obbligatorio: indirizzo destinatario (viene splittato e offuscato nel DOM) |
-| `subject`       | `string` | `ui.composerSubject`           | oggetto della mail (default localizzato)                        |
-| `placeholder`   | `string` | `ui.composerPlaceholder`       | placeholder della textarea                                      |
-| `buttonLabel`   | `string` | `ui.composerButton`            | testo del bottone (default "Apri email" / "Open email")         |
+| `to`            | `string` | —                              | required: recipient address (gets split and obfuscated in the DOM) |
+| `subject`       | `string` | `ui.composerSubject`           | mail subject (localized default)                        |
+| `placeholder`   | `string` | `ui.composerPlaceholder`       | textarea placeholder                                      |
+| `buttonLabel`   | `string` | `ui.composerButton`            | button text (default "Apri email" / "Open email")         |
 
 ```mdx
 import MailtoComposer from '../../../components/MailtoComposer.astro';
@@ -637,23 +637,23 @@ import MailtoComposer from '../../../components/MailtoComposer.astro';
 
 ### `<ObfuscatedEmail>`
 
-Link email che si ricompone solo al caricamento JS. Il DOM statico
-contiene `user` e `domain` in due `data-*` attributes separati, mai la
-stringa unita `user@domain`. I crawler spam che scansionano HTML grezzo
-non trovano una mail leggibile.
+Email link that recomposes itself only once JS loads. The static DOM
+contains `user` and `domain` in two separate `data-*` attributes, never the
+joined `user@domain` string. Spam crawlers scanning raw HTML
+don't find a readable address.
 
-Se JS è disabilitato (raro), l'utente vede il fallback
-`user [at] domain`, leggibile e copiabile senza spiegazioni.
+If JS is disabled (rare), the user sees the fallback
+`user [at] domain`, readable and copyable without explanation.
 
-Il wiring client (aggiorna `href` e testo) sta nello `<script>` di
-`Footer.astro`, che è incluso in ogni pagina del sito. Quindi basta
-usare `<ObfuscatedEmail>` dove serve, senza import di script aggiuntivi.
+The client wiring (updates `href` and text) lives in the `<script>` of
+`Footer.astro`, which is included on every page of the site. So it's enough
+to use `<ObfuscatedEmail>` wherever it's needed, without importing extra scripts.
 
-| Prop     | Tipo     | Default | Note                                        |
+| Prop     | Type     | Default | Notes                                        |
 |----------|----------|---------|---------------------------------------------|
-| `user`   | `string` | —       | obbligatorio: parte prima della chiocciola  |
-| `domain` | `string` | —       | obbligatorio: parte dopo la chiocciola      |
-| `class`  | `string` | —       | opzionale, classi CSS aggiuntive sul link   |
+| `user`   | `string` | —       | required: part before the at sign  |
+| `domain` | `string` | —       | required: part after the at sign      |
+| `class`  | `string` | —       | optional, extra CSS classes on the link   |
 
 ```mdx
 import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
@@ -661,56 +661,56 @@ import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
 <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
 ```
 
-## Piano dei contenuti
+## Content plan
 
-La roadmap editoriale vive in **`CONTENT.md`** al root: moduli previsti, stato
-di ogni lezione, lezioni in arrivo, workflow per scriverne una nuova.
-Aggiornare `CONTENT.md` **nello stesso commit** in cui una lezione viene
-scritta, rinominata, o eliminata.
+The editorial roadmap lives in **`CONTENT.md`** at the root: planned modules, status
+of each lesson, upcoming lessons, workflow for writing a new one.
+Update `CONTENT.md` **in the same commit** where a lesson gets
+written, renamed, or deleted.
 
-## Skill e agent del progetto
+## Project skills and agents
 
-Invocabili da Claude Code:
+Invokable from Claude Code:
 
-- **`/voice-guide`** — riferimento di stile (lo leggi, non lo esegui).
-- **`/analyze-lesson <path>`** — analizza una pagina simulando un lettore al livello dichiarato e produce una lista di domande del lettore. Output in `analysis/<slug>.questions.md`.
-- **`/integrate-questions <path> [questions-file]`** — integra le domande nella pagina come risposte inline, callout, esempi, o FAQ. Chiede conferma prima di applicare.
-- **`/add-defs <path>`** — arricchisce una lezione con tooltip `<Def>` sui termini tecnici, lavorando in parallelo su tutte le lingue mirror trovate sotto `src/content/docs/<lang>/`. Mostra un piano (termini scelti + spiegazioni per lingua) prima di toccare i file.
-- **Agent `style-checker`** — passa di QA su una pagina. Non modifica, solo segnala.
+- **`/voice-guide`**: style reference (you read it, you don't run it).
+- **`/analyze-lesson <path>`**: analyzes a page simulating a reader at the declared level and produces a list of reader questions. Output in `analysis/<slug>.questions.md`.
+- **`/integrate-questions <path> [questions-file]`**: integrates the questions into the page as inline answers, callouts, examples, or FAQ. Asks for confirmation before applying.
+- **`/add-defs <path>`**: enriches a lesson with `<Def>` tooltips on technical terms, working in parallel on all mirror languages found under `src/content/docs/<lang>/`. Shows a plan (chosen terms + explanations per language) before touching the files.
+- **Agent `style-checker`**: QA pass on a page. Doesn't modify, only flags issues.
 
-Workflow tipico per una nuova lezione:
+Typical workflow for a new lesson:
 
-1. Scrivo la bozza in `src/content/docs/it/<sezione>/<slug>.mdx`.
-2. Lancio `/analyze-lesson <path>` per vedere cosa un lettore non capirebbe.
-3. Curo le domande nel file `analysis/<slug>.questions.md`.
-4. Lancio `/integrate-questions <path>` per integrarle.
-5. Lancio `/add-defs <path>` per aggiungere i tooltip inline sui termini tecnici.
-6. Lancio l'agent `style-checker` per un QA finale.
+1. Write the draft in `src/content/docs/it/<sezione>/<slug>.mdx`.
+2. Run `/analyze-lesson <path>` to see what a reader wouldn't understand.
+3. Curate the questions in the `analysis/<slug>.questions.md` file.
+4. Run `/integrate-questions <path>` to integrate them.
+5. Run `/add-defs <path>` to add inline tooltips on technical terms.
+6. Run the `style-checker` agent for a final QA pass.
 
-## Traduzione e i18n
+## Translation and i18n
 
-**Slug in inglese ovunque.** Anche le pagine in italiano vivono a path
-inglesi (`/it/start-here/`, `/it/fundamentals/what-is-ai/`). Lo slug è un
-"code identifier", non testo per il lettore: tenerlo in inglese permette
-di riusare la stessa sidebar config e gli stessi sidebar `slug:` per
-tutti i locale, senza override e senza redirect.
+**English slugs everywhere.** Even Italian pages live at English
+paths (`/it/start-here/`, `/it/fundamentals/what-is-ai/`). The slug is a
+"code identifier", not reader-facing text: keeping it in English lets you
+reuse the same sidebar config and the same sidebar `slug:` for
+every locale, without overrides and without redirects.
 
-**Mirror EN sotto `src/content/docs/en/`.** Stesso path file della
-controparte IT (es. `en/fundamentals/what-is-ai.mdx`). Le pagine senza
-traduzione ricadono automaticamente sulla lingua di default.
+**EN mirror under `src/content/docs/en/`.** Same file path as
+the IT counterpart (e.g. `en/fundamentals/what-is-ai.mdx`). Pages without a
+translation automatically fall back to the default language.
 
-**File `.txt` di skill in `public/skills/<locale>/`.** Convenzione:
-`public/skills/en/<name>.txt`, `public/skills/it/<name>.txt`. Il
-componente `<LlmExercise>` risolve sempre il path con il prefisso
-locale, qualunque sia la lingua di default.
+**Skill `.txt` files in `public/skills/<locale>/`.** Convention:
+`public/skills/en/<name>.txt`, `public/skills/it/<name>.txt`. The
+`<LlmExercise>` component always resolves the path with the locale
+prefix, whatever the default language is.
 
-**Stringhe UI dei componenti in `src/i18n/ui.ts`.** Dizionario tipato
-`UIStrings` per ogni locale. Componenti server: `t(Astro.currentLocale)`.
-Script client: ricevono le stringhe via `data-*` attributes pre-renderizzati
-server-side. Aggiungere una lingua = aggiungere una voce in `STRINGS` e
-in `Locale` (TypeScript forza la copertura completa di tutte le chiavi).
+**Component UI strings in `src/i18n/ui.ts`.** A typed `UIStrings`
+dictionary for each locale. Server components: `t(Astro.currentLocale)`.
+Client scripts: receive the strings via `data-*` attributes pre-rendered
+server-side. Adding a language = adding an entry in `STRINGS` and
+in `Locale` (TypeScript enforces full coverage of all keys).
 
-## Preferenze di commit
+## Commit preferences
 
-- **Niente trailer `Co-Authored-By: Claude …`** nei commit.
-- Messaggio di commit in inglese, body conciso (cosa + perché, non il diff).
+- **No `Co-Authored-By: Claude …` trailer** in commits.
+- Commit message in English, concise body (what + why, not the diff).

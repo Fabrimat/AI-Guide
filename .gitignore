@@ -35,3 +35,4 @@ analysis/
 
 # Git worktrees (sviluppo isolato di feature)
 .worktrees/
+.claude/worktrees/
