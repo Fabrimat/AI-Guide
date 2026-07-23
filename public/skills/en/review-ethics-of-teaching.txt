@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Ethics of teaching" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson puts a single thread at the center, "who signs is who answers". How does it apply to the three axes (honesty, privacy, grading)?
+
+Question 2: on honesty. Routine prep with AI doesn't need disclosure, but three things change the picture. Tell me at least two of them.
+
+Question 3: on minors' privacy. What never goes into a consumer chat? And why are the electronic gradebook and class photos particularly delicate cases?
+
+Question 4: on grading. What role can the AI play in correcting work and in the end-of-term grading meeting, and where does it stop? Give me an example from your own practice.
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
