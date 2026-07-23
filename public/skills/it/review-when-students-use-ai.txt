@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Quando lo studente usa l'IA" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la lezione dice che gli AI detector non sono una prova. Perche' sbagliano, e in quale direzione l'errore fa piu' danno in classe?
+
+Domanda 2: gli indicatori manuali (registro uniforme, citazioni inverificabili, errori personali spariti) che valore hanno? Perche' la lezione li chiama ipotesi e non prove?
+
+Domanda 3: la mossa piu' potente e' ridisegnare le consegne. A cosa si aggancia una consegna che regge meglio all'IA? Fammi un esempio, anche sulla tua materia.
+
+Domanda 4: hai un sospetto su un compito. Come apri la conversazione con lo studente senza accusarlo? E perche' il falso positivo fa piu' danno del caso vero che ti sfugge?
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

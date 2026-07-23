@@ -1,0 +1,199 @@
+---
+title: Quando lo studente usa l'IA
+description: "Gli AI detector non sono una prova. Tre mosse che funzionano meglio: leggere gli indicatori come ipotesi, ridisegnare le consegne perché reggano, parlare con lo studente senza accusare a vuoto."
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Cercare la prova che uno studente ha usato l'IA è la guerra sbagliata. Gli **AI detector sono inaffidabili** in entrambe le direzioni e non reggono come base di un'accusa.
+- Gli indicatori manuali (registro troppo uniforme, citazioni perfette e inverificabili, errori personali spariti) sono **ipotesi da verificare**, non prove da sentenziare.
+- La mossa più potente non richiede di beccare nessuno: **ridisegnare le consegne** perché aggancino la tua classe, un dato locale, una difesa orale. Un compito che l'IA svolge da sola, prima o poi lo svolgerà per qualcuno.
+- Con un sospetto si parla, non si accusa: descrivi cosa hai notato, chiedi allo studente di raccontarti come ha lavorato. Il **falso positivo fa più danno** del caso vero che ti sfugge.
+- Il fine è didattico, non punitivo: progettare una didattica che regge in un mondo dove l'IA esiste, non giocare al gatto e al topo.
+
+</LessonSummary>
+
+Prima o poi arriva il tema troppo liscio, la ricerca con le citazioni
+perfette, il compito che non somiglia a chi l'ha scritto. La
+tentazione è cercare la prova: uno strumento che dica sì o no, ha
+usato l'IA. Quella prova non esiste, e inseguirla porta a combattere
+la guerra sbagliata. Questa lezione parte da qui: non da come
+incastrare chi copia, ma da come tenere in piedi una didattica che
+regge in un mondo dove l'IA c'è e non se ne va.
+
+## Gli AI detector non sono una prova
+
+Esistono strumenti che promettono di dirti se un testo è stato scritto
+da un'IA: Turnitin AI, GPTZero, Copyleaks e altri. Ti restituiscono
+una percentuale. Il problema è che quella percentuale sbaglia in
+entrambe le direzioni, e sbaglia in modo che colpisce proprio chi non
+dovrebbe.
+
+Falsi positivi: uno studente che scrive in modo pulito, lineare,
+strutturato somiglia a un'IA agli occhi del detector. Uno studio di
+Stanford del 2023 (Liang e colleghi) ha mostrato che questi strumenti
+segnalano come "IA" i testi di chi scrive in una lingua non madre
+molto più spesso del dovuto. Chi ha imparato a scrivere in modo
+regolare e prevedibile paga il conto. E sono strumenti tarati
+soprattutto sull'inglese: sull'italiano sono ancora meno verificati,
+anche se il meccanismo (penalizzare chi scrive in modo semplice e
+regolare) non dipende dalla lingua. Falsi negativi: un testo
+generato dall'IA e poi rimaneggiato a mano passa il controllo senza
+problemi.
+
+Turnitin stessa, nel proprio disclaimer ufficiale, scrive che il
+punteggio del suo detector non dovrebbe essere l'unica base di una
+decisione di integrità accademica. Il messaggio da tenere: un
+punteggio è un indizio al massimo, mai un verdetto. Convocare uno
+studente e dirgli "il sistema dice che hai copiato" è il modo più
+rapido per punire un innocente e ritrovarsi con un caso, magari con
+la famiglia, sul tavolo.
+
+Se il detector non serve come prova, servono tre mosse diverse. Le prime due ti
+aiutano a leggere e a prevenire, la terza a gestire un sospetto quando
+ce l'hai.
+
+## Gli indicatori manuali sono ipotesi, non prove
+
+Mentre correggi, certi segnali fanno alzare un sopracciglio: un
+registro troppo uniforme e alto per il livello della classe, citazioni
+perfette ma che non riesci a verificare. Oppure una struttura troppo
+geometrica per come scrive di solito quello studente, la scomparsa
+improvvisa degli errori personali tipici (chi scriveva sempre "un pò"
+diventato di colpo impeccabile), parole rare mai sentite in aula.
+
+Presi da soli non dimostrano niente. Uno studente può avere una
+giornata buona, può aver copiato da un libro come si faceva vent'anni
+fa, può essere stato aiutato da un genitore. Vanno verificati
+parlando con lo studente, non messi a verbale. E invecchiano in
+fretta: man mano che gli studenti imparano a dare istruzioni migliori
+all'IA, il segnale "troppo geometrico" sbiadisce e il testo assomiglia
+sempre di più al loro. Un indicatore ti dice dove guardare, non cosa
+concludere.
+
+## Ridisegnare le consegne perché reggano
+
+È la mossa più potente, e non richiede di beccare nessuno. L'IA fa
+benissimo il generico e male lo specifico. Una consegna che l'IA può
+svolgere tutta da sola, con un prompt e senza sapere niente della tua
+classe, è una consegna che insegna poco comunque: il problema non è
+solo che si può copiare, è che non chiede allo studente il lavoro che
+volevi vedere.
+
+Rendi il compito difficile da appaltare all'IA agganciandolo a
+qualcosa che l'IA non ha: una fonte o un'attività fatta in classe, un
+angolo personale o locale (un'esperienza dello studente, la sua
+città), una difesa orale in sede di consegna, un vincolo di forma
+stretto. L'IA può ancora aiutare a capire il contesto, ma il lavoro
+di collegamento fra quel contesto e il caso concreto resta dello
+studente.
+
+<ChatDemo
+  user={`Sono un docente di storia, secondaria di secondo grado. Ho questa consegna: "Scrivi un tema di due pagine sulla Rivoluzione industriale". Riscrivimela in modo che sia difficile da svolgere tutta con l'IA e che costringa lo studente a un lavoro suo. In classe abbiamo letto un brano dalle memorie di un operaio di Manchester.`}
+  ai={`**Consegna riscritta.** Parti dal brano sulle memorie dell'operaio di Manchester che abbiamo letto in classe. In massimo 400 parole rispondi a due domande: quali condizioni descritte nel brano ritrovi nella tua città o zona nello stesso periodo (cerca tu un dato locale: un opificio, una ferrovia, un dato di un censimento)? E in cosa la fonte locale che hai trovato conferma o corregge il quadro del brano? Porta in classe le due fonti. Alla consegna ti chiederò di spiegare a voce come hai scelto la fonte locale.
+
+**Perché regge meglio.** Il brano letto in classe l'IA non ce l'ha davanti. Il dato locale la costringe a una ricerca che tu puoi controllare. La difesa orale sposta il peso sul ragionamento invece che sul testo scritto. L'IA resta utile per capire il periodo, ma il collegamento fra il brano e il territorio deve farlo lo studente.`}
+/>
+
+E se lo studente usa un'IA con accesso al web? Può pescare un dato
+locale plausibile lo stesso. Ma quel dato va comunque legato al brano
+letto in classe, che l'IA non ha davanti, e difeso a voce: un aggancio
+da solo non basta, è la loro somma a reggere.
+
+:::tip[Il test della consegna fragile]
+Prima di assegnare un compito, provalo tu nell'IA con un solo prompt.
+Se l'IA lo svolge bene senza sapere niente della tua classe, del tuo
+territorio, di quello che avete fatto insieme, la consegna è fragile.
+Non perché "si può copiare", ma perché non chiede allo studente
+niente che l'IA non sappia già fare. Riscrivila fino a quando il
+lavoro vero (il collegamento, il caso specifico, la difesa) resta in
+mano allo studente.
+:::
+
+## Parlare con lo studente, non accusare
+
+Prima o poi un sospetto concreto ce l'avrai. Qui la differenza fra un
+docente e un detector è tutta nel come lo gestisci, e ci sono due casi
+da tenere insieme.
+
+Il caso vero: lo studente ha fatto scrivere il lavoro all'IA. Il caso
+falso positivo: lo studente ha scritto bene, o ha uno stile che
+somiglia a un'IA, o è uno studente non madrelingua che scrive in modo
+regolare. Il punto è che dall'esterno i due casi si assomigliano, e se
+accusi sulla base di una sensazione, quando sbagli fai un danno che
+non recuperi.
+
+La mossa che funziona per entrambi è la stessa: descrivi cosa hai
+notato, non emettere la sentenza. Non "hai copiato", ma "ho notato che
+questo lavoro è diverso dai tuoi soliti, mi racconti come l'hai
+costruito?". Dai allo studente un modo per mostrare il processo: le
+bozze, gli appunti, l'espansione a voce di un punto, la difesa di una
+scelta ("perché qui hai scritto questo?"). Se il lavoro era copiato,
+questa conversazione lo fa emergere senza processo. Se non lo era, lo
+studente mostra il suo percorso e non hai rotto niente. Mai una
+conversazione così davanti alla classe: umilia se ci prendi e
+distrugge la fiducia se sbagli.
+
+A volte la conversazione non scioglie il dubbio: lo studente racconta
+un percorso credibile ma che non puoi verificare. Va bene così. Senza
+prova non c'è sanzione, ma il segnale è arrivato, e i prossimi compiti
+puoi spostarli verso più lavoro in classe e più orale.
+
+:::caution[Il falso positivo fa più danno]
+Fra i due errori possibili non sono equivalenti. Lasciarsi sfuggire un
+caso vero costa una valutazione imprecisa su un compito. Accusare a
+vuoto uno studente onesto costa la fiducia, a volte per il resto
+dell'anno, e ti espone se la famiglia chiede su cosa ti basi. Nel
+dubbio, la conversazione che chiede invece dell'accusa che sentenzia
+protegge tutti e due.
+:::
+
+:::note[Dove questo vale, e dove meno]
+Il tema è centrale alla secondaria di secondo grado e all'università,
+dove gli studenti hanno accesso autonomo all'IA e portano a casa
+compiti scritti. Alla primaria e in buona parte della secondaria di
+primo grado l'IA non è ancora nelle loro mani, e il problema quasi non
+si pone. Ma la mossa del ridisegnare le consegne migliora i compiti
+per tutti: un lavoro agganciato a un'esperienza di classe è più
+formativo a qualunque età, IA o no.
+:::
+
+## Cosa NON fare
+
+**Non usare un punteggio di detector come prova.** È un indizio
+debole, sbaglia contro chi scrive pulito e contro chi non è
+madrelingua, e non regge se la famiglia ti chiede di argomentare.
+
+**Non accusare sulla base di una sensazione.** Un indicatore manuale è
+il punto di partenza di una conversazione, non la conclusione di un
+processo. La domanda "come l'hai costruito?" viene sempre prima della
+frase "hai copiato".
+
+**Non trasformare la didattica in una caccia.** Se ogni compito diventa
+un test antifrode, il clima della classe si avvelena e gli studenti
+onesti pagano per primi. Il lavoro è progettare consegne che chiedano
+un pensiero loro, non montare la guardia.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-when-students-use-ai.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Questa lezione ha guardato l'IA nelle mani degli studenti. Ne resta
+una che guarda l'IA nelle tue: quando la usi per preparare, correggere,
+comunicare, quali responsabilità restano tue e non si delegano. La
+prossima e ultima lezione del modulo chiude su questo, l'etica del
+docente, e fa da ponte a chi vuole capire l'IA fin sotto al cofano.
