@@ -150,7 +150,7 @@ export default defineConfig({
           ],
         },
         {
-          // Modulo 5 (Per docenti) — non ancora scritto.
+          // Modulo 5 (Per docenti) — completo (9/9).
           label: 'For teachers',
           translations: { it: 'Per docenti' },
           items: [
@@ -161,20 +161,8 @@ export default defineConfig({
             { slug: 'for-teachers/generate-assessment-questions' },
             { slug: 'for-teachers/grading-with-criteria' },
             { slug: 'for-teachers/emails-to-families' },
-            {
-              label: 'When students use AI',
-              translations: { it: "Quando lo studente usa l'IA" },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Ethics of teaching',
-              translations: { it: 'Etica del docente' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'for-teachers/when-students-use-ai' },
+            { slug: 'for-teachers/ethics-of-teaching' },
           ],
         },
         {

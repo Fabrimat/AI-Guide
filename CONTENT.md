@@ -911,18 +911,63 @@ topics mirror each other.
    refinements applied ("davvero", a positional reference).
    Style-checker EN: OK with two refinements applied ("pour data" →
    "enter/put", "at your earliest convenience").
-8. 🆕 **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
-   Recognizing without demonizing. Unreliable AI detectors, manual
-   indicators as hypotheses, redesigning assignments, conversation (not
-   condemnation).
-9. 🆕 **Etica del docente** (`for-teachers/ethics-of-teaching`)
-   Closing. Honesty toward students/families, minors' privacy,
-   grading that stays with the teacher. Italian and foreign institutional
-   policies. Bridge to Module 6.
+8. ✅ **Quando lo studente usa l'IA** (`for-teachers/when-students-use-ai`)
+   Drafted IT + EN. Recognizing without demonizing. Body: AI detectors
+   unreliable in both directions (Turnitin AI / GPTZero / Copyleaks,
+   with the 2023 Stanford study on bias against non-native writers and
+   Turnitin's own disclaimer), then three moves. (1) Manual indicators
+   as hypotheses not proof (uniform register, unverifiable citations,
+   vanished personal errors). (2) Redesigning assignments so they hold
+   up (hook onto a class source, a local/personal angle, an oral
+   defense, a tight form constraint), with a central ChatDemo rewriting
+   a weak "Industrial Revolution essay" prompt and a `:::tip` fragile-
+   assignment test. (3) Conversation not condemnation, with the false-
+   positive vs true case held together and a `:::caution` on the
+   asymmetry (a false positive does more damage). `:::note` on scope
+   (high school + university; primary/middle less). No deepen (critical,
+   not operational): only the end-of-lesson check-in. Prereq
+   `[ask-well, when-to-trust-it]`. Full review cycle (5-agent style +
+   coherence sweep, `analyze-lesson`, `integrate-questions`, 2026-07-23).
+   Main integrations from the reader analysis: a web-enabled AI can still
+   fetch a plausible local fact so the hooks must combine (class source +
+   oral defense), detector bias is English-tuned so even less validated on
+   Italian, the conversation may not resolve (no proof, no sanction, adapt
+   future work), plus a "no use as proof" wording fix. Style-checker:
+   de-duplicated the repeated "hypotheses not proof" line, split two long
+   sentences. L5 and L6 anti-cheating callouts now link here.
+9. ✅ **Etica del docente** (`for-teachers/ethics-of-teaching`)
+   Drafted IT + EN. Closes the module. Single thread "who signs is who
+   answers" (from M2L8 *what-not-to-do*) across three axes. **Honesty**:
+   routine prep needs no disclosure, but you check AI material before
+   handing it out, you don't ask students for an honesty about AI you
+   don't keep, and AI is never an authority source with families.
+   **Privacy of minors**: no names/grades/diagnoses/class photos in a
+   consumer chat, the electronic gradebook doesn't go into the chat, a
+   `:::tip` on class photos/videos, the school's DPO/privacy lead as the
+   frame. **Grading**: AI proposes, teacher decides and signs; no seat
+   at the end-of-term grading meeting. `:::note` on Italian (Ministero,
+   USR) + EU (European Commission guidelines) + UNESCO guidance
+   (EN adds US districts / UK DfE), cited as pattern not precise sources.
+   Bridge to Module 6. No ChatDemo (conceptual close). No deepen: only
+   the end-of-lesson check-in. Prereq `[ask-well, privacy-basics,
+   what-not-to-do, company-data-and-privacy]`. Full review cycle (5-agent
+   style + coherence sweep, `analyze-lesson`, `integrate-questions`,
+   2026-07-23). Main integrations: the gradebook's built-in AI is a
+   contracted processor (not a consumer chat), a no-training business plan
+   still doesn't authorize uploading minors' faces, public schools are
+   legally required to have a DPO (fallback for those that seem not to),
+   binding law vs non-binding guidance, why GDPR protects minors more.
+   Style-checker: removed a "La prima/seconda/terza" listicle, softened a
+   keynote triple, fixed an impersonal-voice slip. L4 and L6 now link here.
 
-**Current status**: 7 out of 9 published. Lessons 1-7 live (IT + EN)
-with the learning check-in and the discipline deepen-dive
-active.
+**Current status**: **9 out of 9 published, Per docenti module complete
+at 100%** (2026-07-23). All lessons live (IT + EN) with the end-of-lesson
+learning check-in (`<LlmExercise variant="review">`); lessons 1-7 also
+carry the discipline deepen-dive (`variant="practice"`), lessons 8-9 do
+not (critical + closing, not operational). Module 5 sidebar has all 9
+lessons active in `astro.config.mjs`, no disabled placeholders. The three
+forward references from L4/L5/L6 that named L8/L9 before they existed are
+now real links.
 
 ## Module 6: Per chi vuole di più (level `avanzato`)
 
@@ -1014,18 +1059,25 @@ activated with the publication of *Ask well* (commit b64e411,
 **Pending revisions**: none. Fondamenti module closed at 100% on
 2026-04-19. Uso quotidiano module closed at 100% on 2026-04-23.
 Sul lavoro module closed at 100% on 2026-04-25. Per studenti module
-closed at 100% on 2026-05-13.
+closed at 100% on 2026-05-13. Per docenti module closed at 100% on
+2026-07-23.
 
-**Module 5 (Per docenti)**: 7 out of 9 published (lesson 7 on
-2026-06-24). Structure validated in
+**Module 5 (Per docenti)**: **complete, 9 out of 9 published**
+(2026-07-23). Lessons 8 (**Quando lo studente usa l'IA**) and 9 (**Etica
+del docente**) landed IT + EN with their `review-*.txt`, the sidebar
+unlocked, and the now-stale forward references from L4/L5/L6 converted to
+real links. Both omit "Approfondisci per la tua disciplina" (critical +
+closing, not operational): only the end-of-lesson check-in. Full review
+cycle done (5-agent style + coherence sweep, `analyze-lesson`,
+`integrate-questions`). Structure validated in
 `docs/superpowers/specs/2026-05-16-per-docenti-module-design.md`,
 implementation plan in
-`docs/superpowers/plans/2026-05-16-per-docenti-module.md`. Next
-draft: lesson 8, **Quando lo studente usa l'IA**
-(`for-teachers/when-students-use-ai`). Brief in the "Phase I" of
-the plan; L8 frontmatter prerequisites: `[ask-well, when-to-trust-it]`.
-Lessons 8-9 without "Approfondisci per la tua disciplina" (only
-an end-of-lesson check-in).
+`docs/superpowers/plans/2026-05-16-per-docenti-module.md`.
+
+**Next module**: Module 6 (Per chi vuole di più, `avanzato`), 0 of 13
+written. Technical audience. Decisions to settle before writing (see the
+Module 6 section above): example stack (Node / Python / both) and pattern
+depth (RAG conceptual vs code tutorial).
 
 **Unlocking sidebar placeholders**: for every Module 5 lesson that
 lands, replace the disabled placeholder entry in
