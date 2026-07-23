@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "When students use AI" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: the lesson says AI detectors are not proof. Why do they get it wrong, and in which direction does the error do the most damage in class?
+
+Question 2: the manual signals (uniform register, unverifiable citations, personal mistakes gone) what weight do they carry? Why does the lesson call them hypotheses and not proof?
+
+Question 3: the most powerful move is redesigning the assignment. What does an assignment that holds up better against AI hook onto? Give me an example, even from your own subject.
+
+Question 4: you have a suspicion about a piece of work. How do you open the conversation with the student without accusing them? And why does a false positive do more damage than the real case you miss?
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

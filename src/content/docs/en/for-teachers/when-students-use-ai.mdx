@@ -1,0 +1,193 @@
+---
+title: When students use AI
+description: "AI detectors are not proof. Three moves that work better: read the signals as hypotheses, redesign assignments so they hold up, talk to the student without accusing on a hunch."
+livello: intermedio
+prerequisiti: [ask-well, when-to-trust-it]
+---
+
+import ChatDemo from '../../../../components/ChatDemo.astro';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Hunting for proof that a student used AI is the wrong fight. **AI detectors are unreliable** in both directions and don't hold up as the basis for an accusation.
+- Manual signals (register too uniform, perfect unverifiable citations, personal mistakes gone) are **hypotheses to check**, not proof to rule on.
+- The most powerful move doesn't require catching anyone: **redesign the assignment** so it hooks into your class, a local fact, an oral defense. An assignment the AI can do on its own, sooner or later it'll do for someone.
+- With a suspicion you talk, you don't accuse: describe what you noticed, ask the student to walk you through how they worked. A **false positive does more damage** than the real case you miss.
+- The goal is teaching, not punishment: design assignments that hold up in a world where AI exists, not play cat and mouse.
+
+</LessonSummary>
+
+Sooner or later it arrives: the essay that reads too smoothly, the
+research with perfect citations, the paper that doesn't sound like the
+student who handed it in. The temptation is to look for proof, a tool
+that gives a plain yes-or-no answer on whether they used AI. That proof
+doesn't exist, and chasing it means picking the wrong fight. This lesson starts here: not
+with how to catch the ones who cheat, but with how to keep teaching
+that holds up in a world where AI is here and isn't leaving.
+
+## AI detectors are not proof
+
+There are tools that promise to tell you whether a text was written by
+an AI: Turnitin AI, GPTZero, Copyleaks, and others. They give you back
+a percentage. The problem is that the percentage is wrong in both
+directions, and it's wrong in a way that hits exactly the people who
+don't deserve it.
+
+False positives: a student who writes in a clean, plain, structured
+way looks like an AI to the detector. A 2023 Stanford study (Liang and
+colleagues) showed that these tools flag texts written by non-native
+speakers as "AI" far more often than they should. People who learned
+to write in a regular, predictable way pay the price. And they're
+tools tuned mostly on English: on other languages they're even less
+validated, though the mechanism (penalizing clean, regular writing)
+doesn't depend on the language. False negatives:
+an AI-generated text that's been reworked by hand passes the check
+without trouble.
+
+Turnitin itself, in its own official disclaimer, states that its
+detector's score should not be the sole basis for an academic
+integrity decision. The takeaway: a score is a hint at most, never a
+verdict. Calling a student in and saying "the system says you cheated"
+is the fastest way to punish an innocent one and end up with a case,
+possibly with the family, on your desk.
+
+If the detector is no use as proof, three other moves work better: the first
+two help you read and prevent, the third helps you handle a suspicion
+once you have one.
+
+## Manual signals are hypotheses, not proof
+
+While you grade, certain signals make you raise an eyebrow: a register
+too uniform and high for the class level, citations that are perfect
+but you can't verify. Or a structure too geometric for how that student
+usually writes, the sudden disappearance of the typical personal
+mistakes (the one who always wrote "definately" is now flawless), rare
+words never heard in class.
+
+On their own they prove nothing. A student can have a good day, can
+have copied from a book the way people did twenty years ago, can have
+been helped by a parent. They're hypotheses to check by talking, not
+proof to put on record. And they age fast: as students learn to give
+the AI better instructions, the "too geometric" tell fades and the
+text looks more and more like theirs. A signal tells you where to
+look, not what to conclude.
+
+## Redesign assignments so they hold up
+
+This is the most powerful move, and it doesn't require catching
+anyone. AI handles the generic well and the specific badly. An assignment
+the AI can complete entirely on its own, with one prompt and knowing
+nothing about your class, is one that teaches little anyway: the
+problem isn't only that it can be copied, it's that it doesn't ask the
+student for the work you wanted to see.
+
+Make the task hard to outsource to AI by hooking it onto something the
+AI doesn't have: a source or an activity done in class, a personal or
+local angle (something from the student's own life, their town), an oral
+defense when the work is handed in, a tight form constraint. The AI
+can still help with understanding the context, but the work of
+connecting that context to the specific case stays with the student.
+
+<ChatDemo
+  user={`I'm a high school history teacher. I have this assignment: "Write a two-page essay on the Industrial Revolution." Rewrite it so it's hard to do entirely with AI and forces the student into work of their own. In class we read a passage from the memoir of a Manchester factory worker.`}
+  ai={`**Rewritten assignment.** Start from the passage from the Manchester worker's memoir that we read in class. In 400 words at most, answer two questions: which conditions described in the passage do you find in your own town or area in the same period (find a local fact yourself: a mill, a railway, a census figure)? And in what way does the local source you found confirm or correct the picture in the passage? Bring both sources to class. When you hand it in, I'll ask you to explain out loud how you chose the local source.
+
+**Why it holds up better.** The passage read in class isn't in front of the AI. The local fact forces a search you can check. The oral defense shifts the weight onto reasoning instead of the written text. The AI stays useful for understanding the period, but the link between the passage and the local area has to be made by the student.`}
+/>
+
+And if the student has a web-enabled AI? It can dig up a plausible
+local fact anyway. But that fact still has to be tied to the passage
+read in class, which the AI didn't have in front of it, and defended
+out loud: one hook alone isn't enough, it's the combination that holds.
+
+:::tip[The fragile-assignment test]
+Before you set a task, try it yourself with an AI, using a single prompt.
+If the AI does it well without knowing anything about your class, your
+area, what you did together, the assignment is fragile. Not because
+"it can be copied", but because it asks the student for nothing the AI
+can't already do. Rewrite it until the real work (the connection, the
+specific case, the defense) stays in the student's hands.
+:::
+
+## Talk to the student, don't accuse
+
+Sooner or later you'll have a real suspicion. Here the difference
+between a teacher and a detector is all in how you handle it, and
+there are two cases to hold together.
+
+The real case: the student had the AI write the work. The
+false-positive case: the student wrote well, or has a style that
+resembles an AI, or is a non-native speaker who writes in a regular
+way. The point is that from the outside the two cases look alike, and
+if you accuse on the basis of a feeling, when you're wrong you do
+damage you can't undo.
+
+The move that works for both is the same: describe what you noticed,
+don't hand down the verdict. Not "you cheated", but "I noticed this
+work is different from your usual ones, can you walk me through how you
+built it?". Give the student a way to show the process: the drafts,
+the notes, expanding a point out loud, defending a choice ("why did
+you write this here?"). If the work was copied, this conversation
+surfaces it without a trial. If it wasn't, the student shows their
+path and you've broken nothing. Never a conversation like this in
+front of the class: it humiliates if you're right and destroys trust
+if you're wrong.
+
+Sometimes the conversation doesn't settle the doubt: the student gives
+a credible account you can't verify. That's fine. Without proof there's
+no sanction, but the signal has landed, and you can steer the next
+assignments toward more in-class and more oral work.
+
+:::caution[A false positive does more damage]
+The two possible errors aren't equivalent. Letting a real case slip
+costs an imprecise grade on one assignment. Wrongly accusing an honest
+student costs trust, sometimes for the rest of the year, and exposes
+you if the family asks what you're basing it on. When in doubt, choose
+the conversation that asks over the accusation that rules: it protects
+both of you.
+:::
+
+:::note[Where this applies, and where less]
+The topic is central in high school and university, where students
+have independent access to AI and take home written assignments. In
+primary school and much of middle school the AI isn't in their hands
+yet, and the problem barely comes up. But redesigning assignments
+improves tasks for everyone: work hooked onto a shared class
+experience is more formative at any age, AI or not.
+:::
+
+## What NOT to do
+
+**Don't use a detector score as proof.** It's a weak signal, it's
+wrong against those who write cleanly and against non-native speakers,
+and it doesn't hold up if the family asks you to justify it.
+
+**Don't accuse on the basis of a feeling.** A manual signal is the
+start of a conversation, not the end of a trial. The question "how did
+you build it?" always comes before the phrase "you cheated".
+
+**Don't turn teaching into a witch hunt.** If every assignment becomes an
+anti-fraud test, the class climate turns sour and the honest students
+pay first. The job is to design assignments that ask for their own
+thinking, not to stand guard.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-when-students-use-ai.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+This lesson looked at AI in the students' hands. One lesson is left,
+and it looks at AI in yours: when you use it to prepare, grade, and communicate,
+which responsibilities stay yours and don't get delegated. The next
+and final lesson of the module closes on this, the ethics of teaching,
+and bridges to anyone who wants to understand AI all the way under the
+hood.
