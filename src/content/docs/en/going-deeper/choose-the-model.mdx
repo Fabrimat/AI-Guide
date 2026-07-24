@@ -1,0 +1,163 @@
+---
+title: Choose the model
+description: "There's no best model, only the right one for your constraint. The main families and the criteria that matter, beyond this month's leaderboard."
+livello: avanzato
+prerequisiti: [from-chats-to-apis]
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- There's no single "best" model: there's the right one for your constraint. And the constraints change from project to project.
+- Leaderboards age fast, a new model ships every month. The skill that lasts is deciding on the **right axes**, not remembering who's on top today.
+- The axes that matter: capability the task needs, cost, speed, context window, modality (text/images/audio), data control, fit with the rest of your stack.
+- Starting rule: begin with a mid-tier model, drop to a cheaper one where quality holds, step up to a top model only where needed.
+- Open models aren't "free": you skip the license fee but pay for the hardware or hosting. They're worth it for data control, scale, or customization.
+
+</LessonSummary>
+
+There's no best model in the abstract: there's the right one for what
+you have to do, with the constraints you have. It sounds obvious and
+almost nobody
+applies it: the most common question ("which one is strongest?") starts
+on the wrong foot. A classification task doesn't need the most powerful
+model on the market, it needs the cheapest one that gets it right. This
+lesson doesn't tell you which model to pick: it gives you the axes to
+decide on, which stay valid even when the new one ships next month.
+
+## The families
+
+Three big closed providers, plus the world of open models. **Claude**
+(Anthropic), **GPT** (OpenAI), and **Gemini** (Google) are the three
+main closed families. You reach them through an API, they sit close
+together at the high end, and they leapfrog each other with every
+release. That's why pinning a ranking here would be pointless: it would
+already be stale by the time you read it.
+
+Alongside them are the **open-weight** models: Meta's Llama, Mistral,
+Qwen, and others. "Open weight" means the model's weights are
+downloadable and you can run it wherever you want, on your own hardware
+or on a service that hosts it. They give you control at the price of
+managing them.
+
+Picking a family out of loyalty (because "Claude is the best" or "I only
+use OpenAI") is the fastest way to tie yourself to a choice that ages.
+Better to decide on the axes that matter.
+
+When the three sit this close, two concrete things decide it. What counts
+is where your infrastructure already is, and how each one performs on a
+case you've actually tested. There's no absolute winner to name.
+
+## The criteria that matter
+
+**Capability the task needs.** This is the first filter. Top models earn
+their keep on complex reasoning, difficult coding problems, ambiguous
+tasks. To classify,
+extract fields, or route between one case and another, a small, fast
+model costs a fraction and is more than enough. The common mistake is
+using the most powerful model for everything: you pay ten times over for
+work the small one did fine.
+
+**Cost.** You pay per input token and per output token, and the spread
+between a top model and a small one is huge, often ten or twenty times.
+On a few test runs you won't notice. At real volume it becomes the line
+item that decides whether the project holds together. How to estimate
+and cut it is the topic of *Costs and prompt caching*.
+
+**Speed.** An assistant a user interacts with live needs fast replies; a
+job that runs overnight doesn't. Small models are faster as well as
+cheaper, so the latency constraint and the cost constraint often push in
+the same direction.
+
+**Context window.** How much text fits in a single call. If you need to
+pass long documents, or resend very long conversations, it's a real
+constraint. It's the subject of the next lesson, *Context and tokens*.
+
+**Modality.** Text only, or images, audio, PDFs as input too? If your
+case involves photos, scans, or recordings, you need a multimodal model,
+and not all of them handle it equally well.
+
+**Data control.** Where your data travels, in which region, with what
+guarantees that it won't be used for training. For sensitive or
+regulated data this axis can push you toward a business plan or toward an
+open model you host yourself. *Privacy in APIs* comes back to this.
+
+**Fit with your stack.** The available SDKs, support for tool use and
+structured output, and the platform you're already on. The big three are
+also reachable through the major clouds: OpenAI on Azure, Claude on AWS
+Bedrock, Gemini on Google Vertex. If your infrastructure already lives
+there, that's a concrete point in favor.
+
+| Criterion | What to check | When it dominates the choice |
+|-----------|---------------|------------------------------|
+| Capability | model tier vs task difficulty | reasoning, code, ambiguous tasks |
+| Cost | price per input and output token | high volume, many calls |
+| Speed | latency per response | live interactive experiences |
+| Context | window size in tokens | long documents or conversations |
+| Modality | text / images / audio | non-text input |
+| Data | region, no-training, contract | sensitive or regulated data |
+| Stack | SDKs, tool use, cloud provider | fitting an existing infrastructure |
+
+## A starting rule
+
+If you don't know where to begin: start with a mid-tier model from one
+of the providers, get it working, then optimize. How do you recognize the
+mid tier when the names change every month? The reliable signal is price
+per token. Each provider usually ships a top model, a mid one, and a
+small one, and price sorts them more reliably than the name does.
+
+Where quality holds, drop to a cheaper model and check the result still
+stands. "Holds" isn't an eyeball call: you set a threshold on your own
+case, say 95% acceptable answers on a batch of your examples. Drop down
+only if the small model reaches it. Where it doesn't, step up to a top
+model for that part only.
+
+A real system often uses two models: a small one for the volume work, a
+large one for the hard cases. Routing between the two is on you. Either
+you decide with a rule on the task type, or the small model flags when it
+isn't sure and hands off to the large one. You keep tuning the choice
+over time by measuring, rather than deciding it once at the start.
+
+## Don't trust the leaderboard
+
+Public benchmarks are a weak signal for your case. They measure generic,
+standardized tasks; your task is specific. A model that wins on a
+leaderboard can lose on your data, and the other way around. The only
+test that counts is running them on your real case with five or ten of
+your own examples and comparing the results. How to set up a comparison
+like that properly is the topic of *Evals*.
+
+:::note[Open weight doesn't mean free]
+"Open weight" means you download the model and run it wherever you want,
+not that it costs nothing. You pay for the hardware (a serious GPU) or a
+service that hosts it for you, plus the work of running and updating it.
+It's worth it when data can't leave your infrastructure, or when volume
+makes per-token pricing more expensive than hosting. A third case is when
+you want to adapt the model to your own data. For most projects, a closed API costs
+less effort for the same result.
+:::
+
+:::tip[Don't chain yourself to a provider, but don't abstract too early]
+Since models change, keep the model call isolated behind a function of
+your own: switching provider becomes a change in one place, not across
+the whole app. But don't build a huge abstraction layer on day one for
+providers you may never use. A thin seam is enough.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-choose-the-model.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You have a way to choose the model and to call it. The practical limit
+you hit right after is how much you can feed it: the context window,
+measured in tokens. That's the subject of *Context and tokens*.

@@ -979,8 +979,45 @@ the module stays a single block of 13 entries until the first 3-4
 lessons are written; if it grows, consider splitting it into "Core APIs" +
 "Beyond APIs".
 
-1. 🆕 **Dalle chat alle API** (`going-deeper/from-chats-to-apis`): what changes, when it's worth it.
-2. 🆕 **Scegliere il modello** (`going-deeper/choose-the-model`): Claude / GPT / Gemini / open source: criteria, not tribalism.
+1. ✍️ **Dalle chat alle API** (`going-deeper/from-chats-to-apis`)
+   Drafted IT + EN (2026-07-24). Opens the technical module and shifts the
+   register (developer audience, direct tone). Three sections: what actually
+   changes (the chat is a product around the model; the API is the bare model,
+   **stateless**, you resend the conversation each call), the first call (a
+   real ~8-line Anthropic Messages call in **tabbed Python + TypeScript** via
+   Starlight `<Tabs syncKey="lang">`, then a line-by-line walkthrough of
+   client/model/`max_tokens`/`messages`/reading `content[0]`), when it's worth
+   it (volume, integration, control/reproducibility vs the chat for
+   exploration/one-off). Setup: `:::caution` on the API key as a credential
+   (env var, never committed, never in browser code), `:::note` that the API
+   bill is separate from the chat subscription (pay-per-token, bridge to L11).
+   Forward refs to L3/L4/L5/L11 by name (not yet written). End-of-lesson
+   check-in. No prereq (module on-ramp for developers). Full review cycle
+   done (`analyze-lesson` 8 questions + `integrate-questions` recommended
+   set + 2 style-gate rounds, 2026-07-24): added a `max_tokens`
+   truncation / `stop_reason` gotcha, the concrete stateless-continue
+   pattern (append an `assistant` message and resend, list grows until the
+   window), a model-id alias-vs-pinned note, and a `:::note` on production
+   error handling (429/overload/5xx, SDK retries) + streaming.
+2. ✍️ **Scegliere il modello** (`going-deeper/choose-the-model`)
+   Drafted IT + EN (2026-07-24). No code (comparative lesson). Reframe away
+   from "which is strongest" toward "right for your constraint". The families
+   (Claude/GPT/Gemini closed, deliberately not ranked since they leapfrog each
+   release; open-weight Llama/Mistral/Qwen). Seven decision axes (capability
+   vs task, cost, speed, context window, modality, data control, stack fit)
+   with a scannable criteria table, a starting rule (mid-tier first, drop where
+   quality holds, escalate where it doesn't, often two models in one system),
+   an anti-leaderboard close (test on 5-10 of your own examples, bridge to
+   L10 Evals). `:::note` open-weight isn't free (hardware/hosting cost),
+   `:::tip` isolate the model call behind a thin seam without over-abstracting.
+   Forward refs to L3/L10/L11/L12 by name. End-of-lesson check-in. Prereq
+   `[from-chats-to-apis]`. Full review cycle done (`analyze-lesson` 8
+   questions + `integrate-questions` recommended set + 2 style-gate rounds,
+   2026-07-24): named the stack-fit + own-eval tie-breaker (the honesty
+   gap in "families not ranked"), added price-per-token as the tier signal
+   when names churn, made "quality holds" a measurable threshold, and a
+   routing line for the two-model pattern. Runs ~1330 prose words (over the
+   1200 soft target), kept whole as a coherent reference lesson.
 3. 🆕 **Il contesto in token** (`going-deeper/context-in-tokens`): limits, what fits and what doesn't.
 4. 🆕 **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`): separating instructions from input.
 5. 🆕 **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`).
@@ -993,9 +1030,20 @@ lessons are written; if it grows, consider splitting it into "Core APIs" +
 12. 🆕 **Privacy e dati nelle API** (`going-deeper/privacy-in-apis`).
 13. 🆕 **Mini progetto end-to-end** (`going-deeper/mini-project`): putting together what's been covered.
 
-To decide before writing: example stack (Node? Python?
-Both?), depth of the patterns (RAG: conceptual explanation or
-a code tutorial?).
+**Decisions settled 2026-07-24** (with L1-L2): example stack = **both,
+tabbed Python + TypeScript** (Starlight `<Tabs syncKey="lang">`, no new
+dependency); code depth = **runnable but lean** (real copy-pasteable snippets
+kept short, concepts explained around them, not full build-along tutorials).
+Still open for L6: RAG as conceptual explanation vs a code walkthrough (decide
+when writing it).
+
+**Current status**: 2 of 13 drafted (L1-L2, IT + EN, 2026-07-24). Sidebar
+entries 1-2 unlocked in `astro.config.mjs`; the "Per chi vuole di più" /
+"For people who want more" cards on the homepage and start-here (IT + EN)
+activated and pointing to L1; the Module 5 closer (`ethics-of-teaching`
+IT + EN) now links "Modulo 6" to L1. Full review cycle done on both
+(`analyze-lesson` + `integrate-questions` recommended set + 2 style-gate
+rounds, 2026-07-24). Not yet committed/pushed.
 
 ## Cross-cutting pages (outside the modules)
 
@@ -1074,10 +1122,15 @@ cycle done (5-agent style + coherence sweep, `analyze-lesson`,
 implementation plan in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`.
 
-**Next module**: Module 6 (Per chi vuole di più, `avanzato`), 0 of 13
-written. Technical audience. Decisions to settle before writing (see the
-Module 6 section above): example stack (Node / Python / both) and pattern
-depth (RAG conceptual vs code tutorial).
+**Module 6 (Per chi vuole di più)**: in progress, **2 of 13 drafted**
+(2026-07-24). L1 *Dalle chat alle API* and L2 *Scegliere il modello* landed
+IT + EN with their `review-*.txt`, sidebar unlocked, home/start-here cards
+activated, Module 5 closer linked to L1. Module decisions settled: code stack
+= both tabbed Python + TypeScript, depth = runnable but lean (see the Module 6
+section above). Full review cycle done on both (`analyze-lesson` +
+`integrate-questions` recommended set + 2 style-gate rounds, 2026-07-24);
+not yet committed/pushed. Next up: L3 *Il contesto in token*. Still open for
+L6: RAG conceptual vs code tutorial.
 
 **Unlocking sidebar placeholders**: for every Module 5 lesson that
 lands, replace the disabled placeholder entry in

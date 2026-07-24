@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Dalle chat alle API" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: la lezione dice che l'API e' "lo stesso modello, senza il prodotto intorno". Cosa sparisce passando dalla chat all'API, e cosa tocca costruire a te?
+
+Domanda 2: cosa vuol dire che ogni chiamata e' senza stato? Se volessi continuare una conversazione su piu' chiamate, cosa devi fare a ogni chiamata?
+
+Domanda 3: nella prima chiamata, a cosa serve max_tokens e cosa contiene la lista messages? Perche' la risposta si legge dal primo blocco di content?
+
+Domanda 4: quando conviene l'API invece della chat, e quando invece resta meglio la chat? Fammi un esempio tuo per ciascuno dei due casi.
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

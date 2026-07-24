@@ -1,0 +1,167 @@
+---
+title: Scegliere il modello
+description: "Non esiste il modello migliore, esiste quello giusto per il tuo vincolo. Le famiglie principali e i criteri che contano, oltre la classifica del mese."
+livello: avanzato
+prerequisiti: [from-chats-to-apis]
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Non c'è un modello "migliore" in assoluto: c'è quello giusto per il tuo vincolo. E i vincoli cambiano da progetto a progetto.
+- Le classifiche invecchiano in fretta, un modello nuovo esce ogni mese. La competenza che dura è saper decidere sugli **assi giusti**, non ricordare chi è primo oggi.
+- Gli assi che contano: capacità richiesta dal compito, costo, velocità, finestra di contesto, modalità (testo/immagini/audio), controllo sui dati, incastro col resto del tuo stack.
+- Regola di partenza: parti da un modello di fascia media, scendi a uno più economico dove la qualità regge, sali a uno di punta solo dove serve.
+- I modelli open non sono "gratis": non paghi la licenza ma paghi l'hardware o l'hosting. Convengono per controllo dei dati, scala, o personalizzazione.
+
+</LessonSummary>
+
+Non esiste un modello migliore in assoluto: esiste quello giusto per
+quello che devi fare, con i vincoli che hai. È una frase che suona ovvia
+e che
+quasi nessuno applica: la domanda più comune ("qual è il più forte?")
+parte già dal piede sbagliato. Un compito di classificazione non ha
+bisogno del modello più potente sul mercato, ha bisogno del più
+economico che ci azzecca. Questa lezione non ti dice quale modello
+scegliere: ti dà gli assi su cui decidere, che restano validi anche
+quando esce quello nuovo il mese prossimo.
+
+## Le famiglie
+
+Tre grandi fornitori chiusi, più il mondo dei modelli aperti. **Claude**
+(Anthropic), **GPT** (OpenAI) e **Gemini** (Google) sono le tre famiglie
+chiuse principali. Le raggiungi via API, sono vicine sulla fascia alta e
+si superano a vicenda a ogni versione. Per questo fissare qui una
+classifica sarebbe inutile: sarebbe già vecchia quando la leggi.
+
+Accanto ci sono i modelli **open weight** (a pesi aperti): Llama di
+Meta, Mistral, Qwen e altri. "A pesi aperti" vuol dire che i pesi del
+modello sono scaricabili e lo puoi far girare dove vuoi, sul tuo
+hardware o su un servizio che lo ospita. Ti danno controllo al prezzo di
+gestirteli.
+
+Scegliere una famiglia per tifo (perché "Claude è il migliore" o "uso
+solo OpenAI") è il modo più veloce per legarti a una scelta che
+invecchia. Meglio decidere sugli assi che seguono.
+
+Quando i tre sono così vicini, a decidere sono due cose concrete.
+Contano dove hai già l'infrastruttura e come se la cava ciascuno su un
+caso che hai misurato tu. Non c'è un vincitore assoluto da nominare.
+
+## I criteri che contano
+
+**Capacità richiesta dal compito.** È il primo filtro. I modelli di
+punta servono per il ragionamento complesso, il codice difficile, i
+compiti ambigui. Per classificare, estrarre campi, fare da instradamento
+tra un caso e l'altro, un modello piccolo e veloce costa una frazione e
+basta e avanza. L'errore comune è usare il modello più potente per
+tutto: paghi dieci volte tanto per un lavoro che il piccolo faceva bene.
+
+**Costo.** Si paga per token in ingresso e per token in uscita. Lo
+spread fra un modello di punta e uno piccolo è enorme, spesso dieci o
+venti volte. Sulle prove non lo noti. Su volumi seri diventa la voce di
+bilancio che decide se il progetto sta in piedi. Come stimarlo e ridurlo
+è il tema di *Costi e prompt caching*.
+
+**Velocità.** Un assistente con cui l'utente interagisce dal vivo ha
+bisogno di risposte rapide; un job che gira di notte no. I modelli
+piccoli sono più veloci oltre che più economici, quindi spesso il
+vincolo di latenza e quello di costo spingono nella stessa direzione.
+
+**Finestra di contesto.** Quanto testo ci sta in una singola chiamata.
+Se devi passare documenti lunghi, o rimandare conversazioni molto
+lunghe, è un vincolo concreto. È l'oggetto della prossima lezione, *Il
+contesto in token*.
+
+**Modalità.** Solo testo, o anche immagini, audio, PDF in ingresso? Se
+il tuo caso ha foto, scansioni o registrazioni, ti serve un modello
+multimodale, e non tutti lo sono allo stesso livello.
+
+**Controllo sui dati.** Dove passano i tuoi dati, in quale regione, con
+quali garanzie che non vengano usati per l'allenamento. Per dati
+sensibili o regolati questo asse può spingerti verso un piano business o
+verso un modello open ospitato da te. Ci torna *Privacy e dati nelle
+API*.
+
+**Incastro con lo stack.** Gli SDK disponibili, il supporto a tool use e
+output strutturato, e la piattaforma su cui sei già. I tre grandi si
+raggiungono anche tramite i cloud principali: OpenAI su Azure, Claude su
+AWS Bedrock, Gemini su Google Vertex. Se la tua infrastruttura è già lì,
+è un punto a favore concreto.
+
+| Criterio | Cosa guardare | Quando domina la scelta |
+|----------|---------------|-------------------------|
+| Capacità | fascia del modello vs difficoltà del compito | ragionamento, codice, compiti ambigui |
+| Costo | prezzo per token in ingresso e in uscita | volumi alti, molte chiamate |
+| Velocità | latenza per risposta | esperienze interattive dal vivo |
+| Contesto | token della finestra | documenti o conversazioni lunghe |
+| Modalità | testo / immagini / audio | input non testuali |
+| Dati | regione, non-allenamento, contratto | dati sensibili o regolati |
+| Stack | SDK, tool use, cloud provider | integrazione in un'infrastruttura esistente |
+
+## Una regola di partenza
+
+Se non sai da dove iniziare: parti da un modello di fascia media di uno
+dei fornitori, fallo funzionare, poi ottimizza. Come riconosci la fascia
+media quando i nomi cambiano ogni mese? Il segnale affidabile è il
+prezzo per token. Ogni fornitore pubblica di solito un modello di punta,
+uno intermedio e uno piccolo, e il prezzo li ordina meglio del nome.
+
+Dove la qualità regge, scendi a un modello più economico e verifica che
+il risultato tenga. «Regge» non è un giudizio a occhio. Fissi una soglia
+sul tuo caso (per esempio il 95% di risposte accettabili su esempi tuoi)
+e scendi solo se il modello piccolo la raggiunge. Dove non regge, sali a
+uno di punta solo per quel pezzo.
+
+Spesso un sistema reale usa due modelli: uno piccolo per il lavoro di
+volume, uno grande per i casi difficili. A instradare ci pensi tu: una
+regola sul tipo di compito, oppure il modello piccolo che segnala quando
+non è sicuro e passa al grande. La scelta del modello è una taratura che
+fai nel tempo, misurando i risultati, più che una decisione presa una
+volta all'inizio.
+
+## Non fidarti della classifica
+
+I benchmark pubblici sono un indizio debole per il tuo caso. Misurano
+compiti generici e standardizzati; il tuo compito è specifico. Un modello
+che vince su una classifica può perdere sui tuoi dati, e viceversa.
+L'unico test che conta è farli girare sul tuo caso reale con cinque o
+dieci esempi tuoi, e confrontare i risultati. Come si mette in piedi un
+confronto del genere in modo serio è il tema di *Evals*.
+
+:::note[Open weight non vuol dire gratis]
+"A pesi aperti" significa che scarichi il modello e lo fai girare dove
+vuoi, non che sia a costo zero. Paghi l'hardware (una GPU seria) o un
+servizio che lo ospita per te, più il lavoro di gestirlo e aggiornarlo.
+Conviene quando i dati non possono uscire dalla tua infrastruttura, o
+quando i volumi rendono il pagamento a token più caro dell'hosting. Un
+terzo caso è quando vuoi adattare il modello sui tuoi dati. Per la
+maggior parte dei
+progetti, un'API chiusa costa meno fatica a parità di risultato.
+:::
+
+:::tip[Non incatenarti a un fornitore, ma non astrarre troppo presto]
+Siccome i modelli cambiano, tieni la chiamata al modello isolata dietro
+una funzione tua: cambiare fornitore diventa una modifica in un punto
+solo, non in tutta l'app. Ma non costruire al primo giorno un enorme
+strato di astrazione per fornitori che forse non userai mai. Una
+funzione sottile che fa da cerniera basta.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-choose-the-model.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Hai un modo per scegliere il modello e per chiamarlo. Il limite pratico
+che incontri subito dopo è quanto gli puoi dare in pasto: la finestra di
+contesto, misurata in token. È l'argomento di *Il contesto in token*.

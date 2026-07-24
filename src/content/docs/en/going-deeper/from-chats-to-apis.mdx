@@ -1,0 +1,194 @@
+---
+title: From chats to APIs
+description: "What changes when you call the model from your own code instead of the chat, a real first call in Python and TypeScript, and when the API is actually worth it."
+livello: avanzato
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- The API is the same model you use in the chat, reached from your own code. The product around it (history, memory, file uploads, a hidden system prompt) disappears: you build that part yourself.
+- Every call is **stateless**. The model doesn't remember the previous call: you resend the whole conversation each time. That's the biggest shift in mindset.
+- The first call is eight lines: the client with your key, the model, `max_tokens`, the list of messages with roles, the response to read.
+- The API is worth it when you repeat the same operation at volume, when you wire the model into a tool of your own, or when you need control (system prompt, structured output, tools). For exploration and one-off use, the chat is more convenient.
+- The API bill is separate from your chat subscription: you pay per token, as you go.
+
+</LessonSummary>
+
+From here the handbook shifts register. So far you've used AI through
+an interface: open the chat, type, read the reply. This module looks
+underneath: how to reach the same model from your own code, so you can
+build your own tools on top of it. The audience here writes software, so
+the tone is more direct and I'll assume the basics (a network call, an
+environment variable, a package to install).
+
+Let's start with what most often trips up people coming from the chat:
+the API isn't a different AI. It's the same model, without the product
+wrapped around it.
+
+## What actually changes
+
+The chat you use (ChatGPT, Claude, Gemini) is a product built around the
+model. It keeps the conversation history, handles file uploads, web
+search, memory across sessions, and injects a system prompt you never
+see. When you move to the API, all of that goes away. What's left is the
+bare model: you send it messages, it sends back a response. You build
+the rest, if you need it.
+
+The most important change is that every call is stateless. In the chat,
+if you type "and shorter?" the model knows what you mean, because the
+conversation is right there. With the API there is no "there": the model
+doesn't remember the previous call. To continue a conversation, you
+resend the full list of messages yourself (your question, its answer,
+the new question) on every call. How much context you can resend
+and what fits in it is the topic of the lesson *Context and tokens*.
+
+In exchange for the extra work, you gain control: you pick the model,
+write the system prompt, and tune the parameters. You can also ask for
+the answer in a precise format instead of free prose.
+
+## The first call
+
+A minimal call to Anthropic's model. You need the official package
+installed (`pip install anthropic` or `npm install @anthropic-ai/sdk`)
+and your key in the `ANTHROPIC_API_KEY` environment variable.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()  # reads the key from ANTHROPIC_API_KEY
+
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Explain what an API is in two sentences."},
+    ],
+)
+
+print(message.content[0].text)
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic(); // reads the key from ANTHROPIC_API_KEY
+
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 1024,
+  messages: [
+    { role: "user", content: "Explain what an API is in two sentences." },
+  ],
+});
+
+const block = message.content[0];
+if (block.type === "text") console.log(block.text);
+```
+
+</TabItem>
+</Tabs>
+
+Line by line: you create a client, which picks up the key from the
+environment variable without you writing it into the code. You choose
+the `model` (which one, and on what criteria, is the next lesson).
+`max_tokens` is the cap on the reply: the maximum number of tokens it's
+allowed to generate, and you pay for the ones it actually generates. If
+the model hits it, the reply comes back cut off mid-text and you still
+pay for it. You spot this from the `stop_reason` field, which reads
+`max_tokens` instead of `end_turn`. `messages` is the conversation list: here there's
+a single turn with `role: "user"`. To keep going, you build a message
+with `role: "assistant"` and the text you got back. You append it to the
+list along with the new question, and resend the whole array. The list
+grows every turn, until it fills the context window. The response comes back as
+a list of blocks: the text sits in the first block.
+
+A note on the model identifier. Some identifiers are aliases that always
+point to the latest version, others are fixed dated versions. An alias is
+handy for staying current, but the behavior can shift under you. If you
+need reproducibility, pin the dated version, which you'll find in the
+provider's documentation.
+
+The system prompt is missing here: the instructions that hold for the
+whole conversation are passed separately, the topic of *System prompts
+and roles*. And the answer here is free prose; to get it
+back as structured data your code can use takes one more step, *Tool
+use, function calling, structured output*.
+
+:::note[This is the happy path]
+The example doesn't handle errors and waits for the whole response.
+Production needs two more things. Error handling: on `429` (rate limit),
+overload, and `5xx` you should retry with backoff, and the official SDKs
+already do this for some transient errors. And streaming: for an
+interactive interface you use the streaming version of the same call. You
+show the text as it arrives instead of waiting for the whole response.
+:::
+
+## When it's worth it
+
+The simplest signal: if you find yourself pasting the same kind of
+request into the chat dozens of times, that's API territory. In
+practice it's worth it when:
+
+- **You repeat at volume.** Classifying 500 emails, summarizing the
+  day's tickets every night, translating a catalog. The same prompt over
+  different inputs, many times.
+- **You wire the model into a tool.** A function inside your app, a
+  script in a pipeline, a bot that answers on a channel. The model
+  becomes one piece of software among others.
+- **You need control or reproducibility.** A fixed system prompt,
+  structured output, locked parameters: so the same request gives
+  comparable results, not a surprise every time.
+
+The chat stays the right choice for the opposite: exploring a new
+problem or a one-off job. It also wins when you want the product's
+features for free: uploads, web, memory, an interface anyone can use. The
+API isn't "better" than the chat: it's a different tool, for a different
+kind of work.
+
+## What you need to get started
+
+Three things: an account with API access and a payment method, the key,
+the SDK installed.
+
+:::caution[The API key is a credential]
+The key identifies and bills your account: whoever has it spends your
+money. Keep it in an environment variable, don't write it into the code,
+and don't commit it to the repo (a key that lands on GitHub gets found
+and abused within minutes). And never put it in code that runs in the
+browser: the API call is made by your server, not the frontend.
+Otherwise the key is visible to anyone who opens the developer tools.
+:::
+
+:::note[The API bill is separate]
+Paying for ChatGPT Plus or Claude Pro gives you the chat, not API
+credit. The API is pay-as-you-go, based on the tokens that go in and
+come out on each call. A few cents for trying things out, but at large
+volume it's worth watching. How to estimate and cut it is the topic of
+*Costs and prompt caching*.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-from-chats-to-apis.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Now you can call the model. What's left is deciding which one: Claude,
+GPT, Gemini, or an open model, and on what criteria rather than out of
+loyalty to a brand. That's the [next lesson](/en/going-deeper/choose-the-model/).

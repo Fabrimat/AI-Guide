@@ -1,0 +1,199 @@
+---
+title: Dalle chat alle API
+description: "Cosa cambia quando chiami il modello dal tuo codice invece che dalla chat, la prima chiamata vera in Python e TypeScript, e quando l'API conviene."
+livello: avanzato
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- L'API è lo stesso modello che usi nella chat, ma lo raggiungi dal tuo codice. Il prodotto intorno (cronologia, memoria, upload dei file, system prompt nascosto) sparisce: quello lo costruisci tu.
+- Ogni chiamata è **senza stato**. Il modello non ricorda la chiamata di prima: la conversazione la rimandi tu ogni volta, per intero. È il cambio di mentalità più grosso.
+- La prima chiamata sono otto righe: il client con la tua chiave, il modello, `max_tokens`, la lista di messaggi con i ruoli, la risposta da leggere.
+- L'API conviene quando ripeti la stessa operazione a volume, quando la integri in uno strumento tuo, o quando ti serve controllo (system prompt, output strutturato, strumenti). Per l'esplorazione e l'uso una tantum la chat resta più comoda.
+- Il conto dell'API è separato dall'abbonamento della chat: si paga a consumo, per token.
+
+</LessonSummary>
+
+Da qui il manuale cambia registro. Fin qui hai usato l'IA da
+un'interfaccia: apri la chat, scrivi, leggi la risposta. Questo modulo
+guarda sotto: come raggiungere lo stesso modello dal tuo codice, per
+costruirci sopra i tuoi strumenti. Il pubblico qui è chi programma,
+quindi il tono è più diretto e do per scontati i concetti di base (una
+chiamata di rete, una variabile d'ambiente, un pacchetto da installare).
+
+Partiamo dalla cosa che confonde di più chi arriva dalla chat: l'API non
+è un'IA diversa. È lo stesso modello, senza il prodotto che ci sta
+intorno.
+
+## Cosa cambia davvero
+
+La chat che usi (ChatGPT, Claude, Gemini) è un prodotto costruito
+attorno al modello. Tiene la cronologia della conversazione, gestisce
+l'upload dei file, la ricerca sul web, la memoria fra sessioni, e
+inietta un system prompt che tu non vedi. Quando passi all'API, tutto
+questo sparisce. Resta il modello nudo: gli mandi dei messaggi, ti
+restituisce una risposta. Il resto lo costruisci tu, se ti serve.
+
+Il cambiamento più importante è che ogni chiamata è senza stato. Nella
+chat, se scrivi "e in breve?" il modello sa a cosa ti riferisci, perché
+la conversazione è lì davanti. Con l'API non c'è nessun "lì": il modello
+non ricorda la chiamata precedente. Per continuare una conversazione,
+sei tu a rimandare la lista completa dei messaggi (la tua domanda, la
+sua risposta, la domanda nuova) a ogni chiamata. Quanto contesto puoi
+rimandare, e cosa ci entra, è il tema della lezione *Il contesto in
+token*.
+
+In cambio del lavoro in più, guadagni controllo: scegli il modello,
+scrivi il system prompt, regoli i parametri. Puoi anche chiedere la
+risposta in un formato preciso invece che in prosa.
+
+## La prima chiamata
+
+Una chiamata minima al modello di Anthropic. Ti serve il pacchetto
+ufficiale installato (`pip install anthropic` oppure `npm install
+@anthropic-ai/sdk`) e la tua chiave nella variabile d'ambiente
+`ANTHROPIC_API_KEY`.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()  # legge la chiave da ANTHROPIC_API_KEY
+
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Spiegami cos'è un'API in due frasi."},
+    ],
+)
+
+print(message.content[0].text)
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic(); // legge la chiave da ANTHROPIC_API_KEY
+
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 1024,
+  messages: [
+    { role: "user", content: "Spiegami cos'è un'API in due frasi." },
+  ],
+});
+
+const blocco = message.content[0];
+if (blocco.type === "text") console.log(blocco.text);
+```
+
+</TabItem>
+</Tabs>
+
+Riga per riga: crei un client, che prende la chiave dalla variabile
+d'ambiente senza che tu la scriva nel codice. Scegli il `model` (quale
+modello, e con quali criteri, è la [prossima
+lezione](/it/going-deeper/choose-the-model/)). `max_tokens` è il tetto
+della risposta: quanti token al massimo il modello può generare, e paghi
+per quelli che genera davvero. Se il modello lo raggiunge, la risposta
+torna troncata a metà e la paghi comunque. Te ne accorgi dal campo
+`stop_reason`, che vale `max_tokens` invece di `end_turn`. `messages` è
+la lista della conversazione: qui c'è un solo turno con `role: "user"`.
+Per continuare, costruisci un messaggio con `role: "assistant"` e il
+testo ricevuto, lo accodi alla lista insieme alla domanda nuova, e
+rimandi l'intero array. La lista cresce a ogni turno, finché non riempie
+la finestra di contesto. La risposta torna come una lista di blocchi: il
+testo sta nel primo blocco.
+
+Una nota sull'identificatore del modello. Alcuni identificatori sono
+alias che puntano sempre all'ultima versione, altri sono versioni datate
+e fisse. L'alias è comodo per restare aggiornato, ma il comportamento può
+cambiarti sotto i piedi. Se ti serve riproducibilità, pinna la versione
+datata, che trovi nella documentazione del provider.
+
+Manca il system prompt, cioè le istruzioni che valgono per tutta la
+conversazione: si passano a parte, ed è il tema di *System prompt e
+ruoli*. E qui la risposta è prosa libera; per farsela restituire come
+dati strutturati che il tuo codice può usare serve un passo in più,
+*Tool use, function calling, structured output*.
+
+:::note[Questo è l'happy path]
+L'esempio non gestisce gli errori e aspetta la risposta intera. In
+produzione servono due cose in più. La gestione degli errori: su `429`
+(rate limit), sovraccarico e `5xx` conviene ritentare con backoff. Gli
+SDK ufficiali lo fanno già per una parte dei transitori. E lo streaming:
+per un'interfaccia interattiva usi la versione in streaming della stessa
+chiamata. Così mostri il testo mentre arriva, invece di aspettare tutta
+la risposta.
+:::
+
+## Quando conviene
+
+Il segnale più semplice: se ti ritrovi a incollare nella chat lo stesso
+tipo di richiesta decine di volte, quella è roba da API. In pratica
+conviene quando:
+
+- **Ripeti a volume.** Classificare 500 email, riassumere ogni notte i
+  ticket del giorno, tradurre un catalogo. Lo stesso prompt su input
+  diversi, tante volte.
+- **Integri il modello in uno strumento.** Una funzione dentro la tua
+  app, uno script in una pipeline, un bot che risponde su un canale. Il
+  modello diventa un pezzo di software fra gli altri.
+- **Ti serve controllo o riproducibilità.** System prompt fisso, output
+  strutturato, parametri bloccati: così la stessa richiesta dà risultati
+  confrontabili, non una sorpresa ogni volta.
+
+La chat resta la scelta giusta per l'opposto: esplorare un problema
+nuovo, un lavoro una tantum, o quando vuoi gratis le funzioni del
+prodotto (upload, web, memoria, un'interfaccia usabile anche da chi non
+programma). L'API non è "meglio" della chat: è un altro strumento, per
+un altro tipo di lavoro.
+
+## Cosa ti serve per partire
+
+Tre cose: un account con accesso all'API e un metodo di pagamento, la
+chiave, l'SDK installato.
+
+:::caution[La chiave API è una credenziale]
+La chiave identifica e addebita il tuo account: chi ce l'ha spende i
+tuoi soldi. Tienila in una variabile d'ambiente, non scriverla nel
+codice, non committarla nel repo (una chiave finita su GitHub viene
+trovata e sfruttata in pochi minuti). E non metterla mai nel codice che
+gira nel browser: la chiamata all'API la fa il tuo server, non il
+frontend. Altrimenti la chiave è visibile a chiunque apra gli strumenti
+per sviluppatori.
+:::
+
+:::note[Il conto dell'API è a parte]
+Pagare ChatGPT Plus o Claude Pro ti dà la chat, non il credito API.
+L'API si paga a consumo, in base ai token che entrano e che escono a
+ogni chiamata. Pochi centesimi per le prove, ma su volumi grandi
+conviene tenerlo d'occhio. Come stimarlo e ridurlo è il tema di *Costi e
+prompt caching*.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-from-chats-to-apis.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Ora sai chiamare il modello. Resta da decidere quale: Claude, GPT,
+Gemini o un modello open, e con quali criteri invece che per tifoseria.
+È la [prossima lezione](/it/going-deeper/choose-the-model/).

@@ -166,26 +166,14 @@ export default defineConfig({
           ],
         },
         {
-          // Modulo 6 (Per chi vuole di più) — non ancora scritto. Pubblico
+          // Modulo 6 (Per chi vuole di più) — in corso (2/13). Pubblico
           // tecnico. Lasciato come unico blocco da 13 voci per ora; se il
           // modulo crescerà, valutare lo split in "Core APIs" + "Beyond APIs".
           label: 'Going deeper',
           translations: { it: 'Per chi vuole di più' },
           items: [
-            {
-              label: 'From chats to APIs',
-              translations: { it: 'Dalle chat alle API' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Choose the model',
-              translations: { it: 'Scegliere il modello' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'going-deeper/from-chats-to-apis' },
+            { slug: 'going-deeper/choose-the-model' },
             {
               label: 'Context and tokens',
               translations: { it: 'Il contesto in token' },
