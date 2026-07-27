@@ -1,0 +1,268 @@
+---
+title: "Tool use and structured output"
+description: "How to let the model act on the world and how to get data back in a fixed format your code can use, instead of free prose."
+livello: avanzato
+prerequisiti: [from-chats-to-apis, system-prompts-and-roles]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Tool use (or function calling: same mechanism, two names) makes the model, instead of answering, ask you to run a function you described to it. The model runs nothing: it asks, you execute.
+- You describe each tool with a name, a description, and a JSON schema of its arguments. The model decides whether and which one to call, and with what values.
+- The loop runs over several turns: its call request, you execute and send back the result, it produces the final answer.
+- Structured output is the flip side: when you need data in a fixed shape (JSON), not an action. The portable trick is a single tool whose schema is the shape you want, forced with `tool_choice`.
+- The model can get the arguments wrong or make them up: always validate them. And every tool you give it is one more capability, so one more surface for risk.
+
+</LessonSummary>
+
+The bare model does one thing: it produces text. But often you need something
+else. Either it performs an action (query a database, call an API, do reliable
+arithmetic) or it hands you data in a precise shape your code reads without
+guessing. Tool use and structured output are the two mechanisms for this, and
+underneath they're the same mechanism used two ways.
+
+## What tool use is
+
+"Tool use" and "function calling" are the same thing under two names: Anthropic
+calls it tool use, OpenAI calls it function calling. The idea is
+counterintuitive: the model runs nothing. You describe tools it could use, and
+instead of answering in prose it can decide to ask you to run one, telling you
+which and with what arguments. You do the running, in your code, and send back
+the result. It picks up from there.
+
+You declare each tool with three things: a name, a description, and a JSON
+schema of the arguments it accepts. The description matters more than it looks:
+it's the text the model uses to figure out when that tool is the right one.
+
+## The full loop
+
+An example. You give the model a single tool, `get_weather`, and ask it for the
+weather in Rome.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+tools = [
+    {
+        "name": "get_weather",
+        "description": "Return the current weather for a city.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "city": {"type": "string", "description": "City name, e.g. Rome"},
+            },
+            "required": ["city"],
+        },
+    }
+]
+
+conversation = [{"role": "user", "content": "What's the weather in Rome?"}]
+
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    tools=tools,
+    messages=conversation,
+)
+
+# stop_reason == "tool_use": the model is asking to call the tool
+block = next(b for b in message.content if b.type == "tool_use")
+result = get_weather(**block.input)  # YOUR function, e.g. "24C, clear"
+
+conversation.append({"role": "assistant", "content": message.content})
+conversation.append({"role": "user", "content": [
+    {"type": "tool_result", "tool_use_id": block.id, "content": result},
+]})
+
+final = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    tools=tools,
+    messages=conversation,
+)
+
+print(final.content[0].text)  # -> It's 24C and clear in Rome.
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const tools = [
+  {
+    name: "get_weather",
+    description: "Return the current weather for a city.",
+    input_schema: {
+      type: "object",
+      properties: {
+        city: { type: "string", description: "City name, e.g. Rome" },
+      },
+      required: ["city"],
+    },
+  },
+];
+
+const conversation: any[] = [{ role: "user", content: "What's the weather in Rome?" }];
+
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 1024,
+  tools,
+  messages: conversation,
+});
+
+// stop_reason === "tool_use": the model is asking to call the tool
+const block = message.content.find((b) => b.type === "tool_use");
+if (block && block.type === "tool_use") {
+  const args = block.input as { city: string };
+  const result = getWeather(args.city); // YOUR function
+
+  conversation.push({ role: "assistant", content: message.content });
+  conversation.push({
+    role: "user",
+    content: [{ type: "tool_result", tool_use_id: block.id, content: result }],
+  });
+
+  const final = await client.messages.create({
+    model: "claude-sonnet-5",
+    max_tokens: 1024,
+    tools,
+    messages: conversation,
+  });
+
+  const text = final.content[0];
+  if (text.type === "text") console.log(text.text); // -> It's 24C and clear in Rome.
+}
+```
+
+</TabItem>
+</Tabs>
+
+The key is `stop_reason`. It's `tool_use` instead of `end_turn`: the signal
+that the model wants a tool, not that it's done. You append its request and your
+result to the message list, the same one you resend on every stateless call, as
+in the [first lesson in the module](/en/going-deeper/from-chats-to-apis/), and
+call again. In a real case this becomes a loop: while `stop_reason` is
+`tool_use`, execute and resend; when it's `end_turn`, you have the answer.
+
+## Structured output
+
+The flip side of tool use doesn't make the model act: it forces it to hand you
+data in a fixed shape. You need it when you want a JSON object your code reads
+directly, not a sentence you have to pull the fields out of with a fragile
+regex.
+
+The most portable way is a trick. Define a single tool whose schema is the
+shape you want, and force the model to call it with `tool_choice`. You run
+nothing: what you care about are the arguments the model filled in.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+tools = [{
+    "name": "save_contact",
+    "description": "Save the contact details extracted from the text.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"},
+            "email": {"type": "string"},
+            "company": {"type": "string"},
+        },
+        "required": ["name", "email"],
+    },
+}]
+
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=256,
+    tools=tools,
+    tool_choice={"type": "tool", "name": "save_contact"},  # force the call
+    messages=[{"role": "user",
+               "content": "Hi, I'm Anna Rossi from Acme, anna@acme.com"}],
+)
+
+data = message.content[0].input
+# -> {"name": "Anna Rossi", "email": "anna@acme.com", "company": "Acme"}
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const tools = [{
+  name: "save_contact",
+  description: "Save the contact details extracted from the text.",
+  input_schema: {
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      email: { type: "string" },
+      company: { type: "string" },
+    },
+    required: ["name", "email"],
+  },
+}];
+
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 256,
+  tools,
+  tool_choice: { type: "tool", name: "save_contact" }, // force the call
+  messages: [{ role: "user", content: "Hi, I'm Anna Rossi from Acme, anna@acme.com" }],
+});
+
+const block = message.content[0];
+if (block.type === "tool_use") console.log(block.input);
+// -> { name: "Anna Rossi", email: "anna@acme.com", company: "Acme" }
+```
+
+</TabItem>
+</Tabs>
+
+Now `data` is an already-structured object, with the fields you asked for. No
+parsing of free text, no edge cases like "what if the email wraps to a new
+line". The JSON schema is also a contract: `required` says which fields must be
+there, the types say what to expect. For simple JSON there's also the shortcut
+from [System prompts and roles](/en/going-deeper/system-prompts-and-roles/):
+close with an assistant turn containing just `{`. It works, but a tool's schema
+is sturdier, because it declares the fields and types instead of hoping the
+model guesses the shape.
+
+## What to keep in mind
+
+- **Always validate the arguments.** The model fills the schema, but it can get a value wrong or invent it. The schema guarantees the shape, not that the content is right: treat the arguments as untrusted input.
+- **You can force or let it choose.** With `tool_choice` you make the model use a tool, handy for extraction; without it, the model decides whether and which to call, handy when some questions need no tool.
+- **Tools cost tokens.** The definitions go into the window on every call, as you saw in [Context and tokens](/en/going-deeper/context-in-tokens/). Many tools described at length add up: keep them lean.
+- **A tool is a capability, so a risk.** If a tool writes to a database or sends an email, a malicious input that talks the model into calling it the wrong way becomes a security problem. That's the topic of *Prompt injection and safety*.
+
+:::tip[The tool description is the interface]
+The model picks which tool to use by reading the name and description, not your
+code. A vague description ("handles orders") leads to wrong calls; a precise one
+("returns the status of an order given its id") guides it. Write the
+descriptions the way you'd write them for a colleague who can't see the
+implementation.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-tool-use-and-structured-output.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Tool use brings the model data and capabilities you decide on. A frequent case
+is giving it access to a body of your own documents: retrieving the right pieces
+and passing them into the prompt, instead of cramming everything into the
+context. That's [the next lesson](/en/going-deeper/rag/).

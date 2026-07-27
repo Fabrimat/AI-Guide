@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "RAG: dare all'IA i tuoi documenti" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: cosa vuol dire RAG e qual e' l'idea in una riga? Perche' serve, dato che il modello non conosce i tuoi documenti?
+
+Domanda 2: la pipeline ha due momenti. Quali sono? Cosa fai una volta sola e cosa a ogni domanda?
+
+Domanda 3: cos'e' un embedding e come si trova il pezzo piu' rilevante a una domanda? Accenna a come si misura la vicinanza tra due vettori.
+
+Domanda 4: quando NON ti serve il RAG e cosa fai al suo posto? E perche' si dice che il recupero e' il collo di bottiglia del sistema?
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

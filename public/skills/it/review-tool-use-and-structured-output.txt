@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Tool use, function calling, structured output" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: cos'e' il tool use (o function calling) e chi esegue davvero lo strumento, il modello o il tuo codice?
+
+Domanda 2: descrivi il giro completo. Cosa succede dopo che il modello chiede di chiamare uno strumento? Cosa gli rimandi, e da cosa capisci che ha chiesto uno strumento invece di aver finito?
+
+Domanda 3: cos'e' l'output strutturato e qual e' il trucco portabile per ottenerlo? A cosa serve `tool_choice`?
+
+Domanda 4: perche' devi sempre validare gli argomenti che il modello mette negli strumenti? E perche' dare uno strumento al modello e' anche una questione di sicurezza?
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

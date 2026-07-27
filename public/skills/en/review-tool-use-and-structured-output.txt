@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "Tool use and structured output" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: what is tool use (or function calling), and who actually runs the tool, the model or your code?
+
+Question 2: describe the full loop. What happens after the model asks to call a tool? What do you send back, and how do you know it asked for a tool instead of finishing?
+
+Question 3: what is structured output, and what is the portable trick to get it? What is `tool_choice` for?
+
+Question 4: why must you always validate the arguments the model puts in the tools? And why is giving the model a tool also a security question?
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

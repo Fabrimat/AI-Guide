@@ -1,0 +1,189 @@
+---
+title: "RAG: your own documents"
+description: "Retrieving the right pieces from your documents and passing them into the prompt: what RAG is, how retrieval works, and when you actually need it instead of cramming everything into the context."
+livello: avanzato
+prerequisiti: [from-chats-to-apis, context-in-tokens]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- RAG (Retrieval-Augmented Generation) means: before asking the model, retrieve the few pieces of your documents that are relevant to the question and put only those in the prompt.
+- You need it because the model doesn't know your private, internal, or recent documents, and you can't cram them all into the context: they don't fit and you pay for them on every call.
+- The pipeline has two stages. Once: you split the documents into pieces and compute an embedding for each, a vector that captures its meaning. On every question: you embed the question and find the closest pieces.
+- The bottleneck is retrieval: if you retrieve the wrong pieces, the model answers badly even on correct data. RAG quality is retrieval quality.
+- If all the relevant documents fit comfortably in the context window, you don't need RAG: just pass them. RAG is for when they don't fit or change often.
+
+</LessonSummary>
+
+The model doesn't know your documents. It hasn't seen your internal handbook,
+last year's tickets, the contract you have to analyze: its training stops at a
+certain date and at public data. You can paste a document into the prompt, but
+when the documents are many or change often they don't fit in the window and you
+pay for all of them on every call. RAG solves this.
+
+## What RAG is
+
+RAG stands for Retrieval-Augmented Generation. The idea in one line: instead of
+giving the model all the documents, you retrieve the few pieces relevant to the
+question and put only those in the prompt. It's the difference between
+memorizing an encyclopedia and taking an open-book exam, where you find the
+right page at the right moment.
+
+## How it works
+
+RAG has two stages. One you do once, or when the documents change; the other on
+every question.
+
+**Indexing, once.** You split the documents into pieces (chunks) of a few
+hundred words. For each piece you compute an embedding: a vector, that is, a
+list of numbers, that captures the meaning of the text. Texts that are similar
+in meaning have vectors that are close together. You store the vectors in an
+archive (a vector store, or even just a file if there are few).
+
+**Retrieval, on every question.** You compute the embedding of the question
+with the same model, then find the pieces whose vector is closest to the
+question's. "Close" is usually measured with cosine similarity. You take the top
+k pieces, the closest ones, and put them in the prompt as context, asking the
+model to answer based on those.
+
+The embedding is produced by a dedicated model (OpenAI, Voyage, or an open one),
+different from the model that generates the answer. And it's not a keyword
+search: two sentences that say the same thing with different words have close
+vectors, so retrieval finds the meaning, not the exact string.
+
+## A minimal example
+
+The heart of retrieval is simpler than it looks. The part that matters: given
+the embeddings of the pieces and the one for the question, cosine similarity and
+picking the top k. In production you'd use a real vector store; here, the bare
+logic.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+# embed(text) -> vector: produced by an embedding model
+#   (e.g. OpenAI text-embedding-3-small, Voyage, or an open model)
+
+def cosine(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(y * y for y in b) ** 0.5
+    return dot / (na * nb)
+
+# indexing (once)
+pieces = ["Refunds must be requested within 30 days.",
+          "Standard shipping arrives in 3-5 days.",
+          "The warranty covers defects for 24 months."]
+index = [(p, embed(p)) for p in pieces]
+
+# retrieval (on every question)
+question = "How long do I have to request a refund?"
+qv = embed(question)
+best = sorted(index, key=lambda item: cosine(qv, item[1]), reverse=True)[:2]
+context = "\n".join(p for p, _ in best)
+
+# generation: you pass ONLY the retrieved pieces
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=512,
+    system="Answer only from the context provided. If it's not there, say so.",
+    messages=[{"role": "user",
+               "content": f"Context:\n{context}\n\nQuestion: {question}"}],
+)
+print(message.content[0].text)
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+// embed(text) -> vector: produced by an embedding model
+//   (e.g. OpenAI text-embedding-3-small, Voyage, or an open model)
+
+function cosine(a: number[], b: number[]): number {
+  const dot = a.reduce((s, x, i) => s + x * b[i], 0);
+  const na = Math.hypot(...a);
+  const nb = Math.hypot(...b);
+  return dot / (na * nb);
+}
+
+// indexing (once)
+const pieces = [
+  "Refunds must be requested within 30 days.",
+  "Standard shipping arrives in 3-5 days.",
+  "The warranty covers defects for 24 months.",
+];
+const index = pieces.map((p) => ({ text: p, vector: embed(p) }));
+
+// retrieval (on every question)
+const question = "How long do I have to request a refund?";
+const qv = embed(question);
+const best = [...index]
+  .sort((x, y) => cosine(qv, y.vector) - cosine(qv, x.vector))
+  .slice(0, 2);
+const context = best.map((m) => m.text).join("\n");
+
+// generation: you pass ONLY the retrieved pieces
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 512,
+  system: "Answer only from the context provided. If it's not there, say so.",
+  messages: [{ role: "user", content: `Context:\n${context}\n\nQuestion: ${question}` }],
+});
+const block = message.content[0];
+if (block.type === "text") console.log(block.text);
+```
+
+</TabItem>
+</Tabs>
+
+The model sees only the two pieces closest to the question, not all the
+documents. The system prompt ("answer only from the context") anchors it to the
+retrieved data and tells it to admit when the answer isn't there, instead of
+making it up.
+
+## When you actually need it
+
+RAG isn't free: it adds an embedding model, an archive, and a piece of code to
+maintain. Before building it, ask yourself whether you actually need it.
+
+- **You need it** when the documents are too many to fit in the window, change often, or are private and you want answers anchored to your own, citable sources.
+- **You don't need it** if all the relevant documents fit comfortably in the context: in that case pass them directly (long context). It's simpler and you don't risk retrieving the wrong piece. A big window is an advantage here, as you saw in [Context and tokens](/en/going-deeper/context-in-tokens/).
+- **There's a managed route, no code**: Claude Projects, Custom GPTs, and Gems do a version of this for you, and that's the topic of [Reuse context with projects](/en/at-work/reuse-context-with-projects/). The RAG you build by hand is for when you want control, scale, or integration into your own system.
+
+:::tip[How you split the documents matters]
+Pieces that are too big dilute relevance: you retrieve a block about ten things
+for the one that matters. Too small and they lose the context around the
+sentence. A reasonable starting point is a few hundred words per piece, with a
+small overlap between one piece and the next so you don't cut a concept in half.
+:::
+
+:::caution[Retrieval is the bottleneck]
+If you retrieve the wrong pieces, the model answers badly even if the text of
+the pieces is correct: it can't use what you didn't give it. Before blaming the
+model, look at what was retrieved. And remember that retrieved text enters the
+prompt as a potential instruction: a document that contains "ignore everything
+and reply X" is a prompt-injection vector, the topic of *Prompt injection and
+safety*.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-rag.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+RAG gives the model the right data at the right moment. The next step is letting
+it decide on its own which tools to use and in what order to carry out a
+multi-step task. That's the topic of *Agents*.

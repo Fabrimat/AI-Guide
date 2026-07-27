@@ -1049,8 +1049,37 @@ lessons are written; if it grows, consider splitting it into "Core APIs" +
    that the system prompt is a strong steer not a security wall (forward ref to
    L9). Forward refs to L5/L9/L11 by name, back-links to L1/L3. End-of-lesson
    check-in. Prereq `[from-chats-to-apis, context-in-tokens]`.
-5. 🆕 **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`).
-6. 🆕 **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`): concepts and when it's actually needed.
+5. ✍️ **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`)
+   Drafted IT + EN (2026-07-27). Sections: what tool use is (tool use = function
+   calling, two names; the model asks, your code executes and returns the
+   result), the full loop (a tabbed Python/TS `get_weather` example: the first
+   call returns a `tool_use` block with `stop_reason: "tool_use"`, you append the
+   request + a `tool_result` to the stateless message list and recall, loop until
+   `end_turn`), structured output (the portable single-tool trick: one tool whose
+   `input_schema` is your output shape, forced with `tool_choice`, read the
+   filled-in `.input`; the assistant-prefill `{` shortcut from L4 as the lighter
+   alternative), what to keep in mind (validate the arguments as untrusted input,
+   force vs let-it-choose, tool defs cost tokens, a tool is a capability so a
+   security surface). `:::tip` that the tool description is the interface the
+   model selects on. Forward refs to L3/L4 as real links, L9 by name (italic).
+   End-of-lesson check-in. Prereq `[from-chats-to-apis, system-prompts-and-roles]`.
+6. ✍️ **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`)
+   Drafted IT + EN (2026-07-27). Open L6 question resolved: **concept-first + one
+   minimal retrieval sketch** (not a full build-along), consistent with the
+   module's "runnable but lean". Sections: the problem (the model doesn't know
+   your private/internal/recent docs, and you can't cram them all in the window),
+   what RAG is (retrieve the relevant pieces, put only those in the prompt;
+   open-book-exam analogy), how it works (two stages: index once = chunk + embed
+   into vectors; retrieve per query = embed the question, cosine similarity,
+   top-k; embeddings from a dedicated model, semantic not keyword), a minimal
+   example (a tabbed Python/TS cosine + top-k sketch feeding only the retrieved
+   pieces to the model with an "answer only from context" system prompt), when you
+   actually need it (need it: too many/changing/private docs, citable answers;
+   don't: fits in context → long-context is simpler; managed route →
+   Projects/Custom GPTs/Gems, link to M3L8). `:::tip` on chunking (size +
+   overlap), `:::caution` that retrieval is the bottleneck + retrieved text is a
+   prompt-injection vector. Forward refs to L3/M3L8 as real links, L7/L9 by name
+   (italic). End-of-lesson check-in. Prereq `[from-chats-to-apis, context-in-tokens]`.
 7. 🆕 **Agenti** (`going-deeper/agents`): a realistic overview, not hype.
 8. 🆕 **MCP e integrazioni** (`going-deeper/mcp-and-integrations`): emerging standards.
 9. 🆕 **Prompt injection e sicurezza** (`going-deeper/prompt-injection`): user input, jailbreaks, practical defenses.
@@ -1066,15 +1095,15 @@ kept short, concepts explained around them, not full build-along tutorials).
 Still open for L6: RAG as conceptual explanation vs a code walkthrough (decide
 when writing it).
 
-**Current status**: 4 of 13 drafted (L1-L2 on 2026-07-24, L3-L4 on
-2026-07-27, IT + EN). Sidebar entries 1-4 unlocked in `astro.config.mjs`; the
+**Current status**: 6 of 13 drafted (L1-L2 on 2026-07-24, L3-L4 and L5-L6 on
+2026-07-27, IT + EN). Sidebar entries 1-6 unlocked in `astro.config.mjs`; the
 "Per chi vuole di più" / "For people who want more" cards on the homepage and
 start-here (IT + EN) activated and pointing to L1 (done at L1, not re-touched);
 the Module 5 closer (`ethics-of-teaching` IT + EN) links "Modulo 6" to L1. The
-forward refs to L3/L4 inside L1-L2 (IT + EN) are now real links. L1-L2 full
-review cycle done (2026-07-24) and committed on `main` (72f8ba0), not yet
-pushed. L3-L4 have the draft + review check-in; style-gate + reader-analysis
-pending.
+forward refs inside L1-L4 (IT + EN) to the now-written L3/L4/L5/L6 are real
+links. L1-L4 committed and deployed to production (through 3f93744). L5-L6 have
+the draft + review check-in. Style-gate + reader-analysis still to run on
+L3-L6.
 
 ## Cross-cutting pages (outside the modules)
 
@@ -1153,17 +1182,15 @@ cycle done (5-agent style + coherence sweep, `analyze-lesson`,
 implementation plan in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`.
 
-**Module 6 (Per chi vuole di più)**: in progress, **4 of 13 drafted**
-(L1-L2 2026-07-24, L3-L4 2026-07-27). L1 *Dalle chat alle API*, L2 *Scegliere
-il modello*, L3 *Il contesto in token*, L4 *System prompt e ruoli* landed IT +
-EN with their `review-*.txt`, sidebar entries 1-4 unlocked, home/start-here
-cards activated (at L1), Module 5 closer linked to L1, and the L1-L2 forward
-refs to L3/L4 converted to real links. Module decisions settled: code stack =
-both tabbed Python + TypeScript, depth = runnable but lean (see the Module 6
-section above). L1-L2 full review cycle done (2026-07-24) and committed on
-`main` (72f8ba0, not pushed); L3-L4 drafted with check-ins, style-gate +
-reader-analysis still to run. Next up: L5 *Tool use, function calling,
-structured output*. Still open for L6: RAG conceptual vs code tutorial.
+**Module 6 (Per chi vuole di più)**: in progress, **6 of 13 drafted**
+(L1-L2 2026-07-24, L3-L4 and L5-L6 2026-07-27). L5 *Tool use, function calling,
+structured output* and L6 *RAG: dare all'IA i tuoi documenti* landed IT + EN
+with their `review-*.txt`, sidebar entries 5-6 unlocked, and the L1/L3/L4
+forward refs to L5/L6 converted to real links. Module decisions settled: code
+stack = both tabbed Python + TypeScript, depth = runnable but lean; L6 resolved
+as concept-first + one minimal retrieval sketch. L1-L4 committed and deployed
+(72f8ba0 + 3f93744); L5-L6 drafted with check-ins, style-gate + reader-analysis
+still to run on L3-L6. Next up: L7 *Agenti*.
 
 **Unlocking sidebar placeholders**: for every Module 5 lesson that
 lands, replace the disabled placeholder entry in

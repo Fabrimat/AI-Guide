@@ -166,7 +166,7 @@ export default defineConfig({
           ],
         },
         {
-          // Modulo 6 (Per chi vuole di più) — in corso (4/13). Pubblico
+          // Modulo 6 (Per chi vuole di più) — in corso (6/13). Pubblico
           // tecnico. Lasciato come unico blocco da 13 voci per ora; se il
           // modulo crescerà, valutare lo split in "Core APIs" + "Beyond APIs".
           label: 'Going deeper',
@@ -176,20 +176,8 @@ export default defineConfig({
             { slug: 'going-deeper/choose-the-model' },
             { slug: 'going-deeper/context-in-tokens' },
             { slug: 'going-deeper/system-prompts-and-roles' },
-            {
-              label: 'Tool use and structured output',
-              translations: { it: 'Tool use, function calling, structured output' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'RAG: your own documents',
-              translations: { it: "RAG: dare all'IA i tuoi documenti" },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'going-deeper/tool-use-and-structured-output' },
+            { slug: 'going-deeper/rag' },
             {
               label: 'Agents',
               translations: { it: 'Agenti' },

@@ -1,0 +1,11 @@
+Hi! Let's run a quick check on what you read on the page "RAG: your own documents" from the AI-Guide handbook. I'll ask you four short questions, one at a time. Wait for my question before answering. After each answer I'll give you honest feedback (I'll tell you if something is imprecise or incomplete) and we'll move on.
+
+Question 1: what does RAG mean, and what's the idea in one line? Why is it needed, given that the model doesn't know your documents?
+
+Question 2: the pipeline has two stages. What are they? What do you do once, and what do you do on every question?
+
+Question 3: what is an embedding, and how do you find the piece most relevant to a question? Touch on how the closeness between two vectors is measured.
+
+Question 4: when do you NOT need RAG, and what do you do instead? And why is retrieval called the bottleneck of the system?
+
+At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

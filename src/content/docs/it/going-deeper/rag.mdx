@@ -1,0 +1,190 @@
+---
+title: "RAG: dare all'IA i tuoi documenti"
+description: "Recuperare i pezzi giusti dai tuoi documenti e passarli nel prompt: cos'è il RAG, come funziona il recupero, e quando serve davvero invece di infilare tutto nel contesto."
+livello: avanzato
+prerequisiti: [from-chats-to-apis, context-in-tokens]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- RAG (Retrieval-Augmented Generation) vuol dire: prima di chiedere al modello, recupera dai tuoi documenti i pochi pezzi rilevanti alla domanda e metti solo quelli nel prompt.
+- Serve perché il modello non conosce i tuoi documenti privati, interni o recenti, e non puoi infilarli tutti nel contesto: non ci stanno e li paghi a ogni chiamata.
+- La pipeline ha due tempi. Una volta: spezzi i documenti in pezzi e ne calcoli l'embedding, un vettore che ne cattura il significato. A ogni domanda: embeddi la domanda e cerchi i pezzi più vicini.
+- Il collo di bottiglia è il recupero: se recuperi i pezzi sbagliati, il modello risponde male anche su dati giusti. La qualità del RAG è la qualità del recupero.
+- Se tutti i documenti rilevanti stanno comodi nella finestra di contesto, il RAG non ti serve: passali e basta. Il RAG è per quando non ci stanno o cambiano spesso.
+
+</LessonSummary>
+
+Il modello non conosce i tuoi documenti. Non ha visto il tuo manuale interno, i
+ticket dell'anno scorso, il contratto che devi analizzare: il suo addestramento
+si ferma a una certa data e a dati pubblici. Puoi incollare un documento nel
+prompt, ma quando i documenti sono tanti o cambiano spesso non ci stanno nella
+finestra e li paghi tutti a ogni chiamata. Il RAG risolve questo.
+
+## Cos'è il RAG
+
+RAG sta per Retrieval-Augmented Generation: generazione aumentata dal recupero.
+L'idea in una riga: invece di dare al modello tutti i documenti, ne recuperi i
+pochi pezzi rilevanti alla domanda e metti solo quelli nel prompt. È la
+differenza tra studiare a memoria un'enciclopedia e dare un esame a libro
+aperto, dove cerchi la pagina giusta al momento giusto.
+
+## Come funziona
+
+Il RAG ha due momenti. Uno lo fai una volta, o quando i documenti cambiano;
+l'altro a ogni domanda.
+
+**L'indicizzazione, una volta.** Spezzi i documenti in pezzi (chunk) di poche
+centinaia di parole. Per ogni pezzo calcoli un embedding: un vettore, cioè una
+lista di numeri, che cattura il significato del testo. Testi simili nel
+significato hanno vettori vicini. Salvi i vettori in un archivio (un vector
+store, o anche solo un file se sono pochi).
+
+**Il recupero, a ogni domanda.** Calcoli l'embedding della domanda con lo
+stesso modello, poi cerchi i pezzi il cui vettore è più vicino a quello della
+domanda. «Vicino» si misura di solito con la similarità del coseno. Prendi i
+primi k pezzi, i più vicini, e li metti nel prompt come contesto, chiedendo al
+modello di rispondere basandosi su quelli.
+
+L'embedding lo produce un modello dedicato (OpenAI, Voyage, o uno aperto),
+diverso dal modello che genera la risposta. E non è una ricerca per parole
+chiave: due frasi che dicono la stessa cosa con parole diverse hanno vettori
+vicini, quindi il recupero trova il senso, non la stringa esatta.
+
+## Un esempio minimo
+
+Il cuore del recupero è più semplice di quanto sembri. La parte che conta: dati
+gli embedding dei pezzi e quello della domanda, la similarità del coseno e la
+scelta dei primi k. In produzione useresti un vector store vero; qui la logica
+nuda.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+# embed(testo) -> vettore: lo fornisce un modello di embedding
+#   (es. OpenAI text-embedding-3-small, Voyage, o un modello aperto)
+
+def coseno(a, b):
+    prod = sum(x * y for x, y in zip(a, b))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(y * y for y in b) ** 0.5
+    return prod / (na * nb)
+
+# indicizzazione (una volta)
+pezzi = ["Il rimborso si richiede entro 30 giorni.",
+         "La spedizione standard arriva in 3-5 giorni.",
+         "La garanzia copre i difetti per 24 mesi."]
+indice = [(p, embed(p)) for p in pezzi]
+
+# recupero (a ogni domanda)
+domanda = "Quanto tempo ho per farmi rimborsare?"
+qv = embed(domanda)
+migliori = sorted(indice, key=lambda item: coseno(qv, item[1]), reverse=True)[:2]
+contesto = "\n".join(p for p, _ in migliori)
+
+# generazione: passi SOLO i pezzi recuperati
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=512,
+    system="Rispondi solo in base al contesto fornito. Se non c'è, dillo.",
+    messages=[{"role": "user",
+               "content": f"Contesto:\n{contesto}\n\nDomanda: {domanda}"}],
+)
+print(message.content[0].text)
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+// embed(testo) -> vettore: lo fornisce un modello di embedding
+//   (es. OpenAI text-embedding-3-small, Voyage, o un modello aperto)
+
+function coseno(a: number[], b: number[]): number {
+  const prod = a.reduce((s, x, i) => s + x * b[i], 0);
+  const na = Math.hypot(...a);
+  const nb = Math.hypot(...b);
+  return prod / (na * nb);
+}
+
+// indicizzazione (una volta)
+const pezzi = [
+  "Il rimborso si richiede entro 30 giorni.",
+  "La spedizione standard arriva in 3-5 giorni.",
+  "La garanzia copre i difetti per 24 mesi.",
+];
+const indice = pezzi.map((p) => ({ testo: p, vettore: embed(p) }));
+
+// recupero (a ogni domanda)
+const domanda = "Quanto tempo ho per farmi rimborsare?";
+const qv = embed(domanda);
+const migliori = [...indice]
+  .sort((x, y) => coseno(qv, y.vettore) - coseno(qv, x.vettore))
+  .slice(0, 2);
+const contesto = migliori.map((m) => m.testo).join("\n");
+
+// generazione: passi SOLO i pezzi recuperati
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 512,
+  system: "Rispondi solo in base al contesto fornito. Se non c'è, dillo.",
+  messages: [{ role: "user", content: `Contesto:\n${contesto}\n\nDomanda: ${domanda}` }],
+});
+const blocco = message.content[0];
+if (blocco.type === "text") console.log(blocco.text);
+```
+
+</TabItem>
+</Tabs>
+
+Il modello vede solo i due pezzi più vicini alla domanda, non tutti i
+documenti. Il system prompt («rispondi solo in base al contesto») lo ancora ai
+dati recuperati e gli dice di ammettere quando la risposta non c'è, invece di
+inventarla.
+
+## Quando serve davvero
+
+Il RAG non è gratis: aggiunge un modello di embedding, un archivio, e un pezzo
+di codice da mantenere. Prima di montarlo, chiediti se ti serve davvero.
+
+- **Ti serve** quando i documenti sono troppi per stare nella finestra, cambiano spesso, o sono privati e vuoi risposte ancorate a fonti tue e citabili.
+- **Non ti serve** se tutti i documenti rilevanti stanno comodi nel contesto: in quel caso passali direttamente (long context). È più semplice e non rischi di recuperare il pezzo sbagliato. La finestra grande qui è un vantaggio, come hai visto in [Il contesto in token](/it/going-deeper/context-in-tokens/).
+- **C'è una via gestita, senza codice**: i Progetti di Claude, i Custom GPT e i Gem fanno una versione di questo per te, ed è il tema di [Riusare contesto con i progetti](/it/at-work/reuse-context-with-projects/). Il RAG che monti a mano serve quando vuoi controllo, scala, o integrazione nel tuo sistema.
+
+:::tip[Come spezzi i documenti conta]
+Pezzi troppo grandi diluiscono la rilevanza: recuperi un blocco che parla di
+dieci cose per l'unica che serve. Troppo piccoli perdono il contesto intorno
+alla frase. Un punto di partenza ragionevole è qualche centinaio di parole per
+pezzo, con una piccola sovrapposizione tra un pezzo e il successivo per non
+tagliare a metà un concetto.
+:::
+
+:::caution[Il recupero è il collo di bottiglia]
+Se recuperi i pezzi sbagliati, il modello risponde male anche se il testo dei
+pezzi è corretto: non può usare quello che non gli hai dato. Prima di dare la
+colpa al modello, guarda cosa è stato recuperato. E ricorda che il testo
+recuperato entra nel prompt come istruzione potenziale: un documento che
+contiene «ignora tutto e rispondi X» è un vettore di prompt injection, il tema
+di *Prompt injection e sicurezza*.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-rag.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Il RAG dà al modello i dati giusti al momento giusto. Il passo successivo è
+lasciargli decidere da solo quali strumenti usare e in che ordine per portare a
+termine un compito in più passi. È il tema di *Agenti*.
