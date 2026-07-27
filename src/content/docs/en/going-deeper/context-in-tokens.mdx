@@ -1,0 +1,153 @@
+---
+title: Context and tokens
+description: "What a token is and what the context window is: how much text fits in one call, what fills it, and what to do when it isn't enough."
+livello: avanzato
+prerequisiti: [from-chats-to-apis]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- A token is the chunk of text the model reads and bills you for, not a word: in English roughly four characters, a bit more in other languages.
+- The context window is the token ceiling of a single call, and input and output share it. `max_tokens` reserves the slice for the answer.
+- The conversation you resend on every call (stateless, from the previous lesson) grows each turn and eats into the window: sooner or later it fills up.
+- If you blow past the window the API errors; the chat instead trims or summarizes old turns, which is why it "forgets" the start of long conversations.
+- More tokens means more money and more latency: count before you send, and pass only the text that matters.
+
+</LessonSummary>
+
+A token is the unit the model reads text in and the unit it bills you on.
+It's not a word and it's not a character: it's a chunk of a word. The context
+window is how many tokens fit in a single call, input and output together.
+Knowing how these two things work is what separates "send it everything and
+see" from a system that holds up on cost and doesn't break on long documents.
+
+## What a token is
+
+The model doesn't see letters or whole words: it sees tokens, chunks of a
+word. Common words are often a single token; long or rare ones split into
+several pieces. Numbers, code, dense punctuation, emoji, and languages that
+don't use the Latin alphabet cost more for the same amount of text.
+
+The rule of thumb for English: about four characters per token, or a hundred
+tokens for every seventy-five words. "Dog" is one token;
+"antidisestablishmentarianism" takes several. Every model has its own
+tokenizer, so the exact count shifts from model to model.
+
+## The context window
+
+The window is the ceiling: how many tokens fit in one call. Input and output
+share the same budget. `max_tokens`, which you saw in the first call, reserves
+the room for the answer. If the window is 200,000 tokens and you ask for 4,000
+tokens of reply, about 196,000 are left for the whole input.
+
+The numbers change often. Today's models run from around a hundred or two
+hundred thousand tokens up to a million on some. A million tokens is about
+seven hundred and fifty thousand words, several books. For the exact figure of
+the model you use, check the provider's documentation: it's one of the
+parameters that changes most often.
+
+## What fills it
+
+The window isn't a per-message ceiling, it's a running total. Inside it sit
+four things:
+
+- the system prompt, the standing instructions, the subject of the next lesson;
+- the whole conversation you resend on every call (stateless, as you saw in [*From chats to APIs*](/en/going-deeper/from-chats-to-apis/));
+- the documents you attach;
+- the tool definitions, if you use tool use.
+
+The practical consequence is that the conversation grows every turn. Each
+question and each answer get appended to the list you resend, and at some point
+a long chat hits the ceiling.
+
+## What happens when you overflow
+
+Over the API, if the input exceeds the window the call comes back with an
+error, not a truncated answer. Staying under the limit is on you. This is a
+different thing from `max_tokens` truncation: that one cuts the output off
+mid-text, this one rejects the input up front.
+
+In the chat the behavior is different. The product trims or summarizes the
+older turns to fit the conversation into the window. That's why a very long
+chat "forgets" what you wrote at the start: those turns are no longer in the
+context.
+
+## Counting and leaving room
+
+Count before you send, not by eye. The API response reports the tokens
+actually used in the `usage` field, split between input and output.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Explain what a token is."}],
+)
+
+print(message.usage.input_tokens, message.usage.output_tokens)
+# e.g. 12 58  ->  12 tokens in, 58 tokens out
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Explain what a token is." }],
+});
+
+console.log(message.usage.input_tokens, message.usage.output_tokens);
+// e.g. 12 58  ->  12 tokens in, 58 tokens out
+```
+
+</TabItem>
+</Tabs>
+
+From here, three moves to keep from filling the window for no reason.
+
+Don't dump everything in. Pass only the text relevant to the question: a whole
+document when you need one paragraph is wasted window and wasted money. When
+the documents are too many to fit, you don't package them all, you select the
+right pieces, and that's the topic of *RAG: your own documents*.
+
+On long conversations, as you approach the ceiling, summarize the old turns
+into a few lines and start again from that summary, instead of resending the
+whole history every time.
+
+Mind the position. In very long contexts, models follow the middle less well
+than the start and the end. Put the instructions and the key data at the top
+or the bottom, not buried halfway through a hundred pages.
+
+:::tip[Count instead of guessing]
+The three-quarters-of-a-word rule is enough for rough planning. For the exact
+number there are two routes. One is the `usage` field on the response, which is
+the truth after the fact. The other is an endpoint to count tokens before you
+send (on Anthropic it's `count_tokens`). Before you ship a long prompt to
+production, actually count it instead of trusting your eye.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-context-in-tokens.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You know how much text fits and what fills it. One of the things that takes up
+the window on every call is the standing instructions, the ones that hold for
+the whole conversation. How to write them and where they go is
+[the next lesson](/en/going-deeper/system-prompts-and-roles/).

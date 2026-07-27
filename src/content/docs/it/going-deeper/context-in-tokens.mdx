@@ -1,0 +1,156 @@
+---
+title: Il contesto in token
+description: "Cos'è un token e cos'è la finestra di contesto: quanto testo entra in una chiamata, cosa la riempie e cosa fare quando non basta."
+livello: avanzato
+prerequisiti: [from-chats-to-apis]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+
+<LessonSummary>
+
+- Un token è il pezzo di testo che il modello legge e su cui paghi, non una parola: in inglese circa quattro caratteri, in italiano un po' di più.
+- La finestra di contesto è il tetto di token di una singola chiamata, e input e output se lo dividono. `max_tokens` prenota la parte per la risposta.
+- La conversazione che rimandi a ogni chiamata (senza stato, dalla lezione prima) cresce a ogni turno e consuma finestra: prima o poi la riempie.
+- Se superi la finestra l'API dà errore; la chat invece taglia o riassume i turni vecchi, ed è il motivo per cui "dimentica" l'inizio delle conversazioni lunghe.
+- Più token vuol dire più soldi e più lentezza: conta prima di mandare, e passa solo il testo che serve.
+
+</LessonSummary>
+
+Un token è l'unità con cui il modello legge il testo e su cui ti fa pagare.
+Non è una parola e non è un carattere: è un pezzo di parola. La finestra
+di contesto è quanti token entrano in una singola chiamata, input e output
+insieme. Sapere come funzionano queste due cose è quello che separa "gli
+mando tutto e vediamo" da un sistema che regge sui costi e non si rompe sui
+documenti lunghi.
+
+## Cos'è un token
+
+Il modello non vede lettere né parole intere: vede token, cioè pezzi di
+parola. Le parole comuni sono spesso un token solo; quelle lunghe o rare si
+spezzano in più pezzi. Numeri, codice, punteggiatura fitta, emoji e lingue
+che non usano l'alfabeto latino costano di più a parità di testo.
+
+La regola spannometrica per l'inglese: circa quattro caratteri per token,
+ovvero cento token ogni settantacinque parole. L'italiano ne consuma un po'
+di più, perché le parole sono più lunghe e gli accenti pesano. "Cane" è un
+token; "anticostituzionalmente" ne occupa parecchi. Ogni modello ha il suo
+tokenizzatore, quindi il conto esatto cambia da modello a modello.
+
+## La finestra di contesto
+
+La finestra è il tetto: quanti token stanno in una chiamata. Input e output
+condividono lo stesso budget. `max_tokens`, che hai visto nella prima
+chiamata, prenota lo spazio per la risposta. Se la finestra è 200.000 token e
+chiedi 4.000 token di risposta, ne restano circa 196.000 per tutto l'input.
+
+I numeri cambiano spesso. Oggi i modelli vanno da circa cento o duecentomila
+token fino a un milione su alcuni. Un milione di token sono circa
+settecentocinquantamila parole, diversi libri. Per il valore preciso del
+modello che usi, guarda la documentazione del provider: è uno dei parametri
+che cambia più spesso.
+
+## Cosa la riempie
+
+La finestra non è un tetto per messaggio, è un totale corrente. Dentro ci
+stanno quattro cose:
+
+- il system prompt, cioè le istruzioni di fondo, oggetto della prossima lezione;
+- la conversazione intera che rimandi a ogni chiamata (senza stato, come hai visto in [*Dalle chat alle API*](/it/going-deeper/from-chats-to-apis/));
+- i documenti che alleghi;
+- le definizioni degli strumenti, se usi tool use.
+
+La conseguenza pratica è che la conversazione cresce a ogni turno. Ogni
+domanda e ogni risposta si aggiungono alla lista che rimandi, e a un certo
+punto una chat lunga tocca il soffitto.
+
+## Cosa succede quando sfori
+
+Via API, se l'input supera la finestra la chiamata torna con un errore, non
+con una risposta troncata. Sta a te tenerti sotto il limite. È una cosa
+diversa dal troncamento da `max_tokens`: quello taglia l'output a metà,
+questo rifiuta l'input in partenza.
+
+Nella chat il comportamento è un altro. Il prodotto taglia o riassume i
+turni più vecchi per far stare la conversazione nella finestra. È il motivo
+per cui una chat molto lunga "si dimentica" quello che avevi scritto
+all'inizio: quei turni non sono più nel contesto.
+
+## Contare e stare larghi
+
+Conta prima di mandare, non a occhio. La risposta dell'API riporta i token
+davvero usati nel campo `usage`, diviso fra ingresso e uscita.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+message = client.messages.create(
+    model="claude-sonnet-5",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Spiegami cos'è un token."}],
+)
+
+print(message.usage.input_tokens, message.usage.output_tokens)
+# es. 14 63  ->  14 token in ingresso, 63 in uscita
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const message = await client.messages.create({
+  model: "claude-sonnet-5",
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Spiegami cos'è un token." }],
+});
+
+console.log(message.usage.input_tokens, message.usage.output_tokens);
+// es. 14 63  ->  14 token in ingresso, 63 in uscita
+```
+
+</TabItem>
+</Tabs>
+
+Da qui, tre mosse per non riempire la finestra senza motivo.
+
+Non buttare dentro tutto. Passa solo il testo rilevante alla domanda: un
+documento intero quando ti serve un paragrafo è finestra sprecata e soldi
+buttati. Quando i documenti sono troppi per starci, non li impacchetti
+tutti, ne selezioni i pezzi giusti, ed è il tema di *RAG: dare all'IA i tuoi
+documenti*.
+
+Sulle conversazioni lunghe, quando ti avvicini al tetto riassumi i turni
+vecchi in poche righe e riparti da quel riassunto, invece di rimandare ogni
+volta l'intera storia.
+
+Attento alla posizione. Sui contesti molto lunghi i modelli seguono meno
+bene la parte centrale rispetto all'inizio e alla fine. Metti le istruzioni
+e i dati chiave in cima o in fondo, non sepolti a metà di cento pagine.
+
+:::tip[Contare senza indovinare]
+La regola dei tre quarti di parola basta per pianificare a spanne. Per il
+numero esatto ci sono due strade. Una è il campo `usage` della risposta, che
+è la verità dopo il fatto. L'altra è un endpoint per contare i token prima di
+inviare (su Anthropic è `count_tokens`). Prima di mandare in produzione un
+prompt lungo, contalo davvero invece di fidarti dell'occhio.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-context-in-tokens.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Sai quanto testo ci sta e cosa lo riempie. Una delle cose che occupa la
+finestra a ogni chiamata sono le istruzioni di fondo, quelle che valgono per
+tutta la conversazione. Come si scrivono e dove si mettono è
+[la prossima lezione](/it/going-deeper/system-prompts-and-roles/).

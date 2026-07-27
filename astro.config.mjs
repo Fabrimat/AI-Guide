@@ -166,7 +166,7 @@ export default defineConfig({
           ],
         },
         {
-          // Modulo 6 (Per chi vuole di più) — in corso (2/13). Pubblico
+          // Modulo 6 (Per chi vuole di più) — in corso (4/13). Pubblico
           // tecnico. Lasciato come unico blocco da 13 voci per ora; se il
           // modulo crescerà, valutare lo split in "Core APIs" + "Beyond APIs".
           label: 'Going deeper',
@@ -174,20 +174,8 @@ export default defineConfig({
           items: [
             { slug: 'going-deeper/from-chats-to-apis' },
             { slug: 'going-deeper/choose-the-model' },
-            {
-              label: 'Context and tokens',
-              translations: { it: 'Il contesto in token' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'System prompts and roles',
-              translations: { it: 'System prompt e ruoli' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'going-deeper/context-in-tokens' },
+            { slug: 'going-deeper/system-prompts-and-roles' },
             {
               label: 'Tool use and structured output',
               translations: { it: 'Tool use, function calling, structured output' },

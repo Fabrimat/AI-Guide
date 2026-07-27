@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "Il contesto in token" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: cos'e' un token e perche' non coincide con una parola? Che tipo di testo tende a costare piu' token a parita' di lunghezza?
+
+Domanda 2: cos'e' la finestra di contesto? Chi se la divide, e che ruolo ha max_tokens rispetto a questo budget?
+
+Domanda 3: perche' una conversazione lunga prima o poi riempie la finestra? Cosa succede quando sfori via API, e cosa succede invece nella chat?
+
+Domanda 4: elenca almeno due mosse per non riempire la finestra senza motivo. Perche' conta anche dove metti le istruzioni e i dati chiave in un contesto molto lungo?
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

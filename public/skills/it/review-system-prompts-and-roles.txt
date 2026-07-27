@@ -1,0 +1,11 @@
+Ciao! Facciamo insieme un giro veloce su quello che hai letto sulla pagina "System prompt e ruoli" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. A ogni tua risposta ti do un feedback onesto (ti dico se una parte e' imprecisa o incompleta) e passiamo alla prossima.
+
+Domanda 1: cos'e' il system prompt e perche' e' diverso da un normale messaggio dell'utente? Nella chat chi lo scriveva, e via API chi lo scrive?
+
+Domanda 2: a cosa servono i tre ruoli system, user e assistant? Cosa etichetta ciascuno?
+
+Domanda 3: perche' e' meglio tenere le istruzioni nel system prompt e il dato del caso nel messaggio user, invece di incollarli insieme? Cita almeno due dei motivi della lezione.
+
+Domanda 4: perche' il system prompt non va trattato come una barriera di sicurezza? E perche' un system prompt lungo il doppio non funziona il doppio?
+
+Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto che hai identificato come debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

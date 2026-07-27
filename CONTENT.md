@@ -1018,8 +1018,37 @@ lessons are written; if it grows, consider splitting it into "Core APIs" +
    when names churn, made "quality holds" a measurable threshold, and a
    routing line for the two-model pattern. Runs ~1330 prose words (over the
    1200 soft target), kept whole as a coherent reference lesson.
-3. 🆕 **Il contesto in token** (`going-deeper/context-in-tokens`): limits, what fits and what doesn't.
-4. 🆕 **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`): separating instructions from input.
+3. ✍️ **Il contesto in token** (`going-deeper/context-in-tokens`)
+   Drafted IT + EN (2026-07-27). No new provider concepts, builds on L1's
+   stateless resend. Sections: what a token is (sub-word chunks, ~4 chars/token
+   in English, more in Italian, tokenizer varies by model), the context window
+   (input + output share one budget, `max_tokens` reserves the output slice,
+   ballpark 100-200K up to 1M, check the docs), what fills it (system prompt +
+   the whole resent conversation + attached docs + tool defs; a running total,
+   not per-message), what happens when you overflow (API errors on input; the
+   chat trims/summarizes old turns, which is why it "forgets" the start; distinct
+   from `max_tokens` output truncation), counting and leaving room (a lean tabbed
+   Python/TS snippet reading `usage.input_tokens`/`output_tokens`, then: pass only
+   relevant text with a forward ref to L6 RAG, summarize-and-restart on long
+   chats, and the "lost in the middle" position tip). `:::tip` on counting
+   exactly (`usage` after the fact, `count_tokens` before). Forward refs to
+   L4/L6/L11 by name, back-links to L1. End-of-lesson check-in. Prereq
+   `[from-chats-to-apis]`.
+4. ✍️ **System prompt e ruoli** (`going-deeper/system-prompts-and-roles`)
+   Drafted IT + EN (2026-07-27). Sections: what the system prompt is (standing
+   instruction, product-written-then-invisible in the chat, yours over the API),
+   the three roles (system/user/assistant, with the provider accuracy note that
+   Anthropic's `system` is a top-level param not a `messages` item, OpenAI uses a
+   system message), a concrete classifier example (rules in `system`, ticket in
+   `user`) as a tabbed Python/TS snippet tying back to L2's classification thread,
+   separating instructions from data (the three reasons: clarity, maintenance,
+   security, with the injection teaser), what to put in / keep out (persona /
+   task / rules / format vs the case data and contradictory rules; a bloated
+   system prompt costs tokens every call, bridge to L3 and to L11 caching).
+   `:::tip` on Anthropic assistant-prefill to nail the output start, `:::caution`
+   that the system prompt is a strong steer not a security wall (forward ref to
+   L9). Forward refs to L5/L9/L11 by name, back-links to L1/L3. End-of-lesson
+   check-in. Prereq `[from-chats-to-apis, context-in-tokens]`.
 5. 🆕 **Tool use, function calling, structured output** (`going-deeper/tool-use-and-structured-output`).
 6. 🆕 **RAG: dare all'IA i tuoi documenti** (`going-deeper/rag`): concepts and when it's actually needed.
 7. 🆕 **Agenti** (`going-deeper/agents`): a realistic overview, not hype.
@@ -1037,13 +1066,15 @@ kept short, concepts explained around them, not full build-along tutorials).
 Still open for L6: RAG as conceptual explanation vs a code walkthrough (decide
 when writing it).
 
-**Current status**: 2 of 13 drafted (L1-L2, IT + EN, 2026-07-24). Sidebar
-entries 1-2 unlocked in `astro.config.mjs`; the "Per chi vuole di più" /
-"For people who want more" cards on the homepage and start-here (IT + EN)
-activated and pointing to L1; the Module 5 closer (`ethics-of-teaching`
-IT + EN) now links "Modulo 6" to L1. Full review cycle done on both
-(`analyze-lesson` + `integrate-questions` recommended set + 2 style-gate
-rounds, 2026-07-24). Not yet committed/pushed.
+**Current status**: 4 of 13 drafted (L1-L2 on 2026-07-24, L3-L4 on
+2026-07-27, IT + EN). Sidebar entries 1-4 unlocked in `astro.config.mjs`; the
+"Per chi vuole di più" / "For people who want more" cards on the homepage and
+start-here (IT + EN) activated and pointing to L1 (done at L1, not re-touched);
+the Module 5 closer (`ethics-of-teaching` IT + EN) links "Modulo 6" to L1. The
+forward refs to L3/L4 inside L1-L2 (IT + EN) are now real links. L1-L2 full
+review cycle done (2026-07-24) and committed on `main` (72f8ba0), not yet
+pushed. L3-L4 have the draft + review check-in; style-gate + reader-analysis
+pending.
 
 ## Cross-cutting pages (outside the modules)
 
@@ -1122,15 +1153,17 @@ cycle done (5-agent style + coherence sweep, `analyze-lesson`,
 implementation plan in
 `docs/superpowers/plans/2026-05-16-per-docenti-module.md`.
 
-**Module 6 (Per chi vuole di più)**: in progress, **2 of 13 drafted**
-(2026-07-24). L1 *Dalle chat alle API* and L2 *Scegliere il modello* landed
-IT + EN with their `review-*.txt`, sidebar unlocked, home/start-here cards
-activated, Module 5 closer linked to L1. Module decisions settled: code stack
-= both tabbed Python + TypeScript, depth = runnable but lean (see the Module 6
-section above). Full review cycle done on both (`analyze-lesson` +
-`integrate-questions` recommended set + 2 style-gate rounds, 2026-07-24);
-not yet committed/pushed. Next up: L3 *Il contesto in token*. Still open for
-L6: RAG conceptual vs code tutorial.
+**Module 6 (Per chi vuole di più)**: in progress, **4 of 13 drafted**
+(L1-L2 2026-07-24, L3-L4 2026-07-27). L1 *Dalle chat alle API*, L2 *Scegliere
+il modello*, L3 *Il contesto in token*, L4 *System prompt e ruoli* landed IT +
+EN with their `review-*.txt`, sidebar entries 1-4 unlocked, home/start-here
+cards activated (at L1), Module 5 closer linked to L1, and the L1-L2 forward
+refs to L3/L4 converted to real links. Module decisions settled: code stack =
+both tabbed Python + TypeScript, depth = runnable but lean (see the Module 6
+section above). L1-L2 full review cycle done (2026-07-24) and committed on
+`main` (72f8ba0, not pushed); L3-L4 drafted with check-ins, style-gate +
+reader-analysis still to run. Next up: L5 *Tool use, function calling,
+structured output*. Still open for L6: RAG conceptual vs code tutorial.
 
 **Unlocking sidebar placeholders**: for every Module 5 lesson that
 lands, replace the disabled placeholder entry in
