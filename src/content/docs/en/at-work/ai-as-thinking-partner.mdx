@@ -8,6 +8,9 @@ prerequisiti: [ask-well, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -27,21 +30,7 @@ into the room. You've been stuck on a problem for a week, you
 keep going at it from the same angle, and you'd like someone to
 hand you ten different ones.
 
-All three are situations where you need a sharp colleague, not a
-machine that types out a draft for you. The other lessons in the
-module are about AI producing something for you (an email, a
-brief, a meeting digest, a synthesis of sources). This lesson is
-different: AI doesn't produce an output, it helps you pull out a
-thought of your **own**, ideally a better one than the thought
-you walked in with.
-
-Difference from
-[*Iterate the conversation*](/en/everyday-use/iterate-the-conversation/)
-in Module 2: there, the dialogue is for optimizing an output
-(the better summary, the right draft, the weekend plan). Here,
-the dialogue is for optimizing **an idea of yours**. The final
-output, in many cases, isn't even written: it's a decision, a
-position, a strategy that you carry into the room.
+All three are situations where you need a sharp colleague, not a machine that types out a draft for you. Here AI doesn't produce an output for you: it helps you pull out a thought of your **own**, ideally a better one than you walked in with. Unlike [*Iterate the conversation*](/en/everyday-use/iterate-the-conversation/), which optimizes a result, here you optimize an idea.
 
 With the right prompt, AI is a very useful thinking partner: it
 asks questions a colleague wouldn't out of politeness. With the
@@ -80,16 +69,10 @@ reviewer in academic peer review"*, *"opposing counsel"*, *"a
 journalist looking for the wrong piece"*. The more specific the
 role, the sharper the critique.
 
-If you work in a context where the classic boardroom roles
-don't apply (creative agency without a CFO, NGO, freelance,
-school), translate the toughest critic into your perimeter:
-*"the most cynical creative director you know"*, *"the head of
-a peer NGO weighing reputational risk"*, *"the client who
-rejected your last proposal"*, *"the strictest department
-colleague on fundamentals"*. The point isn't the title, it's
-the specificity of the viewpoint the critique is coming from.
 
-:::tip[How much context to give before the challenge]
+
+<Collapsible title="How much context to give before the challenge">
+
 For a good devil's advocate, AI needs to know enough to attack
 the right points, not your company résumé. The useful minimum:
 sector or area, size (SME, multinational, team of 10), the
@@ -99,7 +82,8 @@ already taken upstream). Three or four sentences of setup, not
 a one-page brief. If AI makes a critique that ignores a key
 piece of context, add it in the next turn instead of front-
 loading the whole thing in the opening.
-:::
+
+</Collapsible>
 
 ### 2. Structured brainstorming
 
@@ -131,6 +115,8 @@ single-track, when in reality it's only weighed one option (the
 most obvious). If you ask for ten angles first, you see the
 space you're operating in, and **you** pick where to go deep.
 
+<Collapsible title="If the ten angles all feel obvious">
+
 A nuance: if the ten angles you get all feel obvious (you'd
 already seen seven of the eight, nothing is surprising), go
 back and ask for a second round with a stronger constraint:
@@ -140,6 +126,8 @@ they look counterintuitive, awkward, or expensive. I want the
 ones nobody would pitch in a meeting, even if maybe one or two
 would hold up."*. The real value of brainstorming often sits
 in the second pass, not the first.
+
+</Collapsible>
 
 ### 3. Anticipate objections
 
@@ -161,6 +149,8 @@ who accepts your arguments one by one and gives you the illusion
 of being prepared. With that constraint, it surfaces the three objections
 you hadn't thought of.
 
+<Collapsible title="Variants and personal data in role-play">
+
 A useful variant: ask for two or three simulation rounds where
 you change a single variable (the client is in genuine financial
 trouble; the client is evaluating a competitor; the client is
@@ -177,6 +167,8 @@ a public chat, the less risk surface, and in the case of
 role-play you lose nothing pedagogically useful, because AI
 simulates the position, not the person.
 
+</Collapsible>
+
 ## The specific risk: sycophancy
 
 Models are trained with a method called **reinforcement learning
@@ -188,14 +180,15 @@ the receiver feel good. Result: by default, AI tends to confirm
 your position, praise the idea you bring, and tell you you're on
 the right track.
 
-The technical name for this tendency is **sycophancy**, from the
-English word for flattery. It isn't a bug, it's a side effect of
-how the model is trained. It's the reason why if you ask
-*"what do you think of my idea?"* the default reply is
-*"great!"* followed by four reinforcing points. Not because the
-idea is great: because flattering first and softening later is
-the shortest route to a high rating from people who scored the
-AI during training.
+The technical name is **sycophancy**, from the English word for flattery. It isn't a bug, it's a side effect of how the model is trained: if you ask *"what do you think of my idea?"* the default reply is *"great!"* followed by four reinforcing points.
+
+<ChatDemo
+  user="I'm about to propose an internal mentoring program for juniors to the CEO. What do you think?"
+  ai="Great idea! Mentoring improves retention, speeds up juniors' growth and strengthens company culture. Your proposal is well thought out and has a good chance of being accepted. One tip: present it with enthusiasm."
+  showReplay={false}
+  userLabel="You"
+  aiLabel="AI"
+/>
 
 Three prompts that work to dismantle the default:
 
@@ -214,9 +207,17 @@ holes, full force, the toughest critic). Without these three
 elements, even with the best intentions, AI will tend to drift
 back to its default.
 
+<PromptCompare
+  weak="What do you think of my idea to launch a mentoring program for juniors?"
+  strong={`I'm about to propose a mentoring program for juniors to the CEO (the proposal is below, in five points). You are the most skeptical CFO on the board. Find the three biggest holes, even uncomfortable ones. Skip the compliments and go straight to the critic.`}
+  note="The second one gives a challenger role, a number and a block on preambles. The first invites a compliment."
+/>
+
 Then read carefully what you get. If the critique is
 solid, accept it. If your first reaction is to look for another
 prompt that gives a kinder answer, you're already in the trap.
+
+<Collapsible title="Does it apply to every model?">
 
 On specific models: the three majors (Claude, ChatGPT, Gemini)
 are all subject to sycophancy, in different degrees and in
@@ -228,6 +229,8 @@ model you're using**. Explicit constraints stay the most
 reliable defense, because they act at the prompt level and don't
 depend on the model version you happen to have open in that
 moment.
+
+</Collapsible>
 
 ## Thinking better, or being reassured?
 
@@ -254,6 +257,8 @@ one.
   surfacing, AI confirmed me, and I feel stronger without
   being so.
 
+<Collapsible title="If you changed your mind: recheck before taking it into the meeting">
+
 The "at least one thing changed" test on its own isn't enough:
 changing for the worse is always possible. If AI brought a
 brilliant argument that shifted your position, before carrying
@@ -268,6 +273,8 @@ factual premise (it's the pattern from
 [*When to trust it and when not to*](/en/fundamentals/when-to-trust-it/))
 and you find yourself defending in public a conclusion resting
 on a hallucination.
+
+</Collapsible>
 
 Three practical signals of "thinking partner that worked":
 
@@ -294,6 +301,8 @@ You're about to propose to the CEO that the company launch an
 internal mentoring program for juniors. You have a five-point
 draft. You want it stress-tested by a skeptical CFO before
 taking it to the board.
+
+<Collapsible title="The full conversation and what to do with it">
 
 <ChatDemo
   user={`I'm about to propose an internal mentoring program for juniors to the CEO. The five-point proposal:
@@ -341,6 +350,19 @@ All three options are work the dialogue with AI let you do in
 twenty minutes, before the meeting, instead of doing it in
 public in front of the board.
 
+</Collapsible>
+
+<SelfCheck
+  id="ai-as-thinking-partner-q1"
+  question="At the end of a dialogue with AI about your proposal you feel more confident, but nothing in the idea has changed. What does that tell you?"
+  options={[
+    { text: "That the proposal is solid, because the AI found no flaws.", why: "It may be true, but without challenge constraints AI tends to confirm: the absence of criticism isn't proof." },
+    { text: "That you may have looked for reassurance instead of a challenge, and the dialogue didn't work as a thinking partner.", correct: true, why: "If not even one thing changed, it's worth asking whether the critique had room to emerge." },
+    { text: "That you need another, less accommodating model.", why: "Every model tends toward sycophancy: the most reliable defense is explicit constraints in the prompt." },
+    { text: "That you need a longer dialogue, because after many turns something will change.", why: "Length isn't a signal of depth: what counts is whether at least one thing changed." },
+  ]}
+/>
+
 ## What NOT to do
 
 **Don't ask *"what do you think?"* without constraints.** It's
@@ -368,13 +390,7 @@ the dialogue with AI, you walk into the doctor's / accountant's
 / lawyer's office with better questions, not with a decision
 already made that you're asking them to sign.
 
-**Don't mistake a long dialogue for a deep one.** Forty turns
-with AI can be brilliant and completely disconnected from the
-substance. The signal of depth isn't the number of exchanges,
-it's the "at least one thing changed" test from the section
-[Thinking better, or being reassured?](#thinking-better-or-being-reassured).
-If the dialogue is long and nothing has changed, you've lost an
-hour.
+
 
 ## What's next
 
@@ -383,7 +399,7 @@ next question is: how do you reuse the same context tomorrow,
 in a week, in a month, without reloading every time who you are
 and what you're doing? The next lesson, *Reuse context with
 projects*, covers the tool the three major platforms have
-adopted for this: Claude Projects, ChatGPT Custom GPTs, Gemini
+adopted for this: Claude Projects, ChatGPT Projects, Gemini
 Gems.
 
 ## Check what you learned

@@ -8,6 +8,9 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -32,12 +35,6 @@ on top of the right outline.
 What works is splitting the job in two moments: first the
 **structure** (what goes where, how long, for whom), then the
 **text** (section by section, with you as the filter).
-
-This doesn't mean "AI as ghostwriter" is always to avoid: on a
-quick email, a note to yourself, a group greeting to colleagues,
-pasting the first version is fine, the cost of a slip is low. On
-documents with a signature and someone deciding as they read, the
-cost goes up, and the pattern changes.
 
 ## Three canonical documents
 
@@ -110,6 +107,12 @@ The pattern that works well is opposite to instinct. Instinct is
 "ask the AI to write me the proposal," read, fix. The pattern is:
 **ask for an outline, critique it, then section by section**.
 
+<PromptCompare
+  weak="Write me a commercial proposal for a new client."
+  strong={`I'm writing a six-month organizational consulting proposal for a family company of 50 people that has never hired an outside consultant. Audience: the owner, short on time and wary. Goal: convince him to meet us and get started. Maximum length: six pages. Don't write the text: give me only an outline with one line per section, then wait for my corrections.`}
+  note="The second one fixes audience, goal and length, and asks for the structure before the text."
+/>
+
 It works better for two reasons. Critiquing the outline costs a
 lot less than critiquing the text: changing "drop the timeline
 section, add a why-us section" is two lines, while changing the
@@ -141,7 +144,8 @@ fragments the voice. If a section leaves you unhappy, you rewrite
 it while it's fresh in your head, not at the end over a block of
 two thousand words.
 
-:::tip[When the outline is ready]
+<Collapsible title="When the outline is ready">
+
 A stop-rule that works: when you re-read the outline and no longer
 feel anxious ("is something important missing?") but impatient
 ("come on, let's write"), it's ready. If you polish the outline
@@ -149,9 +153,11 @@ for more than twenty minutes, you're probably just putting off
 writing. Better to start on an outline that's good enough
 and fix it during the filling, than to stall hunting the perfect
 one.
-:::
 
-:::note[If the client or your office imposes a template]
+</Collapsible>
+
+<Collapsible title="If the client or your office imposes a template">
+
 Happens all the time: client procurement with required Word styles,
 internal proposal template, format imposed by a public tender. In
 these cases the outline is already set, and step 1 shifts: you
@@ -160,7 +166,8 @@ hand the template's index to the AI as an input constraint
 and go straight to step 2. The critique doesn't disappear, it
 moves: you no longer critique the structure, you critique the
 content of each section under that structure.
-:::
+
+</Collapsible>
 
 ## A concrete example
 
@@ -168,6 +175,8 @@ You're writing a commercial proposal for a potential client, a
 fifty-person family business that has never hired an external
 consultant. They know you through an introduction from a previous
 client of yours. The first pass is asking for a generic outline.
+
+<Collapsible title="The full example: from a generic outline to a tailored one">
 
 <ChatDemo
   user={`Propose an outline for a commercial proposal for organizational consulting, six months, for a medium-sized company. Just the section index with a one-line description each, not the text.`}
@@ -215,6 +224,8 @@ with the length constraints from your index. What you'll read is
 faster to fix, because you already know where each piece should
 land.
 
+</Collapsible>
+
 :::tip[Calibrate on audience and purpose]
 "This document is for the CEO" and "this document is for the
 technical team" produce two different outlines. Even with the same
@@ -228,6 +239,17 @@ know]. Purpose of the document: [decide, inform, persuade]. Max
 length: [X pages / Y words]."* Those three pieces together shift
 the AI's default much more than you'd expect.
 :::
+
+<SelfCheck
+  id="draft-professional-documents-q1"
+  question="You have to write an eight-page proposal for a new client and you don't know where to start. What is the most efficient first step with AI?"
+  options={[
+    { text: "Ask for the full text right away and fix it line by line.", why: "Re-reading and cutting a lot of new words costs more than writing fewer on top of the right structure." },
+    { text: "Ask for an outline with one line per section and critique it before writing.", correct: true, why: "Fixing an outline costs a few lines and sets the perimeter for the text that follows." },
+    { text: "Open a new chat for each section, so each one starts clean.", why: "With separate chats the AI doesn't see the sections already written and the document's voice fragments." },
+    { text: "Write the introduction yourself and leave everything else to the AI in one go.", why: "The rest is still one long block to re-read, with no validated structure." },
+  ]}
+/>
 
 ## What NOT to delegate
 

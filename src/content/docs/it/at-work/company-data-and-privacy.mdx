@@ -2,11 +2,14 @@
 title: Privacy e dati aziendali
 description: "Quello che incolli in un'IA pubblica può uscire dalla tua azienda. Tre livelli di rischio (rosso, giallo, verde), cosa cambia con piani Enterprise o Team, primo filtro NDA, e cosa fare se la tua azienda non ha ancora una policy."
 livello: intermedio
-prerequisiti: [ask-well, privacy-basics]
+prerequisiti: [ask-well, privacy-basics, data-and-tables]
 ---
 
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -81,11 +84,10 @@ Una scala semplice prima di incollare qualunque cosa in una chat.
 Test mentale rapido per i casi dubbi: "se questo testo finisse in
 una ricerca Google fra un anno, mi creerebbe un problema con il mio
 capo, con un cliente, o con il legale?". Se sì, sei almeno nel
-giallo. Lo stesso test era valido per la versione personale (Modulo
-1), ma sul lavoro la "ricerca Google" è il caso peggiore: prima di
-quello c'è già il tuo manager che ti chiede dove è finito quel dato.
+giallo.
 
-:::tip[E se ho già incollato dati che ora classifico come rossi o gialli?]
+<Collapsible title="E se ho già incollato dati che ora classifico come rossi o gialli?">
+
 Capita a quasi tutti, leggendo questa lezione, di rendersi conto
 di aver caricato in passato qualcosa che oggi non caricherebbero.
 Tre cose puoi fare ora:
@@ -103,7 +105,8 @@ Tre cose puoi fare ora:
    con impatto serio, valuta di parlarne con il tuo manager o con
    il referente compliance. Un incidente segnalato presto e con
    onestà è quasi sempre meglio di uno scoperto dopo.
-:::
+
+</Collapsible>
 
 ## Come anonimizzare in pratica
 
@@ -138,7 +141,26 @@ tuo editor di testo basta. Non incollare l'originale e poi
 chiedere all'IA di anonimizzarlo: hai già fatto entrare i dati nel
 sistema.
 
-:::tip[E se il file è un PDF scansionato, una foto, o un audio?]
+<SelfCheck
+  id="company-data-and-privacy-q1"
+  question="Hai il verbale di una riunione con nomi di clienti e cifre sui margini, e vuoi un riassunto dall'IA. Qual è la prima mossa?"
+  options={[
+    { text: "Incollo il verbale e chiedo all'IA di anonimizzarlo e poi riassumerlo.", why: "A quel punto i dati reali sono già entrati nel sistema. L'anonimizzazione va fatta prima di incollare." },
+    { text: "Sostituisco io nomi e identificatori con etichette (Cliente A, Cliente B) e taglio le cifre che non servono, poi incollo.", correct: true, why: "L'IA può ragionare sulla struttura del testo senza vedere i dati reali." },
+    { text: "Apro una chat temporanea e incollo il verbale com'è.", why: "La chat temporanea cambia la cronologia, non il fatto che il testo arriva ai server del fornitore." },
+    { text: "Incollo solo la parte della riunione che mi interessa, senza toccare nomi e cifre.", why: "Meno testo aiuta, ma nomi e margini restano dati rossi o gialli dentro quella parte." },
+  ]}
+  explanation="Il passaggio da fare sempre è togliere il dato prima, non dopo."
+/>
+
+Se preferisci un aiuto meccanico, questo strumento sostituisce email,
+telefoni, IBAN e i nomi che gli indichi (lavora nel tuo browser, non
+invia nulla). Non prende tutto: rileggi sempre il risultato.
+
+<Anonymizer />
+
+<Collapsible title="E se il file è un PDF scansionato, una foto o un audio?">
+
 Trova-e-sostituisci non funziona su un PDF immagine, una scansione,
 o una registrazione vocale. Tre opzioni in ordine di preferenza:
 
@@ -154,7 +176,8 @@ o una registrazione vocale. Tre opzioni in ordine di preferenza:
    sul tuo computer), poi anonimizza il testo estratto e incolla
    solo quello. Non caricare il PDF originale in un'IA pubblica
    per fartelo trascrivere.
-:::
+
+</Collapsible>
 
 **Check rapido prima di incollare**. Leggi il testo anonimizzato
 come se fossi un estraneo che lo trova online. Se riesci ancora a
@@ -177,12 +200,9 @@ Le aziende che producono i modelli vendono piani **business**
 pensati per gli usi al lavoro: ChatGPT Team ed Enterprise
 (OpenAI), Claude Team ed Enterprise (Anthropic), Gemini per
 Workspace (Google), Microsoft Copilot per Business e Enterprise
-(che gira sul backend di Azure OpenAI: per chi non lo sa, è
-un'offerta Microsoft che usa i modelli di OpenAI ma con contratto,
-infrastruttura e regole di privacy di Microsoft Azure, in genere
-più favorevoli per aziende già su stack Microsoft). Le garanzie
-contrattuali tipiche dei piani business sono sempre più o meno
-queste tre.
+(modelli OpenAI, ma con contratto e infrastruttura Microsoft Azure).
+Le garanzie contrattuali tipiche dei piani business sono più o
+meno queste tre.
 
 - **No training sui tuoi dati di default**. Le tue conversazioni e
   i tuoi file non vengono usati per allenare modelli futuri. Sui
@@ -206,6 +226,8 @@ escono dalla tua macchina e arrivano a un fornitore) resta
 identica. Cambiano le **garanzie contrattuali** su quello che il
 fornitore farà o non farà con quei dati.
 
+<Collapsible title="Come leggere la pagina di un piano: DPA, retention, opt-out">
+
 Non fidarti dell'etichetta "Enterprise" sul piano. Le offerte
 cambiano spesso e fra fornitori diversi. Il criterio operativo:
 nella pagina del piano, cerca "data retention", "training opt-out",
@@ -218,6 +240,8 @@ consumer finché non hai una conferma scritta. Su un piano Team
 puoi ancora trovare clausole che permettono al fornitore di usare
 i prompt "pubblici" o "condivisi" per migliorare il servizio:
 leggi prima di firmare per il team.
+
+</Collapsible>
 
 ## NDA, GDPR, AI Act
 
@@ -266,6 +290,8 @@ un'email: "uso l'IA pubblica per X e Y, ho dei dubbi su quali dati
 posso o non posso passarle, c'è un orientamento aziendale o
 costruiamone uno?". Basta questo per mettere il problema sul radar.
 
+<Collapsible title="Se sei freelance">
+
 Se sei **freelance**, non hai un'azienda alle spalle ma hai i
 clienti, e la policy va costruita verso di loro: nei contratti che
 firmi, vedi se c'è una clausola sull'uso dell'IA con i dati del
@@ -273,6 +299,8 @@ cliente. Se non c'è, alza tu il punto in fase di negoziazione,
 soprattutto se lavori con dati sensibili. Una clausola tipo "il
 fornitore può usare strumenti di IA generativa solo su contenuti
 anonimizzati" è ragionevole per entrambe le parti.
+
+</Collapsible>
 
 ## La fine del modulo, e cosa viene dopo
 

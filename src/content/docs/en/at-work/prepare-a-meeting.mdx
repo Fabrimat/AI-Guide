@@ -8,6 +8,8 @@ prerequisiti: [ask-well, iterate-the-conversation]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -29,9 +31,7 @@ there, and that's how it should be: the meeting is the human
 moment. But before and after it works well, and those are the
 two moments where time usually gets lost. Before: agenda, brief
 for participants, likely questions. After: extract of decisions,
-action items, bridge to those who weren't on the call. If the
-meeting runs an hour, ten minutes of prep and ten of wrap-up save
-you twice that, multiplied across everyone on the call.
+action items, bridge to those who weren't on the call.
 
 ## Before the meeting
 
@@ -77,10 +77,8 @@ decision, relevant recent history. The AI plays devil's advocate
 questions, you spot three you hadn't thought of, and you prepare
 the answer.
 
-It isn't a fortune teller: some objections you anticipated never
-come up, others do that the AI hadn't foreseen. Still, it gets a
-good share of the likely questions right, and prep time shrinks.
-A second round in the style of [*Iterate the
+It isn't a fortune teller: it missed some objections. It still
+gets a good share right. A second round often pays off, as in [*Iterate the
 conversation*](/en/everyday-use/iterate-the-conversation/) often
 pays off: *"of these, which are the three most likely and why?"*.
 The second list beats the first.
@@ -172,7 +170,9 @@ ones, not generic ones.
 
 You've just wrapped a weekly status meeting for the product team
 (six people, 45 minutes), and you have a transcript from the
-call tool. You hand it over like this:
+call tool. You hand it over like this.
+
+<Collapsible title="The full example: transcript and extract">
 
 <ChatDemo
   user={`From this transcript extract, in three separate sections: 1. Decisions made, 2. Action items with owner and deadline, 3. Open questions. No narrative.
@@ -202,6 +202,8 @@ the follow-up, and the two topics the meeting didn't close are
 right there in the open questions. The same extraction by hand
 would be twenty minutes of rereading.
 
+</Collapsible>
+
 :::caution[Transcripts contain data from other people]
 A transcript is a collective text: it contains what people said
 who didn't consent to an AI reading it. Names, opinions on
@@ -219,6 +221,12 @@ if your company context allows: the risk is lower. The broader
 picture is in [*What you share when you use
 AI*](/en/fundamentals/privacy-basics/).
 :::
+
+To clean a transcript before pasting it, you can use this tool: it
+swaps emails and phone numbers, and the names you list, for
+placeholders (it runs in your browser and sends nothing).
+
+<Anonymizer />
 
 ## What NOT to do
 

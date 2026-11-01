@@ -8,6 +8,9 @@ prerequisiti: [ask-well, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -26,21 +29,7 @@ provare le obiezioni più dure prima di entrare nella stanza. Sei
 bloccato su un problema da una settimana, hai sempre lo stesso
 angolo, vorresti che qualcuno te ne offrisse altri dieci.
 
-Tutte e tre sono situazioni in cui ti serve un collega bravo, non
-una macchina che ti scrive una bozza. Le altre lezioni del modulo
-sono sull'IA che produce qualcosa per te (un'email, un brief, un
-estratto di una riunione, una sintesi di fonti). Questa lezione
-è diversa: l'IA non ti produce un output, ti aiuta a tirare
-fuori un pensiero **tuo**, possibilmente migliore di quello che
-avevi entrando nella conversazione.
-
-Differenza con
-[*Iterare la conversazione*](/it/everyday-use/iterate-the-conversation/)
-del Modulo 2: lì il dialogo serve a ottimizzare un output (il
-riassunto migliore, la bozza giusta, il piano del weekend). Qui
-il dialogo serve a ottimizzare **un'idea tua**. L'output finale,
-in molti casi, non è nemmeno scritto: è una decisione, una
-posizione, una strategia che porti tu in riunione.
+Tutte e tre sono situazioni in cui ti serve un collega bravo, non una macchina che ti scrive una bozza. Qui l'IA non produce un output per te: ti aiuta a tirare fuori un pensiero **tuo**, possibilmente migliore di quello che avevi entrando. A differenza di [*Iterare la conversazione*](/it/everyday-use/iterate-the-conversation/), che ottimizza un risultato, qui ottimizzi un'idea.
 
 Con il prompt giusto l'IA è un thinking partner molto utile: fa
 domande che un collega non ti farebbe per cortesia. Con il prompt
@@ -78,17 +67,10 @@ più severo della peer review accademica"*, *"avvocato della
 controparte"*, *"giornalista che vuole trovare il pezzo
 sbagliato"*. Più specifico è il ruolo, più tagliente la critica.
 
-Se lavori in un contesto dove i ruoli classici da consiglio non
-si applicano (studio creativo senza CFO, ONG, freelance,
-scuola), traduci nel tuo perimetro il critico più severo che
-puoi immaginare: *"il direttore creativo più cinico che
-conosci"*, *"il direttore di un'altra ONG che valuta il rischio
-reputazionale"*, *"il cliente che ti ha bocciato l'ultima
-proposta"*, *"il collega di dipartimento più rigido sui
-fondamenti"*. Il punto non è il titolo, è la specificità del
-punto di vista da cui arriva la critica.
 
-:::tip[Quanto contesto dare prima della sfida]
+
+<Collapsible title="Quanto contesto dare prima della sfida">
+
 Per un buon devil's advocate l'IA deve sapere abbastanza per
 attaccare i punti giusti, non un curriculum della tua azienda.
 Il minimo utile: settore o area, dimensione (PMI, multinazionale,
@@ -98,7 +80,8 @@ una decisione già presa a monte). Tre o quattro frasi di setup,
 non un brief di una pagina. Se l'IA fa una critica che ignora un
 elemento di contesto chiave, aggiungilo nel turno successivo
 invece di scriverla tutta in apertura.
-:::
+
+</Collapsible>
 
 ### 2. Brainstorming strutturato
 
@@ -129,6 +112,8 @@ darà una risposta che sembra univoca, in realtà ne ha valutata
 una sola (la più ovvia). Se chiedi prima dieci angoli, vedi di
 che spazio stai parlando, e poi scegli **tu** dove approfondire.
 
+<Collapsible title="Se i dieci angoli ti sembrano tutti ovvi">
+
 Una sfumatura: se i dieci angoli che ti arrivano sembrano tutti
 ovvi (li avevi già visti, ti aspettavi quei sette degli otto,
 non c'è nulla che ti sorprende), torna indietro e chiedi un
@@ -139,6 +124,8 @@ sembrano controintuitivi, scomodi, o costosi. Voglio quelli che
 nessuno proporrebbe in riunione, anche se forse uno o due
 reggerebbero alla prova."* Spesso il valore vero del
 brainstorming sta nel secondo giro, non nel primo.
+
+</Collapsible>
 
 ### 3. Anticipare obiezioni
 
@@ -159,6 +146,8 @@ accetta i tuoi argomenti uno per uno, e ti dà l'illusione di
 essere preparato. Con quel vincolo ti tira fuori le tre obiezioni che non
 avevi pensato.
 
+<Collapsible title="Varianti e dati personali nel role-play">
+
 Variante utile: chiedile di farti due o tre giri di simulazione
 dove cambi una variabile (il cliente è in difficoltà finanziaria
 vera; il cliente sta valutando un competitor; il cliente è
@@ -175,6 +164,8 @@ pubblica, meno superficie di rischio, e nel caso del role-play
 non perdi nulla di didatticamente utile, perché l'IA simula la
 posizione, non riconosce la persona.
 
+</Collapsible>
+
 ## Il rischio specifico: sycophancy
 
 I modelli sono allenati con un meccanismo che si chiama
@@ -188,13 +179,13 @@ Risultato: di default, l'IA tende a confermare la tua posizione,
 elogiare l'idea che le proponi, e dirti che sei sulla strada
 giusta.
 
-In gergo questa tendenza si chiama **sycophancy**, dall'inglese
-"adulazione". Non è un bug, è un effetto collaterale di come è
-addestrata. È il motivo per cui se chiedi *"che ne pensi della
-mia idea?"* la risposta default è *"ottima!"* seguito da quattro
-punti di rinforzo. Non perché l'idea sia ottima: perché elogiare
-prima e poi sfumare è il modo più corto per ottenere un voto
-alto da chi ha valutato l'IA durante l'allenamento.
+In gergo si chiama **sycophancy**, dall'inglese "adulazione". Non è un bug, è un effetto collaterale dell'addestramento: se chiedi *"che ne pensi della mia idea?"* la risposta di default è *"ottima!"* seguito da quattro punti di rinforzo.
+
+<ChatDemo
+  user="Sto per proporre al CEO un programma interno di mentoring per i junior. Che ne pensi?"
+  ai="Ottima idea! Il mentoring migliora la retention, accelera la crescita dei junior e rafforza la cultura aziendale. La tua proposta è ben pensata e ha buone probabilità di essere accolta. Un consiglio: presentala con entusiasmo."
+  showReplay={false}
+/>
 
 Tre prompt che funzionano per smontare il default:
 
@@ -212,10 +203,18 @@ numero o un'intensità** (tre buchi, tutta la forza, il critico
 più severo). Senza questi tre elementi, anche con la migliore
 volontà, l'IA tenderà a tornare al suo default.
 
+<PromptCompare
+  weak="Che ne pensi della mia idea di lanciare un programma di mentoring per i junior?"
+  strong={`Sto per proporre al CEO un programma di mentoring per i junior (la proposta è qui sotto, in cinque punti). Tu sei il CFO più scettico del consiglio. Trova i tre buchi più grandi, anche scomodi. Salta i complimenti e vai diretto sul critico.`}
+  note="Il secondo dà un ruolo di sfida, un numero e un blocco ai preamboli. Il primo invita al complimento."
+/>
+
 Poi leggi con attenzione quello che ti arriva. Se la critica è
 solida, ammettila. Se la tua prima reazione è cercare un altro
 prompt che ti dia una risposta più gentile, sei già nella
 trappola.
+
+<Collapsible title="Vale per tutti i modelli?">
 
 Sui modelli specifici: i tre maggiori (Claude, ChatGPT, Gemini)
 sono tutti soggetti a sycophancy, in misura diversa e in modi
@@ -227,6 +226,8 @@ cambiare modello quando uno sembra troppo accomodante, ma
 I vincoli espliciti restano la difesa più affidabile, perché
 agiscono al livello del prompt e non dipendono dalla versione
 del modello che hai aperto in quel momento.
+
+</Collapsible>
 
 ## Penso meglio, o mi faccio rassicurare?
 
@@ -252,6 +253,8 @@ Anche piccola.
   critica di emergere, l'IA mi ha confermato, e mi sento più
   forte senza esserlo.
 
+<Collapsible title="Se hai cambiato idea: ricontrolla prima di portarla in riunione">
+
 Il test "almeno una cosa è cambiata" da solo non basta: cambiare
 in peggio è sempre possibile. Se l'IA ha portato un'argomentazione
 brillante che ti ha fatto cambiare posizione, prima di portare
@@ -266,6 +269,8 @@ una premessa fattuale sbagliata (è il pattern di
 [*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/))
 e tu ti ritrovi a difendere in pubblico una conclusione poggiata
 su un'allucinazione.
+
+</Collapsible>
 
 Tre segnali pratici di "thinking partner che ha funzionato":
 
@@ -292,6 +297,8 @@ Stai per proporre al CEO di lanciare un programma interno di
 mentoring per i junior. Hai una bozza di proposta in cinque
 punti. Vuoi sentirla criticata da un CFO scettico prima di
 portarla in consiglio.
+
+<Collapsible title="La conversazione completa e cosa farne">
 
 <ChatDemo
   user={`Sto per proporre al CEO un programma interno di mentoring per i junior. La proposta in cinque punti:
@@ -337,6 +344,19 @@ Tutte e tre le opzioni sono il lavoro che il dialogo con l'IA
 ti ha permesso di fare in venti minuti, prima della riunione,
 invece di farlo in pubblico davanti al consiglio.
 
+</Collapsible>
+
+<SelfCheck
+  id="ai-as-thinking-partner-q1"
+  question="A fine dialogo con l'IA su una tua proposta ti senti più sicuro, ma non è cambiato niente nell'idea. Cosa ti dice?"
+  options={[
+    { text: "Che la proposta è solida, perché l'IA non ha trovato difetti.", why: "Può essere vero, ma senza vincoli di sfida l'IA tende a confermare: l'assenza di critiche non è una prova." },
+    { text: "Che forse hai cercato rassicurazione invece di una sfida, e il dialogo non ha funzionato da thinking partner.", correct: true, why: "Se non è cambiata nemmeno una cosa, vale la pena chiedersi se la critica aveva modo di emergere." },
+    { text: "Che serve un altro modello, meno accomodante.", why: "Tutti i modelli tendono alla sycophancy: la difesa più affidabile sono i vincoli espliciti nel prompt." },
+    { text: "Che serve un dialogo più lungo, perché dopo molti turni qualcosa cambierà.", why: "La lunghezza non è un segnale di profondità: conta se almeno una cosa è cambiata." },
+  ]}
+/>
+
 ## Cosa NON fare
 
 **Non chiedere *"che ne pensi?"* senza vincoli.** È il modo più
@@ -364,13 +384,7 @@ il dialogo con l'IA, vai dal medico/commercialista/avvocato con
 domande migliori, non con una decisione già presa che chiedi
 loro di firmare.
 
-**Non scambiare un dialogo lungo per un dialogo profondo.**
-Quaranta turni con l'IA possono essere brillanti e
-completamente scollegati dal merito. Il segnale di profondità
-non è il numero di scambi, è il test "almeno una cosa è
-cambiata" della sezione
-[Penso meglio, o mi faccio rassicurare?](#penso-meglio-o-mi-faccio-rassicurare). Se il dialogo è lungo e nulla è
-cambiato, hai perso un'ora.
+
 
 ## Cosa viene dopo
 
@@ -380,7 +394,7 @@ fra una settimana, fra un mese, senza ricaricare ogni volta chi
 sei e cosa stai facendo? La prossima lezione, *Riusare contesto
 con i progetti*, copre lo strumento che le tre maggiori
 piattaforme hanno adottato per questo: Claude Projects, ChatGPT
-Custom GPT, Gemini Gems.
+Projects, Gemini Gems.
 
 ## Verifica cosa hai capito
 

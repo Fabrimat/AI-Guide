@@ -2,11 +2,14 @@
 title: Company data and privacy
 description: "Whatever you paste into a public AI can leave your company. Three risk levels (red, yellow, green), what changes with Enterprise or Team plans, the NDA gut check, and what to do if your company has no policy yet."
 livello: intermedio
-prerequisiti: [ask-well, privacy-basics]
+prerequisiti: [ask-well, privacy-basics, data-and-tables]
 ---
 
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -80,12 +83,10 @@ A simple scale before you paste anything into a chat.
 
 Quick gut check for borderline cases: "if this text showed up in a
 Google search a year from now, would it create a problem with my
-boss, a client, or legal?". If yes, you're at least in yellow. The
-same test worked for the personal version (Module 1), but at work
-"Google search" is the worst case: well before that, your manager
-is already asking where that data went.
+boss, a client, or legal?". If yes, you're at least in yellow.
 
-:::tip[What if I've already pasted things I now classify as red or yellow?]
+<Collapsible title="What if I've already pasted things I now classify as red or yellow?">
+
 This happens to almost everyone reading this lesson: you realize
 you've uploaded something in the past you wouldn't upload today.
 Three things you can do now:
@@ -103,7 +104,8 @@ Three things you can do now:
    serious impact, consider raising it with your manager or
    compliance contact. An incident reported early and honestly is
    almost always better than one discovered later.
-:::
+
+</Collapsible>
 
 ## How to anonymize in practice
 
@@ -135,7 +137,27 @@ For a .docx or an email, your editor's "find and replace" is
 enough. Don't paste the original and then ask the AI to anonymize
 it: you've already let the data into the system.
 
-:::tip[What if the file is a scanned PDF, a photo, or an audio file?]
+<SelfCheck
+  id="company-data-and-privacy-q1"
+  question="You have the minutes of a meeting with client names and margin figures, and you want an AI summary. What is the first move?"
+  options={[
+    { text: "I paste the minutes and ask the AI to anonymize and then summarize them.", why: "By then the real data has already entered the system. Anonymizing has to happen before pasting." },
+    { text: "I replace names and identifiers with labels (Client A, Client B) myself and cut the figures I don't need, then paste.", correct: true, why: "The AI can reason about the structure of the text without seeing the real data." },
+    { text: "I open a temporary chat and paste the minutes as they are.", why: "A temporary chat changes your history, not the fact that the text reaches the provider's servers." },
+    { text: "I paste only the part of the meeting I care about, without touching names and figures.", why: "Less text helps, but names and margins are still red or yellow data inside that part." },
+  ]}
+  explanation="The step to always take is removing the data before, not after."
+/>
+
+If you'd like mechanical help, this tool swaps emails, phone
+numbers, IBANs and the names you list for placeholders (it runs in
+your browser and sends nothing). It doesn't catch everything: always
+reread the result.
+
+<Anonymizer />
+
+<Collapsible title="What if the file is a scanned PDF, a photo, or an audio file?">
+
 Find-and-replace doesn't work on a PDF image, a scan, or a voice
 recording. Three options, in order of preference:
 
@@ -151,7 +173,8 @@ recording. Three options, in order of preference:
    computer), then anonymize the extracted text and paste only
    that. Don't upload the original PDF to a public AI to have it
    transcribed.
-:::
+
+</Collapsible>
 
 **Quick check before pasting.** Read the anonymized text as a
 stranger who finds it online. If you can still guess which
@@ -173,12 +196,10 @@ a Plus account used at work is equivalent to a free account.
 The companies that build the models sell **business** plans
 designed for work: ChatGPT Team and Enterprise (OpenAI), Claude
 Team and Enterprise (Anthropic), Gemini for Workspace (Google),
-Microsoft Copilot for Business and Enterprise (which runs on the
-Azure OpenAI backend: for those who don't know, it's a Microsoft
-offering that uses OpenAI's models but with Microsoft Azure's
-contracts, infrastructure, and privacy rules, typically more
-favorable for companies already on a Microsoft stack). Business
-plans usually offer three contractual guarantees.
+Microsoft Copilot for Business and Enterprise
+(OpenAI models, but with Microsoft Azure's contract and
+infrastructure). Business plans usually offer three contractual
+guarantees.
 
 - **No training on your data by default**. Your conversations and
   files aren't used to train future models. On consumer plans this
@@ -201,6 +222,8 @@ your machine and reaches a vendor) is identical. What changes is
 the **contractual guarantees** about what the vendor will or won't
 do with that data.
 
+<Collapsible title="How to read a plan page: DPA, retention, opt-out">
+
 Don't trust the "Enterprise" label on the plan. Offerings shift
 across vendors and over time. The operational test: on the plan's
 page, search for "data retention", "training opt-out", "DPA". A
@@ -213,6 +236,8 @@ conditions until you have it in writing. On a Team plan you can
 still find clauses that allow the provider to use "public" or
 "shared" prompts to improve the service: read before you sign for
 the team.
+
+</Collapsible>
 
 ## NDAs, GDPR, AI Act
 
@@ -261,6 +286,8 @@ enough: "I use public AI for X and Y, I have doubts about which
 data I can or can't pass to it, is there a company stance or
 should we draft one?". That is enough to put the issue on the radar.
 
+<Collapsible title="If you're freelance">
+
 If you're **freelance**, you don't have a company behind you but
 you have clients, and the policy is built toward them: in the
 contracts you sign, check if there's a clause on AI use with the
@@ -268,6 +295,8 @@ client's data. If there isn't, raise the point during negotiation,
 especially if you handle sensitive data. A clause along the lines
 of "the contractor may use generative AI tools only on anonymized
 content" is reasonable for both sides.
+
+</Collapsible>
 
 ## The end of the module, and what's next
 

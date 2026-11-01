@@ -14,7 +14,7 @@ The student should have understood that:
 
 - AI chats remember nothing between one conversation and the next. For recurring tasks (weekly status, Thursday newsletter, monthly brief) reloading the context on every new chat is a hidden tax paid every time. "Projects" are the mechanism to pay it once.
 
-- Three names for the same thing. Claude Projects (Pro and up), ChatGPT Custom GPTs (creation from Plus, but using a public one works on Free), Gemini Gems (free, but on consumer you can't upload knowledge files). The logic is identical: persistent container with instructions and files, every chat opened inside inherits everything. The question isn't "which platform is best?" but "which one do I already open ten times a week?".
+- Three names for the same thing. Claude Projects (on the free plan too, with limits), ChatGPT Projects (on the free plan too, with file limits) and Custom GPTs (creating one needs a paid plan, using one is free), Gemini Gems (free, with knowledge files; they become "skills" for personal accounts from November 2026). Plans and limits change: invite the student to check the plan pages. The logic is identical: persistent container with instructions and files, every chat opened inside inherits everything. The question isn't "which platform is best?" but "which one do I already open ten times a week?".
 
 - Three ingredients to put inside. Persistent instructions (who you are, how AI should behave inside this project; write them the way you talk; one page is plenty; focus on what NOT to do). Knowledge files (domain documents, style material, good past outputs; three to five focused files beat thirty generic ones, because AI fetches at the moment of the question and more files dilute relevance; PDF and Markdown are the most reliable formats). Examples (three or four well-done past outputs, inside the instructions or in the knowledge files).
 
@@ -33,7 +33,7 @@ What to do
 
 2. Ask one question at a time, waiting for the answer before moving on. The four questions are progressive:
 
-   1. Same pattern, three names: "The lesson says Claude Projects, ChatGPT Custom GPTs, and Gemini Gems solve the same problem. What's the problem, and what's the common pattern that ties them together?"
+   1. Same pattern, three names: "The lesson says Claude Projects, ChatGPT Projects, and Gemini Gems solve the same problem. What's the problem, and what's the common pattern that ties them together?"
 
    2. Three ingredients: "The lesson proposes three ingredients to build a useful project. Which ones? For one of the three, tell me a good practice and a thing to avoid."
 

@@ -8,6 +8,8 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -110,6 +112,17 @@ Un test veloce: leggi ad alta voce il bullet e conta le parole
 con le dita. Se arrivi a dieci prima di esaurire la frase, è
 lungo. Se puoi dirlo in un respiro solo, è a posto.
 
+<SelfCheck
+  id="slides-and-presentations-q1"
+  question="L'IA ti restituisce bullet da 18 parole, con verbi impersonali (come «è stato osservato che...»). Qual è la correzione più efficace?"
+  options={[
+    { text: "Chiedere di renderli migliori.", why: "Una richiesta generica riporta l'IA al suo default verboso." },
+    { text: "Fissare numero e lunghezza: massimo quattro bullet da dieci parole, stile telegrafico, cifre e nomi propri che restano.", correct: true, why: "Vincoli numerici e uno stile preciso forzano la sintesi senza perdere i dati." },
+    { text: "Chiedere un carattere più grande per la slide.", why: "Il font si decide nel template e non accorcia il testo." },
+    { text: "Chiedere di aggiungere le speaker notes.", why: "Le note servono per dire altro a voce, non accorciano i bullet." },
+  ]}
+/>
+
 ## Speaker notes
 
 Il bullet fissa l'idea; le parole che dici ad alta voce sono
@@ -134,12 +147,8 @@ scritto è la cosa che più svuota una presentazione. Le speaker
 notes servono per dire *altro*: il perché di quel dato,
 l'aneddoto, la transizione verso la slide successiva.
 
-Le usi per prepararti, non per leggerle. Se a presentare arrivi
-leggendo le note parola per parola, hai bisogno di uno script
-vero, non di speaker notes, e probabilmente di un pubblico più
-piccolo o di una call registrata senza audience. Quasi mai è il
-caso: meglio prepararsi a voce e portarle come rete di
-sicurezza.
+Le usi per prepararti, non per leggerle: se ti serve leggere
+parola per parola, ti serve uno script, non delle note.
 
 ## Un esempio concreto
 
@@ -152,19 +161,7 @@ slide *"Risultati Q2"*:
 > sono stati 23, in linea con il Q1. Le ore oltre preventivo
 > sono salite del 18%, soprattutto sul cliente Alfa.
 
-Il prompt generico (*"fammi i bullet per la slide"*) produce
-bullet lunghi che riparafrasano il testo:
-
-> - Nel Q2 abbiamo raggiunto ricavi pari a 1,2 milioni di euro,
->   in crescita del 12% rispetto al primo trimestre
-> - Il risultato è ancora inferiore al budget annuale, con uno
->   scarto del 5%
-> - I progetti consegnati nel trimestre sono stati 23, in linea
->   con il Q1
-> - Le ore sforate sul preventivo sono aumentate del 18%,
->   soprattutto sul cliente Alfa
-
-Stesso testo, solo spezzato. Non serve. Cambia prompt:
+Il prompt generico (*"fammi i bullet per la slide"*) produce bullet lunghi che riparafrasano il testo: stesso contenuto, solo spezzato. Con il prompt rigido:
 
 <ChatDemo
   user={`Riscrivi questi bullet come massimo quattro bullet di massimo dieci parole ciascuno, senza verbi alla terza persona, stile telegrafico. Cifre e nomi propri restano.
@@ -185,7 +182,8 @@ ancora sotto budget; i progetti restano in linea ma le ore
 sforate crescono, e il peso è quasi tutto su un solo cliente."*
 Questo è quello che va nelle speaker notes, non nei bullet.
 
-:::note[Se usi un tool di slide generate dall'IA]
+<Collapsible title="Se usi un tool di slide generate dall'IA">
+
 Gamma, Beautiful.ai, Decktopus e simili generano slide
 direttamente da un prompt o un documento, con design già
 applicato. Cambia lo strumento, non il principio: il primo giro
@@ -200,7 +198,8 @@ aspetti di ritoccare molto, parti dalla scaletta in testo e
 impagina nel tuo tool preferito, hai più controllo. E in ogni
 caso, controlla le fonti e le cifre: questi tool allucinano sui
 numeri come qualunque altra IA.
-:::
+
+</Collapsible>
 
 ## Cosa NON chiedere all'IA
 
@@ -212,6 +211,8 @@ serve un designer, non un'IA. Pochi secondi di ragionamento
 tuo sul template che usi di solito valgono più di qualunque
 risposta generica.
 
+<Collapsible title="Animazioni e font">
+
 **Animazioni e transizioni.** Stesso discorso, aggravato. Le
 animazioni servono raramente (quasi mai), e quando servono
 dipendono dalla slide specifica. L'IA ti suggerirà "fade in del
@@ -222,6 +223,8 @@ animare, non animare.
 **Font.** Il font è deciso dal template della tua azienda, o
 dal template che scegli in PowerPoint/Keynote. L'IA non lo sa e
 te ne suggerirà uno qualunque. Salta questa domanda.
+
+</Collapsible>
 
 In generale, se la domanda inizia con *"che aspetto dovrebbe
 avere..."*, stai chiedendo la cosa sbagliata. L'IA è forte sul

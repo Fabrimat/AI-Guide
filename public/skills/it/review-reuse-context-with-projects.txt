@@ -14,7 +14,7 @@ Lo studente dovrebbe aver capito che:
 
 - Le chat con l'IA non si ricordano niente fra una conversazione e l'altra. Per task ricorrenti (status settimanale, newsletter del giovedì, brief mensile) ricaricare il contesto a ogni nuova chat è una tassa nascosta che si paga ogni volta. I "progetti" sono il meccanismo per pagarla una volta sola.
 
-- Tre nomi per la stessa cosa. Claude Projects (da Pro in su), ChatGPT Custom GPTs (creazione da Plus, uso anche su Free per quelli pubblici), Gemini Gems (free, ma al consumer non si caricano knowledge file). La logica è identica: contenitore persistente con istruzioni e file, ogni chat aperta dentro il contenitore eredita tutto. La domanda non è "quale piattaforma è migliore?" ma "quale ho già aperta dieci volte alla settimana?".
+- Tre nomi per la stessa cosa. Claude Projects (anche nel piano gratuito, con limiti), ChatGPT Projects (anche nel piano gratuito, con limiti sui file) e Custom GPT (crearli richiede un piano a pagamento, usarli è gratis), Gemini Gems (gratis, con file di knowledge; da novembre 2026 diventano "skill" per gli account personali). Piani e limiti cambiano: invita lo studente a controllare le pagine dei piani. La logica è identica: contenitore persistente con istruzioni e file, ogni chat aperta dentro il contenitore eredita tutto. La domanda non è "quale piattaforma è migliore?" ma "quale ho già aperta dieci volte alla settimana?".
 
 - Tre ingredienti da metterci dentro. Istruzioni persistenti (chi sei, come l'IA deve comportarsi dentro questo progetto, da scrivere come parli, max una pagina, con focus su cosa NON deve fare). File di knowledge (documenti del dominio, materiale di stile, output buoni del passato; tre-cinque file mirati battono trenta generici, perché l'IA pesca al momento e più file diluiscono la rilevanza; PDF e Markdown sono i formati più affidabili). Esempi (tre-quattro output del passato fatti bene, dentro le istruzioni o nei file di knowledge).
 
@@ -33,7 +33,7 @@ Cosa devi fare
 
 2. Fai una domanda alla volta, aspettando la risposta prima di passare alla successiva. Le quattro domande sono progressive:
 
-   1. Stesso pattern, tre nomi: "La lezione dice che Claude Projects, ChatGPT Custom GPTs e Gemini Gems risolvono lo stesso problema. Qual è il problema, e qual è il pattern comune che li accomuna?"
+   1. Stesso pattern, tre nomi: "La lezione dice che Claude Projects, ChatGPT Projects e Gemini Gems risolvono lo stesso problema. Qual è il problema, e qual è il pattern comune che li accomuna?"
 
    2. Tre ingredienti: "La lezione propone tre ingredienti per costruire un progetto utile. Quali sono? Per uno dei tre, dimmi una buona pratica e una cosa da evitare."
 

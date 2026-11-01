@@ -8,6 +8,8 @@ prerequisiti: [ask-well, iterate-the-conversation]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -29,8 +31,7 @@ non c'è, ed è giusto così, è il momento umano. Ma prima e dopo
 lavora bene, e sono proprio i due momenti dove di solito si perde
 tempo. Prima: ordine del giorno, brief per i partecipanti, domande
 probabili. Dopo: estratto delle decisioni, action item, ponte con
-chi non era in call. Se la riunione dura un'ora, dieci minuti di
-prep e dieci di chiusura ti ricomprano il doppio sui partecipanti.
+chi non era in call.
 
 ## Prima della riunione
 
@@ -76,9 +77,8 @@ devil's advocate (contesta le tue idee per farne emergere i punti
 deboli), elenca una dozzina di domande, tu ne noti tre a cui non
 avevi pensato e prepari la risposta.
 
-Non è un indovino: qualche obiezione anticipata non arriva, altre
-emergono che non aveva previsto. Però ne indovina una buona parte,
-e il tempo di prep si accorcia. Spesso vale un secondo giro nello stesso stile di [*Iterare la
+Non è un indovino: qualche obiezione non l'aveva prevista. Ne
+indovina però una buona parte. Spesso vale un secondo giro, come in [*Iterare la
 conversazione*](/it/everyday-use/iterate-the-conversation/): *"di
 queste, quali sono le tre più probabili e perché?"*. La seconda
 lista è più utile della prima.
@@ -173,7 +173,9 @@ giuste, non quelle generiche.
 
 Finita una riunione di status settimanale del team prodotto (sei
 persone, 45 minuti), hai una trascrizione dallo strumento di call.
-La passi così:
+La passi così.
+
+<Collapsible title="L'esempio completo: trascrizione ed estratto">
 
 <ChatDemo
   user={`Da questa trascrizione estrai, in tre sezioni separate: 1. Decisioni prese, 2. Action item con owner e scadenza, 3. Domande aperte. Niente narrazione.
@@ -203,6 +205,8 @@ follow-up, e nelle domande aperte leggi subito i due temi che nella
 riunione non avete chiuso. La stessa estrazione a mano sarebbe
 venti minuti di rilettura.
 
+</Collapsible>
+
 :::caution[Le trascrizioni contengono dati di altri]
 Una trascrizione è un testo collettivo: contiene quello che hanno
 detto persone che non hanno consentito all'IA di leggerle. Nomi,
@@ -220,6 +224,12 @@ nomi e cifre se il tuo contesto aziendale lo permette: il rischio
 è più basso. Il quadro più ampio è in [*Quello che condividi
 quando usi l'IA*](/it/fundamentals/privacy-basics/).
 :::
+
+Per ripulire una trascrizione prima di incollarla puoi usare questo
+strumento: sostituisce email e telefoni, e i nomi che gli indichi
+(lavora nel tuo browser, non invia nulla).
+
+<Anonymizer />
 
 ## Cosa NON fare
 

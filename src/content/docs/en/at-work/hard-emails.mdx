@@ -8,6 +8,9 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -108,9 +111,8 @@ describing, and it marks the sentences.
 
 The difference between an email that sounds right and one that
 sounds like a business manual is all here. Pasting the draft and
-saying "improve it" produces the *AI-polish* you encountered in
-[*Write better*](/en/everyday-use/write-better/): polite, smooth,
-unsigned.
+saying "improve it" produces the polished AI tone, the [average voice](/en/everyday-use/write-better/#the-average-voice)
+that *Write better* describes: polite, smooth, unsigned.
 
 Instead you describe: who this person is (role, how long you've
 worked together), how your relationship usually goes (formal,
@@ -119,6 +121,12 @@ achieve with the reply, what you absolutely don't want (*"I don't
 want it to sound like I'm punishing them, I don't want them to
 feel they can keep postponing"*). The more you tell, the better
 the AI reads the emotional temperature of the message.
+
+<PromptCompare
+  weak="Improve this email: [paste your draft]"
+  strong={`I need to reply to a client asking for a 20% discount, beyond my margins. We've worked together for two years, the relationship is good but he tends to push on price. I want to say no without closing the door and without sounding rigid. Here is my draft: [paste your draft]. Tell me where the tone isn't what I want, then give me two versions: one direct, one warmer.`}
+  note="The second one says who the other person is, what the relationship is like and what you want to avoid. The first leaves the tone to the AI's default."
+/>
 
 If the stakes are urgent (you have to send within an hour),
 compress the description into three or four essential sentences:
@@ -154,12 +162,10 @@ a client: the document was due yesterday, it went out today. You
 two have worked together for eight months, she's usually on time,
 this is her first serious slip. You don't want the email to sound
 punitive (it's an isolated case) but you don't want to play it
-down either (with the client, credibility took a hit). When you
-write the prompt, replace the real name before pasting. Three
-ways that work: a generic (*"the teammate"*), a fake name
-(*"Clara"* in place of the real one), or just initials (*"C."*).
-The AI has all the context it needs without getting the actual
-name.
+down either (with the client, credibility took a hit). In the
+prompt, put a fake name in place of the real one.
+
+<Collapsible title="The full conversation: three versions of the same email">
 
 <ChatDemo
   user={`I need to write to my junior teammate about a document delivered to the client yesterday instead of the day before. We've worked together for 8 months, she's usually on time, this is her first serious slip. I don't want to sound punitive because it's an isolated case, but I don't want to play it down either. Give me three versions: one direct, one diplomatic, one terse. Four sentences max each.`}
@@ -182,6 +188,8 @@ is warm. Your final version probably steals the opening from the
 first, the reason from the second, and the practicality from the
 third. You put `[name]` and `[client]` back in yourself just
 before sending: the AI never saw them.
+
+</Collapsible>
 
 :::tip[Tone for your boss]
 Tone is hard to get right with a boss: the one you'd use with a
@@ -218,7 +226,12 @@ generic works (*"[name]"*, *"the colleague"*), so does a fake
 name, or just initials; what matters is that the AI doesn't see
 the real data. The privacy of the people involved in your email
 isn't yours to give away. The full picture is in [*What you share
-when you use AI*](/en/fundamentals/privacy-basics/).
+when you use AI*](/en/fundamentals/privacy-basics/). If you want
+mechanical help, this tool swaps emails, phone numbers and the
+names you list for placeholders (it runs in your browser and
+sends nothing):
+
+<Anonymizer />
 
 ## What comes next
 

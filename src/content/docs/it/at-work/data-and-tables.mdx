@@ -8,6 +8,8 @@ prerequisiti: [ask-well, images-and-files]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -30,11 +32,6 @@ un foglio di calcolo aziendale non è il tuo diario. Ci sono
 dentro clienti, fornitori, contratti, fatturato. Prima di
 incollarlo in una chat pubblica, vale la pena fermarsi trenta
 secondi per decidere cosa far uscire dall'azienda e cosa no.
-
-Questa lezione è la cassetta degli attrezzi pratica: tre casi
-d'uso concreti, una sezione sulla privacy che è il pezzo più
-importante, e una regola su quando smettere di chiedere all'IA
-e aprire il tool giusto.
 
 ## Tre casi d'uso concreti
 
@@ -73,6 +70,8 @@ tuoi dati sono misti può interpretare *"03/04/2026"* come
 *"aprile"* invece di *"marzo"*. Una riga di vincolo risolve il
 problema.
 
+<Collapsible title="Se le righe sono cinquecento e non dieci">
+
 Se le righe sono cinquecento e non dieci, ci sono due strade.
 La prima, pratica, è il pattern **campione, regola,
 estensione**: passi dieci-venti righe rappresentative, trovi
@@ -87,6 +86,8 @@ piattaforma. Fra le due, la prima è di solito più robusta:
 mantiene il controllo su come la regola viene applicata e non
 affida cinquecento righe di dati aziendali a un solo giro
 dell'IA.
+
+</Collapsible>
 
 ### 2. Formule Excel o Sheets che non ricordi
 
@@ -115,6 +116,8 @@ Così la volta successiva la scrivi da solo o la adatti a un
 caso diverso. Senza la spiegazione, hai risolto oggi ma non
 hai imparato nulla.
 
+<Collapsible title="Quando Excel risponde con un errore">
+
 Se incolli la formula e Excel risponde con `#NOME?`,
 `#VALORE!` o `#RIF!`, non rifare il giro da zero. Copia
 l'errore così com'è nella chat e chiedi *"mi dà questo errore,
@@ -124,6 +127,8 @@ funzione nella lingua sbagliata (`SUMIF` in Excel italiano),
 o un riferimento di cella che non esiste sul tuo foglio.
 Rimbalzare l'errore è più veloce che provare a indovinare il
 fix.
+
+</Collapsible>
 
 ### 3. Piccole analisi su estratti
 
@@ -188,6 +193,8 @@ standard) valgono tre mosse, in questo ordine.
    [*Foto, immagini e file*](/it/everyday-use/images-and-files/),
    applicato a dati tabellari.
 
+<Anonymizer />
+
 Queste tre mosse non coprono tutto. Contratti con clausole di
 riservatezza, dati sanitari, dati di categorie particolari
 (GDPR art. 9) sono un gradino sopra: lì l'anonimizzazione non
@@ -195,7 +202,8 @@ basta, serve un canale aziendale dedicato o nessuna IA
 pubblica. Una lezione più avanti nel modulo, *Privacy e dati
 aziendali*, affronta quel livello.
 
-:::note[IA pubblica o IA aziendale?]
+<Collapsible title="IA pubblica o IA aziendale?">
+
 Se la tua azienda ti ha dato un account Team, Enterprise, o
 un tenant Microsoft Copilot / ChatGPT Enterprise / Claude
 Team, le policy di privacy cambiano: i dati che carichi lì in
@@ -212,7 +220,8 @@ consumer; se leggi *Team*, *Enterprise*, *Business*, o vedi
 il logo della tua azienda accanto al tuo nome, è business.
 ChatGPT Plus a pagamento è comunque consumer: il pagamento
 sblocca funzioni, non cambia il perimetro dei dati.
-:::
+
+</Collapsible>
 
 ## IA per l'ad-hoc, BI per il ricorrente
 
@@ -241,6 +250,8 @@ Hai un estratto di cinque righe di una colonna *Cliente* del
 gestionale, scritte in modi diversi. Vuoi uniformarle in
 formato *Nome Cognome* per importarle in un foglio Excel
 pulito.
+
+<Collapsible title="La conversazione e il commento">
 
 <ChatDemo
   user={`Ti incollo cinque righe della colonna "Cliente". Uniformale in formato "Nome Cognome" (es. "Mario Rossi"). Se c'è una ragione sociale, mettila dopo una virgola. Restituiscimi la tabella pulita più una riga finale con i dubbi aperti, se ci sono.
@@ -272,6 +283,15 @@ comportamento.
 Senza quel vincolo, l'IA avrebbe probabilmente scritto
 *"Mario Rossi"* ovunque, fondendo righe che magari erano di
 clienti diversi, e tu non te ne saresti accorto.
+
+</Collapsible>
+
+<LlmExercise
+  title="Pulisci una tabella sporca"
+  file="practice-clean-a-messy-table.txt"
+  duration="10-15 min"
+  description="Una tabella finta con nomi e date incoerenti. Scrivi il prompt di pulizia, controlla a campione il risultato e chiedi la formula per il resto."
+/>
 
 ## Cosa NON fare
 

@@ -8,6 +8,8 @@ prerequisiti: [ask-well, images-and-files]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -30,10 +32,6 @@ a work spreadsheet isn't your journal. It has customers,
 suppliers, contracts, revenue. Before pasting it into a public
 chat, take thirty seconds to decide what leaves the company
 and what doesn't.
-
-This lesson is the practical toolkit: three concrete use
-cases, a privacy section that's the most important piece, and
-a rule for when to stop asking AI and open the right tool.
 
 ## Three concrete use cases
 
@@ -71,6 +69,8 @@ US format (MM/DD/YYYY), and if your data is mixed it can read
 *"03/04/2026"* as *"April"* instead of *"March"*. One line of
 constraint fixes the problem.
 
+<Collapsible title="What if the rows are five hundred, not ten?">
+
 What if the rows are five hundred, not ten? Two paths. The
 first, practical one, is the **sample, rule, extend** pattern:
 you pass ten to twenty representative rows, work out the
@@ -83,6 +83,8 @@ rows well, as long as the file is within the platform's
 limits. Between the two, the first is usually safer: it keeps you in
 control of how the rule gets applied, and it doesn't dump
 five hundred rows of company data into a single AI call.
+
+</Collapsible>
 
 ### 2. Excel or Sheets formulas you can't remember
 
@@ -114,6 +116,8 @@ you'll write it yourself or adapt it to a different case.
 Without the explanation, you've solved today but learned
 nothing.
 
+<Collapsible title="When Excel answers with an error">
+
 If you paste the formula and Excel answers with `#NAME?`,
 `#VALUE!`, or `#REF!`, don't start from scratch. Copy the
 error as-is into the chat and ask *"this is the error I'm
@@ -123,6 +127,8 @@ function in the wrong language (`SUMIF` in a non-English
 Excel), or a cell reference that doesn't exist on your sheet.
 Pasting the error back into the chat is faster than guessing
 the fix.
+
+</Collapsible>
 
 ### 3. Small analyses on extracts
 
@@ -185,6 +191,8 @@ three moves apply, in this order.
    [*Photos, images, and files*](/en/everyday-use/images-and-files/),
    applied to tabular data.
 
+<Anonymizer />
+
 These three moves don't cover everything. Contracts with
 confidentiality clauses, health data, special category data
 (GDPR art. 9) are a notch higher: anonymization isn't enough,
@@ -192,7 +200,8 @@ you need a dedicated company channel or no public AI at all.
 A later lesson in this module, *Company data and privacy*,
 covers that level.
 
-:::note[Public AI or company AI?]
+<Collapsible title="Public AI or company AI?">
+
 If your company has given you a Team or Enterprise account, or
 a Microsoft Copilot / ChatGPT Enterprise / Claude Team tenant,
 the privacy terms change: the data you upload there typically
@@ -209,7 +218,8 @@ you see *Team*, *Enterprise*, *Business*, or your company's
 logo next to your name, it's business. ChatGPT Plus is still
 consumer even though it's paid: the payment unlocks features,
 it doesn't change the data perimeter.
-:::
+
+</Collapsible>
 
 ## AI for ad-hoc, BI for recurring
 
@@ -238,6 +248,8 @@ You have a five-row extract from a *Customer* column in the
 CRM, written inconsistently. You want them
 normalized to *First Last* format to import into a clean
 Excel sheet.
+
+<Collapsible title="The conversation and the commentary">
 
 <ChatDemo
   user={`I'm pasting five rows from the "Customer" column. Normalize them to "First Last" format (e.g., "John Smith"). If there's a business suffix, put it after a comma. Give me back the clean table plus one closing line with any open doubts.
@@ -268,6 +280,15 @@ that behavior.
 Without that constraint, AI would have probably written
 *"John Smith"* everywhere, merging rows that might have been
 different customers, and you wouldn't have noticed.
+
+</Collapsible>
+
+<LlmExercise
+  title="Clean up a messy table"
+  file="practice-clean-a-messy-table.txt"
+  duration="10-15 min"
+  description="A made-up table with inconsistent names and dates. Write the cleaning prompt, spot-check the result and ask for the formula for the rest."
+/>
 
 ## What NOT to do
 

@@ -8,6 +8,9 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -32,13 +35,6 @@ una scaletta giusta. Quello
 che funziona è dividere il lavoro in due momenti: prima la
 **struttura** (cosa va dove, quanto è lungo, per chi è), poi il
 **testo** (sezione per sezione, con te che resti il filtro).
-
-Questo non vuol dire che "l'IA come ghostwriter" sia sempre da
-evitare: su un'email quotidiana, un appunto per te stesso, un
-messaggio di auguri ai colleghi, incollare la prima versione va
-bene, il costo di una svista è basso. Sui documenti con una firma
-e qualcuno che decide leggendoli, il costo sale, e il pattern
-cambia.
 
 ## Tre documenti canonici
 
@@ -114,6 +110,12 @@ Il pattern che funziona bene è opposto all'istinto. L'istinto è
 pattern è: **chiedi una scaletta, la critichi, poi sezione per
 sezione**.
 
+<PromptCompare
+  weak="Scrivimi una proposta commerciale per un nuovo cliente."
+  strong={`Sto scrivendo una proposta di consulenza organizzativa di sei mesi per un'azienda familiare di 50 persone, che non ha mai preso un consulente esterno. Pubblico: il titolare, ha poco tempo ed è diffidente. Obiettivo: convincerlo a incontrarci per partire. Lunghezza massima: sei pagine. Non scrivere il testo: dammi solo una scaletta con una riga per sezione, poi aspetta le mie correzioni.`}
+  note="Il secondo fissa pubblico, obiettivo e lunghezza, e chiede la struttura prima del testo."
+/>
+
 Funziona meglio per due motivi. La critica alla scaletta costa
 molto meno della critica al testo: cambiare "togli la sezione
 timeline, aggiungi una sezione perché noi" sono due righe, mentre
@@ -143,7 +145,8 @@ per ogni sezione frammenta la voce. Se una sezione ti lascia
 insoddisfatto, la fai riscrivere mentre è fresca in testa, non
 alla fine su un blocco di duemila parole.
 
-:::tip[Quando la scaletta è pronta]
+<Collapsible title="Quando la scaletta è pronta">
+
 Una stop-rule che funziona: quando rileggi la scaletta e non senti
 più ansia ("manca qualcosa di importante?"), ma impazienza ("dai,
 scriviamo"), è pronta. Se perfezioni la scaletta per più di venti
@@ -151,9 +154,11 @@ minuti, è probabile che tu stia rimandando il momento di scrivere.
 Meglio partire su una scaletta abbastanza buona e
 correggerla durante il riempimento, che bloccarti a cercare la
 scaletta perfetta.
-:::
 
-:::note[Se il cliente o il tuo ufficio impongono un template]
+</Collapsible>
+
+<Collapsible title="Se il cliente o il tuo ufficio impongono un template">
+
 Capita spesso: procurement del cliente con stili Word obbligatori,
 template interno per le proposte, formato imposto dal bando
 pubblico. In questi casi la scaletta è già fatta, e il passo 1 si
@@ -162,7 +167,8 @@ sposta: passi l'indice del template all'IA come vincolo di input
 Y..."*) e vai direttamente al passo 2. La critica non sparisce, si
 sposta: non critichi più la struttura, critichi il contenuto di
 ogni sezione sotto quella struttura.
-:::
+
+</Collapsible>
 
 ## Un esempio concreto
 
@@ -171,6 +177,8 @@ un'azienda familiare di cinquanta persone che non ha mai preso un
 consulente esterno. Ti conoscono per introduzione di un tuo
 cliente precedente. Il primo giro è chiedere una scaletta
 generica.
+
+<Collapsible title="L'esempio completo: da una scaletta generica a una su misura">
 
 <ChatDemo
   user={`Mi proponi una scaletta per una proposta commerciale di consulenza organizzativa, sei mesi, per un'azienda di medie dimensioni. Solo indice delle sezioni con una riga di descrizione, non il testo.`}
@@ -219,6 +227,8 @@ di scriverti la bozza, con i vincoli di lunghezza del tuo indice.
 Quello che leggi sarà più veloce da correggere, perché sai già
 dove dovrebbe andare ogni pezzo.
 
+</Collapsible>
+
 :::tip[Calibra su pubblico e scopo]
 "Questo documento lo legge il CEO" e "questo documento lo legge
 il team tecnico" producono due scalette diverse. Anche con lo
@@ -232,6 +242,17 @@ documento: [decidere, informare, convincere]. Lunghezza massima:
 [X pagine / Y parole]."* Queste tre informazioni insieme cambiano
 il default dell'IA molto più di quanto ti aspetti.
 :::
+
+<SelfCheck
+  id="draft-professional-documents-q1"
+  question="Devi scrivere una proposta di otto pagine per un cliente nuovo e non sai da dove partire. Qual è il primo passo più efficiente con l'IA?"
+  options={[
+    { text: "Chiedere subito il testo completo e correggerlo riga per riga.", why: "Rileggere e tagliare molte parole nuove costa più che scriverne meno sopra una struttura giusta." },
+    { text: "Chiedere una scaletta con una riga per sezione e criticarla prima di scrivere.", correct: true, why: "Correggere una scaletta costa poche righe e fissa il perimetro per il testo che segue." },
+    { text: "Aprire una chat nuova per ogni sezione, così ognuna parte pulita.", why: "Con chat separate l'IA non vede le sezioni già scritte e la voce del documento si frammenta." },
+    { text: "Scrivere tu l'introduzione e lasciare all'IA tutto il resto in un colpo solo.", why: "Il resto resta un blocco lungo da rileggere, senza una struttura validata." },
+  ]}
+/>
 
 ## Cosa NON delegare
 

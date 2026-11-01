@@ -8,6 +8,8 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -107,6 +109,17 @@ A quick test: read the bullet out loud and count the words on
 your fingers. If you hit ten before running out of sentence,
 it's long. If you can say it in one breath, it's fine.
 
+<SelfCheck
+  id="slides-and-presentations-q1"
+  question="The AI gives you 18-word bullets with impersonal verbs (like «it was observed that...»). What is the most effective fix?"
+  options={[
+    { text: "Ask it to make them better.", why: "A generic request sends the AI back to its wordy default." },
+    { text: "Fix number and length: at most four bullets of ten words, telegraphic style, figures and proper names kept.", correct: true, why: "Numeric limits and a precise style force brevity without losing the data." },
+    { text: "Ask for a bigger font for the slide.", why: "The font is set by the template and doesn't shorten the text." },
+    { text: "Ask it to add speaker notes.", why: "Notes are for saying something else aloud, they don't shorten the bullets." },
+  ]}
+/>
+
 ## Speaker notes
 
 The bullet pins the idea; the words you say out loud are
@@ -131,11 +144,8 @@ empties a presentation fastest. Speaker notes are for saying
 *something else*: the reason behind the number, the anecdote,
 the transition to the next slide.
 
-You use them to prepare, not to read. If when presenting you
-end up reading the notes word for word, you need a real script,
-not speaker notes, and probably a smaller audience or a
-recorded call without one. That's rarely the case: better to
-rehearse aloud and carry them as a safety net.
+You use them to prepare, not to read: if you need to read word
+for word, you need a script, not notes.
 
 ## A concrete example
 
@@ -147,16 +157,7 @@ a slide titled *"Q2 Results"*:
 > in line with Q1. Hours over quote rose 18%, mainly on client
 > Alfa.
 
-The generic prompt (*"give me the bullets for the slide"*)
-produces long bullets that just rephrase the text:
-
-> - In Q2 we reached revenue of 1.2 million euros, up 12% on
->   the first quarter
-> - The result is still below the annual budget, with a 5% gap
-> - Projects delivered in the quarter were 23, in line with Q1
-> - Hours over quote went up 18%, mostly on client Alfa
-
-Same text, only broken up. Useless. Change the prompt:
+The generic prompt (*"give me the bullets for the slide"*) produces long bullets that just rephrase the text: same content, only broken up. With the rigid prompt:
 
 <ChatDemo
   user={`Rewrite these bullets as max four bullets of max ten words each, no third-person verbs, telegraphic style. Numbers and proper names stay.
@@ -177,7 +178,8 @@ under budget; project count holds but hours over quote are up,
 and the weight is almost all on one client."* That's what goes
 in the speaker notes, not in the bullets.
 
-:::note[If you use an AI-native slide tool]
+<Collapsible title="If you use an AI-native slide tool">
+
 Gamma, Beautiful.ai, Decktopus and the like generate
 slides directly from a prompt or a document, with design
 already applied. Different tool, same principle: the first pass
@@ -193,7 +195,8 @@ start from the outline in text and lay it out in your tool of
 choice, you get more control. And in any case, check sources
 and figures: these tools hallucinate on numbers like any other
 AI.
-:::
+
+</Collapsible>
 
 ## What NOT to ask the AI
 
@@ -205,6 +208,8 @@ need a designer, not an AI. A few seconds of your own thinking
 about the template you usually use is worth more than any
 generic answer.
 
+<Collapsible title="Animations and fonts">
+
 **Animations and transitions.** Same story, worse. Animations
 rarely help (almost never), and when they do, it depends on the
 specific slide. AI will suggest "fade in each bullet one by
@@ -215,6 +220,8 @@ animate.
 **Fonts.** The font is set by your company template, or by the
 template you pick in PowerPoint or Keynote. AI doesn't know it
 and will suggest some random one. Skip that question.
+
+</Collapsible>
 
 In general, if the question starts with *"what should it look
 like..."*, you're asking the wrong thing. AI is strong on

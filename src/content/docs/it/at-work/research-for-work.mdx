@@ -8,6 +8,8 @@ prerequisiti: [ask-well, when-to-trust-it, summarize-a-long-document]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
@@ -19,16 +21,7 @@ import LessonSummary from '../../../../components/LessonSummary.astro';
 
 </LessonSummary>
 
-Hai una riunione domattina con il direttore commerciale e ti chiede
-cinque punti su come si stanno muovendo i tre principali competitor
-sul tema X. Oppure: stai preparando una proposta per un cliente in
-un settore in cui non hai esperienza profonda, e ti servono numeri
-di mercato, regole, trend recenti. Oppure: il consiglio ti ha
-chiesto uno status sulla normativa Y che entra in vigore fra sei
-mesi, e tu non sapevi che esistesse.
-
-In tutti e tre i casi, il pattern è lo stesso: poco tempo, tante
-fonti potenziali, un output che firmerai con il tuo nome.
+Hai poco tempo, tante fonti potenziali e un output che firmerai con il tuo nome: un brief per il direttore commerciale sui competitor, una proposta in un settore che non conosci, uno status su una normativa che entra in vigore fra sei mesi.
 
 L'IA accelera molto questo lavoro. Mappa il territorio in due
 minuti dove a mano ce ne metteresti venti. Riassume cinque articoli
@@ -47,9 +40,6 @@ del Modulo 2: lì studi per te, e se l'IA sbaglia ti corregge la
 realtà più tardi; qui produci per qualcun altro, e se l'IA sbaglia
 il problema arriva a un cliente, a un capo, a un consiglio.
 
-Questa lezione è il manuale per usarla bene: tre modi standard, il
-rischio specifico, e un pattern di verifica che non si può saltare.
-
 ## Tre modi di usare l'IA per la ricerca
 
 Tre gesti distinti, da scegliere in base a dove sei nel processo:
@@ -67,6 +57,8 @@ ogni ricerca su un motore parte alla cieca.
 Qui l'IA è un indice del problema. Le chiedi una mappa, non i
 fatti.
 
+<Collapsible title="Esempio: il prompt per la mappa e cosa ti torna">
+
 > *"Devo preparare un brief sul tema 'normative europee sull'AI Act
 > per le PMI'. Non sono esperto. Dammi in dieci punti la mappa del
 > territorio: i sottotemi principali, gli attori istituzionali
@@ -80,6 +72,8 @@ privacy); termini chiave (high-risk AI, foundation model,
 General-Purpose AI); domande tipiche (devo notificare? quali
 multe? quando entra in vigore?).
 
+</Collapsible>
+
 Quella mappa non è la risposta finale. È la **bussola**: ti dice
 dove guardare, non cosa scrivere. Da lì sai quali termini cercare
 su un motore, quali fonti istituzionali aprire, quali domande
@@ -91,15 +85,7 @@ tecnico, e in due secondi vedi se esistono. Se l'attore esiste e
 il termine è in uso, il nodo della mappa ha senso. Se cercando non
 trovi nulla, l'IA l'ha probabilmente tirato fuori dal nulla.
 
-Non confonderla con la Tecnica 3 di
-[*Riassumere un documento lungo*](/it/everyday-use/summarize-a-long-document/).
-Lì la Tecnica 3 chiedeva l'indice di **un documento
-specifico** che avevi caricato; qui la mappa è di **un argomento**,
-senza un documento di partenza. La prima è una scaletta di un
-testo, la seconda è una bussola sul territorio. Cambia anche il
-rischio: l'indice di un documento si verifica scorrendo il
-documento, la mappa di un argomento si verifica cercando i nomi su
-un motore.
+
 
 ### 2. Sintetizzare più fonti che hai già
 
@@ -126,12 +112,18 @@ L'ultimo è quello che salva: un fatto che compare in tre fonti ha
 un peso diverso da un fatto che compare in una sola, e tu come
 firmatario del deliverable devi saperlo.
 
+<Collapsible title="Perché chiedere l'attribuzione cambia il comportamento dell'IA">
+
 Chiedere all'IA di mostrare l'attribuzione cambia anche il suo
 comportamento: se non riesce a dire da quale fonte arriva un
 fatto, è il segnale che probabilmente l'ha aggiunto dal suo
 training, non dalle fonti che le hai dato. Se ti scrive
 *"da nessuna fonte direttamente, ma è un fatto generalmente
 noto"*, sai che quel fatto va verificato a parte.
+
+</Collapsible>
+
+<Collapsible title="Se le fonti sono molte o molto lunghe">
 
 Sui volumi: cinque articoli di stampa o blog post entrano senza
 problemi in una chat. Cinque PDF di cento pagine ciascuno è un
@@ -145,7 +137,10 @@ strumento dedicato come Google NotebookLM, che gestisce pacchetti
 di fonti voluminose e mantiene la tracciabilità per fonte nelle
 risposte.
 
-:::caution[E se le fonti sono documenti aziendali riservati?]
+</Collapsible>
+
+<Collapsible title="E se le fonti sono documenti aziendali riservati?">
+
 Se le fonti che vuoi sintetizzare sono interne (un report del CFO,
 un memo confidenziale, un brief strategico) valgono le stesse
 regole di
@@ -156,7 +151,8 @@ sempre *"accetterei che questo finisse su un giornale domani?"*.
 Per fonti esterne pubbliche (articoli, report scaricati da siti,
 PDF aperti) il problema non si pone: stai sintetizzando materiale
 già pubblicato.
-:::
+
+</Collapsible>
 
 ### 3. Ricerca live con citazioni
 
@@ -178,6 +174,8 @@ Qui servono motori con accesso al web e citazioni:
 - **Claude con ricerca web attiva**: può cercare e citare le
   fonti.
 
+<Collapsible title="Quale motore scegliere, e le modalità di ricerca approfondita">
+
 Per scegliere fra questi quattro: per la ricerca pura (un dato,
 una statistica, un nome con fonte) Perplexity è il più diretto:
 nasce per quel caso e cita per default in modo molto leggibile.
@@ -186,7 +184,8 @@ scrivendo, riformulando, iterando) ChatGPT con search e Gemini
 sono più comodi: usi lo stesso strumento in cui stai facendo il
 resto. Se paghi già uno dei tre, quello che hai va bene per
 cominciare; se non ne paghi nessuno, Perplexity ha una versione
-gratuita generosa per il caso ricerca. Modalità più nuove come
+gratuita, con limiti giornalieri sulle ricerche approfondite, che
+basta per cominciare. Modalità più nuove come
 "Deep Research" su ChatGPT o ricerca agentica su Perplexity Pro
 (modalità in cui l'IA fa più giri di ricerca da sola, scava
 più in profondità, e ti consegna un output più lungo e
@@ -195,6 +194,8 @@ cambiano il problema di fondo: il
 [pattern di verifica](#pattern-verifica-cita-traccia) che leggerai
 nelle prossime sezioni resta lo stesso, perché l'invenzione non
 sparisce con più passaggi automatici, solo si nasconde meglio.
+
+</Collapsible>
 
 Tutti e quattro hanno lo stesso vincolo non negoziabile: il **link
 va aperto**. La citazione fa parte del prompt, non è la verifica.
@@ -231,16 +232,20 @@ cinque fonti e non c'è. L'IA ha sintetizzato unendo cose che ha
 trovato nelle fonti con cose che già "sapeva" dal training, e i
 due livelli si confondono nell'output unico.
 
-Questi tre pattern non sono un male congenito dell'IA: sono il
-comportamento di un sistema che produce testo plausibile a partire
-da una richiesta, anche quando non ha l'informazione esatta. Lo
-stesso meccanismo di
-[*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/).
-Quello che cambia qui è la **conseguenza**: in un deliverable
-professionale, una citazione inventata è una figura imbarazzante
-con un cliente, un numero inventato è un'analisi sbagliata che
-orienterà una decisione, una sintesi gonfiata è il tuo nome
-accanto a un'affermazione falsa.
+Questi tre pattern sono lo stesso meccanismo di [*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/). Qui cambia la **conseguenza**: una citazione inventata è una figura imbarazzante con un cliente, un numero inventato orienta una decisione, e il tuo nome sta accanto a un'affermazione falsa.
+
+<SpotTheError
+  title="Trova le due frasi sbagliate"
+  prompt={`Ti allego un estratto del report Q2 di Alfa. Riassumilo in quattro frasi.
+
+Estratto: "Ricavi 1,2 milioni di euro (+12% sul Q1). Progetti consegnati: 23 (22 nel Q1). Ore oltre preventivo +18%, concentrate sul cliente Beta."`}
+  sentences={[
+    { text: "Nel Q2 i ricavi di Alfa sono stati di 1,2 milioni di euro, il 12% in più rispetto al Q1." },
+    { text: "I progetti consegnati sono saliti a 23, uno in più del trimestre precedente." },
+    { text: "Le ore oltre preventivo sono aumentate dell'8%, concentrate sul cliente Beta.", wrong: true, why: "L'estratto dice 18%: una cifra spostata, scritta con la stessa sicurezza di quelle giuste." },
+    { text: "Il margine operativo è migliorato di tre punti, il miglior risultato degli ultimi cinque anni.", wrong: true, why: "L'estratto non parla di margine né di storico: l'IA ha aggiunto qualcosa che sapeva o immaginava, attribuendolo alla fonte." },
+  ]}
+/>
 
 ## Pattern verifica, cita, traccia
 
@@ -270,7 +275,11 @@ sostengono i fatti che entreranno nel deliverable. Se il brief ha
 cinque punti chiave, sono cinque fonti da aprire, anche se la
 risposta ne cita quindici. Per un report che firmi, allarga la
 rete: tutti i fatti citati come dati specifici (numeri, date,
-nomi) vanno controllati.
+nomi) vanno controllati. Le citazioni inline di Perplexity o
+ChatGPT con search non sostituiscono questo passo: dicono solo che
+la risposta è stata costruita guardando quella pagina, non che la
+frase sia lì. Apri il link e cerca la frase con `Ctrl+F`; se non la
+trovi parola per parola, il motore ha riformulato.
 
 **3. Traccia da dove viene cosa.** Nel tuo documento finale, tieni
 traccia per ogni dato importante della fonte: una colonna "fonte"
@@ -279,51 +288,39 @@ appunto a margine che non finirà nel deliverable ma che hai. Il
 minimo accettabile è una riga per dato con quattro voci: il dato,
 la fonte, il link, la data del controllo. Tipo:
 
-> *"Rilancio e-commerce Diadora 2024 / fonte: comunicato stampa
-> Diadora / link / controllato il 24/04/2026"*.
+> *"Rilancio e-commerce Alfa Sport 2024 / fonte: comunicato stampa
+> dell'azienda / link / controllato il 24/04/2026"*.
 
-Serve a due cose: ti permette di tornarci se qualcuno ti chiede
-*"da dove l'hai preso?"* (e qualcuno lo chiede sempre, prima o
-poi), e ti costringe a non lasciare nessun dato non verificato,
-perché te ne accorgi quando devi compilare la colonna.
 
-Spedire un deliverable senza tracciabilità è il modo più rapido
-per finire a giustificare un errore davanti a un cliente, di
-solito sei mesi dopo e senza più ricordare dove avevi preso il
-dato.
 
-:::tip[Quando il motore live ti dà i link]
-Su Perplexity e ChatGPT con search le citazioni inline ti
-sembrano già una verifica. Non lo sono. La citazione dice solo
-che la risposta è stata costruita guardando quella pagina, non
-che la frase che leggi è effettivamente in quella pagina. Apri
-il link, cerca la frase con `Ctrl+F`. Se non la trovi parola
-per parola, il motore ha riformulato, e la riformulazione è
-da rileggere.
-:::
+
+
 
 ## Un esempio concreto
 
 Stai preparando un brief di mezza pagina per il direttore
-commerciale. Il tema: come si sono mosse le tre principali aziende
-italiane di abbigliamento sportivo sul canale e-commerce
+commerciale. Il tema: come si sono mosse tre aziende di
+abbigliamento sportivo (di fantasia, come i loro dati: Alfa Sport,
+Beta Running, Gamma Outdoor) sul canale e-commerce
 nell'ultimo anno. Non sei esperto del settore. Hai trenta minuti.
 
 Strategia: parti da un motore con search live, chiedi cinque
 punti, e nel prompt esigi fonti per ogni dato. Se un punto non ha
 fonte, l'IA deve dirlo.
 
+<Collapsible title="La conversazione e il commento">
+
 <ChatDemo
-  user={`Sto preparando un brief per il direttore commerciale. Tema: come si sono mosse le tre principali aziende italiane di abbigliamento sportivo (a tua scelta tra le più note) sul canale e-commerce nell'ultimo anno. Dammi cinque punti chiave. Per ogni punto, indica la fonte specifica con link e data. Se per un punto non hai una fonte recente affidabile, scrivilo esplicitamente invece di inventare un dato.`}
-  ai={`Le tre aziende che ho selezionato: Diadora, Lotto, Kappa. Cinque punti.
+  user={`Sto preparando un brief per il direttore commerciale. Tema: come si sono mosse tre aziende di abbigliamento sportivo (Alfa Sport, Beta Running, Gamma Outdoor) sul canale e-commerce nell'ultimo anno. Dammi cinque punti chiave. Per ogni punto, indica la fonte specifica con link e data. Se per un punto non hai una fonte recente affidabile, scrivilo esplicitamente invece di inventare un dato.`}
+  ai={`Cinque punti sulle tre aziende.
 
-1. **Diadora ha rilanciato il proprio e-commerce diretto nel 2024**, spostando una parte della distribuzione dai marketplace (Amazon, Zalando) al sito proprio. Fonte: comunicato stampa Diadora del 12/03/2024 ([link al sito Diadora](#)).
+1. **Alfa Sport ha rilanciato il proprio e-commerce diretto nel 2024**, spostando una parte della distribuzione dai marketplace al sito proprio. Fonte: comunicato stampa dell'azienda del 12/03/2024 ([link](#)).
 
-2. **Lotto Sport ha aperto uno store Shopify dedicato al mercato europeo** nella seconda metà del 2024, con focus sui paesi DACH. Fonte: intervista al CMO su Pambianco News del 09/2024 ([link](#)).
+2. **Beta Running ha aperto uno store online dedicato al mercato europeo** nella seconda metà del 2024, con focus sui paesi di lingua tedesca. Fonte: intervista al responsabile marketing sulla rivista di settore "Il Mercato Sportivo", 09/2024 ([link](#)).
 
-3. **Kappa ha mantenuto una strategia ibrida** con peso prevalente su retailer multimarca online (es. Spartoo, Zalando) rispetto alla vendita diretta. Fonte: report annuale BasicNet 2023 ([link al PDF, pagg. 34-38](#)).
+3. **Gamma Outdoor ha mantenuto una strategia ibrida**, con peso prevalente sui rivenditori multimarca online rispetto alla vendita diretta. Fonte: bilancio annuale 2023 dell'azienda ([link al PDF, pagg. 34-38](#)).
 
-4. **Sul tema social commerce (Instagram Shop, TikTok Shop)** non ho fonti recenti affidabili che permettano di confrontare le tre aziende. Pambianco e Mark Up hanno coperture parziali. Per questo punto ti consiglio di chiedere direttamente al team marketing o di guardare le pagine social ufficiali.
+4. **Sul tema social commerce (Instagram Shop, TikTok Shop)** non ho fonti recenti affidabili che permettano di confrontare le tre aziende. Le riviste di settore hanno coperture parziali. Per questo punto ti consiglio di chiedere direttamente al team marketing o di guardare le pagine social ufficiali.
 
 5. **Sul tasso di sconto medio applicato online** non ho fonti pubbliche aggiornate al 2024. Numeri che circolano su LinkedIn (es. *"sconto medio del 30% sul retail online sportivo italiano"*) non sono tracciabili a una rilevazione: non li userei in un brief al direttore senza una fonte.`}
 />
@@ -342,6 +339,15 @@ altre parti (un team interno, una fonte specializzata, un'agenzia
 di settore) o accetti che il brief li lasci in bianco con una
 nota.
 
+</Collapsible>
+
+<LlmExercise
+  title="Trova le citazioni da verificare"
+  file="practice-spot-invented-citations.txt"
+  duration="10 min"
+  description="Un breve testo su un tema inventato, pieno di fonti e numeri. Segna cosa non ti convince e decidi come lo verificheresti."
+/>
+
 ## Cosa NON fare
 
 **Non spedire un deliverable senza verifica.** Anche se l'IA ti ha
@@ -351,32 +357,13 @@ professionale e una figura imbarazzante. Una citazione
 sbagliata in un report al consiglio, scoperta sei mesi dopo, è il
 tipo di errore che rimane attaccato.
 
-**Non chiedere "fai tu la ricerca per me" come unico passaggio.**
-L'IA non conosce il tuo cliente, non sa quale taglio dare, non
-conosce i tuoi vincoli interni. Senza orientamento ti dà una
-sintesi generica. Sei tu a doverla guidare con domande, vincoli,
-e un contesto specifico. Lo stesso principio di
-[*Cose da NON fare*](/it/everyday-use/what-not-to-do/): la
-decisione su cosa entra e cosa no nel deliverable resta tua.
 
-**Non fidarti di numeri tondi senza fonte.** *"Il 73%"*, *"un
-terzo delle aziende"*, *"oltre 10 miliardi"*. Ogni numero che l'IA
-ti dà senza fonte tracciabile è un numero da cestinare. Il
-pattern è quello di
-[*Lavorare con dati e tabelle*](/it/at-work/data-and-tables/):
-l'IA può sbagliare un numero con la stessa sicurezza con cui ne
-scrive uno corretto, e sui dati di mercato che entrano in un
-brief la sicurezza non basta.
+
+
 
 ## Cosa viene dopo
 
-La prossima lezione, *L'IA come collega che ti aiuta a pensare*,
-sposta l'asse: dalla ricerca (cercare e sintetizzare informazioni
-che esistono) al pensiero (usare l'IA per anticipare obiezioni,
-fare il devil's advocate sulle tue idee, brainstormare in modo
-strutturato). Il rischio cambia forma: lì le allucinazioni pesano
-meno, ma c'è un rischio nuovo, quello di farsi rassicurare invece
-di farsi sfidare.
+La prossima lezione, [*L'IA come collega che ti aiuta a pensare*](/it/at-work/ai-as-thinking-partner/), passa dalla ricerca al pensiero.
 
 ## Verifica cosa hai capito
 

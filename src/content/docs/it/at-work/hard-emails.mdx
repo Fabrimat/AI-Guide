@@ -8,6 +8,9 @@ prerequisiti: [ask-well, write-better]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -107,9 +110,8 @@ segna le frasi.
 
 La differenza tra un'email che suona giusta e una che suona da
 manuale di business è tutta qui. Incollare la bozza e dire
-"migliorala" produce l'*AI-polish* che hai incontrato in [*Scrivere
-meglio*](/it/everyday-use/write-better/): cortese, liscia, senza
-firma.
+"migliorala" produce la patina da IA, quella [voce media](/it/everyday-use/write-better/#la-voce-media)
+di cui parla *Scrivere meglio*: cortese, liscia, senza firma.
 
 Invece racconti: chi è questa persona (ruolo, da quanto lavorate
 insieme), com'è la vostra relazione di solito (formale,
@@ -118,6 +120,12 @@ vorresti ottenere con la risposta, cosa assolutamente non vuoi
 (*"non voglio che sembri che lo stia punendo, non voglio che senta
 di poter rimandare ancora"*). Più racconti, più l'IA capisce la
 temperatura esatta del messaggio.
+
+<PromptCompare
+  weak="Migliora questa email: [incolli la bozza]"
+  strong={`Devo rispondere a un cliente che chiede uno sconto del 20%, oltre i miei margini. Lavoriamo insieme da due anni, il rapporto è buono ma lui tende a tirare sul prezzo. Voglio dire di no senza chiudere la porta e senza sembrare rigido. Ecco la mia bozza: [incolli la bozza]. Dimmi dove il tono non è quello che voglio, poi dammi due versioni: una diretta, una più calda.`}
+  note="Il secondo racconta chi è l'altro, com'è la relazione e cosa vuoi evitare. Il primo lascia all'IA il tono di default."
+/>
 
 Se la posta è urgente (devi mandare entro un'ora), comprimi il
 racconto in tre o quattro frasi essenziali: chi, cosa è successo,
@@ -153,11 +161,9 @@ con un cliente: il documento doveva arrivare ieri, è uscito oggi.
 Lavorate insieme da otto mesi, di solito è puntuale, è il primo
 errore grave. Non vuoi che l'email suoni punitiva (è un caso
 isolato) ma neanche minimizzare (con il cliente avete perso
-credibilità). Quando scrivi il prompt, sostituisci il nome reale
-prima di incollare. Tre modi che funzionano: un generico
-(*"la collaboratrice"*), un nome fittizio (*"Chiara"* al posto del
-vero nome), o le sole iniziali (*"C."*). L'IA ha tutto il contesto
-che le serve senza avere il nome vero.
+credibilità). Nel prompt metti un nome fittizio al posto del vero.
+
+<Collapsible title="La conversazione completa: tre versioni della stessa email">
 
 <ChatDemo
   user={`Devo scrivere alla mia collaboratrice junior per un documento consegnato al cliente ieri invece di oggi. Lavoriamo insieme da 8 mesi, di solito è puntuale, è il primo errore grave. Non voglio suonare punitivo perché è un caso isolato, ma non voglio neanche minimizzare. Dammi tre versioni: una diretta, una diplomatica, una asciutta. Quattro frasi al massimo per ciascuna.`}
@@ -179,6 +185,8 @@ rigida se la tua relazione con lei è calorosa. Probabilmente la
 tua versione finale ruba l'apertura della prima, il motivo della
 seconda, e la praticità della terza. I `[nome]` e `[cliente]` li
 rimetti tu al volo prima di mandare: l'IA non li ha mai avuti.
+
+</Collapsible>
 
 :::tip[Il tono per il tuo capo]
 Con il capo il tono è difficile da centrare: se usi lo stesso che
@@ -215,7 +223,11 @@ generico (*"[nome]"*, *"la collega"*), un nome fittizio, o le sole
 iniziali; quello che conta è che l'IA non veda il dato reale. La
 privacy delle persone coinvolte nella tua email non è la tua
 privacy. Il quadro è in [*Quello che condividi quando usi
-l'IA*](/it/fundamentals/privacy-basics/).
+l'IA*](/it/fundamentals/privacy-basics/). Se vuoi un aiuto
+meccanico, questo strumento sostituisce al volo email, telefoni e
+i nomi che gli indichi (lavora nel tuo browser, non invia nulla):
+
+<Anonymizer />
 
 ## Cosa viene dopo
 
