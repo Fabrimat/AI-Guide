@@ -5,7 +5,7 @@ Voglio applicarlo a un concetto specifico che devo spiegare alla mia classe.
 Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
 
 1. Quale disciplina o materia insegni?
-2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio direi che hanno?
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio hanno secondo te?
 3. Quale concetto specifico vuoi spiegare? (Titolo, eventuale formula o definizione di partenza dal manuale, e in particolare: dove i ragazzi tipicamente si bloccano su questo concetto?)
 4. Hai un vincolo di tempo (quanti minuti puoi spendere su questa spiegazione nella lezione)? E ci sono analogie che gia' sai non funzioneranno per questa classe (esempi che non conoscerebbero, contesti culturali distanti)?
 
@@ -23,3 +23,5 @@ B) Dopo che ho letto le cinque versioni, ti rispondo dicendoti su quali 2-3 vorr
 C) Se in qualche passaggio ti servono informazioni che non ti ho dato (per esempio il manuale del corso, la struttura della lezione, il vocabolario gia' introdotto), chiedimele invece di inventare.
 
 Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostra una sola applicazione, calata sui dati che ti ho dato.
+
+Se una delle quattro domande non mi e' chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

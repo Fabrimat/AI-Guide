@@ -26,3 +26,5 @@ C) Alla fine fammi un controllo rapido: elenca i termini chiave del testo base e
 Se in qualche passaggio ti servono informazioni che non ti ho dato (il testo base completo, il glossario dell'unita', il tipo di verifica finale che daro' a tutti), chiedimele invece di inventare.
 
 Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostrami una sola applicazione, calata sui dati che ti ho dato.
+
+Se una delle quattro domande non mi e' chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

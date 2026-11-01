@@ -22,3 +22,5 @@ D) Once the outline is validated, give me a direct critique of the outline itsel
 E) After I've revised the outline based on your critique, generate one material at a time as I ask for it (opening exercise, application handout, synthesis slide, etc.), always consistent with the validated outline.
 
 Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Show me one specific application, grounded in what I told you. If at any step you need information I haven't given you, ask for it instead of making it up.
+
+If one of the four questions is unclear to me or I can't answer it, offer me two or three options to choose from instead of guessing and moving on. When you're done, ask me what I'd like to refine and adjust accordingly.

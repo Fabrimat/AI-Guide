@@ -22,3 +22,5 @@ D) Don't give me grades to put in the register and don't grade in my place: you 
 If at any step you need information I haven't given you (the exact criteria, my school's grade scale, the prompt text), ask me instead of making it up.
 
 Be concrete: no generic templates, no "this depends on your context", no lists of possibilities. Let's work on my real case.
+
+If one of the four questions is unclear to me or I can't answer it, offer me two or three options to choose from instead of guessing and moving on. When you're done, ask me what I'd like to refine and adjust accordingly.
