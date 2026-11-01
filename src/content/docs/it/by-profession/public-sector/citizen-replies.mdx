@@ -1,0 +1,103 @@
+---
+title: Rispondere ai cittadini
+description: Dalla richiesta di un cittadino a una risposta chiara, cortese e corretta, in linguaggio semplice, senza dati personali nel prompt.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import Anonymizer from '../../../../../components/Anonymizer.astro';
+
+<LessonSummary>
+
+- Una buona risposta a un cittadino dice quattro cose, in quest'ordine: cosa ci hai chiesto, cosa facciamo, cosa devi fare tu, entro quando.
+- Copilot riscrive il burocratese in italiano semplice, ma i fatti (termini, documenti, orari) li dai tu.
+- Prima di incollare la richiesta togli nome, codice fiscale, indirizzo, telefono, numero di pratica. Se l'ente non ti autorizza a usare dati personali, non c'è eccezione.
+- La risposta la firmi tu: leggila tutta prima di mandarla.
+
+</LessonSummary>
+
+Questa lezione presuppone di aver letto [Cosa puoi fare con Copilot, e cosa no](/it/by-profession/public-sector/start-here/). Le istruzioni ricorrenti di quella lezione (italiano semplice, mai inventare norme) valgono anche qui.
+
+Ai Servizi demografici del Comune di Valdoria arriva una mail del signor Ferrante (nome di fantasia). Ha chiesto il contrassegno per la sosta dei residenti tre settimane fa, nessuno gli ha risposto e lo scrive con una certa irritazione. Marta, l'impiegata, sa già cosa manca: la pratica è ferma perché non è arrivata la copia del libretto del veicolo. Deve rispondere oggi.
+
+## Prima di incollare: togli i dati
+
+La mail del signor Ferrante contiene nome, indirizzo, targa e numero di telefono. Prima di incollarla in Copilot, Marta li sostituisce con segnaposto: [CITTADINO], [INDIRIZZO], [TARGA]. Lo strumento qui sotto lo fa in parte da solo (email, telefoni, codici fiscali, IBAN) e per i nomi chiede di elencarli. Funziona nel browser, il testo non esce dal tuo computer.
+
+<Anonymizer />
+
+Non prende gli indirizzi scritti per esteso, i dettagli che identificano indirettamente una persona ("il titolare della panetteria di via...") né gli allegati. Controlla il risultato a occhio. Le regole su cosa non incollare sono in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/); per un testo di cittadini, la prima regola resta quella dell'ente.
+
+## Dalla richiesta alla risposta
+
+Marta incolla la mail anonimizzata e scrive a Copilot cosa le serve. Confronta una richiesta debole con una che funziona.
+
+<PromptCompare
+  weak="Rispondi a questa lettera del cittadino."
+  strong={`Sei un impiegato dei Servizi demografici di un comune. Scrivi una risposta a questa mail di un cittadino (te la incollo sotto, senza dati personali).
+Fatti da usare, non ne esistono altri: la pratica del contrassegno di sosta è ferma perché manca la copia del libretto del veicolo. Può portarla allo sportello (lunedì e giovedì, 9-12) o mandarla per email all'ufficio. Appena arriva, la pratica riparte.
+Struttura: 1) cosa ci ha chiesto, 2) cosa abbiamo fatto, 3) cosa deve fare lui, 4) entro quando (non so il termine, lascia [TERMINE] da compilare).
+Tono cortese, dai del Lei, riconosci il disagio in una frase senza scuse esagerate. Italiano semplice, frasi brevi, niente "si comunica che". Non inventare norme o articoli.`}
+  note="Il secondo contiene i fatti, la struttura, il tono e dice cosa non fare. Il primo lascia a Copilot l'invenzione di tutto."
+/>
+
+Nota il segnaposto [TERMINE]: quando manca un dato, chiedi a Copilot di lasciare un buco invece di riempirlo. Un termine inventato in una risposta a un cittadino è un problema vero.
+
+## Dal burocratese all'italiano semplice
+
+Il vecchio modello dell'ufficio diceva:
+
+> Si comunica che l'istanza risulta sospesa in attesa della documentazione integrativa necessaria ai fini del perfezionamento del procedimento.
+
+Copilot, con le istruzioni di Marta, scrive:
+
+> La Sua richiesta è ferma perché manca la copia del libretto del veicolo. Appena la riceviamo, la pratica riparte.
+
+Controlla due cose: che la frase nuova dica ancora la stessa cosa e che non abbia perso un obbligo di legge che il modello vecchio richiamava. Se il modello cita una norma, quella citazione resta e va verificata, come vedi in [Sistemare una lettera e verificare i fatti](/it/by-profession/public-sector/fix-a-letter-check-facts/).
+
+<Collapsible title="La risposta finale di Marta">
+
+```text
+Gentile signor Ferrante,
+
+ci ha scritto per avere il contrassegno di sosta per i residenti e non ha ancora ricevuto risposta. Ha ragione a chiederci a che punto siamo.
+
+La Sua pratica è ferma perché manca la copia del libretto del veicolo. Appena la riceviamo, la pratica riparte.
+
+Può consegnare la copia allo sportello dei Servizi demografici il lunedì o il giovedì dalle 9 alle 12, oppure mandarla per email all'ufficio.
+
+Dal giorno in cui riceviamo la copia, il contrassegno è pronto entro [TERMINE] giorni lavorativi.
+
+Per qualsiasi dubbio può rispondere a questa mail.
+
+Cordiali saluti
+Marta [Cognome]
+Servizi demografici, Comune di Valdoria
+```
+
+</Collapsible>
+
+Marta sostituisce il segnaposto con i dati veri: nome e indirizzo li rimette lei, a mano, nel documento finale. Il termine l'aveva lasciato vuoto: lo chiede al responsabile del procedimento, perché non è una cosa che decide Copilot, e lo aggiunge.
+
+## Responsabile resti tu
+
+La bozza è di Copilot, la risposta è dell'ufficio. Leggila tutta prima di spedirla: ogni data, ogni orario, ogni documento richiesto. Una risposta cortese ma sbagliata costa più di una secca ma corretta. Se la richiesta del cittadino tocca un diritto o un termine di legge, la scrive e la firma chi ne ha la responsabilità, e Copilot al massimo aiuta a renderla leggibile.
+
+<LlmExercise
+  title="Una risposta a un cittadino, dall'inizio alla fine"
+  file="practice-public-sector-citizen-replies.txt"
+  duration="10-15 min"
+  description="Con una richiesta inventata (o anonimizzata), l'IA ti guida a costruire la risposta nella struttura in quattro punti."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-public-sector-citizen-replies.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, sulla struttura della risposta e sui dati."
+/>

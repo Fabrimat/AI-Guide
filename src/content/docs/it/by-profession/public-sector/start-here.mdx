@@ -1,0 +1,115 @@
+---
+title: Cosa puoi fare con Copilot, e cosa no
+description: Come capire quale Copilot hai nel tuo ente, cosa protegge i dati e cosa no, cosa dice la legge sull'uso dell'IA nella pubblica amministrazione, come tenere le istruzioni ricorrenti.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Prima delle regole del sito, valgono quelle del tuo ente: se esiste un regolamento interno sull'IA, si parte da lì.
+- Copilot ha più versioni. Guarda l'etichetta che compare nel tuo strumento: cambia cosa può leggere e dove può funzionare.
+- La protezione dei dati di Copilot con l'account di lavoro è contrattuale, ha dei limiti (le ricerche sul web) e non decide al posto dell'ente se un dato personale può entrarci.
+- Dati personali dei cittadini nei prompt: solo se l'ente lo consente. Altrimenti anonimizzi.
+- La legge dice che l'IA è di supporto e che la persona resta responsabile: la firma è tua.
+- Istruzioni che ripeti ogni volta: salvale nelle impostazioni di Copilot, se il tuo ente le ha attivate, oppure in un documento Word da incollare a inizio chat.
+
+</LessonSummary>
+
+Marta lavora ai Servizi demografici del Comune di Valdoria (un comune di fantasia). Il lunedì deve scrivere l'avviso di chiusura dell'ufficio per il ponte, e il testo che aveva in cartella è lungo e pieno di "si comunica che". Apre Copilot nel browser e vuole chiedergli di riscriverlo. Prima di incollare qualcosa, si fa tre domande: che Copilot è questo, cosa può vedere, cosa posso dargli. Sono le stesse tre di questa lezione.
+
+## Quale Copilot hai
+
+Microsoft usa nomi simili per cose diverse e ha cambiato i nomi più volte nel 2026. Il nome in italiano resta quello inglese, "Copilot Chat". Quello che conta è l'etichetta che vedi nel tuo strumento, tra queste tre:
+
+- **Copilot Chat (Basic)**: una chat che lavora sul web. Dei documenti del tuo ente conosce solo quello che incolli, carichi o selezioni. In Outlook e Teams può usare il contenuto che hai aperto.
+- **Microsoft 365 Copilot (Basic)**: l'accesso standard dentro Word, Excel, PowerPoint, OneNote, Outlook e Teams. Può dipendere dal carico del momento, e se ce l'hai o no lo decide la configurazione del tuo ente.
+- **Microsoft 365 Copilot (Premium)**: la versione con licenza a pagamento. Ha accesso prioritario e può lavorare anche su email, riunioni, chat e file dell'ente.
+
+Non esiste una regola "serve sempre la licenza" né una "è sempre incluso". Se in Word compare l'icona di Copilot, guarda cosa offre. Se non compare, chiedi all'ufficio informatico, perché l'amministratore può limitare o disattivare queste funzioni.
+
+Verificato a novembre 2026. I nomi cambiano: se il tuo ente usa etichette diverse, chiedi all'ufficio informatico a quale delle tre corrisponde.
+
+## Cosa protegge i dati, e cosa no
+
+Quando accedi con l'account di lavoro, Copilot applica la protezione dei dati aziendale (in inglese "enterprise data protection"). Nel tuo strumento la riconosci dalla scritta "Work" sotto il profilo e dallo scudo verde. Microsoft si impegna per contratto a trattare le richieste e le risposte come fa con le email e i file dell'ente, e a non usarle per addestrare i modelli.
+
+Ha tre limiti che conviene sapere.
+
+- Le **ricerche sul web** passano da Bing e seguono le condizioni di Microsoft, non quelle dell'ente. Il confine europeo dei dati non vale per queste ricerche.
+- Gli **agenti** (assistenti aggiuntivi) hanno condizioni proprie: leggile prima di usarli.
+- La protezione non risponde alla domanda "questo dato posso inserirlo?". Quella decisione è dell'ente.
+
+Per questo la regola pratica è semplice: **dati personali dei cittadini nei prompt solo se l'ente lo consente per iscritto**. In dubbio, anonimizzi (nella lezione [Rispondere ai cittadini](/it/by-profession/public-sector/citizen-replies/) c'è lo strumento) e chiedi al responsabile della protezione dei dati o all'ufficio informatico. Un account personale non è coperto dal contratto dell'ente. Il quadro generale è in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+## Cosa dice la legge
+
+La legge 23 settembre 2025, n. 132, all'articolo 14 dice che le pubbliche amministrazioni usano l'IA per lavorare meglio e più in fretta, assicurando "la conoscibilità del suo funzionamento e la tracciabilità del suo utilizzo". Il comma 2 aggiunge che l'uso avviene "in funzione strumentale e di supporto all'attività provvedimentale", nel rispetto dell'autonomia e del potere decisionale della persona, che "resta l'unica responsabile dei provvedimenti e dei procedimenti" in cui è stata usata.
+
+In pratica: Copilot prepara una bozza, tu leggi, correggi e firmi. L'articolo 11, comma 2, dice anche che il datore di lavoro deve informare chi lavora dell'uso dell'IA: se il tuo ente non l'ha fatto, puoi chiederlo.
+
+Le linee guida AgID sull'adozione dell'IA nella PA sono invece ancora in fase di adozione: non citarle come obbligatorie. Il testo ufficiale della legge è su [Normattiva](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2025-09-23;132).
+
+## Istruzioni che non vuoi riscrivere ogni volta
+
+Marta vuole che Copilot scriva sempre in italiano semplice, con frasi brevi. Se il tuo ente ha attivato la personalizzazione, in Copilot Chat:
+
+1. In alto a destra apri **Impostazioni e altro** e poi le impostazioni.
+2. Nella finestra **Impostazioni Chat** scegli **Personalizzazione**.
+3. Attiva **Istruzioni personalizzate** e premi **Modifica istruzioni**.
+4. Scrivi il testo e premi **Salva istruzioni**.
+
+Verificato a novembre 2026. Se l'interfaccia è cambiata, cerca la voce "Istruzioni personalizzate". L'amministratore può disattivare la personalizzazione: in quel caso la voce non c'è, o non si può attivare. Non scrivere dati di cittadini nelle istruzioni.
+
+Se la voce manca, tieni il testo in un documento Word dell'ufficio e incollalo all'inizio di ogni chat. Funziona ovunque. Come si scrivono istruzioni buone è nella lezione [Il tuo assistente di mestiere](/it/by-profession/your-work-assistant/).
+
+<Collapsible title="Un modello di istruzioni per un ufficio comunale">
+
+```text
+Lavoro in un ufficio di un comune italiano e scrivo a cittadini e colleghi.
+Scrivi in italiano semplice, con frasi brevi e senza formule burocratiche.
+Tono cortese e diretto. Dai del Lei.
+Se ti chiedo una lettera: prima cosa è stato chiesto, poi cosa facciamo, poi cosa deve fare la persona e entro quando.
+Non inventare mai norme, articoli, date, importi o termini. Se ti servono, chiedimeli.
+Non chiedermi dati personali. Se li vedi nel testo, avvisami.
+Alla fine dammi la lista dei fatti da controllare.
+```
+
+</Collapsible>
+
+Con quelle istruzioni Marta incolla il vecchio avviso (nessun dato personale) e chiede di riscriverlo. Copilot restituisce un testo di cinque righe con data di chiusura, orari di riapertura e a chi rivolgersi. Lei controlla le date sul calendario dell'ufficio, perché Copilot non le conosce, e lo pubblica.
+
+## Quando lo strumento è limitato
+
+Se hai solo Copilot Chat (Basic), non aspettarti che trovi da solo i tuoi file. Dagli tutto nel prompt: chi sei, a chi scrivi, cosa vuoi, in che formato. Se il testo è lungo, spezzalo in parti e lavora una parte alla volta. Se il file è troppo grande, Copilot lo segnala.
+
+<SelfCheck
+  id="public-sector-start-here-q1"
+  question="Devi riscrivere una lettera a un cittadino che contiene nome, codice fiscale e indirizzo. Il tuo ente ti ha dato Copilot con l'account di lavoro. Cosa fai?"
+  options={[
+    { text: "Incollo tutto: l'account di lavoro è protetto, quindi i dati sono al sicuro.", why: "La protezione è contrattuale e ha dei limiti. Se un dato personale può entrare in Copilot lo decide l'ente, non l'etichetta dell'account." },
+    { text: "Controllo il regolamento dell'ente. Se non c'è una regola chiara, anonimizzo prima di incollare.", correct: true, why: "Prima valgono le regole dell'ente. Se mancano, togliere nome, codice fiscale e indirizzo non costa niente e il testo da riscrivere resta uguale." },
+    { text: "Uso il mio account personale, così non lascio tracce nel sistema dell'ente.", why: "Un account personale non è coperto dal contratto dell'ente: è la scelta peggiore per i dati dei cittadini." },
+    { text: "Chiedo a Copilot di dirmi se posso incollare i dati.", why: "Copilot non conosce il regolamento del tuo ente e può rispondere con sicurezza sbagliando." },
+  ]}
+/>
+
+<LlmExercise
+  title="Scrivi le tue istruzioni per Copilot"
+  file="practice-public-sector-start-here.txt"
+  duration="10 min"
+  description="L'IA ti intervista sul tuo ufficio e ti consegna le istruzioni ricorrenti da salvare in Copilot o in un documento Word."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-public-sector-start-here.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, su versioni di Copilot, protezione dei dati e responsabilità."
+/>

@@ -906,7 +906,9 @@ Lesson lists: ordered slugs live in the `PATHS` constant inside the
 component (the sidebar order in `astro.config.mjs` is not readable at
 runtime); titles come from the content collection in the page's locale and
 links are absolute (`https://ai-guide.larosa.work/<locale>/...`). When a
-lesson is added to a module, add its slug to `PATHS` too.
+lesson is added to a module, add its slug to `PATHS` too. The `by-profession`
+path uses nested slugs (`travel-agency/start-here`): the module has one folder per
+profession, and lesson URLs have four segments (`/it/by-profession/<profession>/<slug>/`).
 
 No props. Included as `<StudyPlanPrompt />`.
 

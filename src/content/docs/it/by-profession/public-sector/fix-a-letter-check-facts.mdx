@@ -1,0 +1,96 @@
+---
+title: Sistemare una lettera e verificare i fatti
+description: Come far rivedere a Copilot una lettera già scritta (chiarezza, tono, errori) e come controllare tutto ciò che l'IA potrebbe aver inventato, soprattutto leggi e articoli.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Per rivedere una lettera chiedi a Copilot due passaggi separati: prima la revisione (chiarezza, tono, errori), poi la lista dei fatti da controllare.
+- Chiedigli di elencare ogni modifica che ha fatto: così vedi se ha cambiato il senso.
+- L'IA inventa articoli, commi e numeri di legge con la stessa sicurezza con cui scrive il resto. Ogni riferimento normativo si cerca su una fonte ufficiale prima di restare nella lettera.
+- Se non lo trovi, lo togli. Non lo correggi a memoria.
+- Termini, importi, orari e nomi degli uffici vengono dall'ente, non da Copilot.
+
+</LessonSummary>
+
+Dalla Torre, dell'Ufficio Tecnico del Comune di Valdoria (di fantasia), ha scritto in fretta una risposta alla signora Marchetti, che ha chiesto di mettere un dehor davanti al suo bar. La lettera è troppo lunga, un po' secca e piena di frasi storte. Prima di mandarla chiede a Copilot di sistemarla. Come in [Rispondere ai cittadini](/it/by-profession/public-sector/citizen-replies/), toglie prima i dati personali della signora.
+
+## Passo uno: la revisione
+
+Dalla Torre incolla la lettera e scrive:
+
+```text
+Rivedi questa lettera a una cittadina. Obiettivi: renderla più chiara, più cortese e senza errori di italiano.
+Regole: non cambiare i fatti, non aggiungere informazioni, non inserire riferimenti a leggi o regolamenti che non ci sono già nel testo.
+Alla fine dammi due elenchi: le modifiche che hai fatto (una riga ciascuna) e tutto quello che nella lettera è un fatto da verificare (date, termini, norme, nomi di uffici).
+```
+
+La richiesta ha due parti. La lista delle modifiche serve a vedere se Copilot ha cambiato il senso di una frase per renderla più bella. La lista dei fatti serve al secondo passo.
+
+## Passo due: la verifica
+
+La lettera rivista arriva così. Prova a trovare le frasi sbagliate prima di leggere la soluzione.
+
+<SpotTheError
+  title="La lettera rivista da Copilot"
+  prompt="Rivedi questa lettera alla signora Marchetti sulla richiesta del dehor."
+  sentences={[
+    { text: "Gentile signora, la Sua richiesta di occupazione di suolo pubblico per il dehor, protocollata il 12 ottobre, è stata esaminata dall'Ufficio Tecnico." },
+    { text: "Dai controlli risulta che manca la planimetria con le misure del dehor." },
+    { text: "Ai sensi della legge n. 999 del 2019, art. 3, comma 7, la richiesta si intende accolta se il Comune non risponde entro 15 giorni.", wrong: true, why: "Un riferimento normativo con numero, articolo e comma precisi che nessuno ha dato a Copilot. Questo è inventato per l'esempio, ma l'IA ne produce di identici nella forma. Cercalo su Normattiva: se non trovi la norma, la frase si toglie." },
+    { text: "Può consegnare la planimetria allo sportello o mandarla per email all'ufficio entro il 20 novembre." },
+    { text: "Il termine per concludere la pratica è di 30 giorni dalla consegna della documentazione completa.", wrong: true, why: "Nella lettera che hai dato a Copilot il termine non c'era. Copilot lo ha aggiunto perché suona normale. Il termine vero sta nel regolamento comunale o nel procedimento dell'ufficio, non nella memoria dell'IA." },
+  ]}
+/>
+
+Il metodo è semplice. Per ogni voce della lista dei fatti, guarda dove stava prima di Copilot: nella lettera originale (ok, ricontrolla comunque), nel regolamento del tuo ente (apri il regolamento), in nessun posto (toglila o chiedi al responsabile).
+
+## Dove si controllano le norme
+
+Per le leggi dello Stato ci sono due fonti ufficiali.
+
+- **[Normattiva](https://www.normattiva.it)** ha i testi aggiornati delle norme. Cerchi per numero e anno della legge, apri l'atto intero, leggi l'articolo che ti interessa. Il testo "vigente" può essere diverso da quello originale, perché le leggi si modificano.
+- **[Gazzetta Ufficiale](https://www.gazzettaufficiale.it)** pubblica il testo originale così come è uscito.
+
+Per i regolamenti comunali la fonte è il sito dell'ente (di solito la sezione "Amministrazione trasparente" o la raccolta dei regolamenti) o l'ufficio che li custodisce. Per il diritto europeo c'è [EUR-Lex](https://eur-lex.europa.eu).
+
+Un esempio di verifica corretta: la legge 23 settembre 2025, n. 132 esiste ed è sul [sito della Gazzetta Ufficiale](https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg). Se Copilot cita "l'art. 14" di quella legge, apri l'atto e leggi il comma, perché il numero dell'articolo può essere giusto e il contenuto che gli attribuisce no. Conta tutto: il numero della legge, l'anno, l'articolo, il comma e quello che il comma dice.
+
+Se non hai accesso alla norma in quel momento, scrivi la lettera senza riferimento normativo ("secondo il regolamento comunale") e aggiungi la citazione dopo averla trovata. Una citazione aggiunta dopo costa cinque minuti. Una citazione sbagliata mandata a un cittadino costa molto di più.
+
+<SelfCheck
+  id="public-sector-fix-a-letter-q1"
+  question="Copilot ha scritto: «come previsto dall'art. 8, comma 2, del Regolamento comunale sulle occupazioni di suolo pubblico». Il titolo del regolamento esiste, ma non hai a portata di mano il testo. Cosa fai?"
+  options={[
+    { text: "Lascio la citazione: il titolo è giusto, quindi anche articolo e comma lo saranno.", why: "Un titolo vero non garantisce che articolo e comma siano giusti. L'IA mescola parti vere e parti inventate nella stessa frase." },
+    { text: "Apro il regolamento sul sito dell'ente e controllo articolo, comma e contenuto. Se non lo trovo, tolgo il riferimento.", correct: true, why: "Il controllo riguarda tutta la citazione, non solo il titolo. Senza fonte la citazione non resta." },
+    { text: "Chiedo a Copilot di confermare l'articolo.", why: "Confermerà con sicurezza anche un articolo sbagliato. La conferma deve arrivare dal testo ufficiale." },
+    { text: "Cerco su un sito di notizie, che è più veloce.", why: "Per un atto ufficiale la fonte è l'ente o la banca dati ufficiale. Un articolo di giornale può sbagliare o essere vecchio." },
+  ]}
+/>
+
+## Copilot non sostituisce chi firma
+
+L'articolo 14, comma 2, della legge 132/2025 dice che la persona resta l'unica responsabile dei provvedimenti e dei procedimenti in cui è stata usata l'IA. Per una lettera, vuol dire che Dalla Torre la rilegge, controlla le citazioni e la firma, anche se l'ha scritta Copilot. Se nel tuo ente esiste l'obbligo di segnalare l'uso dell'IA nei documenti, segui quella regola: nella legge c'è il principio della tracciabilità, il modo concreto lo fissa l'ente.
+
+<LlmExercise
+  title="Rivedi una lettera e controlla i fatti"
+  file="practice-public-sector-fix-a-letter-check-facts.txt"
+  duration="10-15 min"
+  description="L'IA ti dà una lettera con errori nascosti. La riscrivi con la sua guida e poi cerchi quali fatti andrebbero controllati e dove."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-public-sector-fix-a-letter-check-facts.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, sulla revisione e sulla verifica dei riferimenti."
+/>

@@ -102,13 +102,14 @@ function isReadable(url: string): boolean {
 }
 
 function isLesson(url: string): boolean {
-  // Le lezioni vivono a `/<locale>/<modulo>/<slug>/`, tre segmenti dopo
-  // la root. Le pagine meta (about, privacy, glossary, start-here) ne
+  // Le lezioni vivono a `/<locale>/<modulo>/<slug>/` (tre segmenti), o a
+  // `/<locale>/<modulo>/<sotto>/<slug>/` (quattro) nei moduli annidati
+  // come by-profession. Le pagine meta (about, privacy, glossary, start-here) ne
   // hanno solo due e vanno escluse da `lastUrl`, altrimenti `<Resume>`
   // proporrebbe di "riprendere" da una pagina di navigazione invece
   // che dall'ultima lezione vera.
   const parts = url.split('/').filter(Boolean);
-  if (parts.length !== 3) return false;
+  if (parts.length < 3 || parts.length > 4) return false;
   return parts[0] === 'it' || parts[0] === 'en';
 }
 
@@ -265,7 +266,10 @@ function syncModuleCounters() {
       return (
         href !== '' &&
         !href.startsWith('#') &&
-        a.getAttribute('aria-disabled') !== 'true'
+        a.getAttribute('aria-disabled') !== 'true' &&
+        // The module's entry page (e.g. /it/by-profession/) is not a lesson
+        // and never turns "completed": keep it out of the counter.
+        isLesson(href)
       );
     });
 

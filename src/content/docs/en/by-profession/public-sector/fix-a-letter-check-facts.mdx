@@ -1,0 +1,100 @@
+---
+title: Fixing a letter and checking the facts
+description: How to have Copilot revise a letter you already wrote (clarity, tone, errors) and how to check everything the AI may have invented, especially laws and articles.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- To revise a letter, ask Copilot for two separate passes: first the revision (clarity, tone, errors), then the list of facts to check.
+- Ask it to list every change it made: that way you see whether it changed the meaning.
+- AI invents articles, paragraphs and law numbers with the same confidence it writes everything else. Every legal reference is looked up in an official source before it stays in the letter.
+- If you can't find it, remove it. Don't correct it from memory.
+- Deadlines, amounts, hours and office names come from the agency, not from Copilot.
+
+</LessonSummary>
+
+:::note
+This lesson is about Italian public administration: the sources named here (Normattiva, Gazzetta Ufficiale) are Italian, and the letter in the example would be in Italian. The office is invented.
+:::
+
+Dalla Torre, of the Technical Office of the Comune di Valdoria (invented), wrote in a hurry a reply to Ms. Marchetti, who asked to put an outdoor seating area in front of her cafe. The letter is too long, a bit curt, and full of awkward sentences. Before sending it, he asks Copilot to fix it. As in [Replying to citizens](/en/by-profession/public-sector/citizen-replies/), he first removes her personal data.
+
+## Step one: the revision
+
+Dalla Torre pastes the letter and writes:
+
+```text
+Revise this letter to a citizen. Goals: make it clearer, more courteous and free of language errors.
+Rules: do not change the facts, do not add information, do not insert references to laws or regulations that are not already in the text.
+At the end give me two lists: the changes you made (one line each) and everything in the letter that is a fact to check (dates, deadlines, laws, office names).
+```
+
+The request has two parts. The list of changes shows whether Copilot altered the meaning of a sentence to make it prettier. The list of facts is for step two.
+
+## Step two: the check
+
+The revised letter arrives like this. Try to find the wrong sentences before reading the solution.
+
+<SpotTheError
+  title="The letter as revised by Copilot"
+  prompt="Revise this letter to Ms. Marchetti about the outdoor seating request."
+  sentences={[
+    { text: "Dear Madam, your request for public land use for the outdoor seating, registered on 12 October, has been examined by the Technical Office." },
+    { text: "The checks show that the plan with the measurements of the seating area is missing." },
+    { text: "Under law no. 999 of 2019, art. 3, paragraph 7, the request is deemed accepted if the Municipality does not reply within 15 days.", wrong: true, why: "A legal reference with precise number, article and paragraph that nobody gave Copilot. It is invented for the example, but AI produces ones identical in form. Look it up on Normattiva: if you can't find the law, the sentence goes." },
+    { text: "You can hand in the plan at the counter or email it to the office by 20 November." },
+    { text: "The deadline for concluding the file is 30 days from submission of the complete documentation.", wrong: true, why: "The letter you gave Copilot had no deadline. Copilot added it because it sounds normal. The real deadline is in the municipal regulation or in the office's procedure, not in the AI's memory." },
+  ]}
+/>
+
+The method is simple. For each item on the list of facts, look at where it came from before Copilot: the original letter (fine, recheck anyway), your agency's regulation (open the regulation), nowhere (remove it or ask the officer in charge).
+
+## Where to check laws
+
+For national laws there are two official sources.
+
+- **[Normattiva](https://www.normattiva.it)** has the up-to-date texts of laws. Search by law number and year, open the whole act, read the article you need. The "in force" text can differ from the original, because laws get amended.
+- **[Gazzetta Ufficiale](https://www.gazzettaufficiale.it)** publishes the original text as it came out.
+
+For municipal regulations the source is the agency's website (usually the "Amministrazione trasparente" section or the regulations collection) or the office that keeps them. For EU law there is [EUR-Lex](https://eur-lex.europa.eu).
+
+An example of a correct check: Law no. 132 of 23 September 2025 exists and is on the [Gazzetta Ufficiale site](https://www.gazzettaufficiale.it/eli/id/2025/09/25/25G00143/sg). If Copilot cites "art. 14" of that law, open the act and read the paragraph, because the article number may be right and the content it attributes to it wrong. Everything counts: the law number, the year, the article, the paragraph and what the paragraph says.
+
+If you can't reach the law at that moment, write the letter without the legal reference ("under the municipal regulation") and add the citation once you've found it. A citation added later costs five minutes. A wrong citation sent to a citizen costs much more.
+
+<SelfCheck
+  id="public-sector-fix-a-letter-q1"
+  question={'Copilot wrote: "as provided by art. 8, paragraph 2, of the Municipal Regulation on public land use". The regulation\'s title exists, but you don\'t have the text at hand. What do you do?'}
+  options={[
+    { text: "I keep the citation: the title is right, so article and paragraph must be too.", why: "A real title doesn't guarantee that article and paragraph are right. AI mixes true and invented parts in the same sentence." },
+    { text: "I open the regulation on the agency's website and check article, paragraph and content. If I can't find it, I remove the reference.", correct: true, why: "The check covers the whole citation, not just the title. Without a source the citation doesn't stay." },
+    { text: "I ask Copilot to confirm the article.", why: "It will confidently confirm even a wrong article. Confirmation must come from the official text." },
+    { text: "I search a news site, it's quicker.", why: "For an official act the source is the agency or the official database. A news article can be wrong or out of date." },
+  ]}
+/>
+
+## Copilot doesn't replace whoever signs
+
+Article 14, paragraph 2, of law 132/2025 says the person remains solely responsible for the measures and procedures in which AI was used. For a letter, that means Dalla Torre rereads it, checks the citations and signs it, even if Copilot wrote it. If your agency requires flagging the use of AI in documents, follow that rule: the law sets out the principle of traceability, the concrete way is set by the agency.
+
+<LlmExercise
+  title="Revise a letter and check the facts"
+  file="practice-public-sector-fix-a-letter-check-facts.txt"
+  duration="10-15 min"
+  description="The AI gives you a letter with hidden errors. You rewrite it with its guidance and then look for which facts should be checked and where."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-public-sector-fix-a-letter-check-facts.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It asks four questions, one at a time, about revision and checking references."
+/>

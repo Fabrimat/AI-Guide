@@ -138,6 +138,40 @@ export default defineConfig({
           ],
         },
         {
+          // Modulo 7 (Per mestiere): pagina di ingresso, lezione comune e un
+          // sottogruppo per mestiere. Aggiungere un mestiere = una cartella
+          // sotto `by-profession/` + un sottogruppo qui + una voce in PATHS
+          // di `StudyPlanPrompt.astro`.
+          label: 'By profession',
+          translations: { it: 'Per mestiere' },
+          items: [
+            { slug: 'by-profession' },
+            { slug: 'by-profession/your-work-assistant' },
+            {
+              label: 'Travel agency',
+              translations: { it: 'Agenzia viaggi' },
+              collapsed: true,
+              items: [
+                { slug: 'by-profession/travel-agency/start-here' },
+                { slug: 'by-profession/travel-agency/quote-from-template' },
+                { slug: 'by-profession/travel-agency/checked-itinerary' },
+                { slug: 'by-profession/travel-agency/payment-tracker' },
+              ],
+            },
+            {
+              label: 'Public sector',
+              translations: { it: 'Pubblica amministrazione' },
+              collapsed: true,
+              items: [
+                { slug: 'by-profession/public-sector/start-here' },
+                { slug: 'by-profession/public-sector/citizen-replies' },
+                { slug: 'by-profession/public-sector/minutes-and-circulars' },
+                { slug: 'by-profession/public-sector/fix-a-letter-check-facts' },
+              ],
+            },
+          ],
+        },
+        {
           label: 'For students',
           translations: { it: 'Per studenti' },
           items: [

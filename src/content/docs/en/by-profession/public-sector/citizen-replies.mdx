@@ -1,0 +1,107 @@
+---
+title: Replying to citizens
+description: From a citizen's request to a clear, courteous and correct reply, in plain language, with no personal data in the prompt.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import Anonymizer from '../../../../../components/Anonymizer.astro';
+
+<LessonSummary>
+
+- A good reply to a citizen says four things, in this order: what you asked us, what we are doing, what you need to do, by when.
+- Copilot rewrites bureaucratese into plain language, but the facts (deadlines, documents, opening hours) come from you.
+- Before pasting the request, remove name, tax code, address, phone, case number. If your agency doesn't authorize you to use personal data, there is no exception.
+- You sign the reply: read all of it before sending.
+
+</LessonSummary>
+
+:::note
+This lesson is about Italian public administration. The office in the example is invented and the replies are in Italian; the examples here are translated.
+:::
+
+This lesson assumes you have read [What you can do with Copilot, and what you can't](/en/by-profession/public-sector/start-here/). The recurring instructions from that lesson (plain language, never invent laws) apply here too.
+
+At the Demographic Services office of the Comune di Valdoria, an email arrives from Mr. Ferrante (an invented name). He applied for the resident parking permit three weeks ago, nobody has answered, and he writes with some irritation. Marta, the clerk, already knows what is missing: the file is stuck because the copy of the vehicle registration document never arrived. She has to reply today.
+
+## Before pasting: remove the data
+
+Mr. Ferrante's email contains his name, address, plate number and phone number. Before pasting it into Copilot, Marta replaces them with placeholders: [CITIZEN], [ADDRESS], [PLATE]. The tool below does part of this on its own (emails, phone numbers, tax codes, IBANs) and for names it asks you to list them. It runs in the browser, the text doesn't leave your computer.
+
+<Anonymizer />
+
+It doesn't catch addresses written out in full, details that identify someone indirectly ("the owner of the bakery on via...") or attachments. Check the result by eye. The rules on what not to paste are in [Company data and privacy](/en/at-work/company-data-and-privacy/); for citizens' text, the first rule is still your agency's.
+
+## From request to reply
+
+Marta pastes the anonymized email and tells Copilot what she needs. Compare a weak request with one that works.
+
+<PromptCompare
+  weak="Reply to this citizen's letter."
+  strong={`You are a clerk at the Demographic Services office of a municipality. Write a reply to this citizen's email (pasted below, with no personal data).
+Facts to use, there are no others: the resident parking permit file is stuck because the copy of the vehicle registration document is missing. He can bring it to the counter (Monday and Thursday, 9-12) or email it to the office. As soon as it arrives, the file moves again.
+Structure: 1) what he asked us, 2) what we have done, 3) what he needs to do, 4) by when (I don't know the deadline, leave [DEADLINE] to fill in).
+Courteous tone, use the formal "Lei", acknowledge the inconvenience in one sentence without excessive apologies. Plain language, short sentences, no "it is hereby communicated that". Do not invent laws or articles.`}
+  note="The second one contains the facts, the structure, the tone, and says what not to do. The first leaves Copilot to invent everything."
+/>
+
+Note the [DEADLINE] placeholder: when a piece of data is missing, ask Copilot to leave a gap instead of filling it. An invented deadline in a reply to a citizen is a real problem.
+
+## From bureaucratese to plain language
+
+The office's old template said:
+
+> It is hereby communicated that the application is suspended pending the supplementary documentation necessary for the completion of the procedure.
+
+Copilot, with Marta's instructions, writes:
+
+> Your request is stuck because the copy of the vehicle registration document is missing. As soon as we receive it, the file moves again.
+
+Check two things: that the new sentence still says the same thing, and that it hasn't lost a legal obligation the old template referred to. If the template cites a law, that citation stays and must be verified, as you'll see in [Fixing a letter and checking the facts](/en/by-profession/public-sector/fix-a-letter-check-facts/).
+
+<Collapsible title="Marta's final reply">
+
+```text
+Dear Mr. Ferrante,
+
+you wrote to us to ask for the resident parking permit and you have not yet received an answer. You are right to ask where things stand.
+
+Your file is stuck because the copy of the vehicle registration document is missing. As soon as we receive it, the file moves again.
+
+You can hand in the copy at the Demographic Services counter on Monday or Thursday from 9 to 12, or email it to the office.
+
+From the day we receive the copy, the permit is ready within [DEADLINE] working days.
+
+For any question you can reply to this email.
+
+Kind regards
+Marta [Surname]
+Demographic Services, Comune di Valdoria
+```
+
+</Collapsible>
+
+Marta puts the real details back by hand in the final document. She had left the deadline empty: she asks the officer in charge of the procedure, because Copilot doesn't decide that, and adds it.
+
+## You stay responsible
+
+The draft is Copilot's, the reply is the office's. Read all of it before sending: every date, every hour, every document requested. A courteous but wrong reply costs more than a blunt but correct one. If the citizen's request touches a right or a legal deadline, it is written and signed by whoever has that responsibility, and Copilot at most helps make it readable.
+
+<LlmExercise
+  title="A reply to a citizen, start to finish"
+  file="practice-public-sector-citizen-replies.txt"
+  duration="10-15 min"
+  description="With an invented (or anonymized) request, the AI guides you to build the reply in the four-point structure."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-public-sector-citizen-replies.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It asks four questions, one at a time, about the structure of the reply and the data."
+/>

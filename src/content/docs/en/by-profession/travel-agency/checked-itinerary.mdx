@@ -1,0 +1,110 @@
+---
+title: The checked itinerary
+description: Build an itinerary with Claude and have it checked against holidays, museum closures, connections and season. With the list of what Claude does not know, and where to verify it.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Claude is good at ordering an itinerary and reminding you what to check: holidays, closing days, transfer times, time zones, season.
+- It does not know strikes, current timetables, minor local holidays or extraordinary closures. You check those yourself, on official sources.
+- Ask it to split the answer into two lists: what is reasonably certain and what needs verifying, with the suggested source.
+- If you use web search, open the sources it cites: look at the site and the date before trusting them.
+
+</LessonSummary>
+
+An itinerary seems right when it reads well. The problem is that text that reads well can contain a museum closed on the wrong day. Claude is a good assistant for building and reviewing an itinerary, as long as you know what you can ask it and what you must verify yourself.
+
+You need the project from [Set up Claude for your agency](/en/by-profession/travel-agency/start-here/). Client data stays minimal, as explained in [Company data and privacy](/en/at-work/company-data-and-privacy/). The example is in Italy, so the holidays are Italian.
+
+## An example: Padua and Venice over All Saints' weekend
+
+An invented couple, the Ferris, want a long weekend in the Veneto from Saturday 30 October to Tuesday 2 November 2027. You write to Claude:
+
+```text
+Build a 4-day itinerary between Padua and Venice from Saturday 30 October to Tuesday 2 November 2027, for a couple travelling by train. Interests: art and food, relaxed pace. Then check it yourself: flag holidays, days when museums and sights may be closed, tight timings, effects of the season. Split the answer into "Reasonably certain" and "To verify, and where".
+```
+
+In the answer Claude proposes the days and flags, among other things, that Monday 1 November is a national holiday (All Saints), that many museums close one day a week so each should be checked, that at the end of October the days are short and Venice can have high water. Then it lists what to verify: opening hours and closures of each place on their own sites, train times, any strikes.
+
+It is a good base. Your work begins with the "to verify" list.
+
+## What Claude does not know or gets wrong
+
+Claude writes plausible text, and the information that changes often is where it is most likely to be wrong. Here it is, with where to check.
+
+- **Transport strikes.** It does not know them. The official calendar is the [strike page of the Ministry of Infrastructure and Transport](https://scioperi.mit.gov.it/): you can search by date, sector (air, rail, local public transport) and region. Check it for the days of the trip and again a few days before.
+- **Current timetables for trains, flights, ferries.** The ones it quotes are indicative. You need the carriers' sites or the official timetable for the day.
+- **Minor local holidays.** Patron saints' days, village festivals, fairs. Claude remembers the big ones, not always the small ones. Check the town's site or the tourist board.
+- **Extraordinary closures.** Works, exhibitions being set up, maintenance days. Only the place's official pages count.
+- **Holidays abroad.** Many countries move dates every year (religious holidays, bridge days). Check the country's official site or tourist board for that year.
+- **Opening hours and entrance prices.** They change with the season and with new management. The source is the museum's site.
+
+The method is always the same: Claude tells you what to verify, you open the official source and confirm.
+
+<SpotTheError
+  prompt="Padua and Venice itinerary, 30 October - 2 November 2027: check it."
+  sentences={[
+    { text: "Saturday 30 October: arrival in Padua in the morning and a walk around the old town." },
+    { text: "Sunday 31 October: regional train to Venice, with lunch near the Rialto." },
+    { text: "Monday 1 November is a normal working day: all museums and shops are open.", wrong: true, why: "1 November is All Saints, a national holiday. Shops and offices may be closed and many museums close on Mondays: check place by place." },
+    { text: "Tuesday 2 November is a national holiday: everything is closed and trains do not run.", wrong: true, why: "2 November is not a national holiday. Trains and museums follow normal hours, barring strikes or notices: check them on the Ministry's calendar and on each place's site." },
+    { text: "Before departure the train times must be checked on the carrier's site." },
+  ]}
+/>
+
+## How to use web search
+
+If your plan offers it, click the **+** button at the lower left of the chat box and choose **Web search**. If you cannot find it, it is a limit of the plan or the interface, and you can still work with the checklist.
+
+With search on, Claude searches the web and cites sources. Check like this:
+
+1. Open the links it cites, do not stop at the summary.
+2. Look at the site: official (museum, town, carrier, ministry) or a travel blog?
+3. Look at the date of the page: a 2022 timetable does not hold for 2027.
+4. If two sources disagree, the official one wins.
+
+Verified in November 2026. Web search counts toward your plan's usage limit, and the interface may change.
+
+<SelfCheck
+  id="travel-agency-checked-itinerary-q1"
+  question="Claude writes that the museum you included is open every day from 9 to 6. What do you do before confirming it to the client?"
+  options={[
+    { text: "Nothing: the hours are plausible.", why: "Plausible does not mean correct. Hours change with season and management." },
+    { text: "I check the hours and closing days on the museum's official site for the travel dates.", correct: true, why: "It is the source that counts, and it is worth looking at the exact dates." },
+    { text: "I ask Claude whether it is sure.", why: "It will answer with the same confidence, even if it was wrong." },
+    { text: "I look on a recent travel blog.", why: "A blog can be old or wrong. The museum's site is better." },
+  ]}
+/>
+
+## A routine in four moves
+
+1. Ask for the itinerary with real dates (year included) and number of people.
+2. Ask for the two lists: reasonably certain, to verify.
+3. You check the items on the list against official sites and the strike calendar.
+4. Go back to Claude with the corrections ("the museum closes on Monday, move the visit to Tuesday") and redo the itinerary.
+
+<LlmExercise
+  title="Check an itinerary with real dates"
+  file="practice-travel-agency-checked-itinerary.txt"
+  duration="15 min"
+  description="The AI guides you to build a short itinerary and to separate what is certain from what needs verifying."
+/>
+
+## What comes next
+
+When the client accepts, deposits and balances arrive. The next step is [the payment register in Excel](/en/by-profession/travel-agency/payment-tracker/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-travel-agency-checked-itinerary.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

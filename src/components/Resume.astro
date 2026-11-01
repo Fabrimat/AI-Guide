@@ -63,12 +63,13 @@ const titleId = `resume-confirm-title-${uid}`;
   const LOCALES = ['en', 'it'];
   const LOCALE_RE = /^\/([a-z]{2})\//;
 
-  // A lesson URL has exactly three path segments (/<locale>/<module>/<slug>/).
+  // A lesson URL has three path segments (/<locale>/<module>/<slug>/), or four
+  // in nested modules (/<locale>/by-profession/<profession>/<slug>/).
   // Pages like /it/about/ or /it/privacy/ have two and shouldn't steer Resume.
   // Kept in sync with isLesson() in src/scripts/progress.ts.
   function isLesson(url: string): boolean {
     const parts = url.split('/').filter(Boolean);
-    if (parts.length !== 3) return false;
+    if (parts.length < 3 || parts.length > 4) return false;
     return LOCALES.indexOf(parts[0]) !== -1;
   }
 

@@ -1,0 +1,135 @@
+---
+title: Your work assistant
+description: How to create a Project with the instructions for your job, step by step in Claude, in general terms in ChatGPT, and with an instructions document in Copilot. What to write, which files to upload, how to update it.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- A work assistant is a chat inside a **Project**: you write the instructions and files once, and every new chat finds them.
+- The instructions say who you are, who you write for, what tone you use, what format you want, what never to do, and what to ask when information is missing.
+- Upload a few targeted files (templates, terms, two good examples). Never personal data of clients or citizens.
+- If the AI keeps making the same mistake, fix the instruction, not the single chat.
+- Copilot does not always have Projects: in that case keep the instructions in a Word document and paste them at the start of every chat.
+
+</LessonSummary>
+
+Every time you open a new chat, the AI does not know who you are. It does not know you work in an agency or an office, that you always write to clients you have already met, that your tone is friendly and never servile. If you do the same job every week, explaining it again each time costs you time. A Project explains it once.
+
+The concept is in the lesson [*Reuse context with projects*](/en/at-work/reuse-context-with-projects/). Here we look at the practical side: where to click, what to write, what to upload.
+
+## Create the Project in Claude
+
+Claude is the tool we use in the travel agency chapter. Projects are available on the free plan too, up to five.
+
+1. In the left sidebar click **Projects**.
+2. Click **+ New Project**, top right.
+3. Write a name and a description. They are for you to recognize it: Claude does not read them.
+4. Click **Set project instructions**, write the instructions and click **Save instructions**.
+5. On the right side of the project page click the **+** to add the reference files.
+
+Verified in November 2026. Claude is rolling out a new look for projects in stages: if a label differs from the ones above, look for the entry about project instructions. To edit the instructions later, reopen the project and look for the same panel.
+
+Every chat you open inside the project starts with its instructions and files. Chats stay separate, though: what you say in one does not carry over to another, unless you put it in the project files.
+
+## ChatGPT
+
+ChatGPT has Projects too. From the sidebar you create a new project, give it a name, and you find the place for instructions and files in the project settings. The exact button names are not verified here, so look for those words. The number of files allowed depends on the plan: check the plans page before uploading.
+
+## Copilot
+
+It depends on what your organization has turned on. If you have custom instructions, they apply to all your chats, not to a single project. The path, in Italian:
+
+1. In Copilot Chat, top right, open **Impostazioni e altro** (Settings and more).
+2. Open the settings, then the **Impostazioni Chat** window and the **Personalizzazione** section.
+3. Turn on **Istruzioni personalizzate** and click **Modifica istruzioni**.
+4. Write the instructions and click **Salva istruzioni**.
+
+Verified in November 2026. Your organization may have switched this feature off, and the product name in your office may be different: check what appears on your screen.
+
+The solution that always works is a Word document with the instructions, which you call for example "Assistant instructions". At the start of every chat you copy and paste it (or attach it, if your Copilot lets you add files), then write the request. Custom instructions and the document should hold work rules only, never citizens' data.
+
+## Write the instructions
+
+Ten lines are enough. The template below covers the six things you need. Copy it, replace the parts in square brackets and delete the lines you do not need.
+
+```text
+Who I am: [your role], at [type of organization], in [city or area].
+Who I write for: [clients, citizens, colleagues], who usually [what they already know].
+Tone: [friendly and direct / formal but simple], no [words you hate].
+Format: [typical length, document structure, lists yes or no].
+Never do: [invent prices, dates, rules; end with courtesy phrases].
+If information is missing: ask me before writing, one question at a time.
+```
+
+A filled-in example, for a small fictional agency, Girasole Viaggi:
+
+```text
+Who I am: owner of Girasole Viaggi, a 3-person agency in Brescia.
+Who I write for: Italian families and couples, who usually do not know the destination.
+Tone: friendly and direct, formal "you", no exclamation marks and no "we are delighted to".
+Format: emails of 12 lines at most, quotes as a list with one line per item.
+Never do: invent prices, flight times, holidays or closures. If I did not write them, flag them with [TO CHECK].
+If information is missing: ask me before writing, one question at a time.
+```
+
+<PromptCompare
+  weak="You are an assistant for travel agencies. Be professional and helpful."
+  strong={`Owner of a 3-person agency. I write to Italian families. Friendly tone, formal "you", no exclamation marks. Emails of 12 lines at most. Do not invent prices, times or holidays: flag them with [TO CHECK]. If information is missing, ask one question at a time.`}
+  note="The second says who you are, who you write for and above all what the AI must not invent. The first leaves every choice to chance."
+/>
+
+The most useful line is almost always "never do". The AI tends to fill gaps with plausible things, and a rule like "flag them with [TO CHECK]" gives it an alternative to inventing.
+
+## Which files to upload
+
+Upload few and targeted: a document template, the general terms, the price list if it does not change every week, two examples of work that went well. Three to five files beat thirty.
+
+Do not upload identity documents, tax codes, payment data, case files with names and surnames, citizens' records. The file stays in the project and is read again in every chat. The full rules are in [*Company data and privacy*](/en/at-work/company-data-and-privacy/). If an example contains real names, replace them with invented ones before uploading.
+
+<SelfCheck
+  id="your-work-assistant-q1"
+  question="You always ask the AI for a quote and every time the tone is wrong: too enthusiastic. What do you do?"
+  options={[
+    { text: "Each time I write in the chat 'less enthusiasm, please'.", why: "It works for that chat, but the next one starts from zero and the mistake comes back." },
+    { text: "I add a line about tone to the project instructions, with an example of a phrase to avoid.", correct: true, why: "The mistake repeats, so the rule goes in the instructions: from there it applies to every new chat." },
+    { text: "I upload thirty old quotes to the project.", why: "More files dilute the signal. If you need an example of tone, two good ones are enough." },
+    { text: "I switch tool.", why: "The problem is in the instructions, and you would find the same ones elsewhere." },
+  ]}
+/>
+
+## How to update it
+
+When the AI keeps making the same mistake, find the line of the instructions that should prevent it. If it is not there, write it. If it is there but vague, rewrite it with an example. The test is simple: open a new chat and repeat the request that went wrong.
+
+If a price list or a term changes, replace the old file with the new one and delete the old one. Two versions of the same document in the project are the surest way to get wrong answers. Now and then reread the whole instructions: they may contain rules you no longer need.
+
+<LlmExercise
+  title="Build your assistant's instructions"
+  file="practice-your-work-assistant.txt"
+  duration="10-15 min"
+  description="The AI interviews you about your job and at the end hands you the instructions for your Project, ready to paste."
+/>
+
+<Collapsible title="What if my organization allows none of this?">
+
+Then work with what you have. Keep the instructions in a Word document, write the request below them and paste everything at the start of the chat. If you cannot even paste text, ask the IT office which tools are approved: it is a normal question, and the answer also tells you what you can enter.
+
+</Collapsible>
+
+## Check what you learned
+
+<LlmExercise
+  variant="review"
+  title="Four questions to make it stick"
+  file="review-your-work-assistant.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time."
+/>

@@ -1,0 +1,122 @@
+---
+title: Prepara Claude per la tua agenzia
+description: Crei un Progetto in Claude con le istruzioni giuste per un'agenzia viaggi, carichi tre file e fissi la regola sui dati dei clienti. Lo fai una volta, poi lo usi per preventivi, itinerari e pagamenti.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Un Progetto di Claude tiene insieme istruzioni e file: ogni chat che apri dentro il progetto li ha già, senza che tu li ripeta.
+- Servono tre file: il modello di preventivo, le condizioni generali e due o tre esempi del tuo modo di scrivere ai clienti.
+- Nome e destinazione del cliente vanno bene se servono. Passaporti, carte d'identità, numeri di carta e IBAN non si incollano mai.
+- Se Claude sbaglia sempre allo stesso modo, correggi le istruzioni del progetto, non la singola chat.
+
+</LessonSummary>
+
+Hai una piccola agenzia viaggi. Ogni settimana scrivi preventivi, controlli itinerari e rincorri acconti. Il lavoro è sempre lo stesso: cambia il cliente, restano il tuo modello, il tuo tono e le tue regole. Un Progetto di Claude serve a mettere queste cose in un posto solo, una volta.
+
+Se vuoi prima il quadro generale, lo trovi in [Il tuo assistente di mestiere](/it/by-profession/your-work-assistant/). Qui si fa in concreto, per un'agenzia.
+
+Per tutta la serie usiamo un'agenzia inventata, **Agenzia Rondine Viaggi**, due persone in un negozio di provincia. Clienti e pratiche sono inventati.
+
+## Crea il Progetto
+
+1. Nel menu a sinistra di Claude, clicca **Projects**.
+2. Clicca **+ New Project**, in alto a destra.
+3. Scrivi un nome (per esempio "Agenzia Rondine") e una descrizione breve. Sono solo etichette per te: Claude non le legge.
+4. Sul lato destro della pagina del progetto clicca il pulsante **+** per aggiungere i file.
+5. Clicca **Set project instructions**, incolla le istruzioni (ti do un modello qui sotto) e clicca **Save instructions**.
+
+Verificato a novembre 2026. Claude cambia spesso l'interfaccia, e sul sito è in arrivo una versione nuova dei progetti: se le voci non coincidono, cerca nel progetto quelle che parlano di istruzioni e di file. Nell'app in italiano i nomi possono essere tradotti.
+
+I Progetti ci sono anche nel piano gratuito, fino a cinque. Per modificare le istruzioni in seguito riapri il progetto e cerca il pannello delle istruzioni. Ogni chat dentro il progetto è separata dalle altre: Claude non ricorda la chat di ieri, ricorda solo istruzioni e file.
+
+## Le istruzioni per un'agenzia
+
+Sono un modello da adattare. Cambia il nome, i servizi, il tono. Tieni le frasi corte, come se le dicessi a una collaboratrice nuova.
+
+<Collapsible title="Istruzioni pronte per Agenzia Rondine Viaggi">
+
+```text
+Lavori con me, titolare di Agenzia Rondine Viaggi, una piccola agenzia di provincia. Organizziamo viaggi in Italia e in Europa per famiglie e coppie. Scriviamo in italiano.
+
+Cosa fai: mi aiuti a scrivere preventivi, a costruire e controllare itinerari, a preparare il registro dei pagamenti in Excel.
+
+Tono verso i clienti: cordiale e chiaro, dai del lei, frasi brevi, niente promesse esagerate. Niente "vacanza da sogno" e simili.
+
+Preventivi: usa sempre il modello di preventivo che trovi nei file del progetto. Mantieni le sezioni e il loro ordine.
+
+Prezzi: non li conosci. Non inventare mai cifre, orari di voli o treni, disponibilità. Se un dato manca scrivi [DA CONFERMARE] e a fine risposta elencami cosa manca.
+
+Date e chiusure: se ti chiedo di controllare un itinerario, segnala festività, chiusure settimanali dei musei e tempi stretti. Dì sempre cosa devo verificare io su una fonte ufficiale.
+
+Dati dei clienti: usa solo il nome di battesimo e quello che serve al lavoro. Se ti incollo per sbaglio un numero di passaporto, di carta o un IBAN, avvisami e non usarlo.
+
+Se mancano informazioni, chiedimele prima di scrivere.
+```
+
+</Collapsible>
+
+## Cosa caricare
+
+Tre file bastano. Più ne carichi, più Claude rischia di pescare il pezzo sbagliato.
+
+- **Il modello di preventivo** della tua agenzia (Word o PDF), con i campi vuoti o con un preventivo vecchio senza dati del cliente.
+- **Le condizioni generali di vendita**, così Claude non ne inventa di sue.
+- **Due o tre esempi** di email o preventivi che ti sono piaciuti, per fargli capire il tuo tono.
+
+Claude legge file Word, PDF, Excel e di testo. Per i file Excel deve essere attiva l'opzione di creazione file (in **Settings**, sezione **Capabilities**, la voce "Code execution and file creation"), che di solito lo è già. Se un file è molto grande, Claude te lo segnala.
+
+## La regola sui dati dei clienti
+
+Nel progetto restano i file che carichi e quello che scrivi nelle chat. Per questo conta cosa ci metti.
+
+Va bene: nome di battesimo, destinazione, date, numero di persone, preferenze. Non va mai: numeri di passaporto o carta d'identità, scansioni di documenti, numeri di carta di credito, IBAN, codici fiscali. Per un preventivo non ti servono, e se il documento serve a una prenotazione lo inserisci tu sul sito del fornitore.
+
+Per i casi dubbi leggi [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/). Se hai testi con tanti dati da ripulire, [l'anonimizzatore](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica) lavora nel tuo browser.
+
+<SelfCheck
+  id="travel-agency-start-here-q1"
+  question="Un cliente ti manda per email la foto del passaporto per un preventivo. Cosa fai?"
+  options={[
+    { text: "La carico nel Progetto, così Claude compila i dati del viaggiatore.", why: "Il passaporto non serve per un preventivo e il file resterebbe nel progetto." },
+    { text: "Non la carico. Scrivo a Claude solo nome di battesimo, date e destinazione.", correct: true, why: "Il preventivo si fa con le informazioni di viaggio. I documenti li usi solo tu, nei sistemi dei fornitori." },
+    { text: "Copio solo il numero del passaporto nella chat, tanto la foto non c'è.", why: "Il numero è un dato personale delicato quanto la foto." },
+    { text: "La carico, ma poi cancello la chat.", why: "Se il file è nei file del progetto resta lì anche dopo aver cancellato la chat." },
+  ]}
+/>
+
+## Prova subito
+
+Apri una chat dentro il progetto e scrivi: "Presentati in tre righe e dimmi cosa hai capito del mio lavoro e cosa ti manca". Se Claude non cita il modello di preventivo o il tono, le istruzioni sono troppo vaghe: aggiungi una frase e riprova.
+
+Se in un mese noti che sbaglia sempre allo stesso modo (per esempio chiude le email con una frase troppo entusiasta), aggiungi una riga alle istruzioni: "Non chiudere con frasi di cortesia". Vale per tutte le chat future.
+
+## Word ed Excel (facoltativo)
+
+Anthropic ha anche due componenti aggiuntivi, Claude for Excel e Claude for Word, che lavorano dentro i programmi. Sono per i piani a pagamento (Pro, Max, Team, Enterprise), non per il gratuito, e servono Word o Excel in abbonamento Microsoft 365 o nella versione web. Per questa serie non servono: si lavora nella chat, scaricando i file e aprendoli. Se in futuro li provi, tratta anche lì i dati dei clienti con la stessa regola.
+
+<LlmExercise
+  title="Scrivi le istruzioni della tua agenzia"
+  file="practice-travel-agency-start-here.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sulla tua agenzia e ti consegna le istruzioni del Progetto pronte da incollare."
+/>
+
+## Cosa viene dopo
+
+Con il progetto pronto, il primo lavoro concreto è [il preventivo dal modello](/it/by-profession/travel-agency/quote-from-template/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-travel-agency-start-here.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

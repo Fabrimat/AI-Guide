@@ -101,12 +101,22 @@ async function readLesson(filePath, urlPath) {
 }
 
 async function readModuleLessons(moduleDir) {
-  const dir = path.join(DOCS_DIR, moduleDir);
-  const files = (await fs.readdir(dir)).filter((f) => f.endsWith('.mdx'));
+  const root = path.join(DOCS_DIR, moduleDir);
+  // Walk one level of subfolders too (by-profession/<profession>/<slug>).
+  const files = [];
+  for (const entry of await fs.readdir(root, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      for (const f of await fs.readdir(path.join(root, entry.name))) {
+        if (f.endsWith('.mdx')) files.push(`${entry.name}/${f}`);
+      }
+    } else if (entry.name.endsWith('.mdx')) {
+      files.push(entry.name);
+    }
+  }
   const lessons = [];
   for (const file of files) {
     const slug = file.replace(/\.mdx$/, '');
-    const full = path.join(dir, file);
+    const full = path.join(root, file);
     const raw = await fs.readFile(full, 'utf8');
     const fm = parseFrontmatter(raw);
     if (!fm.title) continue;
@@ -115,7 +125,7 @@ async function readModuleLessons(moduleDir) {
     lessons.push({
       title: fm.title,
       description: fm.description ?? '',
-      url: `${SITE}/en/${moduleDir}/${slug}/`,
+      url: slug === 'index' ? `${SITE}/en/${moduleDir}/` : `${SITE}/en/${moduleDir}/${slug}/`,
       order,
       slug,
     });

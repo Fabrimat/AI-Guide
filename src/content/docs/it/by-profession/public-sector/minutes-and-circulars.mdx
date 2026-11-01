@@ -1,0 +1,117 @@
+---
+title: Verbali e circolari
+description: Dagli appunti o dalla trascrizione di una riunione al verbale nel formato dell'ufficio, e da una decisione a una circolare interna, controllando che non ci sia scritto niente di mai detto.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Copilot mette in ordine appunti sparsi nel formato del tuo ufficio: presenti e assenti, argomenti, decisioni, cose da fare.
+- Dagli solo i tuoi appunti e il modello. Se manca un dato, deve scrivere [DA COMPLETARE], non inventarlo.
+- Il controllo che conta è questo: nel verbale c'è qualcosa che nessuno ha detto? Rileggi con gli appunti accanto.
+- Decisioni e discussione vanno separate. Una cosa proposta non è una cosa decisa.
+- Dalla decisione alla circolare interna è un passaggio breve, ma il testo che esce è tuo.
+
+</LessonSummary>
+
+L'Ufficio Tecnico del Comune di Valdoria (di fantasia) si riunisce il mercoledì per coordinare i lavori di manutenzione delle strade. Giorgio, il segretario della riunione, prende appunti a mano e poi, in un'ora, li trasforma in verbale. Oggi vuole farlo con Copilot. Prima legge [Cosa puoi fare con Copilot, e cosa no](/it/by-profession/public-sector/start-here/): in riunione si parla di lavori e non di cittadini, quindi i suoi appunti non contengono dati personali. Se i tuoi li contengono, anonimizzali come in [Rispondere ai cittadini](/it/by-profession/public-sector/citizen-replies/).
+
+## Dagli appunti al verbale
+
+Gli appunti di Giorgio sono quelli di tutti: frammenti, abbreviazioni, frecce.
+
+```text
+Mercoledì 4 nov, ore 10, sala riunioni.
+Presenti: Bruni (resp. ufficio), Costa, Dalla Torre, Esposito. Assente: Fabbri.
+Asfaltatura via Marconi: Costa dice che l'impresa può partire dal 17 nov. Bruni vuole prima sentire la polizia locale per la chiusura. Si decide di sentirla entro venerdì.
+Buche via Roma: se ne parla, nessuna decisione. Dalla Torre porta i preventivi la volta dopo.
+Da fare: Costa scrive all'impresa, Dalla Torre preventivi.
+Prossima: mercoledì 11 nov, ore 10.
+```
+
+Con il formato dell'ufficio in mano, Giorgio scrive a Copilot:
+
+```text
+Trasforma questi appunti in un verbale di riunione. Usa questa struttura: data e luogo, presenti, assenti, ordine dei lavori, per ogni punto una sezione "Discussione" e una "Decisione" (se non c'è, scrivi "Nessuna decisione"), azioni da svolgere con chi e entro quando, data della prossima riunione.
+Usa solo quello che c'è negli appunti. Dove manca un'informazione scrivi [DA COMPLETARE]. Non aggiungere nomi, date, motivazioni o frasi dette da qualcuno che non ci sono negli appunti.
+Stile asciutto, al passato.
+
+[appunti]
+```
+
+Il verbale che esce ha le sezioni al posto giusto. Guarda cosa fa Copilot con i punti dove gli appunti sono vaghi: per via Marconi mette "Decisione: sentire la polizia locale entro venerdì" e come scadenza "[DA COMPLETARE]" per la risposta all'impresa, perché Giorgio non l'aveva scritta. Se non glielo avessi vietato, avrebbe potuto scegliere una data.
+
+## Controllare che non aggiunga niente
+
+Un verbale ha valore perché riporta quello che è successo. Un assistente che riassume tende a rendere le frasi più nette di come sono state dette. Giorgio fa tre controlli, con gli appunti accanto.
+
+1. **Presenti e assenti.** I nomi sono quelli giusti? Fabbri è segnato assente?
+2. **Decisioni e discussione.** Ogni "si decide" corrisponde a una decisione presa in riunione? Le buche di via Roma sono discussione, non decisione.
+3. **Date, importi, nomi.** Ogni numero e ogni data è negli appunti? Se una data compare solo nel verbale, è inventata.
+
+<SelfCheck
+  id="public-sector-minutes-q1"
+  question="Nel verbale generato da Copilot trovi la frase: «Il gruppo ha concordato di rinviare l'asfaltatura di via Marconi a dicembre». Nei tuoi appunti non c'è. Cosa fai?"
+  options={[
+    { text: "La lascio: se Copilot l'ha scritta, vuol dire che l'ha dedotta dagli appunti.", why: "Copilot non deduce, produce testo plausibile. Una decisione che nessuno ha preso in un verbale diventa un fatto." },
+    { text: "La tolgo, e chiedo a Copilot di rifare il verbale con la regola \"solo quello che c'è negli appunti\".", correct: true, why: "Se non è negli appunti, non è nel verbale. Il vincolo nel prompt serve a ridurre il problema, e la rilettura serve a trovarlo." },
+    { text: "La tengo se mi sembra ragionevole, tanto la riunione l'ho seguita io.", why: "Il verbale riporta cosa è stato detto, non cosa sarebbe ragionevole. Se ricordi una decisione che non hai scritto, aggiungila tu, con le tue parole." },
+    { text: "Chiedo a Copilot se è sicuro di quello che ha scritto.", why: "Risponderà di sì con la stessa sicurezza. Il controllo si fa sugli appunti." },
+  ]}
+/>
+
+## Se la riunione è su Teams
+
+Se la riunione è su Teams, Copilot può usare la trascrizione al posto degli appunti. Servono più cose insieme e non le decidi tu: la trascrizione deve essere attiva, l'organizzatore deve avere consentito la registrazione o la trascrizione, e il riepilogo intelligente richiede una licenza Microsoft Copilot o Teams Premium. Chiedi all'ufficio informatico cosa è attivo nel tuo ente. I partecipanti ricevono un avviso quando la trascrizione parte. Se in riunione si parla di persone, la trascrizione le contiene, quindi vale la regola dell'ente sui dati personali.
+
+Una trascrizione si legge peggio degli appunti (frasi spezzate, nomi sbagliati). Il controllo sul verbale resta lo stesso, con più lavoro di confronto.
+
+## Dalla decisione alla circolare
+
+La decisione su via Marconi riguarda anche altri uffici: la polizia locale va avvisata, il front office deve sapere cosa dire ai cittadini. Giorgio scrive a Copilot:
+
+```text
+Scrivi una circolare interna di 8 righe a tutti i servizi. Fatto: i lavori di asfaltatura di via Marconi partono il 17 novembre, la strada sarà chiusa al traffico e la polizia locale è stata avvisata. Cosa devono fare i servizi: mandare le richieste di passaggio entro [DATA]. Tono chiaro e cortese, italiano semplice, nessuna formula burocratica. Usa solo questi fatti.
+```
+
+Copilot propone una bozza con oggetto, una riga su cosa succede, una su cosa fare e una per chi contattare. Giorgio completa [DATA] con il responsabile e la manda per approvazione. La circolare la firma Bruni.
+
+<Collapsible title="Un modello di verbale da riusare">
+
+```text
+VERBALE DI RIUNIONE
+Data e luogo:
+Presenti:
+Assenti:
+Ordine dei lavori:
+
+1. [Argomento]
+Discussione:
+Decisione (o "Nessuna decisione"):
+
+Azioni: chi, cosa, entro quando
+Prossima riunione:
+```
+
+</Collapsible>
+
+<LlmExercise
+  title="Dagli appunti al verbale"
+  file="practice-public-sector-minutes-and-circulars.txt"
+  duration="10-15 min"
+  description="L'IA ti dà appunti di una riunione inventata e ti guida a scrivere il verbale e a controllare che non aggiunga niente."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-public-sector-minutes-and-circulars.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, su verbale, controlli e circolare."
+/>

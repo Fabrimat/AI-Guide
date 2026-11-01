@@ -333,7 +333,7 @@ export interface UIStrings {
   planCopy: string;
   planCopied: string;
   planError: string;
-  planPaths: Record<'fundamentals' | 'everyday-use' | 'at-work' | 'for-students' | 'for-teachers' | 'going-deeper', string>;
+  planPaths: Record<'fundamentals' | 'everyday-use' | 'at-work' | 'by-profession' | 'for-students' | 'for-teachers' | 'going-deeper', string>;
   planPaces: Record<'daily' | 'weekly' | 'weekend', string>;
   planPromptIntro: (path: string) => string;
   planPromptLessons: string;
@@ -698,6 +698,7 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
     fundamentals: 'Fondamenti',
     'everyday-use': 'Uso quotidiano',
     'at-work': 'Sul lavoro',
+    'by-profession': 'Per mestiere',
     'for-students': 'Per studenti',
     'for-teachers': 'Per docenti',
     'going-deeper': 'Per chi vuole di più',
@@ -1074,6 +1075,7 @@ Then ask me one single question to check I understood, and wait for my answer. I
     fundamentals: 'Fundamentals',
     'everyday-use': 'Everyday use',
     'at-work': 'At work',
+    'by-profession': 'By profession',
     'for-students': 'For students',
     'for-teachers': 'For teachers',
     'going-deeper': 'Going deeper',

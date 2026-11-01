@@ -1,0 +1,122 @@
+---
+title: Set up Claude for your agency
+description: You create a Claude Project with the right instructions for a travel agency, upload three files and set the rule on client data. You do it once, then use it for quotes, itineraries and payments.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- A Claude Project keeps instructions and files together: every chat you open inside the project already has them, with no need to repeat yourself.
+- Three files are enough: your quote template, your general terms and conditions, and two or three examples of how you write to clients.
+- A client's first name and destination are fine when needed. Passports, ID cards, card numbers and IBANs never get pasted.
+- If Claude keeps getting the same thing wrong, fix the project instructions, not the single chat.
+
+</LessonSummary>
+
+You run a small travel agency. Every week you write quotes, check itineraries and chase deposits. The work is always the same: the client changes, while your template, your tone and your rules stay. A Claude Project puts those things in one place, once.
+
+If you want the general picture first, it is in [Your work assistant](/en/by-profession/your-work-assistant/). Here we do it concretely, for an agency.
+
+Throughout the series we use an invented agency, **Agenzia Rondine Viaggi**, two people in a small-town shop. Clients and bookings are made up. The agency is Italian, so the examples use Italian dates and holidays.
+
+## Create the Project
+
+1. In Claude's left-hand menu, click **Projects**.
+2. Click **+ New Project**, top right.
+3. Type a name (for example "Agenzia Rondine") and a short description. They are only labels for you: Claude does not read them.
+4. On the right side of the project page, click the **+** button to add files.
+5. Click **Set project instructions**, paste the instructions (a template follows) and click **Save instructions**.
+
+Verified in November 2026. Claude changes its interface often, and a new version of projects is rolling out on the site: if the labels differ, look inside the project for the ones about instructions and files.
+
+Projects are also available on the free plan, up to five. To edit the instructions later, reopen the project and look for the instructions panel. Every chat inside the project is separate from the others: Claude does not remember yesterday's chat, only the instructions and files.
+
+## Instructions for an agency
+
+This is a template to adapt. Change the name, the services, the tone. Keep sentences short, as if you were talking to a new colleague.
+
+<Collapsible title="Ready-made instructions for Agenzia Rondine Viaggi">
+
+```text
+You work with me, the owner of Agenzia Rondine Viaggi, a small agency in a provincial town. We organise trips in Italy and Europe for families and couples. We write in English with clients who prefer it, in Italian otherwise.
+
+What you do: you help me write quotes, build and check itineraries, and prepare the payment register in Excel.
+
+Tone with clients: friendly and clear, formal address, short sentences, no exaggerated promises. No "dream holiday" and the like.
+
+Quotes: always use the quote template you find in the project files. Keep its sections and their order.
+
+Prices: you do not know them. Never invent figures, flight or train times, or availability. If a piece of data is missing write [TO BE CONFIRMED] and at the end of the answer list what is missing.
+
+Dates and closures: if I ask you to check an itinerary, flag holidays, weekly museum closures and tight timings. Always tell me what I must verify on an official source.
+
+Client data: use only the first name and what the work needs. If I paste a passport number, a card number or an IBAN by mistake, warn me and do not use it.
+
+If information is missing, ask me before writing.
+```
+
+</Collapsible>
+
+## What to upload
+
+Three files are enough. The more you upload, the more likely Claude is to pull the wrong piece.
+
+- **Your quote template** (Word or PDF), with empty fields or an old quote stripped of client data.
+- **Your general terms and conditions of sale**, so Claude does not invent its own.
+- **Two or three examples** of emails or quotes you liked, to show your tone.
+
+Claude reads Word, PDF, Excel and text files. For Excel files the file creation option has to be on (in **Settings**, **Capabilities** section, the "Code execution and file creation" entry), which it usually already is. If a file is very large, Claude tells you.
+
+## The rule on client data
+
+What stays in the project is the files you upload and what you write in chats. That is why what you put in matters.
+
+Fine: first name, destination, dates, number of people, preferences. Never: passport or ID card numbers, scans of documents, credit card numbers, IBANs, tax codes. You do not need them for a quote, and if a document is needed for a booking you enter it yourself on the supplier's site.
+
+For doubtful cases read [Company data and privacy](/en/at-work/company-data-and-privacy/). If you have texts with lots of data to clean, [the anonymizer](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice) works in your browser.
+
+<SelfCheck
+  id="travel-agency-start-here-q1"
+  question="A client emails you a photo of their passport for a quote. What do you do?"
+  options={[
+    { text: "I upload it to the Project so Claude fills in the traveller's details.", why: "The passport is not needed for a quote, and the file would stay in the project." },
+    { text: "I do not upload it. I only write first name, dates and destination to Claude.", correct: true, why: "A quote is made from travel information. Documents are only used by you, in the suppliers' systems." },
+    { text: "I copy just the passport number into the chat, since the photo is not there.", why: "The number is as delicate a piece of personal data as the photo." },
+    { text: "I upload it, then delete the chat.", why: "If the file is in the project files it stays there even after the chat is deleted." },
+  ]}
+/>
+
+## Try it now
+
+Open a chat inside the project and write: "Introduce yourself in three lines and tell me what you understood about my work and what you are missing". If Claude does not mention the quote template or the tone, the instructions are too vague: add a sentence and try again.
+
+If within a month you notice it always gets the same thing wrong (for example it ends emails with an over-enthusiastic line), add a line to the instructions: "Do not end with courtesy phrases". It applies to all future chats.
+
+## Word and Excel (optional)
+
+Anthropic also has two add-ins, Claude for Excel and Claude for Word, that work inside the programs. They are for paid plans (Pro, Max, Team, Enterprise), not the free one, and you need Word or Excel through a Microsoft 365 subscription or the web version. You do not need them for this series: you work in the chat, downloading files and opening them. If you try them later, apply the same client data rule there.
+
+<LlmExercise
+  title="Write your agency's instructions"
+  file="practice-travel-agency-start-here.txt"
+  duration="10-15 min"
+  description="The AI interviews you about your agency and hands you the Project instructions ready to paste."
+/>
+
+## What comes next
+
+With the project ready, the first real job is [the quote from your template](/en/by-profession/travel-agency/quote-from-template/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-travel-agency-start-here.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

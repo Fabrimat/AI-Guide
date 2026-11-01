@@ -1143,6 +1143,54 @@ links. L1-L4 committed and deployed to production (through 3f93744). L5-L6 have
 the draft + review check-in. Style-gate + reader-analysis still to run on
 L3-L6.
 
+## Module 7: Per mestiere (level `principiante`)
+
+Target: non-technical people who do the same hands-on work every week in a
+specific job. Persona-based structure: each chapter starts from a real weekly
+task, shows it from raw notes to the finished document, and gives step-by-step
+instructions on the tool that job really uses (Claude for the travel agency,
+Copilot for the public sector). Tool facts are dated ("verificato a novembre
+2026") and written generically where they could not be verified. Design:
+`docs/superpowers/specs/2026-11-01-by-profession-design.md`.
+
+Folder `src/content/docs/<lang>/by-profession/`, nested one level deeper than
+other modules (`by-profession/<profession>/<slug>`). Sidebar: one group "Per
+mestiere" with the entry page, the common lesson, and one collapsible subgroup
+per profession.
+
+- ✅ **Per mestiere** (`by-profession`): entry page, no `livello` (meta page),
+  `<HomeCards>` of professions, link to the common lesson, invitation to
+  propose other jobs via the About page.
+- ✅ **Il tuo assistente di mestiere** (`by-profession/your-work-assistant`):
+  common lesson. Creating a Project step by step in Claude (verified),
+  generic in ChatGPT, Copilot custom instructions plus the Word-document
+  fallback; instructions template; which files to upload and which not; how to
+  update. Practice: the AI interviews the reader and hands back the Project
+  instructions. Review included.
+
+**Agenzia viaggi** (tool: Claude)
+
+- ✅ **Prepara Claude per la tua agenzia** (`by-profession/travel-agency/start-here`)
+- ✅ **Il preventivo personalizzato** (`by-profession/travel-agency/quote-from-template`)
+- ✅ **L'itinerario controllato** (`by-profession/travel-agency/checked-itinerary`)
+- ✅ **Il registro pagamenti in Excel** (`by-profession/travel-agency/payment-tracker`)
+
+**Pubblica amministrazione** (tool: Copilot; EN keeps the Italian sources with a
+note that the context is Italian public administration)
+
+- ✅ **Cosa puoi fare con Copilot, e cosa no** (`by-profession/public-sector/start-here`)
+- ✅ **Rispondere ai cittadini** (`by-profession/public-sector/citizen-replies`)
+- ✅ **Verbali e circolari** (`by-profession/public-sector/minutes-and-circulars`)
+- ✅ **Sistemare una lettera e verificare i fatti** (`by-profession/public-sector/fix-a-letter-check-facts`)
+
+**Adding a profession** = a folder `by-profession/<profession>/` (IT + EN, plus
+`public/skills/<lang>/` files), a collapsible subgroup in the "By profession"
+sidebar group of `astro.config.mjs`, a card on `by-profession/index.mdx`, and
+the slugs in the `'by-profession'` entry of `PATHS` in
+`src/components/StudyPlanPrompt.astro`. Module label, progress, recap and
+`llms.txt` pick up nested paths automatically (`lesson-data.ts`,
+`progress.ts` and `Resume.astro` accept `<module>/<sub>/<slug>`).
+
 ## Cross-cutting pages (outside the modules)
 
 - ✅ **Glossario** (`/it/glossary/`): technical terms (Allenamento

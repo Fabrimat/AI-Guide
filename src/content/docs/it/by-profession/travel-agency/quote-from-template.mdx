@@ -1,0 +1,121 @@
+---
+title: Il preventivo personalizzato
+description: Dalle note su un cliente al preventivo nel modello della tua agenzia, pronto per Word. Come chiedere varianti e come far dire a Claude cosa manca, invece di lasciargli inventare.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Scrivi a Claude le note sul cliente come le prendi al telefono, senza ripulirle: ci pensa lui a metterle nel modello.
+- I prezzi li metti sempre tu. Claude non li conosce, e se glieli chiedi li inventa. Fagli scrivere [DA CONFERMARE] dove manca un dato.
+- Chiedi due varianti (più economica e più comoda) e un elenco delle cose che mancano prima di mandare il preventivo.
+- Rileggi sempre: date, cifre e nomi.
+
+</LessonSummary>
+
+Questa lezione presuppone il progetto di [Prepara Claude per la tua agenzia](/it/by-profession/travel-agency/start-here/), con il modello di preventivo già caricato. Se non l'hai fatto, parti da lì.
+
+Il caso: una famiglia ti chiama, vuole una settimana in Puglia a giugno. Prendi appunti al volo. Dalla telefonata al preventivo scritto c'è il lavoro di rimettere in ordine gli appunti. Claude lo fa al posto tuo, a patto che gli dica bene cosa deve fare e cosa no.
+
+## Dalle note al preventivo
+
+Apri una chat nel progetto "Agenzia Rondine" e incolla le note come le hai scritte. Qui sono quelle per la famiglia Bianchi, inventata:
+
+```text
+Famiglia Bianchi, due adulti e due ragazzi (12 e 15 anni).
+Puglia, 7 notti, partenza sabato 12 giugno 2027, tornano sabato 19.
+Auto propria da Bologna. Budget circa 2.500 euro in tutto.
+Vogliono mare ma anche un paio di visite (Alberobello, Lecce).
+Non amano gli hotel grandi. Il ragazzo più piccolo è celiaco.
+Mezza pensione solo se non fa salire troppo il prezzo.
+```
+
+E subito sotto la richiesta:
+
+```text
+Scrivi il preventivo nel modello dell'agenzia. Non conosci i prezzi: dove manca un dato scrivi [DA CONFERMARE]. Alla fine fammi l'elenco di tutto quello che devo ancora sapere o verificare prima di mandarlo.
+```
+
+Claude risponde con il preventivo diviso nelle sezioni del tuo modello (cliente, viaggio, sistemazione, servizi inclusi, prezzo, condizioni) e, in fondo, con un elenco simile a questo:
+
+```text
+Da verificare prima dell'invio:
+1. Prezzo della sistemazione: nessun prezzo indicato, serve la tariffa per 4 persone, 7 notti.
+2. Disponibilità per il 12 giugno.
+3. Se la struttura offre menu senza glutine (il ragazzo più piccolo è celiaco).
+4. Costo di eventuale ingresso o parcheggio ad Alberobello e Lecce.
+5. Condizioni di cancellazione della struttura.
+```
+
+L'elenco è la parte più utile. Chiunque può riempire un modello, ma l'elenco ti ricorda la domanda sulla celiachia, che nelle note c'era e che nel preventivo sarebbe sparita.
+
+<PromptCompare
+  weak="Fammi un preventivo per una famiglia in Puglia."
+  strong={`Scrivi il preventivo nel modello dell'agenzia per la famiglia Bianchi: 4 persone, 7 notti in Puglia dal 12 al 19 giugno 2027, auto propria, budget 2.500 euro, un ragazzo celiaco. Non inventare prezzi: scrivi [DA CONFERMARE] e alla fine elencami cosa devo verificare.`}
+  note="Il primo lascia a Claude le scelte che spettano a te: prezzi, strutture, date. Il secondo gli dà i dati e gli dice cosa fare quando mancano."
+/>
+
+## Metti i prezzi tu
+
+Ricevi i prezzi dai fornitori (tour operator, strutture, compagnie). Quando li hai, scrivili nella stessa chat: "Sistemazione A: 1.480 euro per 7 notti con colazione. Sistemazione B: 1.790 euro con mezza pensione. Aggiorna il preventivo." Claude li inserisce e rifà i totali. Controlla le somme a mano o con la calcolatrice: sui conti lunghi può sbagliare.
+
+## Chiedi le varianti
+
+Con gli stessi dati puoi chiedere: "Fammi due varianti: una più economica e una più comoda, con le differenze in tre righe." Il cliente sceglie, tu non rifai il lavoro. Se una variante non ti convince, dì cosa cambiare ("la B senza mezza pensione, con una cena libera a Lecce") e Claude riscrive.
+
+## Portalo in Word
+
+Hai due modi.
+
+**Copia e incolla.** Seleziona il testo del preventivo nella chat, copialo e incollalo in un documento Word con il tuo modello. È il più semplice e funziona sempre.
+
+**File Word già pronto.** Se la creazione di file è attiva nel tuo account, puoi scrivere "Dammelo come file Word" e scaricarlo dalla conversazione. L'opzione si chiama "Code execution and file creation" e si trova in **Settings**, sezione **Capabilities**; di solito è attiva. Verificato a novembre 2026, ma le etichette cambiano: se non la trovi, usa il copia e incolla. Apri comunque il file e controlla l'impaginazione, perché non sempre corrisponde al tuo modello.
+
+<Collapsible title="Cosa scrivere se Claude cambia le sezioni del modello">
+
+Aggiungi alle istruzioni del progetto: "Nei preventivi mantieni esattamente i titoli e l'ordine delle sezioni del modello caricato. Non aggiungere sezioni." Poi riprova con le stesse note. Se continua, il modello caricato probabilmente è poco chiaro: prova con una versione in cui le sezioni hanno titoli netti.
+
+</Collapsible>
+
+<SelfCheck
+  id="travel-agency-quote-from-template-q1"
+  question="Claude scrive un preventivo con 'hotel 4 stelle, 1.350 euro a camera'. Nelle tue note non c'è nessun prezzo. Cosa significa?"
+  options={[
+    { text: "Ha letto il prezzo giusto da qualche listino online.", why: "Non ha accesso ai tuoi fornitori. Se non gliel'hai dato, il numero è inventato." },
+    { text: "Ha inventato la cifra: va tolta e sostituita con il prezzo del fornitore.", correct: true, why: "Claude scrive testo plausibile. Per questo le istruzioni dicono di usare [DA CONFERMARE]." },
+    { text: "È una stima, può restare se la indichi come tale.", why: "Una stima inventata nel preventivo di un cliente diventa un impegno. I prezzi vengono dal fornitore." },
+    { text: "Va bene se il cliente non controlla.", why: "Il problema è il tuo: un prezzo sbagliato lo paghi tu." },
+  ]}
+/>
+
+## Prima di mandarlo
+
+Fai sempre questo controllo: nome e cognome scritti bene, date e giorni della settimana coerenti, numero di persone, ogni cifra confrontata con il fornitore, condizioni di cancellazione che corrispondono alle tue. Poi ripeti per ogni preventivo, anche se i precedenti erano giusti.
+
+Per il cliente usa solo i dati che servono al preventivo. La regola completa è in [Prepara Claude per la tua agenzia](/it/by-profession/travel-agency/start-here/#la-regola-sui-dati-dei-clienti).
+
+<LlmExercise
+  title="Un preventivo dalle tue note"
+  file="practice-travel-agency-quote-from-template.txt"
+  duration="15 min"
+  description="Con un cliente inventato, trasformi le note in preventivo, chiedi due varianti e fai elencare all'IA cosa manca."
+/>
+
+## Cosa viene dopo
+
+Un preventivo con una destinazione e dieci giorni richiede anche un itinerario che regga. Lo vediamo in [L'itinerario controllato](/it/by-profession/travel-agency/checked-itinerary/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-travel-agency-quote-from-template.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

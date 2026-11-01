@@ -1,0 +1,129 @@
+---
+title: The payment register in Excel
+description: Claude designs the Excel sheet for deposits, balances and due dates, with the formulas and late-payment highlighting explained step by step. Then it helps when a formula breaks and with the monthly summary.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- The register lives in your Excel file, not in Claude. Claude remembers neither payments nor past chats: you use it to build the sheet and to repair it.
+- Base columns: booking, client, total, deposit, balance, due date, status. Balance and status are calculated with formulas.
+- To highlight late payments you use Excel's conditional formatting, with a rule based on the Status column.
+- When a formula gives an error, Claude only needs the formula, the error message and two sample rows. No need to paste the register.
+
+</LessonSummary>
+
+Client payments are the job where a mistake costs the most. A well-made Excel sheet tells you every morning who has to pay up and who is late. Claude can design it with you in ten minutes, but the sheet stays yours: Claude does not know what a client has paid, unless you write it in that chat.
+
+The formulas below use Excel's English names (`IF`, `TODAY`) and the comma as separator. If your Excel is in another language, ask Claude for the right version. First of all: client data in chats stays minimal, as explained in [Set up Claude for your agency](/en/by-profession/travel-agency/start-here/#the-rule-on-client-data).
+
+## Ask Claude for the sheet
+
+In the agency's project you write:
+
+```text
+Design an Excel sheet for my agency's payment register. Columns: booking, client, total, deposit paid, balance, balance due date, status. The balance is calculated, the status must say "Paid", "Pending" or "Late". Explain step by step how to do it in Excel, with formulas for English-language Excel.
+```
+
+Claude answers with a structure and the steps. Here it is, in its simplest form, with three invented bookings:
+
+| A: Booking | B: Client | C: Total | D: Deposit | E: Balance | F: Balance due | G: Status |
+|---|---|---|---|---|---|---|
+| RV-001 | Client A | 2,400 | 800 | 1,600 | 15/05/2027 | Pending |
+| RV-002 | Client B | 1,500 | 1,500 | 0 | 10/04/2027 | Paid |
+| RV-003 | Client C | 3,100 | 1,000 | 2,100 | 01/03/2027 | Late |
+
+The amounts here are examples. You can record the client as you prefer, even with a code, if you do not want names in the file.
+
+## The formulas, step by step
+
+1. Type the headers in row 1 and the data from row 2.
+2. In cell **E2** (Balance) type `=C2-D2` and press Enter. Then drag the small square at the bottom right of the cell down to the last row.
+3. In cell **G2** (Status) type:
+
+   ```text
+   =IF(E2<=0,"Paid",IF(F2<TODAY(),"Late","Pending"))
+   ```
+
+   The formula says: if the balance is zero, "Paid"; otherwise, if the due date has already passed compared with today, "Late"; otherwise "Pending". Drag it down to the last row.
+4. Select column F and give it the **Date** format, otherwise `TODAY()` does not compare dates.
+
+`TODAY()` updates itself every time you open the file: the "Late" status appears the day after the due date, without you doing anything.
+
+## Highlight late payments
+
+With conditional formatting, late rows turn red on their own.
+
+1. Select the cells from A2 to G100 (or as far as the register will go).
+2. In the **Home** menu click **Conditional Formatting**, then **New Rule**.
+3. Choose the formula-based rule (the entry reads like "Use a formula to determine which cells to format").
+4. In the formula field type `=$G2="Late"`. The `$` before the G makes each row look at its own Status column.
+5. Click **Format**, choose a light red fill, confirm with **OK**.
+
+Menu names can change a little between Excel versions and between Windows and Mac. If you cannot find an entry, search for "conditional formatting" in the search bar at the top.
+
+<Collapsible title="If you also want orange for due dates in the next 7 days">
+
+Repeat the highlighting steps with a second rule. The formula is `=AND(F2>=TODAY(),F2<=TODAY()+7,$G2="Pending")` with an orange fill. If Excel gives an error, copy the formula to Claude (see below).
+
+</Collapsible>
+
+## If Claude gives you a file
+
+If file creation is on in your account ("Code execution and file creation" option in **Settings**, **Capabilities**), you can ask "Give me this sheet as an Excel file" and download it from the conversation. Verified in November 2026, but labels change. Open the file and check formulas and colours before using it with real data. If the option is not there, rebuild the sheet with the steps above: it takes a few minutes.
+
+There are also Claude for Excel and Claude for Word, add-ins for paid plans. They are optional and follow the same rule: little client data.
+
+## When a formula does not work
+
+If Excel shows an error (`#NAME?`, `#VALUE!`) or the status is wrong, do not paste the register. Write to Claude:
+
+```text
+This formula in English Excel gives me #NAME?: =IF(E2<=0,"Paid",IF(F2<TODAY,"Late","Pending")). The cells are: E2 = 1600, F2 = 15/05/2027. What is wrong? Explain the fix.
+```
+
+Claude answers that the parentheses after `TODAY` are missing and rewrites the correct formula. Other frequent causes: dates typed as text (Excel does not recognise them) and the wrong separator between arguments.
+
+<SelfCheck
+  id="travel-agency-payment-tracker-q1"
+  question="You ask Claude for a summary of outstanding payments. What do you give it?"
+  options={[
+    { text: "The whole register with names, amounts and due dates, so it is complete.", why: "Not needed. Client names do not help the summary and stay in the chat." },
+    { text: "The outstanding rows with the booking code instead of the client's name.", correct: true, why: "A summary needs amounts and due dates. Codes are enough to find the client in your file." },
+    { text: "Nothing: Claude remembers the payments from previous chats.", why: "Claude does not remember past chats. What you do not give it in this conversation, it does not know." },
+    { text: "A photo of the bank transfers received.", why: "It contains IBANs and names: payment data that never gets pasted." },
+  ]}
+/>
+
+## The monthly summary
+
+At the end of the month filter the bookings due in the month, copy only the columns booking, balance, due date and status (with codes, without names) and write:
+
+```text
+Here are this month's bookings (codes instead of names). Give me a summary in five lines: how many are paid, how many late, total still to collect. Then a friendly reminder draft to adapt, with no invented figures.
+```
+
+Check the sums with a `SUM` on the sheet: Claude can get a calculation wrong, the sheet cannot. You reread and personalise the reminder draft yourself before sending it.
+
+For texts with lots of names to clean, see [how to anonymize in practice](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice).
+
+<LlmExercise
+  title="Build your payment register"
+  file="practice-travel-agency-payment-tracker.txt"
+  duration="20 min"
+  description="The AI guides you to build the sheet with formulas and late payments highlighted, using invented bookings."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-travel-agency-payment-tracker.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

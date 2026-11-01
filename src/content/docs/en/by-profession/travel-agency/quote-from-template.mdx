@@ -1,0 +1,121 @@
+---
+title: The personalised quote
+description: From your notes on a client to a quote in your agency's template, ready for Word. How to ask for variants and how to make Claude say what is missing instead of inventing it.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Write Claude your client notes as you take them on the phone, without tidying them up: it puts them into the template.
+- You always supply the prices. Claude does not know them, and if you ask, it invents them. Have it write [TO BE CONFIRMED] where data is missing.
+- Ask for two variants (cheaper and more comfortable) and a list of what is missing before you send the quote.
+- Always reread: dates, figures and names.
+
+</LessonSummary>
+
+This lesson assumes the project from [Set up Claude for your agency](/en/by-profession/travel-agency/start-here/), with your quote template already uploaded. If you have not done it, start there.
+
+The case: a family calls, they want a week in Puglia in June. You jot notes quickly. Between the phone call and the written quote there is the job of putting your notes in order. Claude does that for you, as long as you tell it clearly what to do and what not to do.
+
+## From notes to quote
+
+Open a chat in the "Agenzia Rondine" project and paste the notes as you wrote them. These are for the Bianchi family, invented:
+
+```text
+Bianchi family, two adults and two kids (12 and 15).
+Puglia, 7 nights, leaving Saturday 12 June 2027, back Saturday 19.
+Own car from Bologna. Budget about 2,500 euro in total.
+They want sea but also a couple of visits (Alberobello, Lecce).
+They do not like big hotels. The younger boy is coeliac.
+Half board only if it does not push the price up too much.
+```
+
+And right below it, the request:
+
+```text
+Write the quote in the agency template. You do not know prices: where data is missing write [TO BE CONFIRMED]. At the end give me a list of everything I still need to know or verify before sending it.
+```
+
+Claude answers with the quote split into the sections of your template (client, trip, accommodation, services included, price, terms) and, at the bottom, a list like this:
+
+```text
+To verify before sending:
+1. Accommodation price: no price given, I need the rate for 4 people, 7 nights.
+2. Availability for 12 June.
+3. Whether the property offers gluten-free menus (the younger boy is coeliac).
+4. Cost of any entrance or parking at Alberobello and Lecce.
+5. The property's cancellation terms.
+```
+
+The list is the most useful part. Anyone can fill in a template, but the list reminds you of the coeliac question, which was in your notes and would have vanished from the quote.
+
+<PromptCompare
+  weak="Make me a quote for a family in Puglia."
+  strong={`Write the quote in the agency template for the Bianchi family: 4 people, 7 nights in Puglia from 12 to 19 June 2027, own car, budget 2,500 euro, one coeliac boy. Do not invent prices: write [TO BE CONFIRMED] and at the end list what I need to verify.`}
+  note="The first leaves to Claude the choices that are yours: prices, properties, dates. The second gives it the data and says what to do when it is missing."
+/>
+
+## You supply the prices
+
+You get prices from suppliers (tour operators, properties, carriers). When you have them, write them in the same chat: "Accommodation A: 1,480 euro for 7 nights with breakfast. Accommodation B: 1,790 euro with half board. Update the quote." Claude inserts them and redoes the totals. Check the sums by hand or with a calculator: on long sums it can get it wrong.
+
+## Ask for variants
+
+With the same data you can ask: "Give me two variants: a cheaper one and a more comfortable one, with the differences in three lines." The client chooses, you do not redo the work. If a variant does not convince you, say what to change ("B without half board, with one free dinner in Lecce") and Claude rewrites it.
+
+## Bring it into Word
+
+You have two ways.
+
+**Copy and paste.** Select the quote text in the chat, copy it and paste it into a Word document with your template. It is the simplest and always works.
+
+**A ready-made Word file.** If file creation is on in your account, you can write "Give it to me as a Word file" and download it from the conversation. The option is called "Code execution and file creation" and is in **Settings**, **Capabilities** section; it is usually on. Verified in November 2026, but labels change: if you cannot find it, use copy and paste. Either way, open the file and check the layout, because it does not always match your template.
+
+<Collapsible title="What to write if Claude changes the template's sections">
+
+Add to the project instructions: "In quotes keep exactly the titles and order of the sections of the uploaded template. Do not add sections." Then try again with the same notes. If it keeps happening, the uploaded template is probably unclear: try a version in which the sections have sharp titles.
+
+</Collapsible>
+
+<SelfCheck
+  id="travel-agency-quote-from-template-q1"
+  question="Claude writes a quote with '4-star hotel, 1,350 euro per room'. There is no price in your notes. What does that mean?"
+  options={[
+    { text: "It read the right price from some online price list.", why: "It has no access to your suppliers. If you did not give it the figure, the number is invented." },
+    { text: "It invented the figure: remove it and replace it with the supplier's price.", correct: true, why: "Claude writes plausible text. That is why the instructions say to use [TO BE CONFIRMED]." },
+    { text: "It is an estimate, it can stay if you label it as one.", why: "An invented estimate in a client's quote becomes a commitment. Prices come from the supplier." },
+    { text: "It is fine if the client does not check.", why: "The problem is yours: a wrong price is paid by you." },
+  ]}
+/>
+
+## Before you send it
+
+Always do this check: first and last name spelled correctly, dates and weekdays consistent, number of people, every figure compared with the supplier, cancellation terms that match yours. Then repeat for every quote, even if the previous ones were right.
+
+For the client use only the data the quote needs. The full rule is in [Set up Claude for your agency](/en/by-profession/travel-agency/start-here/#the-rule-on-client-data).
+
+<LlmExercise
+  title="A quote from your notes"
+  file="practice-travel-agency-quote-from-template.txt"
+  duration="15 min"
+  description="With an invented client, you turn notes into a quote, ask for two variants and have the AI list what is missing."
+/>
+
+## What comes next
+
+A quote with a destination and ten days also needs an itinerary that holds up. We look at it in [The checked itinerary](/en/by-profession/travel-agency/checked-itinerary/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-travel-agency-quote-from-template.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

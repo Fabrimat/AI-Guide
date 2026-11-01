@@ -1,0 +1,119 @@
+---
+title: What you can do with Copilot, and what you can't
+description: How to tell which Copilot your office has, what protects your data and what doesn't, what the law says about AI in public administration, and how to keep recurring instructions.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Your agency's rules come before anything on this site: if there is an internal policy on AI, start there.
+- Copilot comes in several versions. Look at the label shown in your tool: it changes what it can read and where it works.
+- Copilot's data protection with a work account is contractual, has limits (web searches), and does not decide for your agency whether personal data may go in.
+- Citizens' personal data in prompts: only if your agency allows it. Otherwise, anonymize.
+- The law says AI is a support tool and the person stays responsible: the signature is yours.
+- Instructions you repeat every time: save them in Copilot's settings if your agency has turned them on, or in a Word document you paste at the start of each chat.
+
+</LessonSummary>
+
+:::note
+This lesson is about Italian public administration: the laws, the sources and the offices named here are Italian. The Copilot parts apply to any organization using it with a work account. The office in the example is invented.
+:::
+
+Marta works in the Demographic Services office of the Comune di Valdoria (an invented municipality). On Monday she has to write the notice that the office is closed for the long weekend, and the text she kept on file is long and full of "it is hereby communicated that". She opens Copilot in the browser and wants it to rewrite the notice. Before pasting anything, she asks herself three questions: which Copilot is this, what can it see, what can I give it. They are the same three as in this lesson.
+
+## Which Copilot you have
+
+Microsoft uses similar names for different things and renamed them more than once in 2026. In the Italian interface the name stays "Copilot Chat". What matters is the label you see in your tool, among these three:
+
+- **Copilot Chat (Basic)**: a chat that works on web data. Of your agency's documents it knows only what you paste, upload or select. In Outlook and Teams it can use the content you have open.
+- **Microsoft 365 Copilot (Basic)**: standard access inside Word, Excel, PowerPoint, OneNote, Outlook and Teams. It can depend on load at that moment, and whether you have it is decided by how your agency is configured.
+- **Microsoft 365 Copilot (Premium)**: the version with a paid licence. It has priority access and can also work on the agency's emails, meetings, chats and files.
+
+There is no rule "you always need the licence" and none that says "it's always included". If the Copilot icon appears in Word, see what it offers. If it doesn't, ask the IT office, because the administrator can limit or switch off these features.
+
+Verified in November 2026. Names change: if your agency uses different labels, ask IT which of the three yours matches.
+
+## What protects your data, and what doesn't
+
+When you sign in with your work account, Copilot applies enterprise data protection. In your tool you recognize it from the word "Work" under your profile and the green shield. Microsoft commits by contract to treating prompts and responses as it treats the agency's emails and files, and not to use them to train its models.
+
+It has three limits worth knowing.
+
+- **Web searches** go through Bing and follow Microsoft's terms, not the agency's. The EU data boundary does not apply to those searches.
+- **Agents** (add-on assistants) have their own terms: read them before using them.
+- The protection does not answer the question "may I enter this data?". That decision belongs to the agency.
+
+So the practical rule is simple: **citizens' personal data in prompts only if the agency allows it in writing**. When in doubt, anonymize (the lesson [Replying to citizens](/en/by-profession/public-sector/citizen-replies/) has the tool) and ask the data protection officer or the IT office. A personal account is not covered by the agency's contract. The general picture is in [Company data and privacy](/en/at-work/company-data-and-privacy/).
+
+## What the law says
+
+Law no. 132 of 23 September 2025, article 14, says public administrations use AI to work better and faster, ensuring "the knowability of how it works and the traceability of its use". Paragraph 2 adds that its use is "instrumental and in support of" decision-making activity, respecting the autonomy and decision-making power of the person, who "remains solely responsible for the measures and procedures" in which it was used.
+
+In practice: Copilot prepares a draft, you read, correct and sign. Article 11, paragraph 2, also says the employer must inform workers about the use of AI: if your agency hasn't, you can ask.
+
+The AgID guidelines on AI adoption in public administration are still being adopted: don't cite them as binding. The official text of the law is on [Normattiva](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2025-09-23;132).
+
+## Instructions you don't want to retype
+
+Marta wants Copilot to always write in plain Italian with short sentences. If your agency has turned on personalization, in Copilot Chat:
+
+1. At the top right open **Impostazioni e altro** (Settings and more) and then the settings.
+2. In the **Impostazioni Chat** (Chat settings) window choose **Personalizzazione** (Personalization).
+3. Turn on **Istruzioni personalizzate** (Custom instructions) and press **Modifica istruzioni** (Edit instructions).
+4. Write the text and press **Salva istruzioni** (Save instructions).
+
+Verified in November 2026, with the Italian labels. If the interface has changed, look for "Custom instructions". The administrator can switch personalization off: in that case the entry is missing or can't be turned on. Don't write citizens' data in the instructions.
+
+If the entry is missing, keep the text in an office Word document and paste it at the start of each chat. It works everywhere. How to write good instructions is in the lesson [Your work assistant](/en/by-profession/your-work-assistant/).
+
+<Collapsible title="A sample instruction set for a municipal office">
+
+```text
+I work in an office of an Italian municipality and write to citizens and colleagues.
+Write in plain Italian, with short sentences and no bureaucratic phrasing.
+Courteous and direct tone. Use the formal "Lei".
+If I ask for a letter: first what was asked, then what we do, then what the person must do and by when.
+Never invent laws, articles, dates, amounts or deadlines. If you need them, ask me.
+Don't ask me for personal data. If you see some in the text, warn me.
+At the end give me the list of facts to check.
+```
+
+</Collapsible>
+
+With those instructions Marta pastes the old notice (no personal data) and asks for a rewrite. Copilot returns a five-line text with the closing date, reopening hours and who to contact. She checks the dates against the office calendar, because Copilot doesn't know them, and publishes it.
+
+## When the tool is limited
+
+If you only have Copilot Chat (Basic), don't expect it to find your files on its own. Put everything in the prompt: who you are, who you're writing to, what you want, in what format. If the text is long, split it into parts and work on one part at a time. If the file is too large, Copilot says so.
+
+<SelfCheck
+  id="public-sector-start-here-q1"
+  question="You have to rewrite a letter to a citizen that contains name, tax code and address. Your agency gave you Copilot with the work account. What do you do?"
+  options={[
+    { text: "I paste everything: the work account is protected, so the data is safe.", why: "The protection is contractual and has limits. Whether personal data may go into Copilot is decided by the agency, not by the account label." },
+    { text: "I check the agency's rules. If there is no clear rule, I anonymize before pasting.", correct: true, why: "The agency's rules come first. If they are missing, removing name, tax code and address costs nothing and the text to rewrite stays the same." },
+    { text: "I use my personal account, so I leave no trace in the agency's system.", why: "A personal account is not covered by the agency's contract: it's the worst choice for citizens' data." },
+    { text: "I ask Copilot whether I can paste the data.", why: "Copilot doesn't know your agency's rules and may answer confidently and wrongly." },
+  ]}
+/>
+
+<LlmExercise
+  title="Write your instructions for Copilot"
+  file="practice-public-sector-start-here.txt"
+  duration="10 min"
+  description="The AI interviews you about your office and hands you the recurring instructions to save in Copilot or in a Word document."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-public-sector-start-here.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It asks four questions, one at a time, about Copilot versions, data protection and responsibility."
+/>

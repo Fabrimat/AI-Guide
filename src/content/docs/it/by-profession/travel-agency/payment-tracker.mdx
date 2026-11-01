@@ -1,0 +1,129 @@
+---
+title: Il registro pagamenti in Excel
+description: Claude ti progetta il foglio Excel per acconti, saldi e scadenze, con le formule e l'evidenziazione dei ritardi spiegate passo passo. Poi ti aiuta quando una formula non va e a preparare il riepilogo del mese.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Il registro vive nel tuo file Excel, non in Claude. Claude non ricorda pagamenti né chat passate: ti serve per costruire il foglio e per ripararlo.
+- Colonne base: pratica, cliente, totale, acconto, saldo, scadenza, stato. Il saldo e lo stato si calcolano con formule.
+- Per evidenziare i ritardi usi la formattazione condizionale di Excel, con una regola basata sulla colonna Stato.
+- Quando una formula dà errore, a Claude basta la formula, il messaggio di errore e due righe di esempio. Non serve incollare il registro.
+
+</LessonSummary>
+
+I pagamenti dei clienti sono il lavoro dove un errore costa di più. Un foglio Excel ben fatto ti dice ogni mattina chi deve saldare e chi è in ritardo. Claude può progettarlo con te in dieci minuti, ma il foglio resta tuo: Claude non sa cosa ha pagato un cliente, a meno che tu glielo scriva in quella chat.
+
+Le formule qui sotto usano i nomi di Excel in italiano (`SE`, `OGGI`) e il punto e virgola come separatore. Se usi Excel in un'altra lingua, chiedi a Claude la versione giusta. Prima di tutto: i dati dei clienti nelle chat restano minimi, come spiegato in [Prepara Claude per la tua agenzia](/it/by-profession/travel-agency/start-here/#la-regola-sui-dati-dei-clienti).
+
+## Chiedi il foglio a Claude
+
+Nel progetto dell'agenzia scrivi:
+
+```text
+Progettami un foglio Excel per il registro pagamenti della mia agenzia. Colonne: pratica, cliente, totale, acconto versato, saldo, scadenza del saldo, stato. Il saldo si calcola, lo stato deve dire "Saldato", "In attesa" o "In ritardo". Spiegami passo passo come fare in Excel, con le formule per Excel in italiano.
+```
+
+Claude risponde con una struttura e i passi. Eccola, nella forma più semplice, con tre pratiche inventate:
+
+| A: Pratica | B: Cliente | C: Totale | D: Acconto | E: Saldo | F: Scadenza saldo | G: Stato |
+|---|---|---|---|---|---|---|
+| RV-001 | Cliente A | 2.400 | 800 | 1.600 | 15/05/2027 | In attesa |
+| RV-002 | Cliente B | 1.500 | 1.500 | 0 | 10/04/2027 | Saldato |
+| RV-003 | Cliente C | 3.100 | 1.000 | 2.100 | 01/03/2027 | In ritardo |
+
+Gli importi qui sono d'esempio. Il cliente lo segni come preferisci, anche con un codice, se non vuoi nomi nel file.
+
+## Le formule, passo passo
+
+1. Scrivi le intestazioni nella riga 1 e i dati dalla riga 2.
+2. Nella cella **E2** (Saldo) scrivi `=C2-D2` e premi Invio. Poi trascina il quadratino in basso a destra della cella fino all'ultima riga.
+3. Nella cella **G2** (Stato) scrivi:
+
+   ```text
+   =SE(E2<=0;"Saldato";SE(F2<OGGI();"In ritardo";"In attesa"))
+   ```
+
+   La formula dice: se il saldo è zero, "Saldato"; altrimenti, se la scadenza è già passata rispetto a oggi, "In ritardo"; altrimenti "In attesa". Trascinala fino all'ultima riga.
+4. Seleziona la colonna F e dai il formato **Data**, altrimenti `OGGI()` non confronta le date.
+
+`OGGI()` si aggiorna da solo ogni volta che apri il file: lo stato "In ritardo" compare il giorno dopo la scadenza, senza che tu faccia niente.
+
+## Evidenzia i ritardi
+
+Con la formattazione condizionale le righe in ritardo diventano rosse da sole.
+
+1. Seleziona le celle da A2 a G100 (o fino a dove arriverà il registro).
+2. Nel menu **Home** clicca **Formattazione condizionale**, poi **Nuova regola**.
+3. Scegli la regola basata su una formula (la voce suona come "Utilizza una formula per determinare le celle da formattare").
+4. Nel campo della formula scrivi `=$G2="In ritardo"`. Il simbolo `$` davanti alla G fa guardare a ogni riga la propria colonna Stato.
+5. Clicca **Formato**, scegli un riempimento rosso chiaro, conferma con **OK**.
+
+I nomi dei menu possono cambiare un po' fra le versioni di Excel e fra Windows e Mac. Se non trovi una voce, cerca "formattazione condizionale" nella barra di ricerca in alto.
+
+<Collapsible title="Se vuoi anche l'arancione per le scadenze nei prossimi 7 giorni">
+
+Ripeti i passi dell'evidenziazione con una seconda regola. La formula è `=E(F2>=OGGI();F2<=OGGI()+7;$G2="In attesa")` e il riempimento arancione. Se Excel dà errore, copia la formula in Claude (vedi sotto).
+
+</Collapsible>
+
+## Se Claude ti dà un file
+
+Se la creazione di file è attiva nel tuo account (opzione "Code execution and file creation" in **Settings**, **Capabilities**), puoi chiedere "Dammi questo foglio come file Excel" e scaricarlo dalla conversazione. Verificato a novembre 2026, ma le etichette cambiano. Apri il file e controlla formule e colori prima di usarlo con dati veri. Se non c'è l'opzione, ricostruisci il foglio con i passi qui sopra: richiede pochi minuti.
+
+Esistono anche Claude for Excel e Claude for Word, componenti aggiuntivi per i piani a pagamento. Sono facoltativi e hanno la stessa regola: pochi dati dei clienti.
+
+## Quando una formula non va
+
+Se Excel mostra un errore (`#NOME?`, `#VALORE!`) o lo stato è sbagliato, non incollare il registro. Scrivi a Claude:
+
+```text
+Questa formula in Excel italiano mi dà #NOME?: =SE(E2<=0;"Saldato";SE(F2<OGGI;"In ritardo";"In attesa")). Le celle sono: E2 = 1600, F2 = 15/05/2027. Cosa non va? Spiegami la correzione.
+```
+
+Claude risponde che mancano le parentesi dopo `OGGI` e riscrive la formula giusta. Altre cause frequenti: le date scritte come testo (Excel non le riconosce) e la virgola al posto del punto e virgola.
+
+<SelfCheck
+  id="travel-agency-payment-tracker-q1"
+  question="Chiedi a Claude un riepilogo dei pagamenti in sospeso. Cosa gli dai?"
+  options={[
+    { text: "L'intero registro con nomi, importi e scadenze, così è completo.", why: "Non serve. I nomi dei clienti non aiutano il riepilogo e restano nella chat." },
+    { text: "Le righe in sospeso con il codice pratica al posto del nome del cliente.", correct: true, why: "Per un riepilogo servono importi e scadenze. I codici bastano per ritrovare il cliente nel tuo file." },
+    { text: "Niente: Claude ricorda i pagamenti dalle chat precedenti.", why: "Claude non ricorda le chat passate. Quello che non gli dai in questa conversazione, non lo sa." },
+    { text: "Una foto dei bonifici ricevuti.", why: "Contiene IBAN e nomi: dati di pagamento che non si incollano mai." },
+  ]}
+/>
+
+## Il riepilogo del mese
+
+A fine mese filtra le pratiche con scadenza nel mese, copia solo le colonne pratica, saldo, scadenza e stato (con i codici, senza i nomi) e scrivi:
+
+```text
+Ecco le pratiche del mese (codici al posto dei nomi). Fammi un riepilogo in cinque righe: quante sono saldate, quante in ritardo, totale ancora da incassare. Poi una bozza di sollecito cordiale da adattare, senza cifre inventate.
+```
+
+Controlla le somme con un `SOMMA` sul foglio: Claude può sbagliare un conto, il foglio no. La bozza di sollecito la rileggi e la personalizzi tu prima di mandarla.
+
+Per testi con tanti nomi da ripulire vedi [come anonimizzare in pratica](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica).
+
+<LlmExercise
+  title="Costruisci il tuo registro pagamenti"
+  file="practice-travel-agency-payment-tracker.txt"
+  duration="20 min"
+  description="L'IA ti guida a costruire il foglio con formule e ritardi evidenziati, usando pratiche inventate."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-travel-agency-payment-tracker.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

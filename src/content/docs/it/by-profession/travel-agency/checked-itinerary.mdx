@@ -1,0 +1,110 @@
+---
+title: L'itinerario controllato
+description: Costruisci un itinerario con Claude e fallo controllare su festività, chiusure dei musei, coincidenze e stagione. Con l'elenco di quello che Claude non sa, e dove verificarlo.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Claude è bravo a ordinare un itinerario e a ricordarti cosa controllare: festività, giorni di chiusura, tempi di trasferimento, fusi orari, stagione.
+- Non conosce scioperi, orari aggiornati, festività locali minori e chiusure straordinarie. Quelli li controlli tu, su fonti ufficiali.
+- Chiedigli di separare in due elenchi ciò che è sicuro e ciò che va verificato, con la fonte consigliata.
+- Se usi la ricerca web, apri le fonti che cita: guarda il sito e la data prima di fidarti.
+
+</LessonSummary>
+
+Un itinerario sembra giusto quando legge bene. Il problema è che un testo che legge bene può contenere un museo chiuso nel giorno sbagliato. Claude è un buon assistente per costruire e rivedere un itinerario, a patto che tu sappia cosa gli puoi chiedere e cosa devi verificare da solo.
+
+Serve il progetto di [Prepara Claude per la tua agenzia](/it/by-profession/travel-agency/start-here/). I dati del cliente restano quelli minimi, come spiegato in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+## Un esempio: Padova e Venezia nel ponte di Ognissanti
+
+Una coppia inventata, i signori Ferri, vuole un fine settimana lungo in Veneto da sabato 30 ottobre a martedì 2 novembre 2027. Scrivi a Claude:
+
+```text
+Costruisci un itinerario di 4 giorni tra Padova e Venezia da sabato 30 ottobre a martedì 2 novembre 2027, per una coppia in treno. Interessi: arte e cibo, ritmo tranquillo. Poi controllalo tu stesso: segnala festività, giorni in cui musei e luoghi di interesse possono essere chiusi, tempi stretti, effetti della stagione. Dividi la risposta in "Cose abbastanza sicure" e "Da verificare, e dove".
+```
+
+Nella risposta Claude propone le giornate e segnala, fra le altre cose, che lunedì 1 novembre è festa nazionale (Ognissanti), che molti musei chiudono un giorno a settimana e conviene controllare caso per caso, che a fine ottobre le giornate sono corte e che in Laguna può esserci acqua alta. Poi elenca da verificare: orari e chiusure dei singoli luoghi sui loro siti, orari dei treni, eventuali scioperi.
+
+È una buona base. Il lavoro tuo comincia dall'elenco "da verificare".
+
+## Cosa Claude non sa o sbaglia
+
+Claude scrive testo plausibile, e le informazioni che cambiano spesso sono quelle dove sbaglia più facilmente. Eccole, con dove controllarle.
+
+- **Scioperi dei trasporti.** Non li conosce. Il calendario ufficiale è nella [pagina scioperi del Ministero delle Infrastrutture e dei Trasporti](https://scioperi.mit.gov.it/): puoi cercare per data, settore (aereo, ferroviario, trasporto pubblico locale) e regione. Controllala per i giorni del viaggio e di nuovo pochi giorni prima.
+- **Orari aggiornati di treni, voli, traghetti.** Quelli che cita sono indicativi. Servono i siti delle compagnie o l'orario ufficiale del giorno.
+- **Festività locali minori.** I patroni, le feste di paese, le fiere. Claude ricorda le grandi, non sempre le piccole. Guarda il sito del comune o dell'ente per il turismo.
+- **Chiusure straordinarie.** Lavori, allestimenti, giorni di manutenzione. Valgono soltanto le pagine ufficiali del luogo.
+- **Festività all'estero.** Molti paesi spostano le date ogni anno (feste religiose, ponti). Controlla il sito ufficiale del paese o l'ente del turismo per quell'anno.
+- **Orari di apertura e prezzi di ingresso.** Cambiano con la stagione e con le nuove gestioni. La fonte è il sito del museo.
+
+Il metodo è sempre lo stesso: Claude ti dice cosa verificare, tu apri la fonte ufficiale e confermi.
+
+<SpotTheError
+  prompt="Itinerario Padova e Venezia, 30 ottobre - 2 novembre 2027: controllalo."
+  sentences={[
+    { text: "Sabato 30 ottobre: arrivo a Padova in mattinata e giro del centro storico a piedi." },
+    { text: "Domenica 31 ottobre: trasferimento in treno regionale a Venezia, con pranzo in zona Rialto." },
+    { text: "Lunedì 1 novembre è un normale giorno feriale: tutti i musei e i negozi sono aperti.", wrong: true, why: "Il 1 novembre è Ognissanti, festa nazionale. Negozi e uffici possono essere chiusi e molti musei chiudono il lunedì: va controllato luogo per luogo." },
+    { text: "Martedì 2 novembre è festa nazionale: è tutto chiuso e i treni non circolano.", wrong: true, why: "Il 2 novembre non è festa nazionale. Treni e musei seguono gli orari normali, salvo scioperi o avvisi: si controllano sul calendario del Ministero e sui siti dei luoghi." },
+    { text: "Prima della partenza vanno controllati gli orari dei treni sul sito della compagnia." },
+  ]}
+/>
+
+## Come usare la ricerca web
+
+Se il tuo piano la offre, nella chat clicca il pulsante **+** in basso a sinistra, vicino alla casella di scrittura, e scegli **Web search**. Se non la trovi, è un limite del piano o dell'interfaccia, e puoi lavorare lo stesso con l'elenco dei controlli.
+
+Con la ricerca attiva Claude cerca sul web e cita le fonti. Controlla così:
+
+1. Apri i link che cita, non fermarti al riassunto.
+2. Guarda il sito: ufficiale (museo, comune, compagnia, ministero) o un blog di viaggi?
+3. Guarda la data della pagina: un orario del 2022 non vale per il 2027.
+4. Se due fonti dicono cose diverse, vale quella ufficiale.
+
+Verificato a novembre 2026. La ricerca web conta nel limite di utilizzo del tuo piano, e l'interfaccia potrebbe cambiare.
+
+<SelfCheck
+  id="travel-agency-checked-itinerary-q1"
+  question="Claude scrive che il museo che hai inserito è aperto tutti i giorni dalle 9 alle 18. Cosa fai prima di confermarlo al cliente?"
+  options={[
+    { text: "Niente: l'orario è plausibile.", why: "Plausibile non vuol dire corretto. Gli orari cambiano per stagione e gestione." },
+    { text: "Controllo l'orario e i giorni di chiusura sul sito ufficiale del museo per le date del viaggio.", correct: true, why: "È la fonte che vale, e conviene guardare le date esatte." },
+    { text: "Chiedo a Claude se è sicuro.", why: "Ti risponderà con la stessa sicurezza, anche se ha sbagliato." },
+    { text: "Cerco su un blog di viaggi recente.", why: "Un blog può essere vecchio o sbagliato. Meglio il sito del museo." },
+  ]}
+/>
+
+## Una routine in quattro mosse
+
+1. Chiedi l'itinerario con date vere (anno compreso) e numero di persone.
+2. Chiedi i due elenchi: cose abbastanza sicure, da verificare.
+3. Controlli tu le voci dell'elenco su siti ufficiali e sul calendario scioperi.
+4. Torni da Claude con le correzioni ("il museo chiude il lunedì, sposta la visita al martedì") e rifai l'itinerario.
+
+<LlmExercise
+  title="Controlla un itinerario con date vere"
+  file="practice-travel-agency-checked-itinerary.txt"
+  duration="15 min"
+  description="L'IA ti guida a costruire un itinerario breve e a separare cosa è sicuro da cosa va verificato."
+/>
+
+## Cosa viene dopo
+
+Quando il cliente accetta, arrivano acconti e saldi. Il passo successivo è [il registro pagamenti in Excel](/it/by-profession/travel-agency/payment-tracker/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-travel-agency-checked-itinerary.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

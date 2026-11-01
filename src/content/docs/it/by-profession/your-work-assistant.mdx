@@ -1,0 +1,135 @@
+---
+title: Il tuo assistente di mestiere
+description: Come creare un Progetto con le istruzioni del tuo lavoro, passo passo in Claude, in modo generico in ChatGPT e con un documento di istruzioni in Copilot. Cosa scrivere, quali file caricare, come aggiornarlo.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Un assistente di mestiere è una chat dentro un **Progetto**: istruzioni e file li scrivi una volta, ogni nuova chat li ritrova.
+- Le istruzioni dicono chi sei, per chi scrivi, che tono usi, che formato vuoi, cosa non fare mai e cosa chiedere quando mancano informazioni.
+- Carica pochi file mirati (modelli, condizioni, due esempi riusciti). Mai dati personali di clienti o cittadini.
+- Se l'IA sbaglia sempre nello stesso modo, correggi l'istruzione, non la singola chat.
+- Copilot non sempre ha i Progetti: in quel caso tieni le istruzioni in un documento Word e incollale all'inizio di ogni chat.
+
+</LessonSummary>
+
+Ogni volta che apri una chat nuova, l'IA non sa chi sei. Non sa che lavori in un'agenzia o in un ufficio, che scrivi sempre a clienti che hai già incontrato, che il tuo tono è cordiale e mai ossequioso. Se fai lo stesso lavoro ogni settimana, rispiegarlo ogni volta costa tempo. Un Progetto lo spiega una volta sola.
+
+Il concetto è nella lezione [*Riusare contesto con i progetti*](/it/at-work/reuse-context-with-projects/). Qui vediamo la parte pratica: dove si clicca, cosa si scrive, cosa si carica.
+
+## Creare il Progetto in Claude
+
+Claude è lo strumento che usiamo nel capitolo per l'agenzia viaggi. I Progetti ci sono anche nel piano gratuito, con un massimo di cinque.
+
+1. Nella barra a sinistra clicca **Projects**.
+2. Clicca **+ New Project**, in alto a destra.
+3. Scrivi un nome e una descrizione. Servono a te per riconoscerlo: Claude non li legge.
+4. Clicca **Set project instructions**, scrivi le istruzioni e clicca **Save instructions**.
+5. Sul lato destro della pagina del progetto clicca il **+** per aggiungere i file di riferimento.
+
+Verificato a novembre 2026. Claude sta cambiando l'aspetto dei progetti a tappe: se un nome è diverso da quelli sopra, cerca la voce che parla di istruzioni del progetto. Per modificare le istruzioni più avanti riapri il progetto e cerca lo stesso pannello.
+
+Ogni chat che apri dentro il progetto parte con istruzioni e file. Le chat però restano separate: ciò che dici in una non passa nell'altra, a meno che tu lo metta nei file del progetto.
+
+## ChatGPT
+
+Anche ChatGPT ha i Progetti. Dalla barra laterale crei un nuovo progetto, gli dai un nome e trovi lo spazio per le istruzioni e per i file nelle impostazioni del progetto. I nomi esatti dei pulsanti qui non sono verificati, quindi cercali con queste parole. Il numero di file consentito dipende dal piano: controllalo nella pagina dei piani prima di caricare.
+
+## Copilot
+
+Dipende da cosa ha attivato il tuo ente. Se hai le istruzioni personalizzate, valgono per tutte le tue chat, non per un progetto solo. Il percorso, in italiano:
+
+1. In Copilot Chat, in alto a destra, apri **Impostazioni e altro**.
+2. Apri le impostazioni, poi la finestra **Impostazioni Chat** e la sezione **Personalizzazione**.
+3. Attiva **Istruzioni personalizzate** e clicca **Modifica istruzioni**.
+4. Scrivi le istruzioni e clicca **Salva istruzioni**.
+
+Verificato a novembre 2026. Il tuo ente può avere spento questa funzione, e il nome del prodotto nel tuo ufficio può essere diverso: guarda cosa compare sullo schermo.
+
+La soluzione che funziona sempre è un documento Word con le istruzioni, che chiami per esempio "Istruzioni assistente". All'inizio di ogni chat lo copi e lo incolli (o lo allegni, se il tuo Copilot permette di aggiungere file), poi scrivi la richiesta. Nelle istruzioni personalizzate e nel documento vanno solo regole di lavoro, mai dati dei cittadini.
+
+## Scrivere le istruzioni
+
+Dieci righe bastano. Il modello qui sotto copre le sei cose che servono. Copialo, sostituisci le parti fra parentesi quadre e cancella le righe che non ti servono.
+
+```text
+Chi sono: [il tuo ruolo], in [che tipo di organizzazione], a [città o zona].
+Per chi scrivo: [clienti, cittadini, colleghi], di solito [cosa sanno già].
+Tono: [cordiale e diretto / formale ma semplice], niente [parole che odi].
+Formato: [lunghezza tipica, struttura dei documenti, elenchi sì o no].
+Cosa non fare mai: [inventare prezzi, date, norme; chiudere con frasi di cortesia].
+Se mancano informazioni: chiedimele prima di scrivere, una domanda alla volta.
+```
+
+Un esempio compilato, per una piccola agenzia fittizia, la Girasole Viaggi:
+
+```text
+Chi sono: titolare della Girasole Viaggi, agenzia di 3 persone a Brescia.
+Per chi scrivo: famiglie e coppie italiane, che di solito non conoscono la destinazione.
+Tono: cordiale e diretto, dai del lei, niente esclamazioni e niente "siamo lieti di".
+Formato: mail di massimo 12 righe, preventivi in elenco con una riga per voce.
+Cosa non fare mai: inventare prezzi, orari di voli, festività o chiusure. Se non li ho scritti io, segnalali con [DA VERIFICARE].
+Se mancano informazioni: chiedimele prima di scrivere, una domanda alla volta.
+```
+
+<PromptCompare
+  weak="Sei un assistente per agenzie di viaggio. Sii professionale e utile."
+  strong={`Titolare di un'agenzia di 3 persone. Scrivo a famiglie italiane. Tono cordiale, dai del lei, niente esclamazioni. Mail di massimo 12 righe. Non inventare prezzi, orari o festività: segnalali con [DA VERIFICARE]. Se mancano informazioni, fai una domanda alla volta.`}
+  note="Il secondo dice chi sei, per chi scrivi e soprattutto cosa l'IA non deve inventare. Il primo lascia ogni scelta al caso."
+/>
+
+La riga più utile è quasi sempre "cosa non fare mai". L'IA tende a riempire i vuoti con cose verosimili, e una regola come "segnalali con [DA VERIFICARE]" le dà un'alternativa all'invenzione.
+
+## Quali file caricare
+
+Carica poco e mirato: un modello di documento, le condizioni generali, il listino se non cambia ogni settimana, due esempi di lavoro ben riuscito. Tre o cinque file battono trenta.
+
+Non caricare documenti d'identità, codici fiscali, dati di pagamento, pratiche con nomi e cognomi, fascicoli dei cittadini. Il file resta nel progetto e viene riletto a ogni chat. Le regole complete sono in [*Privacy e dati aziendali*](/it/at-work/company-data-and-privacy/). Se un esempio contiene nomi veri, sostituiscili con nomi inventati prima di caricarlo.
+
+<SelfCheck
+  id="your-work-assistant-q1"
+  question="Chiedi sempre all'IA un preventivo e ogni volta sbaglia il tono: troppo entusiasta. Cosa fai?"
+  options={[
+    { text: "Ogni volta scrivo nella chat 'meno entusiasmo, per favore'.", why: "Funziona per quella chat, ma la prossima parte da zero e l'errore ritorna." },
+    { text: "Aggiungo alle istruzioni del progetto una riga sul tono, con un esempio di frase da evitare.", correct: true, why: "L'errore si ripete, quindi la regola va nelle istruzioni: da lì vale per tutte le chat nuove." },
+    { text: "Carico trenta preventivi vecchi nel progetto.", why: "Più file diluiscono il segnale. Se serve un esempio di tono, ne bastano due ben riusciti." },
+    { text: "Cambio strumento.", why: "Il problema è nelle istruzioni, e le ritroveresti uguali altrove." },
+  ]}
+/>
+
+## Come lo aggiorni
+
+Quando l'IA sbaglia sempre nello stesso modo, cerca la riga delle istruzioni che dovrebbe impedirlo. Se non c'è, scrivila. Se c'è ma è vaga, riscrivila con un esempio. Il test è semplice: apri una chat nuova e rifai la richiesta che aveva sbagliato.
+
+Se cambia un listino o una condizione, sostituisci il file vecchio con quello nuovo e cancella quello vecchio. Due versioni dello stesso documento nel progetto sono il modo più sicuro per avere risposte sbagliate. Ogni tanto rileggi le istruzioni intere: possono contenere regole che non ti servono più.
+
+<LlmExercise
+  title="Costruisci le istruzioni del tuo assistente"
+  file="practice-your-work-assistant.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul tuo lavoro e alla fine ti consegna le istruzioni del tuo Progetto, pronte da incollare."
+/>
+
+<Collapsible title="E se il mio ente non permette niente di tutto questo?">
+
+Allora lavora con quello che hai. Tieni le istruzioni in un documento Word, scrivi la richiesta sotto e incolla tutto all'inizio della chat. Se non puoi nemmeno incollare testi, chiedi all'ufficio informatico quali strumenti sono approvati: è una domanda normale, e la risposta ti dice anche cosa puoi inserire.
+
+</Collapsible>
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-your-work-assistant.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta."
+/>
