@@ -6,8 +6,11 @@ prerequisiti: [ask-well, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
@@ -48,14 +51,27 @@ without trouble.
 
 Turnitin itself, in its own official disclaimer, states that its
 detector's score should not be the sole basis for an academic
-integrity decision. The takeaway: a score is a hint at most, never a
-verdict. Calling a student in and saying "the system says you cheated"
-is the fastest way to punish an innocent one and end up with a case,
-possibly with the family, on your desk.
+integrity decision. A score is a hint at most, never a verdict.
+Telling a student "the system says you cheated" is the fastest way
+to punish an innocent one and end up with a case, possibly with the
+family, on your desk.
 
-If the detector is no use as proof, three other moves work better: the first
-two help you read and prevent, the third helps you handle a suspicion
-once you have one.
+Try reading this AI reply to a teacher with a critical eye. Two
+sentences are wrong.
+
+<SpotTheError
+  prompt="The detector says a student's essay is 94% AI-written. Can I use that to sanction them?"
+  sentences={[
+    { text: "A score that high is very indicative, so you can use it as the basis for a sanction.", wrong: true, why: "No score is proof. Detectors err even at high values, and Turnitin itself says not to use it as the sole basis for a decision." },
+    { text: "Detectors are wrong in both directions: they flag human texts and let through generated texts that were then reworked by hand." },
+    { text: "A 2023 Stanford study showed that texts by non-native speakers are flagged more often than they should be." },
+    { text: "If the student denies it, their version doesn't count: the detector score prevails.", wrong: true, why: "Without proof there is no sanction. You start from a conversation where the student explains how they worked." },
+    { text: "Before deciding, talk to them and ask them to show you the process: drafts, notes, a choice to defend." },
+  ]}
+/>
+
+Three other moves work better: the first two help you read and
+prevent, the third helps you handle a suspicion once you have one.
 
 ## Manual signals are hypotheses, not proof
 
@@ -90,12 +106,16 @@ defense when the work is handed in, a tight form constraint. The AI
 can still help with understanding the context, but the work of
 connecting that context to the specific case stays with the student.
 
+<Collapsible title="Example: the Industrial Revolution assignment rewritten">
+
 <ChatDemo
   user={`I'm a high school history teacher. I have this assignment: "Write a two-page essay on the Industrial Revolution." Rewrite it so it's hard to do entirely with AI and forces the student into work of their own. In class we read a passage from the memoir of a Manchester factory worker.`}
   ai={`**Rewritten assignment.** Start from the passage from the Manchester worker's memoir that we read in class. In 400 words at most, answer two questions: which conditions described in the passage do you find in your own town or area in the same period (find a local fact yourself: a mill, a railway, a census figure)? And in what way does the local source you found confirm or correct the picture in the passage? Bring both sources to class. When you hand it in, I'll ask you to explain out loud how you chose the local source.
 
 **Why it holds up better.** The passage read in class isn't in front of the AI. The local fact forces a search you can check. The oral defense shifts the weight onto reasoning instead of the written text. The AI stays useful for understanding the period, but the link between the passage and the local area has to be made by the student.`}
 />
+
+</Collapsible>
 
 And if the student has a web-enabled AI? It can dig up a plausible
 local fact anyway. But that fact still has to be tied to the passage
@@ -106,9 +126,9 @@ out loud: one hook alone isn't enough, it's the combination that holds.
 Before you set a task, try it yourself with an AI, using a single prompt.
 If the AI does it well without knowing anything about your class, your
 area, what you did together, the assignment is fragile:
-it asks the student for nothing the AI
-can't already do. Rewrite it until the real work (the connection, the
-specific case, the defense) stays in the student's hands.
+it asks the student for nothing the AI can't already do. Rewrite it
+until the real work (the connection, the specific case, the
+defense) stays in the student's hands.
 :::
 
 ## Talk to the student, don't accuse
@@ -125,7 +145,7 @@ if you accuse on the basis of a feeling, when you're wrong you do
 damage you can't undo.
 
 The move that works for both is the same: describe what you noticed,
-don't hand down the verdict. Not "you cheated", but "I noticed this
+don't hand down the verdict. Instead of "you cheated", say "I noticed this
 work is different from your usual ones, can you walk me through how you
 built it?". Give the student a way to show the process: the drafts,
 the notes, expanding a point out loud, defending a choice ("why did
@@ -149,29 +169,52 @@ the conversation that asks over the accusation that rules: it protects
 both of you.
 :::
 
-:::note[Where this applies, and where less]
+<SelfCheck
+  id="when-students-use-ai-q1"
+  question="An essay seems too smooth for the student who wrote it. How do you open the conversation with them?"
+  options={[
+    { text: "The detector says this essay was written by AI. What do you say to that?", why: "The score isn't proof, and this starts from an accusation. If the student is innocent, trust is already damaged." },
+    { text: "I noticed this work is different from your usual ones. Can you walk me through how you built it?", correct: true, why: "It describes what you saw without ruling on it and gives the student a way to show the process." },
+    { text: "I ask in front of the class, so nobody thinks there's favoritism.", why: "A conversation like that in public humiliates if you're right and destroys trust if you're wrong." },
+    { text: "I say nothing and lower the grade: without proof I can't do anything else.", why: "Lowering the grade silently is a sanction without proof. The conversation exists precisely to clarify." },
+  ]}
+/>
+
+<Collapsible title="Where this applies, and where less">
+
 The topic is central in high school and university, where students
 have independent access to AI and take home written assignments. In
 primary school and much of middle school the AI isn't in their hands
 yet, and the problem barely comes up. But redesigning assignments
 improves tasks for everyone: work hooked onto a shared class
 experience is more formative at any age, AI or not.
-:::
 
-## What NOT to do
+</Collapsible>
 
-**Don't use a detector score as proof.** It's a weak signal, it's
+## What to avoid
+
+**Using a detector score as proof.** It's a weak signal, it's
 wrong against those who write cleanly and against non-native speakers,
 and it doesn't hold up if the family asks you to justify it.
 
-**Don't accuse on the basis of a feeling.** A manual signal is the
+**Accusing on the basis of a feeling.** A manual signal is the
 start of a conversation, not the end of a trial. The question "how did
 you build it?" always comes before the phrase "you cheated".
 
-**Don't turn teaching into a witch hunt.** If every assignment becomes an
+**Turning teaching into a witch hunt.** If every assignment becomes an
 anti-fraud test, the class climate turns sour and the honest students
 pay first. The job is to design assignments that ask for their own
 thinking, not to stand guard.
+
+## Rewrite one of your assignments
+
+<LlmExercise
+  variant="practice"
+  title="Rewrite one of your assignments and rehearse the conversation"
+  file="deepen-when-students-use-ai.txt"
+  duration="15-20 min"
+  description="The AI helps you make a real assignment harder to outsource, then plays a student so you can rehearse the conversation without accusing."
+/>
 
 ## Check what you understood
 
@@ -188,6 +231,7 @@ thinking, not to stand guard.
 This lesson looked at AI in the students' hands. One lesson is left,
 and it looks at AI in yours: when you use it to prepare, grade, and communicate,
 which responsibilities stay yours and don't get delegated. The next
-and final lesson of the module closes on this, the ethics of teaching,
-and bridges to anyone who wants to understand AI all the way under the
+and final lesson of the module,
+[*Ethics of teaching*](/en/for-teachers/ethics-of-teaching/), closes on
+this and bridges to anyone who wants to understand AI all the way under the
 hood.

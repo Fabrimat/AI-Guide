@@ -6,56 +6,55 @@ prerequisiti: [ask-well, iterate-the-conversation, draft-professional-documents]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
-- L'IA non sa cosa succede nella tua aula. Sa solo aiutarti prima e dopo: scaletta, materiali, verifica. In classe ci entri tu.
-- Tre passaggi che cambiano la qualità del lavoro: **scaletta in tre fasi** (obiettivo, gradazione, tempi), **critica della scaletta** prima di scrivere il materiale, **materiali agganciati** alla scaletta validata.
+- L'IA non sa cosa succede nella tua aula. Ti aiuta prima e dopo: scaletta, materiali, verifica. In classe ci entri tu.
+- Tre passaggi: **scaletta in tre fasi** (obiettivo, gradazione, tempi), **critica della scaletta** prima di scrivere il materiale, **materiali agganciati** alla scaletta validata.
 - L'IA sovrastima quanto entra in 50 minuti. Regola operativa: somma i suoi tempi, togli il 25-30%.
-- Il pattern scala dalla singola lezione all'unità didattica, ma la voce in aula resta tua: niente lettura di scalette generate.
+- Il pattern scala dalla singola lezione all'unità didattica, ma la voce in aula resta tua.
 
 </LessonSummary>
 
-Questo modulo non è il manuale dell'"IA che fa lezione al posto tuo".
-L'IA non sa cosa succede nella tua aula: chi è la classe, come
-reagisce a una domanda, quando un'attività di gruppo funziona e
-quando si sfilaccia. Quello lo sai tu. Il modulo ti aiuta a usare
-l'IA come collega di preparazione (scaletta, materiali, domande di
-verifica, comunicazioni delicate) e di critica (un secondo paio
-d'occhi su quello che hai già scritto). In classe ci entri tu, con
-la tua voce. Ci sono momenti in cui anche durante la lezione
-tirare fuori il cellulare e chiedere all'IA un'altra angolazione
-per uno studente che non ha capito ha senso, ed è una tecnica
-della prossima lezione: ma è un uso tattico, non una delega della
-lezione.
+Questo modulo ti aiuta a usare l'IA come collega di preparazione
+(scaletta, materiali, domande di verifica, comunicazioni delicate) e
+di critica: un secondo paio d'occhi su quello che hai già scritto.
+Non sa chi è la tua classe, come reagisce a una domanda, quando un
+lavoro di gruppo funziona e quando si sfilaccia. Quello lo sai tu.
+In classe ci entri tu, con la tua voce. Tirare fuori il cellulare
+durante la lezione per chiedere un'altra angolazione, per uno
+studente che non ha capito, ha senso: ne parla la lezione
+successiva, ed è un uso tattico, non una delega.
 
 :::tip[La prima volta costa di più]
-Le prime due o tre lezioni progettate con questo metodo ti
-prendono più tempo di quello che impiegavi a farle a mano. Dalla
-terza in avanti si rovescia: la scaletta esce in 20 minuti invece
-che in un'ora, e i materiali sono già rifiniti, non bozze. Il
-costo iniziale è quello di imparare il pattern.
+Le prime due o tre lezioni progettate con questo metodo ti prendono
+più tempo di quanto ne impiegavi a mano. Dalla terza in avanti si
+rovescia: la scaletta esce in 20 minuti invece che in un'ora, e i
+materiali sono già rifiniti. Il costo iniziale è quello di imparare
+il pattern.
 :::
 
 ## La scaletta in tre passaggi
 
-Per progettare una lezione singola, da 50 a 90 minuti, conviene
-chiedere all'IA tre cose in sequenza, non un blob "fammi una
-lezione su X". La sequenza ricalca il modo in cui ragioni a freddo
-sulla didattica: prima cosa, poi come, poi tempi.
+Per una lezione singola da 50 a 90 minuti, chiedi all'IA tre cose in
+sequenza, non un blob "fammi una lezione su X". La sequenza ricalca
+come ragioni a freddo sulla didattica: prima cosa, poi come, poi
+tempi.
 
 ### 1. Obiettivo di apprendimento
 
-**Uno principale per lezione**, scritto con un verbo attivo:
-descrivere, applicare, distinguere, costruire, confrontare. Obiettivi
-secondari (uno o due) possono accompagnarlo, ma uno è centrale: è
-quello che decidi di verificare alla fine della lezione, ed è quello
-su cui costruisci la scaletta. Tre obiettivi tutti centrali in 60
-minuti è il segnale che la lezione è sovraccarica, non che è
-ambiziosa. Niente "conoscere" o "imparare" generici, sono troppo
+**Uno principale per lezione**, con un verbo attivo: descrivere,
+applicare, distinguere, costruire, confrontare. Uno o due obiettivi
+secondari possono accompagnarlo, ma quello centrale è il solo che
+verifichi a fine lezione e su cui costruisci la scaletta. Tre
+obiettivi tutti centrali in 60 minuti segnalano una lezione
+sovraccarica, non ambiziosa. "Conoscere" e "imparare" sono troppo
 vaghi per misurare se la lezione ha funzionato.
 
 > *"Per una lezione di scienze in seconda media (60 minuti), aiutami
@@ -63,26 +62,20 @@ vaghi per misurare se la lezione ha funzionato.
 > Usa un verbo attivo della <Def explanation="Scala di sei livelli cognitivi: ricordare, comprendere, applicare, analizzare, valutare, creare. Aiuta a calibrare difficoltà di domande e attività.">tassonomia di Bloom</Def>. Proponimene tre alternative
 > con difficoltà crescente, per scegliere io."*
 
-Le tre alternative aiutano a calibrare. La più semplice ("descrivere
-le tre fasi del ciclo") ti dice che chiedi solo ricostruzione; la
-intermedia ("spiegare il ruolo del sole e della gravità") aggiunge
-causalità; la difficile ("prevedere cosa cambia in un ciclo con
-meno temperatura") chiede applicazione. Scegli la tua, in base alla
-classe specifica.
-
-Se nessuna delle tre alternative ti convince, è di solito un segnale
-che l'IA non ha capito il vincolo di classe. Rilancia con più
-dettagli: "questa classe ha già fatto X, fa fatica su Y, ha 50
-minuti effettivi non 60". Se invece le tre alternative ti sembrano
-tutte plausibili, scegli quella la cui riuscita riesci a *osservare*
-in 5 minuti di verifica formativa alla fine della lezione. Un
-obiettivo che non sai come misurare oggi è un obiettivo che non
-chiuderà la lezione.
+Le tre alternative servono a calibrare. La più semplice ("descrivere
+le tre fasi del ciclo") chiede solo ricostruzione, la intermedia
+("spiegare il ruolo del sole e della gravità") aggiunge causalità, la
+difficile ("prevedere cosa cambia in un ciclo con meno temperatura")
+chiede applicazione. Se nessuna ti convince, l'IA probabilmente non
+ha capito il vincolo di classe: rilancia con più dettagli ("questa
+classe ha già fatto X, fa fatica su Y, ha 50 minuti effettivi").
+Se tutte sembrano plausibili, scegli quella la cui riuscita riesci a
+*osservare* in cinque minuti di verifica formativa a fine lezione.
 
 ### 2. Gradazione degli stimoli
 
-Una volta scelto l'obiettivo, chiedi la struttura della lezione in
-fasi. Quattro fasi tipiche, con flessibilità:
+Scelto l'obiettivo, chiedi la struttura della lezione in fasi.
+Quattro fasi tipiche, con flessibilità:
 
 > *"Considera l'obiettivo scelto. Proponimi una struttura della
 > lezione in quattro fasi: apertura attivante, fase di scoperta o
@@ -90,62 +83,67 @@ fasi. Quattro fasi tipiche, con flessibilità:
 > succede e cosa fa la classe (non cosa fa il docente). Niente
 > tempi ancora."*
 
-Il vincolo "cosa fa la classe" è importante. L'IA tende a scrivere
-piani didattici dal punto di vista del docente ("spiega il concetto
-di evaporazione") quando per la riuscita conta l'attività della
-classe ("gli studenti osservano un bicchiere d'acqua al sole e
-provano a spiegare cosa succede"). La differenza fra le due
-formulazioni decide se la lezione funziona.
+Il vincolo "cosa fa la classe" conta. L'IA tende a scrivere piani dal
+punto di vista del docente ("spiega il concetto di evaporazione")
+quando per la riuscita conta l'attività della classe ("gli studenti
+osservano un bicchiere d'acqua al sole e provano a spiegare cosa
+succede").
 
 ### 3. Tempi realistici
 
-Solo a questo punto chiedi i tempi. Struttura e tempi vanno separati: se chiedi entrambi insieme, l'IA tende a
-calare le attività dentro il tempo disponibile invece di calibrare
-il tempo sull'attività che hai validato. Risultato: scaletta che
-torna sulla carta ma in cui ogni fase è stretta del 30% rispetto a
-quello che richiede sul serio. Il prompt giusto, dopo la struttura
-validata, è semplice:
+Solo ora chiedi i tempi. Se chiedi struttura e tempi insieme, l'IA
+calza le attività nel tempo disponibile invece di calibrare il tempo
+sulle attività che hai validato: la scaletta torna sulla carta, ma
+ogni fase è stretta del 30% rispetto a quanto serve sul serio.
 
 > *"Sulla base della struttura validata, dammi una stima di durata
-> per ciascuna fase, totale 60 minuti. Considera che la classe ha
-> 24 studenti, livello medio, e che c'è bisogno di 5 minuti di
-> gestione classe all'apertura e altri 5 in chiusura."*
+> per ciascuna fase, totale 60 minuti. La classe ha 24 studenti,
+> livello medio, e servono 5 minuti di gestione classe
+> all'apertura e altri 5 in chiusura."*
 
-L'output dell'IA su questo punto è sempre ottimista. Tre attività
-da 15 minuti l'una in 50 minuti suonano ragionevoli sulla carta,
-ma la realtà è che entri in classe in ritardo, la prima domanda
-prende il doppio del previsto, due studenti chiedono di andare in
-bagno nello stesso momento, e ti accorgi dieci minuti prima della
-campanella che non hai concluso la sintesi.
+L'output su questo punto è sempre ottimista. Tre attività da 15
+minuti in 50 suonano ragionevoli, ma in classe entri in ritardo, la
+prima domanda prende il doppio, due studenti chiedono di uscire
+insieme e a dieci minuti dalla campanella non hai fatto la sintesi.
 
 :::tip[Regola del meno 25-30%]
 Somma i minuti che l'IA propone e togli il 25-30%. È il margine
-realistico per gestione classe, transizioni, domande non previste,
-piccoli inceppi tecnologici. Se l'IA propone 65 minuti per una
-lezione da 50, la lezione è già finita prima di cominciare; va
-tagliata, non compressa.
+per gestione classe, transizioni, domande non previste, piccoli
+inceppi tecnologici. Se l'IA propone 65 minuti per una lezione da
+50, va tagliata, non compressa.
 
-Il 25-30% è una stima esperienziale, non un dato di laboratorio.
-Per classi piccole e già allenate al metodo può scendere al 15%;
-per classi grandi o agitate sale anche al 40%. Calibra sul tuo dopo
-due o tre lezioni, poi tieni quello.
+È una stima esperienziale, non un dato di laboratorio. Per classi
+piccole e allenate al metodo può scendere al 15%, per classi grandi
+o agitate sale anche al 40%. Calibra sul tuo dopo due o tre lezioni.
 :::
 
-:::note[Durate fuori standard]
-Il pattern delle quattro fasi regge fino a una lezione di 90-100
-minuti. Oltre (ora tripla, laboratorio, modulo intensivo), non
-allungare le fasi: replica il ciclo. Una sessione di 3 ore tipica
-è due o tre cicli completi (attivante, scoperta, applicazione,
-sintesi parziale) più una sintesi finale che lega tutto. Per la
-compresenza, il primo passaggio cambia: chiedi all'IA chi guida
-ogni fase, poi i tempi.
-:::
+<SelfCheck
+  id="design-a-lesson-q1"
+  question="L'IA ti propone tre attività da 15 minuti per una lezione da 50. Cosa fai?"
+  options={[
+    { text: "La accetto: 45 minuti su 50 lasciano il margine che serve.", why: "Cinque minuti non coprono appello, transizioni e domande impreviste. Con la regola del 25-30% i minuti di contenuto scendono a circa 33." },
+    { text: "Taglio o accorcio un'attività, così il contenuto sta intorno ai 33 minuti.", correct: true, why: "Ogni attività resta realistica e il margine copre gestione classe e imprevisti." },
+    { text: "Chiedo all'IA di comprimere ogni attività a 12 minuti.", why: "Così ogni fase resta stretta e la lezione è già sul limite. Il consiglio è togliere contenuto, non schiacciarlo." },
+    { text: "Aggiungo una quarta attività da 5 minuti per usare il tempo che avanza.", why: "È il contrario di quello che serve: la scaletta era già troppo piena." },
+  ]}
+  explanation="L'IA stima il tempo come se la classe fosse sempre pronta e ferma. Il margine lo aggiungi tu."
+/>
+
+<Collapsible title="Lezioni di durata fuori standard">
+
+Il pattern delle quattro fasi regge fino a 90-100 minuti. Oltre (ora
+tripla, laboratorio, modulo intensivo), non allungare le fasi:
+replica il ciclo. Una sessione di 3 ore sono due o tre cicli
+completi più una sintesi finale che lega tutto. Per la compresenza
+chiedi all'IA, prima dei tempi, chi guida ogni fase.
+
+</Collapsible>
 
 ## Critica della scaletta prima dei materiali
 
-Hai una scaletta ragionevole. Non scrivere ancora il materiale
-(esercizi, slide, scheda di sintesi). Prima rimanda all'IA la
-scaletta intera e chiedile una critica.
+Hai una scaletta ragionevole. Non scrivere ancora esercizi, slide o
+scheda di sintesi: rimanda all'IA la scaletta intera e chiedi una
+critica.
 
 > *"Questa è la scaletta che ho costruito per una lezione di
 > scienze, seconda media, sul ciclo dell'acqua, 60 minuti. Falla a
@@ -153,54 +151,48 @@ scaletta intera e chiedile una critica.
 > perdere il filo, quale fase rischia di sforare. Niente
 > complimenti, sii diretta."*
 
-Senza il vincolo "falla a pezzi", l'IA ti risponde con una sfilza
-di "ottima impostazione, ben strutturata, considera anche di…": è
-poco utile. Il "niente complimenti" sblocca il giudizio critico,
-che è quello che ti serve adesso.
+Senza "falla a pezzi" l'IA risponde con una sfilza di "ottima
+impostazione, ben strutturata": poco utile. "Niente complimenti"
+sblocca il giudizio critico. I risultati tipici: la fase di
+spiegazione è densa e la classe si perde a metà, l'esempio di
+apertura è troppo astratto per l'età, manca una verifica formativa
+intermedia, la sintesi è solo ripasso.
 
-La critica viene spesso fuori onesta. Tipici risultati: la fase di
-spiegazione è densa, la classe si perde a metà; l'esempio di
-apertura è troppo astratto per la fascia d'età; manca un momento
-di verifica formativa intermedia che ti dica se stai perdendo
-qualcuno; la sintesi finale è solo "ripasso", senza che gli
-studenti debbano elaborare niente.
-
-Non tutte le critiche dell'IA vanno accolte. Filtro pratico in due
-passaggi: prima tieni quelle che riconosci come problemi reali della
-tua classe (la "fase di spiegazione densa" è vera se sai che questa
-seconda media non regge 15 minuti di voce; non è vera se hai una
-quinta liceo motivata). Poi, fra quelle reali, tieni solo le due o
-tre più alte: lavorare su tutte mette in stallo. A quel punto torni
-sulla scaletta, la riscrivi in punti specifici, e *solo dopo* vai
-sui materiali.
+Non tutte le critiche vanno accolte. Tieni prima quelle che
+riconosci come problemi reali della tua classe: "spiegazione densa"
+è vera se sai che questa seconda media non regge 15 minuti di voce,
+non lo è con una quinta liceo motivata. Fra quelle reali tieni le
+due o tre più importanti, perché lavorarle tutte ti mette in stallo.
+Poi riscrivi la scaletta in quei punti, e *solo dopo* vai sui
+materiali.
 
 ## Materiali agganciati alla scaletta validata
 
-Dopo la critica e la revisione, generi i materiali un pezzo alla
-volta, sempre incollando la scaletta validata nel prompt come
-riferimento.
+Dopo la critica generi i materiali un pezzo alla volta, incollando
+ogni volta nel prompt la scaletta validata.
 
-> *"Considerata la scaletta che ti ho appena dato: scrivi
-> l'esercizio di apertura, deve durare 5 minuti, lo studente lavora
-> da solo, output: una frase scritta. Coerente con l'obiettivo di
-> apprendimento della lezione."*
+<PromptCompare
+  weak="Scrivi l'esercizio di apertura per la lezione sul ciclo dell'acqua."
+  strong={`Ti incollo la scaletta validata (sotto). Scrivi l'esercizio di apertura.
+Durata: 8 minuti. Modalità: lavoro individuale.
+Output atteso dalla classe: due righe scritte sul quaderno.
+Coerente con l'obiettivo "spiegare il ruolo del sole nel cambiamento di stato dell'acqua".
+Aggiungi: cosa mi aspetto come risposte degli studenti e una nota di gestione classe.
+
+[scaletta validata]`}
+  note="Il secondo prompt dà durata, modalità, output e obiettivo, e chiede le due cose che l'IA non propone da sola: le risposte attese e la gestione classe."
+/>
 
 Stesso pattern per la scheda di applicazione, la slide di sintesi,
-la mini-verifica formativa intermedia. Senza vincoli espliciti, l'IA
-non ti propone di default cose come "cosa ti aspetti come output
-dalla classe" o "nota di gestione classe": quel livello di dettaglio
-esce solo se lo chiedi, ed è quello che rende il materiale
-incollabile a 15 minuti dalla campanella. Vincoli sempre espliciti:
-durata, modalità (solo, coppia, gruppo), output atteso, coerenza
-con l'obiettivo.
+la mini-verifica intermedia. Quel livello di dettaglio esce solo se
+lo chiedi, ed è quello che rende il materiale usabile a 15 minuti
+dalla campanella.
 
-C'è una **regola di stop** importante: se durante la generazione
-dei materiali ti accorgi che la scaletta va cambiata (l'esercizio
-di apertura non riesce a sostenere 5 minuti, la fase di scoperta
-richiede materiali che non avevi previsto), torna sulla scaletta,
-non patchare il materiale. Tre materiali coerenti con una scaletta
-modificata battono cinque materiali coerenti con una scaletta
-sbagliata.
+C'è una **regola di stop**: se mentre generi i materiali ti accorgi
+che la scaletta va cambiata (l'apertura non regge 5 minuti, la
+scoperta richiede materiali che non avevi previsto), torna sulla
+scaletta e non patchare il materiale. Tre materiali coerenti con una
+scaletta corretta valgono più di cinque coerenti con una sbagliata.
 
 ## La differenza in pratica
 
@@ -222,18 +214,16 @@ dell'acqua, 60 minuti. Prima prova senza vincoli.
 Materiali consigliati: video introduttivo, slide con immagini delle quattro fasi, scheda per il disegno di gruppo.`}
 />
 
-Sulla carta funziona, ma a guardarla bene cade subito. Venticinque
-minuti di spiegazione frontale a una seconda media sono troppi: la
-classe si stacca a metà. L'attività di gruppo (disegnare uno
-schema) è generica, non costringe gli studenti a usare l'obiettivo
-di apprendimento. La sintesi è solo ripasso, niente elaborazione.
-E i 60 minuti tornano solo perché non c'è spazio per la gestione
-classe né per le transizioni.
+Sulla carta funziona, ma a guardarla bene cade. Venticinque minuti
+di spiegazione frontale a una seconda media sono troppi. L'attività
+di gruppo è generica e non costringe a usare l'obiettivo. La sintesi
+è solo ripasso. E i 60 minuti tornano perché non c'è spazio per la
+gestione classe né per le transizioni.
 
-Ora la stessa lezione progettata in tre passaggi con critica.
+<Collapsible title="La stessa lezione in tre passaggi: scaletta validata e materiale">
 
 <ChatDemo
-  user={`Ho seguito i tre passaggi per progettare la lezione (obiettivo, struttura, tempi) e ho ricevuto la critica. Riscrivo la scaletta tenendo conto della tua critica precedente. Te la rimando ora per generare i materiali.
+  user={`Ho seguito i tre passaggi (obiettivo, struttura, tempi) e ho ricevuto la critica. Riscrivo la scaletta tenendone conto e te la rimando per generare i materiali.
 
 Scaletta validata (60 min totali, classe di 24 studenti, seconda media):
 - Apertura attivante (8 min): gli studenti osservano un bicchiere d'acqua coperto con un piatto al sole sulla cattedra, lasciato lì dall'intervallo. Devono spiegare per iscritto in due righe cosa vedono e cosa pensano stia succedendo.
@@ -259,63 +249,59 @@ Generami ora l'esercizio dell'apertura attivante. 8 minuti, lavoro individuale, 
 *Nota di gestione classe*: tieni il bicchiere coperto in un punto visibile a tutti senza che debbano alzarsi. Se la classe è agitata, leggi tu la consegna ad alta voce dopo averla scritta, una sola volta.`}
 />
 
-Le due versioni hanno più o meno la stessa lunghezza, ma nella seconda ogni minuto è
-ancorato a un'attività concreta, ogni attività è ancorata
-all'obiettivo, e il materiale prodotto non è generico ("disegnano
-uno schema del ciclo dell'acqua") ma calato sulla scaletta reale.
+Le due versioni hanno più o meno la stessa lunghezza, ma nella
+seconda ogni minuto è ancorato a un'attività concreta, ogni attività
+all'obiettivo, e il materiale è calato sulla scaletta reale invece
+di essere generico ("disegnano uno schema del ciclo dell'acqua").
 
-## Progettare non è ghostwriting
+</Collapsible>
 
-La voce del docente in aula deve restare la sua. Una scaletta
-"incollabile" che suona da piano didattico standard è un segnale
-che hai delegato troppo: rileggi e riscrivi a mano nei punti che
-contano davanti alla classe (il gancio iniziale, l'esempio
-narrato, la battuta che spezza il ritmo, la domanda con cui
-chiudi). La scaletta è il telaio, non il testo della lezione.
+## La voce in aula resta tua
 
-Indizio pratico: se rileggendo la scaletta non senti la tua voce,
-ma una voce neutra da manuale, è da rilavorare. Spesso bastano
-piccoli interventi (sostituire un esempio con uno tuo, riscrivere
-una consegna con la formulazione che usi di solito, togliere un
-giro di parole che non diresti mai a voce).
+Una scaletta "incollabile" che suona da piano didattico standard
+segnala che hai delegato troppo. Rileggi e riscrivi a mano nei punti
+che contano davanti alla classe: il gancio iniziale, l'esempio
+narrato, la battuta che spezza il ritmo, la domanda con cui chiudi.
+La scaletta è il telaio, non il testo della lezione. Se rileggendola
+senti una voce neutra da manuale invece della tua, bastano di solito
+piccoli interventi: un esempio tuo, una consegna con le parole che
+usi di solito, un giro di parole che non diresti a voce.
 
-:::note[Lezioni in più giorni, materie con altre strutture]
-Il pattern scala da una singola lezione a un'unità didattica di
-quattro o sei lezioni se chiedi all'IA di trattare la scaletta come
-"lezione 1 di 4 su un'unità su X", poi iteri per le successive. Il
-vincolo da dare in apertura è quello che gli studenti devono saper
-fare alla fine dell'unità completa, non della singola lezione. Poi
-distribuisci. Tienile in una **chat sola** per tutta l'unità: il
-contesto delle lezioni precedenti aiuta l'IA a non ripetersi e a
-gradare. Se la chat diventa troppo lunga, riassumi all'inizio di
-una nuova quello che è stato deciso fino a quel punto.
+<Collapsible title="Lezioni in più giorni e materie con altre strutture">
+
+Il pattern scala a un'unità didattica di quattro o sei lezioni se
+chiedi all'IA di trattare la scaletta come "lezione 1 di 4 su
+un'unità su X", poi iteri per le successive. Il vincolo da dare in
+apertura è quello che gli studenti devono saper fare alla fine
+dell'unità, non della singola lezione. Tieni tutto in una **chat
+sola**: il contesto delle lezioni precedenti aiuta l'IA a non
+ripetersi. Se la chat diventa troppo lunga, riassumi in una nuova
+quello che hai deciso finora.
 
 La struttura "apertura attivante, scoperta, applicazione, sintesi"
 è tipica ma non universale. Per musica, educazione fisica, arte,
-laboratori, esercitazioni cliniche le sequenze sono diverse
-(esempio: riscaldamento, tecnica, applicazione/gioco per ginnastica).
-Sostituisci le fasi standard con le tue al passaggio 2 della
-scaletta: il principio "cosa fa la classe in ogni fase" resta.
-:::
+laboratori ed esercitazioni cliniche le sequenze sono diverse (per
+ginnastica: riscaldamento, tecnica, applicazione o gioco).
+Sostituisci le fasi standard con le tue al passaggio 2: il principio
+"cosa fa la classe in ogni fase" resta.
 
-## Cosa NON fare
+</Collapsible>
 
-**Non chiedere "fammi la lezione" senza scaletta.** L'IA produce
-un blob denso, scritto in voce neutra, incollabile in classe ma
-inutile in pratica. La sequenza obiettivo-struttura-tempi è
-quello che rende riusabile l'output.
+## Cosa evitare
 
-**Non incollare nel chat dati personali degli studenti.** Se nella
-preparazione fai esempi che chiamano in causa un alunno specifico
-("Marco fa fatica con i grafici, come posso strutturare la fase di
-applicazione perché non si perda?"), togli il nome. La privacy dei
-minori è uno snodo proprio, ne parla la lezione finale del modulo,
+**Chiedere "fammi la lezione" senza scaletta.** L'IA produce un blob
+denso in voce neutra. La sequenza obiettivo, struttura, tempi rende
+riusabile l'output.
+
+**Incollare nella chat dati personali degli studenti.** Se nella
+preparazione fai esempi su un alunno specifico ("Marco fa fatica con
+i grafici, come strutturo la fase di applicazione?"), togli il nome.
+La privacy dei minori è trattata in
 [*Etica del docente*](/it/for-teachers/ethics-of-teaching/).
 
-**Non leggere ad alta voce in aula quello che ha scritto l'IA.** Le
-frasi dell'IA hanno un ritmo riconoscibile, anche quando il
-contenuto è giusto. In classe quel ritmo suona finto. Rielabora a
-voce.
+**Leggere ad alta voce in aula quello che ha scritto l'IA.** Le sue
+frasi hanno un ritmo riconoscibile anche quando il contenuto è
+giusto, e in classe suona finto. Rielabora a voce.
 
 ## Approfondisci per la tua disciplina
 
@@ -340,7 +326,8 @@ voce.
 ## Cosa viene dopo
 
 Una buona scaletta presuppone di poter spiegare la stessa cosa in
-più modi diversi, quando un solo modo non basta. La prossima
-lezione prende in mano questo lavoro: cinque versioni della stessa
-nozione, da usare in preparazione e quando uno studente non capisce
-dopo la spiegazione standard.
+più modi, quando uno solo non basta. La prossima lezione,
+[*Spiegare in cinque modi*](/it/for-teachers/explain-in-five-ways/),
+prende in mano questo lavoro: cinque versioni della stessa nozione,
+da usare in preparazione e quando uno studente non capisce dopo la
+spiegazione standard.

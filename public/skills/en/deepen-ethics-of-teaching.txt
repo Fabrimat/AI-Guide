@@ -1,0 +1,32 @@
+I've just read a lesson from the AI-Guide handbook on the ethics of teaching with AI. The key idea: three axes where the responsibility stays mine. Honesty about how I use AI (I check what I give students, and I don't hold them to a standard of honesty I don't meet myself). Privacy of minors' data (no names, grades tied to people, diagnoses or photos in a consumer chat). Grading (the AI proposes, I decide and sign).
+
+I want to map my real practices onto these three axes.
+
+Your role: you're a colleague helping me look honestly at how I work, without judging me and without lecturing. You're not a legal advisor: don't interpret laws and don't cite legal articles. Where an official answer is needed, tell me to ask my school's data-protection lead.
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject do you teach, at what level, and in which country do you work? (The legal framework changes from country to country.)
+2. List the three or four things you already use AI for in your work (preparing lessons, grading, writing emails, other). For each: with which tool and which account (personal, or provided by the school)?
+3. What student data do you touch, even by accident, when you use AI? Think of names, grades, behavior notes, diagnoses, photos, the gradebook.
+4. Does your school have a policy on the use of AI or digital tools? Do you know who the data-protection lead is?
+
+After my answers, build a plain-text table (rows and columns separated by dashes and vertical bars, no special formatting) with one row for each practice I gave you and these columns:
+- Practice
+- Axis touched (honesty, privacy, grading)
+- What I already do well
+- What I risk
+- What I would change this week
+
+Then add three things:
+A) A list of concrete questions to bring to my school's data-protection lead, written so I can copy them into an email.
+B) The practice that looks most delicate to you, with the reason in two lines. Also tell me one practice that looks fine, so I know what not to touch.
+C) A final check: reread the map and tell me whether I took something for granted that I should verify (for example: is a tool built into the gradebook covered by a contract?).
+
+Rules:
+- Don't invent school policies, laws or document names. If you need information I haven't given you, ask me.
+- Be concrete: no generic lists of best practices, we work on my case.
+- The final judgment stays mine: you map and propose, I decide.
+- Reply in my language and without special formatting (no asterisks, no headings).
+
+If one of the four questions is unclear to me or I can't answer it, offer me two or three options to choose from instead of guessing and moving on. When you're done, ask me what I'd like to refine and adjust accordingly.

@@ -6,8 +6,10 @@ prerequisiti: [ask-well, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -69,7 +71,8 @@ controllare che il problema sia ben posto, ma non deve finire sul
 foglio dello studente. L'esercizio di approfondimento a fine
 lezione te ne fa costruire uno sul tuo programma.
 
-:::note[E per le interrogazioni orali?]
+<Collapsible title="E per le interrogazioni orali?">
+
 Le stesse tecniche valgono per preparare una traccia d'orale:
 chiedi all'IA una scaletta di domande di difficoltà crescente sul
 tema, taratura Bloom inclusa, e tienila come canovaccio. La
@@ -78,7 +81,8 @@ serve per partire e per non dimenticare i nodi, ma le domande di
 rilancio nascono da come risponde lo studente, e quelle le fai tu
 sul momento. L'IA prepara il punto di partenza, non conduce
 l'interrogazione.
-:::
+
+</Collapsible>
 
 ## Tarare la difficoltà: la scala di Bloom
 
@@ -102,10 +106,24 @@ scomponi e metti in relazione. Mettere il livello nel prompt
 ("domande di livello *applicare* e *analizzare*") è il modo più
 rapido per spostare la verifica dove la vuoi.
 
+<SelfCheck
+  id="generate-assessment-questions-q1"
+  question="Sul capitolo della Prima guerra mondiale, quale di queste domande è di livello applicare?"
+  options={[
+    { text: "Elenca le cause della guerra.", why: "Chiede solo di richiamare un elenco: è ricordare." },
+    { text: "Spiega come il sistema di alleanze trasformò un attentato locale in una guerra continentale.", correct: true, why: "Lo studente usa un meccanismo (le alleanze) su un caso concreto: è applicare." },
+    { text: "Pesa le cause profonde contro quelle scatenanti e stabilisci quale conta di più.", why: "Qui si scompone e si mettono in relazione le parti, poi si giudica: siamo su analizzare." },
+    { text: "Cosa ne pensi della Prima guerra mondiale?", why: "È troppo aperta per misurare qualcosa e non si corregge con criterio." },
+  ]}
+  explanation="Se rispondi con la sola memoria, la domanda non era di livello applicare, qualunque etichetta abbia dato l'IA."
+/>
+
 ## La differenza in pratica
 
 Storia, terza superiore, il capitolo sulla Prima guerra mondiale.
 Sei domande di formati misti in un turno.
+
+<Collapsible title="L'esempio completo: sei domande sulla Prima guerra mondiale">
 
 <ChatDemo
   user={`Genera 6 domande di verifica sul capitolo della Prima guerra mondiale, terza superiore. Mix: 2 aperte (5-10 righe, livello analizzare), 3 a scelta multipla con 4 alternative, 1 problem-solving su un caso storico. Per ogni distrattore delle multiple, dimmi perché uno studente potrebbe sceglierlo. Tieni le soluzioni separate dalle consegne.`}
@@ -142,6 +160,8 @@ d) istituiva la Società delle Nazioni
 5-b. a) inverte il senso del patto; c) e d) confondono con eventi di fine guerra o del dopoguerra.`}
 />
 
+</Collapsible>
+
 Le sei domande coprono più livelli di Bloom (ricordare con le
 multiple, analizzare con le aperte, applicare e valutare con il
 problem-solving) e quattro formati in uno. Il pezzo più utile è la riga del "perché" sotto ogni distrattore: ti dice
@@ -164,14 +184,16 @@ e cosa farci, è nella lezione [*Quando lo studente usa l'IA*](/it/for-teachers/
 avanti nel modulo.
 :::
 
-:::tip[Esportare in Anki, Quizlet, quiz online]
+<Collapsible title="Esportare in Anki, Quizlet, quiz online">
+
 Se usi strumenti di ripasso o quiz in classe, l'IA può darti
 direttamente il formato giusto: il CSV per importare flashcard in
 Anki, il set di domande per Kahoot o Mentimeter, il testo per
 Quizlet o Wooclap. Chiediglielo esplicitamente ("dammi queste 10
 domande in formato CSV per Anki, fronte e retro") e ti risparmi la
 formattazione a mano.
-:::
+
+</Collapsible>
 
 :::caution[Rileggi prima di somministrare]
 Una domanda generata dall'IA può essere ambigua, fattualmente
@@ -186,22 +208,22 @@ quello vero: se te la cavi con la sola memoria, non era
 quando provi a rispondere.
 :::
 
-## Cosa NON fare
+## Cosa evitare
 
-**Non somministrare la verifica così com'esce.** Una batteria
+**Somministrare la verifica così com'esce.** Una batteria
 interamente generata dall'IA ha un'uniformità di tono che si
 riconosce, e contiene quasi sempre una domanda ambigua o
 sbilanciata. Scegli le domande buone, taglia le ambigue, riscrivi
 quelle che quasi funzionano: la verifica è tua perché è tua la
 responsabilità del voto.
 
-**Non fidarti dell'IA sulla correttezza tecnica.** Date storiche,
+**Fidarsi dell'IA sulla correttezza tecnica.** Date storiche,
 formule chimiche, passaggi matematici, definizioni giuridiche: l'IA
 li sbaglia con la stessa sicurezza con cui li azzecca. Ogni domanda
 che poggia su un fatto preciso va verificata su una fonte, non
 sulla seconda risposta dell'IA.
 
-**Non fare domande trabocchetto su dettagli mai visti.** Se le
+**Fare domande trabocchetto su dettagli mai visti.** Se le
 chiedi domande "difficili", l'IA pesca volentieri da trafiletti e
 note a margine che la tua classe non ha mai trattato. Difficile
 deve voler dire alto sulla scala di Bloom, non oscuro.
@@ -230,6 +252,7 @@ deve voler dire alto sulla scala di Bloom, non oscuro.
 
 Domande pronte significa verifiche somministrabili. Ma una
 verifica, dopo, va corretta, e lì il rischio è opposto: lasciare
-che sia l'IA a dare il voto. La prossima lezione parla di come
-usarla come assistente di correzione, con una rubrica esplicita,
+che sia l'IA a dare il voto. La prossima lezione,
+[*Correggere con criterio*](/it/for-teachers/grading-with-criteria/),
+parla di come usarla come assistente di correzione, con una rubrica esplicita,
 senza che diventi lei il giudice.

@@ -6,8 +6,10 @@ prerequisiti: [ask-well, write-better, images-and-files]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -80,7 +82,19 @@ glossandolo: "il sonetto (una poesia di 14 versi)". Il vincolo da
 mettere nel prompt è esplicito: "frasi più corte, ma tieni tutti i
 termini tecnici e spiegali tra parentesi la prima volta".
 
-:::note[Oltre la dislessia: discalculia, disgrafia, ADHD]
+<SelfCheck
+  id="inclusive-materials-q1"
+  question="Devi adattare un paragrafo per uno studente con dislessia. Quale richiesta all'IA protegge il contenuto?"
+  options={[
+    { text: "Rendi questo testo più semplice.", why: "Detta così l'IA semplifica anche il lessico e butta via i termini tecnici, che lo studente dovrà sapere alla verifica come i compagni." },
+    { text: "Frasi più corte e ordine diretto, ma tieni tutti i termini tecnici e spiegali tra parentesi la prima volta.", correct: true, why: "Semplifica la sintassi e mantiene il lessico chiave, con una glossa. L'accessibilità non toglie contenuto." },
+    { text: "Riscrivilo come se parlassi a un bambino di otto anni.", why: "Cambia livello e tono, non solo l'accessibilità: è lo sconto sul contenuto che la lezione chiede di evitare." },
+    { text: "Riducilo a metà, tenendo solo le idee principali.", why: "Taglia contenuto che la verifica potrà chiedere. La lunghezza si gestisce con frasi brevi e schemi." },
+  ]}
+/>
+
+<Collapsible title="Oltre la dislessia: discalculia, disgrafia, ADHD">
+
 I tre assi nascono pensando alla lettura, ma si adattano. Per la
 **discalculia** conta la forma dei numeri e dei passaggi: più
 esempi svolti, una operazione per riga, la linea dei numeri, niente
@@ -90,7 +104,8 @@ la digitazione al posto della scrittura a mano. Per l'**ADHD** e i
 disturbi dell'attenzione vale lo spezzettamento: un compito per
 schermata, consegne brevi e numerate, meno testo per volta. Cambia
 il prompt, non il metodo: adatta la forma, tieni il contenuto.
-:::
+
+</Collapsible>
 
 ## La differenza in pratica
 
@@ -144,7 +159,8 @@ riscrittura, non il giudizio pedagogico. Passa sempre la versione
 adattata a chi segue lo studente prima di portarla in classe.
 :::
 
-:::tip[Se manca la rete formale]
+<Collapsible title="Se manca la rete formale">
+
 Non tutte le scuole hanno un referente DSA o un docente di sostegno
 a disposizione, e non sempre il piano è già pronto. Se la figura di
 validazione non c'è, appoggiati a quello che esiste (il PDP o il
@@ -155,9 +171,11 @@ invece il piano non esiste ancora (un BES non certificato, un
 sospetto in corso), puoi comunque rendere un materiale più
 accessibile, ma il sospetto va segnalato attraverso i canali della
 scuola: l'IA non certifica e tu non diagnostichi.
-:::
 
-:::tip[Adattare un materiale che hai già]
+</Collapsible>
+
+<Collapsible title="Adattare un materiale che hai già">
+
 Spesso non parti da zero: hai una scheda standard già pronta e
 devi adattarla in fretta. Fotografa o scansiona la pagina,
 caricala nell'IA (vedi
@@ -168,33 +186,35 @@ termini difficili". È più veloce che ribattere tutto a mano.
 Controlla che l'IA abbia letto bene il testo dalla foto: su
 scansioni storte o grafie difficili capita che sbagli qualche
 parola.
-:::
+
+</Collapsible>
 
 :::caution[Privacy: lo studente non ha nome nella chat]
 Quando descrivi il caso all'IA, niente nome, niente dettagli della
 diagnosi, niente situazione familiare. Scrivi "uno studente con
 dislessia", non "Marco di seconda B con diagnosi del 2024". Lo
 strumento non ha bisogno dell'identità per adattare un testo, e i
-dati di un minore con una certificazione sono fra i più delicati. Sul trattamento dei dati dei minori torna in
-dettaglio l'[ultima lezione del modulo](/it/for-teachers/ethics-of-teaching/).
+dati di un minore con una certificazione sono fra i più delicati. Sul
+trattamento dei dati dei minori torna in dettaglio l'[ultima lezione
+del modulo](/it/for-teachers/ethics-of-teaching/).
 :::
 
-## Cosa NON fare
+## Cosa evitare
 
-**Non chiedere all'IA di "valutare la gravità" del disturbo.** Non
+**Chiedere all'IA di "valutare la gravità" del disturbo.** Non
 è uno strumento diagnostico e non ha visto lo studente. Domande
 come "quanto è grave questa dislessia" o "che livello di supporto
 serve" hanno risposte inventate che suonano competenti. La
 diagnosi e il piano li fanno gli specialisti, e sono già scritti
 nel PDP o nel PEI.
 
-**Non scavalcare il piano che esiste già.** Se il PDP dice "mappe
+**Scavalcare il piano che esiste già.** Se il PDP dice "mappe
 sì, materiale audio no" e tu fai generare all'IA una versione
 audio perché sembra una buona idea, stai contraddicendo strategie
 decise con la famiglia e gli specialisti. L'IA adatta dentro i
 vincoli del piano, non al posto del piano.
 
-**Non mettere etichette sul materiale.** La scheda che riceve lo
+**Mettere etichette sul materiale.** La scheda che riceve lo
 studente non si chiama "versione DSA" e non ha un bollino diverso.
 Dev'essere accessibile senza essere marcata. Vale la stessa logica
 delle etichette neutre della lezione sui livelli: l'adattamento
@@ -228,5 +248,6 @@ nessuno.
 Hai progettato le lezioni, differenziato per livello, reso i
 materiali accessibili. Il passo successivo del ciclo didattico è
 valutare quello che gli studenti hanno imparato. La prossima
-lezione affronta come l'IA aiuta a costruire le domande di
-verifica, senza che diventino banali o ambigue.
+lezione, [*Domande per verifiche*](/it/for-teachers/generate-assessment-questions/),
+affronta come l'IA aiuta a costruire le domande di verifica, senza
+che diventino banali o ambigue.

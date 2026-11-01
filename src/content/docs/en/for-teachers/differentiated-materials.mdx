@@ -6,8 +6,10 @@ prerequisiti: [ask-well, write-better, draft-professional-documents]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -36,13 +38,12 @@ have to keep the fast and the slow together.
 
 ## One base text, three derivatives
 
-The weak spot of differentiating by hand is time: writing three
-sheets from scratch is work few teachers actually do, so you end
-up giving everyone the same one. The weak spot of differentiating
-with AI, if you use it badly, is the opposite: you ask for three
-separate sheets and the AI reinvents the content at each pass, so
-the "easy" sheet and the "hard" sheet no longer talk about the
-same topic.
+Differentiating by hand costs time: writing three sheets from
+scratch is work few teachers actually do, so you end up giving
+everyone the same one. With AI the risk is the opposite: ask for
+three separate sheets and it reinvents the content at each pass, so
+the "easy" sheet and the "hard" sheet no longer talk about the same
+topic.
 
 The pattern that avoids both problems is this: **write a single
 base text**, the one at your class's standard (you write it, or
@@ -55,13 +56,10 @@ variants from it, not to write two new ones:
 - an **extension** version: richer vocabulary, more abstract
   examples, exercises that ask students to compare or argue.
 
-The levels in class are three (consolidation, standard,
-extension), but the base text is already the standard: you only
-ask the AI for the two ends. The base text stays the reference.
-The two variants are adaptations of the same content, up and down
-from the standard line. That way the three levels stay aligned:
-they talk about the same topic, with the same facts, at three
-different depths.
+The levels in class are three, but the base text is already the
+standard: you only ask the AI for the two ends. The base text stays
+the reference, and the three levels talk about the same topic, with
+the same facts, at three different depths.
 
 The typical prompt is explicit about this:
 
@@ -82,9 +80,7 @@ afterward.
 sheets can differ: the consolidation one asks students to apply,
 the extension one to argue. What has to stay identical is the core
 of facts and definitions under the exercises, the same core the
-final assessment will ask everyone. On the underlying question the
-three sheets must allow compatible correct answers: what varies is
-the depth the student reaches it at, not the fact. If the student
+final assessment will ask everyone. What varies is the depth the student reaches it at, not the fact. If the student
 on sheet A and the one on sheet C give irreconcilable answers to
 "what does the Edict of Milan establish", one of the two variants
 has changed the content, not just the level.
@@ -100,15 +96,17 @@ completable in 25 minutes") and time one sheet yourself to check.
 three variants. Students need to be able to use them in oral
 discussion and in the assessment that follows, which is the same
 for everyone. What changes is *how* they're explained, not *which*
-ones are there. A consolidation variant that strips out the
-technical terms looks kinder, but it puts those students at a
-disadvantage when everyone comes back to the same ground.
+ones are there. A consolidation variant that strips out the technical terms looks
+kinder, but it disadvantages those students when everyone comes back
+to the same ground.
 
 ## The difference in practice
 
 History, first year of high school, Constantine's reforms. The
 teacher pastes their base text, at the class standard, and asks
 the AI for the two variants.
+
+<Collapsible title="The full example: Constantine's reforms at three levels">
 
 <ChatDemo
   user={`This is my base text (standard level) on Constantine's reforms for a first-year high school class:
@@ -131,23 +129,32 @@ Constantine's reforms (early 4th century) respond to a crisis Rome could no long
 *Exercise:* argue why the city of Rome alone was no longer enough as the empire's center, using at least two of the three reforms.`}
 />
 
+</Collapsible>
+
 The two variants say the same things. The consolidation one lines
-them up with short sentences and an application exercise ("match
-each reform to the problem"). The extension one ties the reforms
-together and asks for an argument ("why Rome wasn't enough
-anymore"). The three key terms (Edict of Milan, capitatio,
-Constantinople) stay in both: what changes is how much they're
-contextualized, not whether they're there. The standard base
-text, the one pasted into the prompt, sits in between: plain
-sentences and an explanation exercise, without the connections
-the extension version asks for.
+them up with short sentences and an application exercise. The
+extension one ties the reforms together and asks for an argument.
+The three key terms stay in both: what changes is how much they're
+contextualized, not whether they're there.
 
 To catch whether the AI shifted a fact rather than just the level,
 reread each variant against the base text, not against your
-memory. The base text is the yardstick: if a variant states
-something that isn't there, the AI derived it wrong.
+memory: if a variant states something that isn't there, it derived
+it wrong.
 
-:::note[For subjects with problems and exercises]
+<SelfCheck
+  id="differentiated-materials-q1"
+  question="The AI hands you a consolidation sheet where it removed the base text's technical terms to make it simpler. Which rule does it break?"
+  options={[
+    { text: "Same answers to the base questions.", why: "The answers might stay compatible: the problem here is a different one, namely which words appear." },
+    { text: "Same working time.", why: "Removing terms doesn't necessarily change the time. You check time by counting exercises and timing one sheet." },
+    { text: "Same glossary.", correct: true, why: "Key terms must appear in all variants. What changes is how you explain them, not which ones are there, because the assessment is the same for everyone." },
+    { text: "Neutral labels.", why: "Labels are about how you present the sheets to students, not about the content." },
+  ]}
+/>
+
+<Collapsible title="For subjects with problems and exercises">
+
 In math, physics, chemistry the "base text" is a core of concepts
 plus a set of problems. The consolidation version doesn't get "more
 problems" or "harder problems": that
@@ -158,9 +165,11 @@ twin, the steps guided). The extension version removes the
 scaffolding and adds transfer (the same method on a new case, or
 "explain why this step works"). Same number of problems, same
 expected results, different support.
-:::
 
-:::tip[For primary school the scheme changes]
+</Collapsible>
+
+<Collapsible title="Primary school: the scheme changes">
+
 With children between 6 and 10 the three variants tend not to
 work: the levels are too close to feel distinct, and they end up
 confusing. Alternative pattern: base text plus **a single**
@@ -169,9 +178,11 @@ or movement exercise). Extension for the more advanced children
 takes other forms, not a harder sheet: a real-world task, the role
 of tutor to a classmate, a small piece of research to report back
 to the class.
-:::
 
-:::note[Combining by representation and by level]
+</Collapsible>
+
+<Collapsible title="Combining representation and level">
+
 In practice you combine
 [representation](/en/for-teachers/explain-in-five-ways/) and level.
 For the same unit you pick the level first (consolidation,
@@ -181,25 +192,26 @@ No need to produce fifteen variants by crossing everything: three
 levels by five representations is a warehouse you'll never use. The combinations
 useful to a real class are usually three or four, picked knowing
 your students.
-:::
 
-## What NOT to do
+</Collapsible>
 
-**Don't have the variants generated without the base text.** If you ask
+## What to avoid
+
+**Having the variants generated without the base text.** If you ask
 "make me an easy sheet and a hard one on Constantine's reforms"
 without giving it your text, the AI invents the content from
 scratch for each variant, decides for itself what matters, and you
 lose control over which facts and which terms end up where. The
 base text keeps the derivatives anchored.
 
-**Don't label the sheets "easy / medium / hard".** Students notice
+**Labeling the sheets "easy / medium / hard".** Students notice
 right away, and the "easy" sheet becomes a brand. The one who gets
 it feels cornered, the one who sees a classmate with the "hard"
 one reads a hierarchy. Use neutral labels: A, B, C, or three
 colors, or no visible label at all and a map you keep yourself.
 The point is to include, and ranking students in public defeats it.
 
-**Don't let the variants drift apart by assessment time.** If the
+**Letting the variants drift apart by assessment time.** If the
 final assessment is the same for everyone (and it usually is), a
 consolidation variant that has cut the key terms or skipped a fact
 leaves those students exposed on test day. Reread the three sheets
@@ -232,6 +244,6 @@ Differentiating by level covers classes that are mixed by
 preparation. But some students have needs that aren't a question
 of level: dyslexia, attention disorders, learning support. There a
 simpler sheet isn't what's needed, an *accessible* one is. The
-next lesson takes on inclusion and special educational needs, and
-where AI genuinely helps and where the work stays with whoever
+next lesson, [*Inclusive materials*](/en/for-teachers/inclusive-materials/), takes on inclusion and special educational needs (the Italian BES and
+DSA categories, with equivalents in other countries), and where AI genuinely helps and where the work stays with whoever
 knows the student.

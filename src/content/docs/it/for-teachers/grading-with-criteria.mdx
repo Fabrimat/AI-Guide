@@ -5,9 +5,12 @@ livello: intermedio
 prerequisiti: [ask-well, when-to-trust-it, data-and-tables]
 ---
 
+import Anonymizer from '../../../../components/Anonymizer.astro';
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -19,9 +22,9 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-L'IA è un buon assistente di correzione e un pessimo giudice. La
-differenza non è sottile, e prima di aprire la chat conviene
-fissare tre principi che non si negoziano.
+L'IA è un buon assistente di correzione e un pessimo giudice. Prima
+di aprire la chat conviene fissare tre principi che non si
+negoziano.
 
 Primo: la rubrica viene prima dell'IA, e la scrivi tu. L'IA può
 aiutarti a metterla in forma e a sciogliere i descrittori che ti
@@ -54,7 +57,9 @@ di motivazione è la parte che conta: senza, hai un voto che non
 puoi controllare.
 
 **3. Verifica a campione.** Correggi tu, in autonomia, gli stessi
-3-5 elaborati. Poi confronta. Dove tu e l'IA divergete la regola è
+3-5 elaborati, e fallo *prima* di leggere i voti dell'IA: se hai già
+in testa il suo numero, tendi ad allinearti senza accorgertene. Poi
+confronta. Dove tu e l'IA divergete la regola è
 semplice, ha ragione il docente. Ma fermati a capire *perché* l'IA
 ha sbagliato: spesso non è l'IA che non capisce, è la rubrica che è
 ambigua su quel criterio. Lì la riscrivi, e migliora anche la tua
@@ -111,7 +116,19 @@ sull'intera classe, l'IA segnalerà lo stesso tipo di errore invece
 di lasciarlo passare. Il disaccordo sul campione serve a questo: rende la rubrica più
 discriminante.
 
-:::tip[Indicatori manuali di sospetta IA]
+<SelfCheck
+  id="grading-with-criteria-q1"
+  question="Sul campione di cinque elaborati, tu e l'IA date un livello diverso a uno di loro. Cosa fai?"
+  options={[
+    { text: "Tengo il livello dell'IA: ha applicato la rubrica in modo coerente.", why: "Sul campione ha ragione il docente. Il voto è una tua responsabilità e il campione serve proprio a controllare l'IA." },
+    { text: "Tengo il mio livello e cerco perché l'IA ha sbagliato: spesso la rubrica è ambigua su quel criterio.", correct: true, why: "Il disaccordo è informazione: se nasce da un descrittore vago, lo riscrivi e anche la tua correzione migliora." },
+    { text: "Faccio la media dei due livelli.", why: "Una media nasconde il problema e non risolve l'ambiguità. Il voto resta una tua decisione." },
+    { text: "Estendo comunque alla classe: un disaccordo su cinque è poco.", why: "Se sul campione non siete allineati non estendere: torna alla rubrica." },
+  ]}
+/>
+
+<Collapsible title="Indicatori manuali di sospetta IA">
+
 Mentre correggi, certi segnali fanno alzare un sopracciglio. Non
 sono prove, sono ipotesi: un registro troppo uniforme e alto per il
 livello della classe, citazioni perfette ma che non riesci a
@@ -121,7 +138,8 @@ sempre "perchè" che di colpo è impeccabile), parole rare mai
 sentite in aula. Presi da soli non dimostrano niente. Cosa farne, e
 come gestire un sospetto senza accusare nessuno, è il tema della
 lezione [*Quando lo studente usa l'IA*](/it/for-teachers/when-students-use-ai/), più avanti nel modulo.
-:::
+
+</Collapsible>
 
 :::caution[Privacy: anonimizza prima di caricare]
 Prima di caricare gli elaborati in una chat consumer (ChatGPT,
@@ -136,7 +154,16 @@ caricarlo o se quella correzione resta tutta a mano. Sulla privacy
 dei dati dei minori torna la [lezione di chiusura del modulo](/it/for-teachers/ethics-of-teaching/).
 :::
 
-:::tip[Temi scritti a mano]
+Se l'elaborato è già in forma di testo (un file, una mail), passalo
+da questo strumento prima di incollarlo. Lavora nel tuo browser e
+toglie email, telefoni e codici fiscali. Il nome dello studente lo
+inserisci tu nel campo "parole da sostituire", e il risultato lo
+controlli sempre.
+
+<Anonymizer />
+
+<Collapsible title="Temi scritti a mano">
+
 Il tema in classe quasi sempre è su carta. Per portarlo nella chat
 lo fotografi o lo scansioni e lo carichi come immagine o PDF (vedi
 [Foto, immagini e file](/it/everyday-use/images-and-files/)). Due
@@ -147,18 +174,22 @@ trascrizione. Il nome: se è scritto a mano sul foglio,
 l'anonimizzazione "rinomina il file" non basta, perché il nome è
 dentro l'immagine. Copri il nome prima di scattare la foto, ritaglia
 l'intestazione, o fotografa dalla seconda riga in giù.
-:::
 
-:::note[Portare i livelli sul registro]
+</Collapsible>
+
+<Collapsible title="Portare i livelli sul registro">
+
 Se vuoi versare i livelli applicati in un foglio per il registro,
 l'IA può darti direttamente una tabella (studente, criterio,
 livello, voto). Per gestirla vale quello che hai visto in
 [Lavorare con dati e tabelle](/it/at-work/data-and-tables/):
 controlla cella per cella prima di copiare, perché un livello
 spostato di una riga è un voto sbagliato a uno studente vero.
-:::
 
-:::note[Per matematica e problem-solving]
+</Collapsible>
+
+<Collapsible title="Per matematica e problem-solving">
+
 Dove la correzione è più giusto/sbagliato che a livelli, la rubrica
 diventa una *chiave di soluzione*: il procedimento corretto passo
 per passo, più quanto credito vale ogni passaggio, così chi imposta
@@ -168,21 +199,22 @@ se ne discosta. Il passo di verifica resta identico: sui conti l'IA
 sbaglia, quindi controlli tu il campione prima di estendere.
 Costruire i problemi e la chiave è il tema di
 [Domande per verifiche](/it/for-teachers/generate-assessment-questions/).
-:::
 
-## Cosa NON fare
+</Collapsible>
 
-**Non caricare i nomi reali degli studenti.** È la regola che viene
+## Cosa evitare
+
+**Caricare i nomi reali degli studenti.** È la regola che viene
 prima delle altre. I dati di un minore non si versano in una chat
 consumer per comodità.
 
-**Non usare l'IA come secondo correttore alla pari.** L'IA senza la
+**Usare l'IA come secondo correttore alla pari.** L'IA senza la
 passata di verifica del docente sul campione non è un collega che
 corregge, è un generatore di voti plausibili. Il passo 3 è
 quello che distingue la correzione assistita dal
 delegare il giudizio.
 
-**Non trascrivere il voto dell'IA sul registro senza rileggerlo.**
+**Trascrivere il voto dell'IA sul registro senza rileggerlo.**
 Il voto che firmi è tuo, con la tua responsabilità davanti allo
 studente e alla famiglia. Un numero che non hai verificato non
 smette di essere tuo solo perché l'ha proposto una macchina.
@@ -212,6 +244,7 @@ smette di essere tuo solo perché l'ha proposto una macchina.
 Hai progettato le lezioni, differenziato i materiali, costruito le
 verifiche e corretto con criterio. Resta una parte del lavoro del
 docente, delicata quanto la correzione, che l'IA può alleggerire:
-comunicare con le famiglie. La prossima lezione parla di come
-scrivere quelle email senza farle suonare fredde e senza sbagliare
+comunicare con le famiglie. La prossima lezione,
+[*Comunicare con le famiglie*](/it/for-teachers/emails-to-families/),
+parla di come scrivere quelle email senza farle suonare fredde e senza sbagliare
 il registro.

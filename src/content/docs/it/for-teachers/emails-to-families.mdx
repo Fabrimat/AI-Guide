@@ -5,9 +5,12 @@ livello: intermedio
 prerequisiti: [ask-well, write-better, hard-emails]
 ---
 
+import Anonymizer from '../../../../components/Anonymizer.astro';
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -21,13 +24,11 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 Una parola sbagliata nella mail a un genitore può costare un
 colloquio che non risolve niente, una scalata in segreteria, in
-qualche caso un ricorso. Ma il tono, di solito, lo sai gestire: lo
-fai da anni. Il problema vero è il tempo. Tre mail delicate in una
+qualche caso un ricorso. Il tono di solito lo sai gestire: lo fai
+da anni. Il problema è il tempo, perché tre mail delicate in una
 settimana, scritte e ripensate parola per parola, sono due ore che
-non hai. L'IA serve a questo: comprimere il tempo della scrittura,
-non sostituire la sensibilità con cui scegli cosa dire e cosa no.
-La sensibilità resta tua, l'IA ti dà le bozze su cui lavorarla più
-in fretta.
+non hai. L'IA comprime il tempo della scrittura e ti dà bozze su
+cui lavorare più in fretta. Cosa dire e cosa no lo decidi tu.
 
 ## Tre registri, secondo l'ordine di scuola
 
@@ -47,10 +48,9 @@ esistesse, o come se fosse solo un problema da gestire, si sente.
 ("Gentile [genitore], Le scrivo per condividere un'osservazione su
 [nome]…").
 
-**Università.** Tono formale. Qui cambia una cosa giuridica, non
-solo di stile: lo studente è quasi sempre maggiorenne, e
-comunicare con la famiglia può essere inappropriato o vietato senza
-il suo consenso. Prima di scrivere al genitore di uno studente
+**Università.** Tono formale. Qui cambia anche una cosa giuridica:
+lo studente è quasi sempre maggiorenne, e comunicare con la
+famiglia può essere inappropriato o vietato senza il suo consenso. Prima di scrivere al genitore di uno studente
 adulto, verifica che sia una comunicazione legittima e, se serve,
 autorizzata dallo studente.
 
@@ -67,8 +67,8 @@ nomi e niente dati sensibili nella chat (i dettagli nella nota
 *Privacy dei minori*).
 
 **2. Chiedi tre versioni di registro diverso.** Una più asciutta,
-una più calda, una più formale. Non per scegliere "la giusta", ma
-per avere materiale da cui pescare. Spesso la mail buona è
+una più calda, una più formale. Servono come materiale da cui pescare, non per scegliere "la
+giusta". Spesso la mail buona è
 un'apertura presa dalla versione calda, un corpo preso
 dall'asciutta, una chiusura dalla formale.
 
@@ -116,11 +116,20 @@ litigato con un compagno"), niente dati sanitari ("è asmatico",
 "prende un farmaco"), niente dettagli familiari ("i genitori sono
 separati", "il padre lavora all'estero"). Quei dettagli servono al
 tuo giudizio, non alla bozza. I dati di un minore sono fra i più
-delicati, e una chat consumer non è il posto dove
-versarli per comodità.
+delicati, e una chat consumer non è il posto dove versarli per
+comodità.
 :::
 
-:::tip[Se la famiglia non parla bene l'italiano]
+Se hai già un testo scritto (una nota sul registro, una mail
+ricevuta da incollare per rispondere), passalo prima da qui. Lo
+strumento lavora nel tuo browser e toglie email, telefoni, IBAN e codici fiscali.
+I nomi degli studenti e dei compagni li scrivi tu nel campo "parole
+da sostituire", e controlla sempre il risultato.
+
+<Anonymizer />
+
+<Collapsible title="Se la famiglia non parla bene l'italiano">
+
 In una classe con famiglie straniere la mail rischia di non essere
 capita, e il problema non è più il registro ma la comprensibilità.
 L'IA può tradurla nella lingua della famiglia o riscriverla in
@@ -130,7 +139,8 @@ una sfumatura o suonare brusca, quindi falla rileggere a un collega
 o a un mediatore culturale se la scuola ne ha uno; e manda comunque
 anche la versione italiana, così resta agli atti quello che hai
 scritto tu.
-:::
+
+</Collapsible>
 
 ## Casi con trappole specifiche
 
@@ -153,7 +163,19 @@ in presenza, dove ci sarà anche chi segue lo studente.
 date: proponi due o tre giorni e fasce orarie concrete. Una
 convocazione vaga genera ansia e non fissa niente.
 
-:::tip[Rispondere a un genitore arrabbiato]
+<SelfCheck
+  id="emails-to-families-q1"
+  question="Uno studente ha interrotto la lezione tre volte martedì. Quale frase metteresti nella mail al genitore?"
+  options={[
+    { text: "Marco è un ragazzo aggressivo e ha bisogno di regole.", why: "È un'etichetta di carattere: descrive la persona, e un genitore la difende. In più contiene un nome." },
+    { text: "Martedì [nome] ha interrotto la lezione tre volte. Mi piacerebbe capire con Lei cosa sta succedendo.", correct: true, why: "Descrive un episodio che si può guardare insieme e apre al colloquio senza etichette." },
+    { text: "Il comportamento di [nome] è molto preoccupante e non è più tollerabile.", why: "Le parole emotive mettono il genitore sulla difensiva prima ancora del colloquio." },
+    { text: "Purtroppo [nome] ha ancora una volta un atteggiamento maleducato in classe.", why: "\"Maleducato\" è un giudizio sulla persona, e \"ancora una volta\" suona come un'accusa." },
+  ]}
+/>
+
+<Collapsible title="Rispondere a un genitore arrabbiato">
+
 La mail più difficile spesso non è quella che scrivi tu, è la
 risposta a un genitore che protesta, a volte in modo aggressivo. Lo
 stesso pattern regge, con due aggiustamenti. L'obiettivo non è
@@ -164,7 +186,8 @@ il "rileggi a freddo" non è opzionale: a caldo si risponde di
 pancia, e una riga difensiva di troppo trasforma una lamentela in
 un caso. Se l'aggressività supera il segno, la mail non basta:
 porta tutto a un colloquio in presenza, meglio se non da solo.
-:::
+
+</Collapsible>
 
 :::tip[Quando NON è la mail lo strumento]
 Per i fatti gravi (violenza, episodi a sfondo sessuale, sospetto di
@@ -176,17 +199,17 @@ le comunicazioni di routine: sul grave, la procedura viene prima di
 tutto.
 :::
 
-## Cosa NON fare
+## Cosa evitare
 
-**Non inviare la mail senza rileggerla a freddo.** La fretta produce
-molte delle mail che poi si rimpiangono. Una notte di
-distanza non costa niente.
+**Inviare la mail senza rileggerla a freddo.** La fretta produce
+molte delle mail che poi si rimpiangono, e una notte di distanza
+non costa niente.
 
-**Non lasciare i nomi nella chat "solo per fartela scrivere
-meglio".** Non c'è una comodità che giustifichi versare i dati di
-un minore in uno strumento esterno. Anonimizza prima, sempre.
+**Lasciare i nomi nella chat "solo per fartela scrivere
+meglio".** Nessuna comodità giustifica versare i dati di un minore
+in uno strumento esterno. Anonimizza prima, sempre.
 
-**Non citare l'IA come fonte di autorità.** Un "l'intelligenza
+**Citare l'IA come fonte di autorità.** Un "l'intelligenza
 artificiale suggerisce che…" in una comunicazione a una famiglia è
 un autogol istituzionale. La mail è tua, la firmi tu, la
 responsabilità è tua.
@@ -216,5 +239,6 @@ responsabilità è tua.
 Hai i materiali, le verifiche, le comunicazioni. Resta una parte
 del lavoro del docente che l'IA non aiuta ad accelerare, ma a
 riconoscere: quando l'IA entra in classe non dalla tua parte, nelle
-mani degli studenti. La prossima lezione parla di come vederla
-senza demonizzarla.
+mani degli studenti. La prossima lezione,
+[*Quando gli studenti usano l'IA*](/it/for-teachers/when-students-use-ai/),
+parla di come vederla senza demonizzarla.

@@ -5,8 +5,10 @@ livello: intermedio
 prerequisiti: [ask-well, privacy-basics, what-not-to-do, company-data-and-privacy]
 ---
 
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -19,16 +21,14 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 </LessonSummary>
 
 The module opened with a contract: AI belongs in preparation, it
-doesn't take your place in class. Eight lessons later, you've seen how
-to use it to design, explain, differentiate, include, build
-assessments, grade, communicate with families, and recognize it when
-it ends up in the students' hands. What's left is the question that
-holds the rest together: when AI enters your work, which
-responsibilities stay yours and don't get delegated?
+doesn't take your place in class. You've seen how to use it to
+design, explain, differentiate, include, build assessments, grade,
+communicate with families, and recognize it when it ends up in the
+students' hands. One question is left: which responsibilities stay
+yours and don't get delegated?
 
-The answer comes down to three axes where your
-responsibility doesn't shift, whatever the AI did. The thread tying
-them together is the same one from [*Things NOT to
+The answer comes down to three axes, whatever the AI did. The
+thread tying them together is the same one from [*Things NOT to
 do*](/en/everyday-use/what-not-to-do/): who signs is who answers. At
 the front of the class, the one who signs is you.
 
@@ -62,13 +62,20 @@ families*](/en/for-teachers/emails-to-families/)).
 
 ## Privacy: the data belongs to minors
 
+**A note on jurisdiction.** The legal framework described here
+(GDPR, the data-protection officer, the school's duties on minors'
+data) is the Italian and European one. If you teach elsewhere, the
+principles carry over, but the rules, the roles and the names of the
+documents don't: check your own country's law and your school's
+policy.
+
 A minor student's data is among the most sensitive you handle: name,
 grades, a learning-disability diagnosis, a family situation, a
-behavior note. The model you saw in [*What you share when you use
-AI*](/en/fundamentals/privacy-basics/) and in [*Company data and
+behavior note. The model of [*What you share when you use
+AI*](/en/fundamentals/privacy-basics/) and [*Company data and
 privacy*](/en/at-work/company-data-and-privacy/) applies here with
-even more force. The rule is the same, but the subject
-is a minor and GDPR grants them stronger protection: a minor can't
+even more force. The rule is the same, but the subject is a minor,
+and GDPR grants minors stronger protection because they can't
 fully weigh the consequences of sharing their own data.
 
 In practice: no student names, no grades tied to people, no diagnoses,
@@ -77,23 +84,36 @@ grading and in emails. The electronic gradebook is the trickiest case:
 it holds grades tied to names, that is, minors' personal data at
 scale. You don't paste it into a consumer chat to get it to "work out
 a few averages". If you need a calculation, pull the numbers without the
-names, or use the gradebook's own tools. The AI feature now built into
-many gradebooks is a different case: there the provider is a data
+names, or use the gradebook's own tools. The AI feature built into many gradebooks is a different case: there the provider is a data
 processor under contract with the school, so it falls under that
 agreement, not your personal account. Before using it, check that the
 contract covers it and that the data isn't used for training.
 
-:::tip[Class photos and videos]
+<SelfCheck
+  id="ethics-of-teaching-q1"
+  question="You need to calculate class averages and you have the gradebook file with names and grades. What do you do?"
+  options={[
+    { text: "Paste it into my personal AI chat: they're just numbers.", why: "They're grades tied to names, that is, minors' personal data at scale. A consumer chat isn't the place." },
+    { text: "Extract the grades alone, without names, or use the gradebook's own tools.", correct: true, why: "The calculation doesn't need identities. Without names the data leaves the most sensitive perimeter." },
+    { text: "Replace surnames with initials and paste everything.", why: "In a class of twenty, initials still identify students, and grades stay tied to a person." },
+    { text: "Paste it, since I turned off training use.", why: "Turning off training removes one risk, but minors' data still sits on an outside service the school didn't choose." },
+  ]}
+  explanation="The question to ask is whether the calculation needs the names. Almost never."
+/>
+
+<Collapsible title="Class photos and videos">
+
 The field-trip photo, the recital video, the screenshot of the online
 lesson with the students' faces: these are minors' personal data like
 grades, and maybe more sensitive. Don't upload them to a consumer AI
 to have it generate a summary, a poster, an edit. The consent the
 families signed covers the school's use of the image, not the upload
-to a third-party tool whose data chain you don't control. A business plan that promises not to train on the data doesn't
-change this: that guarantee removes one risk, but not the consent
-problem, since the consent doesn't cover use on an outside AI. If you need
-a graphic, start from images that don't contain minors' faces.
-:::
+to a third-party tool whose data chain you don't control. A business
+plan that promises not to train on the data removes one risk, but
+not the consent problem. If you need a graphic, start from images
+that don't contain minors' faces.
+
+</Collapsible>
 
 You don't carry this framework alone. Almost every institution has a
 data-protection lead (often a Data Protection Officer, DPO) and a
@@ -122,7 +142,8 @@ has no seat at that table. It can help you organize the numbers
 beforehand, like a smart spreadsheet, but the assessment you bring to
 the meeting is yours, and it stays a judgment, not an output.
 
-:::note[Institutional policies and guidance change]
+<Collapsible title="Institutional policies and guidance change">
+
 Above the single school there is guidance that evolves fast. In Italy
 the **Ministry of Education and Merit** and the **Regional School
 Offices** issue circulars and guidelines on the use of AI in schools;
@@ -133,27 +154,37 @@ same weight: the law (GDPR, the AI Act), school regulations, and
 ministry circulars are binding, while European Commission and UNESCO
 guidelines steer without obligating.
 Elsewhere, national and local bodies do the same (US school districts,
-the UK Department for Education, and others). I cite them as examples,
-without specific URLs: the official pages change. Before you adopt a practice, look for your own school's
+the UK Department for Education, and others). I cite them as examples, without specific URLs, because the official pages change. Before you adopt a practice, look for your own school's
 policy and your ministry's or district's guidance, and when in doubt
 talk to the data-protection lead. Where there isn't an explicit rule
 yet, the general principle holds: the AI prepares, you verify, minors'
 data stays protected, and the grade is signed by you.
-:::
 
-## What NOT to do
+</Collapsible>
 
-**Don't hand out AI material without rereading it.** A mistake you give
+## What to avoid
+
+**Handing out AI material without rereading it.** A mistake you give
 to the class becomes a mistake you teach, and the responsibility is
 yours.
 
-**Don't pour minors' data into a consumer chat.** Names, grades,
+**Pouring minors' data into a consumer chat.** Names, grades,
 diagnoses, photos: you anonymize first, or you use the institutional
 tools. No convenience justifies the exception.
 
-**Don't delegate the grade.** Without your check, the AI is a generator of
+**Delegating the grade.** Without your check, the AI is a generator of
 plausible numbers, not a second marker. The decision and the
 signature remain yours.
+
+## Map your own practices
+
+<LlmExercise
+  variant="practice"
+  title="Map your practices onto the three axes"
+  file="deepen-ethics-of-teaching.txt"
+  duration="10-15 min"
+  description="The AI interviews you about the classroom practices you really use and maps them onto the three axes: what you already do, what you risk, what to ask your data-protection lead."
+/>
 
 ## Check what you understood
 
@@ -175,7 +206,6 @@ to these lessons when you need them.
 From here the handbook goes a level deeper. For anyone who wants to
 understand how AI does what it does, all the way to building their own
 tools on top of it, [**Module 6** *Going deeper*](/en/going-deeper/from-chats-to-apis/)
-starts here and goes under the hood: APIs, context in tokens, RAG, agents. It's the most
-technical audience of the handbook, but the thread is the same one
-you've followed so far: know what the tool does so you can use it with
-judgment.
+goes under the hood: APIs, context in tokens, RAG, agents. It's the
+most technical part of the handbook, with the same thread as before:
+know what the tool does so you can use it with judgment.

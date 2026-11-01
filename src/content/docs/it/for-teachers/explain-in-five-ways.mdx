@@ -6,6 +6,7 @@ prerequisiti: [ask-well, iterate-the-conversation, learn-something-new]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
@@ -81,15 +82,13 @@ al colpo d'occhio quale apre la classe e quale no. Poi le rileggi
 a freddo, e scegli le due o tre più adatte al concetto e alla
 classe che hai di fronte.
 
-Il check rapido per scegliere: per ciascuna versione chiediti
-"questa classe ha già il vocabolario per agganciarla?". L'analogia
-quotidiana funziona se i ragazzi conoscono *l'analogia* (un'analogia
-con l'agricoltura su una classe di periferia urbana non aggancia).
-Il registro tecnico funziona se hai già introdotto il lessico della
-disciplina nelle lezioni precedenti. La narrazione storica funziona
-se hai 5 minuti di margine: senza margine cade. La modalità visiva
-è quasi sempre tenibile, l'attività pratica costa 10-20 minuti di
-lezione e va prevista nella scaletta.
+Per scegliere, chiediti per ciascuna versione "questa classe ha già
+il vocabolario per agganciarla?". L'analogia funziona se i ragazzi
+conoscono *l'analogia* (una con l'agricoltura su una classe di
+periferia urbana non aggancia). Il registro tecnico funziona se hai
+già introdotto il lessico della disciplina. La narrazione storica
+cade senza 5 minuti di margine. La modalità visiva è quasi sempre
+tenibile, l'attività pratica costa 10-20 minuti di lezione.
 
 > *"Per una classe di terza superiore (16-17 anni), in matematica,
 > devo introdurre il concetto di funzione inversa. Generami cinque
@@ -99,17 +98,17 @@ lezione e va prevista nella scaletta.
 > narrazione storica, piccola attività pratica. Ogni versione max
 > 80 parole. Non scegliere tu, sono io che scelgo dopo."*
 
-I vincoli "max 80 parole" e "non scegliere tu" sono importanti.
-Senza il limite di parole, l'IA tende a scrivere mini-saggi su
-ciascuna versione e tu non puoi confrontarle a colpo d'occhio.
-Senza il "non scegliere tu", l'IA chiude con "tra queste, ti
-consiglierei la versione 2 perché…": è esattamente la scelta che
-serve fare tu, conoscendo la classe.
+Il limite di parole serve perché l'IA tende a scrivere mini-saggi
+e tu non puoi confrontare le versioni a colpo d'occhio. Con "non
+scegliere tu" evita di chiudere con "ti consiglierei la versione 2
+perché…": quella scelta tocca a te, che conosci la classe.
 
 ## La differenza in pratica
 
 Docente di matematica, terza superiore, deve introdurre le
 funzioni inverse. Cinque versioni in un turno.
+
+<Collapsible title="L'esempio completo: le cinque versioni della funzione inversa">
 
 <ChatDemo
   user={`Per una classe di terza superiore in matematica devo introdurre il concetto di funzione inversa. Generami cinque versioni della stessa spiegazione, una per registro: analogia quotidiana, tecnica, visiva (descrivimi lo schema con parole), narrativa storica, attività pratica. Ogni versione max 80 parole.`}
@@ -129,6 +128,8 @@ Il concetto matura nel Seicento, con Newton e Leibniz, ma in forma di "operazion
 Distribuisci coppie di numeri (x, y) da una funzione semplice, per esempio f(x) = x + 3 → (1,4), (2,5), (3,6). A coppie, gli studenti devono trovare la regola che porta da y a x. Poi tu chiedi: "scrivete la funzione che fa questo lavoro". Per finire, prova con f(x) = x² applicata a (-2, 4) e (2, 4): cosa succede? L'inversa lì non funziona pulita. Perché?`}
 />
 
+</Collapsible>
+
 Le cinque versioni sono ora sul tavolo. La scelta è del docente,
 in base al concetto e alla classe: in una classe forte in algebra ma con poco
 intuito geometrico, le versioni 2 e 3 fanno il lavoro; in una
@@ -141,7 +142,8 @@ L'errore tipico è usarle *tutte e cinque* nella stessa lezione:
 ne esce confusione. Le versioni sono cinque per darti da
 scegliere. Due o tre fatte bene aiutano più di cinque di corsa.
 
-:::note[Vale anche per le materie senza formule]
+<Collapsible title="Vale anche per le materie senza formule">
+
 L'esempio sopra è matematico ma il pattern regge in letteratura,
 filosofia, storia dell'arte, lingue. La voce 2 "registro tecnico"
 si traduce nel lessico critico della disciplina: per un sonetto di
@@ -149,9 +151,11 @@ Foscolo è la metrica e le figure retoriche; per un quadro è
 composizione, prospettiva, luce. La voce 4 "narrazione storica"
 quasi sempre c'è già nel manuale, e l'IA la riformula calibrandola.
 Le voci 1, 3, 5 funzionano identiche.
-:::
 
-:::tip[Modalità visiva senza skill di disegno]
+</Collapsible>
+
+<Collapsible title="Modalità visiva senza skill di disegno">
+
 Se la modalità visiva richiede un diagramma e non hai tempo o
 mano ferma, hai due opzioni. La prima: chiedi all'IA di
 descrivertelo a parole (come fa l'IA al punto 3 del ChatDemo sulle
@@ -163,15 +167,15 @@ generare un'immagine vera con grafica complessa: spesso
 esce una cosa che sembra giusta ma ha errori (assi
 sbagliati, etichette nei punti sbagliati, nomi inventati). La
 lavagna del docente sui temi tecnici resta più affidabile.
-:::
+
+</Collapsible>
 
 ## On the fly: quando uno studente non aggancia
 
 Hai spiegato il concetto con la versione che hai scelto. Tre
-segnali ti dicono se sta funzionando o no, prima della verifica
-formativa: gli **sguardi** (chi guarda altrove, chi guarda fuori
-dalla finestra, chi guarda il banco invece della lavagna è uno
-staccato), le **domande di applicazione veloce** (chiedi "fammi
+segnali ti dicono se sta funzionando, prima della verifica
+formativa: gli **sguardi** (chi guarda fuori dalla finestra o il banco
+invece della lavagna è uno staccato), le **domande di applicazione veloce** (chiedi "fammi
 un esempio tuo di X" a due studenti a sorte: se inciampano, la
 versione non sta passando), le **mani che si alzano spontaneamente**
 (zero mani su una classe ricettiva di solito significa imbarazzo,
@@ -183,28 +187,31 @@ versione che hai usato non gli è bastata, e ne serve un'altra.
 Pattern operativo, in 60 secondi:
 
 1. Tieni un tablet o cellulare in cattedra, con una chat IA già
-   aperta. Per i prof che usano sempre lo stesso strumento (Claude
-   Projects, ChatGPT Custom GPTs, Gemini Gems), avere un "progetto
-   docente" pre-impostato con istruzioni standard fa risparmiare i
-   primi 30 secondi.
+   aperta. Se usi sempre lo stesso strumento, un "progetto docente"
+   pre-impostato con istruzioni standard (i Projects di Claude e
+   ChatGPT, i Custom GPT, i Gem o le skill di Gemini: i nomi
+   cambiano) fa risparmiare i primi 30 secondi.
 2. Digiti veloce: "concetto X, classe non ha agganciato con la
    versione [tecnica/visiva/eccetera]. Dammi un'altra angolazione
    in 3 frasi, con una rappresentazione [analogica/visiva/narrativa]".
 3. Leggi quello che esce, lo *traduci in voce tua* (non leggi
    parola per parola), e torni alla lavagna o agli studenti.
 
-:::tip[Cosa metti in un "progetto docente"]
-Un Claude Project, Custom GPT o Gemini Gem pre-impostato ti
-risparmia i primi 30 secondi. Istruzioni utili da inserirci:
+<Collapsible title="Cosa metti in un progetto docente">
+
+Un progetto o assistente pre-impostato ti risparmia i primi 30
+secondi. Istruzioni utili da inserirci:
 disciplina insegnata, livello scolastico tipico, principio
 "rispondi in massimo 3 frasi, registro orale parlato in classe,
 niente bullet, niente preamboli, una sola angolazione per turno".
 Un file di "lessico della classe" (i termini che hai già introdotto)
 aiuta a calibrare. Più piccolo e mirato è il progetto, più
 risponde rapido e centrato.
-:::
 
-:::note[Se in classe non puoi tirare fuori il telefono]
+</Collapsible>
+
+<Collapsible title="Se in classe non puoi tirare fuori il telefono">
+
 Alcune scuole vietano cellulari e tablet al docente in aula, o la
 connettività è scarsa. In quei casi l'on-the-fly puro non è
 possibile, ma ti resta un'alternativa: prepara prima della lezione
@@ -212,16 +219,13 @@ possibile, ma ti resta un'alternativa: prepara prima della lezione
 della scaletta), non solo la versione principale. Se la prima non
 aggancia, la seconda è già nella tua memoria, non sul cellulare.
 L'IA serve nella preparazione, non nel "soccorso istantaneo".
-:::
+
+</Collapsible>
 
 La classe non vede questi tre passaggi: per lei sei tu che hai
-"un'altra idea". Va bene così, perché ha bisogno della spiegazione
-che funziona, non dei dettagli del tuo workflow.
-
-Conta soprattutto il punto 3: la voce è tua, il ritmo è tuo, il
-contatto visivo con la classe è tuo. Leggere la chat parola per
-parola spezza la lezione e suona finto. Se la classe percepisce
-che stai leggendo, perdi più di quello che recuperi.
+"un'altra idea". Conta soprattutto il punto 3: la voce, il ritmo e il
+contatto visivo con la classe sono tuoi. Leggere la chat parola per
+parola spezza la lezione e suona finto.
 
 ## "Per rappresentazione" è diverso da "per livello"
 
@@ -237,23 +241,19 @@ prossima lezione del modulo,
 [*Materiali differenziati per
 livello*](/it/for-teachers/differentiated-materials/).
 
-Le due tecniche si combinano nelle classi reali. Per la stessa
-unità didattica, prima pensi al **livello** (chi consolida, chi
-sta in standard, chi approfondisce), poi per ciascuno scegli le
-**rappresentazioni** che agganciano. Non serve produrre quindici
-varianti (tre livelli per cinque rappresentazioni): la maggior
-parte non la userai mai. Le
-combinazioni utili sono di solito tre o quattro, che scegli in
-base alla classe.
+Le due tecniche si combinano nelle classi reali: prima pensi al
+**livello**, poi per ciascuno scegli le **rappresentazioni** che
+agganciano. Le combinazioni utili sono di solito tre o quattro, non
+le quindici possibili.
 
-## Cosa NON fare
+## Cosa evitare
 
-**Non proporre tutte e cinque le versioni alla stessa classe nella
+**Proporre tutte e cinque le versioni alla stessa classe nella
 stessa lezione.** Più rappresentazioni aiutano, ma una lezione
 che attraversa cinque angolazioni della stessa idea in 60 minuti
 resta a un livello superficiale su ciascuna.
 
-**Non usare la narrazione storica se non hai verificato i dati.**
+**Usare la narrazione storica senza aver verificato i dati.**
 L'IA inventa volentieri date, attribuzioni, ordini cronologici
 ("è stato X a capirlo per primo, nel 1832, dopo una conversazione
 con Y"). Se la tua narrazione storica si appoggia su un dato
@@ -266,7 +266,7 @@ sai che è inventata; tieni l'aneddoto sul vago se non sei sicuro
 ("nell'Ottocento, alcuni matematici tedeschi…") invece di mettere
 un nome falso.
 
-**Non leggere ad alta voce in aula quello che ha scritto l'IA.**
+**Leggere ad alta voce in aula quello che ha scritto l'IA.**
 Vale per la preparazione, vale ancora di più per l'uso on the
 fly. La voce è tua, la rielaborazione è tua.
 

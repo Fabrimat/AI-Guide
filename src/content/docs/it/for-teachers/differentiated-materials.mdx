@@ -6,8 +6,10 @@ prerequisiti: [ask-well, write-better, draft-professional-documents]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -36,13 +38,12 @@ didattica dura più giorni e devi tenere insieme i veloci e i lenti.
 
 ## Un solo testo base, tre derivati
 
-Il punto debole del differenziare a mano è il tempo: scrivere tre
-schede da zero è un lavoro che pochi docenti fanno davvero, e si
-finisce per dare a tutti la stessa. Il punto debole del
-differenziare con l'IA, se la usi male, è il contrario: chiedi tre
-schede separate e l'IA reinventa il contenuto a ogni passaggio,
-così la scheda "facile" e la scheda "difficile" non parlano più
-dello stesso argomento.
+Differenziare a mano costa tempo: scrivere tre schede da zero è un
+lavoro che pochi docenti fanno davvero, e si finisce per dare a
+tutti la stessa. Con l'IA il rischio è l'opposto: se chiedi tre
+schede separate, reinventa il contenuto a ogni passaggio e la
+scheda "facile" e quella "difficile" non parlano più dello stesso
+argomento.
 
 Il pattern che evita entrambi i problemi è questo: **scrivi un
 solo testo base**, quello allo standard della tua classe (lo
@@ -55,12 +56,10 @@ scrivi tu, o lo assembli dal manuale). Poi chiedi all'IA di
 - una **di approfondimento**: lessico più ricco, esempi più
   astratti, esercizi che chiedono di confrontare o argomentare.
 
-I livelli in classe sono tre (consolidamento, standard,
-approfondimento), ma il testo base è già lo standard: all'IA chiedi
-solo i due estremi. Il testo base resta il riferimento. Le due
-varianti sono adattamenti dello stesso contenuto, su e giù dalla
-linea standard. Così i tre livelli restano allineati: parlano dello
-stesso argomento, con gli stessi fatti, a tre profondità diverse.
+I livelli in classe sono tre, ma il testo base è già lo standard:
+all'IA chiedi solo i due estremi. Il testo base resta il
+riferimento, e i tre livelli parlano dello stesso argomento, con
+gli stessi fatti, a tre profondità diverse.
 
 Il prompt tipo è esplicito su questo:
 
@@ -82,9 +81,7 @@ dopo.
 schede possono essere diversi: la consolidamento fa applicare,
 l'approfondimento fa argomentare. Quello che deve restare identico
 è il nucleo di fatti e definizioni sotto agli esercizi, lo stesso
-che la verifica finale chiederà a tutti. Sulla domanda di fondo le
-tre schede devono ammettere risposte corrette compatibili: varia la
-profondità con cui lo studente ci arriva, non il fatto. Se lo
+che la verifica finale chiederà a tutti. Varia la profondità con cui lo studente ci arriva, non il fatto. Se lo
 studente della scheda A e quello della scheda C danno risposte
 inconciliabili a "cosa stabilisce l'Editto di Milano", una delle
 due varianti ha cambiato il contenuto, non solo il livello.
@@ -100,16 +97,17 @@ controllare.
 **Stesso glossario.** I termini chiave del testo base compaiono in
 tutte e tre le varianti. Gli studenti devono poterli usare al
 confronto orale e nella verifica successiva, che è uguale per
-tutti. Cambia il *come* sono spiegati, non *quali* ci sono. Una
-variante di consolidamento che elimina i termini tecnici sembra
-più gentile, ma mette quegli studenti in svantaggio quando si
-torna tutti sullo stesso piano.
+tutti. Cambia il *come* sono spiegati, non *quali* ci sono. Una variante di consolidamento che elimina i termini tecnici sembra
+più gentile, ma svantaggia quegli studenti quando si torna tutti
+sullo stesso piano.
 
 ## La differenza in pratica
 
 Storia, prima superiore, le riforme di Costantino. Il docente
 incolla il suo testo base, allo standard di classe, e chiede
 all'IA le due varianti.
+
+<Collapsible title="L'esempio completo: le riforme di Costantino in tre livelli">
 
 <ChatDemo
   user={`Questo è il mio testo base (livello standard) sulle riforme di Costantino per una prima superiore:
@@ -132,23 +130,32 @@ Le riforme di Costantino (inizio IV secolo) rispondono a una crisi che Roma da s
 *Esercizio:* argomenta perché la sola città di Roma non bastava più come centro dell'impero, usando almeno due delle tre riforme.`}
 />
 
+</Collapsible>
+
 Le due varianti dicono le stesse cose. La consolidamento le mette
-in fila con frasi corte e un esercizio di applicazione ("collega
-ogni riforma al problema"). L'approfondimento aggancia le riforme
-fra loro e chiede un'argomentazione ("perché Roma non bastava
-più"). I tre termini chiave (Editto di Milano, capitatio,
-Costantinopoli) restano in entrambe: cambia quanto vengono
-contestualizzati, non il fatto che ci siano. Il testo base
-standard, quello incollato nel prompt, sta in mezzo: frasi piane e
-un esercizio di spiegazione, senza i collegamenti che chiede
-l'approfondimento.
+in fila con frasi corte e un esercizio di applicazione. L'approfondimento
+aggancia le riforme fra loro e chiede un'argomentazione. I tre
+termini chiave restano in entrambe: cambia quanto vengono
+contestualizzati, non il fatto che ci siano.
 
 Per accorgerti se l'IA ha spostato un fatto invece del solo
 livello, rileggi ogni variante contro il testo base, non contro la
-tua memoria. Il testo base è il metro di paragone: se una variante
-afferma qualcosa che lì non c'è, l'IA ha derivato male.
+tua memoria: se una variante afferma qualcosa che lì non c'è, ha
+derivato male.
 
-:::note[Per le materie con problemi ed esercizi]
+<SelfCheck
+  id="differentiated-materials-q1"
+  question="L'IA ti restituisce una scheda di consolidamento in cui ha tolto i termini tecnici del testo base, per renderla più semplice. Quale regola viola?"
+  options={[
+    { text: "Stesse risposte alle domande di base.", why: "Le risposte potrebbero restare compatibili: il problema qui è un altro, cioè quali parole compaiono." },
+    { text: "Stesso tempo di lavoro.", why: "Togliere termini non cambia per forza il tempo. Il tempo si controlla contando gli esercizi e cronometrando una scheda." },
+    { text: "Stesso glossario.", correct: true, why: "I termini chiave devono comparire in tutte le varianti. Cambia come li spieghi, non quali ci sono, perché la verifica è la stessa per tutti." },
+    { text: "Etichette neutre.", why: "Le etichette riguardano come presenti le schede agli studenti, non il contenuto." },
+  ]}
+/>
+
+<Collapsible title="Per le materie con problemi ed esercizi">
+
 In matematica, fisica, chimica il "testo base" è un nucleo di
 concetti più una serie di problemi. Alla consolidamento non
 servono "più problemi" né "problemi più difficili":
@@ -159,9 +166,11 @@ L'approfondimento toglie l'impalcatura e aggiunge il trasferimento
 (lo stesso metodo su un caso nuovo, oppure "spiega perché questo
 passaggio funziona"). Stesso numero di problemi, stessi risultati
 attesi, sostegno diverso.
-:::
 
-:::tip[Per la scuola primaria lo schema cambia]
+</Collapsible>
+
+<Collapsible title="Scuola primaria: lo schema cambia">
+
 Con bambini fra 6 e 10 anni le tre varianti tendono a non
 funzionare: i livelli sono troppo vicini per essere percepiti
 come distinti, e finiscono per confondere. Pattern alternativo:
@@ -171,9 +180,11 @@ L'approfondimento per i bambini più avanti prende altre forme,
 non una scheda più difficile: un compito di realtà, il ruolo di
 tutor di un compagno, una piccola ricerca da raccontare alla
 classe.
-:::
 
-:::note[Combinare per rappresentazione e per livello]
+</Collapsible>
+
+<Collapsible title="Combinare rappresentazione e livello">
+
 Nella pratica si combinano
 [la rappresentazione](/it/for-teachers/explain-in-five-ways/) e il
 livello. Per la stessa unità didattica scegli prima il livello
@@ -184,18 +195,19 @@ tutto: tre livelli per cinque rappresentazioni è un magazzino che
 non userai mai. Le
 combinazioni utili a una classe reale sono di solito tre o quattro,
 che scegli conoscendo i tuoi studenti.
-:::
 
-## Cosa NON fare
+</Collapsible>
 
-**Non far generare le varianti senza il testo base.** Se chiedi "fammi una
+## Cosa evitare
+
+**Far generare le varianti senza il testo base.** Se chiedi "fammi una
 scheda facile e una difficile sulle riforme di Costantino" senza
 darle il tuo testo, l'IA inventa il contenuto da capo a ogni
 variante, sceglie lei cosa è importante, e tu perdi il controllo
 su quali fatti e quali termini finiscono dove. Il testo base tiene
 ancorate le derivate.
 
-**Non etichettare le schede come "facile / medio / difficile".**
+**Etichettare le schede "facile / medio / difficile".**
 Gli studenti se ne accorgono subito, e la scheda "facile" diventa
 un marchio. Chi la riceve si sente messo nell'angolo, chi vede il
 compagno con la "difficile" legge una gerarchia. Usa etichette
@@ -203,7 +215,7 @@ neutre: A, B, C, oppure tre colori, oppure nessuna etichetta
 visibile e una mappa che tieni tu. Lo scopo è includere, e
 classificare in pubblico lo fa fallire.
 
-**Non lasciare che le varianti si scollino alla verifica.** Se la
+**Lasciare che le varianti si scollino alla verifica.** Se la
 verifica finale è uguale per tutti (e di solito lo è), una variante
 di consolidamento che ha tagliato i termini chiave o saltato un
 fatto lascia quegli studenti scoperti il giorno del compito.
@@ -237,6 +249,6 @@ Differenziare per livello copre le classi disomogenee per
 preparazione. Ma alcuni studenti hanno bisogni che non sono una
 questione di livello: dislessia, disturbi dell'attenzione,
 sostegno. Lì non serve una scheda più semplice, serve una scheda
-*accessibile*. La prossima lezione affronta l'inclusività, BES e
-DSA, e dove l'IA aiuta davvero e dove invece il lavoro resta di
+*accessibile*. La prossima lezione, [*Materiali inclusivi*](/it/for-teachers/inclusive-materials/), affronta l'inclusività (BES e
+DSA in Italia) e dove l'IA aiuta davvero e dove invece il lavoro resta di
 chi conosce lo studente.

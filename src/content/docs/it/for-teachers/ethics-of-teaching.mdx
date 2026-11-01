@@ -5,8 +5,10 @@ livello: intermedio
 prerequisiti: [ask-well, privacy-basics, what-not-to-do, company-data-and-privacy]
 ---
 
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -19,16 +21,14 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 </LessonSummary>
 
 Il modulo si è aperto con un contratto: l'IA sta nella preparazione,
-non prende il tuo posto in classe. Otto lezioni dopo, hai visto come
-usarla per progettare, spiegare, differenziare, includere, costruire
-verifiche, correggere, comunicare con le famiglie, e riconoscerla
-quando finisce nelle mani degli studenti. Resta la domanda che tiene
-insieme il resto: quando l'IA entra nel tuo lavoro, quali
-responsabilità restano tue e non si delegano?
+non prende il tuo posto in classe. Hai visto come usarla per
+progettare, spiegare, differenziare, includere, costruire verifiche,
+correggere, comunicare con le famiglie, e riconoscerla quando finisce
+nelle mani degli studenti. Resta una domanda: quali responsabilità
+restano tue e non si delegano?
 
-La risposta si riduce a tre assi
-dove la tua responsabilità non si sposta, qualunque cosa abbia fatto
-l'IA. Il filo che li lega è lo stesso di [*Cose da NON
+La risposta si riduce a tre assi, qualunque cosa abbia fatto l'IA.
+Il filo che li lega è lo stesso di [*Cose da NON
 fare*](/it/everyday-use/what-not-to-do/): chi firma è chi risponde.
 Alla cattedra, chi firma sei tu.
 
@@ -64,12 +64,12 @@ famiglie*](/it/for-teachers/emails-to-families/)).
 
 I dati di uno studente minorenne sono fra i più delicati che tratti:
 nome, voti, una diagnosi di DSA, una situazione familiare, una nota
-di comportamento. Il modello che hai visto in [*Quello che condividi
-quando usi l'IA*](/it/fundamentals/privacy-basics/) e in [*Privacy e
+di comportamento. Il modello di [*Quello che condividi
+quando usi l'IA*](/it/fundamentals/privacy-basics/) e di [*Privacy e
 dati aziendali*](/it/at-work/company-data-and-privacy/) qui vale
-rinforzato. La regola è la stessa, ma il soggetto è un
-minore e il GDPR gli riconosce una protezione più alta: un minore non
-può valutare fino in fondo le conseguenze di condividere i propri dati.
+rinforzato. La regola è la stessa, ma il soggetto è un minore e il
+GDPR gli riconosce una protezione più alta, perché non può valutare
+fino in fondo le conseguenze di condividere i propri dati.
 
 In pratica: nella chat non entrano nomi di studenti, voti associati a
 persone, diagnosi, dettagli familiari. Anonimizzi prima, sempre, come
@@ -78,24 +78,38 @@ insidioso: contiene voti legati a nomi, cioè dati personali di minori
 su larga scala. Non si incolla in una chat consumer per farsi fare
 "due conti sulle medie". Se ti serve un calcolo, estrai i numeri senza
 i nomi, o usa gli strumenti del registro stesso. Diverso è il caso
-della funzione IA ormai integrata in molti registri: lì il fornitore è
-un responsabile del trattamento sotto contratto con la scuola, quindi
+della funzione IA integrata in molti registri: lì il fornitore è un
+responsabile del trattamento sotto contratto con la scuola, quindi
 ricade in quell'accordo e non in un tuo account personale. Prima di
 usarla, verifica che il contratto la copra e che i dati non finiscano
 nell'allenamento.
 
-:::tip[Foto e video della classe]
+<SelfCheck
+  id="ethics-of-teaching-q1"
+  question="Devi calcolare le medie di una classe e hai il file del registro con nomi e voti. Cosa fai?"
+  options={[
+    { text: "Lo incollo nella chat della mia IA personale: sono solo numeri.", why: "Sono voti legati a nomi, cioè dati personali di minori su larga scala. Una chat consumer non è il posto." },
+    { text: "Estraggo i soli voti senza i nomi, oppure uso gli strumenti del registro.", correct: true, why: "Il calcolo non ha bisogno dell'identità. Senza nomi il dato esce dal perimetro più delicato." },
+    { text: "Sostituisco i cognomi con le iniziali e incollo tutto.", why: "Le iniziali in una classe di venti persone identificano ancora gli studenti, e i voti restano legati a una persona." },
+    { text: "Lo incollo, tanto ho disattivato l'uso per allenamento.", why: "Spegnere l'allenamento toglie un rischio, ma i dati di minori restano su un servizio esterno che la scuola non ha scelto." },
+  ]}
+  explanation="La domanda da farsi è se il calcolo ha bisogno dei nomi. Quasi mai."
+/>
+
+<Collapsible title="Foto e video della classe">
+
 La foto della gita, il video del saggio, lo screenshot della
 videolezione con le facce degli studenti: sono dati personali di
 minori come i voti, e forse più sensibili. Non caricarli in un'IA
 consumer per farti generare un riassunto, una locandina, un montaggio.
 Il consenso che le famiglie hanno firmato copre l'uso scolastico
 dell'immagine, non il caricamento su uno strumento di terze parti di
-cui non controlli la catena dei dati. Un piano business che promette di non allenare il modello non cambia
-la situazione: quella garanzia toglie un rischio, ma non il problema
-del consenso, che non copre l'uso su un'IA esterna. Se ti serve una grafica, parti
-da immagini che non contengono volti di minori.
-:::
+cui non controlli la catena dei dati. Un piano business che promette
+di non allenare il modello toglie un rischio, ma non il problema del
+consenso. Se ti serve una grafica, parti da immagini che non
+contengono volti di minori.
+
+</Collapsible>
 
 Il quadro non lo reggi da solo. Quasi ogni istituto ha un referente
 per la privacy (spesso il DPO, il responsabile della protezione dei
@@ -124,7 +138,8 @@ posto a quel tavolo. Può aiutarti a organizzare i numeri prima, come
 un foglio di calcolo intelligente, ma la valutazione che porti in
 consiglio è tua, e resta un giudizio, non un output.
 
-:::note[Le politiche d'istituto e le linee guida cambiano]
+<Collapsible title="Le politiche d'istituto e le linee guida cambiano">
+
 Sopra la singola scuola esistono indicazioni che evolvono in fretta.
 In Italia il **Ministero dell'Istruzione e del Merito** e gli **Uffici
 Scolastici Regionali** emanano circolari e linee guida sull'uso
@@ -134,27 +149,37 @@ nell'insegnamento per i docenti, e l'**UNESCO** una guida sull'IA
 generativa nell'istruzione. Non hanno tutte lo stesso peso: la legge
 (GDPR, AI Act), i regolamenti d'istituto e le circolari ministeriali
 vincolano, le linee guida di Commissione Europea e UNESCO orientano
-senza obbligare. Le cito come esempi, senza URL
-specifici: le pagine ufficiali cambiano. Prima di adottare una pratica, cerca la policy della tua
+senza obbligare. Le cito come esempi, senza URL specifici, perché le pagine ufficiali cambiano. Prima di adottare una pratica, cerca la policy della tua
 scuola e le indicazioni del tuo ministero o distretto, e in caso di
 dubbio parla con il referente privacy. Dove non c'è ancora una regola
 esplicita, vale il principio generale: l'IA prepara, tu verifichi,
 i dati dei minori restano protetti, la valutazione la firmi tu.
-:::
 
-## Cosa NON fare
+</Collapsible>
 
-**Non distribuire materiale IA senza rileggerlo.** Un errore che
+## Cosa evitare
+
+**Distribuire materiale IA senza rileggerlo.** Un errore che
 consegni alla classe diventa un errore che insegni, e la
 responsabilità è tua.
 
-**Non versare dati di minori in una chat consumer.** Nomi, voti,
+**Versare dati di minori in una chat consumer.** Nomi, voti,
 diagnosi, foto: le anonimizzi prima, o usi gli strumenti
 istituzionali. Nessuna comodità giustifica l'eccezione.
 
-**Non delegare il voto.** Senza la tua verifica l'IA è un generatore
+**Delegare il voto.** Senza la tua verifica l'IA è un generatore
 di numeri plausibili, non un secondo correttore. La decisione e la
 firma restano un atto tuo.
+
+## Mappa le tue pratiche
+
+<LlmExercise
+  variant="practice"
+  title="Mappa le tue pratiche sui tre assi"
+  file="deepen-ethics-of-teaching.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sulle pratiche d'aula che usi davvero e le mappa sui tre assi: cosa fai già, cosa rischi, cosa chiedere al referente privacy."
+/>
 
 ## Verifica cosa hai capito
 
@@ -176,6 +201,6 @@ lezioni quando ti servono.
 Da qui il manuale scende di un livello. Per chi vuole capire come l'IA
 fa quello che fa, fino a costruirci sopra i propri strumenti, il
 [**Modulo 6** *Per chi vuole di più*](/it/going-deeper/from-chats-to-apis/)
-parte da qui e va sotto al cofano: API, contesto in token, RAG, agenti. È il pubblico più tecnico del
-manuale, ma il filo è lo stesso che hai seguito finora, sapere cosa
-fa lo strumento per usarlo con criterio.
+va sotto al cofano: API, contesto in token, RAG, agenti. È la parte
+più tecnica del manuale, con lo stesso filo di prima: sapere cosa fa
+lo strumento per usarlo con criterio.

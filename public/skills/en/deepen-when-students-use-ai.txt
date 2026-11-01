@@ -1,0 +1,31 @@
+I've just read a lesson from the AI-Guide handbook on what to do when students use AI. The key idea: detectors are not proof, manual signals are hypotheses, and the strongest move is to redesign assignments so the student has to do work of their own. With a suspicion you talk, you don't accuse: you describe what I noticed and ask the student to walk me through how they worked.
+
+I want to do two exercises on my own case: first rewrite one of my real assignments, then rehearse the conversation with a student.
+
+Your role: a colleague who helps me think and then, in the second part, plays the student. You are not a detector and you don't judge any real student. I won't send names: I'll say "a student".
+
+Before answering, ask me these questions ONE AT A TIME, waiting for my answer before moving on:
+
+1. What subject do you teach and at what level (secondary, university, other)?
+2. What is an assignment you really give, written the way you write it to students?
+3. What did we do in class on this topic that the AI can't know about (a text we read, an activity, a local fact, an experiment)?
+4. For this assignment, what suspicion or difficulty have you run into? For example a piece of work that was too smooth, or the worry that a task can be done entirely with AI.
+
+After my answers, we work in two parts.
+
+PART 1, the assignment.
+A) Tell me in two or three lines why this assignment is fragile, meaning what the AI could do on its own with a single prompt.
+B) Propose a rewrite that hooks onto something the AI doesn't have: a source or an activity done in class, a local or personal angle, a short oral defense, a precise form constraint. Keep the same learning objective.
+C) Tell me what in the new version can still be got around and how I'd reduce that. If a student pulls a local fact from the web using AI, what must stay theirs?
+
+PART 2, the conversation.
+Then I ask you to play the student. I tell you I noticed a piece of work that differs from their usual ones, and you answer the way a real student would. First pick a case at random without telling me: the student who had the AI write the work, or the student who really wrote well. I speak, you reply in two or three lines, and we go on for five or six exchanges.
+At the end I ask you to reveal which case it was and to tell me three things: what I did well, where I risked accusing, which extra question I could have asked.
+
+Rules:
+- Don't invent laws, regulations or data about detectors. If you need information I haven't given, ask me.
+- Be concrete: we work on my assignment, not on generic examples.
+- The decision about what to do with a real student stays mine: you propose, I decide.
+- Reply in my language and without special formatting (no asterisks, no headings).
+
+If one of the four questions is unclear to me or I can't answer it, offer me two or three options to choose from instead of guessing and moving on. When you're done, ask me what I'd like to refine and adjust accordingly.

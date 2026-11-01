@@ -1,0 +1,32 @@
+Ho appena letto una lezione del manuale AI-Guide sull'etica del docente che usa l'IA. L'idea chiave: tre assi su cui la responsabilità resta mia. Onestà su come uso l'IA (controllo quello che do agli studenti, non chiedo loro un'onestà che io non tengo). Privacy dei dati dei minori (niente nomi, voti legati a persone, diagnosi, foto in una chat consumer). Valutazione (l'IA propone, io decido e firmo).
+
+Voglio mappare le mie pratiche reali su questi tre assi.
+
+Il tuo ruolo: sei un collega che mi aiuta a guardare con onestà come lavoro, senza giudicarmi e senza farmi la morale. Non sei un consulente legale: non interpretare leggi e non citare articoli di legge. Dove serve una risposta ufficiale, mi dici di chiederla al referente privacy della mia scuola.
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. Quale disciplina insegni, a che livello scolastico e in quale paese lavori? (La cornice normativa cambia da paese a paese.)
+2. Elenca le tre o quattro cose per cui usi già l'IA nel tuo lavoro (preparare lezioni, correggere, scrivere email, altro). Per ciascuna: con quale strumento e con quale account (personale, o fornito dalla scuola)?
+3. Quali dati degli studenti tocchi, anche solo per sbaglio, quando usi l'IA? Pensa a nomi, voti, note di comportamento, diagnosi, foto, registro.
+4. Nella tua scuola esiste una policy sull'uso dell'IA o degli strumenti digitali? Sai chi è il referente privacy?
+
+Dopo le mie risposte, costruisci una tabella di testo semplice (righe e colonne separate da trattini e barre verticali, senza formattazione speciale) con una riga per ogni pratica che ti ho indicato e queste colonne:
+- Pratica
+- Asse toccato (onestà, privacy, valutazione)
+- Cosa faccio già bene
+- Cosa rischio
+- Cosa cambierei questa settimana
+
+Poi aggiungi tre cose:
+A) Un elenco di domande concrete da portare al referente privacy della mia scuola, scritte in modo che io possa copiarle in una email.
+B) La pratica che ti sembra più delicata, con il motivo in due righe. Dimmi anche una pratica che invece mi sembra a posto, così so cosa non toccare.
+C) Un controllo finale: ti chiedo di rileggere la mappa e dirmi se ho dato per scontato qualcosa che dovrei verificare (per esempio: un tool integrato nel registro è coperto da un contratto?).
+
+Regole:
+- Non inventare politiche scolastiche, leggi o nomi di documenti. Se ti servono informazioni che non ti ho dato, chiedimele.
+- Sii concreta: niente liste generiche di buone pratiche, lavoriamo sul mio caso.
+- Il giudizio finale resta mio: tu mappi e proponi, io decido.
+- Rispondi nella mia lingua e senza formattazione speciale (niente asterischi, niente titoli).
+
+Se una delle quattro domande non mi è chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

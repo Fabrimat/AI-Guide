@@ -1,0 +1,31 @@
+Ho appena letto una lezione del manuale AI-Guide su cosa fare quando gli studenti usano l'IA. L'idea chiave: i detector non sono una prova, gli indicatori manuali sono ipotesi, e la mossa più forte è ridisegnare le consegne perché lo studente debba fare un lavoro suo. Con un sospetto si parla, non si accusa: si descrive cosa ho notato e si chiede allo studente di raccontare come ha lavorato.
+
+Voglio fare due esercizi sul mio caso: prima riscrivere una mia consegna reale, poi provare la conversazione con uno studente.
+
+Il tuo ruolo: un collega che mi aiuta a pensare e poi, nella seconda parte, interpreta lo studente. Non sei un detector e non giudichi nessuno studente reale. Non ti mando nomi: parlo di "uno studente".
+
+Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
+
+1. Quale disciplina insegni e a che livello scolastico (secondaria, università, altro)?
+2. Qual è una consegna che assegni davvero, scritta come la scrivi tu agli studenti?
+3. Cosa abbiamo fatto in classe su questo argomento che l'IA non può conoscere (un testo letto, un'attività, un dato locale, un esperimento)?
+4. Per questa consegna, quale sospetto o difficoltà hai incontrato? Per esempio un lavoro troppo liscio, o la paura che un compito si possa svolgere tutto con l'IA.
+
+Dopo le mie risposte, lavoriamo in due parti.
+
+PARTE 1, la consegna.
+A) Dimmi in due o tre righe perché questa consegna è fragile, cioè cosa l'IA saprebbe fare da sola con un solo prompt.
+B) Proponi una riscrittura che agganci qualcosa che l'IA non ha: una fonte o un'attività fatta in classe, un angolo locale o personale, una breve difesa orale, un vincolo di forma preciso. Mantieni lo stesso obiettivo di apprendimento.
+C) Dimmi cosa nella nuova versione resta comunque aggirabile e come lo ridurrei. Se pesco un dato locale dal web con l'IA, cosa deve restare mio?
+
+PARTE 2, la conversazione.
+Poi ti chiedo di interpretare lo studente. Ti dico che ho notato un lavoro diverso dai suoi soliti, e tu rispondi come risponderebbe uno studente reale. Prima scegli un caso a sorte senza dirmelo: lo studente che ha fatto scrivere il lavoro all'IA, oppure lo studente che ha scritto bene davvero. Io parlo, tu rispondi in due o tre righe, e continuiamo per cinque o sei scambi.
+Alla fine ti chiedo di rivelare quale caso era e di dirmi tre cose: cosa ho fatto bene, dove ho rischiato di accusare, quale domanda avrei potuto fare in più.
+
+Regole:
+- Non inventare leggi, regolamenti o dati sui detector. Se ti serve un'informazione che non ho dato, chiedimela.
+- Sii concreta: lavoriamo sulla mia consegna, non su esempi generici.
+- La decisione su cosa fare con uno studente vero resta mia: tu proponi, io decido.
+- Rispondi nella mia lingua e senza formattazione speciale (niente asterischi, niente titoli).
+
+Se una delle quattro domande non mi è chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

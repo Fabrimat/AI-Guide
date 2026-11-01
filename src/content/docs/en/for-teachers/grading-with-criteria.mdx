@@ -5,9 +5,12 @@ livello: intermedio
 prerequisiti: [ask-well, when-to-trust-it, data-and-tables]
 ---
 
+import Anonymizer from '../../../../components/Anonymizer.astro';
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -19,9 +22,8 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-The AI is a good grading assistant and a poor judge. The
-difference isn't subtle, and before you open the chat it's worth
-setting three principles that don't bend.
+The AI is a good grading assistant and a poor judge. Before you
+open the chat it's worth setting three principles that don't bend.
 
 First: the rubric comes before the AI, and you write it. The AI can
 help you put it into shape and flesh out the descriptors that come
@@ -53,7 +55,9 @@ one-line justification. The line of justification is the part that
 counts: without it, you have a grade you can't check.
 
 **3. Spot-check.** Grade the same 3-5 papers yourself,
-independently. Then compare. Where you and the AI diverge the rule
+independently, and do it *before* reading the AI's grades: if you
+already have its number in your head, you drift toward it without
+noticing. Then compare. Where you and the AI diverge the rule
 is simple, the teacher is right. But stop to understand *why* the
 AI got it wrong: often it isn't the AI that fails to understand,
 it's the rubric that's ambiguous on that criterion. There you
@@ -111,7 +115,19 @@ kind of error instead of letting it pass. The disagreement on the
 sample is what makes the rubric more
 discriminating.
 
-:::tip[Signs of suspected AI]
+<SelfCheck
+  id="grading-with-criteria-q1"
+  question="On the sample of five papers, you and the AI give a different level to one of them. What do you do?"
+  options={[
+    { text: "Keep the AI's level: it applied the rubric consistently.", why: "On the sample the teacher is right. The grade is your responsibility, and the sample exists to check the AI." },
+    { text: "Keep my level and look for why the AI got it wrong: often the rubric is ambiguous on that criterion.", correct: true, why: "The disagreement is information: if it comes from a vague descriptor, you rewrite it and your own grading improves too." },
+    { text: "Average the two levels.", why: "An average hides the problem and doesn't fix the ambiguity. The grade stays your decision." },
+    { text: "Extend to the class anyway: one disagreement in five is small.", why: "If you don't agree on the sample, don't extend: go back to the rubric." },
+  ]}
+/>
+
+<Collapsible title="Signs of suspected AI">
+
 As you grade, certain signs raise an eyebrow. They aren't proof,
 they're hypotheses: a register too uniform and too high for the
 class level, perfect citations you can't verify, a structure too
@@ -121,7 +137,8 @@ suddenly flawless), rare words never heard in class. On their own
 they prove nothing. What to do with them, and how to handle a
 suspicion without accusing anyone, is the subject of the lesson
 [*When students use AI*](/en/for-teachers/when-students-use-ai/), later in the module.
-:::
+
+</Collapsible>
 
 :::caution[Privacy: anonymize before uploading]
 Before uploading the papers to a consumer chat (ChatGPT, Claude,
@@ -136,7 +153,16 @@ entirely by hand. On the privacy of minors' data the module's
 [closing lesson](/en/for-teachers/ethics-of-teaching/) comes back.
 :::
 
-:::tip[Handwritten papers]
+If the paper is already text (a file, an email), run it through
+this tool before pasting it. It works in your browser and removes
+emails, phone numbers and ID codes. You type the student's name in
+the "words to replace" field yourself, and you always check the
+result.
+
+<Anonymizer />
+
+<Collapsible title="Handwritten papers">
+
 The in-class essay is almost always on paper. To get it into the
 chat you photograph or scan it and upload it as an image or PDF
 (see [Photos, images, and files](/en/everyday-use/images-and-files/)).
@@ -147,18 +173,22 @@ transcription. The name: if it's handwritten on the sheet, the
 "rename the file" anonymization isn't enough, because the name is
 inside the image. Cover the name before taking the photo, crop the
 header, or shoot from the second line down.
-:::
 
-:::note[Bringing the levels to the register]
+</Collapsible>
+
+<Collapsible title="Bringing the levels to the register">
+
 If you want to pour the applied levels into a spreadsheet for the
 register, the AI can give you a table directly (student, criterion,
 level, grade). To handle it, what you saw in
 [Working with data and tables](/en/at-work/data-and-tables/)
 applies: check cell by cell before copying, because a level shifted
 by one row is a wrong grade for a real student.
-:::
 
-:::note[For math and problem-solving]
+</Collapsible>
+
+<Collapsible title="For math and problem-solving">
+
 Where grading is more right/wrong than levels, the rubric becomes a
 *solution key*: the correct procedure step by step, plus how much
 credit each step is worth, so a student who sets it up well but
@@ -168,21 +198,22 @@ it. The verification step stays the same: on calculations the AI
 gets things wrong, so you check the sample before extending.
 Building the problems and the key is the subject of
 [Generate assessment questions](/en/for-teachers/generate-assessment-questions/).
-:::
 
-## What NOT to do
+</Collapsible>
 
-**Don't upload students' real names.** It's the rule that comes
+## What to avoid
+
+**Uploading students' real names.** It's the rule that comes
 before the others. A minor's data doesn't get poured into a
 consumer chat for convenience.
 
-**Don't use the AI as a co-grader on equal footing.** The AI
+**Using the AI as a co-grader on equal footing.** The AI
 without the teacher's verification pass on the sample isn't a
 colleague who grades, it's a generator of plausible grades. Step 3
 is what separates assisted grading from
 delegating the judgment.
 
-**Don't transcribe the AI's grade into the register without
+**Transcribing the AI's grade into the register without
 rereading it.** The grade you sign is yours, with your
 responsibility to the student and the family. A number you haven't
 checked doesn't stop being yours just because a machine proposed
@@ -213,6 +244,7 @@ it.
 You've designed the lessons, differentiated the materials, built
 the tests, and graded with criteria. There's one part of a
 teacher's work, as delicate as grading, that the AI can lighten:
-communicating with families. The next lesson is about writing those
-emails without making them sound cold and without missing the
+communicating with families. The next lesson,
+[*Emails to families*](/en/for-teachers/emails-to-families/),
+is about writing those emails without making them sound cold and without missing the
 register.

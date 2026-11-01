@@ -6,8 +6,11 @@ prerequisiti: [ask-well, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
@@ -49,15 +52,27 @@ problemi.
 
 Turnitin stessa, nel proprio disclaimer ufficiale, scrive che il
 punteggio del suo detector non dovrebbe essere l'unica base di una
-decisione di integrità accademica. Il messaggio da tenere: un
-punteggio è un indizio al massimo, mai un verdetto. Convocare uno
-studente e dirgli "il sistema dice che hai copiato" è il modo più
-rapido per punire un innocente e ritrovarsi con un caso, magari con
-la famiglia, sul tavolo.
+decisione di integrità accademica. Un punteggio è un indizio al
+massimo, mai un verdetto. Dire a uno studente "il sistema dice che
+hai copiato" è il modo più rapido per punire un innocente e
+ritrovarsi con un caso, magari con la famiglia, sul tavolo.
 
-Se il detector non serve come prova, servono tre mosse diverse. Le prime due ti
-aiutano a leggere e a prevenire, la terza a gestire un sospetto quando
-ce l'hai.
+Prova a leggere con occhio critico questa risposta di un'IA a un
+docente. Due frasi sono sbagliate.
+
+<SpotTheError
+  prompt="Il detector dice che il tema di uno studente è scritto dall'IA al 94%. Posso usarlo per sanzionarlo?"
+  sentences={[
+    { text: "Un punteggio così alto è molto indicativo, quindi puoi usarlo come base della sanzione.", wrong: true, why: "Nessun punteggio è una prova. I detector sbagliano anche con valori alti, e Turnitin stessa dice di non usarlo come unica base di una decisione." },
+    { text: "I detector sbagliano in entrambe le direzioni: segnalano testi umani e lasciano passare testi generati e poi rimaneggiati a mano." },
+    { text: "Uno studio di Stanford del 2023 ha mostrato che i testi di chi scrive in una lingua non madre vengono segnalati più spesso del dovuto." },
+    { text: "Se lo studente nega, la sua versione non conta: il punteggio del detector prevale.", wrong: true, why: "Senza una prova non c'è sanzione. Si parte da una conversazione in cui lo studente racconta come ha lavorato." },
+    { text: "Prima di decidere, parla con lui e chiedigli di mostrarti il processo: bozze, appunti, una scelta da difendere." },
+  ]}
+/>
+
+Servono tre mosse diverse: le prime due ti aiutano a leggere e a
+prevenire, la terza a gestire un sospetto quando ce l'hai.
 
 ## Gli indicatori manuali sono ipotesi, non prove
 
@@ -94,12 +109,16 @@ stretto. L'IA può ancora aiutare a capire il contesto, ma il lavoro
 di collegamento fra quel contesto e il caso concreto resta dello
 studente.
 
+<Collapsible title="Esempio: la consegna sulla Rivoluzione industriale riscritta">
+
 <ChatDemo
   user={`Sono un docente di storia, secondaria di secondo grado. Ho questa consegna: "Scrivi un tema di due pagine sulla Rivoluzione industriale". Riscrivimela in modo che sia difficile da svolgere tutta con l'IA e che costringa lo studente a un lavoro suo. In classe abbiamo letto un brano dalle memorie di un operaio di Manchester.`}
   ai={`**Consegna riscritta.** Parti dal brano sulle memorie dell'operaio di Manchester che abbiamo letto in classe. In massimo 400 parole rispondi a due domande: quali condizioni descritte nel brano ritrovi nella tua città o zona nello stesso periodo (cerca tu un dato locale: un opificio, una ferrovia, un dato di un censimento)? E in cosa la fonte locale che hai trovato conferma o corregge il quadro del brano? Porta in classe le due fonti. Alla consegna ti chiederò di spiegare a voce come hai scelto la fonte locale.
 
 **Perché regge meglio.** Il brano letto in classe l'IA non ce l'ha davanti. Il dato locale la costringe a una ricerca che tu puoi controllare. La difesa orale sposta il peso sul ragionamento invece che sul testo scritto. L'IA resta utile per capire il periodo, ma il collegamento fra il brano e il territorio deve farlo lo studente.`}
 />
+
+</Collapsible>
 
 E se lo studente usa un'IA con accesso al web? Può pescare un dato
 locale plausibile lo stesso. Ma quel dato va comunque legato al brano
@@ -110,9 +129,9 @@ da solo non basta, è la loro somma a reggere.
 Prima di assegnare un compito, provalo tu nell'IA con un solo prompt.
 Se l'IA lo svolge bene senza sapere niente della tua classe, del tuo
 territorio, di quello che avete fatto insieme, la consegna è fragile:
-non chiede allo studente niente che l'IA non sappia già fare. Riscrivila fino a quando il
-lavoro vero (il collegamento, il caso specifico, la difesa) resta in
-mano allo studente.
+non chiede allo studente niente che l'IA non sappia già fare.
+Riscrivila finché il lavoro vero (il collegamento, il caso
+specifico, la difesa) resta in mano allo studente.
 :::
 
 ## Parlare con lo studente, non accusare
@@ -129,7 +148,7 @@ accusi sulla base di una sensazione, quando sbagli fai un danno che
 non recuperi.
 
 La mossa che funziona per entrambi è la stessa: descrivi cosa hai
-notato, non emettere la sentenza. Non "hai copiato", ma "ho notato che
+notato, non emettere la sentenza. Invece di "hai copiato", dici "ho notato che
 questo lavoro è diverso dai tuoi soliti, mi racconti come l'hai
 costruito?". Dai allo studente un modo per mostrare il processo: le
 bozze, gli appunti, l'espansione a voce di un punto, la difesa di una
@@ -153,7 +172,19 @@ dubbio, la conversazione che chiede invece dell'accusa che sentenzia
 protegge tutti e due.
 :::
 
-:::note[Dove questo vale, e dove meno]
+<SelfCheck
+  id="when-students-use-ai-q1"
+  question="Un tema ti sembra troppo liscio rispetto allo studente. Come apri la conversazione con lui?"
+  options={[
+    { text: "Il detector dice che il tema è scritto dall'IA. Cosa mi rispondi?", why: "Il punteggio non è una prova e così parti da un'accusa. Se lo studente è innocente, la fiducia è già compromessa." },
+    { text: "Ho notato che questo lavoro è diverso dai tuoi soliti. Mi racconti come l'hai costruito?", correct: true, why: "Descrive cosa hai visto senza sentenziare e dà allo studente un modo di mostrare il processo." },
+    { text: "Lo chiedo davanti alla classe, così nessuno pensa che ci siano favoritismi.", why: "Una conversazione così in pubblico umilia se hai ragione e distrugge la fiducia se sbagli." },
+    { text: "Non dico niente e abbasso il voto: senza prova non posso fare altro.", why: "Abbassare il voto senza dirlo è una sanzione senza prova. La conversazione serve proprio a chiarire." },
+  ]}
+/>
+
+<Collapsible title="Dove questo vale, e dove meno">
+
 Il tema è centrale alla secondaria di secondo grado e all'università,
 dove gli studenti hanno accesso autonomo all'IA e portano a casa
 compiti scritti. Alla primaria e in buona parte della secondaria di
@@ -161,23 +192,34 @@ primo grado l'IA non è ancora nelle loro mani, e il problema quasi non
 si pone. Ma la mossa del ridisegnare le consegne migliora i compiti
 per tutti: un lavoro agganciato a un'esperienza di classe è più
 formativo a qualunque età, IA o no.
-:::
 
-## Cosa NON fare
+</Collapsible>
 
-**Non usare un punteggio di detector come prova.** È un indizio
+## Cosa evitare
+
+**Usare un punteggio di detector come prova.** È un indizio
 debole, sbaglia contro chi scrive pulito e contro chi non è
 madrelingua, e non regge se la famiglia ti chiede di argomentare.
 
-**Non accusare sulla base di una sensazione.** Un indicatore manuale è
+**Accusare sulla base di una sensazione.** Un indicatore manuale è
 il punto di partenza di una conversazione, non la conclusione di un
 processo. La domanda "come l'hai costruito?" viene sempre prima della
 frase "hai copiato".
 
-**Non trasformare la didattica in una caccia.** Se ogni compito diventa
+**Trasformare la didattica in una caccia.** Se ogni compito diventa
 un test antifrode, il clima della classe si avvelena e gli studenti
 onesti pagano per primi. Il lavoro è progettare consegne che chiedano
 un pensiero loro, non montare la guardia.
+
+## Riscrivi una tua consegna
+
+<LlmExercise
+  variant="practice"
+  title="Riscrivi una tua consegna e prova la conversazione"
+  file="deepen-when-students-use-ai.txt"
+  duration="15-20 min"
+  description="L'IA ti aiuta a rendere meno delegabile una consegna reale, poi interpreta uno studente per farti provare la conversazione senza accusare."
+/>
 
 ## Verifica cosa hai capito
 
@@ -194,5 +236,6 @@ un pensiero loro, non montare la guardia.
 Questa lezione ha guardato l'IA nelle mani degli studenti. Ne resta
 una che guarda l'IA nelle tue: quando la usi per preparare, correggere,
 comunicare, quali responsabilità restano tue e non si delegano. La
-prossima e ultima lezione del modulo chiude su questo, l'etica del
-docente, e fa da ponte a chi vuole capire l'IA fin sotto al cofano.
+prossima e ultima lezione del modulo,
+[*Etica del docente*](/it/for-teachers/ethics-of-teaching/), chiude su
+questo e fa da ponte a chi vuole capire l'IA fin sotto al cofano.

@@ -6,6 +6,7 @@ prerequisiti: [ask-well, iterate-the-conversation, learn-something-new]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
@@ -79,15 +80,13 @@ look which one opens the class and which one doesn't. Then you
 read them cold and pick the two or three that suit the concept
 and the class in front of you.
 
-The quick check for choosing: for each version, ask yourself
-"does this class already have the vocabulary to grab onto it?".
-The everyday analogy works only if students know *the analogy*
-(a farming analogy on an inner-city class doesn't land). The
-technical register works if you've already introduced the
-discipline's vocabulary in earlier lessons. The historical
-narrative works if you have 5 minutes of slack: without it the
-story falls flat. The visual mode is almost always doable; the hands-on
-costs 10-20 minutes of class time and needs to be in the outline.
+To choose, ask yourself for each version "does this class already
+have the vocabulary to grab onto it?". The everyday analogy works
+if students know *the analogy* (a farming analogy on an inner-city
+class doesn't land). The technical register works if you've already
+introduced the discipline's vocabulary. The historical narrative
+falls flat without 5 minutes of slack. The visual mode is almost
+always doable; the hands-on costs 10-20 minutes of class time.
 
 > *"For a class of 16-17 year-olds in mathematics I need to
 > introduce the concept of inverse function. Generate me five
@@ -96,17 +95,17 @@ costs 10-20 minutes of class time and needs to be in the outline.
 > draw it on the board), historical narrative, hands-on activity.
 > Each version max 80 words. Don't pick for me, I'll pick later."*
 
-The "max 80 words" and "don't pick for me" constraints matter.
-Without the word limit, the AI tends to write mini-essays on each
-version and you can't compare them at a glance. Without "don't
-pick", the AI closes with "out of these I'd recommend version 2
-because…": that's exactly the call you need to make yourself,
-knowing the class.
+The word limit matters because the AI tends to write mini-essays
+and you can't compare the versions at a glance. "Don't pick for me"
+stops it from closing with "I'd recommend version 2 because…": that
+call is yours, since you know the class.
 
 ## The difference in practice
 
 Math teacher, 16-17 year-olds, introducing inverse functions.
 Five versions in one turn.
+
+<Collapsible title="The full example: five versions of the inverse function">
 
 <ChatDemo
   user={`For a class of 16-17 year-olds in mathematics I need to introduce the concept of inverse function. Generate me five versions of the same explanation, one per register: everyday analogy, technical, visual (describe the schema in words), historical narrative, hands-on activity. Each version max 80 words.`}
@@ -126,6 +125,8 @@ The concept matures in the 17th century with Newton and Leibniz, but as "an oper
 Hand out pairs of numbers (x, y) from a simple function, say f(x) = x + 3 → (1,4), (2,5), (3,6). In pairs, students have to find the rule that takes you from y to x. Then you ask: "write the function that does this work". To wrap up, try f(x) = x² applied to (-2, 4) and (2, 4): what happens? The inverse there doesn't work cleanly. Why?`}
 />
 
+</Collapsible>
+
 Five versions on the table. The teacher's call, based on the
 concept and the class: in a class strong in algebra but light on geometric
 intuition, versions 2 and 3 do the work; in a less technical but
@@ -137,7 +138,8 @@ The typical mistake is using *all five* in the same lesson: you
 end up with confusion. There are five versions to give you a
 choice. Two or three done well help more than five rushed.
 
-:::note[It also works for subjects without formulas]
+<Collapsible title="It also works for subjects without formulas">
+
 The example above is mathematical but the pattern holds in
 literature, philosophy, art history, languages. Version 2
 "technical register" translates to the critical vocabulary of the
@@ -146,9 +148,11 @@ figures; for a painting it's composition, perspective, light.
 Version 4 "historical narrative" is almost always in the textbook
 already, and the AI reframes it to fit your class. Versions 1, 3,
 5 work identically.
-:::
 
-:::tip[Visual mode without drawing skills]
+</Collapsible>
+
+<Collapsible title="Visual mode without drawing skills">
+
 If the visual mode calls for a diagram and you don't have time or
 a steady hand, you have two options. The first: ask the AI to
 describe it in words (as it does in step 3 of the ChatDemo on
@@ -158,7 +162,8 @@ version in chat and project it, no drawing needed. Don't ask the
 AI to generate a real image with complex graphics: it often comes out looking right but with errors (wrong axes,
 labels in the wrong spots, invented names). On technical topics,
 the teacher's board is still more reliable.
-:::
+
+</Collapsible>
 
 ## On the fly: when a student doesn't click
 
@@ -178,10 +183,10 @@ used wasn't enough, and they need another one.
 Working pattern, in 60 seconds:
 
 1. Keep a tablet or phone on the desk with an AI chat already
-   open. For teachers who always use the same tool (Claude
-   Projects, ChatGPT Custom GPTs, Gemini Gems), having a
-   pre-built "teacher project" with standard instructions saves
-   the first 30 seconds.
+   open. If you always use the same tool, a pre-built "teacher
+   project" with standard instructions (Claude and ChatGPT
+   Projects, Custom GPTs, Gemini Gems or skills: the names
+   change) saves the first 30 seconds.
 2. Type fast: "concept X, class didn't grab on with the
    [technical/visual/etc.] version. Give me another angle in 3
    sentences, using a [analogical/visual/narrative] representation".
@@ -189,18 +194,21 @@ Working pattern, in 60 seconds:
    read it word for word), and turn back to the board or to the
    students.
 
-:::tip[What to put in a "teacher project"]
-A Claude Project, Custom GPT or Gemini Gem set up in advance
-saves you the first 30 seconds. Useful instructions to put in it:
+<Collapsible title="What to put in a teacher project">
+
+A project or assistant set up in advance saves you the first 30
+seconds. Useful instructions to put in it:
 your subject, your typical school level, the principle "answer in
 max 3 sentences, classroom spoken register, no bullets, no
 preambles, one angle per turn". A "class vocabulary" file (the
 terms you've already introduced) helps calibration. The smaller
 and more focused the project, the faster and more on target it
 answers.
-:::
 
-:::note[If you can't pull out a phone in class]
+</Collapsible>
+
+<Collapsible title="If you can't pull out a phone in class">
+
 Some schools ban phones and tablets for teachers in class too, or
 the connection is poor. In those cases the pure on-the-fly isn't
 possible, but you have an alternative: prep **two or three
@@ -208,16 +216,13 @@ alternative angles ahead of time** (jotted at the end of the
 outline), not just the main version. If the first doesn't land,
 the second is already in your memory, not on the phone. AI helps
 in prep, not in "instant rescue".
-:::
 
-The class never sees these three steps: as far as they can
-tell, *you* had "another idea". That's fine, because they need the
-explanation that works, not the details of your workflow.
+</Collapsible>
 
-Step 3 matters most: the voice is yours, the rhythm is
-yours, the eye contact with the class is yours. Reading the chat
-word for word breaks the lesson and sounds fake. If the class
-notices you're reading, you lose more than you recover.
+The class never sees these three steps: as far as they can tell,
+*you* had "another idea". Step 3 matters most: the voice, the
+rhythm and the eye contact with the class are yours. Reading the
+chat word for word breaks the lesson and sounds fake.
 
 ## "By representation" is different from "by level"
 
@@ -232,22 +237,19 @@ students, on the same topic, do things **of different difficulty**
 of the module, [*Differentiated materials by
 level*](/en/for-teachers/differentiated-materials/).
 
-The two techniques combine in real classes. For the same unit,
-first you think about the **level** (who consolidates, who's at
-standard, who extends), then for each one you pick the
-**representations** that land. No need to produce fifteen variants
-(three levels by five representations): most of them you'll never
-use. The useful ones are
-usually three or four, picked based on the class.
+The two techniques combine in real classes: first you think about
+the **level**, then for each one you pick the **representations**
+that land. The useful combinations are usually three or four, not
+the fifteen possible.
 
-## What NOT to do
+## What to avoid
 
-**Don't bring all five versions to the same class in the same
+**Bringing all five versions to the same class in the same
 lesson.** More representations help, but a lesson that runs
 through five angles on the same idea in 60 minutes stays at a
 surface level on each one.
 
-**Don't use the historical narrative without verifying the
+**Using the historical narrative without verifying the
 data.** AI invents dates, attributions, chronological orders
 quite easily ("X figured it out first, in 1832, after a
 conversation with Y"). If your historical narrative sits on a
@@ -260,7 +262,7 @@ the dates change you know it's invented; keep the anecdote vague
 if you aren't sure ("in the 19th century, some German
 mathematicians…") rather than inventing a specific name.
 
-**Don't read out loud in class what the AI wrote.** This holds for
+**Reading out loud in class what the AI wrote.** This holds for
 prep and even more for on-the-fly: rework it in your own voice.
 
 ## Take it deeper for your subject

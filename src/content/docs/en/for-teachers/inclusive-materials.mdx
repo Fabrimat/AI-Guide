@@ -6,8 +6,10 @@ prerequisiti: [ask-well, write-better, images-and-files]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -37,6 +39,13 @@ needs has a written support plan: an IEP, a 504 plan, or whatever
 your system calls it. Those documents already say what the student
 needs. The AI works within those constraints, it doesn't rewrite
 them.
+
+**A note on jurisdiction.** This module was written with the
+Italian system in mind, where the categories are called BES and DSA and the
+plans PDP and PEI. Categories, plans, professional roles and legal
+duties differ from country to country. The method below carries
+over, but check your own country's rules and your school's
+procedures for who decides, who validates and who must be informed.
 
 ## Three axes of adaptation
 
@@ -79,7 +88,19 @@ the key vocabulary, glossing it if anything: "the sonnet (a
 "shorter sentences, but keep all the technical terms and explain
 them in parentheses the first time".
 
-:::note[Beyond dyslexia: dyscalculia, dysgraphia, ADHD]
+<SelfCheck
+  id="inclusive-materials-q1"
+  question="You need to adapt a paragraph for a student with dyslexia. Which request to the AI protects the content?"
+  options={[
+    { text: "Make this text simpler.", why: "Phrased like that, the AI also simplifies the vocabulary and drops the technical terms, which the student will need at the assessment like everyone else." },
+    { text: "Shorter sentences and direct order, but keep all the technical terms and explain them in parentheses the first time.", correct: true, why: "It simplifies the syntax and keeps the key vocabulary, with a gloss. Accessibility doesn't remove content." },
+    { text: "Rewrite it as if you were talking to an eight-year-old.", why: "It changes level and tone, not only accessibility: that's the discount on content the lesson asks you to avoid." },
+    { text: "Cut it in half, keeping only the main ideas.", why: "It removes content the assessment may ask about. Length is handled with short sentences and diagrams." },
+  ]}
+/>
+
+<Collapsible title="Beyond dyslexia: dyscalculia, dysgraphia, ADHD">
+
 The three axes start from reading, but they adapt. For
 **dyscalculia** what counts is the shape of the numbers and the
 steps: more worked examples, one operation per line, a number
@@ -89,7 +110,8 @@ typing instead of handwriting. For **ADHD** and attention
 difficulties chunking is the move: one task per screen, short
 numbered instructions, less text at a time. The prompt changes,
 the method doesn't: adapt the form, keep the content.
-:::
+
+</Collapsible>
 
 ## The difference in practice
 
@@ -143,7 +165,8 @@ rewrite, not the pedagogical judgment. Always pass the adapted
 version to whoever supports the student before taking it to class.
 :::
 
-:::tip[If the formal network is missing]
+<Collapsible title="If the formal network is missing">
+
 Not every school has a SEN coordinator or a learning-support
 teacher on hand, and the plan isn't always ready. If the
 validating figure isn't there, lean on what exists (the support
@@ -154,9 +177,11 @@ exist yet (an unconfirmed need, an assessment in progress), you
 can still make a material more accessible, but the concern goes
 through the school's proper channels: the AI doesn't certify and
 you don't diagnose.
-:::
 
-:::tip[Adapting material you already have]
+</Collapsible>
+
+<Collapsible title="Adapting material you already have">
+
 Often you don't start from scratch: you have a standard sheet
 ready and have to adapt it fast. Photograph or scan the page,
 upload it to the AI (see
@@ -166,7 +191,8 @@ same key terms, with short sentences and a gloss of the hard
 terms". It's faster than retyping it all. Check that the AI read
 the text from the photo correctly: on crooked scans or difficult
 handwriting it sometimes gets a word wrong.
-:::
+
+</Collapsible>
 
 :::caution[Privacy: the student has no name in the chat]
 When you describe the case to the AI, no name, no details of the
@@ -178,22 +204,22 @@ handling of minors' data comes back in detail in the [last lesson
 of the module](/en/for-teachers/ethics-of-teaching/).
 :::
 
-## What NOT to do
+## What to avoid
 
-**Don't ask the AI to "assess the severity" of the difficulty.** It
+**Asking the AI to "assess the severity" of the difficulty.** It
 isn't a diagnostic tool and it hasn't seen the student. Questions
 like "how severe is this dyslexia" or "what level of support is
 needed" get invented answers that sound competent. Diagnosis and
 the plan are made by specialists, and they're already written in
 the support plan.
 
-**Don't override the plan that already exists.** If the plan says
+**Overriding the plan that already exists.** If the plan says
 "maps yes, audio material no" and you have the AI generate an audio
 version because it seems like a good idea, you're contradicting
 strategies decided with the family and the specialists. The AI
 adapts within the plan's constraints, not in place of the plan.
 
-**Don't put labels on the material.** The sheet the student
+**Putting labels on the material.** The sheet the student
 receives isn't called "the SEN version" and doesn't carry a
 different badge. It has to be accessible without being marked. The
 same logic as the neutral labels in the lesson on levels applies:
@@ -226,6 +252,7 @@ if everyone gets it, it flags no one.
 
 You've designed the lessons, differentiated by level, made the
 materials accessible. The next step in the teaching cycle is
-assessing what students have learned. The next lesson takes on how
-AI helps you build assessment questions, without their turning
+assessing what students have learned. The next lesson,
+[*Generate assessment questions*](/en/for-teachers/generate-assessment-questions/),
+takes on how AI helps you build assessment questions, without their turning
 trivial or ambiguous.
