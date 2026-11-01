@@ -7,6 +7,7 @@
  * Pensato per pagine "scrivimi" tipo About: raccolta feedback a costo
  * zero, coerente con la postura privacy del sito.
  */
+import Glyph from './Glyph.astro';
 import { t } from '../i18n/ui';
 
 interface Props {
@@ -39,7 +40,7 @@ const [mailUser = '', mailDomain = ''] = to.split('@');
   data-i18n-error={ui.composerOpenError}
 >
   <header>
-    <span class="mc-badge">{ui.composerBadge}</span>
+    <span class="mc-badge"><Glyph name="mail" /> {ui.composerBadge}</span>
     <h3>{ui.composerTitle}</h3>
   </header>
 
@@ -168,7 +169,7 @@ const [mailUser = '', mailDomain = ''] = to.split('@');
     font-size: 0.95rem;
     color: var(--sl-color-text);
     background: var(--aig-elevated-bg);
-    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border: var(--aig-border-width) solid var(--aig-field-border);
     border-radius: var(--aig-radius);
     padding: 0.65rem 0.75rem;
     resize: vertical;

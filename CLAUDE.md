@@ -511,10 +511,10 @@ component resolves the path automatically based on the current locale: the
 
 Two variants, chosen with `variant`:
 
-- `practice` (default): guided practice, written in biro ink. Badge "🤖 Esercizio
-  con la tua IA" / "🤖 Exercise with your AI".
+- `practice` (default): guided practice, written in biro ink. Badge with the `spark`
+  glyph: "Esercizio con la tua IA" / "Exercise with your AI".
 - `review`: end-of-lesson learning check-in, written in red pen.
-  Badge "📝 Verifica con la tua IA" / "📝 Check-in with your AI".
+  Badge with the `check-square` glyph: "Verifica con la tua IA" / "Check-in with your AI".
 
 The mechanism (downloadable file + copy + open) is identical in both
 variants. Convention: review files are named
@@ -623,6 +623,32 @@ the future you need a standalone icon outside of cards, import it like this:
 import Icon from '../../../components/Icon.astro';
 
 <Icon name="graduation-cap" />
+```
+
+### `<Glyph>`
+
+Small inline line icon drawn like a biro stroke. The site uses **no emoji**
+anywhere (they render differently per OS and clash with the palette): badges,
+chat avatars and inline lists use `<Glyph>` instead. The stroke is
+`currentColor` and the size is `1.15em`, so it takes the colour and size of
+the surrounding text. Decorative by default (`aria-hidden`); pass `label`
+only when the glyph stands alone without text.
+
+Available names (`GlyphName`): `spark` (the AI), `check-square`,
+`graduation-cap`, `pencil`, `mail`, `repeat`, `list`, `user`,
+`briefcase`, `globe`, `coffee`. Adding one means extending the union type
+and the `PATHS` map in `Glyph.astro` (24x24 viewBox, stroke-only paths).
+
+| Prop    | Type        | Default | Notes                                   |
+|---------|-------------|---------|-----------------------------------------|
+| `name`  | `GlyphName` | —       | required                                |
+| `label` | `string`    | —       | optional, makes it `role="img"` with an accessible name |
+| `class` | `string`    | —       | optional                                |
+
+```mdx
+import Glyph from '../../../components/Glyph.astro';
+
+- <Glyph name="mail" /> <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
 ```
 
 ### `<ChatDemo>`

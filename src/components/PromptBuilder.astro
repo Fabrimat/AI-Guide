@@ -10,6 +10,7 @@
  * sul SUO problema. Il prompt assemblato è plain text, etichetta-style,
  * pronto da incollare in Claude/ChatGPT/Gemini.
  */
+import Glyph from './Glyph.astro';
 import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 
@@ -30,7 +31,7 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   data-i18n-label-format={ui.builderPromptFormat}
 >
   <header>
-    <span class="pb-badge">{ui.builderBadge}</span>
+    <span class="pb-badge"><Glyph name="pencil" /> {ui.builderBadge}</span>
     <h3>{ui.builderTitle}</h3>
   </header>
 
@@ -274,7 +275,7 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     font-size: 0.9rem;
     color: var(--sl-color-text);
     background: var(--sl-color-bg);
-    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border: var(--aig-border-width) solid var(--aig-field-border);
     border-radius: var(--aig-radius);
     padding: 0.5rem 0.65rem;
     resize: vertical;

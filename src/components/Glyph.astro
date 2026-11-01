@@ -1,0 +1,73 @@
+---
+/**
+ * Glyph: small inline line icon, drawn like a biro stroke.
+ *
+ * Replaces emoji in badges, avatars and inline lists: emoji render
+ * differently on every OS and clash with the "Quaderno & Lavagna" palette.
+ * The stroke uses `currentColor`, so the glyph takes the colour of the text
+ * around it (biro, red pen, chalk). Sized in `em`: it follows the font size.
+ *
+ * Decorative by default (`aria-hidden`): the text next to it carries the
+ * meaning. Pass `label` only when the glyph stands alone.
+ */
+export type GlyphName =
+  | 'spark'
+  | 'check-square'
+  | 'graduation-cap'
+  | 'pencil'
+  | 'mail'
+  | 'repeat'
+  | 'list'
+  | 'user'
+  | 'briefcase'
+  | 'globe'
+  | 'coffee';
+
+interface Props {
+  name: GlyphName;
+  label?: string;
+  class?: string;
+}
+
+const { name, label, class: className } = Astro.props;
+
+const PATHS: Record<GlyphName, string[]> = {
+  spark: ['M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7Z', 'M19 16.5v4M17 18.5h4'],
+  'check-square': ['M4.5 4.5h15v15h-15Z', 'M8.5 12.2l2.6 2.8 4.6-6'],
+  'graduation-cap': ['M2.5 9.5 12 5l9.5 4.5L12 14Z', 'M6.5 11.7v4.6c3.2 2.6 7.8 2.6 11 0v-4.6', 'M21.5 9.5v5'],
+  pencil: ['M15.5 4.5l4 4L9 19H5v-4Z', 'M13.5 6.5l4 4'],
+  mail: ['M3.5 6h17v12h-17Z', 'M3.8 6.5 12 12.5l8.2-6'],
+  repeat: ['M4.5 11a7.5 7.5 0 0 1 13-4.6L19.5 8.5', 'M19.5 4.5v4h-4', 'M19.5 13a7.5 7.5 0 0 1-13 4.6L4.5 15.5', 'M4.5 19.5v-4h4'],
+  list: ['M9.5 6.5h10M9.5 12h10M9.5 17.5h10', 'M5 6.5h.01M5 12h.01M5 17.5h.01'],
+  user: ['M12 4.5a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Z', 'M4.5 20c1.4-3.7 4.2-5.6 7.5-5.6s6.1 1.9 7.5 5.6'],
+  briefcase: ['M3.5 8h17v11.5h-17Z', 'M8.5 8V5h7v3', 'M3.5 13h17'],
+  globe: ['M12 3.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17Z', 'M3.5 12h17', 'M12 3.5c2.8 3 2.8 14 0 17M12 3.5c-2.8 3-2.8 14 0 17'],
+  coffee: ['M4.5 9.5h12v4.5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5Z', 'M16.5 11h1.5a2.5 2.5 0 0 1 0 5h-1.5', 'M8.5 3.5v3M12.5 3.5v3'],
+};
+---
+
+<svg
+  class:list={['aig-glyph', className]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden={label ? undefined : 'true'}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  focusable="false"
+>
+  {PATHS[name].map((d) => <path d={d} />)}
+</svg>
+
+<style>
+  .aig-glyph {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.2em;
+    flex-shrink: 0;
+  }
+</style>

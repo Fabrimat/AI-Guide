@@ -4,6 +4,7 @@ description: AI-Guide è scritto da Fabrizio La Rosa. Ecco cosa faccio, da dove 
 ---
 
 import { Image } from 'astro:assets';
+import Glyph from '../../../components/Glyph.astro';
 import MailtoComposer from '../../../components/MailtoComposer.astro';
 import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
 import avatar from '../../../assets/about/avatar.png';
@@ -69,7 +70,7 @@ I tuoi progressi restano sul tuo browser.
 
 ## Oppure scrivimi direttamente
 
-- ✉️ <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
-- 💼 <a href="https://linkedin.com/in/fabriziolarosa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-- 🌐 <a href="https://larosa.work" target="_blank" rel="noopener noreferrer">larosa.work</a>
-- ☕ <a href="https://ko-fi.com/fabriziolarosa" target="_blank" rel="noopener noreferrer">Offrimi un caffè su Ko-fi</a>
+- <Glyph name="mail" /> <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
+- <Glyph name="briefcase" /> <a href="https://linkedin.com/in/fabriziolarosa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+- <Glyph name="globe" /> <a href="https://larosa.work" target="_blank" rel="noopener noreferrer">larosa.work</a>
+- <Glyph name="coffee" /> <a href="https://ko-fi.com/fabriziolarosa" target="_blank" rel="noopener noreferrer">Offrimi un caffè su Ko-fi</a>

@@ -20,6 +20,7 @@ interface Props {
   label?: string;
 }
 
+import Glyph from './Glyph.astro';
 import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 const { label = ui.lessonSummaryLabel } = Astro.props;
@@ -27,7 +28,7 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
 
 <details class="lesson-summary not-content">
   <summary>
-    <span class="icon" aria-hidden="true">📋</span>
+    <span class="icon" aria-hidden="true"><Glyph name="list" /></span>
     <span class="label">{label}</span>
     <span class="chevron" aria-hidden="true">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

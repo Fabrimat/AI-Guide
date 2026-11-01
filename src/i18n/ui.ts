@@ -357,7 +357,7 @@ const it: UIStrings = {
   resumeYes: 'Sì, cancella',
   resumeConfirmFallback: 'Cancellare i progressi salvati su questo browser?',
 
-  recapBadge: '🎓 Ripasso con la tua IA',
+  recapBadge: 'Ripasso con la tua IA',
   recapTitle: 'Trasforma la tua IA in un tutor',
   recapDesc:
     'Genera un prompt che trasforma la tua IA in un tutor sulle lezioni che hai completato. Ti fa una domanda alla volta per aiutarti a ricordare quello che hai imparato.',
@@ -370,8 +370,8 @@ const it: UIStrings = {
     'Copialo e incollalo nella tua IA. Parlerà solo delle lezioni che hai completato.',
   recapCopy: 'Copia il prompt',
   recapClose: 'Chiudi',
-  recapCopied: '✅ Copiato!',
-  recapCopyError: '❌ Errore, riprova',
+  recapCopied: 'Copiato!',
+  recapCopyError: 'Errore, riprova',
   recapPromptIntro:
     'Sei un tutor paziente. Sto studiando il manuale AI-Guide e ho completato queste lezioni. Per ognuna ti elenco i concetti chiave:',
   recapPromptInstructions: `Fammi ripassare con il metodo socratico. Fammi una domanda alla volta e aspetta la mia risposta prima di andare avanti. Non anticipare mai la risposta.
@@ -388,8 +388,8 @@ Comincia ora con la prima domanda.`,
   recapUnmappedConcepts: '(riassunto non disponibile: parti dal titolo e chiedimi cosa ricordo)',
 
   glossaryButton: 'Approfondisci con la tua IA',
-  glossaryCopied: '✅ Prompt copiato! Incollalo nella tua IA',
-  glossaryError: '❌ Errore, riprova',
+  glossaryCopied: 'Prompt copiato! Incollalo nella tua IA',
+  glossaryError: 'Errore, riprova',
   glossaryPrompt: (term) =>
     `Sei un tutor paziente di un manuale di IA per principianti. Spiegami con parole semplici cosa significa "${term}" parlando di IA conversazionali (ChatGPT, Claude, Gemini). Usa un esempio concreto della vita di tutti i giorni, in al massimo 150 parole. Niente gergo: se usi un termine tecnico, spiegalo subito.
 
@@ -404,8 +404,8 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
   llmExerciseCopy: 'Copia il testo',
   llmExerciseDownload: 'Scarica',
   llmExerciseOpen: 'Apri',
-  llmExerciseCopied: '✅ Copiato!',
-  llmExerciseError: '❌ Errore, riprova',
+  llmExerciseCopied: 'Copiato!',
+  llmExerciseError: 'Errore, riprova',
 
   localAiLauncherLabel: "Chiedi all'IA locale",
   localAiLauncherAria: "Apri l'assistente IA locale",
@@ -494,14 +494,14 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
   shareEmailSubject: (title) => `AI-Guide: ${title}`,
   shareCopyLabel: 'Copia link',
   shareCopyAria: 'Copia il link della lezione',
-  shareCopied: '✅ Link copiato!',
-  shareCopyError: '❌ Errore, riprova',
+  shareCopied: 'Link copiato!',
+  shareCopyError: 'Errore, riprova',
 
   comingSoonLabel: 'Presto',
 
   lessonSummaryLabel: 'Riepilogo in 30 secondi',
 
-  builderBadge: '🛠️ Costruisci il tuo prompt',
+  builderBadge: 'Costruisci il tuo prompt',
   builderTitle: 'Mettiti alla prova: scrivi un prompt che funziona',
   builderHint:
     "Compila i quattro campi pensando a una richiesta vera che vuoi fare a un'IA. Mentre scrivi, il prompt prende forma nell'anteprima. Quando è pronto, copialo e incollalo nella tua IA preferita.",
@@ -520,14 +520,14 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
   builderPlaceholder: 'Compila i campi e il prompt apparirà qui.',
   builderCopy: 'Copia il prompt',
   builderReset: 'Ripulisci tutto',
-  builderCopied: '✅ Copiato!',
-  builderError: '❌ Errore, riprova',
+  builderCopied: 'Copiato!',
+  builderError: 'Errore, riprova',
   builderPromptTask: 'Cosa mi serve',
   builderPromptContext: 'Contesto',
   builderPromptAudience: 'Per chi è la risposta',
   builderPromptFormat: 'Formato',
 
-  composerBadge: '💌 Scrivimi',
+  composerBadge: 'Scrivimi',
   composerTitle: "Hai un'idea o una correzione?",
   composerHint:
     'Scrivi qui sotto e si aprirà il tuo client di posta con il messaggio già pronto. Niente form, niente backend: il messaggio parte dalla tua email.',
@@ -570,7 +570,7 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
     'Livello: avanzato. Puoi andare in profondità tecnica e usare il lessico del settore.',
   recapJournalNote: 'Quello che ho annotato mentre facevo pratica:',
   moduleProgressAria: '{done} lezioni su {total} completate',
-  reviewTodayBadge: '🔁 Ripasso di oggi',
+  reviewTodayBadge: 'Ripasso di oggi',
   reviewTitle: 'Rinfresca quello che hai letto',
   reviewDueOne: 'Oggi, ripassa 1 lezione',
   reviewDueMany: (n) => `Oggi, ripassa ${n} lezioni`,
@@ -692,8 +692,8 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
   planMinutesPlaceholder: 'es. 20',
   planPreviewLabel: 'Il tuo testo',
   planCopy: 'Copia il testo',
-  planCopied: '✅ Copiato!',
-  planError: '❌ Errore, riprova',
+  planCopied: 'Copiato!',
+  planError: 'Errore, riprova',
   planPaths: {
     fundamentals: 'Fondamenti',
     'everyday-use': 'Uso quotidiano',
@@ -736,7 +736,7 @@ const en: UIStrings = {
   resumeYes: 'Yes, clear it',
   resumeConfirmFallback: 'Clear the progress saved on this browser?',
 
-  recapBadge: '🎓 Recap with your AI',
+  recapBadge: 'Recap with your AI',
   recapTitle: 'Turn your AI into a tutor',
   recapDesc:
     "Generate a prompt that turns your AI into a tutor on the lessons you've completed. It asks you one question at a time to help you recall what you learned.",
@@ -749,8 +749,8 @@ const en: UIStrings = {
     "Copy it and paste it into your AI. It will only talk about the lessons you've completed.",
   recapCopy: 'Copy prompt',
   recapClose: 'Close',
-  recapCopied: '✅ Copied!',
-  recapCopyError: '❌ Error, please retry',
+  recapCopied: 'Copied!',
+  recapCopyError: 'Error, please retry',
   recapPromptIntro:
     "You are a patient tutor. I'm studying the AI-Guide manual and I've completed these lessons. For each one, here are the key concepts:",
   recapPromptInstructions: `Help me review using the Socratic method. Ask me one question at a time and wait for my answer before moving on. Never give the answer ahead of time.
@@ -767,8 +767,8 @@ Start now with the first question.`,
   recapUnmappedConcepts: '(summary not available: start from the title and ask me what I remember)',
 
   glossaryButton: 'Go deeper with your AI',
-  glossaryCopied: '✅ Prompt copied! Paste it into your AI',
-  glossaryError: '❌ Error, please retry',
+  glossaryCopied: 'Prompt copied! Paste it into your AI',
+  glossaryError: 'Error, please retry',
   glossaryPrompt: (term) =>
     `You are a patient tutor for a beginner-level AI manual. Explain in simple words what "${term}" means when talking about conversational AIs (ChatGPT, Claude, Gemini). Use a concrete example from everyday life, in 150 words at most. No jargon: if you use a technical term, explain it right away.
 
@@ -783,8 +783,8 @@ Then ask me one single question to check I understood, and wait for my answer. I
   llmExerciseCopy: 'Copy the text',
   llmExerciseDownload: 'Download',
   llmExerciseOpen: 'Open',
-  llmExerciseCopied: '✅ Copied!',
-  llmExerciseError: '❌ Error, please retry',
+  llmExerciseCopied: 'Copied!',
+  llmExerciseError: 'Error, please retry',
 
   localAiLauncherLabel: 'Ask the local AI',
   localAiLauncherAria: 'Open the local AI assistant',
@@ -873,14 +873,14 @@ Then ask me one single question to check I understood, and wait for my answer. I
   shareEmailSubject: (title) => `AI-Guide: ${title}`,
   shareCopyLabel: 'Copy link',
   shareCopyAria: 'Copy the lesson link',
-  shareCopied: '✅ Link copied!',
-  shareCopyError: '❌ Error, please retry',
+  shareCopied: 'Link copied!',
+  shareCopyError: 'Error, please retry',
 
   comingSoonLabel: 'Soon',
 
   lessonSummaryLabel: '30-second summary',
 
-  builderBadge: '🛠️ Build your prompt',
+  builderBadge: 'Build your prompt',
   builderTitle: 'Give it a go: write a prompt that works',
   builderHint:
     "Fill in the four fields thinking of a real request you want to make to an AI. As you type, the prompt takes shape in the preview. When it's ready, copy it and paste it into your favourite AI.",
@@ -899,14 +899,14 @@ Then ask me one single question to check I understood, and wait for my answer. I
   builderPlaceholder: 'Fill in the fields and the prompt will appear here.',
   builderCopy: 'Copy prompt',
   builderReset: 'Clear everything',
-  builderCopied: '✅ Copied!',
-  builderError: '❌ Error, please retry',
+  builderCopied: 'Copied!',
+  builderError: 'Error, please retry',
   builderPromptTask: 'What I need',
   builderPromptContext: 'Context',
   builderPromptAudience: 'Who the answer is for',
   builderPromptFormat: 'Format',
 
-  composerBadge: '💌 Drop me a line',
+  composerBadge: 'Drop me a line',
   composerTitle: 'Got an idea or a correction?',
   composerHint:
     "Type below and your email client will open with the message ready to send. No form, no backend: the message goes from your own inbox.",
@@ -949,7 +949,7 @@ Then ask me one single question to check I understood, and wait for my answer. I
     "Level: advanced. You can go into technical depth and use the field's vocabulary.",
   recapJournalNote: 'What I noted while practicing:',
   moduleProgressAria: '{done} lessons out of {total} completed',
-  reviewTodayBadge: "🔁 Today's review",
+  reviewTodayBadge: "Today's review",
   reviewTitle: 'Refresh what you have read',
   reviewDueOne: 'Today, review 1 lesson',
   reviewDueMany: (n) => `Today, review ${n} lessons`,
@@ -1069,8 +1069,8 @@ Then ask me one single question to check I understood, and wait for my answer. I
   planMinutesPlaceholder: 'e.g. 20',
   planPreviewLabel: 'Your text',
   planCopy: 'Copy the text',
-  planCopied: '✅ Copied!',
-  planError: '❌ Error, please retry',
+  planCopied: 'Copied!',
+  planError: 'Error, please retry',
   planPaths: {
     fundamentals: 'Fundamentals',
     'everyday-use': 'Everyday use',

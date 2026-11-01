@@ -8,9 +8,9 @@
  *
  * Due varianti:
  *  - `variant="practice"` (default): pratica guidata. Accento biro (penna rossa per review).
- *    Badge: "🤖 Esercizio con la tua IA".
+ *    Badge: spark glyph + "Esercizio con la tua IA".
  *  - `variant="review"`: verifica dell'apprendimento a fine lezione.
- *    Accento ocra. Badge: "📝 Verifica con la tua IA".
+ *    Accento ocra. Badge: check-square glyph + "Verifica con la tua IA".
  *
  * Il meccanismo (file scaricabile + copia + apri) è identico in entrambe.
  * Cambia solo il framing visivo per distinguere "fai pratica" da
@@ -41,6 +41,7 @@ interface Props {
   variant?: 'practice' | 'review';
 }
 
+import Glyph from './Glyph.astro';
 import { t, getLocale } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 const locale = getLocale(Astro.currentLocale);
@@ -53,8 +54,8 @@ const { title, file, description, duration, variant = 'practice' } = Astro.props
 const fileUrl = `${import.meta.env.BASE_URL}skills/${locale}/${file}`.replace(/\/+/g, '/');
 
 const labels = {
-  practice: { icon: '🤖', badge: ui.practiceBadge, durationSuffix: ui.practiceDuration },
-  review: { icon: '📝', badge: ui.reviewBadge, durationSuffix: ui.reviewDuration },
+  practice: { icon: 'spark', badge: ui.practiceBadge, durationSuffix: ui.practiceDuration },
+  review: { icon: 'check-square', badge: ui.reviewBadge, durationSuffix: ui.reviewDuration },
 } as const;
 const { icon, badge, durationSuffix } = labels[variant];
 ---
@@ -67,7 +68,7 @@ const { icon, badge, durationSuffix } = labels[variant];
   data-variant={variant}
 >
   <header>
-    <span class="badge">{icon} {badge}</span>
+    <span class="badge"><Glyph name={icon} /> {badge}</span>
     <h3>{title}</h3>
   </header>
 
@@ -371,7 +372,7 @@ const { icon, badge, durationSuffix } = labels[variant];
     line-height: 1.5;
     color: var(--aig-ink);
     background: var(--aig-elevated-bg);
-    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border: var(--aig-border-width) solid var(--aig-field-border);
     border-radius: var(--aig-radius);
     padding: 0.5rem 0.65rem;
     resize: vertical;

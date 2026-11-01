@@ -99,6 +99,8 @@
   --sl-color-hairline: #cbd5e0;
   --sl-color-hairline-light: #dce4ec;
   --sl-color-hairline-shade: #aebbc9;
+  /* Boundary of form fields and answer choices: 3:1 on white and paper (WCAG 1.4.11). */
+  --aig-field-border: #7f8893;
 
   /* Project tokens.
      - `--aig-elevated-bg`: cards, popovers, dialogs, previews, tooltips:
@@ -199,6 +201,8 @@
   --sl-color-hairline: #3b4c45;
   --sl-color-hairline-light: #33433c;
   --sl-color-hairline-shade: #4e6158;
+  /* Field boundary: 3:1 on slate and raised slate. */
+  --aig-field-border: #7a8f84;
 
   /* Project tokens (dark). Elevation is a lighter slate: slips
      separate from the board by tone and border, not by shadow. */
@@ -885,4 +889,11 @@ nav.sidebar a[aria-disabled='true'] .sl-badge {
    down the right edge of the content. Both themes. */
 .right-sidebar-container .right-sidebar {
   border-inline-start: 0;
+}
+
+/* Placeholders: the browser default grey (#757575) fails AA on paper and on
+   slate. Muted pencil / chalk-dust passes on every field background. */
+::placeholder {
+  color: var(--sl-color-gray-3);
+  opacity: 1;
 }

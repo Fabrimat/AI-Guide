@@ -54,6 +54,7 @@ export interface Props {
   showReplay?: boolean;
 }
 
+import Glyph from './Glyph.astro';
 import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 
@@ -144,7 +145,7 @@ const aiHtml = renderInlineMarkdown(ai);
 >
   <div class="chat-stage">
     <div class="message message-user" data-role="user">
-      <div class="avatar" aria-hidden="true">👤</div>
+      <div class="avatar" aria-hidden="true"><Glyph name="user" /></div>
       <div class="bubble">
         <div class="label">{userLabel}</div>
         <div class="text">
@@ -155,7 +156,7 @@ const aiHtml = renderInlineMarkdown(ai);
     </div>
 
     <div class="message message-ai" data-role="ai">
-      <div class="avatar" aria-hidden="true">🤖</div>
+      <div class="avatar" aria-hidden="true"><Glyph name="spark" /></div>
       <div class="bubble">
         <div class="label">{aiLabel}</div>
         <div class="text">

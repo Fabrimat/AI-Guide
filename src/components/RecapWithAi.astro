@@ -21,6 +21,7 @@
  * Da posizionare su pagine di orientamento (homepage, `start-here`) e
  * a fine modulo. Niente prop, si include come `<RecapWithAi />`.
  */
+import Glyph from './Glyph.astro';
 import { t } from '../i18n/ui';
 import { promptAttrs } from '../scripts/recap-prompt';
 const ui = t(Astro.currentLocale);
@@ -42,7 +43,7 @@ const titleId = `recap-dialog-title-${uid}`;
   hidden
 >
   <header>
-    <span class="recap-badge">{ui.recapBadge}</span>
+    <span class="recap-badge"><Glyph name="graduation-cap" /> {ui.recapBadge}</span>
     <h3>{ui.recapTitle}</h3>
   </header>
 
