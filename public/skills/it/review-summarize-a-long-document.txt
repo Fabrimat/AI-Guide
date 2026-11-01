@@ -18,7 +18,7 @@ Lo studente dovrebbe aver capito che:
 
 - La differenza fra tecnica 1 e tecnica 2: la 1 controlla la forma del riassunto, la 2 ne cambia i contenuti privilegiati in funzione di uno scopo.
 
-- Il rischio specifico dei documenti lunghi è che l'IA presenti come presenti nel testo delle affermazioni che nel testo non ci sono (omissioni o vere e proprie invenzioni). È più frequente che sui documenti corti, perché il lettore raramente va a controllare pagina per pagina. Due contromosse pratiche: chiederle di citare la frase esatta del documento da cui trae ogni affermazione chiave (con pagina), e fare uno spot-check leggendo di persona una sezione nel documento originale.
+- Il rischio specifico dei documenti lunghi è che l'IA presenti come presenti nel testo delle affermazioni che nel testo non ci sono (omissioni o vere e proprie invenzioni). È più frequente che sui documenti corti, perché il lettore raramente va a controllare pagina per pagina. Due contromosse pratiche: chiederle di citare la frase esatta del documento da cui trae ogni affermazione chiave (con pagina), e fare uno spot-check leggendo di persona due o tre affermazioni nel documento originale.
 
 - Come dare il documento all'IA: upload (PDF, Word, testo, è la via più affidabile), copia e incolla (bene per articoli web e testi non lunghissimi), link (funziona solo su alcune IA). Ogni IA ha una soglia oltre la quale il documento è "troppo grande".
 

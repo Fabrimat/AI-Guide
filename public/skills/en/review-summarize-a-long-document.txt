@@ -18,7 +18,7 @@ The student should have grasped that:
 
 - The difference between technique 1 and technique 2: 1 controls the shape of the summary, 2 changes what content is prioritized based on a goal.
 
-- The specific risk of long documents is that the AI presents as present in the text claims that aren't actually there (omissions or outright inventions). It's more frequent than on short documents, because readers rarely check page by page. Two practical countermoves: asking it to quote the exact sentence of the document it drew each key claim from (with page number), and doing a spot-check by reading a section yourself in the original document.
+- The specific risk of long documents is that the AI presents as present in the text claims that aren't actually there (omissions or outright inventions). It's more frequent than on short documents, because readers rarely check page by page. Two practical countermoves: asking it to quote the exact sentence of the document it drew each key claim from (with page number), and doing a spot-check by reading two or three claims yourself in the original document.
 
 - How to hand the document to the AI: upload (PDF, Word, text, the most reliable route), copy and paste (good for web articles and not-too-long texts), link (works only on some AIs). Each AI has a threshold above which the document is "too big".
 
