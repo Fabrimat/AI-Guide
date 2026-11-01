@@ -35,7 +35,7 @@ const { user, domain, class: className } = Astro.props;
 <style>
   a.obfuscated-email {
     cursor: pointer;
-    border-radius: 0.25rem;
+    border-radius: var(--aig-radius);
   }
   a.obfuscated-email:focus-visible {
     outline: 2px solid var(--sl-color-accent);

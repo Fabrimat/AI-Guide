@@ -199,7 +199,7 @@ const MAIL_DOMAIN = 'larosa.work';
   .ai-guide-footer {
     margin-top: 2.5rem;
     padding-top: 1.25rem;
-    border-top: 1px solid var(--sl-color-hairline);
+    border-top: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
@@ -215,14 +215,15 @@ const MAIL_DOMAIN = 'larosa.work';
 
   .agf-about {
     color: var(--sl-color-text-accent);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .agf-about:hover {
+    font-weight: 650;
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1.5px;
+    border-radius: 2px;
+  }
+
+  .agf-about:hover {
+    background: var(--aig-highlighter-wash);
   }
 
   .agf-tagline {
@@ -239,7 +240,6 @@ const MAIL_DOMAIN = 'larosa.work';
     color: var(--sl-color-gray-4);
     font-size: 0.72rem;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.01em;
   }
 
   .agf-sep {
@@ -261,20 +261,16 @@ const MAIL_DOMAIN = 'larosa.work';
     justify-content: center;
     width: 2.2rem;
     height: 2.2rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-hairline);
+    border: var(--aig-border-width) solid var(--sl-color-hairline);
     background: transparent;
-    transition:
-      background 0.15s ease,
-      border-color 0.15s ease,
-      color 0.15s ease;
   }
 
   .agf-socials a:hover {
-    background: var(--sl-color-accent-low);
-    border-color: var(--sl-color-accent-low);
-    color: var(--sl-color-text);
+    background: var(--aig-hover-wash);
+    border-color: var(--sl-color-hairline-shade);
+    color: var(--sl-color-white);
   }
 
   .agf-socials svg {

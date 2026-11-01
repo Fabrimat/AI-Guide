@@ -201,20 +201,16 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
     margin: 2.5rem 0 0;
     padding: 1rem 1.25rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 4px 12px rgba(var(--aig-shadow-color), 0.04);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .share-heading {
     display: block;
-    font-size: 0.82rem;
+    font-family: var(--aig-font-hand);
+    font-size: 1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-gray-3);
+    color: var(--aig-heading);
     margin-bottom: 0.6rem;
   }
 
@@ -235,10 +231,10 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
     width: 2.4rem;
     height: 2.4rem;
     padding: 0;
-    border-radius: 999px;
-    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--aig-radius);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
     background: transparent;
-    color: var(--sl-color-text);
+    color: var(--aig-ink);
     cursor: pointer;
     text-decoration: none;
     font-family: inherit;
@@ -246,9 +242,13 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
   }
 
   .share-btn:hover {
-    background: var(--sl-color-accent-low);
-    border-color: var(--sl-color-accent-low);
-    color: var(--sl-color-text);
+    background: var(--aig-hover-wash);
+    border-color: var(--aig-ink);
+  }
+
+  /* Biro line style: a lighter stroke than the 2px the icons ship with. */
+  .share-btn svg {
+    stroke-width: 1.6;
   }
 
   .share-btn:focus-visible {
@@ -263,7 +263,7 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
   }
 
   .share-copy-label {
-    font-weight: 500;
+    font-weight: 650;
   }
 
   .share-status {
@@ -274,7 +274,7 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
   }
 
   .share-status.is-error {
-    color: var(--sl-color-accent-high);
+    color: var(--aig-red-pen);
   }
 
   /* Su mobile molto stretto, nascondo il testo del copy-link per

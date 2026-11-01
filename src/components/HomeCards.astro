@@ -2,12 +2,13 @@
 /**
  * HomeCards: griglia di card visive per la landing.
  *
- * Sostituisce la lista a punti delle homepage "da docs" con tre card
- * grandi, ognuna con icona, titolo, frase. Pensato come orientamento
- * per il pubblico non-tecnico: "da dove parti?".
+ * Sostituisce la lista a punti delle homepage "da docs" con schede
+ * stile indice: ognuna con icona, titolo, frase. Pensato come
+ * orientamento per il pubblico non-tecnico: "da dove parti?".
  *
- * L'icona è un `IconName` (vedi Icon.astro), non un emoji: stile
- * duotone coral, coerente con la palette Pastello e stabile tra OS.
+ * L'icona è un `IconName` (vedi Icon.astro), non un emoji: disegno a
+ * penna biro, stabile tra OS. Le schede sono cartoncini appoggiati
+ * sul quaderno, appena inclinati.
  *
  * Uso in un file .mdx (tipicamente index.mdx con `template: splash`):
  *
@@ -83,89 +84,127 @@ const { heading, cards, comingSoonLabel = ui.comingSoonLabel } = Astro.props;
     padding: 0 1rem;
   }
 
+  /* Written on the page like a notebook heading. */
   .home-cards-heading {
-    text-align: center;
-    font-size: 1.3rem;
-    color: var(--sl-color-gray-3);
-    font-weight: 500;
-    margin: 0 0 2rem;
+    font-family: var(--aig-font-hand);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--aig-heading);
+    margin: 0 0 1.5rem;
   }
 
   .home-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: 1.25rem;
   }
 
+  /* Index-card slip: white paper, ink border, hard shadow, tilted a
+     hair so the set looks pinned by hand rather than gridded. */
   .home-card {
     position: relative;
+    display: block;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    padding: 1.5rem 1.4rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    padding: 1.35rem 1.3rem 1.4rem;
     text-decoration: none;
     color: var(--sl-color-text);
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 8px 24px rgba(var(--aig-shadow-color), 0.06);
-    transition: transform 150ms ease, box-shadow 150ms ease;
-    display: block;
+    box-shadow: var(--aig-shadow-hard);
+    transform: rotate(-0.5deg);
+  }
+  .home-card:nth-child(even) {
+    transform: rotate(0.45deg);
+  }
+  .home-card:nth-child(3n) {
+    transform: rotate(-0.25deg);
   }
 
-  /* Solo le card cliccabili reagiscono all'hover */
-  a.home-card:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 4px 12px rgba(var(--aig-shadow-color), 0.05),
-      0 14px 32px rgba(var(--aig-shadow-color), 0.09);
+  /* The ruled line of an index card, under the icon. */
+  .home-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 4.6rem;
+    border-top: 1.5px solid var(--aig-margin-line);
+    pointer-events: none;
   }
 
   .home-card-icon {
-    margin-bottom: 0.7rem;
-    transition: transform 180ms ease;
-  }
-  a.home-card:hover .home-card-icon {
-    transform: scale(1.08);
+    display: block;
+    margin-bottom: 1.35rem;
   }
 
-  .home-card.is-coming {
-    opacity: 0.85;
+  /* Only clickable cards react: straighten, ink border, highlighter
+     swipe under the title. */
+  a.home-card:hover {
+    transform: rotate(0deg);
+    border-color: var(--aig-ink);
+  }
+  a.home-card:hover .home-card-title {
+    background-image: var(--aig-highlight-stroke);
+    background-repeat: no-repeat;
+    background-position: 0 90%;
+    background-size: 100% 45%;
+  }
+  a.home-card:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 3px;
   }
 
   .home-card-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin: 0 0 0.4rem;
-    color: var(--sl-color-text);
+    display: inline;
+    font-size: 1.25rem;
+    font-weight: 780;
+    letter-spacing: -0.01em;
+    margin: 0;
+    padding-inline: 0.1em;
+    margin-inline-start: -0.1em;
+    color: var(--aig-heading);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
-
+  .home-card h3.home-card-title + .home-card-desc {
+    margin-top: 0.6rem;
+  }
   .home-card-desc {
     margin: 0;
-    color: var(--sl-color-gray-3);
+    color: var(--sl-color-text);
     font-size: 0.95rem;
     line-height: 1.55;
   }
 
+  .home-card.is-coming {
+    border-style: dashed;
+    box-shadow: none;
+  }
+  .home-card.is-coming .home-card-icon,
+  .home-card.is-coming .home-card-title,
+  .home-card.is-coming .home-card-desc {
+    opacity: 0.75;
+  }
+
+  /* "Presto": the teacher's red pen, written in the corner. */
   .home-card-badge {
     position: absolute;
-    top: 0.85rem;
-    right: 0.95rem;
-    font-size: 0.7rem;
+    top: 0.8rem;
+    right: 1rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem;
-    border-radius: 999px;
-    background: var(--sl-color-accent-low);
-    color: var(--sl-color-accent-high);
+    color: var(--aig-red-pen);
+    text-decoration: underline wavy;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.25em;
+    transform: rotate(-4deg);
   }
 
   @media (max-width: 600px) {
     .home-cards-heading {
-      font-size: 1.1rem;
+      font-size: 1.35rem;
     }
     .home-card {
-      padding: 1.25rem 1.15rem;
+      padding: 1.15rem 1.1rem 1.25rem;
     }
   }
 </style>

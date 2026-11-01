@@ -55,4 +55,42 @@ const shouldRenderSearch =
   .header-prefs-wrap {
     align-items: center;
   }
+
+  /* Notebook top edge: the header is the cover strip of the quaderno,
+     closed by a ruled line a touch stronger than the page hairlines. */
+  :global(header.header) {
+    border-bottom: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+  }
+
+  /* Wordmark: the favicon mark (paper tile, "AI" in biro) followed by
+     "AI-Guide" in Atkinson heavy, in biro ink (chalk blue in dark).
+     The mark is a CSS background so Starlight's SiteTitle markup stays
+     untouched. */
+  .title-wrapper :global(.site-title) {
+    gap: 0.55rem;
+    font-family: var(--sl-font);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--aig-ink);
+    text-decoration: none;
+    border-radius: var(--aig-radius);
+  }
+  .title-wrapper :global(.site-title)::before {
+    content: '';
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    background: url('/favicon.svg') center / contain no-repeat;
+    border-radius: 6px;
+  }
+  .title-wrapper :global(.site-title:hover) {
+    background-image: var(--aig-highlight-stroke);
+    background-repeat: no-repeat;
+    background-position: 0 70%;
+    background-size: 100% 45%;
+  }
+  .title-wrapper :global(.site-title img) {
+    display: none;
+  }
 </style>

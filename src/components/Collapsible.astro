@@ -38,8 +38,8 @@ const { title, open = false } = Astro.props;
 <style>
   .aig-collapsible {
     margin: 1.25rem 0;
-    border-top: 1px solid var(--sl-color-hairline);
-    border-bottom: 1px solid var(--sl-color-hairline);
+    border-top: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
+    border-bottom: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
   }
 
   .aig-collapsible summary {
@@ -64,18 +64,18 @@ const { title, open = false } = Astro.props;
   }
 
   .aig-collapsible summary:hover .aig-collapsible-title {
-    color: var(--sl-color-accent-high);
+    background: var(--aig-hover-wash);
   }
 
   .aig-collapsible summary:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
-    border-radius: 0.3rem;
+    border-radius: var(--aig-radius);
   }
 
   .aig-collapsible-chevron {
     display: inline-flex;
-    color: var(--sl-color-accent);
+    color: var(--aig-ink);
     transition: transform 0.2s ease;
   }
 
@@ -86,7 +86,7 @@ const { title, open = false } = Astro.props;
   .aig-collapsible-body {
     margin: 0 0 1rem 0.5rem;
     padding: 0.1rem 0 0.1rem 1rem;
-    border-left: 2px solid var(--sl-color-hairline);
+    border-left: var(--aig-border-width) solid var(--aig-ink);
     font-size: 0.95rem;
   }
 

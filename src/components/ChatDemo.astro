@@ -466,9 +466,9 @@ const aiHtml = renderInlineMarkdown(ai);
   .chat-demo {
     margin: 1.75rem 0;
     padding: 1rem 1rem 0.85rem;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.85rem;
-    background: var(--sl-color-bg-nav, var(--sl-color-bg));
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    background: var(--aig-elevated-bg-warm);
     font-family: var(--sl-font);
   }
 
@@ -492,8 +492,9 @@ const aiHtml = renderInlineMarkdown(ai);
     flex-shrink: 0;
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
-    background: var(--sl-color-gray-6);
+    border-radius: var(--aig-radius);
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -502,42 +503,43 @@ const aiHtml = renderInlineMarkdown(ai);
   }
 
   .message-user .avatar {
-    background: var(--sl-color-accent-low);
+    border-color: var(--aig-ink);
+    border-style: dashed;
   }
 
   .bubble {
     max-width: min(78%, 520px);
     padding: 0.55rem 0.85rem;
-    border-radius: 0.9rem;
-    background: var(--sl-color-gray-6);
-    color: var(--sl-color-text);
+    border-radius: var(--aig-radius);
     line-height: 1.5;
     font-size: 0.95rem;
   }
 
-  .message-user .bubble {
-    background: var(--sl-color-accent);
-    color: var(--aig-on-accent);
-    border-bottom-right-radius: 0.25rem;
+  /* AI: printed text on a slip of paper. */
+  .message-ai .bubble {
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    color: var(--sl-color-text);
   }
 
-  .message-ai .bubble {
-    border-bottom-left-radius: 0.25rem;
+  /* Reader: their own handwriting in biro, no fill. */
+  .message-user .bubble {
+    background: transparent;
+    border: var(--aig-border-width) dashed var(--aig-ink);
+    color: var(--aig-ink);
+    font-family: var(--aig-font-hand);
   }
 
   .label {
     display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.7;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--sl-color-gray-3);
     margin-bottom: 0.2rem;
   }
 
-  /* Sul corallo l'opacità abbassa il contrasto sotto AA: etichetta piena. */
   .message-user .label {
-    opacity: 1;
+    color: var(--aig-ink);
   }
 
   /* ----- Stacking ghost + visible nello stesso grid cell -----
@@ -593,7 +595,7 @@ const aiHtml = renderInlineMarkdown(ai);
     font-size: 0.88em;
     padding: 0.05em 0.3em;
     border-radius: 0.25em;
-    background: var(--sl-color-gray-5);
+    background: var(--sl-color-bg-inline-code);
   }
 
   /* Nel ghost il codice deve restare invisibile come tutto il resto del
@@ -680,7 +682,7 @@ const aiHtml = renderInlineMarkdown(ai);
   }
 
   .message-user .dot {
-    background: var(--sl-color-text-invert, #fff);
+    background: var(--aig-ink);
     opacity: 0.8;
   }
 
@@ -714,21 +716,21 @@ const aiHtml = renderInlineMarkdown(ai);
   .chat-btn {
     padding: 0.3rem 0.75rem;
     font-size: 0.8rem;
-    font-weight: 500;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.4rem;
-    background: var(--sl-color-bg);
-    color: var(--sl-color-text);
+    font-weight: 600;
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: var(--aig-radius);
+    background: transparent;
+    color: var(--aig-ink);
     cursor: pointer;
     transition: background 120ms ease;
   }
 
   .chat-btn:hover {
-    background: var(--sl-color-gray-6);
+    background: var(--aig-hover-wash);
   }
 
   .chat-btn:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 

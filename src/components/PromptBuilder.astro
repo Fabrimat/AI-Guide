@@ -203,11 +203,8 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     margin: 1.75rem 0;
     padding: 1.25rem 1.25rem 1rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .prompt-builder header {
@@ -218,18 +215,17 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   }
 
   .pb-badge {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .prompt-builder h3 {
     margin: 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--sl-color-text);
+    color: var(--aig-heading);
   }
 
   .pb-hint {
@@ -278,17 +274,17 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     font-size: 0.9rem;
     color: var(--sl-color-text);
     background: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 0.5rem 0.65rem;
     resize: vertical;
     line-height: 1.45;
   }
 
   .pb-field textarea:focus {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 1px;
-    border-color: var(--sl-color-accent);
+    border-color: var(--aig-ink);
   }
 
   .pb-preview-wrap {
@@ -299,10 +295,8 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   }
 
   .pb-preview-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    font-weight: 700;
     color: var(--sl-color-gray-3);
   }
 
@@ -311,8 +305,8 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     margin: 0;
     padding: 0.75rem 0.85rem;
     background: var(--sl-color-bg-inline-code);
-    border: 1px dashed var(--sl-color-hairline-shade);
-    border-radius: 0.5rem;
+    border: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.88rem;
     color: var(--sl-color-text);
@@ -334,29 +328,29 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     align-items: center;
     gap: 0.3rem;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: var(--aig-border-width) solid transparent;
   }
 
   .pb-btn-primary {
-    background: var(--sl-color-accent);
+    background: var(--aig-ink);
     color: var(--aig-on-accent);
-    border-color: var(--sl-color-accent);
+    border-color: var(--aig-ink);
   }
 
   .pb-btn-primary:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .pb-btn-ghost {
     background: transparent;
-    color: var(--sl-color-text);
-    border-color: var(--sl-color-hairline);
+    color: var(--aig-ink);
+    border-color: var(--aig-ink);
   }
 
   .pb-btn-ghost:hover {

@@ -1,7 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#E07A5F"/>
-  <text x="32" y="43" text-anchor="middle"
-        font-family="'Outfit', system-ui, sans-serif"
-        font-size="30" font-weight="700" fill="#FCEEE3"
-        letter-spacing="-1">AI</text>
+  <!-- Quaderno tile: paper, squared grid, pink margin, highlighter swipe, "AI" in biro.
+       Letters are stroked paths (no <text>): sharp rasterizes this file for the PWA
+       icons without access to web fonts. The swipe + letters block is reused by
+       maskableSvg() in scripts/generate-pwa-icons.mjs: keep them in sync. -->
+  <rect width="64" height="64" rx="12" fill="#F7F8F4"/>
+  <path d="M0 13H64M0 26H64M0 39H64M0 52H64M26 0V64M39 0V64M52 0V64" stroke="#DCE4EC" stroke-width="1"/>
+  <path d="M12 0V64" stroke="#EBA9B1" stroke-width="2.5"/>
+  <path d="M16.5 37.2C25 35.6 36 36.4 47 35.3S56.6 34.9 58.4 35.6L58.9 48.6C50 49.7 40 48.5 31 49.6S20 50.1 16.2 49.7C15.6 45.6 15.7 41.2 16.5 37.2Z" fill="#F5E663"/>
+  <g fill="none" stroke="#1E3A8A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19.6 48.6C22.3 38.9 25.3 27.4 28.8 15.4C32.1 26.6 35.2 38 38.4 48.8"/>
+    <path d="M23.6 37.6C27.2 36.6 30.8 36.5 34.6 36.9"/>
+    <path d="M43.4 16.1C46.4 15.4 49.4 15.6 52.6 15.8"/>
+    <path d="M48 16C47.6 26.8 48.1 38.2 47.8 48.6"/>
+    <path d="M43 48.9C46.3 49.4 49.6 49 52.9 49.3"/>
+  </g>
 </svg>

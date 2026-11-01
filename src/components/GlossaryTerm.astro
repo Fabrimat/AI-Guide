@@ -99,11 +99,8 @@ const prompt = ui.glossaryPrompt(name);
     padding: 1.1rem 1.25rem 1rem;
     margin: 1.25rem 0;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.85rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 4px 12px rgba(var(--aig-shadow-color), 0.04);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     scroll-margin-top: 1rem;
   }
 
@@ -115,8 +112,8 @@ const prompt = ui.glossaryPrompt(name);
     margin: 0 0 0.55rem;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--sl-color-text);
-    letter-spacing: -0.005em;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .gt-def {
@@ -145,7 +142,7 @@ const prompt = ui.glossaryPrompt(name);
   .gt-def :global(code) {
     background: var(--sl-color-bg-inline-code);
     padding: 0.1em 0.35em;
-    border-radius: 0.3rem;
+    border-radius: 3px;
     font-size: 0.92em;
   }
 
@@ -154,23 +151,22 @@ const prompt = ui.glossaryPrompt(name);
     align-items: center;
     gap: 0.3rem;
     padding: 0.45rem 0.95rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     background: transparent;
-    color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-hairline);
+    color: var(--aig-ink);
+    border: var(--aig-border-width) solid var(--aig-ink);
     cursor: pointer;
   }
 
   .gt-explain:hover {
-    background: var(--sl-color-accent-low);
-    border-color: var(--sl-color-accent);
+    background: var(--aig-hover-wash);
   }
 
   .gt-explain:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 </style>

@@ -107,6 +107,8 @@ const columns = [
 </script>
 
 <style>
+  /* Two slips side by side: the weak one marked in red pen, the rebuilt
+     one in green. */
   .pcompare {
     margin: 1.75rem 0;
   }
@@ -123,17 +125,16 @@ const columns = [
     min-width: 0;
     padding: 0.8rem 0.9rem 0.6rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.85rem;
-    border-top-width: 3px;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .pc-weak {
-    border-top-color: var(--aig-caution-border);
+    border-color: var(--aig-red-pen);
   }
 
   .pc-strong {
-    border-top-color: var(--aig-success-border);
+    border-color: var(--aig-green-ok);
   }
 
   .pc-head {
@@ -145,23 +146,30 @@ const columns = [
   }
 
   .pc-label {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
     color: var(--sl-color-gray-3);
+  }
+
+  .pc-weak .pc-label {
+    color: var(--aig-red-pen);
+  }
+
+  .pc-strong .pc-label {
+    color: var(--aig-green-ok);
   }
 
   .pc-copy {
     padding: 0.25rem 0.75rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--sl-color-hairline);
+    border: var(--aig-border-width) solid var(--aig-ink);
     background: transparent;
-    color: var(--sl-color-text);
+    color: var(--aig-ink);
   }
 
   .pc-copy[hidden] {
@@ -173,7 +181,7 @@ const columns = [
   }
 
   .pc-copy:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 
@@ -181,9 +189,9 @@ const columns = [
     flex: 1;
     margin: 0;
     padding: 0.65rem 0.8rem;
-    background: var(--sl-color-bg-inline-code);
-    border: 1px dashed var(--sl-color-hairline-shade);
-    border-radius: 0.5rem;
+    background: var(--aig-elevated-bg-warm);
+    border: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.88rem;
     line-height: 1.5;
@@ -202,9 +210,9 @@ const columns = [
   .pc-note {
     margin-top: 0.9rem;
     padding: 0.7rem 0.9rem;
-    border-left: 3px solid var(--sl-color-accent);
+    border-left: 3px solid var(--aig-ink);
     background: var(--aig-elevated-bg-warm);
-    border-radius: 0 0.6rem 0.6rem 0;
+    border-radius: 0 var(--aig-radius) var(--aig-radius) 0;
     font-size: 0.92rem;
     line-height: 1.55;
   }
@@ -212,11 +220,10 @@ const columns = [
   .pc-note-label {
     display: block;
     margin-bottom: 0.2rem;
-    font-size: 0.75rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .pc-note p,

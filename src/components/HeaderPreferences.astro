@@ -227,16 +227,17 @@ const headingId = `${panelId}-heading`;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
-    border: 1px solid var(--sl-color-hairline);
+    border-radius: var(--aig-radius);
+    border: var(--aig-border-width) solid var(--sl-color-hairline);
     background: transparent;
     color: var(--sl-color-text);
     cursor: pointer;
   }
 
   .hp-btn:hover {
-    background: var(--sl-color-accent-low);
-    border-color: var(--sl-color-accent-low);
+    background: var(--aig-hover-wash);
+    border-color: var(--sl-color-hairline-shade);
+    color: var(--sl-color-white);
   }
 
   .hp-btn:focus-visible {
@@ -261,11 +262,9 @@ const headingId = `${panelId}-heading`;
     width: min(20rem, calc(100vw - 1.5rem));
     padding: 1rem 1.1rem 1.1rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.9rem;
-    box-shadow:
-      0 4px 12px rgba(var(--aig-shadow-color), 0.06),
-      0 14px 36px rgba(var(--aig-shadow-color), 0.12);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     color: var(--sl-color-text);
   }
 
@@ -275,11 +274,10 @@ const headingId = `${panelId}-heading`;
 
   .hp-panel-heading {
     margin: 0 0 0.75rem;
-    font-size: 0.8rem;
+    font-family: var(--aig-font-hand);
+    font-size: 1.1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--sl-color-gray-3);
+    color: var(--aig-heading);
   }
 
   .hp-section {
@@ -329,14 +327,14 @@ const headingId = `${panelId}-heading`;
   .hp-switch:focus-visible {
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
   }
 
   .hp-switch-track {
     position: relative;
     width: 2.4rem;
     height: 1.35rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     background: var(--aig-switch-track-off);
     transition: background 150ms ease;
   }
@@ -347,9 +345,10 @@ const headingId = `${panelId}-heading`;
     left: 2px;
     width: calc(1.35rem - 4px);
     height: calc(1.35rem - 4px);
-    border-radius: 50%;
+    border-radius: 3px;
     background: var(--aig-switch-thumb);
-    box-shadow: 0 1px 3px rgba(var(--aig-shadow-color), 0.35);
+    border: 1px solid rgba(var(--aig-shadow-color), 0.35);
+    box-sizing: border-box;
     transition: transform 150ms ease;
   }
 
@@ -393,8 +392,8 @@ const headingId = `${panelId}-heading`;
   .hp-starlight-select :global(label) {
     width: 100%;
     background: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     color: var(--sl-color-text);
   }
 

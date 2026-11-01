@@ -1,313 +1,560 @@
 /* ============================================================
-   AI-Guide · stili globali
-   Direzione visiva: "Pastello" (palette warm, due modalità).
-   - Light: sfondo pesca + indigo + coral (originale).
-   - Dark: sfondo cioccolato + crema + coral (warm dark).
-   I token sono override delle CSS variables di Starlight, più
-   alcuni token custom prefissati `--aig-*` consumati dai
-   componenti del progetto.
+   AI-Guide: global styles
+   Visual direction: "Quaderno & Lavagna" (school notebook in
+   light, classroom blackboard in dark).
+   - Light (quaderno): cool paper, faint blue 5mm grid, pink
+     margin line, biro-blue ink, red pen, yellow highlighter.
+   - Dark (lavagna): green slate, chalk text, coloured chalks in
+     place of ink, pen and highlighter.
+   The signature is the highlighter swipe (current sidebar item,
+   lesson H1, selection, Def terms). Everything else stays quiet.
+   Tokens override Starlight's CSS variables, plus custom `--aig-*`
+   tokens consumed by the project components.
    ============================================================ */
 
-@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/atkinson-hyperlegible-next';
+@import '@fontsource-variable/shantell-sans';
 
 /* ------------------------------------------------------------
-   Design tokens · base invariante
-   Tipografia, sizing, ritmo: uguali in entrambi i temi.
-   Le palette vere (colori) stanno nei blocchi per `data-theme`.
+   Design tokens: theme-independent base
+   Typography, sizing, rhythm, shared shapes. Colours live in the
+   per-`data-theme` blocks below.
    ------------------------------------------------------------ */
 :root {
-  /* Tipografia */
+  /* Typography. Atkinson Hyperlegible Next for body, headings and UI;
+     Shantell Sans only for "handwritten" moments (lesson H1, component
+     kickers, journal notes, ticks). Never for paragraphs, buttons,
+     inputs or navigation. */
   --sl-font:
-    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --sl-font-system:
-    'Outfit Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next',
+    system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --aig-font-hand:
+    'Shantell Sans Variable', 'Shantell Sans', 'Segoe Print', 'Bradley Hand',
+    system-ui, sans-serif;
 
-  /* Ritmo tipografico più arioso rispetto al default */
-  --sl-line-height: 1.7;
+  --sl-line-height: 1.6;
   --sl-line-height-headings: 1.25;
 
-  /* Sizing del corpo lezione (chrome resta a default) */
+  /* Type scale, ratio ~1.25 */
   --sl-text-base: 1.0625rem; /* ~17px */
-  --sl-text-h1: 2.4rem;
-  --sl-text-h2: 1.65rem;
-  --sl-text-h3: 1.3rem;
+  --sl-text-h1: 2.6rem;
+  --sl-text-h2: 1.75rem;
+  --sl-text-h3: 1.35rem;
   --sl-text-h4: 1.1rem;
   --sl-text-h5: 1rem;
+
+  /* Shape. Radius hierarchy: inputs, buttons, cards 6px. No pills. */
+  --aig-radius: 6px;
+  --aig-border-width: 1.5px;
+
+  /* Grid pitch of the squared paper (5mm notebook). */
+  --aig-grid-pitch: 1.25rem;
 }
 
 /* ------------------------------------------------------------
-   Palette · Light (Pastello originale)
-   Sfondo pesca (#FCEEE3), testo indigo (#2A2447), coral (#E07A5F).
+   Palette: Light (quaderno)
+   Paper #F7F8F4, graphite text #23272E, biro accent #1E3A8A.
    ------------------------------------------------------------ */
 :root,
 :root[data-theme='light'] {
-  /* Background */
-  --sl-color-bg: #fceee3;
-  --sl-color-bg-nav: #fceee3;
-  --sl-color-bg-sidebar: #fceee3;
-  --sl-color-bg-inline-code: #fae3d2;
-  --sl-color-bg-accent: #e07a5f;
+  /* Background. Header and sidebar are plain paper without grid,
+     like the cover and the index tab of the notebook. */
+  --sl-color-bg: #f7f8f4;
+  --sl-color-bg-nav: #f7f8f4;
+  --sl-color-bg-sidebar: #f7f8f4;
+  --sl-color-bg-inline-code: #e6ecf2;
+  --sl-color-bg-accent: #1e3a8a;
 
   /* Text */
-  --sl-color-text: #2a2447;
-  --sl-color-text-accent: #c25a3f;
-  --sl-color-text-invert: #ffffff;
+  --sl-color-text: #23272e;
+  --sl-color-text-accent: #1e3a8a;
+  --sl-color-text-invert: #f7f8f4;
 
-  /* ATTENZIONE ai nomi delle variabili di Starlight:
-     - `--sl-color-white` NON è "bianco letterale": è il colore
-       "strong text" (max contrasto contro lo sfondo). In light mode
-       vale il colore scuro della palette (indigo). In dark vale il
-       colore chiaro (crema).
-     - `--sl-color-black` è il colore "light bg" (usato come sfondo
-       del modale Pagefind, del bottone menu mobile, ecc.). In dark
-       va invertito su un tono elevato. */
-  --sl-color-white: #2a2447;
+  /* NOTE on Starlight's variable names:
+     - `--sl-color-white` is NOT literal white: it is the "strong text"
+       colour (maximum contrast against the page). In light mode it is
+       the darkest graphite; in dark mode the brightest chalk.
+     - `--sl-color-black` is the "light bg" colour (Pagefind modal,
+       mobile menu button, code block title bars in dark...). In light
+       it is paper-raised white; in dark it becomes a raised slate. */
+  --sl-color-white: #16191e;
   --sl-color-black: #ffffff;
 
-  /* Accent (coral) */
-  --sl-color-accent: #e07a5f;
-  --sl-color-accent-low: #fad0c2;
-  --sl-color-accent-high: #b85d44;
+  /* Accent (biro). Low = pale ink wash, high = deeper ink (text on
+     accent-low, hover). */
+  --sl-color-accent: #1e3a8a;
+  --sl-color-accent-low: #dce5f7;
+  --sl-color-accent-high: #162c6b;
 
-  /* Scala di grigi: tinta warm/violacea per integrarsi con la palette */
-  --sl-color-gray-1: #2a2447;
-  --sl-color-gray-2: #3f3661;
-  --sl-color-gray-3: #6b5c8c;
-  --sl-color-gray-4: #a998c2;
-  --sl-color-gray-5: #f0dcc9;
-  --sl-color-gray-6: #faf4ed;
+  /* Gray scale: cool graphite/pencil, 1 = strongest text, 7 = lightest. */
+  --sl-color-gray-1: #16191e;
+  --sl-color-gray-2: #23272e;
+  --sl-color-gray-3: #5b6470;
+  --sl-color-gray-4: #8b939d;
+  --sl-color-gray-5: #cbd5e0;
+  --sl-color-gray-6: #edf1f4;
   --sl-color-gray-7: #ffffff;
 
-  /* Hairlines / bordi */
-  --sl-color-hairline: #f0dcc9;
-  --sl-color-hairline-light: #f8e8d9;
-  --sl-color-hairline-shade: #e5d2be;
+  /* Hairlines / borders: the grid blue, one step darker for slips. */
+  --sl-color-hairline: #cbd5e0;
+  --sl-color-hairline-light: #dce4ec;
+  --sl-color-hairline-shade: #aebbc9;
 
-  /* Token custom del progetto.
-     - `--aig-elevated-bg`: sfondo di card, popover, modali, preview,
-       tooltip (in light è bianco puro, in dark è cioccolato elevato).
-     - `--aig-elevated-bg-warm`: variante calda per gli aside `note`.
-     - `--aig-caution-*` / `--aig-danger-*`: colori degli aside
-       (`:::caution`, `:::danger`) e del variant `review` di
-       `<LlmExercise>`. Estratti qui così in dark possono diventare
-       toni profondi invece dei pastelli chiari.
-     - `--aig-success-*`: variante "verde" per la classe wrapper
-       `aig-success-wrap` attorno a un `:::note`. Salvia in light,
-       sage profonda su cioccolato in dark. Usata quando un livello
-       "ok / safe" deve essere visivamente distinto da `:::caution`
-       (giallo) e `:::danger` (rosso).
-     - `--aig-shadow-color`: tripletta rgb usata nei `rgba(...)` dei
-       box-shadow. In light è l'indigo del testo (ombre con tinta
-       viola, non nere); in dark diventa nero puro.
-     - `--aig-scrim`: sfondo dei backdrop modali (Resume, Recap).
-     - `--aig-hover-wash`: sfondo wash per hover su bottoni minimali. */
+  /* Project tokens.
+     - `--aig-elevated-bg`: cards, popovers, dialogs, previews, tooltips:
+       slips of paper sitting on the grid (white in light, raised slate
+       in dark).
+     - `--aig-elevated-bg-warm`: the quieter slip used by `:::note`
+       (name kept for compatibility, it is no longer warm).
+     - `--aig-caution-*` / `--aig-danger-*` / `--aig-success-*`: asides
+       and component variants. Caution = highlighter, danger = red pen,
+       success = green "bravo".
+     - `--aig-shadow-color`: rgb triplet for `rgba(...)` shadows. Use it
+       only through `--aig-shadow-hard`: no soft drop shadows.
+     - `--aig-scrim`: backdrop of modal `<dialog>`s.
+     - `--aig-hover-wash`: highlighter wash on ghost / minimal buttons.
+     - `--aig-on-accent`: text on biro fills (primary buttons, user chat
+       bubble). `--aig-accent-hover`: hover fill of those buttons. */
   --aig-elevated-bg: #ffffff;
-  /* Testo e hover sui riempimenti corallo (bottoni primari): indigo su corallo 4,9:1, hover più chiaro 6,3:1. */
-  --aig-on-accent: #2a2447;
-  --aig-accent-hover: #ea9580;
-  --aig-elevated-bg-warm: #fffaf1;
-  --aig-caution-bg: #fbe9c0;
-  --aig-caution-border: #d4a248;
-  --aig-caution-text: #8a5a18;
-  --aig-danger-bg: #f7c8bc;
-  --aig-danger-border: #b5483a;
-  --aig-danger-text: #8a2f1a;
-  --aig-success-bg: #e5efd9;
-  --aig-success-border: #7aa374;
-  --aig-success-text: #3f6b3a;
-  --aig-shadow-color: 42, 36, 71;
-  --aig-scrim: rgba(42, 36, 71, 0.45);
-  --aig-hover-wash: rgba(42, 36, 71, 0.04);
-  /* Switch track "off": deve contrastare sia col bg della pagina
-     sia con `--aig-elevated-bg` (bianco in light) così il controllo
-     resta visibile dentro i popover. */
-  --aig-switch-track-off: #d8c9b0;
+  --aig-elevated-bg-warm: #fcfcfa;
+  --aig-on-accent: #f7f8f4; /* paper on biro 9.7:1 */
+  --aig-accent-hover: #162c6b; /* paper on hover 12.3:1 */
+  --aig-caution-bg: #fbf3b0;
+  --aig-caution-border: #8a6d00;
+  --aig-caution-text: #6b5400;
+  --aig-danger-bg: #fce8ea;
+  --aig-danger-border: #b3122a;
+  --aig-danger-text: #b3122a;
+  --aig-success-bg: #e4f1e7;
+  --aig-success-border: #2d6e45;
+  --aig-success-text: #2d6e45;
+  --aig-shadow-color: 35, 39, 46;
+  --aig-shadow-hard: 3px 3px 0 rgba(var(--aig-shadow-color), 0.18);
+  --aig-scrim: rgba(35, 39, 46, 0.45);
+  --aig-hover-wash: rgba(245, 230, 99, 0.4);
+  /* Switch "off" track: >= 3:1 against both the page and white slips. */
+  --aig-switch-track-off: #7F8893;
   --aig-switch-thumb: #ffffff;
-  /* Code block inside AI chat bubbles: deep indigo bg + cream text. */
-  --aig-code-bg: #2a2447;
-  --aig-code-text: #f3e5d0;
+  /* Code block inside AI chat bubbles: a small piece of blackboard. */
+  --aig-code-bg: #1f2b27;
+  --aig-code-text: #ecede6;
+
+  /* Quaderno signature tokens. */
+  --aig-ink: #1e3a8a; /* biro: practice variant, primary ink */
+  --aig-red-pen: #b3122a; /* review / check-in / errors */
+  --aig-green-ok: #2d6e45; /* success, ticks */
+  --aig-highlighter: #f5e663; /* background mark only, never a text colour */
+  --aig-highlighter-wash: rgba(245, 230, 99, 0.6); /* link hover */
+  --aig-on-highlighter: #16191e;
+  --aig-heading: #1e3a8a; /* heading ink */
+  --aig-grid-line: #dce4ec;
+  --aig-margin-line: #eba9b1;
+  /* The highlighter swipe as an image, so its edges can be irregular.
+     Stretched with preserveAspectRatio="none" over any box. Light: opaque
+     yellow behind graphite text. */
+  --aig-highlight-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M2 5.2C14 3.6 31 4.8 47 3.9S82 4.4 97.6 3.4C98.9 7 99.4 12 98.4 16.2C83 17.3 66 15.9 50 16.8S17 16.4 1.6 17.2C.7 13 .9 8.6 2 5.2Z' fill='%23F5E663' fill-opacity='.92'/%3E%3Cpath d='M3 5C30 4.2 64 3.8 97 3.6L97.4 6.6C64 6.8 30 7.2 3.2 7.8Z' fill='%23E8D84A' fill-opacity='.35'/%3E%3C/svg%3E");
 
   color-scheme: light;
 }
 
 /* ------------------------------------------------------------
-   Palette · Dark (warm dark)
-   Sfondo cioccolato (#1C130D), testo crema (#F3E5D0), coral
-   brillante per i link (#F29A82). Le coppie Gray 1..7 si
-   invertono: in dark `gray-1` è il testo più contrastato (crema),
-   `gray-7` è lo sfondo più profondo. Stessa convenzione di
-   Starlight, così i componenti già scritti contro `gray-*`
-   continuano a dare senso.
+   Palette: Dark (lavagna)
+   Slate #1F2B27, chalk text #ECEDE6, chalk-blue accent #A9C1F2.
+   Gray 1..7 invert as in Starlight: gray-1 is the brightest chalk,
+   gray-7 the deepest slate.
    ------------------------------------------------------------ */
 :root[data-theme='dark'] {
   /* Background */
-  --sl-color-bg: #1c130d;
-  --sl-color-bg-nav: #1c130d;
-  --sl-color-bg-sidebar: #1c130d;
-  --sl-color-bg-inline-code: #3a2a1e;
-  --sl-color-bg-accent: #e07a5f;
+  --sl-color-bg: #1f2b27;
+  --sl-color-bg-nav: #1f2b27;
+  --sl-color-bg-sidebar: #1f2b27;
+  --sl-color-bg-inline-code: #2e3f38;
+  --sl-color-bg-accent: #a9c1f2;
 
   /* Text */
-  --sl-color-text: #f3e5d0;
-  /* Link nel corpo: coral brillante per contrasto AAA su cioccolato. */
-  --sl-color-text-accent: #f29a82;
-  /* Testo su bottoni coral primari: resta cioccolato scuro (il coral
-     è lo stesso in entrambi i temi, quindi il testo sopra di esso
-     non cambia). */
-  --sl-color-text-invert: #1c130d;
+  --sl-color-text: #ecede6;
+  --sl-color-text-accent: #a9c1f2;
+  --sl-color-text-invert: #1f2b27;
 
-  /* Vedi nota sopra: `white` = strong text, `black` = light bg. */
-  --sl-color-white: #f3e5d0;
-  --sl-color-black: #2a1d14;
+  /* See note above: `white` = strong text, `black` = raised bg. */
+  --sl-color-white: #fafaf5;
+  --sl-color-black: #27362f;
 
-  /* Accent (coral). Low = coral scuro per wash. High = coral brillante
-     per hover (su dark la direzione "più chiaro" funziona meglio di
-     "più scuro"). */
-  --sl-color-accent: #e07a5f;
-  --sl-color-accent-low: #5a3025;
-  --sl-color-accent-high: #f29a82;
+  /* Accent (chalk blue). Low = deep blue-slate wash, high = lighter
+     chalk for text on accent-low and hover. */
+  --sl-color-accent: #a9c1f2;
+  --sl-color-accent-low: #2e3e55;
+  --sl-color-accent-high: #d6e2fa;
 
-  /* Scala di grigi invertita, tinta warm (non neutra). */
-  --sl-color-gray-1: #f3e5d0;
-  --sl-color-gray-2: #d9c4a8;
-  --sl-color-gray-3: #b89a82;
-  --sl-color-gray-4: #7a6452;
-  --sl-color-gray-5: #3d2d22;
-  --sl-color-gray-6: #2a1d14;
-  --sl-color-gray-7: #1c130d;
+  /* Inverted gray scale, slate-tinted. */
+  --sl-color-gray-1: #fafaf5;
+  --sl-color-gray-2: #ecede6;
+  --sl-color-gray-3: #9aa79f;
+  --sl-color-gray-4: #6b7a72;
+  --sl-color-gray-5: #3b4c45;
+  --sl-color-gray-6: #24312c;
+  --sl-color-gray-7: #1f2b27;
 
-  /* Hairlines / bordi: bump verso 2.5:1 contro il bg per garantire
-     che le card si separino visibilmente anche senza shadow forte. */
-  --sl-color-hairline: #6b5140;
-  --sl-color-hairline-light: #4a382b;
-  --sl-color-hairline-shade: #8a6a4e;
+  /* Hairlines / borders */
+  --sl-color-hairline: #3b4c45;
+  --sl-color-hairline-light: #33433c;
+  --sl-color-hairline-shade: #4e6158;
 
-  /* Token custom del progetto (dark).
-     Elevazione: bg cioccolato più chiaro del page bg (1.4:1), così
-     card e popover si staccano senza dipendere dall'ombra (nera su
-     cioccolato è poco visibile). */
-  --aig-elevated-bg: #3a2a1e;
-  --aig-on-accent: #1c130d;
-  --aig-accent-hover: #f29a82;
-  --aig-elevated-bg-warm: #402e20;
-  --aig-caution-bg: #3a2a15;
-  --aig-caution-border: #a77a2b;
-  --aig-caution-text: #f0c775;
-  --aig-danger-bg: #3d1f15;
-  --aig-danger-border: #c26048;
-  --aig-danger-text: #f2a28e;
-  --aig-success-bg: #2a3923;
-  --aig-success-border: #7a9a6e;
-  --aig-success-text: #b8d2a8;
+  /* Project tokens (dark). Elevation is a lighter slate: slips
+     separate from the board by tone and border, not by shadow. */
+  --aig-elevated-bg: #27362f;
+  --aig-elevated-bg-warm: #26332e;
+  --aig-on-accent: #1f2b27; /* slate on chalk blue 8.1:1 */
+  --aig-accent-hover: #c9d8f7; /* slate on hover 10.2:1 */
+  --aig-caution-bg: #33372a;
+  --aig-caution-border: #c9b654;
+  --aig-caution-text: #f2e38a;
+  --aig-danger-bg: #3a2d2e;
+  --aig-danger-border: #f29c9c;
+  --aig-danger-text: #f29c9c;
+  --aig-success-bg: #26392e;
+  --aig-success-border: #a8d5a2;
+  --aig-success-text: #a8d5a2;
   --aig-shadow-color: 0, 0, 0;
-  --aig-scrim: rgba(0, 0, 0, 0.65);
-  --aig-hover-wash: rgba(243, 229, 208, 0.06);
-  /* Switch: track muted warm brown (più chiara di elevated-bg così
-     stacca), thumb cream (come il testo) per stare leggibile. */
-  --aig-switch-track-off: #7a6452;
-  --aig-switch-thumb: #f3e5d0;
-  /* Code block inside AI chat bubbles: slightly lighter indigo so it
-     reads as distinct from the chocolate page bg. */
-  --aig-code-bg: #322a40;
-  --aig-code-text: #f3e5d0;
+  /* Black at .18 vanishes on slate: stronger alpha in dark. */
+  --aig-shadow-hard: 3px 3px 0 rgba(var(--aig-shadow-color), 0.4);
+  --aig-scrim: rgba(12, 18, 16, 0.7);
+  --aig-hover-wash: rgba(242, 227, 138, 0.12);
+  --aig-switch-track-off: #7c8c84;
+  --aig-switch-thumb: #ecede6;
+  --aig-code-bg: #16201d;
+  --aig-code-text: #ecede6;
+
+  /* Coloured chalks. */
+  --aig-ink: #a9c1f2;
+  --aig-red-pen: #f29c9c;
+  --aig-green-ok: #a8d5a2;
+  --aig-highlighter: #f2e38a;
+  --aig-highlighter-wash: rgba(242, 227, 138, 0.14);
+  --aig-on-highlighter: #1f2b27; /* only on the opaque chalk yellow */
+  --aig-heading: #fafaf5;
+  --aig-grid-line: transparent;
+  --aig-margin-line: rgba(236, 237, 230, 0.16);
+  /* Yellow chalk: a dense lower band (.65 over slate). Chalk text on
+     it would only reach 2.5:1, so in dark every swipe is sized to sit
+     under the baseline (see "Dark: chalk band" below); only
+     descenders cross it. */
+  --aig-highlight-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M2 5.2C14 3.6 31 4.8 47 3.9S82 4.4 97.6 3.4C98.9 7 99.4 12 98.4 16.2C83 17.3 66 15.9 50 16.8S17 16.4 1.6 17.2C.7 13 .9 8.6 2 5.2Z' fill='%23F2E38A' fill-opacity='.65'/%3E%3C/svg%3E");
 
   color-scheme: dark;
 }
 
-/* Outfit beneficia di un tracking leggermente stretto sui titoli */
+/* ------------------------------------------------------------
+   The page: squared paper (light), slate with one chalk smudge
+   (dark). Header and sidebar keep their plain backgrounds.
+   ------------------------------------------------------------ */
+body {
+  background-image:
+    linear-gradient(var(--aig-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--aig-grid-line) 1px, transparent 1px);
+  background-size: var(--aig-grid-pitch) var(--aig-grid-pitch);
+  background-position: -1px -1px;
+}
+
+:root[data-theme='dark'] body {
+  background-image: radial-gradient(
+    ellipse 70% 55% at 62% 28%,
+    rgba(236, 237, 230, 0.035),
+    transparent 70%
+  );
+  background-size: auto;
+  background-position: 0 0;
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: var(--aig-highlighter);
+  color: var(--aig-on-highlighter);
+}
+:root[data-theme='dark'] ::selection {
+  background-color: rgba(242, 227, 138, 0.35);
+  color: var(--sl-color-white);
+}
+
+/* Focus: always visible, ink outline with offset. */
+:focus-visible {
+  outline: 2px solid var(--sl-color-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   Notebook margin: a vertical rule on the left of the lesson
+   column, desktop only. Two segments that join into one line:
+   - title panel: from the panel's top edge to its bottom edge;
+   - body panel: from the panel's top edge (over the hairline that
+     separates the panels) to the end of the lesson text, so it
+     stops before the footer (share row, pagination).
+   `display: flow-root` keeps children's margins (e.g. the
+   LessonSummary's margin-top) inside the containers: without it they
+   collapse outward, push the container down and open a gap in the
+   line. Panels have 1.5rem block padding (Starlight ContentPanel).
+   ------------------------------------------------------------ */
+@media (min-width: 50rem) {
+  :root:not([data-has-hero]) main .content-panel > .sl-container {
+    display: flow-root;
+    position: relative;
+    padding-inline-start: 1.75rem;
+  }
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container
+    > .sl-markdown-content {
+    display: flow-root;
+    position: relative;
+  }
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container:has(> h1#_top)::before,
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container
+    > .sl-markdown-content::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: var(--aig-margin-line);
+    pointer-events: none;
+  }
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container:has(> h1#_top)::before {
+    inset-block: -1.5rem;
+    inset-inline-start: 0;
+  }
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container
+    > .sl-markdown-content::before {
+    /* 1.5rem panel padding + the 1px panel border-top. */
+    top: calc(-1.5rem - 1px);
+    bottom: 0;
+    inset-inline-start: -1.75rem;
+  }
+}
+
+@media print {
+  :root:not([data-has-hero])
+    main
+    .content-panel
+    > .sl-container
+    > .sl-markdown-content::before {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Highlighter swipe: reusable utilities
+   - `.aig-highlight`: swipe under the lower part of the text
+     (inline elements; follows line breaks).
+   - `.aig-highlight--full`: covers the whole line height, like
+     highlighting a line in a book.
+   - `.aig-highlight--draw`: draws the swipe left to right once.
+     Static under `prefers-reduced-motion: reduce`.
+   - `.aig-hand`: the handwritten voice (Shantell Sans).
+   ------------------------------------------------------------ */
+.aig-highlight {
+  --aig-hl-size: 45%;
+  background-image: var(--aig-highlight-stroke);
+  background-repeat: no-repeat;
+  background-position: 0 90%;
+  background-size: 100% var(--aig-hl-size);
+  padding-inline: 0.1em;
+}
+.aig-highlight--full {
+  --aig-hl-size: 88%;
+  background-position: 0 55%;
+}
+.aig-highlight--draw {
+  animation: aig-highlight-draw 600ms cubic-bezier(0.22, 0.61, 0.36, 1) 150ms
+    both;
+}
+.aig-hand {
+  font-family: var(--aig-font-hand);
+}
+
+@keyframes aig-highlight-draw {
+  from {
+    background-size: 0% var(--aig-hl-size, 45%);
+  }
+  to {
+    background-size: 100% var(--aig-hl-size, 45%);
+  }
+}
+
+/* ------------------------------------------------------------
+   Headings
+   ------------------------------------------------------------ */
 .sl-markdown-content :is(h1, h2, h3, h4) {
-  font-weight: 700;
-  letter-spacing: -0.005em;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  color: var(--aig-heading);
 }
 .sl-markdown-content :is(h2, h3) {
   margin-top: 2.2em;
 }
 
-/* Body più ariose */
+/* Page title: written on the page like a notebook title, with the
+   highlighter swipe under its lower part, drawn once on load.
+   `display: inline` lets the swipe follow each line of a long title
+   and draw across them in reading order. Not on the splash hero. */
+:root:not([data-has-hero]) main h1#_top {
+  --aig-hl-size: 42%;
+  display: inline;
+  font-family: var(--aig-font-hand);
+  font-weight: 600;
+  font-size: var(--sl-text-h1);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--aig-heading);
+  background-image: var(--aig-highlight-stroke);
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% var(--aig-hl-size);
+  padding-inline: 0.12em;
+  margin-inline-start: -0.12em;
+  animation: aig-highlight-draw 600ms cubic-bezier(0.22, 0.61, 0.36, 1) 150ms
+    both;
+}
+/* The inline title loses Starlight's block margin-top: restore it. */
+:root:not([data-has-hero]) main .sl-container:has(> h1#_top) {
+  padding-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-has-hero]) main h1#_top,
+  .aig-highlight--draw {
+    animation: none;
+  }
+}
+
+/* Body text */
 .sl-markdown-content p,
 .sl-markdown-content li {
-  line-height: 1.7;
+  line-height: 1.6;
 }
 .sl-markdown-content p + p:not(:where(.not-content, .not-content *)) {
   margin-top: 0.9em;
 }
 
-/* Link nel corpo testo: coral discreto, sottolineatura sempre attiva */
+/* Links in body text: biro, always underlined; hover = highlighter. */
 .sl-markdown-content a:not(:where(.not-content, .not-content *)) {
   color: var(--sl-color-text-accent);
-  text-decoration-color: var(--sl-color-accent-low);
-  text-underline-offset: 3px;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+  text-underline-offset: 0.2em;
   text-decoration-thickness: 1.5px;
+  border-radius: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .sl-markdown-content a:not(:where(.not-content, .not-content *)):hover {
-  text-decoration-color: var(--sl-color-accent);
+  background-color: var(--aig-highlighter-wash);
+  text-decoration-color: currentColor;
 }
 
-/* Inline code: warm bg, indigo text */
+/* Inline code: pale grid-blue chip, graphite text. */
 .sl-markdown-content :not(pre) > code {
   background: var(--sl-color-bg-inline-code);
   color: var(--sl-color-text);
-  border-radius: 0.35rem;
+  border-radius: 4px;
   padding: 0.12em 0.4em;
   font-size: 0.92em;
 }
 
-/* Bordi più morbidi sulle card / box */
+/* Code blocks (Expressive Code): slip of paper with the slip border.
+   Colours already come from Starlight's gray/accent tokens. */
+.expressive-code {
+  --ec-brdRad: var(--aig-radius);
+  --ec-brdCol: var(--sl-color-hairline-shade);
+  --ec-brdWd: var(--aig-border-width);
+}
+
+/* Blockquote: a pencil note in the margin of the text. */
+.sl-markdown-content blockquote:not(:where(.not-content *)) {
+  border-inline-start: 3px solid var(--sl-color-gray-4);
+  padding-inline-start: 1rem;
+  color: var(--sl-color-text);
+}
+
+/* Tables: white slip over the grid, ink-wash header row. */
+.sl-markdown-content table:not(:where(.not-content *)) {
+  border-collapse: collapse;
+  background-color: var(--aig-elevated-bg);
+}
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+  border: 1px solid var(--sl-color-hairline);
+}
+.sl-markdown-content th:not(:where(.not-content *)) {
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+  font-weight: 700;
+}
+
+/* Cards: slips of paper, small radius, no shadow. */
 .sl-card,
 .card,
 :where(starlight-card-grid, .sl-link-card) {
-  border-radius: 1rem;
-  border-color: var(--sl-color-hairline);
+  border-radius: var(--aig-radius);
+  border-color: var(--sl-color-hairline-shade);
 }
 
 /* ------------------------------------------------------------
-   Callout (asides di Starlight)
-   Le quattro varianti di default usano colori "semaforo"
-   (blu/viola/arancio/rosso) che stridono con la palette Pastello.
-   Le rimappiamo su toni warm coordinati via `--aig-*`, così la
-   modalità dark può ridefinirli in blocco.
+   Asides (Starlight callouts)
+   Slips of paper with a coloured left edge, in the pen colour of
+   their meaning, remapped through `--aig-*` so dark mode can
+   redefine them as a block.
    ------------------------------------------------------------ */
 .starlight-aside {
-  border-radius: 0.75rem;
+  border: var(--aig-border-width) solid var(--sl-color-asides-border);
+  border-inline-start-width: 0.3rem;
+  border-radius: var(--aig-radius);
 }
 
-/* `:::tip` -> coral, l'accento del sito. Per i suggerimenti positivi. */
+/* `:::tip` -> biro ink, the site accent. */
 .starlight-aside--tip {
-  --sl-color-asides-text-accent: var(--sl-color-accent-high);
+  --sl-color-asides-text-accent: var(--sl-color-text-accent);
   --sl-color-asides-border: var(--sl-color-accent);
   background-color: var(--aig-elevated-bg);
 }
 
-/* `:::note` -> neutro warm. Per informazioni di contesto. */
+/* `:::note` -> pencil, neutral. Context information. */
 .starlight-aside--note {
-  --sl-color-asides-text-accent: var(--sl-color-text);
+  --sl-color-asides-text-accent: var(--sl-color-white);
   --sl-color-asides-border: var(--sl-color-gray-4);
   background-color: var(--aig-elevated-bg-warm);
 }
 
-/* `:::caution` -> ocra. Per attirare l'attenzione su un dettaglio. */
+/* `:::caution` -> highlighter. Draws attention to a detail. */
 .starlight-aside--caution {
   --sl-color-asides-text-accent: var(--aig-caution-text);
   --sl-color-asides-border: var(--aig-caution-border);
   background-color: var(--aig-caution-bg);
 }
 
-/* `:::danger` -> coral scuro. Per errori comuni o cose da non fare. */
+/* `:::danger` -> red pen. Common mistakes, things not to do. */
 .starlight-aside--danger {
   --sl-color-asides-text-accent: var(--aig-danger-text);
   --sl-color-asides-border: var(--aig-danger-border);
   background-color: var(--aig-danger-bg);
 }
 
-/* Variante "verde" custom: avvolgere un `:::note` in un
-   `<div class="aig-success-wrap">...</div>` per ribattezzarlo come
-   livello "ok / safe", visivamente distinto dal giallo (caution) e
-   dal rosso (danger). Usato per esempio nella mappa
-   rosso/giallo/verde di "Privacy e dati aziendali". Starlight non
-   espone una variante `success` nativa, e i quattro tipi di aside
-   (note/tip/caution/danger) sono fissati nel core: il wrapper +
-   override è la via più leggera per non duplicare il markup
-   dell'aside. */
+/* Custom green variant: wrap a `:::note` in
+   `<div class="aig-success-wrap">...</div>` to turn it into an
+   "ok / safe" level, distinct from caution (yellow) and danger
+   (red). Used for example in the red/yellow/green map of "Privacy
+   and company data". Starlight has no native `success` aside and
+   the four aside types are fixed in core: wrapper + override is the
+   lightest way to avoid duplicating the aside markup. */
 .aig-success-wrap .starlight-aside--note {
   --sl-color-asides-text-accent: var(--aig-success-text);
   --sl-color-asides-border: var(--aig-success-border);
@@ -315,13 +562,61 @@
 }
 
 /* ------------------------------------------------------------
-   Sidebar: checkmark accanto alle lezioni "completate"
-   La classe `lesson-completed` viene aggiunta da `src/scripts/progress.ts`
-   ai link del sidebar che puntano a pagine con `read: true` in localStorage
-   (>= 15s sulla pagina + scroll all'80%). Il segno usa il colore del link
-   stesso (`color: inherit`) per stare in tono col resto del sidebar e
-   seguire le varianti di stato (hover, current page).
+   Sidebar
    ------------------------------------------------------------ */
+
+/* Current page: the highlighter swipe across the label, strong
+   graphite (chalk in dark) text, no filled pill. Overrides
+   Starlight's accent-filled `[aria-current='page']`. */
+nav.sidebar a[aria-current='page'],
+nav.sidebar a[aria-current='page']:hover,
+nav.sidebar a[aria-current='page']:focus {
+  color: var(--sl-color-white);
+  background-color: transparent;
+  background-image: var(--aig-highlight-stroke);
+  background-repeat: no-repeat;
+  background-position: 0 55%;
+  background-size: 100% 86%;
+  font-weight: 650;
+}
+
+/* ------------------------------------------------------------
+   Dark: chalk band
+   In dark the swipe is a dense chalk-yellow band (.65) under the
+   baseline instead of a translucent wash behind the letters, which
+   reads muddy olive on slate. Chalk text on the band would be 2.5:1,
+   so the band stays below the glyphs: only descenders cross it.
+   `--full` behaves like the lower band here.
+   ------------------------------------------------------------ */
+:root[data-theme='dark'] :is(.aig-highlight, .aig-highlight--full) {
+  --aig-hl-size: 24%;
+  background-position: 0 100%;
+}
+:root[data-theme='dark']:not([data-has-hero]) main h1#_top {
+  --aig-hl-size: 24%;
+  background-position: 0 100%;
+}
+:root[data-theme='dark'] nav.sidebar a[aria-current='page'],
+:root[data-theme='dark'] nav.sidebar a[aria-current='page']:hover,
+:root[data-theme='dark'] nav.sidebar a[aria-current='page']:focus {
+  /* `a` is display:block with 0.3em block padding and line-height
+     1.4: the last line's baseline sits ~0.7em above the box bottom. */
+  background-position: 0 calc(100% - 0.2em);
+  background-size: 100% 0.4em;
+}
+/* Hover swipes set inside components (Header site title, HomeCards
+   card title) size the stroke at 45%: pull them under the baseline
+   too in dark. */
+:root[data-theme='dark'] .title-wrapper .site-title:hover,
+:root[data-theme='dark'] a.home-card:hover .home-card-title {
+  background-position: 0 100%;
+  background-size: 100% 24%;
+}
+
+/* Checkmark next to "completed" lessons.
+   `lesson-completed` is added by `src/scripts/progress.ts` to sidebar
+   links whose page has `read: true` in localStorage (>= 15s on the
+   page + 80% scroll). A hand-drawn tick in "bravo" green. */
 nav.sidebar a.lesson-completed {
   position: relative;
   padding-inline-end: 1.5rem;
@@ -329,9 +624,10 @@ nav.sidebar a.lesson-completed {
 
 nav.sidebar a.lesson-completed::after {
   content: '✓';
-  color: inherit;
+  font-family: var(--aig-font-hand);
+  color: var(--aig-green-ok);
   font-weight: 700;
-  font-size: 0.95em;
+  font-size: 1.05em;
   position: absolute;
   right: 0.5rem;
   top: 50%;
@@ -341,22 +637,24 @@ nav.sidebar a.lesson-completed::after {
 }
 
 /* ------------------------------------------------------------
-   Splash hero (landing): tipografia più grande, CTA pill
+   Splash hero (landing)
    ------------------------------------------------------------ */
 
-/* Lo splash hero di Starlight ha `padding-block: clamp(2.5rem, ..., 10rem)`,
-   che su desktop diventa ~150px in basso. Quando subito sotto c'è
-   contenuto (HomeCards), il salto è eccessivo. Riduciamo il padding-bottom
-   tenendo il top generoso. */
+/* Starlight's splash hero has `padding-block: clamp(2.5rem, ..., 10rem)`,
+   about 150px at the bottom on desktop. With content right below it
+   (HomeCards) the gap is too large: shrink padding-bottom, keep the
+   generous top. */
 .hero {
   padding-bottom: clamp(1.25rem, 3vmin, 2.5rem);
 }
 
 .hero h1 {
   font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 780;
   letter-spacing: -0.01em;
   line-height: 1.15;
   max-width: 22ch;
+  color: var(--aig-heading);
 }
 
 .hero .tagline {
@@ -367,26 +665,28 @@ nav.sidebar a.lesson-completed::after {
 }
 
 .hero .actions .sl-link-button {
-  border-radius: 999px;
+  border-radius: var(--aig-radius);
   padding: 0.8rem 1.5rem;
-  font-weight: 500;
+  font-weight: 650;
 }
 
+/* Primary: biro fill, paper text. */
 .hero .actions .sl-link-button.primary {
   background: var(--sl-color-accent);
   color: var(--aig-on-accent);
-  border-color: var(--sl-color-accent);
+  border: var(--aig-border-width) solid var(--sl-color-accent);
 }
 
 .hero .actions .sl-link-button.primary:hover {
   background: var(--aig-accent-hover);
-  border-color: var(--sl-color-accent-high);
+  border-color: var(--aig-accent-hover);
 }
 
+/* Secondary: transparent with a biro border, highlighter on hover. */
 .hero .actions .sl-link-button.minimal {
-  color: var(--sl-color-text);
+  color: var(--sl-color-text-accent);
   background: transparent;
-  border: 1px solid var(--sl-color-hairline);
+  border: var(--aig-border-width) solid var(--sl-color-accent);
 }
 
 .hero .actions .sl-link-button.minimal:hover {
@@ -394,9 +694,9 @@ nav.sidebar a.lesson-completed::after {
 }
 
 /* ------------------------------------------------------------
-   About hero (pagina /about/): foto + nome + tagline in un blocco
-   compatto sopra il body. La classe vive globalmente perché la
-   pagina è MDX puro (niente <style> scoped disponibile in MDX).
+   About hero (/about/ page): photo + name + tagline in a compact
+   block above the body. The class is global because the page is
+   pure MDX (no scoped <style> available in MDX).
    ------------------------------------------------------------ */
 .about-hero {
   display: flex;
@@ -405,11 +705,8 @@ nav.sidebar a.lesson-completed::after {
   margin: 1.25rem 0 2rem;
   padding: 1.1rem 1.25rem;
   background: var(--aig-elevated-bg);
-  border: 1px solid var(--sl-color-hairline);
-  border-radius: 1rem;
-  box-shadow:
-    0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-    0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+  border-radius: var(--aig-radius);
 }
 
 .about-hero__avatar {
@@ -431,8 +728,8 @@ nav.sidebar a.lesson-completed::after {
 .about-hero__name {
   margin: 0;
   font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--sl-color-text);
+  font-weight: 760;
+  color: var(--aig-heading);
   line-height: 1.3;
 }
 
@@ -456,8 +753,8 @@ nav.sidebar a.lesson-completed::after {
 }
 
 /* ------------------------------------------------------------
-   Header: search ridotto a icona (il pubblico non-tech non usa
-   scorciatoie da tastiera né cerca "Cerca" scritto sul bottone).
+   Header: search reduced to an icon (the non-tech audience does not
+   use keyboard shortcuts or look for "Search" written on a button).
    ------------------------------------------------------------ */
 site-search button[data-open-modal] > span,
 site-search button[data-open-modal] > kbd {
@@ -471,36 +768,34 @@ site-search button[data-open-modal] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  border: 1px solid var(--sl-color-hairline);
+  border-radius: var(--aig-radius);
+  border: var(--aig-border-width) solid var(--sl-color-hairline);
   background: transparent;
   color: var(--sl-color-text);
 }
 
 site-search button[data-open-modal]:hover {
-  background: var(--sl-color-accent-low);
-  border-color: var(--sl-color-accent-low);
-  color: var(--sl-color-text);
+  background: var(--aig-hover-wash);
+  border-color: var(--sl-color-hairline-shade);
+  color: var(--sl-color-white);
 }
 
-/* Nota: gli stili interni del modale di ricerca (input, Clear,
-   risultati, sub-risultati, highlight) vivono in
-   `src/components/Search.astro` insieme al markup e allo script.
-   Lì sostituiamo PagefindUI con un componente custom basato
-   sull'API core di Pagefind, così abbiamo controllo completo del
-   DOM senza dover combattere classi `.svelte-XXXX` scoped. */
+/* Note: the inner styles of the search modal (input, Clear, results,
+   sub-results, highlight) live in `src/components/Search.astro` with
+   the markup and the script. There PagefindUI is replaced by a custom
+   component built on Pagefind's core API, so we fully control the DOM
+   without fighting scoped `.svelte-XXXX` classes. */
 
 /* ------------------------------------------------------------
-   Mobile: stacco fra search/preferenze e hamburger.
+   Mobile: space between search/preferences and the hamburger.
 
-   Le pagine lezione hanno sidebar, quindi su mobile compare il
-   bottone hamburger di Starlight in alto a destra. Il padding di
-   default dell'header lascia ~16px di spazio fra la nostra icona
-   "Preferenze" e l'hamburger: troppo poco su display stretti.
-   Allarghiamo il padding-end del wrapper `<header>` per respirare.
+   Lesson pages have a sidebar, so on mobile Starlight shows the
+   hamburger button top right. The default header padding leaves
+   ~16px between our "Preferences" icon and the hamburger: too little
+   on narrow screens. Widen the padding-end of the `<header>` wrapper.
 
-   Selettore: `header.header` (l'elemento <header>) per colpire il
-   wrapper PageFrame, non il `<div class="header">` di Header.astro.
+   Selector: `header.header` (the <header> element) to hit the
+   PageFrame wrapper, not the `<div class="header">` of Header.astro.
    ------------------------------------------------------------ */
 @media (max-width: 49.999rem) {
   [data-has-sidebar] header.header {
@@ -512,12 +807,13 @@ site-search button[data-open-modal]:hover {
 }
 
 /* ------------------------------------------------------------
-   Mobile polish difensivo
+   Mobile polish
    ------------------------------------------------------------ */
 @media (max-width: 640px) {
   :root {
-    /* Abbassa leggermente l'h1 hero, Outfit grande occupa troppo */
-    --sl-text-h1: 2rem;
+    /* The handwritten title is wide: scale it down on phones. */
+    --sl-text-h1: 2.1rem;
+    --sl-text-h2: 1.55rem;
   }
   .hero h1 {
     font-size: clamp(1.8rem, 7vw, 2.2rem);
@@ -536,10 +832,11 @@ site-search button[data-open-modal]:hover {
 }
 
 /* ------------------------------------------------------------
-   Sidebar: voci disabilitate (lezioni previste ma non ancora scritte)
+   Sidebar: disabled entries (planned lessons not written yet)
    ------------------------------------------------------------
-   Usata nel sidebar di `astro.config.mjs` con `attrs: { 'aria-disabled': 'true', tabindex: -1 }`
-   sulle voci che non hanno ancora una pagina pubblicata. */
+   Used in the `astro.config.mjs` sidebar with
+   `attrs: { 'aria-disabled': 'true', tabindex: -1 }` on entries that
+   have no published page yet. */
 
 a[aria-disabled='true'] {
   pointer-events: none;
@@ -547,13 +844,11 @@ a[aria-disabled='true'] {
   cursor: default;
 }
 
-/* Starlight monta il link come `<a><span>label</span><Badge /></a>` con
-   `<a>` display:block: quando la label è lunga (es. "L'IA come collega
-   che ti aiuta a pensare") il badge finisce su una riga propria perché
-   non entra in coda all'ultima parola. Facciamo del link disabilitato
-   un flex container: la label occupa lo spazio residuo e si spezza su
-   più righe se serve, il badge resta inline a destra, centrato
-   verticalmente, su singola riga. */
+/* Starlight renders the link as `<a><span>label</span><Badge /></a>`
+   with `<a>` display:block: with a long label the badge wraps onto its
+   own line. Make the disabled link a flex container: the label takes
+   the remaining space and wraps if needed, the badge stays inline on
+   the right, vertically centred, on one line. */
 nav.sidebar a[aria-disabled='true'] {
   display: flex;
   align-items: center;
@@ -570,17 +865,24 @@ nav.sidebar a[aria-disabled='true'] .sl-badge {
   white-space: nowrap;
   font-size: 0.7rem;
   padding: 0.05rem 0.4rem;
-  margin-inline-start: 0; /* gap gestisce la distanza */
+  margin-inline-start: 0; /* the gap handles spacing */
 }
 
-/* La TOC laterale destra è rimossa in tutto il sito (PageSidebar override
-   vuoto), ma Starlight tiene comunque il contenitore `.right-sidebar`
-   `position: fixed` che, su viewport larghi, copre l'angolo in basso a
-   destra e intercetta i click sul launcher flottante dell'assistente IA
-   (`.lai-launcher`) e sul pannello aperto. Il launcher non può uscire dal
-   suo stacking context con il solo z-index, quindi rendiamo il contenitore
-   vuoto trasparente ai puntatori. `pointer-events` è ereditato, così copre
-   tutto il sottoalbero (che è comunque vuoto). */
+/* The right-hand TOC is removed site-wide (empty PageSidebar
+   override), but Starlight still keeps the `position: fixed`
+   `.right-sidebar` container, which on wide viewports covers the
+   bottom-right corner and swallows clicks on the floating AI
+   assistant launcher (`.lai-launcher`) and its open panel. The
+   launcher cannot escape its stacking context with z-index alone, so
+   make the empty container transparent to pointers. `pointer-events`
+   is inherited, covering the whole (empty) subtree. */
 .right-sidebar-container {
   pointer-events: none;
+}
+
+/* Starlight draws a full-height hairline on the left of the (empty)
+   right sidebar at >= 72rem: with no TOC it reads as a stray rule
+   down the right edge of the content. Both themes. */
+.right-sidebar-container .right-sidebar {
+  border-inline-start: 0;
 }

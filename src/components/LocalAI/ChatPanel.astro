@@ -134,29 +134,28 @@ const i18n = {
   /* ---- Launcher -------------------------------------------- */
   local-ai .lai-launcher {
     position: fixed;
-    right: 1.25rem;
+    right: 0;
     bottom: 1.25rem;
     z-index: 80;
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.6rem 1rem;
-    border: 0;
-    border-radius: 999px;
+    padding: 0.6rem 0.9rem 0.6rem 1rem;
+    border: var(--aig-border-width) solid var(--sl-color-accent);
+    border-right: 0;
+    border-radius: var(--aig-radius) 0 0 var(--aig-radius);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
     font-family: var(--sl-font);
     font-size: 0.92rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow:
-      0 6px 20px rgba(var(--aig-shadow-color), 0.22),
-      0 2px 6px rgba(var(--aig-shadow-color), 0.1);
-    transition: background 0.15s ease, transform 0.15s ease;
+    box-shadow: var(--aig-shadow-hard);
+    transition: background 0.15s ease;
   }
   local-ai .lai-launcher:hover {
     background: var(--aig-accent-hover);
-    transform: translateY(-1px);
+    border-color: var(--aig-accent-hover);
   }
   local-ai .lai-launcher:focus-visible {
     outline: 2px solid var(--sl-color-accent);
@@ -175,11 +174,9 @@ const i18n = {
     display: flex;
     flex-direction: column;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 18px;
-    box-shadow:
-      0 18px 48px rgba(var(--aig-shadow-color), 0.16),
-      0 3px 10px rgba(var(--aig-shadow-color), 0.06);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     overflow: hidden;
   }
   local-ai .lai-panel[hidden] { display: none; }
@@ -190,8 +187,8 @@ const i18n = {
     align-items: center;
     gap: 0.7rem;
     padding: 0.85rem 0.9rem 0.85rem 1.1rem;
-    border-bottom: 1px solid var(--sl-color-hairline);
-    background: linear-gradient(180deg, var(--aig-elevated-bg-warm), var(--aig-elevated-bg));
+    border-bottom: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    background: var(--aig-elevated-bg-warm);
     flex-shrink: 0;
   }
 
@@ -199,7 +196,7 @@ const i18n = {
   local-ai .lai-spark {
     width: 30px;
     height: 30px;
-    border-radius: 9px;
+    border-radius: var(--aig-radius);
     background: var(--sl-color-accent-low);
     color: var(--sl-color-accent-high);
     display: grid;
@@ -227,25 +224,23 @@ const i18n = {
     margin-top: 0.05rem;
   }
 
-  /* Status dot — intentional status colors (no Pastello token for sage/muted) */
+  /* Status dot: green ink when ready, pencil grey when idle */
   local-ai .lai-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #5E8B6A;          /* sage: model cached/ready */
-    box-shadow: 0 0 0 3px #E7F0E8; /* sage-bg: subtle halo */
+    background: var(--aig-green-ok); /* model cached/ready */
     flex: none;
   }
   local-ai .lai-dot.lai-dot-idle {
-    background: #9A93AC;          /* muted: model loading/idle */
-    box-shadow: none;
+    background: var(--sl-color-gray-3); /* model loading/idle */
   }
 
   /* Icon buttons in header */
   local-ai .lai-icon-btn {
     width: 30px;
     height: 30px;
-    border-radius: 8px;
+    border-radius: var(--aig-radius);
     border: 0;
     background: transparent;
     color: var(--sl-color-text);
@@ -256,8 +251,8 @@ const i18n = {
     transition: background 0.12s, color 0.12s;
   }
   local-ai .lai-icon-btn:hover {
-    background: var(--sl-color-accent-low);
-    color: var(--sl-color-accent-high);
+    background: var(--aig-hover-wash);
+    color: var(--sl-color-text);
   }
   local-ai .lai-icon-btn:focus-visible {
     outline: 2px solid var(--sl-color-accent);
@@ -300,8 +295,9 @@ const i18n = {
   local-ai .lai-lead h3 {
     margin: 0 0 0.35rem;
     font-size: 1.12rem;
+    font-weight: 750;
     letter-spacing: -0.01em;
-    color: var(--sl-color-text);
+    color: var(--aig-heading);
   }
   local-ai .lai-lead p {
     margin: 0;
@@ -322,16 +318,17 @@ const i18n = {
     grid-template-columns: 22px 1fr;
     gap: 0.7rem;
     padding: 0.8rem 0.85rem;
-    border: 1.5px solid var(--sl-color-hairline);
-    border-radius: 12px;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     cursor: pointer;
     position: relative;
     transition: border-color 0.15s, background 0.15s;
   }
   local-ai .lai-opt:hover { border-color: var(--sl-color-accent); }
+  local-ai .lai-opt:focus-within { outline: 2px solid var(--sl-color-accent); outline-offset: 2px; }
   local-ai .lai-opt.lai-sel {
     border-color: var(--sl-color-accent);
-    background: var(--sl-color-accent-low);
+    background: var(--aig-hover-wash);
   }
 
   /* Radio circle */
@@ -377,12 +374,11 @@ const i18n = {
 
   /* "Recommended" chip */
   local-ai .lai-chip {
-    font-size: 0.62rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    padding: 0.12rem 0.45rem;
-    border-radius: 999px;
+    font-family: var(--aig-font-hand);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.05rem 0.45rem;
+    border-radius: 4px;
     background: var(--sl-color-accent-low);
     color: var(--sl-color-accent-high);
   }
@@ -396,8 +392,8 @@ const i18n = {
     font-size: 0.78rem;
     color: var(--aig-caution-text);
     background: var(--aig-caution-bg);
-    border: 1px solid var(--aig-caution-border);
-    border-radius: 8px;
+    border: var(--aig-border-width) solid var(--aig-caution-border);
+    border-radius: var(--aig-radius);
     padding: 0.4rem 0.55rem;
   }
   local-ai .lai-warn .lai-ic {
@@ -415,14 +411,14 @@ const i18n = {
   /* Buttons */
   local-ai .lai-btn {
     appearance: none;
-    border: 1px solid var(--sl-color-hairline);
-    background: var(--aig-elevated-bg);
-    color: var(--sl-color-text);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
+    background: transparent;
+    color: var(--sl-color-accent);
     font-family: var(--sl-font);
     font-weight: 600;
     font-size: 0.9rem;
     padding: 0.6rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--aig-radius);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -430,7 +426,7 @@ const i18n = {
     gap: 0.45rem;
     transition: background 0.12s, border-color 0.12s;
   }
-  local-ai .lai-btn:hover { background: var(--aig-elevated-bg-warm); }
+  local-ai .lai-btn:hover { background: var(--aig-hover-wash); }
   local-ai .lai-btn:focus-visible {
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
@@ -442,15 +438,18 @@ const i18n = {
   }
   local-ai .lai-btn.lai-primary:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
   local-ai .lai-btn.lai-block { width: 100%; }
   local-ai .lai-btn.lai-sm {
     padding: 0.38rem 0.7rem;
     font-size: 0.8rem;
-    border-radius: 8px;
+    border-radius: var(--aig-radius);
   }
-  local-ai .lai-btn.lai-danger { color: var(--aig-danger-text); }
+  local-ai .lai-btn.lai-danger {
+    color: var(--aig-danger-text);
+    border-color: var(--aig-danger-border);
+  }
   local-ai .lai-btn.lai-danger:hover { background: var(--aig-danger-bg); }
   local-ai .lai-btn:disabled { opacity: 0.5; cursor: default; }
 
@@ -488,10 +487,22 @@ const i18n = {
     height: 132px;
     display: block;
   }
-  local-ai .lai-ring .lai-track { stroke: var(--sl-color-accent-low); }
+  local-ai .lai-ring .lai-track { stroke: var(--sl-color-hairline-shade); }
+  /* Thin ink outlines on both edges of the 10-unit ring stroke (r=52 in a
+     120 viewBox, scaled to 132px: outer 125.4px, inner 103.4px). */
+  local-ai .lai-ring::before,
+  local-ai .lai-ring::after {
+    content: '';
+    position: absolute;
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  local-ai .lai-ring::before { inset: 3.3px; }
+  local-ai .lai-ring::after { inset: 14.3px; }
   local-ai .lai-ring .lai-bar {
-    stroke: var(--sl-color-accent);
-    stroke-linecap: round;
+    stroke: var(--aig-highlighter);
+    stroke-linecap: butt;
   }
   local-ai .lai-pct-wrap {
     position: absolute;
@@ -501,24 +512,23 @@ const i18n = {
   }
   local-ai .lai-pct {
     font-size: 1.7rem;
-    font-weight: 700;
+    font-weight: 750;
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--sl-color-text);
   }
   local-ai .lai-pct small {
     display: block;
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--sl-color-gray-2);
     margin-top: 0.1rem;
   }
   local-ai .lai-dl-title {
     margin: 1.2rem 0 0.35rem;
     font-size: 1.05rem;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    color: var(--aig-heading);
   }
   local-ai .lai-stage {
     margin: 0;
@@ -566,24 +576,24 @@ const i18n = {
   local-ai .lai-bubble {
     max-width: 88%;
     padding: 0.6rem 0.8rem;
-    border-radius: 14px;
+    border-radius: var(--aig-radius);
     font-size: 0.9rem;
     line-height: 1.55;
     word-break: break-word;
   }
-  /* User bubble */
+  /* User message: the reader's own writing, in biro ink */
   local-ai .lai-bubble.lai-u {
     align-self: flex-end;
-    background: var(--sl-color-accent);
-    color: var(--aig-on-accent);
-    border-bottom-right-radius: 5px;
+    background: transparent;
+    color: var(--aig-ink);
+    border: var(--aig-border-width) solid var(--aig-ink);
+    font-weight: 500;
   }
-  /* Assistant bubble */
+  /* Assistant message: printed text on paper */
   local-ai .lai-bubble.lai-a {
     align-self: flex-start;
     background: var(--aig-elevated-bg-warm);
-    border: 1px solid var(--sl-color-hairline);
-    border-bottom-left-radius: 5px;
+    border: var(--aig-border-width) solid var(--sl-color-hairline);
     white-space: pre-wrap;
   }
   local-ai .lai-bubble.lai-a p  { margin: 0 0 0.5rem; }
@@ -594,15 +604,15 @@ const i18n = {
   local-ai .lai-bubble.lai-a code {
     font-family: var(--sl-font-mono, monospace);
     font-size: 0.82em;
-    background: var(--sl-color-accent-low);
+    background: var(--sl-color-bg-inline-code);
     padding: 0.05em 0.32em;
-    border-radius: 5px;
+    border-radius: 4px;
   }
   local-ai .lai-bubble.lai-a pre {
     margin: 0.4rem 0 0.2rem;
     background: var(--aig-code-bg);
     color: var(--aig-code-text);
-    border-radius: 9px;
+    border-radius: var(--aig-radius);
     padding: 0.6rem 0.7rem;
     overflow-x: auto;
   }
@@ -621,15 +631,14 @@ const i18n = {
     gap: 4px;
     padding: 0.7rem 0.85rem;
     background: var(--aig-elevated-bg-warm);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 14px;
-    border-bottom-left-radius: 5px;
+    border: var(--aig-border-width) solid var(--sl-color-hairline);
+    border-radius: var(--aig-radius);
   }
   local-ai .lai-typing i {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #9A93AC; /* muted, intentional status color */
+    background: var(--sl-color-gray-3);
     display: block;
     animation: lai-blink 1.2s infinite;
     font-style: normal;
@@ -649,10 +658,10 @@ const i18n = {
     gap: 0.5rem;
     width: 100%;
     background: var(--aig-caution-bg);
-    border: 1px solid var(--aig-caution-border);
+    border: var(--aig-border-width) solid var(--aig-caution-border);
     color: var(--aig-caution-text);
     padding: 0.55rem 0.75rem;
-    border-radius: 11px;
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.85rem;
     font-weight: 600;
@@ -665,9 +674,9 @@ const i18n = {
     height: 16px;
     flex: none;
   }
+  /* No arrow glyph on buttons (rebrand rule). */
   local-ai .lai-ex-pill .lai-ex-go {
-    margin-left: auto;
-    font-style: normal;
+    display: none;
   }
   local-ai .lai-ex-pill:disabled {
     opacity: 0.5;
@@ -687,26 +696,27 @@ const i18n = {
   local-ai .lai-field {
     flex: 1;
     min-height: 42px;
-    border: 1.5px solid var(--sl-color-hairline);
-    border-radius: 12px;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 0.6rem 0.8rem;
     font-family: var(--sl-font);
     font-size: 0.9rem;
     color: var(--sl-color-text);
-    background: var(--sl-color-bg);
+    background: var(--aig-elevated-bg);
     resize: none;
     transition: border-color 0.15s;
   }
   local-ai .lai-field::placeholder { color: var(--sl-color-gray-3); opacity: 1; }
   local-ai .lai-field:focus-visible {
-    outline: none;
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
     border-color: var(--sl-color-accent);
   }
   local-ai .lai-send {
     width: 42px;
     height: 42px;
     flex: none;
-    border-radius: 12px;
+    border-radius: var(--aig-radius);
     border: 0;
     cursor: pointer;
     background: var(--sl-color-accent);
@@ -724,8 +734,8 @@ const i18n = {
 
   local-ai .lai-footnote {
     margin: 0.1rem 0 0;
-    font-size: 0.68rem;
-    color: #9A93AC; /* muted, intentional status color */
+    font-size: 0.72rem;
+    color: var(--sl-color-gray-3);
     text-align: center;
   }
 
@@ -736,7 +746,7 @@ const i18n = {
     gap: 0.5rem 0.75rem;
     align-items: center;
     padding: 0.75rem 0.5rem;
-    border-bottom: 1px solid var(--sl-color-hairline);
+    border-bottom: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
   }
   local-ai .lai-model:last-of-type { border-bottom: 0; }
   local-ai .lai-model-id {
@@ -771,11 +781,10 @@ const i18n = {
     box-shadow: 0 0 0 2px var(--sl-color-accent-low);
   }
   local-ai .lai-status-dot.cached {
-    background: #5E8B6A;          /* sage: intentional status color */
-    box-shadow: 0 0 0 2px #E7F0E8; /* sage-bg: intentional status color */
+    background: var(--aig-green-ok);
   }
   local-ai .lai-status-dot.idle {
-    background: #9A93AC;          /* muted: intentional status color */
+    background: var(--sl-color-gray-3);
   }
   local-ai .lai-status-label {
     display: inline-flex;
@@ -799,15 +808,16 @@ const i18n = {
   }
   local-ai .lai-progress-bar-wrap {
     width: 60px;
-    height: 4px;
-    background: var(--sl-color-accent-low);
+    height: 8px;
+    background: transparent;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
     border-radius: 2px;
     overflow: hidden;
   }
   local-ai .lai-progress-bar-fill {
     height: 100%;
-    background: var(--sl-color-accent);
-    border-radius: 2px;
+    background: var(--aig-highlighter);
+    border-radius: 0;
     transition: width 0.2s ease;
     width: 0%;
   }
@@ -822,27 +832,28 @@ const i18n = {
   /* ---- Fallback / error states ----------------------------- */
   local-ai .lai-msg-title {
     margin: 0;
-    font-weight: 600;
+    font-weight: 750;
     font-size: 1.05rem;
-    color: var(--sl-color-text);
+    color: var(--aig-heading);
   }
 
   /* ---- Bottom sheet on small screens ----------------------- */
   @media (max-width: 23.4375rem) { /* 375px */
     local-ai .lai-launcher-text { display: none; }
-    local-ai .lai-launcher { padding: 0.75rem; }
+    local-ai .lai-launcher { padding: 0.75rem 0.7rem 0.75rem 0.8rem; }
     local-ai .lai-panel {
       right: 0; left: 0; bottom: 0;
       width: 100%;
       max-width: 100%;
       height: 88vh;
-      border-radius: 16px 16px 0 0;
+      border-radius: var(--aig-radius) var(--aig-radius) 0 0;
     }
   }
 
   /* ---- Reduced motion ------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
     local-ai .lai-launcher { transition: none; }
+    local-ai .lai-progress-bar-fill { transition: none; }
     local-ai .lai-live      { animation: none; }
     local-ai .lai-typing i  { animation: none; opacity: 0.6; }
   }

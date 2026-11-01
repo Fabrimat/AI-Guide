@@ -2,10 +2,11 @@
 /**
  * Override del componente Pagination di Starlight.
  *
- * Mostra solo la "Prossima lezione" come card grande coral-bordered
- * (niente "Precedente"), in linea con la direzione "manuale guidato":
- * il lettore non-tecnico segue un percorso lineare in avanti, raramente
- * torna indietro tramite paginazione (ha la sidebar per quello).
+ * Mostra solo la "Prossima lezione" come foglio con l'angolo piegato
+ * ("girare pagina"), senza "Precedente", in linea con la direzione
+ * "manuale guidato": il lettore non-tecnico segue un percorso lineare
+ * in avanti, raramente torna indietro tramite paginazione (ha la
+ * sidebar per quello).
  *
  * Etichette localizzate per IT/EN. Il path della prossima pagina viene
  * preso da Starlight (`Astro.locals.starlightRoute.pagination`).
@@ -28,38 +29,52 @@ const labels = LABELS[locale] ?? LABELS.it;
       <span class="next-lesson-meta">{labels.meta}</span>
       <span class="next-lesson-title">{next.label}</span>
     </div>
-    <span class="next-lesson-arrow" aria-hidden="true">→</span>
+    <svg class="next-lesson-arrow" viewBox="0 0 40 24" width="40" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12.5C12 11.4 23 12.6 36 12" />
+      <path d="M28.5 4.8C31.8 8 34.6 10.3 36.6 12C34 14 31 16.4 28.2 19.4" />
+    </svg>
   </a>
 )}
 
 <style>
+  /* A sheet with its bottom-right corner folded: the page you turn.
+     The fold is the top-left half of a square, the other half is the
+     page behind. */
   .next-lesson {
+    --fold: 1.8rem;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     margin: 3rem 0 0;
-    padding: 1.4rem 1.5rem;
+    padding: 1.3rem calc(var(--fold) + 1rem) 1.3rem 1.5rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius) var(--aig-radius) 0 var(--aig-radius);
     text-decoration: none;
     color: var(--sl-color-text);
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
-    transition:
-      background 150ms ease,
-      transform 150ms ease,
-      box-shadow 150ms ease;
+  }
+
+  .next-lesson::after {
+    content: '';
+    position: absolute;
+    right: calc(var(--aig-border-width) * -1);
+    bottom: calc(var(--aig-border-width) * -1);
+    width: var(--fold);
+    height: var(--fold);
+    background: linear-gradient(
+      315deg,
+      var(--sl-color-bg) 50%,
+      var(--sl-color-hairline-shade) 50%
+    );
+    pointer-events: none;
   }
 
   .next-lesson:hover {
-    background: var(--sl-color-accent-low);
-    transform: translateY(-1px);
-    box-shadow:
-      0 4px 10px rgba(var(--aig-shadow-color), 0.06),
-      0 12px 28px rgba(var(--aig-shadow-color), 0.08);
+    --fold: 2.4rem;
+    border-color: var(--aig-ink);
+    background: var(--aig-hover-wash);
   }
 
   .next-lesson:focus-visible {
@@ -75,32 +90,33 @@ const labels = LABELS[locale] ?? LABELS.it;
   }
 
   .next-lesson-meta {
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-family: var(--aig-font-hand);
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--sl-color-gray-3);
   }
 
   .next-lesson-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-size: 1.2rem;
+    font-weight: 780;
+    letter-spacing: -0.01em;
+    color: var(--aig-heading);
   }
 
   .next-lesson-arrow {
-    font-size: 1.6rem;
-    line-height: 1;
-    color: var(--sl-color-accent);
+    color: var(--aig-ink);
     flex-shrink: 0;
   }
 
   @media (max-width: 480px) {
     .next-lesson {
-      padding: 1.1rem 1.2rem;
+      padding: 1.1rem calc(var(--fold) + 0.6rem) 1.1rem 1.2rem;
     }
     .next-lesson-title {
       font-size: 1.05rem;
+    }
+    .next-lesson-arrow {
+      width: 30px;
     }
   }
 </style>

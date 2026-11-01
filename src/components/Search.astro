@@ -8,8 +8,8 @@
  *
  * - DOM nostro, niente classi `.svelte-XXXX` da sovrascrivere;
  * - tasto Clear modellato come tutti gli altri controlli del sito
- *   (icona X dentro un cerchio, vert-centered, hover coral-soft);
- * - rendering risultati in card che riusano i token Pastello;
+ *   (icona X, vert-centered, hover con evidenziatore);
+ * - rendering risultati in cartoncini che riusano i token Quaderno;
  * - keyboard nav (↑↓ Enter Esc) gestita a mano e coerente;
  * - debounce della query e cancellazione delle ricerche stantie.
  *
@@ -544,7 +544,7 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
     background-color: var(--sl-color-accent-low);
     color: var(--sl-color-text-accent);
     padding: 0.125rem 0.3rem;
-    border-radius: 0.25rem;
+    border-radius: 3px;
     gap: 0.125rem;
     align-items: center;
     font-size: 0.7rem;
@@ -565,24 +565,20 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
     margin: 0;
     padding: 0;
     background-color: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
     border-radius: 0;
     width: 100%;
     max-width: 100%;
     height: 100%;
     max-height: 100%;
     color: var(--sl-color-text);
-    box-shadow:
-      0 12px 40px rgba(var(--aig-shadow-color), 0.18),
-      0 2px 8px rgba(var(--aig-shadow-color), 0.08);
+    box-shadow: var(--aig-shadow-hard);
   }
   site-search dialog[open] {
     display: flex;
   }
   site-search dialog::backdrop {
     background-color: var(--aig-scrim);
-    -webkit-backdrop-filter: blur(0.25rem);
-    backdrop-filter: blur(0.25rem);
   }
 
   body[data-search-modal-open] {
@@ -658,17 +654,14 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
     height: 3rem;
     padding: 0 3rem 0 2.85rem;
     background-color: var(--sl-color-bg);
-    border: 2px solid var(--sl-color-hairline-shade);
-    border-radius: 0.75rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     color: var(--sl-color-text);
     font-family: var(--sl-font);
     font-size: 1rem;
     font-weight: 500;
     appearance: none;
     -webkit-appearance: none;
-    transition:
-      border-color 0.15s,
-      box-shadow 0.15s;
   }
   site-search .search-input::placeholder {
     color: var(--sl-color-gray-3);
@@ -677,9 +670,9 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
   }
   site-search .search-input:focus,
   site-search .search-input:focus-visible {
-    outline: none;
     border-color: var(--sl-color-accent);
-    box-shadow: 0 0 0 3px var(--sl-color-accent-low);
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
   }
   site-search .search-input::-webkit-search-cancel-button,
   site-search .search-input::-webkit-search-decoration {
@@ -701,19 +694,14 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
     align-items: center;
     justify-content: center;
     border: 0;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     background-color: transparent;
     color: var(--sl-color-gray-3);
     cursor: pointer;
-    transition:
-      background-color 0.15s,
-      color 0.15s;
   }
-  site-search .search-clear:hover,
-  site-search .search-clear:focus-visible {
-    background-color: var(--sl-color-accent-low);
-    color: var(--sl-color-accent-high);
-    outline: none;
+  site-search .search-clear:hover {
+    background-color: var(--aig-hover-wash);
+    color: var(--sl-color-white);
   }
   site-search .search-clear svg {
     width: 1rem;
@@ -758,24 +746,21 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
 
   site-search .search-result {
     background-color: var(--aig-elevated-bg-warm);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.75rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 0.95rem 1.1rem;
-    transition:
-      border-color 0.15s,
-      background-color 0.15s;
   }
   site-search .search-result:hover,
   site-search .search-result:focus-within {
     border-color: var(--sl-color-accent);
-    background-color: var(--sl-color-accent-low);
+    background-color: var(--aig-hover-wash);
   }
 
   site-search .search-result-link {
     display: block;
     text-decoration: none;
     color: inherit;
-    border-radius: 0.5rem;
+    border-radius: var(--aig-radius);
   }
   site-search .search-result-link:focus-visible {
     outline: 2px solid var(--sl-color-accent);
@@ -800,11 +785,11 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
   /* Highlight dei match (Pagefind avvolge in `<mark>`). */
   site-search .search-result mark,
   site-search .search-subresult mark {
-    background-color: var(--sl-color-accent-low);
+    background-color: var(--aig-highlighter-wash);
     color: var(--sl-color-text);
-    border-radius: 0.25rem;
+    border-radius: 2px;
     padding: 0 0.18em;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   /* ============================================================
@@ -864,7 +849,7 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
 
     site-search dialog {
       margin: 4rem auto auto;
-      border-radius: 1rem;
+      border-radius: var(--aig-radius);
       width: 90%;
       max-width: 40rem;
       height: max-content;
@@ -874,13 +859,6 @@ if (stripTrailingSlash) dataAttrs['data-strip-trailing-slash'] = '';
 
     site-search .dialog-frame {
       padding: 1.25rem 1.25rem 1.5rem;
-    }
-  }
-
-  @media (prefers-reduced-motion) {
-    site-search dialog::backdrop {
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
     }
   }
 </style>
