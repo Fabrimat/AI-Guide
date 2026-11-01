@@ -6,6 +6,6 @@ Question 2: after writing the outline, there's a "critique of the outline" step 
 
 Question 3: AI tends to be optimistic about timings. The lesson gives a working rule to bring timings back to classroom reality. Which one, and why does it work better than simply asking the AI to "be stricter with your estimates"?
 
-Question 4: think of a lesson you'll need to prepare in the next few days (subject, class, duration, topic). Out loud, without using the AI, try drafting the first prompt you'd write for step 1 of the outline (the learning objective). I'll look at it and suggest one improvement.
+Question 4: think of a lesson you'll need to prepare in the next few days (subject, class, duration, topic). Here in writing, without using the AI, try drafting the first prompt you'd write for step 1 of the outline (the learning objective). I'll look at it and suggest one improvement.
 
-At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
+How to run the check: ask one question at a time and wait for my answer before moving on. After each answer, give me feedback in two or three lines: what I got right, what is imprecise or missing. If my answer is incomplete or wrong, don't hand me the solution right away: ask a follow-up question or give a hint first. If I'm still stuck after a second try, or if I ask you directly for the answer, explain it simply and move on. Speak English, use no formatting, and don't add questions beyond the four. At the end, give me a two-line recap (what is solid, what is worth rereading in the lesson), then thank me and close. If I want to go deeper on a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

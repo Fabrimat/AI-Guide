@@ -8,4 +8,4 @@ Question 3: on minors' privacy. What never goes into a consumer chat? And why ar
 
 Question 4: on grading. What role can the AI play in correcting work and in the end-of-term grading meeting, and where does it stop? Give me an example from your own practice.
 
-At the end: thank them and close. If they want to deepen a point you flagged as weak, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
+How to run the check: ask one question at a time and wait for my answer before moving on. After each answer, give me feedback in two or three lines: what I got right, what is imprecise or missing. If my answer is incomplete or wrong, don't hand me the solution right away: ask a follow-up question or give a hint first. If I'm still stuck after a second try, or if I ask you directly for the answer, explain it simply and move on. Speak English, use no formatting, and don't add questions beyond the four. At the end, give me a two-line recap (what is solid, what is worth rereading in the lesson), then thank me and close. If I want to go deeper on a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.
