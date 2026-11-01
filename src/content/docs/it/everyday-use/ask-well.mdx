@@ -10,6 +10,8 @@ import Def from '../../../../components/Def.astro';
 import PromptBuilder from '../../../../components/PromptBuilder.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -31,6 +33,7 @@ già incontrate in [*Cos'è un prompt?*](/it/fundamentals/what-is-a-prompt/)
 come ingredienti base (cosa vuoi, <Def explanation="Tutto quello che l'IA ha sotto gli occhi mentre genera la risposta: la tua domanda, le risposte precedenti, eventuali documenti che le hai dato.">contesto</Def>,
 formato): qui le rivediamo in pratica. La quarta, il ruolo, è nuova. Non servono tutte ogni volta: per una domanda rapida una
 basta, per un problema importante le tiri tutte.
+
 ## Le quattro leve
 
 ### 1. Di' cosa vuoi, non di che cosa parliamo
@@ -160,6 +163,25 @@ dettagli rilevanti, niente biografia), il **formato** ("ognuna con
 una frase sul perché").
 
 ## Provalo sul tuo problema
+
+<PromptCompare
+  weak="Scrivi una mail al padrone di casa per la caldaia."
+  strong={`Fammi da editor. Scrivi una mail di 6 righe al mio padrone di casa: la caldaia è rotta da 5 giorni, l'ho già segnalata a voce il 3 marzo e non è successo niente. Tono fermo ma cortese, chiedi un intervento entro venerdì.
+
+Dammi un oggetto e il testo, niente formule di chiusura lunghe.`}
+  note="Il secondo ha tutte e quattro le leve: ruolo (editor), risultato (mail con una richiesta e una scadenza), contesto (cosa è successo, cosa hai già fatto), formato (6 righe, oggetto più testo)."
+/>
+
+<SelfCheck
+  id="ask-well-q1"
+  question="Quale di queste richieste NON ha bisogno di tutte e quattro le leve?"
+  options={[
+    { text: "Scrivere una mail delicata al tuo capo per chiedere un giorno di ferie fuori calendario.", why: "Qui il tono pesa e il contesto serve: conviene tirare tutte le leve." },
+    { text: "Chiedere quanti millilitri fanno una tazza di caffè.", correct: true, why: "È una domanda secca: basta che sia chiara. Ruolo e formato qui sono zavorra." },
+    { text: "Preparare un confronto pro e contro fra due offerte di lavoro.", why: "Serve un risultato preciso, il contesto delle due offerte e un formato (tabella): qui le leve contano." },
+  ]}
+  explanation="Le leve servono a ridurre il vuoto da riempire. Se la domanda è già chiusa, non c'è niente da calibrare."
+/>
 
 <PromptBuilder />
 

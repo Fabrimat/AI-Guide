@@ -2,19 +2,20 @@
 title: Riassumere un documento lungo
 description: PDF, articoli, report, libri. Come chiedere un riassunto utile, e come sapere se ti puoi fidare.
 livello: principiante
-prerequisiti: [what-is-a-prompt]
+prerequisiti: [what-is-a-prompt, ask-well]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
 - "Riassumilo" da solo ti dà la versione Wikipedia: corretta, ma non pensata per te.
 - Tre tecniche: **di' come lo vuoi** (lunghezza, forma, profondità), **di' perché lo stai leggendo** (l'obiettivo), **mappa prima, dettaglio poi** (per documenti lunghi).
 - Su un documento lungo l'IA può omettere pezzi importanti o inventarne di nuovi. È il rischio specifico di questa lezione.
-- Due contromosse pratiche: farle citare la frase esatta, e fare un controllo a campione leggendo tu una sezione nel documento originale.
+- Due contromosse pratiche: farle citare la frase esatta, e fare un controllo a campione cercando tu due o tre sue affermazioni nel documento originale.
 - PDF, copia-incolla, link: ogni IA gestisce i file in modo un po' diverso. Sapere cosa accetta la tua evita sorprese.
 
 </LessonSummary>
@@ -32,14 +33,7 @@ perfettamente strutturato che omette un pezzo importante, o peggio,
 si inventa un'affermazione che nel testo non c'è. Questa lezione ti
 dà le tecniche per chiedere bene e, soprattutto, per verificare.
 
-Rispetto a [*Capire una cosa complicata*](/it/everyday-use/understand-something-complex/)
-cambia la scala. Lì il documento è difficile ma corto (una bolletta,
-una clausola, qualche pagina di regolamento); qui può essere
-semplice ma lungo, o lungo e difficile insieme. Un contratto di
-trenta pagine è entrambe le cose: in quel caso le tecniche delle
-due lezioni si combinano, prima fai capire il linguaggio, poi estrai
-quello che ti interessa. Verificare, quando il documento è lungo,
-costa di più e si fa in modo diverso.
+Rispetto a [*Capire una cosa complicata*](/it/everyday-use/understand-something-complex/) cambia la scala: lì il documento è difficile ma corto, qui può essere semplice ma lungo, o lungo e difficile insieme (un contratto di trenta pagine). In quel caso le due lezioni si combinano: prima fai capire il linguaggio, poi estrai quello che ti interessa. Verificare, su un documento lungo, costa di più e si fa in modo diverso.
 
 ## Le tre tecniche
 
@@ -119,13 +113,7 @@ l'indice, poi zoomi dove conta. Una mappa ben fatta ti fa anche capire, a
 volte, che il documento non ti serve affatto, e ti risparmia un'ora
 di lettura.
 
-Funziona anche su documenti senza sezioni già titolate: un articolo
-di giornale lungo, un saggio, un capitolo di narrativa. L'IA ti
-costruisce lei una mappa, identificando i cambi di argomento e
-proponendoti un indice "ricavato". La differenza con la Tecnica 1:
-lì chiedi un riassunto del documento intero in un colpo solo, qui
-spezzi il lavoro in due giri e ottieni anche la bussola per
-orientarti.
+Funziona anche su un articolo di giornale lungo o un saggio: l'IA ricava lei una mappa dai cambi di argomento. La differenza con la Tecnica 1 è che spezzi il lavoro in due giri e ottieni anche la bussola per orientarti.
 
 :::tip[In che modo darle il documento?]
 Tre strade, in ordine di affidabilità. **Upload**: quasi tutte le IA
@@ -137,15 +125,7 @@ messaggio. **Link**: alcune IA (ChatGPT, Gemini, Perplexity) aprono
 la pagina e la leggono; altre (Claude, di base) non navigano il web
 e ti chiederanno di incollare il testo.
 
-Un caso limite: su un libro intero o documenti di centinaia di
-pagine, ogni IA ha una sua soglia oltre la quale il documento è
-"troppo grande". A volte te lo dice con un errore e non ti lascia
-caricare; a volte però il file passa e l'IA ne legge solo una parte,
-rispondendoti come se l'avesse letto tutto. Quando succede, dividi
-il documento in pezzi (capitoli, blocchi di pagine) e dalle un pezzo
-alla volta, oppure passi a uno strumento dedicato come Google
-NotebookLM, gratuito e pensato proprio per analizzare documenti
-molto lunghi.
+Un caso limite: su un libro o su centinaia di pagine ogni IA ha una soglia oltre la quale il documento è "troppo grande". A volte te lo dice con un errore, a volte il file passa e l'IA ne legge solo una parte, rispondendoti come se l'avesse letto tutto. Allora dividi il documento in pezzi (capitoli, blocchi di pagine) o passa a uno strumento pensato per i documenti lunghi, come Google NotebookLM (ha un piano gratuito: controlla i limiti attuali).
 :::
 
 :::note[Prima di caricare un documento di lavoro]
@@ -214,12 +194,7 @@ l'IA produce testo che suona vero, e un riassunto di un documento
 può contenere un'affermazione plausibile che quel documento in
 realtà non fa.
 
-Succede più sui documenti lunghi per due ragioni. La prima: il
-documento può eccedere la capienza dell'IA, che allora ne legge solo
-una parte e riempie i vuoti con affermazioni plausibili ma non
-verificate. La seconda: su un contratto di tre pagine vedresti
-subito che la frase non c'è; su un report di cinquanta, chi lo va a
-controllare?
+Succede di più sui documenti lunghi, per due ragioni. Il documento può eccedere la capienza dell'IA, che ne legge solo una parte e riempie i vuoti con affermazioni plausibili. E su un contratto di tre pagine vedresti subito che la frase non c'è, ma su un report di cinquanta chi va a controllare?
 
 Due contromosse semplici.
 
@@ -239,6 +214,18 @@ leggerti le pagine corrispondenti nel documento originale. Non serve
 controllare tutto: se sono corrette, il riassunto è probabilmente
 affidabile; se una è sbagliata o gonfiata, il sospetto si estende
 all'intero output.
+
+Prova a farlo su un caso piccolo. Hai chiesto un riassunto in poche frasi di questo paragrafo, e l'IA risponde così. Contiene due errori: trovali confrontando con il testo.
+
+<SpotTheError
+  prompt={`Riassumi questo paragrafo: "Nel 2023 il 28% dei lavoratori dell'area ha lavorato da casa almeno un giorno a settimana, contro il 12% del 2019. L'aumento è stato più forte nei servizi e più debole nell'industria. I dati sulla produttività sono ancora incerti: gli studi disponibili non concordano."`}
+  sentences={[
+    { text: "Nel 2023 il 28% dei lavoratori ha lavorato da casa almeno un giorno a settimana, contro il 12% del 2019." },
+    { text: "L'aumento è stato più forte nei servizi." },
+    { text: "Nell'industria non c'è stato alcun aumento.", wrong: true, why: "Il testo dice che l'aumento è stato più debole nell'industria, non assente." },
+    { text: "Il lavoro da casa ha aumentato la produttività.", wrong: true, why: "Il testo dice che i dati sulla produttività sono incerti e gli studi non concordano: l'IA ha trasformato un dubbio in una conclusione." },
+  ]}
+/>
 
 :::caution[Sospetta delle cose che "suonano bene"]
 Un numero tondo, una percentuale citata senza fonte, una

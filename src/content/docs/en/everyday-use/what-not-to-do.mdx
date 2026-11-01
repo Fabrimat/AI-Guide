@@ -7,6 +7,7 @@ prerequisiti: [what-is-a-prompt, when-to-trust-it]
 
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -203,6 +204,17 @@ It's a matter of responsibility, not a technical rule of the
 software: the things that weigh, you decide, possibly with a
 professional who signs for them. The AI prepares you for the
 conversation with that professional or with the other person.
+
+<SelfCheck
+  id="what-not-to-do-q1"
+  question="You have a preliminary home purchase contract to sign. Which request to the AI follows the lesson's rule?"
+  options={[
+    { text: "\"Can I sign this preliminary contract?\"", why: "You're asking for a decision that binds you. If the AI is wrong, you have no way to defend yourself." },
+    { text: "\"Explain these three clauses in plain words and give me questions to ask the notary.\"", correct: true, why: "The AI gives you context and prepares the conversation. You make the decision, with whoever signs with you." },
+    { text: "\"Write me the withdrawal letter, so it's ready if I change my mind.\"", why: "A legal document written by the AI and signed by you carries errors you can't see. Better to prepare it with a professional." },
+  ]}
+  explanation="The difference is who signs: understanding and preparing is fine, letting it decide is not."
+/>
 
 ## Check what you understood
 

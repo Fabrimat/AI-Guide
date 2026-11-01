@@ -8,6 +8,8 @@ prerequisiti: [what-is-a-prompt, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -103,16 +105,9 @@ ha senso cerca un'analogia che funzioni per chi pensa in piante,
 materiali, cantieri"*. Così l'IA calibra tutte le spiegazioni
 successive senza doverglielo ricordare ogni volta.
 
-Se non ti viene in mente un'analogia col tuo mondo, chiedila:
-*"proponimi tre analogie possibili per spiegare la blockchain,
-pescando da mondi diversi (cucina, scuola, finanza, sport).
-Scelgo io"*. Non tutte funzionano, ma almeno ti mette davanti a
-un menu.
+Se non ti viene in mente un'analogia col tuo mondo, chiedila: *"proponimi tre analogie possibili, pescando da mondi diversi (cucina, scuola, finanza, sport). Scelgo io"*.
 
-La differenza con la Tecnica 1: lì scendi e sali sul livello di
-complessità, qui sposti il vocabolario di partenza. Le due sono
-complementari, non alternative: spesso parti con un'analogia e
-poi scali i dettagli.
+La Tecnica 1 scende e sale sul livello di complessità, questa sposta il vocabolario di partenza. Spesso parti con un'analogia e poi scali i dettagli.
 
 ### 3. Interrogazione di ritorno
 
@@ -127,18 +122,9 @@ capito" è diffusa, e spesso mente. L'antidoto: invertire i ruoli.
 L'IA smette di riversarti informazioni e comincia a interrogarti.
 Qui scopri dove avevi finto di capire.
 
-È il momento più scomodo del percorso, ed è anche quello che
-imprime il concetto.
+È il momento più scomodo del percorso, ed è anche quello che imprime il concetto. Sui punti dove inciampi torna alla spiegazione scalabile e chiedi la versione di sotto, poi rifai un quiz più duro.
 
-Combina le tecniche: dopo un'interrogazione, sui punti dove sei
-inciampato torna alla scalabile e chiedi la versione di sotto.
-Quando quella zona è solida, rifai un quiz più duro sulla stessa
-area.
-
-Se le domande escono troppo facili, troppo astratte, o tutte sullo
-stesso piano, chiedi un aggiustamento: *"le prossime più
-difficili"*, *"più applicate a un caso pratico"*, *"meno
-teoriche"*. Il quiz si tara come una spiegazione.
+Se le domande escono troppo facili o troppo astratte, chiedi un aggiustamento: *"le prossime più difficili"*, *"più applicate a un caso pratico"*.
 
 Sul feedback c'è una cautela. L'IA può dirti "corretto" per
 gentilezza anche quando la risposta è parziale. Per
@@ -148,9 +134,11 @@ il completamento, non solo la superficie.
 
 ## Un esempio: capire la blockchain
 
-Vediamo le tre tecniche in catena. Voglio capire la blockchain,
-non ho idee precise, ho solo sentito il termine. Primo giro,
-scalabile al livello più basso.
+Le tre tecniche in catena. Voglio capire la blockchain, ho solo sentito il termine.
+
+<Collapsible title="La conversazione completa, in tre giri">
+
+Primo giro, scalabile al livello più basso.
 
 <ChatDemo
   user="Spiegami la blockchain come se avessi dieci anni, in due frasi al massimo."
@@ -180,11 +168,7 @@ entrato.
 Un attaccante riesce a modificare un blocco di dieci anni fa sul suo computer. La sua copia della blockchain risulta manomessa localmente, ma la rete nel suo complesso non la accetta. Perché la rete la rifiuta?`}
 />
 
-Qui ti fermi e rispondi. La domanda ti spinge sul "perché" del
-meccanismo, non sul vocabolario. Se non sai rispondere, sai
-esattamente dove tornare con la Tecnica 1.
-
-Ecco come potrebbe svilupparsi il turno successivo.
+Qui ti fermi e rispondi. La domanda ti spinge sul "perché" del meccanismo. Se non sai rispondere, sai esattamente dove tornare con la Tecnica 1. Ecco come potrebbe svilupparsi il turno successivo.
 
 <ChatDemo
   user="La rete la rifiuta perché se lui cambia un blocco vecchio, l'impronta di quel blocco cambia, e tutti i blocchi successivi nella sua copia risultano rotti. Agli altri nodi la sua catena appare invalida dal punto della modifica in poi."
@@ -195,9 +179,9 @@ Prossima domanda.
 Se domani qualcuno inventasse un computer mille volte più veloce di quelli odierni, la blockchain diventerebbe automaticamente insicura?`}
 />
 
-Questo è il loop. La tua risposta, una validazione onesta, un
-completamento su quello che ti era scappato, la domanda seguente
-calibrata su dove eri arrivato.
+Questo è il ciclo: la tua risposta, una validazione onesta, un completamento su quello che ti era scappato, la domanda seguente calibrata su dove eri arrivato.
+
+</Collapsible>
 
 ## Cosa verificare sempre
 
@@ -206,7 +190,7 @@ Se l'IA ti dà un riassunto sbagliato, te ne accorgi confrontando
 col documento. Se ti spiega in modo sbagliato un concetto, quell'errore
 entra nel tuo modello mentale e lo porti via con te.
 
-Tre controlli utili.
+Tre controlli.
 
 **La spiegazione troppo liscia è un segnale.** Quando una
 spiegazione arriva pulita al primo colpo, senza zone grigie, non
@@ -218,35 +202,30 @@ insiste che è tutto a posto, forza la mano: *"fammi tre esempi
 concreti in cui la spiegazione semplice che mi hai dato non
 regge"*. Partire dai controesempi di solito la sblocca.
 
+Ecco una spiegazione che l'IA potrebbe darti sulla blockchain. Contiene due errori sottili: trovali prima di fidarti.
+
+<SpotTheError
+  prompt="Spiegami come fa la blockchain a essere sicura."
+  sentences={[
+    { text: "Ogni blocco contiene l'impronta (hash) del blocco precedente." },
+    { text: "Se qualcuno modifica un blocco vecchio, la sua impronta cambia e tutti i blocchi successivi risultano invalidi." },
+    { text: "Per questo la blockchain non può essere modificata in nessun caso.", wrong: true, why: "Modificarla è molto costoso, non impossibile: chi controllasse la maggioranza della potenza della rete potrebbe riscrivere la catena. 'In nessun caso' è un'esagerazione tipica di una spiegazione troppo liscia." },
+    { text: "Bitcoin, la prima blockchain, è nata nel 2001.", wrong: true, why: "Bitcoin è stato presentato nel 2008 e la rete è partita nel 2009." },
+    { text: "La catena valida è quella su cui la maggioranza dei nodi è d'accordo." },
+  ]}
+/>
+
 **Incrocia con una fonte esterna sui punti critici.** Non serve
 leggere un manuale: per la maggior parte degli argomenti bastano
-la voce Wikipedia e le prime righe di due articoli seri. "Seri"
-sono quelli pubblicati da università, testate con redazione,
-organizzazioni ufficiali; preferisci articoli recenti se il tema
-è in evoluzione. Cerca le divergenze fra quello che ti ha detto
+la voce Wikipedia e le prime righe di due articoli seri. Meglio fonti di università, testate con redazione e organizzazioni ufficiali, e recenti se il tema è in evoluzione. Cerca le divergenze fra quello che ti ha detto
 l'IA e quello che trovi lì. Le discrepanze sono le zone dove
 tornare a chiedere.
 
-:::note[Argomenti di nicchia]
-Su temi specialistici con poca divulgazione (ricerche attive,
-questioni tecniche settoriali, contesti locali), la verifica
-costa di più: spesso l'unica strada è un paper o un documento
-primario. In queste aree l'IA ha probabilmente letto più
-divulgazione semplificata che materiale originale, e sa meno di
-quanto il suo tono lascerebbe pensare. Resta un tutor utile per
-orientarti, ma non l'ultima parola.
-:::
+Su temi di nicchia con poca divulgazione la verifica costa di più: spesso serve un paper o un documento primario. L'IA lì sa meno di quanto il suo tono lasci pensare: resta utile per orientarti, ma non è l'ultima parola.
 
 **Prova a spiegarla tu.** Se non sai esporre il concetto con
 parole tue a qualcuno che non lo sa, non l'hai ancora fissato.
-Può essere una persona reale, o di nuovo l'IA (*"ora ti spiego
-come l'ho capita io, tu dimmi dove ho semplificato troppo o
-sbagliato"*). Chi studia lo conosce come "tecnica Feynman". Il
-motivo è meccanico: leggere una spiegazione fa lavorare il riconoscimento
-(*"ah sì, sembra familiare"*); esporla fa lavorare la
-ricostruzione (*"devo rimettere i pezzi in ordine da zero"*).
-Sono due processi diversi, e la ricostruzione è il test più
-severo.
+Può essere una persona reale o di nuovo l'IA (*"ora ti spiego come l'ho capita io, tu dimmi dove ho semplificato troppo o sbagliato"*). Leggere una spiegazione fa lavorare il riconoscimento (*"sembra familiare"*), esporla fa lavorare la ricostruzione, ed è il test più severo.
 
 :::caution[Su temi tecnici, diffida delle risposte troppo sicure]
 Matematica, programmazione, statistica, medicina specialistica:
@@ -260,15 +239,7 @@ non come unica fonte. Il quadro più largo è in
 [*Quando fidarsi e quando no*](/it/fundamentals/when-to-trust-it/).
 :::
 
-:::note[E se voglio acquisire una competenza, non capire un concetto?]
-Queste tecniche sono pensate per l'apprendimento concettuale:
-capire come funziona una cosa, tenerla a mente, sapere ragionarci
-sopra. Per una competenza pratica (cucinare meglio, scrivere più
-chiaro, suonare uno strumento) la teoria aiuta ma non basta:
-serve esercizio ripetuto con feedback. L'IA serve ancora (piano
-di studio, feedback su una tua produzione, sparring partner), ma
-le tre tecniche qui giocano un ruolo di supporto, non centrale.
-:::
+Queste tecniche servono per l'apprendimento concettuale. Per una competenza pratica (cucinare, scrivere, suonare) serve esercizio ripetuto con feedback: l'IA aiuta con un piano di studio e commenti sulle tue prove, ma le tre tecniche restano di supporto.
 
 ## Cosa viene dopo
 

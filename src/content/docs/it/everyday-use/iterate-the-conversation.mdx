@@ -2,12 +2,14 @@
 title: Iterare la conversazione
 description: La prima risposta è raramente quella giusta. Il pattern non è riscrivere da zero, è continuare la chat.
 livello: principiante
-prerequisiti: [what-is-a-prompt]
+prerequisiti: [what-is-a-prompt, ask-well]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -63,6 +65,24 @@ Puoi combinarne due in un messaggio solo (*"dammela più corta **e**
 aggiungi il budget di 50 euro"*) se la cosa è semplice, oppure
 tenerli separati in giri diversi se vuoi vedere l'effetto di ciascun
 vincolo prima di aggiungere il successivo.
+
+Un follow-up vago costringe l'IA a indovinare, uno mirato le dice cosa cambiare:
+
+<PromptCompare
+  weak="Non va bene, rifallo."
+  strong="Troppo lunga e troppo tecnica. Dammela in tre bullet, come la spiegheresti a un collega che non è del settore."
+  note="Il primo non dice cosa non va, quindi l'IA riscrive a caso. Il secondo cambia il taglio (lunghezza e livello) senza toccare il contenuto."
+/>
+
+<SelfCheck
+  id="iterate-the-conversation-q1"
+  question="L'IA ti ha dato un piano di studio con il contenuto giusto, ma in cinque paragrafi fitti. Quale follow-up usi?"
+  options={[
+    { text: "Aggiungere un vincolo: \"Ho solo un'ora al giorno.\"", why: "Il vincolo cambia il contenuto del piano. Qui il contenuto va bene, è la forma che non funziona." },
+    { text: "Cambiare taglio: \"Dammelo come tabella, un giorno per riga.\"", correct: true, why: "Il contenuto resta, cambia la forma in cui ti arriva." },
+    { text: "Ripartire da zero con un prompt nuovo e più lungo.", why: "Perdi il lavoro già fatto in chat. Un follow-up di una riga è più veloce e più preciso." },
+  ]}
+/>
 
 **L'IA ricorda tutta la chat.** Non devi riscrivere
 ogni volta il contesto iniziale. Se le hai detto prima che stai

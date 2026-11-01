@@ -2,12 +2,14 @@
 title: Iterate the conversation
 description: The first answer is rarely the right one. The move isn't rewriting from scratch, it's keeping the chat going.
 livello: principiante
-prerequisiti: [what-is-a-prompt]
+prerequisiti: [what-is-a-prompt, ask-well]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -64,6 +66,24 @@ You can combine two of them in a single message (*"make it shorter
 **and** add the 50-euro budget"*) if the case is simple, or keep them
 separate across different turns if you want to see the effect of
 each constraint before adding the next.
+
+A vague follow-up forces the AI to guess, a targeted one tells it what to change:
+
+<PromptCompare
+  weak="That's not good, redo it."
+  strong="Too long and too technical. Give it to me in three bullets, the way you'd explain it to a colleague outside the field."
+  note="The first doesn't say what's wrong, so the AI rewrites at random. The second changes the angle (length and level) without touching the content."
+/>
+
+<SelfCheck
+  id="iterate-the-conversation-q1"
+  question="The AI gave you a study plan with the right content, but in five dense paragraphs. Which follow-up do you use?"
+  options={[
+    { text: "Add a constraint: \"I only have one hour a day.\"", why: "A constraint changes the content of the plan. Here the content is fine, the form is what doesn't work." },
+    { text: "Change the angle: \"Give it to me as a table, one day per row.\"", correct: true, why: "The content stays, the form it reaches you in changes." },
+    { text: "Start over with a new, longer prompt.", why: "You lose the work already done in the chat. A one-line follow-up is faster and more precise." },
+  ]}
+/>
 
 **The AI remembers the whole chat.** You don't
 have to rewrite the initial context every time. If you told it earlier

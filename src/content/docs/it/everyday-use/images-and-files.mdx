@@ -8,6 +8,7 @@ prerequisiti: [what-is-a-prompt]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -27,11 +28,7 @@ Tutti e tre oggi si risolvono con una IA conversazionale, perché le IA
 hanno imparato a *vedere*. Carichi il file nella chat, scrivi la domanda, e ricevi
 una risposta basata sul contenuto concreto di quello che hai caricato.
 
-La parola tecnica è *multimodalità*: una chat che accetta non solo
-testo, ma anche foto, screenshot, PDF, fogli di calcolo. Questa
-lezione spiega come usarla: tre casi d'uso, le differenze fra le
-piattaforme principali, cosa funziona e cosa no, e cosa tenere
-presente sulla privacy di quello che carichi.
+La parola tecnica è *multimodalità*: una chat che accetta non solo testo, ma anche foto, screenshot, PDF, fogli di calcolo. Questa lezione spiega come usarla, cosa funziona e cosa no, e cosa tenere presente sulla privacy di quello che carichi.
 
 ## Tre casi d'uso
 
@@ -57,16 +54,9 @@ leggere il totale di una bolletta e spiegarti da dove arriva,
 tradurti un'abbreviazione sulla ricetta del medico, dirti quale
 combinazione di tasti della lavatrice corrisponde al programma lana.
 
-Anche la scrittura a mano è gestita, con un asterisco: lo stampatello
-pulito lo legge bene, il corsivo veloce (incluso quello tipico delle
-ricette scritte a mano del medico) a volte lo azzecca, a volte no.
-Se la cosa è importante, controlla a mano almeno i numeri e i nomi
-dei farmaci.
+La scrittura a mano è gestita con un asterisco: lo stampatello pulito lo legge bene, il corsivo veloce (come quello delle ricette del medico) a volte no. Se conta, controlla a mano numeri e nomi dei farmaci.
 
-Quando la foto è chiara, risparmi la fatica di ricopiare dati a mano.
-Quando è sfuocata o storta, l'IA può leggere *O* al posto di *0* o
-saltare una riga intera. I controlli che riducono questi errori sono
-più sotto, in [*Cosa va bene, cosa va male*](#cosa-va-bene-cosa-va-male).
+Con una foto sfocata o storta l'IA può leggere *O* al posto di *0* o saltare una riga intera. I controlli sono più sotto, in [*Cosa va bene, cosa va male*](#cosa-va-bene-cosa-va-male).
 
 ### 2. Screenshot
 
@@ -85,9 +75,7 @@ a tre tipi di domanda:
 - *Cosa mostra questo grafico?* Spiegazione in parole di un'immagine
   dove i numeri sono impliciti ma non elencati.
 
-Per gli errori software lo screenshot è meglio della descrizione a
-voce: un messaggio di errore può cambiare senso con una singola
-parola, e copiarlo a mano introduce sviste.
+Per gli errori software lo screenshot batte la descrizione a voce: un messaggio può cambiare senso con una sola parola, e copiarlo a mano introduce sviste.
 
 ### 3. PDF, presentazioni, fogli di calcolo
 
@@ -129,37 +117,17 @@ solo sulle prime e ultime pagine.
 
 ## Come funziona su ChatGPT, Claude, Gemini
 
-Le tre piattaforme principali accettano tutte immagini e file, ma
-con differenze pratiche. Invece di una tabella che diventa vecchia
-in due mesi, i criteri che contano sono quattro, gli stessi per
-qualsiasi piattaforma.
+Le tre piattaforme principali accettano tutte immagini e file, ma con differenze pratiche che cambiano spesso: invece di una tabella che invecchia in due mesi, ecco i quattro criteri che contano.
 
-**Quali formati accetta.** Immagini (JPEG, PNG) ovunque. PDF quasi
-ovunque. File Office (Word, Excel, PowerPoint) su tutte e tre, con
-qualche differenza sui formati meno comuni (alcuni vecchi `.doc` o
-`.xls` a volte vengono convertiti o rifiutati). Scansioni di
-documenti cartacei: le accettano tutte, se la foto è leggibile.
+**Formati.** Immagini (JPEG, PNG) e PDF quasi ovunque. File Office (Word, Excel, PowerPoint) su tutte e tre, con qualche rifiuto sui formati vecchi (`.doc`, `.xls`).
 
-**Dimensioni massime.** Per un singolo file si va dalle decine di MB
-a 100+ MB, a seconda del piano. Per PDF molto lunghi (centinaia di
-pagine) a volte la piattaforma ti chiede di estrarre solo le sezioni
-rilevanti prima del caricamento.
+**Dimensioni massime.** Da decine di MB a 100+ MB, a seconda del piano. Per PDF di centinaia di pagine a volte la piattaforma ti chiede di estrarre le sezioni rilevanti.
 
-**Numero di file per messaggio.** ChatGPT e Gemini ne accettano
-parecchi in un colpo solo. Claude è più parsimonioso sul numero, ma
-tende a gestire meglio PDF lunghi singoli.
+**Numero di file per messaggio.** ChatGPT e Gemini ne accettano parecchi in un colpo solo. Claude è più parsimonioso sul numero ma gestisce bene i PDF lunghi singoli.
 
-**Piani gratuiti e piani a pagamento.** Alcune funzioni (caricare
-PDF voluminosi, allegare più file in una chat, usare la visione su
-volumi alti) esistono solo sui piani a pagamento (Plus, Pro, Team).
-Sul piano gratuito la copertura c'è, ma con limiti quotidiani più
-stringenti.
+**Piano gratuito o a pagamento.** PDF voluminosi, più file in una chat e visione ad alto volume stanno spesso sui piani a pagamento. Sul gratuito la copertura c'è, con limiti quotidiani più stretti.
 
-I numeri esatti cambiano spesso. Quando ti serve un'operazione
-specifica, cerca la pagina di supporto ufficiale della piattaforma
-(*"ChatGPT file uploads"*, *"Claude file types"*, *"Gemini vision
-capabilities"*) e leggi i limiti del momento. Tre minuti di ricerca
-prima ti risparmiano mezz'ora di tentativi a vuoto.
+Per un'operazione specifica cerca la pagina di supporto ufficiale (*"ChatGPT file uploads"*, *"Claude file types"*, *"Gemini vision capabilities"*) e leggi i limiti del momento.
 
 ## Cosa va bene, cosa va male
 
@@ -170,13 +138,7 @@ molto: luce diffusa (no flash diretto che brucia metà pagina),
 documento piatto (non fotografato di sbieco), inquadratura completa
 (niente dito sul bordo o angoli tagliati).
 
-:::note[Documenti in altre lingue]
-Le tre piattaforme leggono senza sforzo inglese, spagnolo, francese,
-tedesco e la maggior parte delle lingue europee. Su lingue con
-alfabeti diversi (arabo, cinese, giapponese, cirillico) la lettura
-è buona ma più fragile sui testi manoscritti o con font non
-standard.
-:::
+Le tre piattaforme leggono bene le lingue europee. Con alfabeti diversi (arabo, cinese, giapponese, cirillico) la lettura è buona ma più fragile sui manoscritti e sui font non standard.
 
 **Screenshot**: quasi sempre affidabili per leggere il testo. Meno
 affidabili quando mischi molti elementi. Uno screenshot di una
@@ -200,17 +162,24 @@ vuoto?"*). Cautela sui calcoli: l'IA può sbagliare somme o
 arrotondamenti. Quando la risposta è un numero, ricalcolalo a parte,
 o chiedi all'IA di mostrarti la formula invece del solo risultato.
 
+<SelfCheck
+  id="images-and-files-q1"
+  question="L'IA ti ha letto da una foto della bolletta un totale di 142,80 euro. Prima di pagare, cosa conviene fare?"
+  options={[
+    { text: "Fidarsi: se la foto era leggibile, la lettura è affidabile.", why: "Anche con una foto buona un 0 può diventare una O o una riga può saltare. Su un importo da pagare conviene controllare." },
+    { text: "Confrontare il totale letto con quello stampato sulla bolletta e farsi mostrare le singole voci.", correct: true, why: "Controlli la cifra che conta contro l'originale, e le voci mostrano se la somma regge." },
+    { text: "Rifare la stessa domanda finché la risposta non cambia.", why: "Sulla stessa foto l'IA può ripetere lo stesso errore. Serve un controllo contro l'originale, non un secondo parere." },
+  ]}
+  explanation="Con i numeri letti da una foto vale la regola del PDF lungo: la verifica sull'originale non si salta."
+/>
+
 ## Privacy
 
 Quello che carichi in chat è quello che condividi con l'IA. Se la
 foto della bolletta contiene nome, indirizzo, POD (il codice
 identificativo dell'utenza), quei dati entrano nella conversazione.
 
-Quando sei tu l'intestatario, è paragonabile a scrivere i tuoi dati
-in un form online. Quando la foto è di una bolletta di un'altra
-persona (un familiare, un cliente), di una ricetta medica di
-qualcun altro, di un contratto dove compaiono nomi di terzi, stai
-condividendo dati che non sono solo tuoi.
+Se sei tu l'intestatario, è come scrivere i tuoi dati in un form online. Se la foto è di una bolletta, di una ricetta o di un contratto con nomi di altre persone, condividi dati che non sono solo tuoi.
 
 :::caution[E l'allenamento? La mia foto diventa materiale di training?]
 Sui piani consumer (ChatGPT Free/Plus, Claude Free/Pro, Gemini) le
@@ -234,6 +203,13 @@ Due mosse pratiche:
    carta di credito, documenti d'identità (passaporto, patente,
    carta d'identità). Per questi l'anonimizzazione non basta: non
    dovrebbero finire in una chat, nemmeno la tua.
+
+<LlmExercise
+  title="Fotografa e verifica una bolletta"
+  file="practice-photo-check.txt"
+  duration="10 min"
+  description="Fotografi un documento tuo, l'IA ti guida a farle leggere i numeri e a controllarli contro l'originale, una cifra alla volta."
+/>
 
 ## Cosa viene dopo
 

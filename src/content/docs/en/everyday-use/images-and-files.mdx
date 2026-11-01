@@ -8,6 +8,7 @@ prerequisiti: [what-is-a-prompt]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -29,11 +30,7 @@ AIs have learned to *see*. You upload the file to the chat, write the
 question, and get an answer based on the actual content of what
 you uploaded.
 
-The technical word is *multimodality*: a chat that accepts not just
-text, but also photos, screenshots, PDFs, spreadsheets. This lesson
-explains how to use it: three use cases, the differences between
-the main platforms, what works and what doesn't, and what to keep
-in mind about the privacy of what you upload.
+The technical word is *multimodality*: a chat that accepts not just text, but also photos, screenshots, PDFs, spreadsheets. This lesson explains how to use it, what works and what doesn't, and what to keep in mind about the privacy of what you upload.
 
 ## Three use cases
 
@@ -59,15 +56,9 @@ translate an abbreviation on the doctor's prescription, tell you
 which combination of buttons on the washing machine maps to the
 wool program.
 
-Handwriting is handled too, with an asterisk: clean block letters
-are read well, fast cursive (including the typical doctor's
-scrawled prescription) sometimes lands, sometimes doesn't. If it
-matters, double-check the numbers and drug names by hand.
+Handwriting is handled with an asterisk: clean block letters read well, fast cursive (like a doctor's prescription) sometimes doesn't. If it matters, double-check numbers and drug names by hand.
 
-When the photo is clear, you save the effort of retyping data by
-hand. When it's blurry or crooked, the AI can read *O* instead of
-*0* or skip a whole line. The checks that reduce these errors are
-further down, in [*What works and what doesn't*](#what-works-and-what-doesnt).
+With a blurry or crooked photo the AI can read *O* instead of *0* or skip a whole line. The checks are further down, in [*What works and what doesn't*](#what-works-and-what-doesnt).
 
 ### 2. Screenshots
 
@@ -86,9 +77,7 @@ kinds of question:
 - *What does this chart show?* A word explanation of an image
   where the numbers are implied but not listed.
 
-For software errors, a screenshot beats describing it in prose: an
-error message can change meaning with a single word, and copying
-it by hand introduces slips.
+For software errors a screenshot beats describing it: a message can change meaning with a single word, and copying it by hand introduces slips.
 
 ### 3. PDFs, slides, spreadsheets
 
@@ -129,36 +118,17 @@ only on the first and last pages.
 
 ## How it works on ChatGPT, Claude, Gemini
 
-The three main platforms all accept images and files, but with
-practical differences. Instead of a table that goes stale in two
-months, four criteria matter, the same ones on any platform.
+The three main platforms all accept images and files, with practical differences that change often: instead of a table that goes stale in two months, here are the four criteria that matter.
 
-**Which formats it accepts.** Images (JPEG, PNG) everywhere. PDFs
-almost everywhere. Office files (Word, Excel, PowerPoint) on all
-three, with some differences on less common formats (some older
-`.doc` or `.xls` files sometimes get converted or rejected). Scans
-of paper documents: all three accept them, if the photo is
-readable.
+**Formats.** Images (JPEG, PNG) and PDFs almost everywhere. Office files (Word, Excel, PowerPoint) on all three, with some rejections on old formats (`.doc`, `.xls`).
 
-**Size limits.** A single file can go from tens of MB to 100+ MB,
-depending on your plan. For very long PDFs (hundreds of pages),
-the platform sometimes asks you to extract only the relevant
-sections before uploading.
+**Size limits.** From tens of MB to 100+ MB, depending on your plan. For PDFs of hundreds of pages the platform sometimes asks you to extract the relevant sections.
 
-**Number of files per message.** ChatGPT and Gemini accept several
-in one shot. Claude is more conservative on count, but tends to
-handle single long PDFs better.
+**Number of files per message.** ChatGPT and Gemini accept several in one shot. Claude is more conservative on count but handles single long PDFs well.
 
-**Free plans versus paid plans.** Some features (uploading large
-PDFs, attaching multiple files to a chat, using vision at high
-volume) exist only on paid plans (Plus, Pro, Team). On the free
-plan the coverage is there, but with tighter daily limits.
+**Free or paid plan.** Large PDFs, multiple files in a chat and high-volume vision often sit on paid plans. The free plan covers the basics, with tighter daily limits.
 
-The exact numbers change often. When you need a specific
-operation, search the platform's official support page (*"ChatGPT
-file uploads"*, *"Claude file types"*, *"Gemini vision
-capabilities"*) and read the current limits. Three minutes of
-searching up front save half an hour of failed attempts.
+For a specific operation, search the platform's official support page (*"ChatGPT file uploads"*, *"Claude file types"*, *"Gemini vision capabilities"*) and read the current limits.
 
 ## What works and what doesn't
 
@@ -169,13 +139,7 @@ diffused light (no direct flash burning out half the page), flat
 document (not photographed at an angle), full framing (no finger
 on the edge or corners cut off).
 
-:::note[Documents in other languages]
-The three platforms read English, Spanish, French, German, and
-most European languages without effort. On languages with
-different alphabets (Arabic, Chinese, Japanese, Cyrillic), the
-reading is good but more fragile on handwritten texts or
-non-standard fonts.
-:::
+The three platforms read European languages well. With different alphabets (Arabic, Chinese, Japanese, Cyrillic) the reading is good but more fragile on handwriting and non-standard fonts.
 
 **Screenshots**: almost always reliable for reading text. Less
 reliable when you mix many elements. A screenshot of a dashboard
@@ -199,6 +163,17 @@ empty?"*). Caution on calculations: the AI can botch sums or
 rounding. When the answer is a number, recompute it separately,
 or ask the AI to show you the formula instead of just the result.
 
+<SelfCheck
+  id="images-and-files-q1"
+  question="The AI read a total of 142.80 euros from a photo of your bill. What should you do before paying?"
+  options={[
+    { text: "Trust it: if the photo was readable, the reading is reliable.", why: "Even with a good photo a 0 can become an O or a line can be skipped. On an amount you're about to pay, check." },
+    { text: "Compare the total it read with the one printed on the bill and ask it to show the individual items.", correct: true, why: "You check the figure that matters against the original, and the items show whether the sum holds." },
+    { text: "Ask the same question again until the answer changes.", why: "On the same photo the AI can repeat the same mistake. You need a check against the original, not a second opinion." },
+  ]}
+  explanation="With numbers read from a photo the long-PDF rule applies: you don't skip the check against the original."
+/>
+
 ## Privacy
 
 What you upload to a chat is what you share with the AI. If the
@@ -206,11 +181,7 @@ photo of the bill contains name, address, account number (the ID
 your utility uses to identify your line), that data enters the
 conversation.
 
-When you're the account holder, it's comparable to typing your
-own data into an online form. When the photo is of someone else's
-utility bill (a family member, a client), someone else's medical
-prescription, or a contract with third-party names, you're
-sharing data that isn't only yours.
+If you're the account holder, it's like typing your own data into an online form. If the photo is of a bill, a prescription or a contract with other people's names, you're sharing data that isn't only yours.
 
 :::caution[And training? Does my photo become training material?]
 On consumer plans (ChatGPT Free/Plus, Claude Free/Pro, Gemini),
@@ -233,6 +204,13 @@ Two practical moves:
    numbers, identity documents (passport, driver's license, ID
    card). For these, anonymization isn't enough: they shouldn't
    end up in a chat at all, not even yours.
+
+<LlmExercise
+  title="Photograph and check a bill"
+  file="practice-photo-check.txt"
+  duration="10 min"
+  description="You photograph a document of yours, and the AI guides you to have it read the numbers and check them against the original, one figure at a time."
+/>
 
 ## What comes next
 

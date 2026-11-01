@@ -8,62 +8,56 @@ prerequisiti: [what-is-a-prompt, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
-- "Writing better" means using the AI on your draft, not letting it write the text for you.
-- Three patterns that keep your voice: **your draft, AI's critique** (diagnosis, not rewrite), **more versions** (you take pieces, not a whole one), **emotional temperature** (check what the tone projects before sending).
-- The AI has a default register that's polite but anonymous. If you copy and paste for weeks, that default becomes your standard voice, and your readers notice.
-- Not everything fits: coordination emails yes, messages to close people no. Where sincerity is the content, don't delegate.
+- "Writing better" means using the AI on your draft, not having it write the text for you.
+- Three patterns that keep your voice: **your draft, the AI's critique** (diagnosis, not rewriting), **more versions** (you take pieces, never a whole one), **emotional temperature** (you check the tone before sending).
+- The AI's average voice is a polite but anonymous register. If you copy and paste for weeks, it becomes your standard voice, and your readers notice.
+- Not everything suits it: coordination emails yes, messages to people close to you no. Where sincerity is the content, don't delegate.
 
 </LessonSummary>
 
-You've got an email to send. The deadline is in ten minutes, the
-right tone isn't coming, and you're staring at a blank page.
+You have an email to send. The deadline is ten minutes away, the
+right tone won't come, and you're staring at a blank page.
 
 You can ask the AI to write it for you and paste what it gives
 you. Or you can ask it to help you write it better yourself. They
-look like the same thing, but they aren't. The first option
-returns a text that would work for anyone with that generic
-problem: polite and correct, but without a signature. The second
-starts from your own attempt, even a clumsy one, and works on top
-of it.
+look the same, but they aren't. The first option returns a text
+that would suit anyone with that generic problem: polite and
+correct, but with no fingerprint. The second starts from an
+attempt of yours, even a clumsy one, and works on it.
 
-This lesson is about the second option. It works better than the
-first on two counts: the texts that come out feel like yours
-because they are, and over time you become a sharper reader of
-your own writing.
+This lesson is about the second option. The texts that come out
+look like yours because they are, and over time you become a
+sharper reader of your own writing.
 
 ## Three patterns that keep your voice
 
-### 1. Your draft, AI's critique
+### 1. Your draft, the AI's critique
 
-The most counterintuitive, and the most useful. You write the
-first version yourself, even badly, fast, without rereading it.
-The imperfect draft serves exactly that purpose: it forces the AI
-to react to your ideas instead of generating its own. Then you
-hand it to the AI to tell you what isn't working, not to rewrite
-it.
+Write the first version yourself, badly, fast, without rereading
+it. The imperfect draft forces the AI to react to your ideas
+instead of generating its own. Then you hand it to the AI to tell
+you what isn't working, not to rewrite it.
 
 > *"Here's my email. Does it feel too long? Where am I ambiguous?
-> Is there a passage where I slip from polite into
-> passive-aggressive without noticing?"*
+> Is there a spot where I slide from polite to passive-aggressive
+> without noticing?"*
 
 What you get isn't a new text, it's a diagnosis: three or four
-observations pinned to specific sentences. From there you rewrite
-yourself, choosing what to keep, what to cut, what to move. The
-voice stays yours, because the scaffolding stays yours.
+observations pinned to specific sentences. From there you rewrite,
+choosing what to keep, cut, and move. The voice stays yours,
+because the scaffolding stays yours. If you like, ask for the
+critique in layers: first clarity, then tone, then length. They
+are three different diagnoses, and separating them shows you what
+to change first.
 
-A handy variant: ask for critique in separate layers. *"First
-tell me what isn't working on the level of clarity. Then on tone.
-Then on length."* Three different diagnoses, and by separating
-them you see more clearly what to change first. If length isn't a
-problem, you don't waste time on it.
-
-An example. I need to tell a client about a delay on a project,
-I've jotted down a draft that feels bureaucratic to me but I
-can't put my finger on the problem. I hand the text to the AI
-asking only for a diagnosis.
+An example. I need to tell a client about a delay, my draft feels
+bureaucratic but I can't say why. I ask only for the diagnosis.
 
 <ChatDemo
   user={`I've jotted down this email for a client I need to tell about a delay. Don't rewrite it: tell me in three points what isn't working, then I'll rewrite it myself.
@@ -78,76 +72,55 @@ asking only for a diagnosis.
 3. "We apologize for the inconvenience" is a voicemail corporate format. Replace it with an apology that acknowledges what the delay costs them (a rescheduled launch, a replanning job).`}
 />
 
-You don't get a finished text: the three observations are the map
-of what you'll change when you rewrite.
+The three observations are the map of what you'll change when you
+rewrite.
 
-### 2. More versions, none entire
+### 2. More versions, none whole
 
-The second pattern flips the typical way of using the AI. Instead
-of asking for *the* right version, ask for three or four
-calibrated differently, and don't take any of them in full.
+Instead of asking for *the* right version, ask for three or four
+calibrated differently, and don't take any of them whole.
 
-> *"Give me three versions of this email to ask for a refund. One
+> *"Give me three versions of this email asking for a refund. One
 > direct and dry, one diplomatic, one formal. Three or four
 > sentences each, no more."*
 
-The specific labels matter: asking for "three versions" without
-more gives you three often-similar variants. Different names
-(*"direct"*, *"diplomatic"*, *"formal"*) force the AI to move the
-register in recognizable directions.
+The labels matter: "three versions" with nothing else often gives
+three near-identical variants. Different names (*"direct"*,
+*"diplomatic"*, *"formal"*) force the AI to move the register in
+recognizable directions.
 
-The value lies in seeing how the same thing changes shape, and in
-figuring out which register sounds like yours. Usually it's none of the three: it's a hybrid, the opening
-from the first version, the middle passage from the second, a
-closing line from the third.
+The value is in seeing how the same thing changes shape and in
+working out which register sounds like you. Usually it's none of
+the three but a hybrid: the opening of the first, the middle of
+the second, the close of the third. Read the versions aloud and
+mark where a sentence slides off your tongue without a snag: that's
+where your way of speaking is. If one version is already almost
+right, tweak a sentence instead of building a mosaic.
 
-Recognizing your own voice isn't automatic, especially if you
-write a lot of work email and may have picked up some AI tics
-already. Two practical clues. Compare with an old text of yours
-you liked (an email to a friend, a diary note, anything): there
-your voice was more naked. Then read the three AI versions out
-loud and flag the spot where the sentence slips by without
-catching: that's the passage that comes closest to how you talk.
-
-Instead of copying, compose. Take the opening from one version,
-an argument from another, a close from a third. Then reread and
-smooth the transitions. What comes out is a text that wasn't in
-any of the three, but that the AI helped you assemble. The
-mosaic is worth it when none of the three versions convinces you
-in full. If one is already close to good, retouching one sentence
-is faster and leaves fewer seams.
-
-More ambitious variant: paste two or three past texts of yours
-you're happy with and ask *"pick up the cadence of these texts,
-not their content"*. It isn't magic, but the AI grabs some of
-your rhythm tics (where you break sentences, how long you extend
-subordinates) and carries them into the new versions.
+A variant: paste two or three past texts of yours that you're
+happy with and ask *"pick up the cadence of these texts, not their
+content"*. The AI catches some tics of your rhythm, like where you
+break sentences.
 
 ### 3. Emotional temperature
 
-The third pattern uses one of the AI's strengths: reading the
-emotional tone of a text. It has seen a huge number of texts where
-people comment on the tone they received (*"sounds cold to me"*,
-*"it's passive-aggressive"*), and has learned which surface
-signals trigger those reactions. It can tell when a *"certainly"* sounds
-ironic, when a formal close lands distant, when a slightly
-off-key adjective shifts the whole message.
+The third pattern uses one of the AI's strengths: reading the tone
+of a text. It has seen a huge number of texts in which people
+comment on the tone they received (*"it feels cold"*, *"it's
+passive-aggressive"*) and it recognizes the surface signals that
+cause it: an ironic *"certainly"*, a formal close that lands as
+distant, a slightly wrong adjective.
 
-> *"Read this email and tell me what tone it's putting across.
-> Does it sound cold? Passive-aggressive? I want to say no to a
-> coworker without making them feel brushed off."*
+> *"Read this email and tell me what tone it puts across. Does it
+> sound cold? Passive-aggressive? I want to say no to a coworker
+> without making them feel brushed off."*
 
-Particularly useful in high-stakes cases: saying no to someone
-who asked you for something, negotiating a raise, responding to
-feedback that stung, delivering bad news. There the tone is the
-message, more than the words.
-
-The pattern holds in other languages too: the AI has read enough
-text in English, Spanish, French to read their register. One
-caveat: it sometimes projects the register norms of another
-culture onto yours (a *"cold"* in American English isn't a cold
-in British English or Italian). Read the diagnosis with the
-context shift in mind.
+It's most useful when the stakes are high: saying no to someone
+who asked you for something, negotiating a raise, answering
+feedback that hurt, delivering bad news. There the tone is the
+message. It works in other languages too, with a caveat: the AI
+sometimes applies the norms of another culture to yours (a *"cold"*
+in American English isn't a cold in Italian).
 
 <ChatDemo
   user={`I want to say no to Marco, a coworker, without making him feel brushed off. Read this email and tell me what tone it puts across:
@@ -162,29 +135,35 @@ context shift in mind.
 If Marco is a coworker you work with often, give the real reason for the no and drop the generic close. For example: "Thanks for thinking of me. I'm buried in deadlines right now and wouldn't be able to give the project the attention it deserves. If you need a hand in June, give me a shout."`}
 />
 
-The diagnosis is useful even when you don't apply the rewrite it
-proposes: it flags things you'd miss rereading on your own.
+The diagnosis can also be wrong: the AI sometimes reads
+exaggerated tones into neutral texts. If a reading surprises you,
+ask *"what in the text makes you see this?"* and check the
+passages it cites. If they don't hold up, discard the diagnosis.
 
-The diagnosis can also be wrong: the AI sometimes projects
-exaggerated readings onto neutral texts. If a reading surprises
-you drastically, ask *"what in the text are you seeing this
-in?"* and read the passages it cites. If those passages don't
-hold up, throw out the diagnosis; if they do, it has a point even
-if your gut said otherwise.
+Pattern 1 asks for a technical critique (clarity, structure,
+length), this one for a reading of the emotional register. In
+delicate cases run them one after the other, separately.
 
-Difference from pattern 1: there you ask for a technical critique
-(clarity, structure, length); here you ask for a reading of the
-emotional register. In delicate
-cases you can combine them: first the technical diagnosis, then
-the tone one, separately, so you see whether an email is *unclear
-and cold* together or just one of the two.
+<SelfCheck
+  id="write-better-q1"
+  question="You wrote a draft email and it feels cold, but you don't know why. Which request to the AI keeps your voice best?"
+  options={[
+    { text: "\"Rewrite this email to sound warmer.\"", why: "You get a new text in the AI's average register: warm, but no longer yours." },
+    { text: "\"Read this email, tell me what tone it puts across and point out the sentences that make it sound cold. Don't rewrite it.\"", correct: true, why: "You ask for a diagnosis pinned to specific sentences. Then you rewrite, and the voice stays yours." },
+    { text: "\"Give me the perfect version of this email.\"", why: "Asking for the right version gives a text that would suit anyone, with no fingerprint." },
+  ]}
+  explanation="A diagnosis of the tone (pattern 3) and a rewrite by your own hand: the AI reads, you write."
+/>
 
-## The trap of the average voice
+## The average voice
 
-The AI has seen a huge number of work texts, and has learned how they
-sound on average. Its default is a polite but anonymous register:
-correct, smooth, interchangeable. That's *AI-polish*, the
-impersonal glaze of generated text, readable but unsigned.
+The *average voice* is the register the AI uses when you give it
+no instructions: polite, correct, polished, interchangeable. It has
+seen a huge number of work texts and learned how they sound on
+average, but it doesn't know how you sound. The result is readable
+and unsigned. Other lessons on this site point back here when they
+talk about the polished AI tone, the smooth finish typical of
+generated text.
 
 The problem starts when you copy its versions without working
 them. For a week it doesn't show; after a month your emails all
@@ -192,15 +171,16 @@ start with *"Thank you for…"* and close with *"Please let me know
 if…"*, and look like they came from the same mold. Your readers
 can't name it, but they can feel it.
 
-A concrete example. Your quick draft, before running it through
-the AI:
+<Collapsible title="An example: the same email before and after">
+
+Your quick draft, before running it through the AI:
 
 *"Hi Marco, the offer's interesting but the timing doesn't work.
 I've got too much on my plate until mid-June. If you're up for
 it, let's pick this up in July?"*
 
-The version coming out of the AI when you ask it to "improve" the
-text without specific instructions:
+The version coming out when you ask it to "improve" the text
+without specific instructions:
 
 *"Hi Marco, thank you for presenting me with this interesting
 opportunity. Unfortunately, at the moment my schedule is
@@ -215,94 +195,88 @@ relationship with Marco, no padding. If you make this swap ten
 times a day for a month, the register of the second becomes your
 standard.
 
-Practical counter-move: read the final version out loud before
-sending it. If it sounds like a call-center reply, cut. A second
-test: try to say in two words what you want to get across. If
-the summary is short and clear but your written version is three
-times as long, there's padding. The most common padding: long
-connectors (*"unfortunately at the moment"*), redundant
-politeness formulas, filler adverbs (*"particularly"*,
-*"effectively"*, *"certainly"*).
+</Collapsible>
+
+Two tests before sending: read it aloud, and if it sounds like a
+call center reply, cut. Then try to say in a few words what you
+mean: if the summary is short and your written version is three
+times longer, there's padding. The most common kinds are long
+connectives (*"unfortunately at the moment"*), redundant courtesy
+formulas, and filler adverbs (*"particularly"*, *"actually"*).
 
 :::tip[Two moves against the average voice]
-**At the start of the chat**, if you'll be using the AI on
-writing more than once, give it a standing instruction: *"When
-you correct or rewrite texts, avoid stock politeness formulas
-like 'I remain at your disposal' or 'thank you for'. Prefer dry
-sentences, direct first person, no ritual preamble."* It doesn't
-disappear entirely (the default is strong), but the starting
-register shifts visibly.
+**At the start of the chat**, if you'll use the AI for writing
+more than once, give it a standing instruction. It visibly shifts
+the starting register, even though the default doesn't disappear
+entirely.
 
-**At the end of an email**, reread the text and ask yourself: if
-you had to justify every single sentence to the recipient as
-your own, could you? The passages you couldn't explain in your
-own words, or don't recognize, are the ones the AI put there and
-you're signing off on. Rewrite them.
+**At the end of the email**, ask yourself: if I had to justify
+every single sentence to the recipient as mine, could I? The
+passages you couldn't explain in your own words are the ones the
+AI put there and you're signing. Rewrite them.
 :::
 
+<PromptCompare
+  weak="Improve this email."
+  strong={`When you correct or rewrite texts, avoid stock courtesy formulas like "I remain available" or "thank you for". Prefer dry sentences, direct first person, no ritual introduction.
+
+Here's my draft: [paste here]
+Tell me in three points what isn't working. Don't rewrite it.`}
+  note="The first leaves the choice of register to the AI, so the average voice comes out. The second fixes the register, asks for a diagnosis and leaves the rewriting to you."
+/>
+
 :::caution[Check the content too, not just the tone]
-The AI can read tone, but on factual content it can slip up. If
-you ask it to "improve" a text containing numbers, dates,
-quotations, or references to specific facts, check it hasn't
-tweaked those parts trying to make them smoother. The bigger
-picture is in
-[*When to trust it (and when not)*](/en/fundamentals/when-to-trust-it/).
+If you ask it to "improve" a text that contains numbers, dates,
+quotes or references to specific facts, check that the AI didn't
+touch them thinking it was making them flow better. For the
+general picture, [*When to trust it (and when not)*](/en/fundamentals/when-to-trust-it/).
 :::
 
 ## When to use it, when not to
 
-Three buckets, not symmetric. Most emails live in the middle, and
-calibration is case by case. The map below is for tuning yourself,
-not boxing yourself in.
+Most emails live in the middle, and calibration is case by case.
+The map below is for tuning yourself, not for pigeonholing.
 
 :::caution[If the content is sensitive, anonymize first]
-The three patterns ask you to paste the text, often in full. If
-the email involves a third party, a client, or a confidential
-matter, replace names, companies, and identifying data with
-generics (*"the coworker"*, *"client X"*) before pasting. The
-picture of what to share and what not to is in
+The three patterns ask you to paste the text, often whole. If the
+email is about a third party, a client, a confidential problem,
+replace names, companies and identifying data with generic ones
+(*"the coworker"*, *"client X"*) before pasting. The picture of
+what you share and what you don't is in
 [*What you share when you use AI*](/en/fundamentals/privacy-basics/).
 :::
 
-Use the AI freely for short coordination emails (confirmations,
-follow-ups, updates), internal documents where clarity matters
-and voice doesn't (memos, minutes, operating instructions), and
-technical texts where the content does all the work. Here the
-AI's average voice is adequate, and the time saved is real.
+**Freely**: short coordination emails (confirmations, follow-ups,
+updates), internal documents where clarity matters more than voice
+(memos, minutes, operating instructions), technical texts where the
+content does all the work. Here the average voice is fine and the
+time saved is real.
 
-Use it carefully, rereading twice and putting your hand back in,
-for texts where you state a position of yours (reviews, open
-letters, posts that carry your name), delicate emails (refusals,
-negotiations, constructive critiques), and communications to
-people who know how you usually write. The caution is about
-the padding, not about using the AI itself: an AI-polish email
-arriving from someone who usually writes dry sounds like a
-different person, and the recipient registers it without being
-able to say so.
+**With caution**, rereading twice and putting your own hand back
+in: texts where you state a position of your own (reviews, open
+letters, posts under your name), delicate emails (refusals,
+negotiations, criticism) and messages to people who know how you
+usually write. The risk is padding, not using the AI itself: an
+email with the polished AI tone, from someone who usually writes
+dry, sounds like a different person.
 
-:::note[What if your job is almost all "cautious"?]
-If you work in HR, customer success, sales, or mediation, many
-of your daily emails fall in the second bucket. The advice is to
-not use it at full default: keep
-pattern 1 (the diagnosis) as your main habit, and write the
-final stretch yourself. The more often you do it, the more your
-voice stays in shape.
-:::
+If you work in HR, customer success, sales or mediation, many daily
+emails fall in this category. Keep pattern 1 (the diagnosis) as
+your main habit and write the last 20-30 yards yourself.
 
-Don't use it to write from scratch: messages to people close to
-you (friends, family, partner), intimate texts (notes, cards,
-private letters), communications where sincerity is the content
-(apologies, condolences, personal declarations). The practical issue
-is that the human on the other side often notices, even without being able to name it. The AI can
-help you reread, smooth a harsh passage, check whether the tone
-is what you meant (that's pattern 3, applied in small). Not
-speak on your behalf.
+**Not from scratch**: messages to people close to you (friends,
+family, partner), intimate texts (cards, wishes, private letters),
+communications where sincerity is the content (apologies,
+condolences, personal statements). The recipient often notices,
+even without being able to say why. The AI can help you reread,
+soften a harsh passage, check the tone (pattern 3 in miniature),
+but you supply the words.
 
 ## What comes next
 
-So far you've worked with text that you write or paste. Modern
-AI goes further: it reads photos, screenshots, PDFs, tables. The
-next lesson, *Photos, images, and files*, enters that territory.
+So far you've worked with text you write or paste. Modern AI goes
+further: it reads photos, screenshots, PDFs, tables. The next
+lesson, *Photos, images, and files*, goes into that territory.
 
 ## Check what you understood
 

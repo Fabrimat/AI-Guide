@@ -7,6 +7,7 @@ prerequisiti: [what-is-a-prompt, when-to-trust-it]
 
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -200,6 +201,17 @@ non hai modo di difenderti.
 software: le cose che pesano le decidi tu, eventualmente con un
 professionista che se le firma. L'IA ti prepara al confronto con lui
 o con l'altra persona.
+
+<SelfCheck
+  id="what-not-to-do-q1"
+  question="Hai un compromesso da firmare per una casa. Quale richiesta all'IA rispetta la regola della lezione?"
+  options={[
+    { text: "\"Posso firmare questo compromesso?\"", why: "Stai chiedendo una decisione che ti vincola. Se l'IA sbaglia, non hai modo di difenderti." },
+    { text: "\"Spiegami in parole semplici queste tre clausole e dammi le domande da fare al notaio.\"", correct: true, why: "L'IA ti dà contesto e prepara il confronto. La decisione la prendi tu, con chi firma con te." },
+    { text: "\"Scrivimi la lettera di recesso, così se cambio idea è pronta.\"", why: "Un documento legale scritto dall'IA e firmato da te porta il rischio di errori che non vedi. Meglio prepararlo con un professionista." },
+  ]}
+  explanation="La differenza è chi firma: capire e preparare va bene, far decidere no."
+/>
 
 ## Verifica cosa hai capito
 

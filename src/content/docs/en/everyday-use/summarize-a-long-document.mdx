@@ -2,19 +2,20 @@
 title: Summarize a long document
 description: PDFs, articles, reports, books. How to ask for a summary that's actually useful, and how to know if you can trust it.
 livello: principiante
-prerequisiti: [what-is-a-prompt]
+prerequisiti: [what-is-a-prompt, ask-well]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
 - "Summarize it" on its own gives you the Wikipedia version: correct, but not tailored to you.
 - Three techniques: **say how you want it** (length, form, depth), **say why you're reading it** (the goal), **map first, details later** (for long documents).
 - On a long document the AI can drop important parts or invent new ones. That's the specific risk of this lesson.
-- Two practical countermoves: ask it to quote the exact sentence, and do a spot-check by reading a section yourself in the original document.
+- Two practical countermoves: ask it to quote the exact sentence, and do a spot-check by finding two or three of its claims yourself in the original document.
 - PDF, paste, link: each AI handles files a bit differently. Knowing what yours accepts saves surprises.
 
 </LessonSummary>
@@ -32,14 +33,7 @@ leaves out an important piece, or worse, invents a claim that isn't
 in the text. This lesson gives you the techniques to ask well and,
 above all, to verify.
 
-Compared to
-[*Understanding something complicated*](/en/everyday-use/understand-something-complex/)
-the scale changes. There the document was hard but short (a bill, a
-clause, a few pages of rules); here it can be easy but long, or long
-and hard at the same time. A 30-page contract is both: in that case
-the techniques from the two lessons combine. First you make the
-language clear, then you extract what matters to you. Verifying, on
-a long document, costs more and works differently.
+Compared to [*Understanding something complicated*](/en/everyday-use/understand-something-complex/) the scale changes: there the document was hard but short, here it can be easy but long, or long and hard at once (a 30-page contract). In that case the two lessons combine: first you make the language clear, then you extract what matters to you. Verifying, on a long document, costs more and works differently.
 
 ## The three techniques
 
@@ -117,12 +111,7 @@ of contents, then you zoom where it counts. A good map can also tell
 you, sometimes, that the document isn't for you at all, and spare
 you an hour of reading.
 
-It also works on documents without pre-titled sections: a long
-newspaper article, an essay, a chapter of fiction. The AI builds the
-map for you, identifying topic shifts and proposing a "derived"
-index. The difference with Technique 1: there you ask for a summary
-of the whole document in one shot; here you break the work into two
-passes, and you also get a compass to orient yourself.
+It also works on a long newspaper article or an essay: the AI derives a map from the topic shifts. The difference with Technique 1 is that you break the work into two passes and also get a compass to orient yourself.
 
 :::tip[How do you actually hand it the document?]
 Three routes, in order of reliability. **Upload**: almost every AI
@@ -134,14 +123,7 @@ some AIs (ChatGPT, Gemini, Perplexity) open the page and read it;
 others (Claude, by default) don't browse the web and will ask you to
 paste the text.
 
-One edge case: on a whole book or documents hundreds of pages long,
-every AI has a threshold above which the document is "too big".
-Sometimes it tells you with an error and won't let you upload.
-Sometimes the file goes through but the AI only reads part of it and
-answers as if it had read everything, without warning you. When that
-happens, split the document into chunks (chapters, blocks of pages)
-and feed it one chunk at a time, or switch to a dedicated tool like
-Google NotebookLM, free and built for analyzing very long documents.
+One edge case: on a book or hundreds of pages, every AI has a threshold above which the document is "too big". Sometimes it tells you with an error, sometimes the file goes through and the AI only reads part of it and answers as if it had read everything. Then split the document into chunks (chapters, blocks of pages) or switch to a tool built for long documents, like Google NotebookLM (it has a free plan: check the current limits).
 :::
 
 :::note[Before uploading a work document]
@@ -210,11 +192,7 @@ the AI produces text that sounds true, and a summary of a document
 can contain a plausible statement that the document doesn't actually
 make.
 
-It happens more on long documents for two reasons. One: the document
-can exceed the AI's capacity, and the AI then reads only part of it
-and fills in the gaps with plausible-but-unverified claims. Two: on
-a three-page contract you'd see right away that the sentence isn't
-there; on a 50-page report, who's going to go check?
+It happens more on long documents, for two reasons. The document can exceed the AI's capacity, so it reads only part of it and fills the gaps with plausible claims. And on a three-page contract you'd see right away that the sentence isn't there, but on a 50-page report who goes to check?
 
 Two simple countermoves.
 
@@ -232,6 +210,18 @@ picking the ones that matter most to you, and go read the matching
 pages in the original document. You don't need to check everything:
 if they're correct, the summary is probably reliable; if one is
 wrong or inflated, the suspicion extends to the whole output.
+
+Try it on a small case. You asked for a few-sentence summary of this paragraph, and the AI answers like this. It contains two errors: find them by comparing with the text.
+
+<SpotTheError
+  prompt={`Summarize this paragraph: "In 2023, 28% of workers in the area worked from home at least one day a week, up from 12% in 2019. The increase was stronger in services and weaker in industry. Productivity data are still uncertain: the available studies disagree."`}
+  sentences={[
+    { text: "In 2023, 28% of workers worked from home at least one day a week, up from 12% in 2019." },
+    { text: "The increase was stronger in services." },
+    { text: "There was no increase at all in industry.", wrong: true, why: "The text says the increase was weaker in industry, not absent." },
+    { text: "Working from home increased productivity.", wrong: true, why: "The text says productivity data are uncertain and studies disagree: the AI turned a doubt into a conclusion." },
+  ]}
+/>
 
 :::caution[Be suspicious of what "sounds good"]
 A round number, a percentage quoted without a source, a clear-cut

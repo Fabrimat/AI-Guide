@@ -8,6 +8,8 @@ prerequisiti: [what-is-a-prompt, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -102,15 +104,9 @@ thinks in floor plans, materials, job sites"*. That way the AI
 calibrates all the following explanations without your having to
 remind it each time.
 
-If an analogy to your world doesn't come to mind, ask for one:
-*"give me three possible analogies for blockchain, drawing from
-different worlds (kitchen, school, finance, sport). I'll pick"*.
-Not all of them work, but at least you get a menu.
+If an analogy to your world doesn't come to mind, ask for one: *"give me three possible analogies, drawing from different worlds (kitchen, school, finance, sport). I'll pick"*.
 
-The difference from Technique 1: there you move up and down the
-level of complexity; here you shift the starting vocabulary. The
-two are complementary, not alternatives: often you start with an
-analogy and then scale the details.
+Technique 1 moves up and down the level of complexity, this one shifts the starting vocabulary. Often you start with an analogy and then scale the details.
 
 ### 3. Return questioning
 
@@ -125,17 +121,9 @@ Reading an explanation and nodding along is passive. The feeling
 The AI stops pouring information into you and starts quizzing you.
 Here you discover where you'd been faking it.
 
-It's the most uncomfortable moment of the process, and the one that
-imprints the concept.
+It's the most uncomfortable moment of the process, and the one that imprints the concept. On the points where you stumble, go back to the scalable explanation and ask for the level below, then do a harder quiz.
 
-Combine the techniques: after a quiz, on the points where you
-stumbled go back to scalable and ask for the level below. When that
-area is solid, do a harder quiz on the same ground.
-
-If the questions come out too easy, too abstract, or all on the
-same plane, ask for an adjustment: *"next ones harder"*, *"more
-applied to a concrete case"*, *"less theoretical"*. You calibrate
-the quiz the same way you calibrate an explanation.
+If the questions come out too easy or too abstract, ask for an adjustment: *"next ones harder"*, *"more applied to a concrete case"*.
 
 One caution on the feedback. The AI can say "correct" out of
 politeness even when the answer is partial. To counterbalance,
@@ -145,8 +133,10 @@ completion, not just the surface.
 
 ## An example: understanding blockchain
 
-Let's see the three techniques chained. I want to understand
-blockchain, I don't have precise ideas, I've only heard the term.
+The three techniques chained. I want to understand blockchain, I've only heard the term.
+
+<Collapsible title="The full conversation, in three rounds">
+
 First pass, scalable at the lowest level.
 
 <ChatDemo
@@ -177,11 +167,7 @@ stuck.
 An attacker manages to modify a 10-year-old block on their own computer. Their copy of the blockchain is tampered with locally, but the network as a whole doesn't accept it. Why does the network reject it?`}
 />
 
-Here you stop and answer. The question pushes you on the "why" of
-the mechanism, not on vocabulary. If you can't answer, you know
-exactly where to go back with Technique 1.
-
-Here's how the next turn might unfold.
+Here you stop and answer. The question pushes you on the "why" of the mechanism. If you can't answer, you know exactly where to go back with Technique 1. Here's how the next turn might unfold.
 
 <ChatDemo
   user="The network rejects it because if he changes an old block, that block's fingerprint changes, and all the following blocks in his copy become broken. To the other nodes his chain looks invalid from the point of the change onward."
@@ -192,8 +178,9 @@ Next question.
 If tomorrow someone invented a computer a thousand times faster than today's, would the blockchain automatically become insecure?`}
 />
 
-That's the loop. Your answer, an honest validation, a completion on
-what escaped you, the next question calibrated to where you landed.
+That's the loop: your answer, an honest validation, a completion on what escaped you, the next question calibrated to where you landed.
+
+</Collapsible>
 
 ## What to always verify
 
@@ -203,7 +190,7 @@ comparing with the document. If it explains a concept to you
 wrongly, that error enters your mental model and you carry it with
 you.
 
-Three useful checks.
+Three checks.
 
 **A too-smooth explanation is a signal.** When an explanation comes
 out clean on the first try, with no gray areas, it doesn't mean you
@@ -214,35 +201,31 @@ you. If it insists everything's fine, push: *"give me three
 concrete examples where the simple explanation you gave me
 doesn't hold"*. Starting from counter-examples usually unblocks it.
 
+Here is an explanation the AI might give you about blockchain. It contains two subtle errors: find them before trusting it.
+
+<SpotTheError
+  prompt="Explain to me how blockchain stays secure."
+  sentences={[
+    { text: "Each block contains the fingerprint (hash) of the previous block." },
+    { text: "If someone modifies an old block, its fingerprint changes and all the following blocks become invalid." },
+    { text: "That's why a blockchain can't be altered under any circumstances.", wrong: true, why: "Altering it is very expensive, not impossible: whoever controlled the majority of the network's power could rewrite the chain. 'Under any circumstances' is the kind of overstatement a too-smooth explanation makes." },
+    { text: "Bitcoin, the first blockchain, was created in 2001.", wrong: true, why: "Bitcoin was presented in 2008 and the network started in 2009." },
+    { text: "The valid chain is the one most nodes agree on." },
+  ]}
+/>
+
 **Cross-check with an external source on the critical points.** You
 don't need to read a textbook: for most topics the Wikipedia entry
 and the first lines of two serious articles on the subject are
-enough. "Serious" means published by a university, a newsroom
-outlet, or an official organization; prefer recent articles if the
-topic is evolving. Look for divergences between what the AI told
+enough. Prefer universities, newsroom outlets and official organizations, and recent articles if the topic is evolving. Look for divergences between what the AI told
 you and what you find there. The discrepancies are the spots to go
 back and ask about.
 
-:::note[Niche topics]
-On specialist topics with little popular coverage (active research,
-sector-specific technical questions, local contexts), verification
-costs more: often the only route is a paper or a primary document.
-In these areas the AI has probably read more simplified
-popularization than original material, and knows less than its
-tone would suggest. It stays a useful tutor to get oriented, but
-not the last word.
-:::
+On niche topics with little popular coverage, verification costs more: often you need a paper or a primary document. There the AI knows less than its tone suggests: it stays useful to get oriented, but it isn't the last word.
 
 **Try to explain it yourself.** If you can't express the concept
 in your own words to someone who doesn't know it, you haven't
-locked it in yet. It can be to a real person, or back to the AI
-(*"now I'll explain how I understood it, tell me where I
-oversimplified or got it wrong"*). Students know it as the
-"Feynman technique". The reason is mechanical: reading an explanation exercises
-recognition (*"yes, this sounds familiar"*); expressing it
-exercises reconstruction (*"I have to put the pieces back in order
-from scratch"*). They're two different processes, and
-reconstruction is the harsher test.
+locked it in yet. It can be a real person or the AI again (*"now I'll explain how I understood it, tell me where I oversimplified or got it wrong"*). Reading an explanation exercises recognition (*"this sounds familiar"*), expressing it exercises reconstruction, and that is the harsher test.
 
 :::caution[On technical topics, distrust answers that sound too confident]
 Math, programming, statistics, specialist medicine: these are the
@@ -255,15 +238,7 @@ oriented, not as your only source. The broader picture is in
 [*When to trust it (and when not)*](/en/fundamentals/when-to-trust-it/).
 :::
 
-:::note[What if I want to acquire a skill, not grasp a concept?]
-These techniques are designed for conceptual learning:
-understanding how something works, keeping it in mind, being able
-to reason about it. For a practical skill (cooking better, writing
-more clearly, playing an instrument) theory helps but isn't enough:
-you need repeated practice with feedback. The AI still helps
-(study plan, feedback on your output, sparring partner), but the
-three techniques here play a supporting role, not a central one.
-:::
+These techniques are for conceptual learning. A practical skill (cooking, writing, playing an instrument) needs repeated practice with feedback: the AI helps with a study plan and comments on your attempts, but the three techniques stay in a supporting role.
 
 ## What comes next
 

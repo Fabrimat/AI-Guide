@@ -2,12 +2,15 @@
 title: Understanding something complicated
 description: Bills, contracts, medical reports, regulations. The AI is an excellent translator of bureaucratese, if you use it well.
 livello: principiante
-prerequisiti: [what-is-a-prompt]
+prerequisiti: [what-is-a-prompt, when-to-trust-it]
 ---
 
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -32,12 +35,7 @@ in normal language. It does the same job on contracts, condo bylaws,
 tax authority letters, drug leaflets, insurance policy terms. It's
 one of the most practical uses in everyday life.
 
-In this lesson we'll see three techniques that work almost every
-time, with a real example on an electricity bill. About medical
-reports, a heads-up before going further: the AI is a good translator
-of acronyms and clinical terms, not a substitute for a doctor in
-choosing what to do. We'll talk about it in the last lesson of the
-module, *What not to do*.
+In this lesson we'll see three techniques that work almost every time, with a real example on an electricity bill. About medical reports, a heads-up: the AI is a good translator of acronyms and clinical terms, not a substitute for a doctor in choosing what to do. We cover it in [*What not to do*](/en/everyday-use/what-not-to-do/#1-health), the last lesson of the module.
 
 ## The three techniques
 
@@ -46,15 +44,7 @@ asking for.
 
 ### Explain it like I'm ten
 
-The base technique. You paste (or describe) the difficult text and
-you ask the AI to explain it in simple words. It works on any
-document: a contract clause, a page of a regulation, a paragraph of
-an article. The AI strips out the jargon and gives you back the same
-information in plain language. You decide the level: "like I'm ten"
-is the extreme case, but you can also ask *"like to an adult who
-knows nothing about the topic"* or *"like to a colleague who knows
-half of what I know"*. The more precise you are about your starting
-point, the better the explanation fits.
+The base technique. You paste (or describe) the difficult text and ask the AI to explain it in simple words: a clause, a page of a regulation, a paragraph of an article. You decide the level: "like I'm ten" is the extreme case, but you can also ask *"like to an adult who knows nothing about the topic"* or *"like to a colleague who knows half of what I know"*. The more precise you are about your starting point, the better the explanation fits.
 
 > *"Explain this contract sentence as if I knew nothing about law:
 > 'In case of early termination, the customer is required to pay the
@@ -78,17 +68,11 @@ pulls the data out of the text without making you read twenty pages.
 > *"From this bill, tell me only: total amount, due date, and how
 > much the fixed monthly fee is."*
 
-The model reads the whole document but only answers what you asked.
-It's the right pattern for long documents (an insurance PDF, a condo
-bylaws document, an investment information sheet) when you need a
-specific piece of information and nothing more.
+The model reads the whole document but only answers what you asked. It's the right pattern for long documents (an insurance policy, a condo bylaws document, an information sheet) when you need a specific piece of information and nothing more.
 
 ### Tell me what to watch for
 
-The third technique is the most useful on contracts, before you
-sign them. Instead of asking "explain it" or "extract a
-piece of data", you ask the AI to do the job a knowledgeable friend
-would: *flag the things that could give me trouble*.
+The third technique is the most useful on contracts, before you sign them. Instead of asking "explain it" or "extract a piece of data", ask the AI to do the job of a knowledgeable friend: *flag the things that could give me trouble*.
 
 > *"Read this rental contract and tell me which clauses could be
 > disadvantageous for me as a tenant. Focus on penalties, automatic
@@ -101,36 +85,21 @@ binding minimum duration, penalties hidden in the footnotes. On a
 rental, a typical answer sounds like: *"24-month minimum term with a
 240-euro penalty if you leave early; automatic renewal unless you
 cancel three months before expiry; extraordinary maintenance is on
-the tenant, this is a clause to verify against local law."* It's
-useful when you're about to sign a phone offer, an electricity
-contract, a gym membership, an insurance policy, a real estate
-preliminary contract. It gives you a second pair of eyes before a
-decision that locks you in.
+the tenant, this is a clause to verify against local law."* It's useful before signing a phone offer, an electricity contract, a gym membership, an insurance policy, a preliminary contract: it gives you a second pair of eyes before a decision that locks you in.
 
 :::tip[What if my document is on paper or a long PDF?]
-For text already selectable (web page, email) you copy and paste it
-into the chat. For a PDF, almost all AIs accept the file uploaded
-directly, and we'll come back to this in the lesson *Photos, images
-and files*. For a paper document you have two routes: type it out
-manually (a bill takes five minutes) or photograph it. For very long
-documents (PDFs of dozens of pages, books) the techniques in this
-lesson still work, but they need to be combined with those of the
-next lesson, *Summarize a long document*.
+Selectable text (web page, email) you copy and paste. For a PDF almost all AIs accept the file uploaded directly, as you'll see in *Photos, images, and files*. A paper document you type out (a bill takes five minutes) or photograph. For very long documents, combine these techniques with those of *Summarize a long document*.
 :::
 
 :::note[Before pasting in a document of yours (or someone else's)]
-What you feed to the AI leaves your computer and arrives at the
-provider's servers. A bill has your address and your POD (the unique
-code identifying your electricity meter); a contract may contain a
-tax ID and IBAN; a medical report has health data. Delete or replace
-with `xxx` anything you don't need for the question you're asking:
-the euro amounts you need if you want to understand the bill, your
-name and address you don't. Same logic if you're pasting a document
-that belongs to someone else (a parent, a friend): ask their OK
-first, and anonymize their data the way you would your own. For the
-full picture, [*What you share when you use
-AI*](/en/fundamentals/privacy-basics/).
+What you paste reaches the provider's servers. A bill has your address and your POD (the meter code), a contract may have a tax ID and IBAN, a medical report has health data. Delete or replace with `xxx` anything the question doesn't need: you need the amounts, you don't need your name. If the document belongs to someone else, ask their OK first and anonymize their data like your own. The full picture is in [*What you share when you use AI*](/en/fundamentals/privacy-basics/).
 :::
+
+<Collapsible title="A tool to strip personal data, in your browser">
+
+<Anonymizer />
+
+</Collapsible>
 
 ## An example: the electricity bill
 
@@ -161,12 +130,7 @@ What exactly am I paying for, and why is there that adjustment?`}
 To give you the order of magnitude: actual consumption is about 41% of the total. The rest is infrastructure, taxes, and a retroactive correction.`}
 />
 
-In four lines of prompt you got a complete translation, and you
-identified the culprit of the higher amount (a retroactive
-adjustment, not a sudden runaway consumption). You could also have
-asked just *"why is it high?"* (technique 2), and you'd have gotten
-a direct answer; or *"tell me if anything looks off"* (technique 3),
-and it would have checked for you.
+In four lines of prompt you got a complete translation and found the culprit of the higher amount: a retroactive adjustment, not runaway consumption. With *"why is it high?"* (technique 2) you'd have had a direct answer, with *"tell me if anything looks off"* (technique 3) a sweep of the whole bill.
 
 ## What to always verify
 
@@ -181,27 +145,33 @@ number. You saw the mechanism in
 [*When to trust it (and when
 not)*](/en/fundamentals/when-to-trust-it/).
 
-Numbers are the obvious case. The AI can be wrong on the words too:
-a clause translated too softly, an exception skipped, a plausible
-interpretation that doesn't actually fit your specific text. The
-counter-move is to ask the AI to quote the exact sentence in the
-document it drew the explanation from (*"which line of the contract
-did you get this from?"*). If it can't point to it, or it pulls one
-out that isn't in the text, you've found the weak spot.
-
-For the documents in this lesson, the practical rule is simple.
+Numbers are the obvious case, but the AI can be wrong on words too: a clause translated too softly, an exception skipped, a detail added that isn't in the text. The counter-move is to ask for the exact sentence it drew the explanation from (*"which line of the contract did you get this from?"*). If it can't point to it, or cites one that doesn't exist, you've found the weak spot.
 
 :::caution[Paste, ask, verify]
-Use the AI to *understand* the document, not to trust the numbers it
-gives you back. If it tells you the adjustment is €14.50, look for
-that line in the document and check that it's there. If it tells you
-the penalty is €200, go read the exact figure in the original text.
-Translating is its job; checking the figures stays yours.
+Use the AI to *understand* the document, not to trust the numbers it gives you back. If it tells you the penalty is €200, go read the exact figure in the original text. Translating is its job, checking the figures stays yours: it applies to amounts, dates, percentages, tax IDs and phone numbers.
 :::
 
-It also applies to dates, percentages, tax IDs, phone numbers.
-Anything that's a number is to be re-checked against the original
-document.
+Try it. You asked the AI to flag what to look at in a rental contract, and this is its answer. It contains two subtle errors: find them by comparing with the contract.
+
+<SpotTheError
+  prompt="Rental contract: 24-month term, 240-euro penalty if you leave early, automatic renewal unless cancelled at least three months before expiry, non-refundable deposit of two months' rent. Tell me what to look at."
+  sentences={[
+    { text: "The minimum term is 24 months." },
+    { text: "If you leave before expiry you pay a 240-euro penalty." },
+    { text: "If you don't cancel, the contract renews automatically for another 24 months.", wrong: true, why: "The text mentions automatic renewal but not for how long: the AI added a detail that isn't in the contract." },
+    { text: "To avoid renewal you must send notice at least three months before expiry." },
+    { text: "The two-month deposit is returned to you at the end of the contract.", wrong: true, why: "The contract defines it as non-refundable: the AI wrote the opposite." },
+  ]}
+/>
+
+
+
+<LlmExercise
+  title="Understand a document of yours, with the three techniques"
+  file="practice-understand-a-document.txt"
+  duration="10-15 min"
+  description="Pick a bill, a contract or a letter you really have, anonymized. The AI guides you to explain it, extract the figure that matters and ask what to look at."
+/>
 
 ## What comes next
 

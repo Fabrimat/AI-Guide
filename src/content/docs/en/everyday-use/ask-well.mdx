@@ -10,6 +10,8 @@ import Def from '../../../../components/Def.astro';
 import PromptBuilder from '../../../../components/PromptBuilder.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -164,6 +166,25 @@ other, no ranking"), the dosed **context** (four relevant details,
 no biography), the **format** ("each with one sentence on why").
 
 ## Try it on your own problem
+
+<PromptCompare
+  weak="Write an email to my landlord about the boiler."
+  strong={`Act as my editor. Write a 6-line email to my landlord: the boiler has been broken for 5 days, I already mentioned it in person on March 3 and nothing happened. Firm but polite tone, ask for a repair by Friday.
+
+Give me a subject line and the body, no long sign-off formulas.`}
+  note="The second has all four levers: role (editor), result (an email with one request and a deadline), context (what happened, what you already did), format (6 lines, subject plus body)."
+/>
+
+<SelfCheck
+  id="ask-well-q1"
+  question="Which of these requests does NOT need all four levers?"
+  options={[
+    { text: "Writing a delicate email to your boss asking for an out-of-calendar day off.", why: "Tone matters here and context helps: pull all the levers." },
+    { text: "Asking how many milliliters are in a cup of coffee.", correct: true, why: "It's a closed question: it just has to be clear. Role and format would be dead weight." },
+    { text: "Preparing a pros and cons comparison between two job offers.", why: "You need a precise result, the context of both offers and a format (table): the levers count here." },
+  ]}
+  explanation="The levers reduce the blank the AI has to fill. If the question is already closed, there is nothing to calibrate."
+/>
 
 <PromptBuilder />
 
