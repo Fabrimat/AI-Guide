@@ -208,64 +208,94 @@ allows switching (via `disposeEngine()`: unload + terminate of the
 previous worker before loading the new one) and deleting from the cache. All
 visible strings live in `src/i18n/ui.ts` (it + en).
 
-## Visual direction: Pastello
+## Visual direction: Quaderno & Lavagna
 
-The site uses **a single warm palette in two modes** ("Pastello"), designed for a non-technical audience with preconceptions about AI/technology. The design is a "friendly manual", not "corporate documentation".
+The site is designed for a non-technical, mixed-age audience with preconceptions about AI/technology. The metaphor: **you learn the way you learned at school, without grades**. Light mode is the Italian squared exercise book ("quaderno a quadretti"): cool paper, a faint blue 5mm grid, a pink margin line, blue biro ink, the teacher's red pen, a yellow highlighter. Dark mode is the classroom blackboard ("lavagna"): green slate, chalk text, coloured chalks in place of ink, pen and highlighter. The design is a "friendly exercise book", not "corporate documentation".
 
-**Light palette (CSS vars in `src/styles/custom.css`)**:
+**Light palette, quaderno (CSS vars in `src/styles/custom.css`)**:
 
-| Token                       | Value      | Use                          |
-|-----------------------------|------------|------------------------------|
-| `--sl-color-bg`             | `#FCEEE3`  | page background (peach)      |
-| `--sl-color-text`           | `#2A2447`  | main text (indigo)           |
-| `--sl-color-text-accent`    | `#C25A3F`  | links in body text (dark coral) |
-| `--sl-color-accent`         | `#E07A5F`  | accent, CTA (coral)          |
-| `--sl-color-accent-low`     | `#FAD0C2`  | muted accent                 |
-| `--sl-color-accent-high`    | `#B85D44`  | accent hover                 |
-| `--sl-color-hairline`       | `#F0DCC9`  | borders                      |
+| Token                       | Value      | Use                                                  |
+|-----------------------------|------------|------------------------------------------------------|
+| `--sl-color-bg`             | `#F7F8F4`  | page background (paper, cool off-white, not cream); also nav and sidebar |
+| `--sl-color-text`           | `#23272E`  | main text (graphite)                                 |
+| `--sl-color-white`          | `#16191E`  | "strong text" (Starlight naming): darkest graphite   |
+| `--sl-color-black`          | `#FFFFFF`  | "light bg" (Starlight naming): paper-raised          |
+| `--sl-color-text-accent`    | `#1E3A8A`  | links in body text (biro)                            |
+| `--sl-color-text-invert`    | `#F7F8F4`  | text on biro fills (paper)                           |
+| `--sl-color-accent`         | `#1E3A8A`  | accent, primary buttons, focus ring (biro)           |
+| `--sl-color-accent-low`     | `#DCE5F7`  | pale ink wash (table headers, badges)                |
+| `--sl-color-accent-high`    | `#162C6B`  | deeper ink: text on accent-low, hover                |
+| `--sl-color-bg-inline-code` | `#E6ECF2`  | inline code chip                                     |
+| `--sl-color-gray-1..7`      | `#16191E` `#23272E` `#5B6470` `#8B939D` `#CBD5E0` `#EDF1F4` `#FFFFFF` | graphite to white; gray-3 = pencil (muted text) |
+| `--sl-color-hairline`       | `#CBD5E0`  | borders (`-light` `#DCE4EC` = the grid colour, `-shade` `#AEBBC9` = slip borders) |
 
-**Dark palette (warm dark)**:
+**Dark palette, lavagna**:
 
-| Token                       | Value      | Use                             |
-|-----------------------------|------------|---------------------------------|
-| `--sl-color-bg`             | `#1C130D`  | page background (chocolate)     |
-| `--sl-color-text`           | `#F3E5D0`  | main text (cream)               |
-| `--sl-color-text-accent`    | `#F29A82`  | links in body text (light coral)|
-| `--sl-color-accent`         | `#E07A5F`  | accent, CTA (coral, unchanged)  |
-| `--sl-color-accent-low`     | `#5A3025`  | muted accent (dark coral)       |
-| `--sl-color-accent-high`    | `#F29A82`  | accent hover (lighter)          |
-| `--sl-color-hairline`       | `#3D2D22`  | borders                         |
+| Token                       | Value      | Use                                    |
+|-----------------------------|------------|----------------------------------------|
+| `--sl-color-bg`             | `#1F2B27`  | page background (slate); also nav and sidebar |
+| `--sl-color-text`           | `#ECEDE6`  | main text (chalk)                      |
+| `--sl-color-white`          | `#FAFAF5`  | strong text (chalk-strong)             |
+| `--sl-color-black`          | `#27362F`  | raised slate                           |
+| `--sl-color-text-accent`    | `#A9C1F2`  | links in body text (chalk blue)        |
+| `--sl-color-text-invert`    | `#1F2B27`  | text on chalk-blue fills (slate)       |
+| `--sl-color-accent`         | `#A9C1F2`  | accent, primary buttons, focus ring    |
+| `--sl-color-accent-low`     | `#2E3E55`  | deep blue-slate wash                   |
+| `--sl-color-accent-high`    | `#D6E2FA`  | lighter chalk: text on accent-low, hover |
+| `--sl-color-bg-inline-code` | `#2E3F38`  | inline code chip                       |
+| `--sl-color-gray-1..7`      | `#FAFAF5` `#ECEDE6` `#9AA79F` `#6B7A72` `#3B4C45` `#24312C` `#1F2B27` | chalk to slate; gray-3 = chalk dust (muted text) |
+| `--sl-color-hairline`       | `#3B4C45`  | borders (`-light` `#33433C`, `-shade` `#4E6158`) |
 
-Coral (`--sl-color-accent`) is identical in both themes: it's the site's thread of continuity.
+Measured contrast (WCAG): light body 14.0:1, links 9.7:1, muted 5.6:1 on paper (4.7:1 on a grid line, 6.0:1 on white slips), paper on biro 9.7:1. Dark body 12.4:1, links 8.1:1, muted 5.9:1 (5.1:1 on raised slate), slate on chalk blue 8.1:1.
 
-**Custom `--aig-*` tokens**: used by components to replace hardcoded `#ffffff` and `rgba(42, 36, 71, X)`, so dark mode works without touching every file.
+**Custom `--aig-*` tokens**: used by components instead of hardcoded colours, so both themes work without touching every file. Values are light / dark.
 
-| Token                    | Use                                                |
-|--------------------------|----------------------------------------------------|
-| `--aig-elevated-bg`      | background of cards, popovers, modals (`#fff` in light) |
-| `--aig-elevated-bg-warm` | `:::note` aside                                    |
-| `--aig-caution-*`        | `:::caution` aside and `<LlmExercise variant="review">` |
-| `--aig-danger-*`         | `:::danger` aside                                  |
-| `--aig-success-*`        | custom green variant: wrap a `:::note` in `<div class="aig-success-wrap">…</div>` (Starlight has no native `success` type) |
-| `--aig-shadow-color`     | rgb triplet used in `rgba(var(--aig-shadow-color), X)` for box-shadows |
-| `--aig-scrim`            | backdrop of modal `<dialog>`s                      |
-| `--aig-hover-wash`       | hover wash on minimal / ghost buttons              |
-| `--aig-on-accent`        | text on coral fills (primary buttons, user chat bubble): indigo in light (4.9:1), chocolate in dark |
-| `--aig-accent-hover`     | hover background of coral buttons: lighter coral, keeps text contrast above AA |
+| Token                    | Light / Dark                 | Use                                                |
+|--------------------------|------------------------------|----------------------------------------------------|
+| `--aig-elevated-bg`      | `#FFFFFF` / `#27362F`        | cards, popovers, modals: "slips of paper" on the grid |
+| `--aig-elevated-bg-warm` | `#FCFCFA` / `#26332E`        | `:::note` aside (quieter slip; the name is historical) |
+| `--aig-caution-bg/border/text` | `#FBF3B0` `#8A6D00` `#6B5400` / `#33372A` `#C9B654` `#F2E38A` | `:::caution` aside (highlighter) |
+| `--aig-danger-bg/border/text`  | `#FCE8EA` `#B3122A` `#B3122A` / `#3A2D2E` `#F29C9C` `#F29C9C` | `:::danger` aside, review/check-in, errors (red pen) |
+| `--aig-success-bg/border/text` | `#E4F1E7` `#2D6E45` `#2D6E45` / `#26392E` `#A8D5A2` `#A8D5A2` | custom green variant: wrap a `:::note` in `<div class="aig-success-wrap">…</div>` (Starlight has no native `success` type) |
+| `--aig-shadow-color`     | `35, 39, 46` / `0, 0, 0`     | rgb triplet; use it only through `--aig-shadow-hard` |
+| `--aig-shadow-hard`      | `3px 3px 0` at .18 / at .4   | the only allowed shadow, for things that float (popovers, dialogs) |
+| `--aig-scrim`            | graphite .45 / near-black .7 | backdrop of modal `<dialog>`s                      |
+| `--aig-hover-wash`       | highlighter .4 / chalk yellow .12 | hover wash on ghost / minimal buttons         |
+| `--aig-on-accent`        | `#F7F8F4` / `#1F2B27`        | text on accent fills (primary buttons, user chat bubble): paper on biro 9.7:1, slate on chalk blue 8.1:1 |
+| `--aig-accent-hover`     | `#162C6B` / `#C9D8F7`        | hover background of accent buttons (12.3:1 / 10.2:1 with on-accent) |
+| `--aig-switch-track-off` / `--aig-switch-thumb` | `#8B939D` `#FFFFFF` / `#7C8C84` `#ECEDE6` | toggle switch |
+| `--aig-code-bg` / `--aig-code-text` | `#1F2B27` `#ECEDE6` / `#16201D` `#ECEDE6` | code inside AI chat bubbles (a small piece of blackboard) |
+| `--aig-ink`              | `#1E3A8A` / `#A9C1F2`        | biro / chalk blue: practice variant, primary ink   |
+| `--aig-red-pen`          | `#B3122A` / `#F29C9C`        | review, check-in, corrections, errors              |
+| `--aig-green-ok`         | `#2D6E45` / `#A8D5A2`        | success, "bravo", ticks                            |
+| `--aig-highlighter`      | `#F5E663` / `#F2E38A`        | the signature mark; a background, never a text colour |
+| `--aig-highlighter-wash` | highlighter .6 / chalk yellow .14 | link hover                                    |
+| `--aig-on-highlighter`   | `#16191E` / `#1F2B27`        | text on the opaque highlighter (selection in light) |
+| `--aig-highlight-stroke` | SVG data URI per theme       | the irregular swipe image (opaque yellow in light, translucent chalk in dark) |
+| `--aig-heading`          | `#1E3A8A` / `#FAFAF5`        | heading ink                                        |
+| `--aig-grid-line`        | `#DCE4EC` / transparent      | the 5mm grid                                       |
+| `--aig-margin-line`      | `#EBA9B1` / chalk .16        | the notebook margin rule                           |
+| `--aig-font-hand`        | Shantell Sans stack          | handwritten voice only (see Typography)            |
+| `--aig-radius` / `--aig-border-width` | `6px` / `1.5px` | shape of inputs, buttons, cards, slips             |
 
-Coral buttons: `background: var(--sl-color-accent)`, `color: var(--aig-on-accent)`, hover `background: var(--aig-accent-hover)`. Never white text on coral (2.9:1, below AA).
+**Biro buttons**: primary = `background: var(--sl-color-accent)`, `color: var(--aig-on-accent)`, hover `background: var(--aig-accent-hover)`. Secondary = transparent with a `var(--aig-border-width)` solid `var(--sl-color-accent)` border, accent text. Ghost = text only, hover `background: var(--aig-hover-wash)`. Radius `var(--aig-radius)`, never pills. Never put graphite/chalk body text on the accent fill: use `--aig-on-accent`.
 
-When adding a component with a "white" background or shadows, use these tokens, don't hardcode `#ffffff` or `rgba(42, 36, 71, X)`.
+When adding a component with a "white" background or shadows, use these tokens, don't hardcode `#ffffff` or `rgba(...)`. No soft drop shadows: slips are separated by a `1.5px` border; only floating things get `var(--aig-shadow-hard)`.
 
-**Typography**: [Outfit Variable](https://fonts.google.com/specimen/Outfit) via `@fontsource-variable/outfit`. Base 17px, line-height 1.7, heading tracking `-0.005em`.
+**The signature: the highlighter swipe.** A slightly irregular yellow stroke (yellow chalk in dark) marks: the current page in the sidebar (`nav.sidebar a[aria-current='page']`), the lesson H1 (a swipe under its lower part), `<Def>` terms on hover/open, and text `::selection`. It is the one place the design is bold; keep the rest quiet. The one orchestrated motion of the site: on page load the H1 swipe draws left to right once (~600ms, ease-out); under `prefers-reduced-motion: reduce` it is simply there. No other ambient or entrance animations. Reusable utilities in `custom.css`: `.aig-highlight` (swipe under the lower part of inline text), `.aig-highlight--full` (whole line height), `.aig-highlight--draw` (draw once, motion-safe), `.aig-hand` (handwritten font).
+
+**Surfaces**: the page body is squared paper (two repeating gradients at `1.25rem` pitch, light only); dark is flat slate with one faint chalk smudge. Header and sidebar are plain paper/slate without grid. At `>= 50rem` a 2px margin rule (`--aig-margin-line`) runs down the left of the lesson column (`main .content-panel > .sl-container::before`, not on the splash hero).
+
+**Typography**: [Atkinson Hyperlegible Next](https://fonts.google.com/specimen/Atkinson+Hyperlegible+Next) via `@fontsource-variable/atkinson-hyperlegible-next` for body, headings and UI (chosen for legibility). Base 17px (`1.0625rem`), line-height 1.6; headings weight ~760, tracking `-0.01em`, ink `--aig-heading`. Scale (ratio ~1.25): h1 `2.6rem`, h2 `1.75rem`, h3 `1.35rem`, h4 `1.1rem`. Annotation voice: [Shantell Sans](https://fonts.google.com/specimen/Shantell+Sans) via `@fontsource-variable/shantell-sans` (`var(--aig-font-hand)`), used ONLY for handwritten moments: the lesson H1 (weight 600), component badges/kicker lines in the pen colour of their variant, the reader's journal notes, ticks. Never for paragraphs, buttons, inputs or navigation. Code stays in the system monospace stack, in code blocks only.
 
 **Constraints**:
 
-- **Two modes, one identity.** Light (Pastello) and dark (warm dark chocolate+cream). The selector is Starlight's default `ThemeSelect`, persisted in `localStorage['starlight-theme']`. Respects `prefers-color-scheme`.
+- **Two modes, one school.** Light (quaderno) and dark (lavagna). The selector is Starlight's default `ThemeSelect`, persisted in `localStorage['starlight-theme']`. Respects `prefers-color-scheme`.
 - **No side TOC.** `PageSidebar.astro` is an empty override. Lessons are short and self-contained.
-- **No blue/cyber/pure black/"docs" density.** When adding UI: use Starlight's CSS vars and the `--aig-*` tokens, never hardcode colors.
-- **Outfit is the dominant voice.** Add fonts only with explicit discussion.
-- **Mental references**: NYT Cooking, Brain Pickings, illustrated paper guides. NOT: Stripe / Linear / Vercel docs.
+- **No coral, peach, cream, pure black, "docs" density.** When adding UI: use Starlight's CSS vars and the `--aig-*` tokens, never hardcode colors. All text pairs meet WCAG AA (4.5:1 body, 3:1 large text and UI).
+- **No template chrome.** No ALL CAPS labels, no letter-spaced eyebrows, no monospace UI labels, no "→" appended to buttons/links, no middle-dot meta strings.
+- **Two typefaces only**: Atkinson Hyperlegible Next is the voice, Shantell Sans the handwriting. Add fonts only with explicit discussion.
+- **Mental references**: a school exercise book, a teacher's corrections, a classroom blackboard, illustrated paper guides. NOT: Stripe / Linear / Vercel docs.
 - **Custom CSS**: `src/styles/custom.css` (loaded by Starlight via `customCss`).
 
 ## Project components
@@ -312,11 +342,9 @@ lesson, right after the imports: skimmers open it, thorough readers
 ignore it. Uses a native `<details>` (collapsed by default, works
 without JS, accessible).
 
-The summary looks like a button (coral-soft background, dark coral
-text, a chevron that rotates on open). The open body flows
-below with a coral-soft bar on the left that visually connects it
-to the summary, without creating a closed box that could misalign with
-the rest of the page.
+The summary looks like a notebook tab: a paper slip with a biro outline
+and a chevron that rotates on open. The open body is a slip with the same
+biro outline, joined to the tab.
 
 The label is localized (`ui.lessonSummaryLabel`: "Riepilogo in 30
 secondi" / "30-second summary"). The content is a markdown slot:
@@ -378,10 +406,10 @@ for lessons: when a word that might not be familiar appears in the
 text, wrap it in `<Def>` and the reader, on click or mouse hover, sees
 the definition without leaving the page.
 
-The word is highlighted in the text with a dashed coral
-underline (same color as links in body text). The popover appears below the
-term, max 280px, with a white background and hairline border. Consistent
-with the Pastello palette, independent from `<GlossaryTerm>` (which stays
+The word is marked in the text with a dashed biro underline, and gets a
+highlighter wash on hover, focus and when open. The popover appears below the
+term, max 280px, as a small paper slip (elevated background, biro border,
+hard offset shadow). Independent from `<GlossaryTerm>` (which stays
 dedicated to the Glossary page where the full list appears with the
 "Explain it better with your AI" prompt).
 
@@ -483,9 +511,9 @@ component resolves the path automatically based on the current locale: the
 
 Two variants, chosen with `variant`:
 
-- `practice` (default): guided practice. Coral accent. Badge "🤖 Esercizio
+- `practice` (default): guided practice, written in biro ink. Badge "🤖 Esercizio
   con la tua IA" / "🤖 Exercise with your AI".
-- `review`: end-of-lesson learning check-in. Ochre accent.
+- `review`: end-of-lesson learning check-in, written in red pen.
   Badge "📝 Verifica con la tua IA" / "📝 Check-in with your AI".
 
 The mechanism (downloadable file + copy + open) is identical in both
@@ -530,10 +558,13 @@ stays only in this browser. The Recap reads this shape, keep it stable.
 
 ### `<HomeCards>`
 
-Grid of visual cards for the landing page. Replaces "docs-style"
-bullet lists. Each card has an icon, title, description, and optional link.
+Grid of index-card slips for the landing page. Replaces "docs-style"
+bullet lists. Each card is a white slip on the grid (ink border, hard
+shadow, tilted a hair) with a biro-line icon above a ruled line, a title
+(highlighter swipe on hover) and a description, with an optional link.
 Cards that aren't ready yet are flagged with `comingSoon: true`: no
-link, "Presto" badge in the top right.
+link, dashed border, "Presto" written in red pen (Shantell Sans) in the
+top right corner.
 
 | Prop              | Type            | Default   | Notes                                                |
 |-------------------|-----------------|-----------|------------------------------------------------------|
@@ -574,9 +605,10 @@ link, "Presto" badge in the top right.
 ### `<Icon>`
 
 Curated set of inline SVG icons used by the navigation cards
-(`HomeCards`). Duotone style: dark coral stroke + light coral fill,
-squircle wrapper with `--sl-color-accent-low` background. Respects the
-Pastello palette, stable appearance across OSes (unlike emoji).
+(`HomeCards`). Single-weight biro-ink line drawings (1.6 stroke, no fill,
+no background tile), like doodles in a notebook margin; colour is
+`--aig-ink` (biro in light, chalk blue in dark). Stable appearance across
+OSes (unlike emoji).
 
 Available icons (`IconName`): `sprout`, `pencil`, `briefcase`,
 `graduation-cap`, `users`, `wrench`, `message-circle`. Adding one

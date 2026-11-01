@@ -184,31 +184,29 @@ const wrongOnes = sentences.filter((s) => s.wrong);
 </script>
 
 <style>
+  /* A slip of paper: you mark suspicious sentences with the highlighter,
+     the check is corrected in red pen and green ticks. */
   .spot {
     margin: 1.75rem 0;
     padding: 1.1rem 1.25rem 1rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .spot-badge {
     display: block;
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-red-pen);
   }
 
   .spot-title {
     margin: 0.2rem 0 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--sl-color-text);
+    color: var(--aig-heading);
   }
 
   .spot-hint {
@@ -221,18 +219,17 @@ const wrongOnes = sentences.filter((s) => s.wrong);
   .spot-label {
     display: block;
     margin-bottom: 0.3rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    font-weight: 700;
     color: var(--sl-color-gray-3);
   }
 
   .spot-prompt {
     margin-bottom: 1rem;
     padding: 0.6rem 0.85rem;
-    background: var(--sl-color-accent-low);
-    border-radius: 0.75rem;
+    background: var(--aig-elevated-bg-warm);
+    border: var(--aig-border-width) dashed var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .spot-prompt p {
@@ -257,6 +254,7 @@ const wrongOnes = sentences.filter((s) => s.wrong);
   }
 
   .spot-sentence {
+    position: relative;
     display: block;
     width: 100%;
     text-align: left;
@@ -265,25 +263,25 @@ const wrongOnes = sentences.filter((s) => s.wrong);
     font-size: 0.95rem;
     line-height: 1.5;
     color: var(--sl-color-text);
-    background: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.6rem;
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     cursor: pointer;
   }
 
   .spot-sentence:hover:not(:disabled) {
-    border-color: var(--sl-color-accent);
+    border-color: var(--aig-ink);
   }
 
   .spot-sentence:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 
+  /* Selected: marked with the highlighter. */
   .spot-sentence[aria-pressed='true'] {
-    background: var(--sl-color-accent-low);
-    border-color: var(--sl-color-accent);
-    box-shadow: inset 3px 0 0 var(--sl-color-accent);
+    background: var(--aig-highlighter-wash);
+    border-color: var(--aig-ink);
   }
 
   .spot-sentence:disabled {
@@ -296,7 +294,7 @@ const wrongOnes = sentences.filter((s) => s.wrong);
     padding-left: 0.7rem;
     font-size: 0.88rem;
     line-height: 1.5;
-    border-left: 3px solid var(--sl-color-hairline);
+    border-left: 3px solid var(--sl-color-hairline-shade);
     color: var(--sl-color-text);
   }
 
@@ -304,33 +302,64 @@ const wrongOnes = sentences.filter((s) => s.wrong);
     display: none;
   }
 
+  .spot-verdict-label {
+    font-family: var(--aig-font-hand);
+    font-weight: 700;
+  }
+
+  /* Found: green, with a hand-written tick. */
   .spot-item[data-state='found'] .spot-sentence {
     background: var(--aig-success-bg);
-    border-color: var(--aig-success-border);
-    color: var(--aig-success-text);
-    box-shadow: none;
+    border-color: var(--aig-green-ok);
+    color: var(--sl-color-text);
+    padding-right: 2.4rem;
+  }
+
+  .spot-item[data-state='found'] .spot-sentence::after {
+    content: '\2713' / '';
+    position: absolute;
+    top: 50%;
+    right: 0.85rem;
+    transform: translateY(-50%) rotate(-6deg);
+    font-family: var(--aig-font-hand);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--aig-green-ok);
   }
 
   .spot-item[data-state='found'] .spot-verdict {
-    border-left-color: var(--aig-success-border);
+    border-left-color: var(--aig-green-ok);
   }
 
+  .spot-item[data-state='found'] .spot-verdict-label {
+    color: var(--aig-green-ok);
+  }
+
+  /* Missed: circled in red pen. */
   .spot-item[data-state='missed'] .spot-sentence {
     background: var(--aig-danger-bg);
-    border-color: var(--aig-danger-border);
-    color: var(--aig-danger-text);
-    box-shadow: none;
+    border: 2px solid var(--aig-red-pen);
+    border-radius: 1rem;
+    color: var(--sl-color-text);
   }
 
   .spot-item[data-state='missed'] .spot-verdict {
-    border-left-color: var(--aig-danger-border);
+    border-left-color: var(--aig-red-pen);
   }
 
+  .spot-item[data-state='missed'] .spot-verdict-label {
+    color: var(--aig-red-pen);
+  }
+
+  /* False alarm: the sentence was fine, so the mark is struck through. */
   .spot-item[data-state='false-alarm'] .spot-sentence {
-    background: var(--aig-caution-bg);
+    background: var(--aig-highlighter-wash);
     border-color: var(--aig-caution-border);
-    color: var(--aig-caution-text);
-    box-shadow: none;
+    border-style: dashed;
+    color: var(--sl-color-text);
+    text-decoration: line-through;
+    text-decoration-color: var(--aig-red-pen);
+    text-decoration-thickness: 2px;
   }
 
   .spot-item[data-state='false-alarm'] .spot-verdict {
@@ -351,34 +380,32 @@ const wrongOnes = sentences.filter((s) => s.wrong);
 
   .spot-btn {
     padding: 0.5rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: var(--aig-border-width) solid var(--aig-ink);
   }
 
   .spot-btn:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 
   .spot-btn-primary {
-    background: var(--sl-color-accent);
+    background: var(--aig-ink);
     color: var(--aig-on-accent);
-    border-color: var(--sl-color-accent);
   }
 
   .spot-btn-primary:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .spot-btn-ghost {
     background: transparent;
-    color: var(--sl-color-text);
-    border-color: var(--sl-color-hairline);
+    color: var(--aig-ink);
   }
 
   .spot-btn-ghost:hover {

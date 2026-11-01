@@ -152,12 +152,12 @@ const modules = MODULES.map((m) => ({
 
   .po-print {
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
   }
@@ -168,7 +168,7 @@ const modules = MODULES.map((m) => ({
 
   .po-print:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .po-print:focus-visible {
@@ -182,25 +182,32 @@ const modules = MODULES.map((m) => ({
     color: var(--sl-color-gray-3);
   }
 
+  /* Un modulo e' una pagina d'indice del quaderno: foglietto con
+     titolo a inchiostro e conteggio scritto a mano. */
   .po-module {
     margin: 0 0 1.75rem;
     padding: 1.1rem 1.25rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     break-inside: avoid-page;
   }
 
   .po-module-title {
     margin: 0;
     font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    color: var(--aig-heading);
   }
 
   .po-count {
     margin: 0.15rem 0 0.75rem;
-    font-size: 0.85rem;
+    padding-bottom: 0.6rem;
+    border-bottom: var(--aig-border-width) dashed var(--sl-color-hairline);
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     color: var(--sl-color-gray-3);
   }
 
@@ -225,14 +232,18 @@ const modules = MODULES.map((m) => ({
     color: var(--sl-color-text-accent);
   }
 
+  /* Non letta: solo testo. Letta: spunta a mano in verde. */
   .po-status {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 400;
     color: var(--sl-color-gray-3);
   }
 
   .po-lesson[data-read] .po-status {
-    color: var(--sl-color-text-accent);
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--aig-green-ok);
   }
 
   .po-lesson[data-read] .po-status::before {
@@ -254,6 +265,12 @@ const modules = MODULES.map((m) => ({
     margin: 0.35rem 0 0;
     font-size: 0.85rem;
     color: var(--sl-color-gray-3);
+  }
+
+  @media (max-width: 30rem) {
+    .po-module {
+      padding: 0.9rem 0.9rem;
+    }
   }
 </style>
 
@@ -286,10 +303,20 @@ const modules = MODULES.map((m) => ({
       width: auto !important;
     }
 
+    /* Clean black on white: no grid, no margin line, light colours. */
+    :root {
+      color-scheme: light !important;
+    }
+
     html,
     body {
       background: Canvas !important;
+      background-image: none !important;
       color: CanvasText !important;
+    }
+
+    main .content-panel > .sl-container::before {
+      display: none !important;
     }
 
     .progress-overview {
@@ -301,6 +328,7 @@ const modules = MODULES.map((m) => ({
       border: 0;
       border-bottom: 1px solid GrayText;
       border-radius: 0;
+      box-shadow: none;
       padding: 0 0 0.75rem;
       break-inside: avoid-page;
     }
@@ -309,6 +337,7 @@ const modules = MODULES.map((m) => ({
     .progress-overview a,
     .progress-overview .po-count,
     .progress-overview .po-status,
+    .progress-overview .po-module-title,
     .progress-overview .po-intro {
       color: CanvasText !important;
     }

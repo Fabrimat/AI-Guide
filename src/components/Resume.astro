@@ -12,7 +12,7 @@
  *  - oppure l'ultima pagina coincide con quella corrente.
  *
  * Include un pulsante "Cancella progressi" che apre un modale di
- * conferma (`<dialog>` nativo, stilizzato Pastello). Niente
+ * conferma (`<dialog>` nativo, stilizzato Quaderno). Niente
  * `window.confirm()`.
  */
 import { t } from '../i18n/ui';
@@ -215,20 +215,22 @@ const titleId = `resume-confirm-title-${uid}`;
 </script>
 
 <style>
+  /* Segnalibro / foglietto lasciato nel quaderno: un biglietto di carta
+     sulla quadrettatura, con il nastro (bordo spesso a sinistra) in
+     inchiostro biro. */
   .resume-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
     margin: 2rem auto;
-    padding: 1rem 1.25rem;
+    padding: 1rem 1.25rem 1rem 1.5rem;
     max-width: 900px;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-left: 6px solid var(--aig-ink);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     flex-wrap: wrap;
   }
 
@@ -249,23 +251,23 @@ const titleId = `resume-confirm-title-${uid}`;
     flex: 1 1 auto;
   }
 
+  /* Scritta a mano, come un appunto a margine. */
   .resume-meta {
-    font-size: 0.75rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-gray-3);
+    color: var(--aig-ink);
   }
 
   .resume-title {
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 750;
     color: var(--sl-color-text);
     line-height: 1.3;
   }
 
   .resume-privacy {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     color: var(--sl-color-gray-3);
     margin-top: 0.35rem;
   }
@@ -283,22 +285,17 @@ const titleId = `resume-confirm-title-${uid}`;
     align-items: center;
     gap: 0.4rem;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    border: 1px solid var(--sl-color-accent);
-  }
-
-  .resume-link::after {
-    content: '→';
-    content: '→' / '';
+    border: var(--aig-border-width) solid var(--sl-color-accent);
   }
 
   .resume-link:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .resume-link:focus-visible {
@@ -317,20 +314,21 @@ const titleId = `resume-confirm-title-${uid}`;
     text-underline-offset: 3px;
     padding: 0.4rem 0.5rem;
     font-family: inherit;
+    border-radius: var(--aig-radius);
   }
 
   .resume-reset:hover {
     color: var(--sl-color-text);
+    background: var(--aig-hover-wash);
     text-decoration-color: currentColor;
   }
 
   .resume-reset:focus-visible {
     outline: 2px solid var(--sl-color-accent);
     outline-offset: 2px;
-    border-radius: 0.25rem;
   }
 
-  /* ----- Modale di conferma "Cancellare i progressi?" ----- */
+  /* ----- Modale di conferma "Cancellare i progressi?" (foglietto) ----- */
   .resume-confirm {
     margin: auto;
     padding: 1.5rem 1.5rem 1.25rem;
@@ -338,9 +336,9 @@ const titleId = `resume-confirm-title-${uid}`;
     width: calc(100% - 2rem);
     background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     font-family: var(--sl-font);
   }
 
@@ -351,9 +349,9 @@ const titleId = `resume-confirm-title-${uid}`;
   .resume-confirm h2 {
     margin: 0 0 0.5rem;
     font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
-    letter-spacing: -0.005em;
+    font-weight: 750;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .resume-confirm p {
@@ -372,18 +370,18 @@ const titleId = `resume-confirm-title-${uid}`;
 
   .resume-confirm-actions button {
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: var(--aig-border-width) solid transparent;
   }
 
   .btn-cancel {
     background: transparent;
-    color: var(--sl-color-text);
-    border-color: var(--sl-color-hairline);
+    color: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
   }
 
   .btn-cancel:hover {
@@ -398,7 +396,7 @@ const titleId = `resume-confirm-title-${uid}`;
 
   .btn-confirm:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .resume-confirm button:focus-visible {

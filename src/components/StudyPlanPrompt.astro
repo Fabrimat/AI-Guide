@@ -258,15 +258,14 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
 </script>
 
 <style>
+  /* Modulo su carta: bordo a penna, ombra dura, campi con bordo 1.5px. */
   .study-plan {
     margin: 1.75rem 0;
     padding: 1.25rem 1.25rem 1rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
   }
 
   .study-plan[hidden] {
@@ -281,18 +280,18 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   }
 
   .sp-badge {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .study-plan h3 {
     margin: 0;
     font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    color: var(--aig-heading);
   }
 
   .sp-hint {
@@ -329,19 +328,19 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   .sp-field select,
   .sp-field input[type='number'] {
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--sl-color-text);
-    background: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 0.5rem 0.65rem;
-    max-width: 18rem;
+    max-width: min(18rem, 100%);
   }
 
   .sp-field select:focus,
   .sp-field input[type='number']:focus {
     outline: 2px solid var(--sl-color-accent);
-    outline-offset: 1px;
+    outline-offset: 2px;
     border-color: var(--sl-color-accent);
   }
 
@@ -353,7 +352,7 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--sl-color-text);
     cursor: pointer;
   }
@@ -361,6 +360,11 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   .sp-radio input {
     accent-color: var(--sl-color-accent);
     margin: 0;
+  }
+
+  .sp-radio input:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
   }
 
   .sp-preview-wrap {
@@ -372,19 +376,19 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
   }
 
   .sp-preview-label {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
     color: var(--sl-color-gray-3);
   }
 
+  /* Anteprima: un cartellino con il testo del prompt. */
   .sp-preview {
     margin: 0;
     padding: 0.75rem 0.85rem;
-    background: var(--sl-color-bg-inline-code);
-    border: 1px dashed var(--sl-color-hairline-shade);
-    border-radius: 0.5rem;
+    background: var(--aig-elevated-bg-warm);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.85rem;
     color: var(--sl-color-text);
@@ -405,19 +409,19 @@ const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
     display: inline-flex;
     align-items: center;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
   }
 
   .sp-btn:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .sp-btn:focus-visible {

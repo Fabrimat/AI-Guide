@@ -41,6 +41,7 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
 </details>
 
 <style>
+  /* A notebook tab: a slip with a biro outline that opens into the body. */
   .lesson-summary {
     display: block;
     box-sizing: border-box;
@@ -53,19 +54,19 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
   }
   .lesson-summary summary {
     box-sizing: border-box;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.55rem 0.9rem;
+    padding: 0.4rem 0.8rem;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--sl-color-accent-high);
-    background: var(--sl-color-accent-low);
-    border-radius: 0.5rem;
+    color: var(--aig-ink);
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: var(--aig-radius);
     list-style: none;
     user-select: none;
-    transition: background 0.15s ease;
   }
   .lesson-summary summary::-webkit-details-marker {
     display: none;
@@ -74,15 +75,19 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
     content: '';
   }
   .lesson-summary summary:hover {
-    background: var(--aig-caution-bg, var(--sl-color-accent-low));
-    filter: brightness(0.97);
+    background: var(--aig-hover-wash);
   }
   .lesson-summary summary:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
   .lesson-summary[open] summary {
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+    position: relative;
+    z-index: 1;
+    margin-bottom: calc(var(--aig-border-width) * -1);
   }
   .icon {
     font-size: 1rem;
@@ -94,7 +99,7 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
   .chevron {
     display: inline-flex;
     align-items: center;
-    color: var(--sl-color-accent);
+    color: var(--aig-ink);
     transition: transform 0.2s ease;
   }
   .lesson-summary[open] .chevron {
@@ -102,9 +107,10 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
   }
   .body {
     box-sizing: border-box;
-    padding: 0.75rem 0.9rem 0.5rem;
-    margin-left: 0;
-    border-left: 3px solid var(--sl-color-accent-low);
+    padding: 0.75rem 1rem 0.6rem;
+    background: var(--aig-elevated-bg);
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: 0 var(--aig-radius) var(--aig-radius) var(--aig-radius);
     font-size: 0.95rem;
   }
   .body :global(ul),
@@ -116,7 +122,7 @@ const { label = ui.lessonSummaryLabel } = Astro.props;
     margin: 0.3rem 0;
   }
   .body :global(li)::marker {
-    color: var(--sl-color-accent);
+    color: var(--aig-ink);
   }
   .body :global(p) {
     margin: 0.4rem 0;

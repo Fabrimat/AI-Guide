@@ -347,19 +347,19 @@ const translations = {
 
   install-app .install-btn {
     appearance: none;
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     padding: 0.35rem 0.85rem;
+    font-family: inherit;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 650;
     cursor: pointer;
-    transition: background 120ms ease;
   }
   install-app .install-btn:hover {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
   install-app .install-btn[hidden] { display: none; }
 
@@ -379,9 +379,10 @@ const translations = {
 
   install-app .install-progress-bar {
     flex: 1;
-    height: 4px;
+    height: 6px;
     background: var(--sl-color-accent-low);
-    border-radius: 999px;
+    border: 1px solid var(--sl-color-hairline-shade);
+    border-radius: 3px;
     overflow: hidden;
   }
   install-app .install-progress-fill {
@@ -398,23 +399,23 @@ const translations = {
   }
 
   install-app .install-ios-modal {
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.9rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 1.2rem 1.4rem;
     background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
     max-width: 22rem;
-    box-shadow:
-      0 4px 12px rgba(var(--aig-shadow-color), 0.06),
-      0 14px 36px rgba(var(--aig-shadow-color), 0.12);
+    box-shadow: var(--aig-shadow-hard);
   }
   install-app .install-ios-modal::backdrop {
     background: var(--aig-scrim);
   }
   install-app .install-ios-modal h3 {
     margin: 0 0 0.75rem;
-    font-size: 1rem;
+    font-family: var(--aig-font-hand);
+    font-size: 1.1rem;
     font-weight: 600;
+    color: var(--aig-heading);
   }
   install-app .install-ios-modal ol {
     margin: 0 0 1rem;
@@ -437,11 +438,12 @@ const translations = {
   }
   install-app .install-ios-close {
     appearance: none;
-    border: 1px solid var(--sl-color-hairline);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
     background: transparent;
-    color: var(--sl-color-text);
-    border-radius: 999px;
+    color: var(--sl-color-text-accent);
+    border-radius: var(--aig-radius);
     padding: 0.35rem 0.85rem;
+    font-family: inherit;
     font-size: 0.85rem;
     cursor: pointer;
   }

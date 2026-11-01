@@ -187,16 +187,16 @@ const titleId = `recap-dialog-title-${uid}`;
 </script>
 
 <style>
+  /* Foglietto di carta sulla quadrettatura: bordo a penna, ombra dura,
+     badge scritto a mano. */
   .recap-with-ai {
     margin: 1.75rem auto;
     padding: 1.25rem 1.25rem 1rem;
     max-width: 900px;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
   }
 
   .recap-with-ai[hidden] {
@@ -211,18 +211,18 @@ const titleId = `recap-dialog-title-${uid}`;
   }
 
   .recap-badge {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .recap-with-ai h3 {
     margin: 0;
     font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .recap-desc {
@@ -248,19 +248,19 @@ const titleId = `recap-dialog-title-${uid}`;
     align-items: center;
     gap: 0.3rem;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
   }
 
   .recap-btn:hover:not(:disabled) {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .recap-btn:disabled {
@@ -280,9 +280,9 @@ const titleId = `recap-dialog-title-${uid}`;
     width: calc(100% - 2rem);
     background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     font-family: var(--sl-font);
   }
 
@@ -293,8 +293,9 @@ const titleId = `recap-dialog-title-${uid}`;
   .recap-dialog h4 {
     margin: 0 0 0.5rem;
     font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .recap-dialog-hint {
@@ -304,12 +305,13 @@ const titleId = `recap-dialog-title-${uid}`;
     line-height: 1.5;
   }
 
+  /* Anteprima del prompt: un cartellino di carta. */
   .recap-output {
     margin: 0 0 1rem;
     padding: 0.75rem 0.85rem;
-    background: var(--sl-color-bg-inline-code);
-    border: 1px dashed var(--sl-color-hairline-shade);
-    border-radius: 0.5rem;
+    background: var(--aig-elevated-bg-warm);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.85rem;
     line-height: 1.5;
@@ -329,11 +331,12 @@ const titleId = `recap-dialog-title-${uid}`;
 
   .recap-btn-ghost {
     background: transparent;
-    color: var(--sl-color-text);
-    border-color: var(--sl-color-hairline);
+    color: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
   }
 
-  .recap-btn-ghost:hover {
+  .recap-btn-ghost:hover:not(:disabled) {
     background: var(--aig-hover-wash);
+    border-color: var(--sl-color-accent);
   }
 </style>

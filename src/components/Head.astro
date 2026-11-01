@@ -28,8 +28,8 @@
  *     da disattivare e perderemmo solo i lettori più privacy-aware.
  *     Vedi `privacy.mdx` per la versione user-facing.
  *
- * Nota sul tema: il sito supporta sia light (Pastello originale)
- * che warm dark (cioccolato + crema + coral). La scelta è persistita
+ * Nota sul tema: il sito supporta sia light (quaderno a quadretti)
+ * che dark (lavagna: ardesia + gesso). La scelta è persistita
  * da Starlight in `localStorage['starlight-theme']` e l'init senza
  * flash è gestito dal Head default (che include lo script inline di
  * Starlight). Non forziamo più il tema qui: il rispetto di
@@ -227,8 +227,8 @@ const websiteJsonLd = {
 {articleSection && <meta property="article:section" content={articleSection} />}
 <link rel="manifest" href="/manifest.webmanifest" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-<meta name="theme-color" content="#FCEEE3" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#1C130D" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#F7F8F4" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1F2B27" media="(prefers-color-scheme: dark)" />
 
 <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 {articleJsonLd && (

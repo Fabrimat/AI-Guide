@@ -3,7 +3,7 @@
  * Def: termine inline cliccabile con una breve spiegazione in popover.
  *
  * Pattern familiare del dizionario/enciclopedia: la parola è evidenziata
- * con una sottolineatura tratteggiata coral (stesso colore dei link nel
+ * con una sottolineatura tratteggiata biro (stesso colore dei link nel
  * corpo testo), al passaggio del mouse o click compare un popover con
  * la definizione.
  *
@@ -163,22 +163,24 @@ const popoverId = `def-${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
     font: inherit;
     line-height: inherit;
 
-    color: var(--sl-color-text-accent);
+    color: inherit;
     cursor: help;
-    text-decoration: underline dotted var(--sl-color-accent);
+    text-decoration: underline dashed var(--aig-ink);
     text-underline-offset: 3px;
     text-decoration-thickness: 1.5px;
+    border-radius: 2px;
   }
 
-  .def-term:hover {
-    color: var(--sl-color-accent-high);
-    text-decoration-color: var(--sl-color-accent-high);
+  /* Highlighter wash when hovered, focused or open. */
+  .def-term:hover,
+  .def-wrap.is-open .def-term {
+    background-color: var(--aig-highlighter-wash);
   }
 
   .def-term:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
-    border-radius: 0.15rem;
+    background-color: var(--aig-highlighter-wash);
   }
 
   .def-pop {
@@ -192,11 +194,9 @@ const popoverId = `def-${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
     padding: 0.6rem 0.75rem;
 
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
-    box-shadow:
-      0 2px 8px rgba(var(--aig-shadow-color), 0.06),
-      0 10px 28px rgba(var(--aig-shadow-color), 0.08);
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
 
     color: var(--sl-color-text);
     font-size: 0.88rem;
@@ -232,8 +232,8 @@ const popoverId = `def-${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
     width: 10px;
     height: 10px;
     background: var(--aig-elevated-bg);
-    border-left: 1px solid var(--sl-color-hairline);
-    border-top: 1px solid var(--sl-color-hairline);
+    border-left: var(--aig-border-width) solid var(--aig-ink);
+    border-top: var(--aig-border-width) solid var(--aig-ink);
     transform: rotate(45deg);
   }
 

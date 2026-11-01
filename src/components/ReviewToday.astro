@@ -188,16 +188,16 @@ const headingId = `review-heading-${uid}`;
 </script>
 
 <style>
+  /* Foglietto di carta sulla quadrettatura: bordo a penna, ombra dura,
+     badge scritto a mano. */
   .review-today {
     margin: 1.75rem auto;
     padding: 1.25rem 1.25rem 1rem;
     max-width: 900px;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
   }
 
   .review-today[hidden] {
@@ -212,18 +212,18 @@ const headingId = `review-heading-${uid}`;
   }
 
   .review-badge {
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .review-today h3 {
     margin: 0;
     font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .review-desc {
@@ -233,11 +233,30 @@ const headingId = `review-heading-${uid}`;
     line-height: 1.55;
   }
 
+  /* Lista da fare: caselle vuote a penna. */
   .review-list {
     margin: 0 0 0.9rem;
-    padding-inline-start: 1.2rem;
-    font-size: 0.92rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
     line-height: 1.6;
+  }
+
+  .review-list li {
+    position: relative;
+    padding-inline-start: 1.9rem;
+    margin-block: 0.15rem;
+  }
+
+  .review-list li::before {
+    content: '' / '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.2em;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: var(--aig-border-width) solid var(--aig-ink);
+    border-radius: 3px;
   }
 
   .review-list a {
@@ -254,19 +273,19 @@ const headingId = `review-heading-${uid}`;
     align-items: center;
     gap: 0.3rem;
     padding: 0.55rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--sl-color-accent);
     background: var(--sl-color-accent);
     color: var(--aig-on-accent);
   }
 
   .review-btn:hover:not(:disabled) {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .review-btn:disabled {
@@ -286,9 +305,9 @@ const headingId = `review-heading-${uid}`;
     width: calc(100% - 2rem);
     background: var(--aig-elevated-bg);
     color: var(--sl-color-text);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
+    box-shadow: var(--aig-shadow-hard);
     font-family: var(--sl-font);
   }
 
@@ -299,8 +318,9 @@ const headingId = `review-heading-${uid}`;
   .review-dialog h4 {
     margin: 0 0 0.5rem;
     font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--sl-color-text);
+    font-weight: 750;
+    color: var(--aig-heading);
+    letter-spacing: -0.01em;
   }
 
   .review-dialog-hint {
@@ -310,12 +330,13 @@ const headingId = `review-heading-${uid}`;
     line-height: 1.5;
   }
 
+  /* Anteprima del prompt: un cartellino di carta. */
   .review-output {
     margin: 0 0 1rem;
     padding: 0.75rem 0.85rem;
-    background: var(--sl-color-bg-inline-code);
-    border: 1px dashed var(--sl-color-hairline-shade);
-    border-radius: 0.5rem;
+    background: var(--aig-elevated-bg-warm);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     font-family: var(--sl-font);
     font-size: 0.85rem;
     line-height: 1.5;
@@ -335,11 +356,12 @@ const headingId = `review-heading-${uid}`;
 
   .review-btn-ghost {
     background: transparent;
-    color: var(--sl-color-text);
-    border-color: var(--sl-color-hairline);
+    color: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
   }
 
-  .review-btn-ghost:hover {
+  .review-btn-ghost:hover:not(:disabled) {
     background: var(--aig-hover-wash);
+    border-color: var(--sl-color-accent);
   }
 </style>

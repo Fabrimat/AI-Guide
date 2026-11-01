@@ -190,27 +190,23 @@ const kinds = [
     margin: 1.75rem 0;
     padding: 1.1rem 1.25rem 1.1rem;
     background: var(--aig-elevated-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 1rem;
-    box-shadow:
-      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
-      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
   }
 
   .an-badge {
     display: block;
-    font-size: 0.78rem;
+    font-family: var(--aig-font-hand);
+    font-size: 0.95rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--sl-color-accent-high);
+    color: var(--aig-ink);
   }
 
   .an-title {
     margin: 0.2rem 0 0;
     font-size: 1.15rem;
     font-weight: 700;
-    color: var(--sl-color-text);
+    color: var(--aig-heading);
   }
 
   .an-intro {
@@ -224,8 +220,8 @@ const kinds = [
     margin-bottom: 1.1rem;
     padding: 0.75rem 0.95rem;
     background: var(--aig-caution-bg);
-    border: 1px solid var(--aig-caution-border);
-    border-radius: 0.7rem;
+    border: var(--aig-border-width) solid var(--aig-caution-border);
+    border-radius: var(--aig-radius);
     color: var(--aig-caution-text);
     font-size: 0.9rem;
     line-height: 1.55;
@@ -300,8 +296,8 @@ const kinds = [
     line-height: 1.45;
     color: var(--sl-color-text);
     background: var(--sl-color-bg);
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
+    border: var(--aig-border-width) solid var(--sl-color-hairline-shade);
+    border-radius: var(--aig-radius);
     padding: 0.5rem 0.65rem;
   }
 
@@ -316,9 +312,9 @@ const kinds = [
 
   .an-field textarea:focus,
   .an-field input[type='text']:focus {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 1px;
-    border-color: var(--sl-color-accent);
+    border-color: var(--aig-ink);
   }
 
   .an-check {
@@ -332,7 +328,7 @@ const kinds = [
 
   .an-check input {
     margin-top: 0.2rem;
-    accent-color: var(--sl-color-accent);
+    accent-color: var(--aig-ink);
   }
 
   .an-actions {
@@ -344,19 +340,19 @@ const kinds = [
 
   .an-btn {
     padding: 0.5rem 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--aig-radius);
     font-family: inherit;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    background: var(--sl-color-accent);
+    background: var(--aig-ink);
     color: var(--aig-on-accent);
-    border: 1px solid var(--sl-color-accent);
+    border: var(--aig-border-width) solid var(--aig-ink);
   }
 
   .an-btn:hover:not(:disabled) {
     background: var(--aig-accent-hover);
-    border-color: var(--sl-color-accent-high);
+    border-color: var(--aig-accent-hover);
   }
 
   .an-btn:disabled {
@@ -365,7 +361,7 @@ const kinds = [
   }
 
   .an-btn:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
+    outline: 2px solid var(--aig-ink);
     outline-offset: 2px;
   }
 
@@ -376,10 +372,8 @@ const kinds = [
 
   .an-counts-title {
     display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    font-weight: 700;
     color: var(--sl-color-gray-3);
   }
 
