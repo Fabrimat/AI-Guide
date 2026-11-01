@@ -1,0 +1,142 @@
+---
+title: Set up Claude, on your terms
+description: You create a Claude Project with the rules of a technician who doesn't trust confident answers, decide what to upload and what never, and learn to clean a log before pasting it.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../../components/Anonymizer.astro';
+
+<LessonSummary>
+
+- Treat the AI as a fast apprentice: it writes well and reads quickly, but must be checked like someone who arrived last week. You decide, it drafts.
+- A Claude Project holds your working rules (hypotheses, not certainties; "I don't know" allowed; risky commands flagged) and applies them to every chat.
+- You upload your own procedures, cleaned notes and manuals. You never upload passwords, configs with secrets, or clients' personal data.
+- Before pasting a log, replace users, passwords, public IPs and names with placeholders.
+
+</LessonSummary>
+
+You look after about ten clients on your own: a workshop, a dental practice, a small accounting office, a town library. You know hardware, networks, old Windows Server and phone systems better than any AI, and you are right to distrust a tool that answers confidently even when it is wrong. Here you find where an assistant like this saves time and where it needs watching.
+
+Throughout the chapter we follow Franco, a fictional IT technician, and his fictional clients: **Officina Rinaldi**, **Studio dentistico Corsi**, **Biblioteca comunale di Valbruna**.
+
+## What the chapter covers
+
+This lesson sets up the tool. Then:
+
+- [When the AI doesn't know your machine](/en/by-profession/it-technician/unknown-machine/): how to ask for diagnostic help when the model is rare, and how to spot invented answers.
+- [The manual from the cabinet](/en/by-profession/it-technician/vendor-manual/): asking questions of a scanned manual, with page number and quotation.
+- [Job reports and explaining it to the client](/en/by-profession/it-technician/job-reports/): from rushed notes to the job report and the email to the client.
+- [Claude Code on your notes folder](/en/by-profession/it-technician/claude-code-notes/): the last lesson uses Claude Code in the terminal, to put in a document what you only have in your head.
+
+If you want the general idea of a Project first, it's in [Your work assistant](/en/by-profession/your-work-assistant/). Here we do the concrete case.
+
+## Create the "Franco's client support" Project
+
+1. In Claude's left menu, click **Projects**.
+2. Click **+ New Project**, top right.
+3. Type a name (for example "Franco's client support") and a short description. They are labels for you: Claude doesn't read them.
+4. On the right side of the project page, click the **+** button to add files.
+5. Click **Set project instructions**, paste the instructions below and click **Save instructions**.
+
+Verified in November 2026. The interface changes often, and a new version of projects is rolling out on claude.ai: if the labels don't match, look in the project for the ones about instructions and files. Projects are also available on the free plan, up to five. Each chat inside the project starts from the instructions and files, and doesn't remember earlier chats.
+
+## The instructions
+
+They are a template: change the clients, the systems, the level of detail you want.
+
+<Collapsible title="Ready-made instructions for Franco's client support">
+
+```text
+You work with me, Franco, an IT technician with a sole proprietorship. I look after about ten small clients: professional offices, a workshop, a library. I know hardware, networks, old Windows Server, phone systems and dated management software well. We write in Italian.
+
+What you do: you help me reason about faults and configurations, read logs and manuals, and write job reports and messages to clients.
+
+When I describe a problem: give me hypotheses ranked by likelihood, not certainties. For each hypothesis tell me what to check and what evidence rules it out.
+
+If you don't know a model or a version, write "I don't know" and tell me what to look for in the manual or ask the vendor. Do not invent menu paths, menu item names, default passwords or commands for uncommon equipment. If you are not sure that model works like that, say so.
+
+Commands: flag with the word WARNING every command or operation that changes, deletes, restarts or resets something, and explain what it does before giving it. Always tell me how to try it where a mistake costs nothing.
+
+Texts for clients: plain Italian, short sentences, no acronyms without explanation.
+
+Data: if the text I paste contains passwords, keys, public IP addresses or personal data of clients or patients, warn me and don't use them.
+```
+
+</Collapsible>
+
+The sentence about "I don't know" is the most important one: without it, the model tends to fill gaps with something plausible. [The next lesson](/en/by-profession/it-technician/unknown-machine/) is about that.
+
+## What to upload and what never
+
+Upload what is yours or cleaned:
+
+- your written procedures (how to restore a backup, how to set up a new client);
+- notes cleaned of credentials and personal data;
+- the PDF manuals of the products you handle most.
+
+Claude reads PDF, Word, Excel and text files. Normal-sized files are fine. If something is very large, Claude tells you.
+
+Never upload: passwords, VPN keys, configuration exports that contain them, public IP addresses tied to a client, any personal data (the patients of the Corsi practice, the workshop's employees). A simple rule: if you wouldn't show it to a technician working for another client, it doesn't go in the Project. The general picture is in [Privacy and company data](/en/at-work/company-data-and-privacy/).
+
+## Clean a log before pasting it
+
+Franco has an excerpt from the Officina Rinaldi phone system log. It contains a user, a plaintext password (it happens with old phone systems) and the client's public IP.
+
+Before:
+
+```text
+2027-03-08 07:42:11 WARN ring-group 1 no extension available, call dropped
+2027-03-08 07:42:12 INFO provisioning user=rinaldi_pbx pass=Tr4ve!9x srv=203.0.113.45
+2027-03-08 07:42:19 INFO ext 101 incoming call from 0521 555 0142
+```
+
+After:
+
+```text
+2027-03-08 07:42:11 WARN ring-group 1 no extension available, call dropped
+2027-03-08 07:42:12 INFO provisioning user=[USER] pass=[PASSWORD] srv=[CLIENT-PUBLIC-IP]
+2027-03-08 07:42:19 INFO ext 101 incoming call from [PHONE]
+```
+
+The ring-group warning and the sequence of events stay, and that is what the diagnosis needs. The tool below replaces emails, phone numbers, IBANs and Italian tax codes by itself, and in the "words to replace" field you can list users and names. It does not recognize IP addresses or passwords: you change those by hand. It runs in the browser, the text doesn't leave your computer.
+
+<Anonymizer />
+
+Always reread the result before pasting it.
+
+<SelfCheck
+  id="it-technician-start-here-q1"
+  question="You want an opinion on a block of settings exported from the Studio Corsi firewall, which also contains the VPN key. What do you do?"
+  options={[
+    { text: "I paste all of it: without the full context the opinion would be worse.", why: "The VPN key never goes into a chat, and it isn't needed for an opinion on the rules." },
+    { text: "I remove the key, the client's name and the public addresses, and paste only the rules I care about.", correct: true, why: "To reason about a rule, the rules are enough. Secrets and client data stay out." },
+    { text: "I paste all of it and then delete the chat.", why: "Deleting the chat doesn't undo what you already sent." },
+    { text: "I only change the first line with the client's name.", why: "The key and the public IPs are in the rest of the file." },
+  ]}
+/>
+
+## Try it now
+
+Open a chat in the Project and write: "Tell me in five lines what you understood about how I work and what you must never do". If it doesn't mention "I don't know" and the flagged commands, the instructions aren't clear enough: add a sentence.
+
+<LlmExercise
+  title="Write your Project instructions"
+  file="practice-it-technician-start-here.txt"
+  duration="10-15 min"
+  description="The AI interviews you about your work and hands you the Project instructions, ready to paste."
+/>
+
+The next step is a case where the model doesn't appear in any manual Claude knows: [When the AI doesn't know your machine](/en/by-profession/it-technician/unknown-machine/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-it-technician-start-here.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

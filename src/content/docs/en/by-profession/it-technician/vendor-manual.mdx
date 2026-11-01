@@ -1,0 +1,97 @@
+---
+title: The manual from the cabinet
+description: You upload the scan of an old manual and ask questions of that document, with page number and exact quotation, then check on paper. And you build a quick sheet from it.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- If the machine is rare, the right source is its manual. You upload the PDF and ask questions of that document, not of the AI's memory.
+- Always ask for the page number and the passage quoted word for word, and "if the manual doesn't say it, say so". Then open the page and check.
+- Crooked scans are read badly: numbers and codes (0/O, 1/l) are always checked on paper. Tables and diagrams can be misread.
+- From the manual you build a one-page quick sheet to keep in the client's folder.
+
+</LessonSummary>
+
+The manual of the **Telmar HX-200** exists only on paper, in a binder in the Officina Rinaldi cabinet: 180 pages of installation guide. Franco scanned it in a hurry, with a few crooked pages. In [When the AI doesn't know your machine](/en/by-profession/it-technician/unknown-machine/) the AI didn't know how routes are restored on that model. The manual does.
+
+## Upload the PDF
+
+You can upload it to the "Franco's client support" Project (see [Set up Claude, on your terms](/en/by-profession/it-technician/start-here/)) or to a single chat with the attach-files button. Claude reads PDFs, and normal-sized files are fine. A very large PDF is better split into two or three parts, by chapter. If it is a scan with no recognizable text, check on a couple of pages that Claude is really reading them: ask it to quote a passage and compare it with the paper. In the Project the file stays available to all chats: good for the manuals of products you handle often.
+
+Before uploading, check that there are no handwritten notes with passwords or client data in the margins. It happens more than you'd think in manuals from a cabinet. The general picture is in [Privacy and company data](/en/at-work/company-data-and-privacy/).
+
+## Ask that document
+
+The difference is in how you ask. "How do I restore the routes on the Telmar?" leads the AI to answer from memory. This one ties it to the manual instead:
+
+```text
+Answer using only the attached manual (Telmar HX-200, installation guide). Question: after a power cut, do the incoming routes go back to factory values? How are they restored from a configuration backup?
+
+For each statement give the page number and quote the passage word for word, in quotation marks. If the manual doesn't say it, write "the manual doesn't say it" and don't fill in with what you know in general. If a number or a code is hard to read in the scan, tell me.
+```
+
+In the answer, Franco finds for example: page 74, "routing settings are saved to permanent memory only after the save command". And then: "the manual doesn't say what happens to the system date after a power loss". The second case is as useful as the first: you know that's where you have to check.
+
+## Check the page
+
+That is what the page number is for. Franco opens the binder at page 74 and reads the passage with his own eyes. If the quotation doesn't match, or the page doesn't exist, the AI invented or misread, and you know in ten seconds.
+
+The limits, concretely:
+
+- **Numbers and codes.** A crooked or faded scan leads to wrong readings: 0 for O, 1 for l, 5 for S. An error code or a timeout value misread can send you the wrong way. Numbers and codes are always checked on paper.
+- **Tables and diagrams.** A table of values or a wiring diagram can be interpreted wrongly, with rows and columns swapped. For those you open the page yourself.
+- **Missing pages.** If the scan has missing or unreadable pages, the AI has no way of knowing. "The manual doesn't say it" may mean "it isn't in the scan".
+
+<SelfCheck
+  id="it-technician-vendor-manual-q1"
+  question="The AI quotes, on page 112 of the manual, a 30-second timeout in quotation marks. The scan of that page is faded. What do you do before changing the value on the phone system?"
+  options={[
+    { text: "I change the value: there is a quotation, so it was read from the manual.", why: "The quotation can come from a wrong reading of the scan, especially on numbers." },
+    { text: "I open the paper manual at page 112 and check the number with my own eyes.", correct: true, why: "That is what the page number is for. On the digits of a faded scan, checking on paper is a must." },
+    { text: "I ask the AI if it is sure, and if it says yes I go ahead.", why: "An AI answers confidently even when it read wrongly." },
+    { text: "I take the most common value for these devices.", why: "That is the AI's memory again, or worse a habit of yours applied to a different model." },
+  ]}
+/>
+
+## A one-page quick sheet
+
+When the manual has answered the questions you need, have it make a sheet to keep in the client's folder: the five things you would look for at seven in the morning with the phone ringing. You decide the structure.
+
+<Collapsible title="Template for the quick sheet">
+
+```text
+From the attached manual (Telmar HX-200, installation guide) prepare a one-page quick sheet with these sections:
+1. What it is and what it is for (two lines).
+2. How to do a safe restart, step by step.
+3. How to save and restore a configuration backup.
+4. Most frequent error codes and what they mean.
+5. What NOT to touch without saving the configuration first.
+
+Rules: use only the manual. After each item write the page number in brackets. If a section isn't in the manual, write "not found in the manual". Flag where the scan isn't readable.
+```
+
+</Collapsible>
+
+The sheet is a draft: you check the pages in brackets one by one, as above. Once verified, you print it and put it in the binder, next to the manual. For the reports after a job there is [the next lesson](/en/by-profession/it-technician/job-reports/).
+
+<LlmExercise
+  title="Ask a manual questions"
+  file="practice-it-technician-vendor-manual.txt"
+  duration="10-15 min"
+  description="With a manual of your own, cleaned, you learn to demand page and quotation and to check the answers."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-it-technician-vendor-manual.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

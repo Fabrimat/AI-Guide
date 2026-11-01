@@ -1,0 +1,85 @@
+---
+title: When the AI doesn't know your machine
+description: With a rare phone system the AI doesn't know how it works and tends to invent. How to ask for hypotheses instead of answers, and how to recognize a menu or a password that doesn't exist.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- The rarer or older a machine is, the less the AI knows and the more it invents. On a common model it helps, on a niche phone system it fills the gaps.
+- Ask for hypotheses ranked by likelihood, what to check for each one and what evidence rules it out. Also ask it to tell you if it isn't sure the model works like that.
+- Signs of invention: very precise menu names for an obscure device, round-number defaults, no hedging in the tone.
+- A command that deletes or resets doesn't run on a client's machine unless you understand it and have a copy of the configuration.
+
+</LessonSummary>
+
+This lesson starts from the Project in [Set up Claude, on your terms](/en/by-profession/it-technician/start-here/). If you don't have it, paste the rules at the start of the chat: hypotheses, not certainties; "I don't know" allowed; risky commands flagged.
+
+After a power cut, the **Telmar HX-200** phone system at Officina Rinaldi stops routing incoming calls. Internal phones work, the external lines show as registered, but from outside it rings out. Franco has the log lines. It is a device from a small brand, released quite a few years ago, and he has the manual on paper.
+
+## Why the AI is weak here
+
+A language model has read a lot about widespread devices and little about rare ones. On a phone system with a thousand installations it has seen forums, manuals, discussions. On the Telmar HX-200 it may have two lines, or nothing. The hard part is that the answer has the same confident tone in both cases. That is why the rule of this chapter is to ask it to separate what it knows from what it imagines.
+
+## How to ask
+
+Franco cleans the log lines (public IPs, users, numbers out, as in [Set up Claude](/en/by-profession/it-technician/start-here/)) and pastes them like this:
+
+```text
+Telmar HX-200 phone system, installed years ago, small client (a workshop). After a power cut it no longer routes incoming calls. Internal extensions ok, external lines show as registered. Log lines after the restart, cleaned:
+
+[paste the lines here]
+
+Give me 3-5 hypotheses ranked by likelihood. For each: what I check, and what evidence rules it out. Separate what you deduce from the log from what you know in general about phone systems. If you aren't sure this model works like that, write it, and tell me what to look for in the manual. Don't give me menu paths or model-specific commands.
+```
+
+The last sentence matters. For a device it doesn't know, you ask it to reason, not to recite a menu from memory. The hypotheses are general but useful: routing table restored to factory values after the restart, a clock reset that shifts the time-of-day rules, a registration that looks successful but lost a parameter. Franco checks them one by one, simplest first.
+
+## An answer with three traps
+
+This is a typical answer, the kind you get without the Project rules. Which sentences don't hold up?
+
+<SpotTheError
+  prompt="The phone system no longer routes incoming calls after a power cut. What do I do?"
+  sentences={[
+    { text: "Check that the system clock is correct: after a power loss it can go back to a default date and shift the time-of-day routing rules." },
+    { text: "Verify that the external lines show as registered with the provider and that the incoming routes still point to the right extension groups." },
+    { text: "Go to System > Advanced > Reset trunk and press Confirm.", wrong: true, why: "For a device this uncommon, a menu path this precise is almost certainly invented. It may not exist or may do something else." },
+    { text: "If it asks for administrator credentials, the default password is admin1234.", wrong: true, why: "A round value, stated without hesitation, for a model the AI doesn't know. A default password is read in the manual." },
+    { text: "If nothing works, run a settings reset: it is a harmless operation that returns the phone system to a clean state.", wrong: true, why: "A reset usually wipes the whole configuration, routes and extensions included. Presenting it as harmless is the most dangerous sentence in the answer." },
+    { text: "Compare the routes with the ones in the manual or with the last configuration backup you saved." },
+  ]}
+/>
+
+The first two and the last are sensible general advice: they are true for almost any phone system and say nothing specific about the Telmar. The other three pretend to know it.
+
+## Signs of invention
+
+- **Very precise menu names for an obscure device.** The more precise the path, the more you must check it.
+- **Round default values**: passwords like admin1234, convenient ports or addresses.
+- **No hedging.** On something rare, an AI that never says "I'm not sure" has a problem.
+- **Destructive commands described as harmless.** Reset, format, "cleanup" of the configuration.
+
+When you see one, don't throw the answer away: move the check from the model to the manual or the vendor. How to work with the paper manual is in [The manual from the cabinet](/en/by-profession/it-technician/vendor-manual/). For commands, a fixed rule: you try them where a mistake costs nothing, never on the client's phone system in production. And before touching anything, save the configuration.
+
+With the Project rules the same question should give a different answer: the three general hypotheses, and an "I don't know what the menu item is called on this model, look in the manual for the section on restoring routes".
+
+<LlmExercise
+  title="Question the AI about a rare machine"
+  file="practice-it-technician-unknown-machine.txt"
+  duration="10-15 min"
+  description="Pick an uncommon device and see where the AI reasons and where it invents, before you trust an answer."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-it-technician-unknown-machine.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

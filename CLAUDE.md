@@ -611,7 +611,7 @@ no background tile), like doodles in a notebook margin; colour is
 OSes (unlike emoji).
 
 Available icons (`IconName`): `sprout`, `pencil`, `briefcase`,
-`graduation-cap`, `users`, `wrench`, `message-circle`. Adding one
+`graduation-cap`, `users`, `wrench`, `message-circle`, `monitor`. Adding one
 means extending the union type and adding the SVG block in
 `Icon.astro`.
 

@@ -1,0 +1,132 @@
+---
+title: Rapportini e spiegazioni al cliente
+description: Dagli appunti scritti di fretta dopo un intervento a un rapportino in un formato fisso e a una mail in parole semplici per il cliente. L'IA scrive, tu controlli ogni riga.
+livello: intermedio
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- L'IA trasforma quattro righe di appunti in un rapportino ordinato e in una mail comprensibile. È la parte del lavoro che odi.
+- Il rapportino ha un formato fisso: data, cliente, problema, lavoro svolto, ricambi, tempo, consigli. Lo scrivi una volta e lo riusi.
+- Regola unica: l'IA non aggiunge lavori, ricambi, tempi o prezzi che non sono negli appunti. Dove manca un dato lascia un segnaposto.
+- Controlli ogni riga prima di salvare o spedire. Nelle chat non vanno nomi di pazienti, password, IP pubblici del cliente.
+
+</LessonSummary>
+
+Questa lezione presuppone di aver preparato Claude come in [Prepara Claude, alle tue condizioni](/it/by-profession/it-technician/start-here/). Funziona anche in una chat normale.
+
+L'apprendista veloce qui lavora bene: legge appunti sgrammaticati e li mette in ordine. Il rischio è che riempia i buchi con cose plausibili. Un "intervento di circa due ore" che non hai scritto finisce nel rapportino e poi in fattura.
+
+## Gli appunti di partenza
+
+Tornato dallo Studio dentistico Corsi, nel furgone, scrivi questo:
+
+```text
+studio Corsi, NAS non montava share, disco 2 in degrado, sostituito, rebuild 4h, backup ok verificato, consigliato UPS
+```
+
+Non c'è nessun nome di paziente, nessun IP, nessuna password: è già una cosa che puoi incollare. Se nei tuoi appunti ci sono, li togli prima, come in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica). Sul NAS di uno studio dentistico ci sono dati sanitari: del NAS non incolli mai i contenuti, solo cosa hai fatto.
+
+## Il formato fisso
+
+Un rapportino sempre uguale si legge in dieci secondi e si ritrova fra tre anni. Questo è il modello:
+
+<Collapsible title="Il modello del rapportino">
+
+```text
+RAPPORTINO DI INTERVENTO
+Data: [DATA]
+Cliente: [CLIENTE]
+Problema segnalato: [una o due righe]
+Diagnosi: [cosa era, in una o due righe]
+Lavoro svolto: [elenco, una voce per riga]
+Ricambi e materiale: [elenco, oppure "nessuno"]
+Tempo: [ore sul posto, ore di attesa o di rebuild]
+Esito: [funziona / funziona con riserva / da completare]
+Consigli: [cosa suggerisci e perché, una riga per consiglio]
+Da fare la prossima volta: [eventuali cose in sospeso]
+```
+
+</Collapsible>
+
+La riga "Tempo" separa le ore che hai passato sul posto dalle ore di attesa. Nel nostro caso il rebuild è durato quattro ore, ma di solito tu non sei rimasto lì quattro ore. L'IA non può saperlo: deve chiedertelo.
+
+## Il prompt: debole e solido
+
+<PromptCompare
+  weak="Scrivi il rapportino."
+  strong={`Sei il mio assistente amministrativo. Sono un tecnico informatico, lavoro da solo. Ti incollo i miei appunti dopo un intervento. Scrivi il rapportino usando esattamente il modello che segue.
+Regole: usa solo quello che c'è negli appunti. Non aggiungere lavori che non ho fatto, ricambi, marche, tempi o prezzi. Se un dato del modello manca, scrivi [DA COMPLETARE]. Alla fine fammi al massimo tre domande sui dati mancanti.
+Lingua semplice, frasi brevi, niente aggettivi.
+[modello]
+[appunti]`}
+  note="Il secondo ha il formato, il pubblico e un divieto preciso. Il primo lascia all'IA la scelta di cosa scrivere e di cosa inventare."
+/>
+
+Sul rapportino di Corsi l'IA riempie quello che c'è e lascia [DA COMPLETARE] su modello del disco, data, ore sul posto. Ti chiede: "Quante ore sei stato sul posto? Il disco sostituito è lo stesso modello dell'altro?" Rispondi, e il rapportino è completo.
+
+Controlla riga per riga. Se compare una cosa che non hai fatto, cancellala e ricordagli la regola.
+
+## La mail al titolare
+
+Lo stesso testo, per un altro lettore. Al dottor Corsi non serve sapere cos'è un rebuild. Gli servono tre cose: se può lavorare, cosa è successo, cosa deve decidere. Nella stessa chat scrivi:
+
+```text
+Ora scrivi una mail al titolare dello studio, che non è un tecnico. Spiega: cosa è successo, cosa ho fatto, cosa gli costa (nei miei appunti non c'è un prezzo: lascia [COSTO] da compilare), cosa gli consiglio e perché. Niente sigle senza spiegazione, niente "purtroppo" e niente allarmismo. Massimo 150 parole.
+```
+
+Il costo resta un segnaposto: un prezzo lo mette solo tu, dal tuo listino. Questa è la bozza dell'IA, prima della tua rilettura:
+
+<Collapsible title="La mail al dottor Corsi">
+
+```text
+Gentile dottor Corsi,
+
+oggi ho sistemato il computer dove tenete le copie dei dati dello studio. Uno dei due dischi si stava rovinando, per fortuna prima di rompersi del tutto. L'ho sostituito e il sistema ha ricopiato i dati sul disco nuovo, cosa che ha richiesto qualche ora.
+
+Ho controllato che la copia di sicurezza funzioni: la prova è riuscita.
+
+Costo dell'intervento e del disco: [COSTO].
+
+Le consiglio un gruppo di continuità (UPS), cioè una batteria che tiene acceso il computer durante un'interruzione di corrente. I dischi si rovinano più in fretta quando la corrente salta, e da voi è già successo. Se vuole, le preparo un preventivo.
+
+Un saluto,
+Franco
+```
+
+</Collapsible>
+
+La bozza contiene una frase che negli appunti non c'era: "da voi è già successo". L'IA l'ha dedotta o inventata, e una riga così la lascia in una mail al cliente solo chi sa che è vera. Altrimenti la togli. L'offerta del preventivo invece va bene, perché negli appunti c'è "consigliato UPS".
+
+<SelfCheck
+  id="it-technician-job-reports-q1"
+  question="Il rapportino generato dice 'intervento di due ore'. Nei tuoi appunti scrivevi solo 'rebuild 4h'. Cosa fai?"
+  options={[
+    { text: "Lo lascio: due ore è un valore ragionevole per un intervento così.", why: "Il valore l'ha inventato l'IA. Finirebbe nel rapportino e forse in fattura." },
+    { text: "Lo correggo con le ore che ho davvero passato sul posto e separo l'attesa del rebuild.", correct: true, why: "Il tempo lo sai solo tu. Il rebuild di quattro ore non è tempo di lavoro tuo." },
+    { text: "Chiedo all'IA di calcolarlo meglio.", why: "Non ha modo di saperlo: calcolerebbe un'altra cifra plausibile." },
+    { text: "Cancello la riga del tempo e non scrivo niente.", why: "Il tempo serve nel rapportino. Si completa con il dato vero." },
+  ]}
+/>
+
+<LlmExercise
+  title="Dagli appunti al rapportino e alla mail"
+  file="practice-it-technician-job-reports.txt"
+  duration="15 min"
+  description="Con un intervento inventato o con appunti ripuliti, l'IA ti guida a produrre rapportino e mail e a controllarli riga per riga."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-it-technician-job-reports.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, sul rapportino e sui dati."
+/>

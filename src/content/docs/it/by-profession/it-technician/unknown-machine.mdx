@@ -1,0 +1,85 @@
+---
+title: Quando l'IA non conosce la tua macchina
+description: Con un centralino raro l'IA non sa come funziona e tende a inventare. Come chiedere ipotesi invece di risposte, e come riconoscere un menu o una password che non esistono.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Più una macchina è rara o vecchia, meno ne sa l'IA e più inventa. Su un modello diffuso aiuta, su un centralino di nicchia riempie i vuoti.
+- Chiedi ipotesi in ordine di probabilità, cosa controllare per ciascuna e quale riscontro la esclude. Chiedi anche di dirti se non è sicura che quel modello funzioni così.
+- Segnali di invenzione: nomi di menu molto precisi per un apparato poco noto, valori predefiniti tondi, nessuna cautela nel tono.
+- Un comando che cancella o ripristina non lo lanci su una macchina del cliente senza capirlo e senza una copia della configurazione.
+
+</LessonSummary>
+
+Questa lezione parte dal Progetto di [Prepara Claude, alle tue condizioni](/it/by-profession/it-technician/start-here/). Se non lo hai, incolla le regole all'inizio della chat: ipotesi e non certezze, "non lo so" ammesso, comandi pericolosi segnalati.
+
+Dopo un'interruzione di corrente, il centralino **Telmar HX-200** dell'Officina Rinaldi smette di instradare le chiamate in ingresso. I telefoni interni funzionano, le linee esterne risultano registrate, ma dall'esterno squilla a vuoto. Franco ha le righe del log. È un apparato di una marca piccola, uscito parecchi anni fa, con un manuale che ha in cartaceo.
+
+## Perché qui l'IA è debole
+
+Un modello linguistico ha letto molto su apparati diffusi e poco su quelli rari. Sul centralino che hanno mille installazioni ha visto forum, manuali, discussioni. Sul Telmar HX-200 ha forse due righe, o niente. La parte difficile è che la risposta ha lo stesso tono sicuro in tutti e due i casi. Per questo la regola di questo capitolo è chiederle di distinguere ciò che sa da ciò che immagina.
+
+## Come chiedere
+
+Franco ripulisce le righe del log (via IP pubblici, utenti, numeri, come in [Prepara Claude](/it/by-profession/it-technician/start-here/)) e le incolla così:
+
+```text
+Centralino Telmar HX-200, installato da anni, cliente piccolo (officina). Dopo un'interruzione di corrente non instrada più le chiamate in ingresso. Interni ok, le linee esterne risultano registrate. Righe del log dopo il riavvio, ripulite:
+
+[incolla qui le righe]
+
+Dammi 3-5 ipotesi in ordine di probabilità. Per ognuna: cosa controllo, e quale riscontro la esclude. Distingui quello che deduci dal log da quello che sai in generale sui centralini. Se non sei sicura che questo modello funzioni così, scrivilo, e dimmi cosa cercare nel manuale. Non darmi percorsi di menu né comandi specifici per questo modello.
+```
+
+L'ultima frase conta. Per un apparato che non conosce, gli chiedi di ragionare, non di leggere un menu a memoria. Le ipotesi sono generali ma utili: tabella delle rotte ripristinata a valori di fabbrica dopo il riavvio, orologio azzerato che sposta le fasce orarie, registrazione che sembra riuscita ma ha perso un parametro. Franco le controlla una per una, dalla più semplice.
+
+## Una risposta con tre trappole
+
+Questa è una risposta tipo, di quelle che si ottengono senza le regole del Progetto. Quali frasi non reggono?
+
+<SpotTheError
+  prompt="Il centralino non instrada più le chiamate in ingresso dopo un'interruzione di corrente. Cosa faccio?"
+  sentences={[
+    { text: "Controlla che l'orologio di sistema sia corretto: dopo una mancanza di corrente può tornare a una data di default e spostare le fasce orarie di instradamento." },
+    { text: "Verifica che le linee esterne risultino registrate presso il fornitore e che le rotte in ingresso puntino ancora ai gruppi di interni giusti." },
+    { text: "Vai su Sistema > Avanzate > Reset trunk e premi Conferma.", wrong: true, why: "Per un apparato così poco diffuso un percorso di menu così preciso è quasi certamente inventato. Può non esistere o fare altro." },
+    { text: "Se ti chiede le credenziali di amministratore, la password predefinita è admin1234.", wrong: true, why: "Un valore tondo, detto senza esitazione, per un modello che il modello non conosce. Una password predefinita si legge sul manuale." },
+    { text: "Se nulla funziona, esegui il ripristino delle impostazioni: è un'operazione innocua che riporta il centralino a uno stato pulito.", wrong: true, why: "Un ripristino cancella di solito tutta la configurazione, rotte e interni compresi. Presentarlo come innocuo è la frase più pericolosa della risposta." },
+    { text: "Confronta le rotte con quelle del manuale o con l'ultima copia di configurazione che hai salvato." },
+  ]}
+/>
+
+Le prime due e l'ultima sono consigli generali sensati: sono vere per quasi ogni centralino e non dicono niente di specifico sul Telmar. Le altre tre fanno finta di conoscerlo.
+
+## Segnali di invenzione
+
+- **Nomi di menu molto precisi per un apparato poco noto.** Più è preciso il percorso, più lo devi controllare.
+- **Valori predefiniti tondi**: password come admin1234, porte o indirizzi comodi.
+- **Nessuna cautela.** Su qualcosa di raro un'IA che non dice mai "non sono sicura" ha un problema.
+- **Comandi distruttivi descritti come innocui.** Ripristino, formattazione, "pulizia" della configurazione.
+
+Quando ne vedi uno, non scartare la risposta: sposta la verifica dal modello al manuale o al produttore. Come fare con il manuale cartaceo è nella lezione [Il manuale dall'armadio](/it/by-profession/it-technician/vendor-manual/). Per i comandi, regola fissa: li provi dove un errore non costa niente, mai sul centralino del cliente in produzione. E prima di toccare qualcosa, salva la configurazione.
+
+Con le regole del Progetto la stessa domanda dovrebbe dare una risposta diversa: le tre ipotesi generali, e un "non so come si chiami la voce nel menu di questo modello, cerca nel manuale la sezione sul ripristino delle rotte".
+
+<LlmExercise
+  title="Interroga l'IA su una macchina rara"
+  file="practice-it-technician-unknown-machine.txt"
+  duration="10-15 min"
+  description="Scegli un apparato poco comune e vedi dove l'IA ragiona e dove inventa, prima di fidarti di una risposta."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-it-technician-unknown-machine.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

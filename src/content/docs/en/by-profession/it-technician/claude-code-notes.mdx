@@ -1,0 +1,188 @@
+---
+title: Claude Code on your notes folder
+description: Thirty years of notes scattered in one folder per client become a handover document, with Claude Code reading the files in a copy, proposing a plan and writing only new files.
+livello: avanzato
+prerequisiti: [company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Claude Code works on a folder of files straight from the terminal. For reading dozens of notes together it is more comfortable than the chat.
+- You start it only in a copy of the folder, with no passwords inside, never on a client's server or share.
+- Start in plan mode: you see the plan before it writes anything. You read every permission request before saying yes.
+- A CLAUDE.md file in the folder holds your standing rules: do not delete, do not rename, write only new files, cite the source note.
+- The document it writes is a draft. It mixes old and new notes without knowing which one holds: you put the dates on the notes.
+
+</LessonSummary>
+
+Verified in November 2026. The tools in this lesson change often: if a step does not match what you see, check the official Claude Code documentation.
+
+You have thirty years of notes: one folder per client, text files, old `.doc` files, cleaned-up configuration exports, a few PDF manuals. You know where everything is, but only you. If you stop for two weeks tomorrow, nobody knows how the library's setup is built. A handover document per client ("how this setup is built") removes that risk, and writing it by hand from thirty files is the job you have been putting off for years.
+
+## Why Claude Code and not the chat
+
+In the chat, even inside a Project, you upload files and they are handled one by one: it does not work on a whole folder. Claude Code starts from a folder, reads the files it needs, tells you what it would do and writes the result to a file. For a job across many small files it is more comfortable.
+
+The flip side is that it acts on your computer: it can modify files and run commands. That is why most of this lesson is about safety rules.
+
+## What you need
+
+The free claude.ai plan does not include Claude Code. Pro, Max, Ultra, Team, Enterprise and the Claude Console (with prepaid API credits) include it. The recommended way is to log in with your claude.ai subscription. I do not quote prices: you find them on Anthropic's site.
+
+The PC needs Windows 10 version 1809 or later (or Windows Server 2019 or later) and 4 GB of RAM. You do not need administrator rights, WSL or Node.js.
+
+## Installing on Windows
+
+Open PowerShell and type:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+Close the terminal, open a new one and check:
+
+```powershell
+claude --version
+```
+
+If the command answers with a version number, it is installed.
+
+<Collapsible title="Two other routes: CMD and WinGet">
+
+From CMD:
+
+```text
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+With WinGet (this version does not update itself):
+
+```text
+winget install Anthropic.ClaudeCode
+```
+
+To update it: `winget upgrade Anthropic.ClaudeCode`. Git for Windows is recommended but not required.
+
+</Collapsible>
+
+If you prefer not to use the terminal there are also a desktop app (download from claude.com/download) and a VS Code extension. The rules in this lesson are the same.
+
+## Before you start: the clean copy
+
+This is the step that matters most. Claude Code reads the files of the folder you start it from without asking, so the folder must contain only what you are willing to let it read.
+
+1. **Copy** the folder, for example `Biblioteca Valbruna`, to `C:\Lavoro\copia-biblioteca-valbruna`. You do not touch the original.
+2. **Remove credentials**: passwords, VPN keys, configuration exports with secrets. If a file contains them, delete it from the copy or clean it. Remembering not to ask about them is not enough.
+3. **Remove personal data** of users and employees. For the method see [Company data and privacy](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice).
+4. **Convert old `.doc` files to `.txt`**: it is not clear how it handles them, so do not risk it. It refuses Excel files (`.xlsx`): convert them.
+5. **Date them**. Put the date in the file name or on the first line ("2015-03 network notes", "2023-09 replaced router"). You see why in the example.
+6. Leave long PDF manuals out: PDFs over 10 pages are read in page ranges, and on Windows that needs an extra program (poppler). For scanned manuals use the chat, as in [The manual from the cabinet](/en/by-profession/it-technician/vendor-manual/).
+
+Then a fact you must not skip. Claude Code runs on your PC, but what it reads to answer travels to Anthropic, encrypted, to be processed. With the Pro, Max and Ultra plans the data is used to train models only if the setting that allows it is on: check how it is set in claude.ai, **Settings**, **Privacy** (claude.ai/settings/data-privacy-controls). With Team, Enterprise and API there is no training on prompts and code. The `/feedback` command sends a copy of the conversation: do not use it with client notes.
+
+Never point it at a client's server or share: you work only on the local copy.
+
+## Starting, logging in, permissions
+
+Go into the copy folder and start the program:
+
+```powershell
+cd C:\Lavoro\copia-biblioteca-valbruna
+claude
+```
+
+The first time it asks you to log in, and you complete the login in the browser. If you need to log in again, `/login`.
+
+In the normal mode (shown as "Manual") Claude Code asks permission before editing a file, running a command or using the network. It reads the files in the folder without asking. When a request appears, read what it wants to do before answering yes. If it is a command you do not understand, answer no.
+
+With **Shift+Tab** you change mode. For this work you need two: the normal one and **plan mode**, where Claude reads and writes a plan and cannot modify anything until you approve it. You can also start directly like this:
+
+```powershell
+claude --permission-mode plan
+```
+
+On client data, do not use the modes that skip approvals.
+
+## Your standing rules: CLAUDE.md
+
+A `CLAUDE.md` file inside the folder is read at the start of every session. The `/init` command generates one, but it is built for code projects: write it yourself, with Notepad, in `C:\Lavoro\copia-biblioteca-valbruna\CLAUDE.md`. Then, inside Claude Code, `/memory` edits it.
+
+```text
+This folder contains an IT technician's notes about a client's setup (Biblioteca comunale di Valbruna).
+
+Standing rules:
+- Do not delete and do not rename any file.
+- Do not modify existing files. Write only new files, with the name I give you.
+- Do not run commands on the network and do not connect to any device.
+- Every piece of information you write carries, in brackets, the name of the file it comes from, for example (2023-09 replaced router.txt).
+- If two notes contradict each other (addresses, versions, dates), do not choose: list both versions with the file names and dates, and flag it in a "To verify" section.
+- If a piece of information is missing, write [NOT FOUND]. Do not deduce and do not fill in.
+- Files carry the date in the name or on the first line. Notes with SUPERSEDED in the name are old: ignore them.
+- Write in plain sentences, no padding.
+```
+
+## The example: the library handover
+
+The Biblioteca comunale di Valbruna has a cataloguing server, a NAS, a router and a Wi-Fi network for visitors. Start Claude Code in plan mode and write:
+
+```text
+Read the files in this folder and prepare a handover document for whoever will look after the setup in my place. Use this structure:
+
+1. Devices (name, function, where it physically is, address)
+2. Network (how everything is connected)
+3. Where things are (backups, manuals, licences)
+4. Procedures (what to do if X hangs, in order)
+5. Who to call (supplier, contact at the town hall)
+6. To verify (contradictions and missing data)
+
+Write the result in the new file consegna-biblioteca.md. First show me the plan.
+```
+
+Claude Code reads the files, proposes the plan (which files it will use, in what order, what it will write) and waits. You read it. If it looks right you approve it. When it then asks permission to create `consegna-biblioteca.md`, you check the name and confirm.
+
+When it has finished, the document is in the folder. You read it line by line, with the folder open beside it. Under "Devices" you find:
+
+```text
+Cataloguing server: 192.168.1.50 (2015-03 note rete.txt)
+```
+
+The address is wrong. In 2023 you moved the server to another subnet. The right address is in the file "2023-09 tabella indirizzi.txt", but there the device is called "srv-cat". Claude Code did not link "srv-cat" to "cataloguing server", saw no contradiction and cited the 2015 note. The source written in brackets is what made you notice the error. You correct the address yourself, add the line "srv-cat = cataloguing server" to the table and rename the 2015 note by hand, adding "SUPERSEDED" to its name.
+
+The rule that comes out of it: notes get dated, and before asking for a summary you tell the AI which ones are current, for example with "SUPERSEDED" in the name and the rule in CLAUDE.md. The handover document stays a draft until you have compared it with the real installation.
+
+## If something goes wrong
+
+Before each of your requests Claude Code saves a checkpoint. With `/rewind`, or by pressing Esc twice, you open the menu and roll back files and conversation. Changes made by shell commands are not fully undone, though, and checkpoints are not a replacement for version control. That is why you work on a copy.
+
+Other useful commands: `/help`, `/clear` (new conversation), `/exit`. **Ctrl+C** interrupts what it is doing; pressed twice when idle, it exits.
+
+<SelfCheck
+  id="it-technician-claude-code-notes-q1"
+  question="You want to have the handover for the client Rinaldi prepared. The original folder also contains a file with the router passwords. What do you do?"
+  options={[
+    { text: "I start Claude Code in the original folder and tell it not to read that file.", why: "An instruction is not a barrier: the folder is readable and the content goes to Anthropic. Credentials must not be in the folder." },
+    { text: "I copy the folder, remove the passwords file from the copy and start Claude Code there, in plan mode.", correct: true, why: "The copy protects the original, I remove the secrets first, and plan mode shows me what it will do." },
+    { text: "I start it directly on the client's network share, so I do not copy anything.", why: "Never on a client's server or share. A network share cannot even be added as a working folder." },
+    { text: "I turn on the mode that skips approvals, so I do not have to confirm every file.", why: "With client data you want to read every request before saying yes." },
+  ]}
+/>
+
+<LlmExercise
+  title="Your rules and the handover structure for a client"
+  file="practice-it-technician-claude-code-notes.txt"
+  duration="20 min"
+  description="In the chat with your AI you write your standing rules for Claude Code and the structure of a client's handover document, before touching real files."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-it-technician-claude-code-notes.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four questions, one at a time, about safety and method."
+/>

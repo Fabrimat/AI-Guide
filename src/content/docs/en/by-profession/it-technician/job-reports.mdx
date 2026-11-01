@@ -1,0 +1,132 @@
+---
+title: Job reports and explaining it to the client
+description: From notes scribbled after a job to a job report in a fixed format and an email in plain words for the client. The AI drafts, you check every line.
+livello: intermedio
+prerequisiti: [ask-well]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- The AI turns four lines of notes into a tidy job report and a readable email. It is the part of the job you hate.
+- The report has a fixed format: date, client, problem, work done, parts, time, advice. You write the template once and reuse it.
+- One rule: the AI adds no work, parts, times or prices that are not in your notes. Where a fact is missing it leaves a placeholder.
+- You check every line before saving or sending. No patient names, passwords or the client's public IPs go into the chat.
+
+</LessonSummary>
+
+This lesson assumes you have set up Claude as in [Set up Claude, on your terms](/en/by-profession/it-technician/start-here/). It also works in a plain chat.
+
+The fast apprentice does well here: it reads messy notes and puts them in order. The risk is that it fills the gaps with plausible things. A "roughly two-hour job" that you never wrote ends up in the report, and then on the invoice.
+
+## The starting notes
+
+Back from the Corsi dental practice, in the van, you write this:
+
+```text
+studio Corsi, NAS non montava share, disco 2 in degrado, sostituito, rebuild 4h, backup ok verificato, consigliato UPS
+```
+
+(The notes are in Italian, as Franco writes them. The AI follows your language.) There are no patient names, no IPs, no passwords, so you can paste it as it is. If your notes contain any, remove them first, as in [Company data and privacy](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice). A dental practice's NAS holds health data: you never paste what is on the NAS, only what you did.
+
+## The fixed format
+
+A report that always looks the same is read in ten seconds and found again in three years. This is the template:
+
+<Collapsible title="The job report template">
+
+```text
+JOB REPORT
+Date: [DATE]
+Client: [CLIENT]
+Reported problem: [one or two lines]
+Diagnosis: [what it was, one or two lines]
+Work done: [list, one item per line]
+Parts and materials: [list, or "none"]
+Time: [hours on site, hours of waiting or rebuild]
+Outcome: [working / working with reservations / to be completed]
+Advice: [what you suggest and why, one line per piece of advice]
+For next time: [anything left open]
+```
+
+</Collapsible>
+
+The "Time" line separates the hours you spent on site from waiting hours. Here the rebuild took four hours, but you usually did not stand there for four hours. The AI cannot know that: it has to ask you.
+
+## The prompt: weak and solid
+
+<PromptCompare
+  weak="Write the job report."
+  strong={`You are my administrative assistant. I am an IT technician and I work alone. I am pasting my notes after a job. Write the job report using exactly the template below.
+Rules: use only what is in the notes. Do not add work I did not do, parts, brands, times or prices. If a field of the template is missing, write [TO COMPLETE]. At the end ask me at most three questions about the missing data.
+Plain language, short sentences, no adjectives.
+[template]
+[notes]`}
+  note="The second one has the format, the audience and a precise prohibition. The first leaves the AI to choose what to write and what to invent."
+/>
+
+On the Corsi report the AI fills in what is there and leaves [TO COMPLETE] on the disk model, the date and the hours on site. It asks: "How many hours were you on site? Is the new disk the same model as the other one?" You answer, and the report is complete.
+
+Check line by line. If something appears that you did not do, delete it and remind it of the rule.
+
+## The email to the owner
+
+The same facts, for a different reader. Dr. Corsi does not need to know what a rebuild is. He needs three things: whether he can work, what happened, what he has to decide. In the same chat you write:
+
+```text
+Now write an email to the practice owner, who is not a technician. Explain: what happened, what I did, what it costs him (there is no price in my notes: leave [COST] to fill in), what I advise and why. No unexplained acronyms, no "unfortunately", no alarmism. At most 150 words.
+```
+
+The cost stays a placeholder: only you put a price there, from your own price list. This is the AI's first draft, before your read-through:
+
+<Collapsible title="The email to Dr. Corsi">
+
+```text
+Dear Dr. Corsi,
+
+today I fixed the computer where you keep the copies of the practice's data. One of the two disks was wearing out, luckily before it failed completely. I replaced it and the system copied the data onto the new disk, which took a few hours.
+
+I checked that the backup works: the test succeeded.
+
+Cost of the job and of the disk: [COST].
+
+I recommend a UPS, that is a battery that keeps the computer running during a power cut. Disks wear out faster when the power drops, and it has already happened here. If you like, I will prepare a quote.
+
+Best regards,
+Franco
+```
+
+</Collapsible>
+
+The draft contains one sentence that was not in the notes: "it has already happened here". The AI deduced or invented it, and a line like that stays in a client email only if you know it is true. Otherwise you cut it. The offer of a quote is fine, because the notes say "consigliato UPS" (UPS recommended).
+
+<SelfCheck
+  id="it-technician-job-reports-q1"
+  question="The generated report says 'two-hour job'. Your notes only said 'rebuild 4h'. What do you do?"
+  options={[
+    { text: "I leave it: two hours is a reasonable value for a job like this.", why: "The AI made that value up. It would end up in the report and maybe on the invoice." },
+    { text: "I correct it with the hours I actually spent on site and keep the rebuild wait separate.", correct: true, why: "Only you know the time. The four-hour rebuild is not your working time." },
+    { text: "I ask the AI to calculate it better.", why: "It has no way of knowing: it would produce another plausible figure." },
+    { text: "I delete the time line and write nothing.", why: "The report needs the time. You complete it with the real figure." },
+  ]}
+/>
+
+<LlmExercise
+  title="From notes to report and email"
+  file="practice-it-technician-job-reports.txt"
+  duration="15 min"
+  description="With an invented job or with cleaned-up notes, the AI guides you to produce a report and an email and to check them line by line."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock it in"
+  file="review-it-technician-job-reports.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you four questions, one at a time, about the report and the data."
+/>

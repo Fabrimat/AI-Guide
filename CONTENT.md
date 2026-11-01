@@ -1149,7 +1149,8 @@ Target: non-technical people who do the same hands-on work every week in a
 specific job. Persona-based structure: each chapter starts from a real weekly
 task, shows it from raw notes to the finished document, and gives step-by-step
 instructions on the tool that job really uses (Claude for the travel agency,
-Copilot for the public sector, ChatGPT for holiday rentals, Gemini for the small shop).
+Copilot for the public sector, ChatGPT for holiday rentals, Gemini for the small shop,
+Claude and Claude Code for the IT technician).
 Tool facts are dated ("verificato a novembre
 2026") and written generically where they could not be verified. Design:
 `docs/superpowers/specs/2026-11-01-by-profession-design.md`.
@@ -1197,6 +1198,14 @@ note that the context is Italian public administration)
 - ✅ **Schede prodotto e post dalle tue note** (`by-profession/small-shop/product-descriptions`)
 - ✅ **Rispondere a clienti e fornitori** (`by-profession/small-shop/customer-and-supplier-emails`)
 - ✅ **Il foglio delle scorte** (`by-profession/small-shop/stock-sheet`)
+
+**Tecnico informatico** (tools: Claude and Claude Code; level `intermedio`, last lesson `avanzato`)
+
+- ✅ **Prepara Claude, alle tue condizioni** (`by-profession/it-technician/start-here`)
+- ✅ **Quando l'IA non conosce la tua macchina** (`by-profession/it-technician/unknown-machine`)
+- ✅ **Il manuale dall'armadio** (`by-profession/it-technician/vendor-manual`)
+- ✅ **Rapportini e spiegazioni al cliente** (`by-profession/it-technician/job-reports`)
+- ✅ **Claude Code sulla cartella degli appunti** (`by-profession/it-technician/claude-code-notes`)
 
 **Adding a profession** = a folder `by-profession/<profession>/` (IT + EN, plus
 `public/skills/<lang>/` files), a collapsible subgroup in the "By profession"

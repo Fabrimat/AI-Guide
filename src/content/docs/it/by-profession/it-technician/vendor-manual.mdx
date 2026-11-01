@@ -1,0 +1,97 @@
+---
+title: Il manuale dall'armadio
+description: Carichi la scansione di un vecchio manuale e fai domande a quel documento, con numero di pagina e citazione esatta, poi controlli sulla carta. E ne ricavi una scheda rapida.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Se la macchina è rara, la fonte giusta è il suo manuale. Carichi il PDF e fai domande a quel documento, non alla memoria dell'IA.
+- Chiedi sempre numero di pagina e passo citato alla lettera, e "se il manuale non lo dice, scrivilo". Poi apri la pagina e controlli.
+- Le scansioni storte si leggono male: numeri e codici (0/O, 1/l) li controlli sempre sulla carta. Tabelle e schemi possono essere letti male.
+- Dal manuale ricavi una scheda rapida di una pagina, da tenere nella cartella del cliente.
+
+</LessonSummary>
+
+Il manuale del **Telmar HX-200** esiste solo in carta, in un raccoglitore nell'armadio dell'Officina Rinaldi: 180 pagine di guida all'installazione. Franco lo ha scansionato in fretta, con un po' di pagine storte. Nella lezione [Quando l'IA non conosce la tua macchina](/it/by-profession/it-technician/unknown-machine/) l'IA non sapeva come si ripristinano le rotte su quel modello. Il manuale lo sa.
+
+## Carica il PDF
+
+Puoi caricarlo nel Progetto "Assistenza clienti Franco" (vedi [Prepara Claude, alle tue condizioni](/it/by-profession/it-technician/start-here/)) o in una chat singola con il pulsante per allegare file. Claude legge i PDF, e con file di dimensioni normali non ci sono problemi. Un PDF molto grande conviene spezzarlo in due o tre parti, per capitoli. Se è una scansione senza testo riconoscibile, controlla su un paio di pagine che Claude le stia leggendo davvero: chiedigli di citare un passo e confrontalo con la carta. Nel Progetto il file resta a disposizione di tutte le chat: va bene per i manuali dei prodotti che segui spesso.
+
+Prima di caricarlo, guarda che dentro non ci siano appunti a mano con password o dati del cliente, scritti a margine. Succede più di quanto si pensi nei manuali di un armadio. Il quadro è in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+## Fai domande a quel documento
+
+La differenza sta in come chiedi. "Come si ripristinano le rotte sul Telmar?" porta l'IA a rispondere a memoria. Questa invece la vincola al manuale:
+
+```text
+Rispondi usando solo il manuale allegato (Telmar HX-200, guida all'installazione). Domanda: dopo un'interruzione di corrente le rotte in ingresso tornano ai valori di fabbrica? Come si ripristinano da una copia di configurazione?
+
+Per ogni affermazione indica il numero di pagina e riporta il passo alla lettera, tra virgolette. Se il manuale non lo dice, scrivi "il manuale non lo dice" e non completare con quello che sai in generale. Se un numero o un codice è poco leggibile nella scansione, dimmelo.
+```
+
+Nella risposta, Franco trova per esempio: pagina 74, "le impostazioni di instradamento vengono salvate nella memoria permanente solo dopo il comando di salvataggio". E poi: "il manuale non dice cosa succede alla data di sistema dopo una mancanza di corrente". Il secondo caso è utile quanto il primo: sai che lì devi controllare tu.
+
+## Controlla la pagina
+
+Il numero di pagina serve a questo. Franco apre il raccoglitore a pagina 74 e legge il passo con i suoi occhi. Se la citazione non coincide, o la pagina non esiste, l'IA ha inventato o letto male, e lo sai in dieci secondi.
+
+I limiti, concreti:
+
+- **Numeri e codici.** Una scansione storta o sbiadita porta a letture sbagliate: 0 al posto di O, 1 al posto di l, 5 al posto di S. Un codice di errore o un valore di timeout letto male può mandarti nella direzione sbagliata. Numeri e codici si controllano sempre sulla carta.
+- **Tabelle e schemi.** Una tabella di valori o uno schema di cablaggio possono essere interpretati male, con righe e colonne scambiate. Per quelli apri tu la pagina.
+- **Pagine saltate.** Se la scansione ha pagine mancanti o illeggibili, l'IA non ha modo di saperlo. Il "il manuale non lo dice" può voler dire "non c'è nella scansione".
+
+<SelfCheck
+  id="it-technician-vendor-manual-q1"
+  question="L'IA cita a pagina 112 del manuale un timeout di 30 secondi, tra virgolette. La scansione di quella pagina è sbiadita. Cosa fai prima di cambiare il valore sul centralino?"
+  options={[
+    { text: "Cambio il valore: c'è la citazione, quindi è letto dal manuale.", why: "La citazione può derivare da una lettura sbagliata della scansione, soprattutto sui numeri." },
+    { text: "Apro il manuale cartaceo a pagina 112 e controllo il numero con i miei occhi.", correct: true, why: "Il numero di pagina serve a questo. Sulle cifre di una scansione sbiadita la verifica sulla carta è obbligatoria." },
+    { text: "Chiedo all'IA se è sicura, e se dice di sì procedo.", why: "Un'IA risponde con sicurezza anche quando ha letto male." },
+    { text: "Prendo il valore più comune per questi apparati.", why: "È di nuovo l'IA a memoria, o peggio un'abitudine tua applicata a un modello diverso." },
+  ]}
+/>
+
+## Una scheda rapida di una pagina
+
+Quando il manuale ha risposto alle domande che ti servono, fatti fare una scheda da tenere nella cartella del cliente: le cinque cose che cercheresti alle sette di mattina con il telefono che squilla. La struttura la decidi tu.
+
+<Collapsible title="Modello per la scheda rapida">
+
+```text
+Dal manuale allegato (Telmar HX-200, guida all'installazione) prepara una scheda rapida di una pagina, con queste sezioni:
+1. Cos'è e a cosa serve (due righe).
+2. Come si fa un riavvio sicuro, passo per passo.
+3. Come si salva e si ripristina una copia di configurazione.
+4. Codici di errore più frequenti e cosa significano.
+5. Cosa NON toccare senza prima salvare la configurazione.
+
+Regole: usa solo il manuale. Dopo ogni voce scrivi tra parentesi il numero di pagina. Se una sezione non è nel manuale, scrivi "non trovato nel manuale". Segnala dove la scansione non è leggibile.
+```
+
+</Collapsible>
+
+La scheda è una bozza: le pagine tra parentesi le controlli una per una, come sopra. Una volta verificata, la stampi e la metti nel raccoglitore, accanto al manuale. Per i rapportini dopo l'intervento c'è [la lezione successiva](/it/by-profession/it-technician/job-reports/).
+
+<LlmExercise
+  title="Fai domande a un manuale"
+  file="practice-it-technician-vendor-manual.txt"
+  duration="10-15 min"
+  description="Con un manuale tuo, ripulito, impari a pretendere pagina e citazione e a controllare le risposte."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-it-technician-vendor-manual.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

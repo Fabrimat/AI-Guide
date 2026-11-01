@@ -1,0 +1,188 @@
+---
+title: Claude Code sulla cartella degli appunti
+description: Trent'anni di appunti sparsi in una cartella per cliente diventano un documento di consegna, con Claude Code che legge i file in una copia, propone un piano e scrive solo file nuovi.
+livello: avanzato
+prerequisiti: [company-data-and-privacy]
+---
+
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Claude Code lavora su una cartella di file direttamente dal terminale. Per leggere decine di appunti insieme è più comodo della chat.
+- Lo avvii solo in una copia della cartella, senza password dentro, mai su un server o una condivisione di un cliente.
+- Parti in plan mode: vedi il piano prima che scriva qualcosa. Ogni richiesta di permesso la leggi prima di dire sì.
+- Un file CLAUDE.md nella cartella contiene le tue regole fisse: non cancellare, non rinominare, scrivere solo file nuovi, citare la nota di origine.
+- Il documento che scrive è una bozza. Mescola note vecchie e nuove senza sapere quale vale: la data sulle note la metti tu.
+
+</LessonSummary>
+
+Verificato a novembre 2026. Gli strumenti di questa lezione cambiano spesso: se un passo non corrisponde a quello che vedi, controlla la documentazione ufficiale di Claude Code.
+
+Hai trent'anni di appunti: una cartella per cliente, file di testo, vecchi `.doc`, esportazioni di configurazione ripulite, qualche manuale in PDF. Sai dov'è tutto, ma solo tu. Se domani ti fermi due settimane, nessuno sa come è fatto l'impianto della biblioteca. Un documento di consegna per cliente ("come è fatto questo impianto") toglie quel rischio, e scriverlo a mano da trenta file è il lavoro che rimandi da anni.
+
+## Perché Claude Code e non la chat
+
+Nella chat, anche dentro un Progetto, i file vengono caricati e trattati uno per volta: non lavora su una cartella intera. Claude Code parte da una cartella, legge i file che servono, ti dice cosa farebbe e scrive il risultato in un file. Per un lavoro su molti file piccoli è più comodo.
+
+Il rovescio è che agisce sul tuo computer: può modificare file ed eseguire comandi. Per questo la lezione è quasi tutta sulle regole di sicurezza.
+
+## Cosa serve
+
+Il piano gratuito di claude.ai non include Claude Code. Lo includono Pro, Max, Ultra, Team, Enterprise e la Claude Console (con crediti API prepagati). Il modo consigliato è accedere con l'abbonamento di claude.ai. I prezzi non li riporto: li trovi sul sito di Anthropic.
+
+Sul PC servono Windows 10 versione 1809 o successiva (oppure Windows Server 2019 o successivo) e 4 GB di RAM. Non servono i permessi di amministratore, né WSL, né Node.js.
+
+## Installazione su Windows
+
+Apri PowerShell e scrivi:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+Chiudi il terminale, aprine uno nuovo e controlla:
+
+```powershell
+claude --version
+```
+
+Se il comando risponde con un numero di versione, è installato.
+
+<Collapsible title="Altre due strade: CMD e WinGet">
+
+Da CMD:
+
+```text
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+Con WinGet (questa versione non si aggiorna da sola):
+
+```text
+winget install Anthropic.ClaudeCode
+```
+
+Per aggiornarla: `winget upgrade Anthropic.ClaudeCode`. Git per Windows è consigliato ma non obbligatorio.
+
+</Collapsible>
+
+Se preferisci non usare il terminale esistono anche un'app desktop (si scarica da claude.com/download) e un'estensione per VS Code. Le regole di questa lezione valgono uguali.
+
+## Prima di partire: la copia pulita
+
+Questo è il passo che conta di più. Claude Code legge i file della cartella da cui lo avvii senza chiederti conferma, quindi la cartella deve contenere solo quello che sei disposto a fargli leggere.
+
+1. **Copia** la cartella, per esempio `Biblioteca Valbruna`, in `C:\Lavoro\copia-biblioteca-valbruna`. L'originale non lo tocchi.
+2. **Togli le credenziali**: password, chiavi VPN, esportazioni di configurazione con segreti. Se un file le contiene, lo cancelli dalla copia o lo ripulisci. Non basta ricordarti di non chiedere.
+3. **Togli i dati personali** di utenti e dipendenti. Per il metodo vedi [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica).
+4. **Converti i vecchi `.doc` in `.txt`**: non è chiaro come li gestisca, quindi non rischiare. I file Excel (`.xlsx`) li rifiuta, convertili.
+5. **Datali**. Aggiungi la data nel nome del file o in prima riga ("2015-03 note rete", "2023-09 sostituito router"). Il motivo lo vedi nell'esempio.
+6. I manuali PDF lunghi lasciali fuori: i PDF oltre le 10 pagine vengono letti a intervalli di pagine, e su Windows serve un programma in più (poppler). Per i manuali scansionati usa la chat, come in [Il manuale dall'armadio](/it/by-profession/it-technician/vendor-manual/).
+
+Poi un fatto da non saltare. Claude Code gira sul tuo PC, ma quello che legge per rispondere viaggia verso Anthropic, cifrato, per essere elaborato. Con i piani Pro, Max e Ultra i dati servono ad addestrare i modelli solo se l'impostazione che lo consente è attiva: controlla com'è impostata in claude.ai, **Settings**, **Privacy** (claude.ai/settings/data-privacy-controls). Con Team, Enterprise e API non c'è addestramento su prompt e codice. Il comando `/feedback` invia una copia della conversazione: con gli appunti dei clienti non usarlo.
+
+Non puntarlo mai a un server o a una condivisione di un cliente: lavori solo sulla copia in locale.
+
+## Avvio, accesso, permessi
+
+Entra nella cartella copia e avvia il programma:
+
+```powershell
+cd C:\Lavoro\copia-biblioteca-valbruna
+claude
+```
+
+La prima volta chiede di accedere e completi l'accesso nel browser. Se serve riaccedere, `/login`.
+
+Nella modalità normale (indicata come "Manual") Claude Code ti chiede il permesso prima di modificare un file, eseguire un comando o usare la rete. Leggere i file della cartella lo fa senza chiedere. Quando compare una richiesta, leggi cosa vuole fare prima di rispondere sì. Se è un comando che non capisci, rispondi no.
+
+Con **Maiusc+Tab** cambi modalità. Per questo lavoro ti servono due: la normale e il **plan mode**, in cui Claude legge e scrive un piano e non può modificare niente finché non lo approvi. Puoi anche partire direttamente così:
+
+```powershell
+claude --permission-mode plan
+```
+
+Su dati di clienti non usare le modalità che saltano le approvazioni.
+
+## Le tue regole fisse: CLAUDE.md
+
+Un file `CLAUDE.md` dentro la cartella viene letto all'inizio di ogni sessione. Il comando `/init` ne genera uno, ma è pensato per progetti di codice: scrivilo tu, con il Blocco note, in `C:\Lavoro\copia-biblioteca-valbruna\CLAUDE.md`. Poi, in Claude Code, `/memory` serve a modificarlo.
+
+```text
+Questa cartella contiene gli appunti di un tecnico informatico sull'impianto di un cliente (Biblioteca comunale di Valbruna).
+
+Regole fisse:
+- Non cancellare e non rinominare nessun file.
+- Non modificare i file esistenti. Scrivi solo file nuovi, con il nome che ti indico.
+- Non eseguire comandi sulla rete e non collegarti a nessun dispositivo.
+- Ogni informazione che scrivi riporta tra parentesi il nome del file da cui viene, per esempio (2023-09 sostituito router.txt).
+- Se due note si contraddicono (indirizzi, versioni, date), non scegliere: elenca le due versioni con i nomi dei file e le date, e segnalalo in una sezione "Da verificare".
+- Se un'informazione manca, scrivi [NON TROVATO]. Non dedurre e non completare.
+- I file hanno la data nel nome o nella prima riga. Le note con SUPERATA nel nome sono vecchie: ignorale.
+- Scrivi in italiano, frasi brevi, senza giri di parole.
+```
+
+## L'esempio: la consegna della biblioteca
+
+La Biblioteca comunale di Valbruna ha un server di catalogazione, un NAS, un router e una rete Wi-Fi per gli utenti. Avvia Claude Code in plan mode e scrivi:
+
+```text
+Leggi i file di questa cartella e prepara un documento di consegna per chi dovrà occuparsi dell'impianto al posto mio. Usa questa struttura:
+
+1. Dispositivi (nome, funzione, dove si trova fisicamente, indirizzo)
+2. Rete (come è collegato tutto)
+3. Dove sono le cose (backup, manuali, licenze)
+4. Procedure (cosa fare se si blocca X, in ordine)
+5. Chi chiamare (fornitore, referente del Comune)
+6. Da verificare (contraddizioni e dati mancanti)
+
+Scrivi il risultato nel file nuovo consegna-biblioteca.md. Prima mostrami il piano.
+```
+
+Claude Code legge i file, ti propone il piano (quali file userà, in che ordine, cosa scriverà) e aspetta. Tu lo leggi. Se va bene lo approvi. Quando poi chiede il permesso di creare `consegna-biblioteca.md`, controlli il nome e confermi.
+
+Quando ha finito, il documento è nella cartella. Lo leggi riga per riga, con la cartella aperta accanto. In "Dispositivi" trovi:
+
+```text
+Server di catalogazione: 192.168.1.50 (2015-03 note rete.txt)
+```
+
+L'indirizzo è sbagliato. Nel 2023 hai spostato il server su un'altra sottorete. L'indirizzo giusto è nel file "2023-09 tabella indirizzi.txt", ma lì il dispositivo si chiama "srv-cat". Claude Code non ha collegato "srv-cat" a "server di catalogazione", non ha visto nessuna contraddizione e ha citato la nota del 2015. La fonte scritta fra parentesi è ciò che ti ha fatto accorgere dell'errore. Correggi tu l'indirizzo, aggiungi alla tabella la riga "srv-cat = server di catalogazione" e rinomini a mano la nota del 2015 aggiungendo "SUPERATA" al nome.
+
+La regola che ne esce: le note si datano, e prima di chiedere un riepilogo dici all'IA quali sono in vigore, per esempio con "SUPERATA" nel nome e la regola nel CLAUDE.md. Il documento di consegna resta una bozza finché non l'hai confrontato con l'impianto vero.
+
+## Se qualcosa va storto
+
+Prima di ogni tua richiesta Claude Code salva un punto di ripristino. Con `/rewind`, oppure premendo due volte Esc, apri il menu e riporti indietro file e conversazione. Le modifiche fatte da comandi della shell però non vengono annullate del tutto, e i punti di ripristino non sostituiscono un sistema di versioni. Per questo lavori su una copia.
+
+Altri comandi utili: `/help`, `/clear` (nuova conversazione), `/exit`. **Ctrl+C** interrompe quello che sta facendo; premuto due volte a riposo, esce.
+
+<SelfCheck
+  id="it-technician-claude-code-notes-q1"
+  question="Vuoi far preparare la consegna del cliente Rinaldi. La cartella originale contiene anche un file con le password del router. Cosa fai?"
+  options={[
+    { text: "Avvio Claude Code nella cartella originale e gli dico di non leggere quel file.", why: "Un'istruzione non è una barriera: la cartella è leggibile e il contenuto va verso Anthropic. Le credenziali non devono stare nella cartella." },
+    { text: "Copio la cartella, tolgo il file con le password dalla copia e avvio Claude Code lì, in plan mode.", correct: true, why: "La copia protegge l'originale, i segreti li tolgo prima e il plan mode mi fa vedere cosa farà." },
+    { text: "Lo avvio direttamente sulla condivisione di rete del cliente, così non copio niente.", why: "Mai su un server o una condivisione del cliente. Una condivisione di rete non si può nemmeno aggiungere come cartella di lavoro." },
+    { text: "Attivo la modalità che salta le approvazioni, così non devo confermare ogni file.", why: "Con dati di clienti vuoi leggere ogni richiesta prima di dire sì." },
+  ]}
+/>
+
+<LlmExercise
+  title="Le tue regole e la struttura di consegna per un cliente"
+  file="practice-it-technician-claude-code-notes.txt"
+  duration="20 min"
+  description="Nella chat con la tua IA scrivi le tue regole fisse per Claude Code e la struttura del documento di consegna di un cliente, prima di toccare file veri."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-it-technician-claude-code-notes.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande, una alla volta, sulla sicurezza e sul metodo."
+/>

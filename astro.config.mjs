@@ -191,6 +191,18 @@ export default defineConfig({
                 { slug: 'by-profession/small-shop/stock-sheet' },
               ],
             },
+            {
+              label: 'IT technician',
+              translations: { it: 'Tecnico informatico' },
+              collapsed: true,
+              items: [
+                { slug: 'by-profession/it-technician/start-here' },
+                { slug: 'by-profession/it-technician/unknown-machine' },
+                { slug: 'by-profession/it-technician/vendor-manual' },
+                { slug: 'by-profession/it-technician/job-reports' },
+                { slug: 'by-profession/it-technician/claude-code-notes' },
+              ],
+            },
           ],
         },
         {

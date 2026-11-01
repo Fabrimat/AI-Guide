@@ -1,0 +1,142 @@
+---
+title: Prepara Claude, alle tue condizioni
+description: Crei un Progetto in Claude con le regole di un tecnico che non si fida delle risposte sicure, decidi cosa caricare e cosa mai, e impari a ripulire un log prima di incollarlo.
+livello: intermedio
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../../components/Anonymizer.astro';
+
+<LessonSummary>
+
+- Tratta l'IA come un apprendista veloce: scrive bene e legge in fretta, ma va controllato come uno arrivato la settimana scorsa. Decidi tu, lei prepara la bozza.
+- Un Progetto di Claude tiene le tue regole di lavoro (ipotesi e non certezze, "non lo so" ammesso, comandi pericolosi segnalati) e le applica a ogni chat.
+- Carichi procedure tue, appunti ripuliti e manuali. Non carichi mai password, configurazioni con segreti, dati personali dei clienti.
+- Prima di incollare un log sostituisci utenti, password, IP pubblici e nomi con segnaposto.
+
+</LessonSummary>
+
+Gestisci da solo una decina di clienti: un'officina, uno studio dentistico, un piccolo studio contabile, una biblioteca comunale. Sai di hardware, reti, vecchi Windows Server e centralini più di qualsiasi IA, e fai bene a diffidare di uno strumento che risponde con sicurezza anche quando sbaglia. Qui trovi dove un assistente così fa risparmiare tempo e dove va tenuto d'occhio.
+
+Per tutto il capitolo seguiamo Franco, tecnico informatico inventato, e i suoi clienti inventati: **Officina Rinaldi**, **Studio dentistico Corsi**, **Biblioteca comunale di Valbruna**.
+
+## Cosa trovi nel capitolo
+
+Questa lezione prepara lo strumento. Poi:
+
+- [Quando l'IA non conosce la tua macchina](/it/by-profession/it-technician/unknown-machine/): come chiedere aiuto per una diagnosi quando il modello è raro, e come riconoscere le risposte inventate.
+- [Il manuale dall'armadio](/it/by-profession/it-technician/vendor-manual/): fare domande a un manuale scansionato, con numero di pagina e citazione.
+- [Rapportini e spiegazioni al cliente](/it/by-profession/it-technician/job-reports/): dagli appunti scritti di fretta al rapportino e alla mail al cliente.
+- [Claude Code sulla cartella degli appunti](/it/by-profession/it-technician/claude-code-notes/): l'ultima lezione usa Claude Code nel terminale, per mettere in un documento quello che hai solo in testa.
+
+Se vuoi prima l'idea generale di un Progetto, è in [Il tuo assistente di mestiere](/it/by-profession/your-work-assistant/). Qui si fa il caso concreto.
+
+## Crea il Progetto "Assistenza clienti Franco"
+
+1. Nel menu a sinistra di Claude, clicca **Projects**.
+2. Clicca **+ New Project**, in alto a destra.
+3. Scrivi il nome (per esempio "Assistenza clienti Franco") e una descrizione breve. Sono etichette per te: Claude non le legge.
+4. Sul lato destro della pagina del progetto clicca il pulsante **+** per aggiungere i file.
+5. Clicca **Set project instructions**, incolla le istruzioni qui sotto e clicca **Save instructions**.
+
+Verificato a novembre 2026. L'interfaccia cambia spesso, e su claude.ai è in arrivo una versione nuova dei progetti: se le voci non coincidono, cerca nel progetto quelle su istruzioni e file. Nell'app in italiano i nomi possono essere tradotti. I Progetti ci sono anche nel piano gratuito, fino a cinque. Ogni chat dentro il progetto parte da istruzioni e file, e non ricorda le chat precedenti.
+
+## Le istruzioni
+
+Sono un modello: cambia i clienti, i sistemi, il livello di dettaglio che vuoi.
+
+<Collapsible title="Istruzioni pronte per Assistenza clienti Franco">
+
+```text
+Lavori con me, Franco, tecnico informatico con ditta individuale. Seguo una decina di piccoli clienti: studi professionali, un'officina, una biblioteca. Conosco bene hardware, reti, vecchi Windows Server, centralini e gestionali datati. Scriviamo in italiano.
+
+Cosa fai: mi aiuti a ragionare su guasti e configurazioni, a leggere log e manuali, a scrivere rapportini e comunicazioni ai clienti.
+
+Quando ti descrivo un problema: dammi ipotesi in ordine di probabilità, non certezze. Per ogni ipotesi dimmi cosa controllare e quale riscontro la esclude.
+
+Se non conosci un modello o una versione, scrivi "non lo so" e dimmi cosa cercare nel manuale o chiedere al produttore. Non inventare percorsi di menu, nomi di voci, password predefinite o comandi per apparati poco comuni. Se non sei sicuro che quel modello funzioni così, dillo.
+
+Comandi: segnala con la parola ATTENZIONE ogni comando o operazione che modifica, cancella, riavvia o ripristina qualcosa, e spiega cosa fa prima di darlo. Dimmi sempre come provarlo dove un errore non costa niente.
+
+Testi per i clienti: italiano semplice, frasi brevi, niente sigle senza spiegazione.
+
+Dati: se nel testo che incollo trovi password, chiavi, indirizzi IP pubblici o dati personali di clienti o pazienti, avvisami e non usarli.
+```
+
+</Collapsible>
+
+La frase sul "non lo so" è la più importante: senza, il modello tende a riempire i vuoti con qualcosa di plausibile. Ne parla [la lezione successiva](/it/by-profession/it-technician/unknown-machine/).
+
+## Cosa caricare e cosa mai
+
+Carica ciò che è tuo o ripulito:
+
+- le tue procedure scritte (come si ripristina un backup, come si configura un cliente nuovo);
+- appunti ripuliti da credenziali e dati personali;
+- i manuali in PDF dei prodotti che segui di più.
+
+Claude legge PDF, Word, Excel e file di testo. Con file di dimensioni normali non ci sono problemi. Se qualcosa è molto grande, Claude te lo segnala.
+
+Non caricare mai: password, chiavi VPN, esportazioni di configurazione che le contengono, indirizzi IP pubblici legati a un cliente, qualsiasi dato personale (i pazienti dello studio Corsi, i dipendenti dell'officina). Una regola semplice: se non lo mostreresti a un tecnico di un altro cliente, non va nel Progetto. Il quadro generale è in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+## Ripulire un log prima di incollarlo
+
+Franco ha un estratto dal log del centralino dell'Officina Rinaldi. Contiene un utente, una password in chiaro (succede con i centralini vecchi) e l'IP pubblico del cliente.
+
+Prima:
+
+```text
+2027-03-08 07:42:11 WARN ring-group 1 nessun interno disponibile, chiamata scartata
+2027-03-08 07:42:12 INFO provisioning user=rinaldi_pbx pass=Tr4ve!9x srv=203.0.113.45
+2027-03-08 07:42:19 INFO ext 101 chiamata in ingresso da 0521 555 0142
+```
+
+Dopo:
+
+```text
+2027-03-08 07:42:11 WARN ring-group 1 nessun interno disponibile, chiamata scartata
+2027-03-08 07:42:12 INFO provisioning user=[UTENTE] pass=[PASSWORD] srv=[IP-PUBBLICO-CLIENTE]
+2027-03-08 07:42:19 INFO ext 101 chiamata in ingresso da [TELEFONO]
+```
+
+L'avviso sul gruppo di squillo e la sequenza degli eventi restano, ed è quello che serve alla diagnosi. Lo strumento qui sotto sostituisce da solo email, telefoni, IBAN e codici fiscali, e nel campo "parole da sostituire" puoi elencare utenti e nomi. Gli indirizzi IP e le password non li riconosce: quelli li cambi tu a mano. Funziona nel browser, il testo non esce dal tuo computer.
+
+<Anonymizer />
+
+Rileggi sempre il risultato prima di incollarlo.
+
+<SelfCheck
+  id="it-technician-start-here-q1"
+  question="Vuoi un parere su un blocco di impostazioni esportato dal firewall dello Studio Corsi, che contiene anche la chiave della VPN. Cosa fai?"
+  options={[
+    { text: "Lo incollo tutto: senza il contesto completo il parere sarebbe peggiore.", why: "La chiave della VPN non va mai in una chat, e non serve per un parere sulle regole." },
+    { text: "Tolgo la chiave, il nome dell'ente e gli indirizzi pubblici, e incollo solo le regole che mi interessano.", correct: true, why: "Per ragionare su una regola bastano le regole. Segreti e dati del cliente restano fuori." },
+    { text: "Incollo tutto e poi cancello la chat.", why: "Cancellare la chat non annulla quello che hai già inviato." },
+    { text: "Cambio solo la prima riga con il nome del cliente.", why: "La chiave e gli IP pubblici sono nel resto del file." },
+  ]}
+/>
+
+## Prova subito
+
+Apri una chat nel Progetto e scrivi: "Dimmi in cinque righe cosa hai capito di come lavoro e cosa non devi mai fare". Se non cita il "non lo so" e i comandi segnalati, le istruzioni non sono abbastanza chiare: aggiungi una frase.
+
+<LlmExercise
+  title="Scrivi le istruzioni del tuo Progetto"
+  file="practice-it-technician-start-here.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul tuo lavoro e ti consegna le istruzioni del Progetto, pronte da incollare."
+/>
+
+Il passo dopo è un caso in cui il modello non compare in nessun manuale che Claude conosca: [Quando l'IA non conosce la tua macchina](/it/by-profession/it-technician/unknown-machine/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-it-technician-start-here.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>
