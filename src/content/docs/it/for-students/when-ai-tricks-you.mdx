@@ -8,6 +8,7 @@ prerequisiti: [ask-well, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
@@ -66,13 +67,11 @@ Pattern frequente per personaggi storici con omonimi (i Plinii, i
 Catoni, i Papi numerati), o per scuole filosofiche con molti
 rappresentanti.
 
-Esempio: chiedi un fatto sulla stoa media, e l'IA attribuisce a
-Panezio una posizione che era di Posidonio (o viceversa). Per
-restare trasversali: una scoperta di Marie Curie attribuita a Pierre
-Curie, un'enciclica di Pio X data a Pio IX, un quadro di un Carracci
-attribuito al fratello sbagliato. Stessa famiglia (o stessa scuola),
-periodo vicino, temi sovrapposti. L'IA "ricorda" che la cosa è di
-quell'area e tira fuori il nome più probabile. A volte indovina, a
+Esempio: chiedi un fatto sulla stoa media e l'IA attribuisce a Panezio
+una posizione che era di Posidonio (o viceversa). Oppure una scoperta di
+Marie Curie attribuita a Pierre, o un'enciclica di Pio X data a Pio IX.
+Stessa famiglia o stessa scuola, periodo vicino, temi sovrapposti: l'IA
+"ricorda" l'area e tira fuori il nome più probabile. A volte indovina, a
 volte no.
 
 ### 4. Formule giuste nella forma ma sbagliate nel segno
@@ -124,19 +123,17 @@ funzionano lo stesso.
 Chiedi all'IA di rispondere restando dentro un testo che hai tu:
 il paragrafo del manuale, le slide del corso, la dispensa del
 professore. Lo incolli nel prompt, e vincoli la risposta a quello.
-Se le fonti del corso sono più di una (manuale + slide + dispense +
-articolo), incollale tutte e imponi il vincolo *"resta in QUESTI
-testi"*. Se due fonti si contraddicono, è una domanda per il prof,
-non per l'IA.
+Se le fonti del corso sono più di una (manuale, slide, dispense),
+incollale tutte e imponi il vincolo *"resta in QUESTI testi"*. Se due
+fonti si contraddicono, è una domanda per il prof, non per l'IA.
 
 > *"Rispondi a questa domanda usando solo il testo qui sotto, non
 > aggiungere informazioni esterne."*
 
-Se quello che ti dice diverge dal manuale, il manuale vince. Stai
+Se quello che ti dice diverge dal manuale, il manuale vince: stai
 preparando un esame su quel testo, non sull'enciclopedia generale
-dell'IA. Funziona anche al contrario: chiedi all'IA di parafrasare
-il paragrafo, di farne esempi, di renderlo più chiaro, restando
-dentro le sue affermazioni.
+dell'IA. Funziona anche al contrario: chiedile di parafrasare il
+paragrafo o di farne esempi, restando dentro le sue affermazioni.
 
 ### Test della fonte
 
@@ -208,6 +205,20 @@ sbagliato il mese. L'anno era giusto, il contesto era giusto, ma
 nell'appunto sul manuale, e quel piccolo errore sarebbe arrivato
 fino all'esame.
 
+Prova a trovare gli errori in una risposta su un tema classico di
+biografie intrecciate.
+
+<SpotTheError
+  prompt="Parlami dei premi Nobel di Marie Curie."
+  sentences={[
+    { text: "Marie Curie vinse due premi Nobel: quello per la fisica nel 1903 e quello per la chimica nel 1911." },
+    { text: "Il premio per la fisica lo condivise con il marito Pierre e con Henri Becquerel." },
+    { text: "Pierre Curie vinse insieme a lei anche il Nobel per la chimica del 1911.", wrong: true, why: "Pierre era morto nel 1906, investito da un carro a Parigi. Il Nobel per la chimica del 1911 lo vinse Marie da sola." },
+    { text: "Il Nobel per la chimica fu assegnato per la scoperta del radio e del polonio." },
+    { text: "Il polonio prese il nome dalla Francia, patria d'adozione di Marie.", wrong: true, why: "Il nome viene dalla Polonia, il paese d'origine di Marie." },
+  ]}
+/>
+
 :::tip[Materie più rischiose]
 Aree dove l'IA sbaglia più spesso in contesto studio:
 
@@ -227,9 +238,9 @@ ma dettaglio sbagliato, autore giusto ma opera attribuita male.
 ## Cosa NON fare
 
 **Non fidarti del fatto che la risposta *"suona giusta"*.** Tutte le
-risposte dell'IA suonano giuste: è come è costruita. Sceglie le
-parole più probabili, e il risultato è prosa fluente qualunque sia
-il contenuto. La fluidità non ti dice nulla sulla verità.
+risposte dell'IA suonano giuste: sceglie le parole più probabili, e il
+risultato è prosa fluente qualunque sia il contenuto. La fluidità non ti
+dice nulla sulla verità.
 
 **Non ricordare un'informazione solo dalla chat.** Le chat
 spariscono (cronologia cancellata, sessione persa), e l'informazione

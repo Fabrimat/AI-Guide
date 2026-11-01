@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -16,78 +18,66 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 - Stessa meccanica della [*Bozze di documenti professionali*](/it/at-work/draft-professional-documents/): scaletta prima, riempimento dopo. Specifico della tesi: la scaletta nasce con il relatore, e ogni capitolo è una chat a parte.
 - L'IA come **secondo lettore**, non come autore: incolli tu il paragrafo, lei segnala buchi, obiezioni, transizioni deboli. Niente "scrivimi il prossimo paragrafo".
 - Usa l'IA per **simulare il relatore** prima della consegna vera. Riduce le iterazioni di correzione, ma non sostituisce quelle col relatore.
-- Molti atenei chiedono di dichiarare l'uso di LLM. Scrivilo onestamente nella prefazione e verifica la policy della tua università.
+- Molti atenei chiedono di dichiarare l'uso di LLM. Scrivilo onestamente nella prefazione e verifica la regola della tua università.
 
 </LessonSummary>
 
-La tesi non è una versione lunga di un tema. È un lavoro di
-costruzione che dura mesi, con un metodo (capitoli che si reggono
-in piedi e si collegano), e un dialogo con il relatore che la
-accompagna in ogni fase. È anche il primo lavoro accademico in cui
-la promessa del <Def explanation="Scrittura per conto di un altro: il testo lo firma X, ma lo ha scritto Y, di solito a pagamento. Pratica diffusa per autobiografie di personaggi pubblici, in accademia è considerata frode.">"ghostwriting" facile</Def> si fa sentire forte: cento
-pagine sono tante, l'IA le scrive in fretta, sembra una scorciatoia
-ragionevole.
+La tesi non è una versione lunga di un tema. È un lavoro di costruzione
+che dura mesi, con un metodo (capitoli che si reggono in piedi e si
+collegano) e un dialogo con il relatore in ogni fase. È anche il primo
+lavoro accademico in cui il <Def explanation="Scrittura per conto di un altro: il testo lo firma X, ma lo ha scritto Y, di solito a pagamento. Pratica diffusa per autobiografie di personaggi pubblici, in accademia è considerata frode.">ghostwriting</Def>
+facile si fa sentire: cento pagine sono tante, l'IA le scrive in fretta,
+sembra una scorciatoia ragionevole.
 
-Se la tesi la scrive lei, però, il primo a perderci sei tu. Alla
-discussione il relatore se ne accorge (lo stile, i passaggi che non
-sai difendere, le citazioni che non ti suonano familiari), e la
-commissione ti chiederà cose che non puoi rispondere. La tesi non si
-delega: si costruisce con l'IA come **secondo lettore**, non come
-autore.
+Se la tesi la scrive lei, il primo a perderci sei tu. Alla discussione il
+relatore se ne accorge (lo stile, i passaggi che non sai difendere, le
+citazioni che non ti suonano familiari) e la commissione ti chiede cose
+a cui non sai rispondere. La tesi si costruisce con l'IA come **secondo
+lettore**, non come autore.
 
 ## Outline prima, riempimento dopo
 
 La meccanica di fondo è la stessa di [*Bozze di documenti
-professionali*](/it/at-work/draft-professional-documents/): non si
-chiede all'IA di scrivere il documento dalla pagina bianca, si
-parte da una scaletta e si riempie sezione per sezione. Su una tesi
-questo pattern vale ancora di più, perché un foglio bianco lungo
-cento pagine moltiplica il danno: se l'IA scrive duemila parole sopra
-una scaletta sbagliata, hai due giorni di lavoro buttati.
-
-Due cose cambiano rispetto al documento professionale.
+professionali*](/it/at-work/draft-professional-documents/): non chiedi
+all'IA di scrivere dalla pagina bianca, parti da una scaletta e riempi
+sezione per sezione. Su una tesi vale ancora di più: se l'IA scrive
+duemila parole sopra una scaletta sbagliata, hai due giorni di lavoro
+buttati. Due cose cambiano rispetto al documento professionale.
 
 **La scaletta nasce con il relatore, non solo con l'IA.** L'IA può
 proporti un indice generico ("introduzione, stato dell'arte, metodo,
-risultati, discussione"), e ti serve come punto di partenza. Ma è il
-relatore che valida che la struttura tenga il discorso accademico
-del tuo campo: che lo <Def explanation="La sezione iniziale di una tesi o paper che ricostruisce cosa la letteratura esistente ha già detto sul tema, e dove si colloca il tuo contributo. Non un elenco di autori, un discorso ragionato sul campo.">stato dell'arte</Def> non sia una lista di autori
-senza filo, che il metodo sia adeguato alla domanda di ricerca, che
-le conclusioni rispondano alle ipotesi iniziali. Porta la
-scaletta al relatore al primo incontro, non al terzo capitolo finito.
-La scaletta validata è il vincolo da cui parte tutto il resto.
+risultati, discussione") come punto di partenza. Ma è il relatore a
+validare che la struttura tenga il discorso accademico del tuo campo: che
+lo <Def explanation="La sezione iniziale di una tesi o paper che ricostruisce cosa la letteratura esistente ha già detto sul tema, e dove si colloca il tuo contributo. Non un elenco di autori, un discorso ragionato sul campo.">stato dell'arte</Def> non sia
+una lista di autori senza filo, che il metodo sia adeguato alla domanda di
+ricerca, che le conclusioni rispondano alle ipotesi iniziali. Porta la
+scaletta al relatore al primo incontro, non al terzo capitolo finito. La
+scaletta validata è il vincolo da cui parte tutto il resto.
 
-**Ogni capitolo è un dialogo separato.** Una tesi è troppo lunga per
-stare in una sola chat: l'IA perde precisione quando il contesto si
-allunga, e ogni capitolo ha bibliografia propria, argomento proprio,
-problemi propri. Apri una chat dedicata per il capitolo 1, una per
-il capitolo 2, una per il capitolo 3. Quando torni a lavorare sul
-capitolo 2 dopo due settimane, riapri quella chat: l'IA ha sotto gli
-occhi quello che avete già discusso su quel capitolo, non si confonde
-con il resto della tesi. Nelle istruzioni iniziali della chat
-incolla la scaletta complessiva della tesi e il punto in cui il
-capitolo si inserisce, così l'IA sa il contesto largo senza averlo
-tutto in chat. Sono 200-300 parole, non gonfiano il prompt.
+**Ogni capitolo è un dialogo separato.** Una tesi è troppo lunga per una
+sola chat: l'IA perde precisione quando il contesto si allunga, e ogni
+capitolo ha bibliografia e problemi propri. Apri una chat per ogni
+capitolo e riaprila quando ci torni dopo due settimane. Nelle istruzioni
+iniziali incolla la scaletta complessiva e il punto in cui il capitolo si
+inserisce: sono 200-300 parole e danno all'IA il contesto largo.
 
 ## L'IA come secondo lettore
 
-Il pattern centrale di questa lezione. Tu scrivi un paragrafo. Lo
-incolli all'IA con una domanda specifica, di solito di questo tipo:
+Il pattern centrale: scrivi un paragrafo, lo incolli all'IA con una
+domanda specifica.
 
 > *"Questo paragrafo difende la tesi che voglio sostenere, cioè
 > X. Dove è debole? Quali obiezioni mi farebbe un commissario
 > rigoroso?"*
 
-L'IA non aggiunge contenuto: sottolinea i buchi. Ti dice dove la tua
-argomentazione salta un passaggio, dove una transizione fra paragrafi
-non tiene, quali sono le tre obiezioni più ovvie che un lettore
-critico ti farebbe. Tu poi torni sul testo, lo riscrivi tu, e
+L'IA non aggiunge contenuto: sottolinea i buchi. Ti dice dove
+l'argomentazione salta un passaggio, dove una transizione non tiene, quali
+sono le tre obiezioni più ovvie di un lettore critico. Poi riscrivi tu e
 ricontrolli.
 
-Questo modo di usare l'IA somiglia a un collega di dottorato che ti
-legge una bozza al bar: non te la riscrive, ti dice "qui non ti
-seguo", "questo passaggio è debole", "non hai chiuso il cerchio".
-Solo che il collega ce l'hai due volte all'anno, e l'IA quando vuoi.
+È come un collega di dottorato che ti legge una bozza al bar: non te la
+riscrive, ti dice "qui non ti seguo", "questo passaggio è debole". Solo
+che il collega ce l'hai due volte all'anno, e l'IA quando vuoi.
 
 Cosa puoi chiedere senza problemi:
 
@@ -108,26 +98,33 @@ Cosa NON chiedere mai:
 - *"Scrivi la conclusione del capitolo."*
 - *"Riformula questo paragrafo in modo che sembri scritto da me."*
 
-La regola che divide le due liste è semplice. La prima lista lascia
-le parole a te: l'IA reagisce a quello che hai scritto, tu poi torni
-e riscrivi. La seconda mette le parole in bocca a lei, e tu diventi
-un editor che approva. *"Rendi più chiara"* tocca lessico e fluidità,
-lascia la struttura tua. *"Riformula come se l'avessi scritto io"*
-riscrive la struttura e ti chiede di firmarla: è la stessa cosa che
-"scrivilo tu". Il commissario alla discussione lo sente. Non perché ci sia un
-detector magico (i detector di testo generato dall'IA sono inaffidabili),
-ma perché alle domande non sai rispondere: i passaggi che non hai
-costruito non ti suonano familiari quando li devi difendere a voce.
+La regola che divide le due liste è semplice. La prima lascia le parole
+a te: l'IA reagisce a ciò che hai scritto e tu riscrivi. La seconda mette
+le parole in bocca a lei e tu diventi un editor che approva.
+*"Rendi più chiara"* tocca lessico e fluidità, *"riformula come se
+l'avessi scritto io"* riscrive la struttura e ti chiede di firmarla: è lo
+stesso che "scrivilo tu". Il commissario lo sente, e non per un detector
+magico (quelli sono inaffidabili): alle domande non sai rispondere, perché
+i passaggi che non hai costruito non ti suonano familiari quando li difendi
+a voce.
+
+<SelfCheck
+  id="write-a-thesis-q1"
+  question="Quale di queste richieste all'IA sul tuo paragrafo lascia le parole a te?"
+  options={[
+    { text: "«Riformula questo paragrafo in modo che sembri scritto da me.»", why: "Riscrive la struttura e ti chiede di firmarla: è come dire «scrivilo tu»." },
+    { text: "«Questa transizione fra il paragrafo A e il B funziona, o c'è un salto logico?»", correct: true, why: "L'IA reagisce a ciò che hai scritto e segnala un problema. Le parole poi le riscrivi tu." },
+    { text: "«Espandi questo paragrafo a 500 parole.»", why: "Genera testo nuovo sopra il tuo. È generazione, non revisione." },
+  ]}
+  explanation="Il criterio: l'IA commenta il tuo testo, e tu torni sul testo a riscriverlo."
+/>
 
 ## Calibrazione sul relatore
 
-Ogni relatore ha aspettative non scritte: stile di citazione
-(Chicago, APA, note a piè di pagina), taglio del lavoro
-(storico-comparato, analitico, sperimentale), severità sulle ipotesi
-("forte" se chiedi una tesi precisa da difendere, "morbida" se
-basta una rassegna ben fatta). Queste aspettative non sono in nessun
-manuale di tesistica: stanno nella testa del relatore, e se non gli
-le chiedi resti a indovinare.
+Ogni relatore ha aspettative non scritte: stile di citazione (Chicago,
+APA), taglio del lavoro (storico-comparato, analitico, sperimentale),
+severità sulle ipotesi. Non stanno in nessun manuale di tesistica ma nella
+testa del relatore, e se non gliele chiedi resti a indovinare.
 
 Prima di partire, chiedi direttamente:
 
@@ -135,8 +132,8 @@ Prima di partire, chiedi direttamente:
 > taglio: storico, analitico, sperimentale? Su cosa ti aspetti che
 > insista di più?"*
 
-Una conversazione di trenta minuti può risparmiarti mesi di
-correzioni in direzioni che non interessano al relatore.
+Una conversazione di trenta minuti può risparmiarti mesi di correzioni
+nella direzione sbagliata.
 
 :::tip[Relatore evasivo]
 Alcuni professori non si sbilanciano in partenza. Allora ricava le
@@ -156,20 +153,19 @@ tipico:
 > consegno il capitolo 2 della mia tesi. Cosa mi chiederesti di
 > rivedere?"*
 
-L'IA non sostituisce la consegna vera, e la sua simulazione non sarà
-perfetta. Però intercetta molte delle correzioni più ovvie
-(passaggi poco chiari, citazioni mancanti, argomentazioni traballanti),
-e tu arrivi al relatore con un capitolo già pettinato. Le iterazioni
-di correzione diminuiscono. Quello che resta sono le
-correzioni vere, quelle che il relatore ti fa perché conosce la tua
-tesi e il tuo campo, e il valore di quegli incontri sale.
+La simulazione non sarà perfetta e non sostituisce la consegna vera, ma
+intercetta molte correzioni ovvie (passaggi poco chiari, citazioni
+mancanti, argomentazioni traballanti) e arrivi al relatore con un capitolo
+già pettinato. Quello che resta sono le correzioni vere, quelle che ti fa
+perché conosce la tua tesi e il tuo campo.
 
 ## Un paragrafo di Storia dell'arte
 
-Studente magistrale di Storia dell'arte. Sta scrivendo la tesi sul
-Manierismo a Firenze, capitolo 3, paragrafo sul ruolo della
-committenza medicea. Ha scritto una prima versione, vuole capire se
-regge.
+Uno studente magistrale di Storia dell'arte scrive la tesi sul Manierismo
+a Firenze, capitolo 3, paragrafo sul ruolo della committenza medicea. Ha
+scritto una prima versione e vuole capire se regge.
+
+<Collapsible title="Vedi il paragrafo e la risposta dell'IA">
 
 <ChatDemo
   user={`Questo è un paragrafo del capitolo 3 della mia tesi. La tesi che voglio sostenere è che la committenza medicea non è la sola causa della nascita del Manierismo a Firenze: è un fattore importante ma sopravvalutato dalla storiografia tradizionale.
@@ -188,13 +184,13 @@ Questo paragrafo difende la mia tesi? Dove è debole? Tre obiezioni di un commis
 Suggerimento di rinforzo, non di riscrittura: aggiungi un confronto esplicito con la committenza romana di Clemente VII (uno o due nomi, una o due commissioni datate) e nomina almeno due fonti di influenza diverse dalla committenza che pesano sul linguaggio di Pontormo o Rosso. Da lì il paragrafo si riscrive da sé.`}
 />
 
-Tre cose da notare. L'IA non ha scritto un paragrafo nuovo: ha
-indicato dove il tuo è debole, con tre obiezioni precise che hanno
-nome e riferimento. Le obiezioni non sono "fai meglio": sono cose
-specifiche che lo studente può controllare nelle fonti (la
-committenza di Clemente VII, le influenze di Pontormo). E il
-suggerimento finale è di rinforzo, non di sostituzione: ti dice
-*cosa* aggiungere per chiudere il buco, lasciando a te le parole.
+</Collapsible>
+
+L'IA non ha scritto un paragrafo nuovo: ha indicato dove il tuo è debole,
+con tre obiezioni precise che hanno nome e riferimento e che lo studente
+può controllare nelle fonti (la committenza di Clemente VII, le influenze
+di Pontormo). Il suggerimento finale è di rinforzo, non di sostituzione:
+dice *cosa* aggiungere, lasciando a te le parole.
 
 :::note[E se la mia tesi è di laboratorio?]
 L'esempio sopra è umanistico, ma il pattern è identico per tesi
@@ -207,42 +203,34 @@ X a partire dai dati Y. Quali metodi alternativi mi chiederebbe un
 revisore? Quali limiti dello studio non sto dichiarando?"*
 :::
 
-:::tip[Triennale, magistrale, dottorato]
-La meccanica della lezione vale per tutti e tre, ma il peso del
-contributo originale cambia, e con esso il confine etico.
+<Collapsible title="Triennale, magistrale, dottorato: cosa cambia">
 
-**Triennale (40-60 pagine)**: tesi compilativa, il lavoro consiste
-nell'organizzare la bibliografia esistente su un tema. L'IA aiuta
-molto su organizzazione e scrittura, meno sul contributo originale,
-che è minimo per definizione. Va benissimo usare l'IA come secondo
-lettore in modo intensivo.
+La meccanica vale per tutti e tre, ma il peso del contributo originale
+cambia, e con esso il confine etico.
 
-**Magistrale (80-150 pagine)**: c'è un contributo originale (analisi
-di un dataset, caso studio, lettura nuova di un autore). L'IA aiuta
-sulla strutturazione del discorso e sul dialogo critico, ma il
-contributo originale è tuo, e dovrai difenderlo a voce. Tieni un
-quaderno separato (un file `.md` va benissimo) dove per ogni idea
-originale annoti tre cose: l'idea in una frase, da cosa nasce (la
-lettura del paper X, la discussione con Y, l'incoerenza nel dataset
-Z), come pensi di difenderla in commissione. Alla discussione devi
-sapere quali pezzi della tesi sono originali e perché.
+**Triennale (40-60 pagine)**: tesi compilativa, il lavoro è organizzare la
+bibliografia esistente. L'IA aiuta molto su organizzazione e scrittura,
+come secondo lettore anche in modo intensivo.
 
-**Dottorato (150-300+ pagine)**: il contributo originale è la
-sostanza, non il contorno. L'IA aiuta su scrittura, revisione,
-controllo degli argomenti, ma il contenuto è inevitabilmente tuo. Il
-confine etico è più stretto: molte riviste richiedono di dichiarare
-l'uso di LLM nei papers che pubblicherai durante o dopo il dottorato,
-e alcune commissioni di tesi chiedono lo stesso. Verifica le policy
-del tuo dipartimento prima di iniziare, non alla fine.
-:::
+**Magistrale (80-150 pagine)**: c'è un contributo originale (un dataset,
+un caso studio, una lettura nuova). L'IA aiuta sul discorso e sul dialogo
+critico, ma il contributo è tuo e lo difendi a voce. Tieni un quaderno
+dove per ogni idea originale annoti l'idea in una frase, da cosa nasce e
+come la difenderesti in commissione.
+
+**Dottorato (150-300+ pagine)**: il contributo originale è la sostanza.
+L'IA aiuta su scrittura e controllo degli argomenti, e il confine etico è
+più stretto: molte riviste chiedono di dichiarare l'uso di LLM nei paper.
+Verifica le regole del tuo dipartimento prima di iniziare, non alla fine.
+
+</Collapsible>
 
 :::caution[Dichiarazione dell'uso di LLM]
-Molte università italiane hanno introdotto l'obbligo di dichiarare
-nella prefazione (o in una sezione dedicata) come l'IA generativa è
-stata usata nella tesi. Le policy variano: alcuni atenei accettano
-l'uso come assistente di revisione, altri lo vietano per la
-generazione di testo finito, altri ancora impongono una formula
-specifica.
+Alcuni atenei chiedono di dichiarare nella prefazione (o in una sezione
+dedicata) come è stata usata l'IA generativa. Le regole variano: c'è chi
+accetta l'IA come assistente di revisione, chi la vieta per la
+generazione di testo finito, chi impone una formula specifica. Cerca la
+regola sul sito del tuo dipartimento o chiedi alla segreteria didattica.
 
 Una dichiarazione onesta tipo:
 
@@ -252,43 +240,33 @@ Una dichiarazione onesta tipo:
 > usati per generare paragrafi finiti né per produrre la
 > bibliografia."*
 
-è una buona base di partenza, ma **non sostituisce la verifica della
-policy del tuo ateneo**. Per orientarti sul confine: cambi di
-lessico, fluidità delle frasi, ordine delle parole, transizioni fra
-paragrafi cadono in "revisione". Riscritture che cambiano la
-struttura argomentativa, espansioni *"espandi a 500 parole"*,
-paragrafi generati dal nulla cadono in "generazione di testo finito".
-Se non trovi una policy ufficiale del tuo ateneo (molti dipartimenti
-italiani non ne hanno ancora una), dichiara comunque: la trasparenza
-ti copre da regole future più strette e non costa nulla rispetto al
-"non dichiarato". Cerca sul sito del tuo dipartimento "uso IA
-generativa tesi" o chiedi alla segreteria didattica. Il quadro
-generale sull'etica accademica lo riprende [*Etica dello
-studio*](/it/for-students/ethics-of-studying/), ultima lezione del
-modulo.
+è una buona base, ma **non sostituisce la regola del tuo ateneo**. Come
+orientamento: cambi di lessico, fluidità, ordine delle parole e
+transizioni sono "revisione". Riscritture che cambiano la struttura
+argomentativa, espansioni *"espandi a 500 parole"* e paragrafi generati
+dal nulla sono "generazione di testo finito". Se non trovi una regola
+ufficiale, dichiara comunque: la trasparenza ti copre da regole future più
+strette. La formula completa e il resto del quadro sono in [*Etica dello
+studio*](/it/for-students/ethics-of-studying/), ultima lezione del modulo.
 :::
 
 ## Cosa NON fare
 
-**Non far scrivere il paragrafo all'IA e poi "riformularlo".** È la
-scorciatoia più comune e la più rischiosa: la struttura logica resta
-quella dell'IA, e alla discussione i passaggi non ti suonano. Il
-commissario sente la differenza fra un argomento che hai costruito
-tu e uno che hai vestito a parole tue dopo.
+**Non far scrivere il paragrafo all'IA e poi "riformularlo".** La
+struttura logica resta quella dell'IA, e alla discussione i passaggi non
+ti suonano. Il commissario sente la differenza fra un argomento che hai
+costruito tu e uno che hai vestito a parole tue.
 
-**Non usare l'IA per generare bibliografia.** Le citazioni
-inventate sono il modo più rapido di farsi affondare una tesi: nomi
-plausibili, riviste plausibili, anni plausibili, e niente di vero. Le
-fonti vanno cercate sui database accademici e verificate una per
-una. Su come gestire bibliografia e citazioni con l'IA in modo sicuro
-torna [*Fonti e citazioni*](/it/for-students/sources-and-citations/),
-lezione successiva.
+**Non usare l'IA per generare bibliografia.** Le citazioni inventate sono
+il modo più rapido di farsi affondare una tesi: nomi, riviste e anni
+plausibili, e niente di vero. Le fonti vanno cercate sui database
+accademici e verificate una per una: [*Fonti e
+citazioni*](/it/for-students/sources-and-citations/), lezione successiva,
+spiega come.
 
 **Non accumulare otto capitoli senza farne leggere uno al relatore.**
-L'IA non sa cosa il relatore vuole davvero, finché non glielo
-chiedi. Mostrare il capitolo 1 dopo la prima settimana, e farne
-correggere uno ogni due-tre settimane, è il ritmo che ti tiene
-allineato. Arrivare con la tesi intera in mano un mese prima della
+Mostra il capitolo 1 dopo la prima settimana e fanne correggere uno ogni
+due o tre settimane. Arrivare con la tesi intera un mese prima della
 discussione è la ricetta per riscriverla due volte.
 
 ## Verifica cosa hai capito

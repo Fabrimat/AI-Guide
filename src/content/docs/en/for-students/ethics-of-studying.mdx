@@ -7,119 +7,96 @@ prerequisiti: [ask-well, privacy-basics, what-not-to-do]
 
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
 - Four levels of use: explanation, organization, generation of portions, full generation. Only the first is always OK without declaring anything.
-- Declare AI use in theses and papers, with a formula that says what you used it for and what you didn't.
-- University policies change: before you write your thesis, check your university's official page.
-- AI detectors are unreliable, in both directions. They aren't the right filter, and they aren't *your* filter.
-- The question isn't "what can I get away with hiding", it's "which work is mine". If an oral exam or a thesis defense awaits, the rule applies on its own.
+- Declare AI use in theses and papers, with a formula that says what you used it for and what you didn't. Declaring doesn't make allowed what the rule forbids.
+- University rules change: before you write your thesis, look up yours and ask your supervisor.
+- AI detectors are wrong in both directions. They aren't the right filter, and they aren't *your* filter.
+- The question to ask yourself is "which work is mine". If an oral exam or a thesis defense awaits, the rule applies on its own.
 
 </LessonSummary>
 
-Seven lessons ago, opening the module, we set a contract: AI is a
-study tool, not a substitute. In seven lessons you've learned to use
-it to study a new topic, take notes, revise for an exam, write a
-thesis, handle sources and citations, translate, and notice when it
-tricks you. What's left is the question the module has been holding
-back, so we could reach it with some substance in hand: where does
-help end and copying begin?
+At the start of the module we set a contract: AI is a study tool, not
+a substitute. Since then you've learned to use it to study a new
+topic, take notes, revise, write a thesis, handle sources, translate,
+and notice when it tricks you. One question is left, the one the
+module held back: where does help end and copying begin?
 
-The answer is a method of judgement, not a rigid scheme. The
-principle is the same one from [*What NOT to
-do*](/en/everyday-use/what-not-to-do/), in the section on work where
-your signature counts as your competence: whoever signs is whoever
-answers for it. Applied to formal study, this principle becomes a
-four-level scale, a practice of declaration, and a closing rule that
-holds even when no one is watching.
+The answer is a method of judgement. The principle comes from [*What
+NOT to do*](/en/everyday-use/what-not-to-do/), in the part about work
+where your signature counts as your competence: whoever signs is
+whoever answers for it. Applied to study, it becomes a four-level
+scale, a practice of declaration, and a rule that holds even when no
+one is watching.
 
 ## Four levels of use
 
-There's no sharp boundary here, only a scale. The higher you go, the more AI
-substitutes your work instead of accompanying it. The first two
-levels are the module you've just read. The last two are where the
-line between study and shortcut gets drawn.
+The line between help and copying is a scale. The higher you go, the
+more AI substitutes your work instead of accompanying it.
 
 ### 1. Explanation and tutor
 
-Understanding a topic, asking clarifying questions, having a line of
-reasoning corrected, simulating an oral. **Always OK.** No declaration
-required: it's equivalent to asking a coursemate, using an extra
-textbook, watching a lecture on YouTube. The study stays yours
-because the final result (having learned) sits in your head, not in
-a file you hand in.
-
-It's the pattern of [*Study a new
-topic*](/en/for-students/study-a-new-topic/) and [*Revise before an
-exam*](/en/for-students/revise-before-an-exam/). AI quizzes you,
-explains, breaks down a definition: you learn.
+Understanding a topic, asking questions, having a line of reasoning
+corrected, simulating an oral. **Always OK**, no declaration: it's like
+asking a coursemate or watching a lecture video. The result (having
+learned) sits in your head, not in a file you hand in. It's the method
+of [*Study a new topic*](/en/for-students/study-a-new-topic/) and
+[*Revise before an exam*](/en/for-students/revise-before-an-exam/).
 
 ### 2. Organization and structure
 
-A study map of your notes, the index of a paper, the chapter outline
-of a thesis, the order in which to present arguments. **Usually OK,
-but if it's in a thesis or paper, you declare it.** The conceptual
-structure of the topic is yours: AI helps you put it into external
-form. The risk is low because you're the one choosing what to put in
-and what to leave out, AI just gives you the container.
-
-It's the pattern of [*Notes from lectures and long
-texts*](/en/for-students/notes-from-lectures/) and [*Write a
-thesis*](/en/for-students/write-a-thesis/) in the planning part. For
-personal notes nobody asks for a declaration. For a thesis, a note
-at the beginning or end of the document solves the problem.
+A study map of your notes, the index of a paper, the chapter outline of
+a thesis. **Usually OK, but in a thesis or paper you declare it.** The
+conceptual structure of the topic is yours, AI gives you the container.
+For personal notes nobody asks for a note. For a thesis, one line at
+the beginning or end of the document is enough. You see it in [*Notes
+from lectures and long texts*](/en/for-students/notes-from-lectures/)
+and in [*Write a thesis*](/en/for-students/write-a-thesis/).
 
 ### 3. Generation of portions of text
 
-A paragraph, a transition between two sections, a conclusion, a
-rephrasing of an unclear passage. **It depends on the context, and
-when it's OK it has to be declared.** Four cases, four different
-answers:
+A paragraph, a transition, a conclusion, the rephrasing of an unclear
+passage. **It depends on the context, and when it's allowed it has to
+be declared.**
 
 - **Thesis.** Usually forbidden, or allowed only with an analytical
-  declaration (some universities ask you to specify which sections,
-  which prompts, which model version). See the callout on institutional
-  policies below.
-- **Academic paper.** The paper has to be yours in its words. AI as a
-  style reviewer (it rereads you, flags awkward sentences, suggests
-  synonyms) is generally OK. AI as the author of paragraphs isn't:
-  that text wasn't written by you. The practical line: if you decide
-  the substitution word by word, it's revision; if you accept AI's
-  text in blocks and polish it, it's already generating.
-- **Graded essay.** That's plagiarism. If the text counts as your
-  assessed written output, generating pieces and passing them off as
-  yours is copying.
-- **Ungraded work** (a post for the course blog, a brief, an internal
-  email to a study group). The rule of work applies, not the rule of
-  study. **Module 3** *For work* covers it.
+  declaration: which sections, which prompts, which model version.
+- **Academic paper.** The text has to be yours. AI as a style reviewer
+  (flags awkward sentences, suggests synonyms) is generally OK. AI as
+  the author of paragraphs isn't. The practical line: if you decide
+  every substitution yourself, it's revision; if you accept AI's text
+  in blocks and polish it, you're already generating.
+- **Graded essay.** That's plagiarism: generating pieces and passing
+  them off as yours is copying.
+- **Ungraded work** (a post for the course blog, an email to a study
+  group). The rule of work applies, which you'll find in Module 3.
 
 ### 4. Full generation
 
-AI writes the text, you correct it and rephrase a bit. **In formal
-assessment this is copying**, regardless of how much you clean up the
-output. A competent examiner can hear the "thread": a fluency that
-doesn't belong to you, a lexical choice off-register, an argument
-you can't defend when they ask "why did you write this here?".
+AI writes, you correct it and rephrase a bit. **In a formal assessment
+this is copying**, however much you clean up the output. A competent
+examiner notices: a fluency that isn't yours, off-register vocabulary,
+an argument you can't defend when they ask "why did you write this
+here?".
 
-The problem isn't the risk of getting caught (AI detectors aren't
-reliable, we'll come back to it): you haven't learned what the
-professor wanted you to learn. The assessment, even if it goes
-well, evaluates something that isn't yours. It holds even if you
-rewrite the generated draft word by word: the argumentative
-structure stays AI's, and that's the part the professor wanted to
-see you build.
+AI detectors aren't reliable (more below), so the risk of getting
+caught isn't the point. The point is that you haven't learned what the
+professor wanted. Rewriting the draft word by word changes nothing: the
+argumentative structure stays AI's, and it's the part you were meant to
+build.
 
-## Declaration of use, how it's done
+## Declaring your use
 
-More and more universities require a short note at the beginning or
-end of theses and papers, in which the writer declares what they did
-with AI and what they didn't. When the request exists, the exact
-formula is in your university's guidelines. When it doesn't,
-declaring anyway is good practice: it protects you (in case of
-questions at the defense) and makes the work verifiable.
+More and more universities ask for a short note at the beginning or
+end of a thesis or paper, where you declare what you did with AI and
+what you didn't. Where it isn't required, declaring is still good
+practice: it protects you at the defense and makes the work
+verifiable.
 
-A template formula, adaptable to your case:
+A template formula, to adapt to your case:
 
 > In the writing of this work, ChatGPT (version [...], model [...]) and Claude (version [...], model [...]) were used as:
 > 1. study support (explanations, simulated quizzing, revision);
@@ -128,89 +105,94 @@ A template formula, adaptable to your case:
 >
 > Generative AI was NOT used for:
 > 1. generating finished paragraphs or conclusions;
-> 2. producing the bibliography (sources were found and verified via Scopus/JSTOR/Google Scholar);
+> 2. producing the bibliography (sources were found and verified via Scopus, JSTOR and Google Scholar);
 > 3. translating or rephrasing passages without the author's intervention.
 
-Always check your university's instructions for the required
-formula: some universities ask for detail per section, others just a
-general note. If there's no imposed formula, the version above is a
-good starting point. Fill the `[...]` placeholders with what
-you see in the product's interface at the time of use (e.g.
-*ChatGPT, Plus plan, GPT-5 model on 12 May 2026*; *Claude Sonnet 4.6,
-web app on 12 May 2026*). If you used the product across different
-months and the models changed, you declare it.
+Fill the `[...]` with what you see in the interface at the time of use,
+in the format *model name and date* (for example *ChatGPT, model shown
+in the app, 12 May 2026*). If you used the product across different
+months and the models changed, you write that.
 
-:::note[Institutional policies change]
-Three examples cited as a pattern, not as exact sources.
-**Politecnico di Milano** has published guidelines on the use of AI
-in graduation work. **MIT** runs a generative AI consortium with
-guidance for instructors and students. **Stanford University** has
-issued official guidance on AI in coursework and an academic
-integrity policy with explicit references to generative AI. Official
-pages change often, so I don't link specific URLs: before writing
-your thesis, look up the policy on your university's site (usually
-under "research ethics", "code of conduct", or "graduation work
-regulations"). If you can't find an explicit policy, the general
-rule applies: use AI as a study tool, declare what it did, don't let
-AI write what you sign.
+<LlmExercise
+  title="Write your own use declaration"
+  file="write-ai-declaration.txt"
+  duration="10 min"
+  description="The AI interviews you about how you used the tools in your work, has you write the declaration, then critiques it the way a supervisor would."
+/>
+
+:::note[University rules change]
+Many universities already have rules on AI use, and they change often:
+some have general principles for teaching, others a code of conduct or a
+declaration form to attach to the thesis. One checkable example is
+Stanford, which treats AI like help from another person unless the
+instructor says otherwise. I don't link specific pages: before writing
+your thesis, look up the rule on your university's site (usually under
+"research ethics", "code of conduct" or "graduation work regulations")
+and ask your supervisor. If you can't find an explicit rule, the general
+rule applies: use AI as a study tool, declare what it did, don't let AI
+write what you sign.
 :::
 
+A common misunderstanding is "if I declare it, it's allowed". Declaring
+is a duty of transparency, and the permission comes from your
+university's or instructor's rule. If the rule forbids AI for
+generating text, a note admitting you did it documents the violation.
+
+<SelfCheck
+  id="ethics-of-studying-q1"
+  question="Your course regulations forbid using AI to write parts of the thesis. You had AI write two paragraphs and declared them in a note. Where do you stand?"
+  options={[
+    { text: "Fine, because you declared it.", why: "Declaring informs, but it doesn't authorize what the regulations forbid." },
+    { text: "You broke the rule, and the note documents it.", correct: true, why: "Permission comes from the regulations. The declaration describes what you did, even when it was forbidden." },
+    { text: "Fine, if the paragraphs are few.", why: "Regulations usually set no threshold: they forbid the use, not just the excess." },
+  ]}
+  explanation="Before using AI on a text you hand in, check what the rule allows. The declaration comes after, to tell the truth about what was permitted."
+/>
+
 :::caution[Proctored exams and AI detectors]
-**During a supervised exam, AI is forbidden.** Even if the exam is
-at-home with webcam (proctoring) and even if the university doesn't
-technically block access to ChatGPT or Claude. It holds for written
-exams, for online simulated oral exams, for timed tests. The rule
-isn't "if you don't get caught it's OK": the rule is "if they ask
-you to do it on your own, you do it on your own".
+**During a supervised exam, AI is forbidden**, even if the exam is
+at home with a webcam and the university doesn't block ChatGPT or
+Claude. It holds for written exams, online orals and timed tests. If
+they ask you to do it on your own, you do it on your own.
 
 **AI detectors** (Turnitin AI, GPTZero, Copyleaks and similar) exist,
-and some universities use them. They're unreliable. Turnitin itself,
-in its official disclaimer, writes that the detector's score
-shouldn't be the only basis for an academic integrity decision: they
-produce false positives on human texts with a regular style (people
-who write cleanly and in a structured way look like an AI) and false
-negatives on AI text heavily rewritten by hand.
+and some universities use them. They're unreliable. Turnitin itself
+writes in its disclaimer that the score shouldn't be the only basis for
+an academic integrity decision. They give false positives on human
+texts with a regular style (people who write cleanly and in a
+structured way look like an AI) and false negatives on AI text
+rewritten by hand.
 
-**The closing rule**, picked up from [*What NOT to
-do*](/en/everyday-use/what-not-to-do/): the bar isn't "what can I
-get away with hiding", it's "which work is mine". With that filter,
-AI detectors and concealment strategies become irrelevant: the
-question is internal, not procedural.
+If your filter is "which work is mine", detectors and the strategies to
+get around them become irrelevant.
 :::
 
 ## The "whoever signs" rule
 
-I'm adapting to the study context the rule from [*What NOT to
-do*](/en/everyday-use/what-not-to-do/), in the section on work where
-your signature counts as your own competence. Three direct
-applications:
+The rule from [*What NOT to do*](/en/everyday-use/what-not-to-do/)
+applies in three situations:
 
-- **You take the oral.** If AI did the work for you, you fall apart
-  at the first exchange. The professor asks you to argue a point
-  from your paper, you don't know what you actually wrote, and the
-  conversation collapses in two minutes.
-- **You defend the thesis.** If AI wrote it for you, your supervisor
-  notices at the defense. A direct question about the third chapter,
-  you can't answer, and the committee understands you didn't do the
-  work.
-- **You pass the exam.** If you studied a dumbed-down version from
-  AI instead of the textbook, you show up with a preparation the
-  professor fails. You invested time, but in the wrong place.
+- **You take the oral.** If AI did the work, you fall apart at the
+  first exchange: the professor asks you to argue a point from your
+  paper and the conversation collapses in two minutes.
+- **You defend the thesis.** A direct question about the third
+  chapter, you can't answer, and the committee understands who wrote
+  it.
+- **You pass the exam.** If you studied a dumbed-down version from AI
+  instead of the textbook, you show up with a preparation the professor
+  fails. You invested time in the wrong place.
 
 ## What NOT to do
 
-- **Don't have AI write what you'll sign** (exam, thesis, paper).
-  The signature is your declaration that the work is yours. If it
-  isn't, the signature is false.
-- **Don't use AI detectors to "optimize" AI output** so it gets past
-  the detector. It's an unethical use (you're trying to fool the
-  system) and unstable (every detector update can unmask a text
-  that used to pass).
-- **Don't think "no one will know"**. People who correct theses and
-  papers for a living see the pattern: strangely smooth prose
-  compared to the notes you sent them, perfect transitions where
-  there are usually jumps, conclusions that read like a Wikipedia
-  summary. They often know, and they always suspect.
+- **Don't have AI write what you'll sign** (exam, thesis, paper). The
+  signature declares that the work is yours.
+- **Don't use detectors to "optimize" AI output** until it passes.
+  You're trying to fool the system, and any detector update can unmask
+  a text that used to pass.
+- **Don't count on "no one will know".** People who correct theses for
+  a living see the pattern: prose smoother than the notes you sent,
+  perfect transitions where there are usually jumps, conclusions that
+  read like a Wikipedia summary.
 
 ## Check what you've understood
 
@@ -224,18 +206,9 @@ applications:
 
 ## What comes next
 
-The eight lessons of this module have shown the use that works: how to explain a new topic to yourself, how to organize notes,
-how to revise, how to approach a thesis with method, how to handle
-sources and citations, how to translate and compare texts, how to
-notice when AI tricks you, and how to stay on the right side of the
-line when the work needs to be signed.
-
-From here on the manual opens onto other audiences. For those who
-teach, **Module 5** *For teachers* takes the same questions from
-this module and flips them from the lectern: how to design
-assessments that hold up against AI, how to ask students to declare
-their use, how to recognize the pattern of generated text. For those
-who want to understand how AI does what it does, all the way down to
-the technical level, **Module 6** *For those who want more* starts
-here and goes under the hood. For now the student module is
-complete: come back to these lessons when you need them.
+The student module ends here. For those who teach, **Module 5** *For
+teachers* flips these questions from the lectern: assessments that hold
+up against AI, use declarations, how to recognize generated text. For
+those who want to understand how AI works, down to the technical
+level, **Module 6** *For those who want more* goes under the hood.
+Come back to these lessons when you need them.

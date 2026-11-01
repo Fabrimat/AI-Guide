@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -16,79 +18,66 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 - Same mechanics as [*Drafting professional documents*](/en/at-work/draft-professional-documents/): outline first, filling second. Specific to the thesis: the outline is born with the supervisor, and every chapter is a separate chat.
 - AI as a **second reader**, not as an author: you paste the paragraph, it flags gaps, objections, weak transitions. No "write me the next paragraph".
 - Use AI to **simulate the supervisor** before the real submission. It reduces the rounds of correction, but doesn't replace the real ones with your supervisor.
-- Many universities ask you to declare LLM use. Write it honestly in the preface and check your university's policy.
+- Many universities ask you to declare LLM use. Write it honestly in the preface and check your university's rule.
 
 </LessonSummary>
 
-A thesis isn't a longer version of an essay. It's months of
-construction work, with a method (chapters that stand up on their own
-and connect to each other), and an ongoing conversation with a
-supervisor who follows it at every stage. It's also the first piece of
-academic work where the <Def explanation="Writing on behalf of someone else: the text is signed by X but written by Y, usually for a fee. Common for autobiographies of public figures; in academia, it's considered fraud.">"easy ghostwriting"</Def> pitch lands the hardest:
-a hundred pages are a lot, AI writes them fast, it looks like a
-reasonable shortcut.
+A thesis isn't a longer version of an essay. It's months of construction
+work, with a method (chapters that stand up on their own and connect to
+each other) and an ongoing conversation with a supervisor at every stage.
+It's also the first piece of academic work where the <Def explanation="Writing on behalf of someone else: the text is signed by X but written by Y, usually for a fee. Common for autobiographies of public figures; in academia, it's considered fraud.">easy ghostwriting</Def>
+pitch lands the hardest: a hundred pages are a lot, AI writes them fast,
+it looks like a reasonable shortcut.
 
-But if AI writes it, you're the first one who loses. At the
-defense your supervisor notices (the style, the passages you can't
-defend, the citations that don't ring a bell), and the committee will
-ask you things you can't answer. A thesis isn't something you
-delegate: you build it with AI as a **second reader**, not as an
-author.
+If AI writes it, you're the first one who loses. At the defense your
+supervisor notices (the style, the passages you can't defend, the
+citations that don't ring a bell) and the committee asks you things you
+can't answer. You build a thesis with AI as a **second reader**, not as
+an author.
 
 ## Outline first, filling second
 
 The underlying mechanics are the same as in [*Drafting professional
-documents*](/en/at-work/draft-professional-documents/): you don't ask
-AI to write the document from a blank page, you start from an outline
-and fill it in section by section. On a thesis this pattern matters
-even more, because a blank page stretched over a hundred pages
-multiplies the damage: if AI writes two thousand words on top of the
-wrong outline, you've thrown away two days of work.
-
-Two things change compared with the professional document.
+documents*](/en/at-work/draft-professional-documents/): you don't ask AI
+to write from a blank page, you start from an outline and fill it in
+section by section. On a thesis it matters even more: if AI writes two
+thousand words on top of the wrong outline, you've thrown away two days
+of work. Two things change compared with the professional document.
 
 **The outline is born with the supervisor, not with AI alone.** AI can
 propose a generic table of contents ("introduction, state of the art,
-method, results, discussion"), and it's useful as a starting point.
-But it's the supervisor who validates that the structure holds up the
-academic argument of your field: that the <Def explanation="The opening section of a thesis or paper that reconstructs what existing literature has already said on the topic, and where your contribution fits in. Not a list of authors, a reasoned discussion of the field.">state of the art</Def> isn't a
-list of authors with no thread, that the method fits the research
-question, that the conclusions answer the initial hypotheses. Bring
-the outline to your supervisor at the first meeting, not after the
-third chapter is finished. The validated outline is the constraint
-everything else starts from.
+method, results, discussion") as a starting point. But it's the
+supervisor who validates that the structure holds up the academic
+argument of your field: that the <Def explanation="The opening section of a thesis or paper that reconstructs what existing literature has already said on the topic, and where your contribution fits in. Not a list of authors, a reasoned discussion of the field.">state of the art</Def> isn't a list of authors with no thread, that the method fits the research
+question, that the conclusions answer the initial hypotheses. Bring the
+outline to your supervisor at the first meeting, not after the third
+chapter is finished. The validated outline is the constraint everything
+else starts from.
 
-**Every chapter is a separate dialogue.** A thesis is too long to fit
-in a single chat: AI loses precision as the context stretches, and
-each chapter has its own bibliography, its own subject, its own
-problems. Open a dedicated chat for chapter 1, one for chapter 2, one
-for chapter 3. When you come back to chapter 2 after two weeks, reopen
-that chat: AI has in front of it what you've already discussed on
-that chapter, and doesn't get confused with the rest of the thesis. In
-the chat's initial instructions paste the overall outline of the
-thesis and where the chapter sits in it, so AI has the broader context
-without carrying it all in the chat. It's 200-300 words, it doesn't
-bloat the prompt.
+**Every chapter is a separate dialogue.** A thesis is too long for a
+single chat: AI loses precision as the context stretches, and each
+chapter has its own bibliography and problems. Open a chat for each
+chapter and reopen it when you come back two weeks later. In the initial
+instructions paste the overall outline and where the chapter sits in it:
+it's 200-300 words and gives AI the broader context.
 
 ## AI as a second reader
 
-The central pattern of this lesson. You write a paragraph. You paste
-it into AI with a specific question, usually something like:
+The central pattern: you write a paragraph and paste it into AI with a
+specific question.
 
 > *"This paragraph defends the thesis I want to argue, which is X.
 > Where is it weak? What objections would a strict examiner raise?"*
 
-AI doesn't add content: it points out the gaps. It tells you where
-your argument skips a step, where a transition between paragraphs
-doesn't hold, what the three most obvious objections a critical reader
-would raise are. Then you go back to the text, rewrite it yourself,
-and re-check.
+AI doesn't add content: it points out the gaps. It tells you where your
+argument skips a step, where a transition doesn't hold, what the three
+most obvious objections of a critical reader would be. Then you rewrite
+it yourself and re-check.
 
-This way of using AI feels like a fellow doctoral student reading a
-draft for you at the bar: they don't rewrite it, they tell you "I'm
-not following here", "this passage is weak", "you didn't close the
-loop". Except you get the colleague twice a year, and AI whenever you
-want.
+It's like a fellow doctoral student reading a draft for you at the bar:
+they don't rewrite it, they tell you "I'm not following here", "this
+passage is weak". Except you get the colleague twice a year, and AI
+whenever you want.
 
 What you can ask without problems:
 
@@ -109,27 +98,34 @@ What NOT to ask, ever:
 - *"Write the chapter's conclusion."*
 - *"Rephrase this paragraph so it sounds like I wrote it."*
 
-The rule that separates the two lists is simple. The first list leaves
-the words to you: AI reacts to what you've written, then you go back
-and rewrite. The second one puts the words in its mouth, and you
-become an editor who approves. *"Make it clearer"* touches vocabulary
-and flow, leaves the structure yours. *"Rephrase it as if I'd written
-it"* rewrites the structure and asks you to sign it: that's the same
-thing as "write it for me". The examiner at the defense can feel it.
-Not because there's a magic detector (AI-generated-text detectors are
-unreliable) but because you can't answer the questions: the passages
-you didn't build don't ring familiar when you have to defend them out
-loud.
+The rule that separates the two lists is simple. The first leaves the
+words to you: AI reacts to what you've written and you rewrite. The
+second puts the words in its mouth and you become an editor who
+approves. *"Make it clearer"* touches vocabulary and flow, *"rephrase it
+as if I'd written it"* rewrites the structure and asks you to sign it:
+that's the same as "write it for me". The examiner feels it, and not
+because of a magic detector (those are unreliable): you can't answer the
+questions, because the passages you didn't build don't ring familiar when
+you defend them out loud.
+
+<SelfCheck
+  id="write-a-thesis-q1"
+  question="Which of these requests to AI about your paragraph leaves the words to you?"
+  options={[
+    { text: "“Rephrase this paragraph so it sounds like I wrote it.”", why: "It rewrites the structure and asks you to sign it: it's the same as “write it for me”." },
+    { text: "“Does this transition between paragraph A and B work, or is there a logical jump?”", correct: true, why: "AI reacts to what you wrote and flags a problem. You rewrite the words afterwards." },
+    { text: "“Expand this paragraph to 500 words.”", why: "It generates new text on top of yours. That's generation, not revision." },
+  ]}
+  explanation="The criterion: AI comments on your text, and you go back to the text to rewrite it."
+/>
 
 ## Calibrating on the supervisor
 
 Every supervisor has unwritten expectations: citation style (Chicago,
-APA, footnotes), the angle of the work (historical-comparative,
-analytical, experimental), strictness on the hypotheses ("strong" if
-they want a precise thesis to defend, "soft" if a well-done survey is
-enough). These expectations aren't in any thesis-writing handbook:
-they sit in your supervisor's head, and if you don't ask you're left
-guessing.
+APA), the angle of the work (historical-comparative, analytical,
+experimental), strictness on the hypotheses. They aren't in any
+thesis-writing handbook but in your supervisor's head, and if you don't
+ask you're left guessing.
 
 Before you start, ask directly:
 
@@ -137,8 +133,8 @@ Before you start, ask directly:
 > extended? What angle: historical, analytical, experimental? What do
 > you expect me to push on the most?"*
 
-A thirty-minute conversation can save you months of revisions in
-directions your supervisor doesn't care about.
+A thirty-minute conversation can save you months of revisions in the
+wrong direction.
 
 :::tip[Evasive supervisor]
 Some professors won't commit upfront. In that case work out their
@@ -158,19 +154,20 @@ supervisor: use AI as a supervisor simulator. Typical prompt:
 > handing you chapter 2 of my thesis. What would you ask me to
 > revise?"*
 
-AI doesn't replace the real submission, and its simulation won't be
-perfect. But it catches many of the most obvious corrections (unclear
-passages, missing citations, wobbly arguments), and you arrive at the
-supervisor with a chapter that's already been combed through. The
-rounds of correction go down. What's left are the real
-corrections, the ones the supervisor gives you because they know your
-thesis and your field, so those meetings become more valuable.
+The simulation won't be perfect and doesn't replace the real
+submission, but it catches many obvious corrections (unclear passages,
+missing citations, wobbly arguments), and you arrive at the supervisor
+with a chapter that's already been combed through. What's left are the
+real corrections, the ones they give you because they know your thesis
+and your field.
 
 ## An art history paragraph
 
-Master's student in art history. Writing her thesis on Mannerism in
+A master's student in art history writes her thesis on Mannerism in
 Florence, chapter 3, paragraph on the role of Medici patronage. She's
-written a first version, wants to know if it holds up.
+written a first version and wants to know if it holds up.
+
+<Collapsible title="See the paragraph and the AI's answer">
 
 <ChatDemo
   user={`This is a paragraph from chapter 3 of my thesis. The thesis I want to argue is that Medici patronage isn't the only cause of the birth of Mannerism in Florence: it's an important factor but overrated by traditional scholarship.
@@ -189,13 +186,13 @@ Does this paragraph defend my thesis? Where is it weak? Three objections from a 
 Reinforcement suggestion, not a rewrite: add an explicit comparison with Clement VII's Roman patronage (one or two names, one or two dated commissions) and name at least two influences other than patronage that weigh on Pontormo's or Rosso's language. From there the paragraph rewrites itself.`}
 />
 
-Three things to notice. AI didn't write a new paragraph: it showed
-where yours is weak, with three precise objections that have names and
-references. The objections aren't "do better": they're specific things
-the student can check against the sources (Clement VII's patronage,
-Pontormo's influences). And the final suggestion is reinforcement,
-not replacement: it tells you *what* to add to close the gap, leaving
-the words to you.
+</Collapsible>
+
+AI didn't write a new paragraph: it showed where yours is weak, with
+three precise objections that have names and references and that the
+student can check against the sources (Clement VII's patronage,
+Pontormo's influences). The final suggestion is reinforcement, not
+replacement: it tells you *what* to add, leaving the words to you.
 
 :::note[What if my thesis is lab-based?]
 The example above is in the humanities, but the pattern is identical
@@ -208,43 +205,36 @@ conclusion X from data Y. What alternative methods would a reviewer
 ask about? What limitations of the study am I not declaring?"*
 :::
 
-:::tip[Bachelor's, Master's, PhD]
-The mechanics of the lesson hold for all three, but the weight of
-original contribution changes, and with it the ethical line.
+<Collapsible title="Bachelor's, Master's, PhD: what changes">
 
-**Bachelor's thesis** (40-60 pages, *triennale* in Italy): compilative
-thesis, the work consists in organizing the existing bibliography on a
-topic. AI helps a lot with organization and writing, less on the
-original contribution, which is minimal by definition. It's perfectly
-fine to use AI as a second reader intensively.
+The mechanics hold for all three, but the weight of original contribution
+changes, and with it the ethical line.
 
-**Master's thesis** (80-150 pages, *magistrale* in Italy): there is
-an original contribution (analysis of a dataset, case study, a new
-reading of an author). AI helps with structuring the argument and the
-critical dialogue, but the original contribution is yours, and you'll
-have to defend it out loud. Keep a separate notebook (a `.md` file
-works fine) where for every original idea you write three things:
-the idea in one sentence, where it comes from (the reading of paper X,
-the conversation with Y, the inconsistency in dataset Z), how you plan
-to defend it at the defense. By the defense you have to know which
-pieces of the thesis are original and why.
+**Bachelor's thesis** (40-60 pages, *triennale* in Italy): compilative,
+the work is organizing the existing bibliography. AI helps a lot with
+organization and writing, as a second reader even intensively.
 
-**PhD (150-300+ pages)**: the original contribution is the substance,
-not the side dish. AI helps with writing, revision, checking the
-arguments, but the content is inevitably yours. The ethical line is
-tighter: many journals require declaring LLM use in papers you'll
-publish during or after the PhD, and some thesis committees require
-the same. Check your department's policies before starting, not at
-the end. (Note: in the UK and some other systems, a PhD thesis is
-also called a **dissertation**.)
-:::
+**Master's thesis** (80-150 pages, *magistrale* in Italy): there is an
+original contribution (a dataset, a case study, a new reading). AI helps
+with the argument and the critical dialogue, but the contribution is yours
+and you defend it out loud. Keep a notebook where for every original idea
+you write the idea in one sentence, where it comes from and how you'd
+defend it before the committee.
+
+**PhD (150-300+ pages)**: the original contribution is the substance. AI
+helps with writing and checking the arguments, and the ethical line is
+tighter: many journals require declaring LLM use in papers. Check your
+department's rules before starting, not at the end. (In the UK and some
+other systems, a PhD thesis is also called a **dissertation**.)
+
+</Collapsible>
 
 :::caution[Declaring LLM use]
-Many universities have introduced the requirement of declaring in the
-preface (or in a dedicated section) how generative AI has been used in
-the thesis. Policies vary: some institutions accept its use as a
-revision assistant, others forbid it for generating finished text,
-others still impose a specific wording.
+Some universities ask you to declare in the preface (or in a dedicated
+section) how generative AI was used in the thesis. Rules vary: some
+accept it as a revision assistant, others forbid it for generating
+finished text, others impose a specific wording. Look up the rule on your
+department's website or ask the academic office.
 
 An honest declaration like:
 
@@ -254,43 +244,35 @@ An honest declaration like:
 > used to generate finished paragraphs nor to produce the
 > bibliography."*
 
-is a good starting point, but **doesn't replace checking your
-university's policy**. To orient yourself on the line: vocabulary
-changes, sentence flow, word order, transitions between paragraphs
-fall under "revision". Rewrites that change the argumentative
-structure, *"expand to 500 words"* expansions, paragraphs generated
-from scratch fall under "generation of finished text". If you can't
-find an official policy from your university (many departments don't
-have one yet), declare anyway: transparency covers you against stricter
-future rules and costs nothing compared with "undeclared". Search your
-department's website for "generative AI thesis policy" or ask the
-academic office. The broader picture on academic ethics is picked up in
-[*Ethics of studying*](/en/for-students/ethics-of-studying/), the last
-lesson of the module.
+is a good starting point, but **doesn't replace your university's rule**.
+As a guide: vocabulary changes, flow, word order and transitions are
+"revision". Rewrites that change the argumentative structure, *"expand to
+500 words"* expansions and paragraphs generated from scratch are
+"generation of finished text". If you can't find an official rule,
+declare anyway: transparency covers you against stricter future rules.
+The full template and the broader picture are in [*Ethics of
+studying*](/en/for-students/ethics-of-studying/), the last lesson of the
+module.
 :::
 
 ## What NOT to do
 
-**Don't have AI write the paragraph and then "rephrase" it.** It's
-the most common shortcut and the most dangerous: the logical structure
-stays AI's, and at the defense the passages don't ring familiar. The
-examiner hears the difference between an argument you built yourself
-and one you dressed up in your own words afterwards.
+**Don't have AI write the paragraph and then "rephrase" it.** The logical
+structure stays AI's, and at the defense the passages don't ring
+familiar. The examiner hears the difference between an argument you built
+yourself and one you dressed up in your own words.
 
-**Don't use AI to generate the bibliography.** Invented citations
-are the fastest way to sink a thesis: plausible names, plausible
-journals, plausible years, and nothing real. Sources have to be looked
-up in academic databases and verified one by one. On how to handle
-bibliography and citations safely with AI, see [*Sources and
-citations*](/en/for-students/sources-and-citations/), the next
-lesson.
+**Don't use AI to generate the bibliography.** Invented citations are the
+fastest way to sink a thesis: plausible names, journals and years, and
+nothing real. Sources have to be looked up in academic databases and
+verified one by one: [*Sources and
+citations*](/en/for-students/sources-and-citations/), the next lesson,
+shows how.
 
 **Don't stack eight chapters without showing one to the supervisor.**
-AI doesn't know what your supervisor really wants until you ask.
-Showing chapter 1 after the first week, and having one corrected every
-two or three weeks, is the rhythm that keeps you aligned. Arriving with the
-whole thesis in hand a month before the defense is the recipe for
-rewriting it twice.
+Show chapter 1 after the first week and have one corrected every two or
+three weeks. Arriving with the whole thesis a month before the defense is
+the recipe for rewriting it twice.
 
 ## Check what you've understood
 

@@ -8,96 +8,83 @@ prerequisiti: [ask-well, summarize-a-long-document, images-and-files]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
 - Course material isn't a single PDF: it's a mix of the professor's voice, slides, textbook, your own notes. The challenge is composing them, not summarizing one piece.
 - For the professor's voice: automatic transcription (Whisper, Otter, Tactiq, Apple Voice Memos). For slides and handwritten notes: photos. For the textbook: a paragraph pasted in or pages photographed.
 - The output you want is a **study map**: it holds the pieces together and tells you where each thing comes from.
-- When a course accumulates material over time, move everything into a Project (Claude Project, Custom GPT, Gemini Gem) so you don't reload it every time.
+- When a course accumulates material over time, move everything into a Project (Claude Project, ChatGPT Project, Custom GPT, Gemini Gem) so you don't reload it every time.
 - Recording a professor is legally delicate in many countries. Good practice: ask at the start of the course.
 
 </LessonSummary>
 
 You have the material, but it's everywhere. The professor's voice is
-in an audio file on your phone, the slides are in a PDF downloaded
-from the portal, the chapter is in the paper textbook, your own notes
-are in a notebook. None of these sources says exactly the same
-thing: the professor in class emphasizes points that the slides cut
-and the textbook expands, the slides are bare bones, the textbook is
-rich but generic.
+in an audio file on your phone, the slides in a PDF from the portal,
+the chapter in the paper textbook, your own notes in a notebook. The
+sources don't say the same thing: the professor emphasizes points that
+the slides cut and the textbook expands.
 
-When you sit down to study, the challenge is
-**composing them**: holding the pieces together,
+When you sit down to study, the challenge is **composing them**:
 understanding where they talk about the same thing and where they
 diverge. In [*Summarize a long
-document*](/en/everyday-use/summarize-a-long-document/) you saw how
-to get a reliable summary from a single text. Here the problem is
-different: you need a study map that works as your compass.
+document*](/en/everyday-use/summarize-a-long-document/) you saw how to
+summarize a single text. Here you need a study map that works as your
+compass.
 
 ## Case 1: the professor's voice
 
 Automatic audio transcription is one of the areas where AI is mature
-and free. Practical tools:
+and often free. Practical tools:
 
-- **OpenAI Whisper**, free. You use it via desktop app, or if you
-  have ChatGPT Plus you can upload the audio file directly into the
-  chat.
+- **OpenAI Whisper**: free, you use it with a desktop app. Many chat
+  apps also accept the audio file directly.
 - **Otter.ai**, **Tactiq**, **Read.ai**: integrated with Zoom, Google
-  Meet, Microsoft Teams. If the lecture is online, they transcribe
-  live and give you the text at the end of the call.
-- **Apple Voice Memos**: on iPhone/iPad (recent models, iOS 18 and
-  later) the voice recorder transcribes automatically and gives you
-  a button to send the transcript to ChatGPT/Claude.
+  Meet, Microsoft Teams. For online lectures they transcribe live.
+- **Apple Voice Memos**: on recent iPhones/iPads (iOS 18 and later) it
+  transcribes automatically and you can send the text to ChatGPT or
+  Claude.
 
-Once you have the text, you treat it like any other material: paste
-it or upload it into the chat with everything else. The transcript
-of an hour of lecture is typically 8000-12000 words. To give you a
-practical sense: ChatGPT, Claude and Gemini in their current
-versions handle without trouble a one-hour transcript plus the slides
-of the lecture plus 40-50 pages of textbook chapter, all in the same
-prompt. If you add a second hour of audio and another full chapter,
-you start getting close to the limit (the AI has more trouble
-connecting things that sit far apart in the prompt). For more
-recurring material, that's when you reach for the Project in Case 3.
+Once you have the text, you paste or upload it into the chat with
+everything else. An hour of lecture is about 8000-12000 words. Current
+chats handle a one-hour transcript plus the slides plus 40-50 pages of
+textbook chapter in the same prompt. With a second hour of audio and
+another full chapter you get close to the limit, and the AI connects
+distant things worse. For more recurring material you need the Project
+in Case 3.
 
 :::caution[Recording consent and privacy]
 Recording a university lecture is legally delicate. In many
 jurisdictions, recording a conversation you're part of for strictly
 personal use is generally allowed; broadcasting or uploading the
-recording is a different matter, and in some cases unlawful. Check
-your local rules if you're unsure. Good practice: ask the professor
-at the start of the course if they're fine with recording for
-personal study use. Most say yes; those who say no have their
-reasons. Don't upload audio of your professor to public, shareable
-chats. For the bigger picture, see [*What you share when you use
+recording is a different matter, and in some cases unlawful. Check your
+local rules if you're unsure. Good practice: ask the professor at the
+start of the course if they're fine with recording for personal study.
+Don't upload audio of your professor to shareable chats. For the bigger
+picture, see [*What you share when you use
 AI*](/en/fundamentals/privacy-basics/).
 :::
 
 :::tip[Audio transcription: what works, what doesn't]
-Whisper transcribes standard English well, also with regional
-inflections. It struggles with thick dialects, strong accents, dirty
-audio from noisy rooms. If the professor speaks into a microphone
-(even a cheap lavalier), the quality is excellent. If you record on
-your phone from the back of the classroom, expect to correct some
-terms by hand. For proper names, foreign surnames, formulas,
-acronyms, always check: Whisper tends to "normalize" toward more
-common words that sound similar to it (the philosopher "Husserl"
-becomes "Usserl", the author "Schmitt" becomes "Smith"). On a
-philosophy or law lecture with constant citations of foreign authors,
-plan on a manual pass to fix the names before using the text for
-study.
+Whisper transcribes standard English well. It struggles with thick
+dialects and dirty audio. If you record on your phone from the back of
+the classroom, expect to correct some terms by hand. Always check
+proper names, foreign surnames, formulas and acronyms: it tends to
+"normalize" toward more common words ("Husserl" becomes "Usserl",
+"Schmitt" becomes "Smith"). On a lecture with constant citations of
+foreign authors, plan on a pass to fix the names before studying from
+the text.
 :::
 
 ## Case 2: composing multiple sources
 
-Three inputs from the same course, one study session. The slides of
-the lecture, the textbook chapter, your handwritten notes. You take
-photos with your phone: keep the photo in focus, well lit, and one
-page per shot. AI is good with legible handwriting but makes mistakes
-on doctor-style scrawl, and in that case it tells you ("I can't read
-these words clearly") instead of guessing. On using photos in chat
-see [*Photos, images and files*](/en/everyday-use/images-and-files/).
+Three inputs from the same course, one study session: slides, textbook
+chapter, handwritten notes. Photograph them with your phone, in focus
+and well lit, one page per shot. AI reads legible handwriting well and,
+if it can't read a word, it tells you instead of guessing. On photos in
+chat see [*Photos, images and files*](/en/everyday-use/images-and-files/).
 The core prompt is this:
 
 > *"I'm uploading three things: the slides of lecture 7 of Modern
@@ -108,69 +95,58 @@ The core prompt is this:
 > treat at all. For each entry in the map, tell me which source it
 > comes from, with tags `[Prof]`, `[Textbook]`, `[Slides]`."*
 
-What you're asking the AI to do is different from summarizing: a
-unified structure of the topic, in which each entry says where it
-comes from, instead of a compression of each source. It's the difference
-between three separate summaries and a map with the threads that
+You're asking for something different from a summary: a unified
+structure of the topic, in which each entry says where it comes from.
+Instead of three separate summaries, a map with the threads that
 connect them.
 
-The tags in square brackets do one precise thing: you look at the
-map and see at a glance where each source weighs in. An entry with
-all three tags `[Prof] [Textbook] [Slides]` is the heart of the
-topic, aligned across the sources. An entry with only `[Prof]` is
-what the professor underlined out loud and the others skip:
-probably something that will come up at the oral exam. An entry with
-only `[Textbook]` is detail from the book that the professor cut.
+The tags in square brackets show at a glance where each source weighs
+in. An entry with all three tags is the heart of the topic. An entry
+with only `[Prof]` is what the professor said out loud and the others
+skip: probably something that will come up at the oral exam. An entry
+with only `[Textbook]` is detail from the book that the professor cut.
 
-The natural output is a hierarchical outline of four or five
-sections with two or three sub-entries each. Below is an example.
+The natural output is a hierarchical outline of four or five sections
+with two or three sub-entries each. A full example follows below.
 
 :::caution[Verify the tags before trusting them]
-The tags `[Prof] [Textbook] [Slides]` are written by the AI. They're
-useful but they get things wrong: the AI can attribute to the
-textbook something that was only in the slides, or the other way
-around. The first quick check is on entries that surprise you. If
-you see a lone `[Prof]` on a point you remember reading in the
-textbook, open the chapter again: the AI probably misattributed.
-A more systematic check: take two or three lone `[Prof]` entries
-(the most important ones for the oral exam) and check in the audio
-transcript or in your notes whether the professor actually said
-them. You don't need to verify every entry, but the ones you'd
-build your exam answer on, yes.
+The AI writes the tags, and it gets things wrong: it can attribute to
+the textbook something that was only in the slides, or the other way
+around. If you see a lone `[Prof]` on a point you remember reading in
+the textbook, open the chapter again. For a more systematic check, take
+two or three lone `[Prof]` entries, the most important ones for the oral
+exam, and look in the transcript to see whether the professor actually
+said them.
 :::
 
 ## Case 3: organizing an entire course
 
-When the material from a single course piles up over time (ten sets
-of slides, ten batches of notes, two textbooks, a few lecture
-recordings) reloading everything in every chat is a chore. The right
-tool is the **Project**: you'll find it on Claude as "Projects", on
-ChatGPT as "Custom GPTs", on Gemini as "Gems". We covered it in
-[*Reuse context with
-projects*](/en/at-work/reuse-context-with-projects/). Practical note
-for the student: Claude Projects and ChatGPT Custom GPTs require a
-paid plan (Plus or Pro). Gemini Gems are also available on the free
-tier with some context limits. If the budget is zero, work with
-single chats and reload the material each time: less convenient but
-workable.
+When the material from a course piles up (ten sets of slides, two
+textbooks, a few recordings) reloading everything in every chat is a
+chore. The right tool is the **Project**: on Claude and ChatGPT it's
+called "Projects", on Gemini "Gems", and ChatGPT also has Custom GPTs.
+It's explained in [*Reuse context with
+projects*](/en/at-work/reuse-context-with-projects/). Practical note for
+the student: Claude Projects and ChatGPT Projects are also on the free
+plans, with limits on the number of projects and files. Creating a
+Custom GPT needs a paid plan. Gemini Gems (which become "skills" on
+personal accounts from November 2026) work on the free tier too. Check
+in the settings what your plan offers.
 
-The idea applied to study is simple. You create one project per
-course ("Modern History 2026", "Private Law I") and you load all the
-material in once. From that point on, every chat opened inside the
-project searches and links across the whole corpus without you
-having to reload anything. When lecture 11 comes in, you add it to
-the project and that's it. When the exam approaches, you open a
-chat and ask questions that cut across the whole semester: "in which
-lectures did the professor talk about topic X?", "in which chapters
-of the textbook does author Y appear?".
+You create one project per course ("Modern History 2026") and load
+all the material in once. Every chat opened inside the project links
+the whole corpus. When lecture 11 comes in, you add it and that's it.
+When the exam approaches, you ask questions that cut across the whole
+semester: "in which lectures did the professor talk about topic X?".
 
 ## An example: Italy 1943-1946
 
-A modern history student, lecture from a course on "Italy
-1943-1946". She has three inputs ready: the audio transcript of the
-lecture (45 minutes, from Whisper), the professor's slides (10
-pages), and the textbook chapter (Sabbatucci/Vidotto, 40 pages).
-She opens the chat and asks for the study map.
+A modern history student has three inputs for the lecture on "Italy
+1943-1946": the audio transcript (45 minutes, from Whisper), the
+professor's slides (10 pages) and the textbook chapter (40 pages). She
+opens the chat and asks for the study map.
+
+<Collapsible title="See the full conversation">
 
 <ChatDemo
   user={`I'm uploading three things on the modern history lecture "Italy 1943-1946": the audio transcript of the lecture (45 min), the professor's slides (10 pages), chapter 4 of the Sabbatucci/Vidotto textbook.
@@ -215,42 +191,42 @@ Three useful observations for study:
 - The *Verona Manifesto* shows up only in the textbook. If the professor talked about it out loud and I missed it, it's worth re-listening to the audio around the minute when the discussion moves from the fall of Fascism to the RSI.`}
 />
 
-Three things to notice. The map is short, five sections with two or
-three sub-entries each: an outline you can keep in your head. The tags track the
-source, so you know without reopening the files where each piece
-comes from. The final observations tell you *what to do* with the
-map.
+</Collapsible>
 
-A practical note on the audio: once you have the transcript, you can
-ask the AI for a targeted lookup inside it ("at what minute of the
-transcript does the professor talk about the Verona Manifesto?") and
-it gives you the spot. Without the transcript, the same check would
-mean re-listening to 45 minutes.
+The map is short, five sections with two or three sub-entries: an
+outline you can keep in your head. The tags track the source, and the
+final observations tell you what to do with the map. With the transcript
+you can also ask for a targeted lookup ("at what minute does the
+professor talk about the Verona Manifesto?") instead of re-listening to
+45 minutes.
+
+<SelfCheck
+  id="notes-from-lectures-q1"
+  question="In the study map, an entry is tagged only [Prof], on a point you think you also read in the textbook. What do you do?"
+  options={[
+    { text: "Keep it as is: the AI wrote the tag, and it read everything.", why: "The AI can misattribute between sources. A tag that contradicts your memory should be checked." },
+    { text: "Reopen the chapter and check the transcript, then fix the tag.", correct: true, why: "That's the right check: you look in both sources and correct the map if the attribution is wrong." },
+    { text: "Delete the entry, because it's uncertain.", why: "If the point is true you'd lose material for the oral exam. Verify first, then decide." },
+  ]}
+  explanation="Check the lone [Prof] entries above all: they're the ones you'll build your exam answer on."
+/>
 
 ## What NOT to do
 
 **Don't turn your own notes into something you no longer recognize.**
-The study map has to help you remember what you saw in class and
-what you read: so it has to *resemble* your material, not replace
-it. If you end up with an outline that has nothing of your way of
-writing or organizing points, that's a signal you've delegated too
-much. Put your own emphases back in.
+The study map has to resemble your material. If you end up with an
+outline that has nothing of your way of organizing points, you've
+delegated too much: put your own emphases back in.
 
-**Don't use the audio transcript as the primary source if you have
-the textbook.** The professor's voice in class is low fidelity: they
-speak off the cuff, skip steps they take for granted, get dates
-wrong, make quick references. The textbook is high fidelity: it was
-edited, it's precise, the dates are there, the citations too. The
-transcript is useful for the points where the professor adds
-something of their own that isn't in the textbook (readings by other
-authors, examples, emphases) or to reconstruct the order in which
-they chose to handle the topics. For substance, the book wins. When
-the two sources say different things about a verifiable fact (a
-date, a citation, a legal article), take the textbook and add a
-margin note: "the professor in class said X, but the book says Y".
-At the oral exam you read the room: some professors appreciate that
-the student noticed the discrepancy, others prefer the textbook
-version and that's it.
+**Don't use the transcript as the primary source if you have the
+textbook.** The professor in class speaks off the cuff, skips steps,
+gets dates wrong. The textbook is edited and precise. The transcript is
+useful for what the professor adds of their own (readings by other
+authors, examples, emphases) and for the order in which they handle the
+topics. When the sources differ on a verifiable fact (a date, a
+citation, a legal article), take the textbook and add a margin note:
+"the professor said X, the book says Y". At the oral exam you read the
+room.
 
 ## Check what you've understood
 
@@ -264,7 +240,7 @@ version and that's it.
 
 ## What comes next
 
-Now the course material is composed into a map that holds the pieces
-together. When exam week arrives you need something else: turn that
-map into something you can query, simulate the tests, fix the weak
-spots. The next lesson takes on this step.
+The course material now sits in a map. When exam week arrives you need
+to turn it into something you can query, simulate the tests and fix the
+weak spots: [*Revise before an exam*](/en/for-students/revise-before-an-exam/)
+does that.

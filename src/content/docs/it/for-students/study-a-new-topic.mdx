@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -19,14 +21,13 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-Questo modulo insegna a studiare meglio, non a farsi fare i compiti.
-Farsi fare i compiti non ti fa imparare niente e si vede al primo
-confronto orale. L'IA è uno strumento di studio
-quando ti spiega, ti interroga, ti aiuta a ripassare; è un problema
-quando produce al posto tuo il testo che dovresti consegnare tu.
-Questo modulo ti dà tecniche per il primo uso; l'ultima lezione,
-[*Etica dello studio*](/it/for-students/ethics-of-studying/), torna
-esplicitamente sul confine fra le due cose.
+Questo modulo insegna a studiare meglio. Farsi fare i compiti non ti fa
+imparare niente e si vede al primo confronto orale. L'IA è uno strumento
+di studio quando ti spiega, ti interroga, ti aiuta a ripassare, e
+diventa un problema quando produce al posto tuo il testo che dovresti
+consegnare tu. L'ultima lezione, [*Etica dello
+studio*](/it/for-students/ethics-of-studying/), torna sul confine fra le
+due cose.
 
 ## Da curiosità a studio formale
 
@@ -35,46 +36,38 @@ hai visto come usare l'IA per capire un tema che ti incuriosisce:
 la blockchain, l'inflazione, la genetica dei batteri. Lì la posta
 era "ho capito o no?", e bastavi tu a giudicare.
 
-Lo studio formale è un'altra storia. Ci sono tre cose che cambiano:
+Lo studio formale cambia tre cose:
 
-- C'è **un materiale di riferimento**, scelto dal corso. Spesso non
-  è un solo manuale: è un mix di capitoli da libri diversi, dispense
-  del prof, slide, articoli. Quello che conta è cosa dice quel
-  materiale, non come l'argomento è raccontato in generale su
-  internet.
-- C'è **un docente che decide cosa è "giusto"**, sia con quello che
-  mette nel materiale sia con quello che aggiunge a voce in aula.
-  Le definizioni e i confini di un concetto possono variare fra
-  autori e fra prof; nel tuo corso vince la versione del prof, anche
-  quando è in tensione col manuale.
-- C'è **una verifica in fondo**: orale, scritto, paper. Qualcuno
-  ti farà domande precise e si aspetta risposte precise, con il
-  vocabolario del corso.
+- C'è **un materiale di riferimento**, scelto dal corso: spesso un mix di
+  capitoli, dispense, slide e articoli. Conta cosa dice quel materiale,
+  non come l'argomento è raccontato in generale su internet.
+- C'è **un docente che decide cosa è "giusto"**, con il materiale e con
+  ciò che aggiunge a voce. Le definizioni possono variare fra autori e
+  fra prof: nel tuo corso vince la versione del prof, anche quando è in
+  tensione col manuale.
+- C'è **una verifica in fondo**: orale, scritto, paper. Qualcuno ti farà
+  domande precise e si aspetta risposte con il vocabolario del corso.
 
-L'IA non sa nessuna di queste tre cose. Lasciata a default, pesca
-da Wikipedia, da articoli divulgativi, da manuali anglosassoni, e
-ti restituisce un mix che è quasi-giusto ma non coincide con il
-tuo programma. Per servirti dentro il tuo corso, va ancorata al
-tuo materiale e calibrata sul tuo docente. In [*Imparare un argomento
+L'IA non sa nessuna delle tre. Lasciata a default, pesca da Wikipedia,
+da articoli divulgativi, da manuali anglosassoni, e ti restituisce un mix
+quasi giusto che non coincide con il tuo programma. Va ancorata al tuo
+materiale e calibrata sul tuo docente: in [*Imparare un argomento
 nuovo*](/it/everyday-use/learn-something-new/) la usavi a ruota libera,
 qui la tieni al guinzaglio.
 
 ## Tre tecniche per ancorare l'IA al tuo programma
 
-Le tre tecniche lavorano su livelli diversi: la prima ancora l'IA
-al **contenuto** del tuo programma, la seconda al **tipo di
-domande** che ti aspetti, la terza allo **stile del docente** che
-ti interroga. Si combinano: la versione più completa è incollare
-il paragrafo *e* chiedere domande tipo esame su quel paragrafo
-*e* allegare appunti di stile.
+Le tre tecniche ancorano l'IA al **contenuto** del programma, al **tipo
+di domande** che ti aspetti e allo **stile del docente**. Si combinano:
+incolla il paragrafo, chiedi domande tipo esame su quel paragrafo, allega
+appunti di stile.
 
 ### 1. Incolla il paragrafo del manuale
 
-La mossa più semplice e la più sottovalutata. Quando devi capire
-un concetto del corso, non chiedere "spiegami X": apri il libro,
-copia il paragrafo che lo introduce (o il bullet point della
-slide), incollalo nel chat, e *poi* chiedi la spiegazione restando
-dentro quella cornice.
+La mossa più semplice e la più sottovalutata. Quando devi capire un
+concetto del corso, non chiedere "spiegami X": copia il paragrafo del
+manuale (o il bullet della slide) che lo introduce, incollalo in chat, e
+*poi* chiedi la spiegazione restando dentro quella cornice.
 
 Il prompt cambia faccia. Da:
 
@@ -87,37 +80,30 @@ A:
 > in parole più semplici, ma resta dentro la cornice che dà il
 > testo. Se aggiungi qualcosa che non c'è qui, segnalamelo."*
 
-La differenza si vede subito. Nella prima versione l'IA ti risponde con
-una sintesi mediata: definizioni che girano in rete, qualche
-riferimento alla Costituzione, qualcosa di buon senso. Nella
-seconda versione l'IA è obbligata a riformulare quello che hai
-davanti, niente di più. Se il manuale insiste su una distinzione
-particolare (per esempio fra "atti formalmente presidenziali" e
-"atti sostanzialmente presidenziali"), la spiegazione che esce
-mantiene quella distinzione. Se invece chiedi in generale, quella
-sfumatura sparisce e all'esame ti manca.
+La differenza si vede subito. Nella prima versione l'IA ti dà una sintesi
+mediata: definizioni che girano in rete, qualcosa di buon senso. Nella
+seconda è obbligata a riformulare ciò che hai davanti. Se il manuale
+insiste su una distinzione (per esempio fra "atti formalmente
+presidenziali" e "atti sostanzialmente presidenziali"), la spiegazione la
+mantiene. Se chiedi in generale, quella sfumatura sparisce e all'esame ti
+manca.
 
-Lo stesso vale per le slide: se il prof ha messo una definizione
-in slide, quella definizione è il riferimento. Incollala. Se la
-slide è solo bullet di tre parole, aggiungi tu in coda al prompt
-una riga di cosa il prof ha detto a voce su quel punto, anche poche
-parole: la slide da sola è troppo scarna per ancorare l'IA, la
-slide più il tuo riassunto orale basta.
+Lo stesso vale per le slide: se il prof ha messo una definizione, quella
+è il riferimento. Se la slide è solo un bullet di tre parole, aggiungi in
+coda al prompt una riga di ciò che il prof ha detto a voce su quel punto.
 
 :::tip[Quanto incollare per volta]
 Un paragrafo (mezza pagina) per volta funziona meglio di tre pagine
-intere. Se l'argomento è grande, dividilo: ancora l'IA al primo
-blocco, capiscilo, poi passa al secondo. L'IA è più precisa su
-porzioni mirate che su capitoli interi, e tu capisci meglio una
-cosa alla volta che tutto in blocco.
+intere. Se l'argomento è grande, dividilo: ancora l'IA al primo blocco,
+capiscilo, poi passa al secondo.
 :::
 
 ### 2. Chiedi domande tipo esame su quel capitolo
 
-Una volta capito il concetto, ribalta i ruoli (la tecnica di
-"interrogazione di ritorno" che hai visto in [*Imparare un
-argomento nuovo*](/it/everyday-use/learn-something-new/)), ma con
-una specifica in più: forza il livello dell'esame.
+Una volta capito il concetto, ribalta i ruoli (la tecnica
+dell'"interrogazione di ritorno" di [*Imparare un argomento
+nuovo*](/it/everyday-use/learn-something-new/)) e forza il livello
+dell'esame.
 
 > *"Sulla base del capitolo che ti ho incollato sopra, fammi tre
 > domande di tipo orale e tre di tipo scritto, con il livello di
@@ -127,73 +113,59 @@ una specifica in più: forza il livello dell'esame.
 > dimmi se è corretta e cosa manca per la pienezza di un voto
 > alto."*
 
-L'IA cambia tono. Senza la specifica del livello, le domande
-escono divulgative ("a cosa serve il Presidente della
-Repubblica?"); con la specifica, escono più precise ("distingui
-fra gli atti del Presidente che richiedono controfirma ministeriale
-e quelli che ne fanno a meno, citando un esempio per ciascuna
-categoria").
-
-La distinzione fra orale e scritto serve perché sono prove
-diverse. L'orale premia capacità di sintetizzare e ragionare a
-voce; lo scritto premia precisione e completezza. Allenarsi sul
-solo formato che farai in esame è meno utile di allenarsi su
-entrambi: ti dà angoli diversi sullo stesso materiale.
+L'IA cambia tono. Senza la specifica del livello, le domande escono
+divulgative ("a cosa serve il Presidente della Repubblica?"); con la
+specifica, escono precise ("distingui fra gli atti che richiedono
+controfirma ministeriale e quelli che ne fanno a meno, con un esempio per
+categoria"). Orale e scritto sono prove diverse: l'orale premia sintesi e
+ragionamento a voce, lo scritto precisione e completezza. Allenarti su
+entrambi ti dà angoli diversi sullo stesso materiale.
 
 ### 3. Calibra l'IA sullo stile del docente
 
-Questa mossa serve soprattutto quando l'esame si avvicina.
-Se hai appunti delle lezioni, slide del prof, o anche solo la
-traccia di una sua interrogazione passata che gira fra gli
-studenti, incollala come riferimento di stile.
+Questa mossa serve quando l'esame si avvicina. Se hai appunti delle
+lezioni, slide del prof o anche solo la traccia di un'interrogazione
+passata che gira fra gli studenti, incollala come riferimento di stile.
 
 > *"Questi sono appunti di tre lezioni del prof. Tendono a
 > insistere su X e Y, e fanno spesso domande del tipo Z. Quando
 > mi interroghi su questo capitolo, simula il suo modo di
 > chiedere, non un'interrogazione generica."*
 
-L'IA non conosce il tuo docente per nome, ma riconosce il *pattern*:
-se il prof tende a chiedere applicazioni pratiche, lo capta dagli
-appunti e te le farà; se invece chiede definizioni precise alla
-lettera, anche quello esce. La simulazione non è perfetta, ma ti
-porta molto più vicino a quello che ti aspetta in aula rispetto a
-un quiz pescato a caso da internet.
+L'IA non conosce il tuo docente per nome, ma riconosce il *pattern*: se
+chiede applicazioni pratiche lo capta dagli appunti, se chiede definizioni
+alla lettera esce anche quello. La simulazione non è perfetta, ma ti
+avvicina all'aula più di un quiz pescato a caso da internet.
 
-Esempio operativo. Stai preparando un esame di storia
-contemporanea, e dagli appunti delle ultime tre lezioni il prof ha
-insistito sul ruolo della stampa nella formazione dell'opinione
-pubblica fra le due guerre, citando spesso due autori specifici.
-Il prompt diventa:
+Un esempio: prepari storia contemporanea e dagli appunti delle ultime tre
+lezioni il prof ha insistito sul ruolo della stampa fra le due guerre,
+citando spesso Mosse e Gentile. Il prompt diventa:
 
 > *"Studio per un esame di storia contemporanea. Negli appunti che
-> ti incollo, il mio prof insiste molto su due cose: il ruolo della
-> stampa fra le due guerre e gli autori Mosse e Gentile. Quando mi
-> interroghi sul capitolo che ti passo subito dopo, simula il suo
-> modo di chiedere: fammi domande che colleghino il tema generale
-> a questi due autori, una alla volta, aspettando le mie risposte.
-> Appunti: \[incolla 1-2 pagine di appunti]."*
+> ti incollo, il mio prof insiste su due cose: il ruolo della stampa
+> fra le due guerre e gli autori Mosse e Gentile. Quando mi interroghi
+> sul capitolo che ti passo subito dopo, simula il suo modo di
+> chiedere: domande che colleghino il tema generale a questi due
+> autori, una alla volta. Appunti: \[incolla 1-2 pagine di appunti]."*
 
-Sulla traccia di quei due autori, l'IA tira fuori domande del tipo
-"come Mosse spiegherebbe questo passaggio del manuale?" invece di
-chiederti la definizione del termine.
+Sulla traccia dei due autori, l'IA chiede "come Mosse spiegherebbe questo
+passaggio del manuale?" invece della definizione del termine.
 
 :::note[Per chi studia matematica, fisica, ingegneria, informatica]
-Le tre tecniche valgono anche qui, con un adattamento sul
-"paragrafo da incollare": invece del paragrafo discorsivo, incolli
-il **teorema** con la sua dimostrazione, oppure l'**esercizio** con
-la sua soluzione, oppure il **passaggio del manuale** che introduce
-la formula. Il prompt cambia di poco: "spiegami questa dimostrazione
-passaggio per passaggio, restando dentro la notazione che usa il
-testo. Se aggiungi un passaggio che non c'è qui, segnalamelo." Per
-la calibrazione sullo stile del docente, gli "appunti di stile"
-diventano esercizi passati o tracce d'esame precedenti.
+Le tre tecniche valgono anche qui, con un adattamento: invece del
+paragrafo discorsivo incolli il **teorema** con la sua dimostrazione,
+l'**esercizio** con la soluzione o il **passaggio** che introduce la
+formula. Il prompt: "spiegami questa dimostrazione passaggio per
+passaggio, restando dentro la notazione del testo. Se aggiungi un
+passaggio che non c'è qui, segnalamelo." Per lo stile del docente, gli
+"appunti di stile" diventano esercizi passati o tracce d'esame.
 :::
 
 ## La differenza in pratica
 
-Studente di diritto costituzionale, manuale di Bin/Pitruzzella,
-sta studiando i poteri del Presidente della Repubblica. Prima
-prova chiedendo in generale.
+Uno studente di diritto costituzionale, con il manuale di Bin/Pitruzzella,
+studia i poteri del Presidente della Repubblica. Prima prova chiedendo in
+generale.
 
 <ChatDemo
   user="Spiegami i poteri di scioglimento del Presidente della Repubblica."
@@ -204,15 +176,16 @@ Il potere di scioglimento è disciplinato dall'articolo 88 della Costituzione. I
 In sistemi presidenziali come gli Stati Uniti, l'equivalente funzione non esiste: il Congresso ha mandato fisso. Questo perché in Italia il Presidente non guida il governo ma fa da arbitro istituzionale.`}
 />
 
-La risposta è onesta, ma c'è un problema: la chiusura con il
-paragone agli Stati Uniti è materiale di contorno che il manuale
-non tratta in quella sezione, e all'esame fa perdere tempo. Manca
-poi una distinzione che Bin/Pitruzzella sviluppano con attenzione,
-sulla natura sostanzialmente o formalmente presidenziale dell'atto
-di scioglimento, che è esattamente il tipo di sfumatura su cui i
-prof di costituzionale insistono.
+La risposta è onesta, ma il paragone con gli Stati Uniti è materiale di
+contorno che il manuale non tratta, e all'esame fa perdere tempo. Manca
+poi la distinzione che Bin/Pitruzzella sviluppano con attenzione, sulla
+natura formalmente o sostanzialmente presidenziale dell'atto di
+scioglimento: esattamente la sfumatura su cui i prof di costituzionale
+insistono.
 
 Ora la stessa domanda, ancorata al paragrafo del manuale.
+
+<Collapsible title="Vedi la versione ancorata al paragrafo">
 
 <ChatDemo
   user={`Questo è il paragrafo che sto studiando dal manuale di Bin/Pitruzzella sui poteri di scioglimento:
@@ -231,71 +204,66 @@ Spiegami questo paragrafo in parole più semplici, restando dentro la cornice ch
 Nota: il paragrafo non parla di che cosa succede se i sei mesi finali del mandato presidenziale coincidono con la fine della legislatura. C'è un'eccezione nella Costituzione su questo punto, ma il tuo testo non la cita qui.`}
 />
 
-Tre differenze rispetto alla risposta generale. Primo, il
-vocabolario è quello del manuale ("atto formalmente presidenziale
-ma sostanzialmente complesso", "controllo di legittimità e
-opportunità"), che è quello che il prof si aspetta di sentire.
-Secondo, niente paragone con gli Stati Uniti, che nel paragrafo
-non c'è. Terzo, l'IA segnala onestamente il punto che il paragrafo
-omette, così sai dove andare a cercare il resto.
+</Collapsible>
 
-Un test rapido se sospetti che stia divagando: chiedi all'IA "su
-quale parte del paragrafo che ti ho incollato si basa questa
-frase?". Se risponde indicandoti il punto preciso del testo, sei
-ancorato; se gira intorno o cita conoscenza generale, sei tornato
-in mare aperto e va rincollato.
+Tre differenze rispetto alla risposta generale. Il vocabolario è quello
+del manuale ("atto formalmente presidenziale ma sostanzialmente
+complesso"), che è ciò che il prof si aspetta di sentire. Non c'è il
+paragone con gli Stati Uniti, che nel paragrafo non c'è. E l'IA segnala il
+punto che il paragrafo omette, così sai dove cercare il resto.
+
+Un test rapido se sospetti che divaghi: chiedi "su quale parte del
+paragrafo che ti ho incollato si basa questa frase?".
+
+<SelfCheck
+  id="study-a-new-topic-q1"
+  question="Chiedi all'IA: «su quale parte del paragrafo che ti ho incollato si basa questa frase?». Risponde con una spiegazione generale sull'argomento, senza indicare il punto del testo. Cosa significa?"
+  options={[
+    { text: "Che sei ancorato: l'IA conosce bene l'argomento.", why: "Conoscere l'argomento in generale è proprio il problema: ti serve ciò che dice il tuo paragrafo." },
+    { text: "Che sei tornato in mare aperto: rincolla il paragrafo e ripeti il vincolo.", correct: true, why: "Se non indica il punto preciso, la frase viene da conoscenza generale. Va riancorata al testo." },
+    { text: "Che la frase è sbagliata e va scartata.", why: "Può essere perfettamente corretta, ma non è quella del tuo manuale. Il problema è l'ancoraggio, non per forza l'errore." },
+  ]}
+  explanation="Il test funziona perché l'IA, se è ancorata, sa indicarti il passaggio. Se gira intorno, non lo è."
+/>
 
 ## "Ho capito" non è "so quello che il prof si aspetta"
 
-C'è un rischio specifico nell'usare l'IA come tutor di studio:
-tieni un bel dialogo, l'IA ti fa i complimenti, esci dalla
-sessione convinto di sapere l'argomento. Poi il prof ti fa la
-domanda e fai scena muta.
+C'è un rischio specifico: tieni un bel dialogo, l'IA ti fa i complimenti,
+esci convinto di sapere l'argomento. Poi il prof ti fa la domanda e fai
+scena muta. Nel dialogo puoi divagare e farti suggerire le parole che ti
+mancano dal contesto della chat. All'orale sei da solo, con un docente
+che aspetta una risposta con le parole del manuale.
 
-Il motivo è che tenere un dialogo è una cosa, rispondere a una
-domanda precisa è un'altra. Nel dialogo puoi divagare, riformulare,
-farti suggerire le parole che ti mancano dal contesto del chat;
-all'orale sei da solo, con un docente che aspetta una risposta che
-usi le parole del manuale.
-
-Check rapido a fine sessione: chiudi il
-chat. Apri il libro al capitolo. Chiudi anche quello. Spiega
-l'argomento ad alta voce, da solo, come se fossi all'orale. Se
-inciampi, segna il punto preciso dove inciampi: di solito è il
-vocabolario (ti manca la parola tecnica del manuale) o il
-collegamento (sai i singoli fatti ma non come si tengono insieme).
-Per il vocabolario torni al manuale e ti scrivi le definizioni a
-mano; per il collegamento torni all'IA e le chiedi di farti tre
-domande di collegamento su quel capitolo, non più di definizione.
-È una variante del <Def explanation="Tecnica di studio: spieghi un argomento ad alta voce come se lo dovessi insegnare a un bambino. Dove inciampi, lì non sai davvero.">test di Feynman</Def>, applicata al programma del
-corso.
+Check rapido a fine sessione: chiudi la chat, apri il libro al capitolo,
+chiudi anche quello. Spiega l'argomento ad alta voce, da solo, come
+all'orale. Se inciampi, segna il punto: di solito è il vocabolario (ti
+manca la parola tecnica del manuale) o il collegamento (sai i singoli
+fatti ma non come si tengono insieme). Per il vocabolario torni al
+manuale e ti scrivi le definizioni a mano. Per il collegamento chiedi
+all'IA tre domande di collegamento su quel capitolo. È una variante del
+<Def explanation="Tecnica di studio: spieghi un argomento ad alta voce come se lo dovessi insegnare a un bambino. Dove inciampi, lì non sai davvero.">test di Feynman</Def>,
+applicata al programma del corso.
 
 :::caution[Materiale del prof e privacy]
-Caricare PDF di dispense, slide, o appunti registrati delle
-lezioni in una chat pubblica significa mandare quel materiale ai
-server dell'IA. Se è coperto da copyright didattico (cosa
-frequente per slide e dispense non pubblicate), è una scelta a tuo
-rischio: tecnicamente possibile, contrattualmente discutibile. Per
-materiale sensibile preferisci chat con storia disattivata (vedi
-le impostazioni privacy del tuo strumento), o ricopia a mano i
-passaggi che ti servono invece di caricare il file intero. Il
+Caricare dispense, slide o registrazioni in una chat significa mandare
+quel materiale ai server dell'IA. Se è coperto da copyright didattico
+(frequente per slide e dispense non pubblicate), è una scelta a tuo
+rischio. Per materiale sensibile disattiva la cronologia nelle
+impostazioni privacy, o ricopia a mano i passaggi che ti servono. Il
 quadro generale è in [*Quello che condividi quando usi
 l'IA*](/it/fundamentals/privacy-basics/).
 :::
 
 ## Cosa NON fare
 
-**Non chiedere "spiegamelo facile" e fermarti lì.** L'IA semplifica
-volentieri, ma all'esame ti chiedono il livello del corso, non il
-livello da bar. La spiegazione facile è il primo gradino, non
-l'ultimo: dopo aver capito, torna sul vocabolario tecnico del
-manuale.
+**Non fermarti a "spiegamelo facile".** L'IA semplifica volentieri, ma
+all'esame ti chiedono il livello del corso. La spiegazione facile è il
+primo gradino: dopo, torna sul vocabolario tecnico del manuale.
 
-**Non usare la voce dell'IA al posto della tua all'orale.** Le
-risposte costruite con l'IA suonano levigate, e per l'orale
-suonano *finte*. Il prof distingue subito tra una risposta
-masticata da te (anche con qualche inceppo) e una recitata a
-memoria con cadenza da chatbot. Studia con l'IA, rispondi con la
+**Non usare la voce dell'IA al posto della tua all'orale.** Le risposte
+costruite con l'IA hanno la [patina da IA](/it/everyday-use/write-better/#la-voce-media), e all'orale suonano finte. Il
+prof distingue una risposta masticata da te, anche con qualche inceppo,
+da una recitata con cadenza da chatbot. Studia con l'IA, rispondi con la
 tua testa.
 
 ## Verifica cosa hai capito

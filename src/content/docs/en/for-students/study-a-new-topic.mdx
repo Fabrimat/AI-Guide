@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -19,15 +21,13 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-This module teaches you to study better, not to get your homework
-done for you. Getting your homework done doesn't teach you anything
-and falls apart at the first oral exam.
+This module teaches you to study better. Getting your homework done for
+you doesn't teach you anything and falls apart at the first oral exam.
 AI is a study tool when it explains things, quizzes you, helps you
-review; it's a problem when it produces, in your place, the text
-you're supposed to hand in. This module gives you techniques for
-the first use; the final lesson, [*Ethics of
-studying*](/en/for-students/ethics-of-studying/), comes back
-explicitly to where the line falls.
+review, and a problem when it produces, in your place, the text you're
+supposed to hand in. The final lesson, [*Ethics of
+studying*](/en/for-students/ethics-of-studying/), comes back to where
+the line falls.
 
 ## From curiosity to formal study
 
@@ -36,47 +36,38 @@ you saw how to use the AI to understand a topic that interests
 you: blockchain, inflation, bacterial genetics. There the stakes
 were "did I get it or not?", and you alone were enough to judge.
 
-Formal study is another story. Three things change:
+Formal study changes three things:
 
-- There's a **reference material**, picked by the course. Often
-  it's not a single textbook: it's a mix of chapters from different
-  books, the professor's handouts, slides, articles. What matters
-  is what *that* material says, not how the topic is told in
-  general on the internet.
-- There's a **professor who decides what counts as "right"**, both
-  through what they put in the material and through what they add
-  out loud in class. Definitions and the boundaries of a concept
-  can shift between authors and between professors; in your course
-  the professor's version wins, even when it's in tension with the
-  textbook.
-- There's **a test at the end**: oral, written, paper. Someone
-  will ask you precise questions and expects precise answers, with
-  the vocabulary of the course.
+- There's a **reference material**, picked by the course: often a mix of
+  chapters, handouts, slides and articles. What matters is what *that*
+  material says, not how the topic is told in general on the internet.
+- There's a **professor who decides what counts as "right"**, through the
+  material and through what they add out loud. Definitions can shift
+  between authors and between professors: in your course the professor's
+  version wins, even when it's in tension with the textbook.
+- There's **a test at the end**: oral, written, paper. Someone will ask
+  you precise questions and expects answers with the course's vocabulary.
 
-The AI knows none of these three things. Left to its defaults, it
-fishes from Wikipedia, popular articles, English-language
-textbooks, and gives you back a mix that's almost-right but
-doesn't match your syllabus. To make it useful inside your course,
-you have to anchor it to your material and calibrate it to your
-professor. In [*Learn something new*](/en/everyday-use/learn-something-new/)
-you used it freely; here you put it on a leash.
+The AI knows none of the three. Left to its defaults, it fishes from
+Wikipedia, popular articles, English-language textbooks, and gives you
+back an almost-right mix that doesn't match your syllabus. You have to
+anchor it to your material and calibrate it to your professor: in
+[*Learn something new*](/en/everyday-use/learn-something-new/) you used
+it freely, here you put it on a leash.
 
 ## Three techniques to anchor the AI to your syllabus
 
-The three techniques work on different levels: the first anchors
-the AI to the **content** of your syllabus, the second to the
-**type of questions** you expect, the third to the **professor's
-style** that questions you. They combine: the most complete
-version is pasting the paragraph *and* asking exam-style questions
-on that paragraph *and* attaching style notes.
+The three techniques anchor the AI to the **content** of your syllabus,
+to the **type of questions** you expect and to the **professor's style**.
+They combine: paste the paragraph, ask exam-style questions on it,
+attach style notes.
 
 ### 1. Paste the textbook paragraph
 
-The simplest move and the most underrated. When you need to
-understand a concept from the course, don't ask "explain X to me":
-open the book, copy the paragraph that introduces it (or the
-bullet point from the slide), paste it into the chat, and *then*
-ask for the explanation while staying inside that frame.
+The simplest move and the most underrated. When you need to understand a
+concept from the course, don't ask "explain X to me": copy the paragraph
+(or the slide bullet) that introduces it, paste it into the chat, and
+*then* ask for the explanation while staying inside that frame.
 
 The prompt looks different. From:
 
@@ -89,37 +80,31 @@ To:
 > simpler words, but stay inside the frame the text gives. If you
 > add something that isn't here, flag it for me."*
 
-The difference shows right away. In the first version the AI gives you
-back an averaged summary: definitions floating around the web,
-some reference to the Constitution, some common sense. In the
-second version the AI is forced to reformulate what's in front of
-you, nothing more. If the textbook insists on a particular
-distinction (for example between "formally presidential acts" and
-"substantively presidential acts"), the explanation that comes
-out keeps that distinction. If you ask in general instead, that
-nuance disappears and at the exam you're missing it.
+The difference shows right away. In the first version the AI gives you an
+averaged summary: definitions floating around the web, some common sense.
+In the second it's forced to reformulate what's in front of you. If the
+textbook insists on a distinction (for example between "formally
+presidential acts" and "substantively presidential acts"), the
+explanation keeps it. If you ask in general, that nuance disappears and
+at the exam you're missing it.
 
-The same goes for slides: if the professor put a definition on a
-slide, that definition is the reference. Paste it. If the slide
-is just three-word bullets, add a line at the end of the prompt
-with what the professor said out loud on that point, even just a
-few words: the slide alone is too sparse to anchor the AI, the
-slide plus your verbal summary is enough.
+The same goes for slides: if the professor put a definition on a slide,
+that's the reference. If the slide is just three-word bullets, add a line
+at the end of the prompt with what the professor said out loud on that
+point.
 
 :::tip[How much to paste at a time]
-One paragraph (half a page) at a time works better than three
-full pages. If the topic is big, split it: anchor the AI to the
-first block, understand it, then move to the second. The AI is
-more precise on targeted portions than on whole chapters, and you
-understand one thing at a time better than everything at once.
+One paragraph (half a page) at a time works better than three full
+pages. If the topic is big, split it: anchor the AI to the first block,
+understand it, then move to the second.
 :::
 
 ### 2. Ask exam-style questions on that chapter
 
 Once you've understood the concept, flip the roles (the "return
-questioning" technique you saw in [*Learn something
-new*](/en/everyday-use/learn-something-new/)), with one extra
-spec: force the level of the exam.
+questioning" technique from [*Learn something
+new*](/en/everyday-use/learn-something-new/)) and force the level of the
+exam.
 
 > *"Based on the chapter I pasted above, give me three oral-style
 > questions and three written-style questions, at the level of
@@ -128,75 +113,62 @@ spec: force the level of the exam.
 > moving to the next. After each answer tell me if it's correct
 > and what's missing to get a top grade."*
 
-The AI changes tone. Without the level spec, the questions come
-out generic ("what is the President of the Republic for?"); with
-the spec, they come out more precise ("distinguish between
-presidential acts that require ministerial countersignature and
-those that don't, citing one example for each category").
-
-The distinction between oral and written matters because they're
-different tests. The oral rewards your ability to synthesize and
-reason out loud; the written rewards precision and completeness.
-Practicing only the format you'll get at the exam is less useful
-than practicing both: it gives you different angles on the same
-material.
+The AI changes tone. Without the level spec, the questions come out
+generic ("what is the President of the Republic for?"); with it, they
+come out precise ("distinguish between presidential acts that require
+ministerial countersignature and those that don't, with one example for
+each"). Oral and written are different tests: the oral rewards synthesis
+and reasoning out loud, the written precision and completeness.
+Practicing both gives you different angles on the same material.
 
 ### 3. Calibrate the AI to your professor's style
 
-This move matters most when the exam gets close. If you
-have lecture notes, the professor's slides, or even just an
-outline of a past oral exam circulating among students, paste it
-in as a style reference.
+This move matters when the exam gets close. If you have lecture notes,
+the professor's slides, or even just the outline of a past oral exam
+circulating among students, paste it in as a style reference.
 
 > *"These are notes from three lectures by my professor. They
 > tend to insist on X and Y, and often ask questions like Z.
 > When you quiz me on this chapter, simulate their way of asking,
 > not a generic quiz."*
 
-The AI doesn't know your professor by name, but it picks up on
-the *pattern*: if the professor tends to ask for practical
-applications, it gets that from the notes and gives you those; if
-instead they ask for word-for-word definitions, that comes out
-too. The simulation isn't perfect, but it gets you much closer to
-what awaits you in the classroom than a random quiz from the
-internet.
+The AI doesn't know your professor by name, but it picks up on the
+*pattern*: if they ask for practical applications it gets that from the
+notes, if they ask for word-for-word definitions that comes out too. The
+simulation isn't perfect, but it gets you closer to the classroom than a
+random quiz from the internet.
 
-A worked example. You're preparing for a modern history exam, and
-from the notes of the last three lectures your professor has
-insisted on the role of the press in shaping public opinion
-between the two world wars, often citing two specific authors.
-The prompt becomes:
+An example: you're preparing a modern history exam and from the notes of
+the last three lectures your professor has insisted on the role of the
+press between the two world wars, often citing Mosse and Gentile. The
+prompt becomes:
 
 > *"I'm studying for a modern history exam. In the notes I'm
-> pasting in, my professor insists a lot on two things: the role
-> of the press between the two world wars and the authors Mosse
-> and Gentile. When you quiz me on the chapter I'm passing you
-> right after, simulate their way of asking: give me questions
-> that connect the general theme to these two authors, one at a
-> time, waiting for my answers. Notes: \[paste 1-2 pages of
-> notes]."*
+> pasting in, my professor insists on two things: the role of the
+> press between the two world wars and the authors Mosse and Gentile.
+> When you quiz me on the chapter I'm passing you right after,
+> simulate their way of asking: questions that connect the general
+> theme to these two authors, one at a time. Notes: \[paste 1-2 pages
+> of notes]."*
 
-On the lead of those two authors, the AI pulls out questions like
-"how would Mosse explain this passage from the textbook?" instead
-of asking for the definition of a term.
+On the lead of the two authors, the AI asks "how would Mosse explain this
+passage from the textbook?" instead of the definition of a term.
 
 :::note[For STEM students]
-The three techniques apply here too, with a tweak on the
-"paragraph to paste": instead of the prose paragraph, you paste
-the **theorem** with its proof, or the **exercise** with its
-solution, or the **textbook passage** that introduces the
-formula. The prompt barely changes: "explain this proof to me
-step by step, staying inside the notation the text uses. If you
-add a step that isn't here, flag it for me." For calibration to
-the professor's style, the "style notes" become past exercises or
-previous exam papers.
+The three techniques apply here too, with a tweak: instead of the prose
+paragraph you paste the **theorem** with its proof, the **exercise** with
+its solution, or the **passage** that introduces the formula. The prompt:
+"explain this proof to me step by step, staying inside the notation the
+text uses. If you add a step that isn't here, flag it for me." For the
+professor's style, the "style notes" become past exercises or previous
+exam papers.
 :::
 
 ## The difference in practice
 
-A constitutional law student, Bin/Pitruzzella textbook, is
-studying the powers of the President of the Republic. First try,
-asking in general.
+A constitutional law student, with the Bin/Pitruzzella textbook, is
+studying the powers of the President of the Republic. First try, asking
+in general.
 
 <ChatDemo
   user="Explain the dissolution powers of the President of the Republic to me."
@@ -207,15 +179,15 @@ The dissolution power is regulated by Article 88 of the Constitution. The Presid
 In presidential systems like the United States, the equivalent function does not exist: Congress has a fixed term. This is because in Italy the President doesn't lead the government but acts as an institutional referee.`}
 />
 
-The answer is honest, but there's a problem: the closing
-comparison with the United States is side material the textbook
-doesn't cover in that section, and at the exam it costs you time.
-On top of that, it's missing a distinction that Bin/Pitruzzella
-develop with care, on the substantively or formally presidential
-nature of the dissolution act, which is exactly the kind of
-nuance constitutional law professors insist on.
+The answer is honest, but the comparison with the United States is side
+material the textbook doesn't cover, and at the exam it costs you time.
+It also misses a distinction that Bin/Pitruzzella develop with care, on
+the substantively or formally presidential nature of the dissolution act:
+exactly the nuance constitutional law professors insist on.
 
 Now the same question, anchored to the textbook paragraph.
+
+<Collapsible title="See the version anchored to the paragraph">
 
 <ChatDemo
   user={`This is the paragraph I'm studying from the Bin/Pitruzzella textbook on dissolution powers:
@@ -234,72 +206,68 @@ Explain this paragraph to me in simpler words, staying inside the frame the text
 Note: the paragraph doesn't talk about what happens if the final six months of the presidential mandate coincide with the end of the legislature. There's an exception in the Constitution on this point, but your text doesn't cite it here.`}
 />
 
-Three differences compared to the general answer. First, the
-vocabulary is the textbook's ("formally presidential but
-substantively complex act", "check on legality and timing"),
-which is what the professor expects to hear. Second, no
-comparison with the United States, which isn't in the paragraph.
-Third, the AI honestly flags the point the paragraph leaves out,
-so you know where to go look for the rest.
+</Collapsible>
 
-A quick test if you suspect it's drifting off: ask the AI "which
-part of the paragraph I pasted is this sentence based on?". If it
-answers by pointing you to the exact spot in the text, you're
-anchored; if it talks around it or cites general knowledge,
-you're back in open water and you need to re-paste.
+Three differences compared to the general answer. The vocabulary is the
+textbook's ("formally presidential but substantively complex act"),
+which is what the professor expects to hear. There's no comparison with
+the United States, which isn't in the paragraph. And the AI flags the
+point the paragraph leaves out, so you know where to look for the rest.
+
+A quick test if you suspect it's drifting off: ask "which part of the
+paragraph I pasted is this sentence based on?".
+
+<SelfCheck
+  id="study-a-new-topic-q1"
+  question="You ask the AI: “which part of the paragraph I pasted is this sentence based on?”. It answers with a general explanation of the topic, without pointing to a spot in the text. What does that mean?"
+  options={[
+    { text: "You're anchored: the AI knows the topic well.", why: "Knowing the topic in general is exactly the problem: you need what your paragraph says." },
+    { text: "You're back in open water: re-paste the paragraph and repeat the constraint.", correct: true, why: "If it can't point to the exact spot, the sentence comes from general knowledge. It needs re-anchoring to the text." },
+    { text: "The sentence is wrong and should be discarded.", why: "It may be perfectly correct, just not your textbook's version. The problem is anchoring, not necessarily error." },
+  ]}
+  explanation="The test works because an anchored AI can point to the passage. If it talks around it, it isn't anchored."
+/>
 
 ## "I get it" is not "I know what the professor expects"
 
-There's a specific risk in using the AI as a study tutor: you
-hold a nice conversation, the AI compliments you, you leave the
-session convinced you know the topic. Then the professor asks
-their question and you freeze.
+There's a specific risk: you hold a nice conversation, the AI
+compliments you, you leave convinced you know the topic. Then the
+professor asks their question and you freeze. In a conversation you can
+wander and let the chat context feed you the words you're missing. At the
+oral exam you're alone, with a professor waiting for an answer that uses
+the textbook's words.
 
-The reason is that holding a conversation is one thing, answering
-a precise question is another. In a conversation you can wander,
-reformulate, let the chat context feed you the words you're
-missing; at the oral exam you're alone, with a professor waiting
-for an answer that uses the textbook's words.
-
-A quick check at the end of a session: close
-the chat. Open the book to the chapter. Close that too. Explain
-the topic out loud, alone, as if you were at the oral. If you
-stumble, mark the exact point where you stumble: usually it's the
+A quick check at the end of a session: close the chat, open the book to
+the chapter, close that too. Explain the topic out loud, alone, as if you
+were at the oral. If you stumble, mark the exact point: usually it's the
 vocabulary (you're missing the textbook's technical word) or the
-connection (you know the individual facts but not how they fit
-together). For the vocabulary you go back to the textbook and
-write the definitions out by hand; for the connection you go back
-to the AI and ask it to give you three connection questions on
-that chapter, no more definitions. It's a variant of the <Def explanation="Study method: you explain a topic out loud as if you were teaching it to a child. Where you stumble, that's where you don't really know it.">Feynman
+connection (you know the individual facts but not how they fit together).
+For the vocabulary you go back to the textbook and write the definitions
+out by hand. For the connection you ask the AI for three connection
+questions on that chapter. It's a variant of the <Def explanation="Study method: you explain a topic out loud as if you were teaching it to a child. Where you stumble, that's where you don't really know it.">Feynman
 technique</Def>, applied to the course syllabus.
 
 :::caution[Your professor's material and privacy]
-Uploading lecture PDFs, slides, or recorded lecture notes to a
-public chat means sending that material to the AI's servers. If
-it's covered by academic copyright (often the case for
-unpublished slides and handouts), it's a choice at your own risk:
-technically possible, contractually questionable. For sensitive
-material prefer chats with history disabled (see the privacy
-settings of your tool), or retype the passages you need by hand
-instead of uploading the whole file. The bigger picture is in
-[*What you share when you use the
+Uploading lecture notes, slides or recordings to a chat means sending
+that material to the AI's servers. If it's covered by academic copyright
+(often the case for unpublished slides and handouts), it's a choice at
+your own risk. For sensitive material disable the history in your tool's
+privacy settings, or retype the passages you need by hand. The bigger
+picture is in [*What you share when you use the
 AI*](/en/fundamentals/privacy-basics/).
 :::
 
 ## What NOT to do
 
-**Don't ask "explain it to me easy" and stop there.** The AI
-simplifies happily, but the exam asks for the level of the
-course, not the bar-stool level. The easy explanation is the
-first step, not the last: after you've understood, go back to the
-textbook's technical vocabulary.
+**Don't stop at "explain it to me easy".** The AI simplifies happily, but
+the exam asks for the level of the course. The easy explanation is the
+first step: after it, go back to the textbook's technical vocabulary.
 
-**Don't use the AI's voice instead of your own at the oral.**
-Answers built with the AI sound polished, and at the oral they
-sound *fake*. The professor immediately tells the difference
-between an answer you've chewed through yourself (even with some
-stumbles) and one recited from memory with a chatbot cadence.
-Study with the AI, answer with your own head.
+**Don't use the AI's voice instead of your own at the oral.** Answers
+built with the AI carry the [polished AI tone](/en/everyday-use/write-better/#the-average-voice), and at the oral they sound
+fake. The professor tells the difference between an answer you've chewed
+through yourself, even with some stumbles, and one recited with a chatbot
+cadence. Study with the AI, answer with your own head.
 
 ## Check what you've understood
 

@@ -8,6 +8,7 @@ prerequisiti: [ask-well, when-to-trust-it]
 import ChatDemo from '../../../../components/ChatDemo.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
 
 <LessonSummary>
 
@@ -68,15 +69,12 @@ attributed to Pius IX. A frequent pattern for historical figures
 with namesakes (the Plinys, the Catos, the numbered popes), or for
 philosophical schools with many representatives.
 
-Example: you ask about a position in the Middle Stoa, and the AI
-attributes to Panaetius a stance that was Posidonius's (or the
-other way around). To stay cross-disciplinary: a discovery by Marie
-Curie attributed to Pierre Curie, an encyclical of Pius X dated to
-Pius IX, a painting by one Carracci attributed to the wrong
-brother. Same family (or same school), close period, overlapping
-themes. The AI "remembers" that the thing belongs to that area and
-pulls out the most likely name. Sometimes it guesses right,
-sometimes not.
+Example: you ask about a position in the Middle Stoa and the AI
+attributes to Panaetius a stance that was Posidonius's (or the other way
+around). Or a discovery by Marie Curie attributed to Pierre, or an
+encyclical of Pius X dated to Pius IX. Same family or same school, close
+period, overlapping themes: the AI "remembers" the area and pulls out the
+most likely name. Sometimes it guesses right, sometimes not.
 
 ### 4. Formulas that look right but have the wrong sign
 
@@ -128,19 +126,18 @@ tests work anyway.
 Ask the AI to answer while staying inside a text that you have: the
 paragraph from your textbook, the course slides, the professor's
 handout. You paste it into the prompt, and you constrain the answer
-to that. If the course sources are more than one (textbook + slides
-+ handouts + article), paste them all and impose the constraint
-*"stay inside THESE texts"*. If two sources contradict each other,
-that's a question for the professor, not for the AI.
+to that. If the course sources are more than one (textbook, slides, handouts),
+paste them all and impose the constraint *"stay inside THESE texts"*. If
+two sources contradict each other, that's a question for the professor,
+not for the AI.
 
 > *"Answer this question using only the text below, don't add
 > outside information."*
 
-If what it tells you diverges from the textbook, the textbook wins.
-You're preparing for an exam on that text, not on the AI's general
-encyclopedia. It works in reverse too: ask the AI to paraphrase the
-paragraph, to give examples of it, to make it clearer, while staying
-within its claims.
+If what it tells you diverges from the textbook, the textbook wins: you're
+preparing for an exam on that text, not on the AI's general encyclopedia.
+It works in reverse too: ask it to paraphrase the paragraph or to give
+examples of it, while staying within its claims.
 
 ### Source test
 
@@ -212,6 +209,20 @@ was right, but "March" was an error. Without the tests, "March 1945"
 would have ended up in her notes on the textbook, and that small
 error would have made it all the way to the exam.
 
+Try to find the errors in an answer on a classic case of intertwined
+biographies.
+
+<SpotTheError
+  prompt="Tell me about Marie Curie's Nobel prizes."
+  sentences={[
+    { text: "Marie Curie won two Nobel prizes: physics in 1903 and chemistry in 1911." },
+    { text: "She shared the physics prize with her husband Pierre and with Henri Becquerel." },
+    { text: "Pierre Curie also won the 1911 Nobel Prize in Chemistry together with her.", wrong: true, why: "Pierre had died in 1906, run over by a horse-drawn cart in Paris. Marie won the 1911 chemistry prize alone." },
+    { text: "The chemistry prize was awarded for the discovery of radium and polonium." },
+    { text: "Polonium was named after France, Marie's adopted country.", wrong: true, why: "The name comes from Poland, Marie's country of origin." },
+  ]}
+/>
+
 :::tip[Higher-risk subjects]
 Areas where the AI goes wrong more often in a study context:
 
@@ -231,9 +242,9 @@ but wrong detail, right author but work attributed wrong.
 ## What NOT to do
 
 **Don't trust an answer just because it *"sounds right"*.** Every AI
-answer sounds right: it's how the AI is built. It picks the most
-probable words, and the result is fluent prose whatever the content
-is. Fluency tells you nothing about truth.
+answer sounds right: it picks the most probable words, and the result is
+fluent prose whatever the content is. Fluency tells you nothing about
+truth.
 
 **Don't keep a piece of information only in the chat.** Chats
 disappear (history cleared, session lost), and the information

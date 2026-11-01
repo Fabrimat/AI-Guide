@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -20,158 +22,134 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-La bibliografia accademica è il punto in cui l'IA fa più danno.
-Sbaglia quanto altrove, ma qui ha imparato a "suonare bibliografia"
-molto bene senza necessariamente farne una vera. Le
-citazioni che ti propone hanno la forma giusta: autore con un cognome
-plausibile, journal che esiste, anno recente, pagine credibili. Solo
-che la combinazione specifica spesso non esiste.
+La bibliografia accademica è il punto in cui l'IA fa più danno. Ha
+imparato a "suonare bibliografia" molto bene senza farne una vera: le
+citazioni che propone hanno autore con un cognome plausibile, journal
+che esiste, anno recente, pagine credibili. Solo che la combinazione
+specifica spesso non esiste.
 
-Riconoscere una citazione inventata da una vera è una skill, e si
-impara in una sessione. Conseguenza pratica del non impararla: il
-relatore in trenta secondi prende una citazione a caso dalla tua
-bibliografia, cerca il DOI, e capisce che hai consegnato citazioni
-mai esistite. È un guaio prevedibile e prevenibile, e questa
-lezione serve a prevenirlo.
+Riconoscere una citazione inventata è una skill, e si impara in una
+sessione. Se non la impari, il relatore prende una citazione a caso
+dalla tua bibliografia, cerca il DOI e capisce che hai consegnato
+citazioni mai esistite.
 
 ## Anatomia della citazione inventata
 
-L'IA non inventa con "tag" che ti permettono di smascherarla. È
-addestrata su milioni di citazioni vere e ha imparato il pattern
-formale benissimo, ma "produrre una citazione plausibile" e
-"produrre una citazione esistente" sono per lei lo stesso compito:
-quale combinazione esiste davvero è informazione esterna al modo in
-cui scrive, sta in un database che lei non interroga mentre risponde.
-Quindi inventa con la stessa struttura formale delle citazioni vere:
-autore con un cognome che esiste davvero, magari un accademico noto
-della disciplina; journal esistente o quasi (a volte con una piccola
-storpiatura del nome); anno plausibile, di solito recente; pagine
-credibili. Quello che manca è la corrispondenza: la combinazione
-specifica autore + titolo + journal + anno non esiste, oppure il
-DOI non risolve, oppure l'articolo esiste ma dice qualcosa di
+L'IA è addestrata su milioni di citazioni vere e ha imparato benissimo
+la forma, ma per lei "produrre una citazione plausibile" e "produrre una
+citazione esistente" sono lo stesso compito: quale combinazione esiste
+davvero sta in un database che non interroga mentre risponde. Quindi
+inventa con la stessa struttura delle citazioni vere: un accademico noto
+della disciplina, un journal esistente o quasi, un anno recente. Manca
+la corrispondenza: la combinazione autore, titolo, journal e anno non
+esiste, o il DOI non risolve, o l'articolo esiste ma dice qualcosa di
 diverso da quello che la citazione gli attribuisce.
 
 Quattro pattern tipici di invenzione, da tenere a mente.
 
-**Autore reale + paper reale + anno sbagliato.** L'autore esiste, il
-paper esiste, ma la citazione lo data al 2018 mentre in realtà è
-del 2014. Variante crudele: l'anno è il momento in cui pensavi di
-aver letto qualcosa di simile, e ci credi.
+**Autore reale + paper reale + anno sbagliato.** L'autore e il paper
+esistono, ma la citazione lo data al 2018 mentre è del 2014.
 
-**Autore reale + paper inesistente attribuito a quell'autore.** Un
-autorevole studioso del campo, citato come autore di un articolo
-che non ha mai scritto. Il titolo è plausibile ("Tax Pass-Through
-on Sugar-Sweetened Beverages in European Markets"), e tu ci credi
-perché conosci l'autore.
+**Autore reale + paper inesistente.** Uno studioso autorevole, citato
+come autore di un articolo che non ha mai scritto, con un titolo
+plausibile. Ci credi perché conosci l'autore.
 
-**Journal reale + numero/anno inesistente.** Il *Journal of Health
-Economics* esiste, ma il volume 67 numero 3 del 2019 non contiene
-l'articolo che l'IA ti cita. La rivista è vera, l'articolo no.
+**Journal reale + numero inesistente.** Il *Journal of Health Economics*
+esiste, ma il volume 67 numero 3 del 2019 non contiene l'articolo citato.
 
-**Citazione perfettamente strutturata ma cento per cento inventata.**
-Autore inventato, paper inventato, journal inventato (o esistente ma
-casualmente plausibile), DOI inventato. La forma è impeccabile.
-Questo è il caso più frequente quando chiedi all'IA "tre paper
-recenti su X" senza accesso a un motore di ricerca live.
+**Citazione perfetta e inventata.** Autore, paper, journal e DOI
+inventati, con forma impeccabile. È il caso più frequente quando chiedi
+"tre paper recenti su X" a un'IA senza ricerca web.
 
 ## Il DOI come gate di verifica
 
-Ogni articolo accademico serio pubblicato dopo il 2000 circa ha un
-DOI, *Digital Object Identifier*. È una firma univoca dell'articolo,
-una stringa che inizia con `10.` seguita da un identificativo
-dell'editore, una barra, e un codice. Esempio di forma:
-`10.1016/j.jhealeco.2019.102225` è il DOI di un articolo di Cawley
-et al. del 2019 su `Journal of Health Economics`, lo vedrai nel
-ChatDemo più sotto.
+Quasi ogni articolo accademico pubblicato dopo il 2000 ha un DOI,
+*Digital Object Identifier*: una stringa che inizia con `10.`, seguita
+da un identificativo dell'editore, una barra e un codice. Per esempio
+`10.1016/j.jhealeco.2019.102225` è il DOI di un articolo di Cawley et al.
+del 2019 sul *Journal of Health Economics*, che trovi nell'esempio più
+sotto.
 
-La verifica pratica è veloce. Prendi il DOI che l'IA ti ha dato,
-incollalo su `doi.org/<DOI>` (così: `https://doi.org/10.1086/675329`),
-oppure cercalo direttamente su Google Scholar. Tre esiti possibili.
+La verifica è veloce: incolla il DOI su `doi.org/<DOI>` (per esempio
+`https://doi.org/10.1086/675329`) oppure cercalo su Google Scholar. Tre
+esiti possibili.
 
-**Il DOI non risolve.** La pagina dice che il documento non esiste,
-oppure `doi.org` ti rimanda a un errore. La citazione è quasi
-certamente inventata. Buttala.
+**Il DOI non risolve.** La pagina dice che il documento non esiste. La
+citazione è quasi certamente inventata: buttala.
 
-**Il DOI risolve, ma a un paper diverso da quello atteso.** Apri il
-link e leggi titolo, autori, anno. Se non corrispondono a quello che
-l'IA ti ha citato, l'IA ha attribuito un contenuto sbagliato a un
-identificatore reale. Buttala.
+**Il DOI risolve a un paper diverso da quello atteso.** Se titolo, autori
+e anno non corrispondono, l'IA ha attribuito un contenuto sbagliato a un
+identificatore reale: buttala.
 
-**Il DOI risolve al paper giusto.** Tutto corrisponde: autori, anno,
-titolo, journal. La citazione è quasi sicuramente vera. Resta da
-verificare che il paper dica davvero quello che l'IA gli attribuisce
-come contenuto: per quello serve almeno l'abstract.
+**Il DOI risolve al paper giusto.** La citazione è quasi sicuramente
+vera. Resta da controllare che il paper dica davvero ciò che l'IA gli
+attribuisce: per quello serve almeno l'abstract.
 
-Il DOI è il filtro più veloce che hai: dieci secondi a citazione.
-Per articoli pre-2000 o libri (che spesso non hanno DOI) la verifica
-passa da WorldCat o dal catalogo della tua biblioteca: cerchi
-autore e titolo, e se non escono risultati la citazione è da
-verificare con più attenzione.
+Il DOI è il filtro più veloce che hai: dieci secondi a citazione. Per
+articoli pre-2000 e libri, che spesso non hanno DOI, cerca autore e
+titolo su WorldCat o nel catalogo della tua biblioteca: se non esce
+nulla, la citazione va verificata con più attenzione.
+
+<SelfCheck
+  id="sources-and-citations-q1"
+  question="L'IA ti dà una citazione con DOI. Lo incolli su doi.org e si apre un paper con autori e titolo completamente diversi, su un altro tema. Cosa concludi?"
+  options={[
+    { text: "La citazione è buona: il DOI esiste, quindi la fonte è reale.", why: "Il DOI esiste, ma punta a un altro articolo. L'IA ha abbinato un identificatore reale a una citazione che non c'entra." },
+    { text: "La citazione è da scartare, anche se il DOI risolve.", correct: true, why: "Un DOI che apre un paper diverso da quello citato è uno dei segnali tipici di invenzione." },
+    { text: "Il DOI è sbagliato di una cifra: lo correggi a mano finché trovi il paper giusto.", why: "Indovinare cifre non ti dà una fonte verificata. Cerca il paper per titolo e autore su Google Scholar, e se non c'è, scarta la citazione." },
+  ]}
+  explanation="Controlla sempre tre cose dopo il clic: titolo, autori, anno. Se anche una sola non torna, la citazione non passa."
+/>
 
 :::tip[IA con accesso al web]
-Alcune IA hanno accesso al web in tempo reale: ChatGPT con browsing
-attivo, Claude con web search, Gemini, Perplexity. Con queste puoi
-aggiungere al prompt *"verifica ogni DOI su doi.org prima di darmelo,
-e scarta quello che non risolve"*: lo fanno davvero, e il tasso di
-citazioni inventate cala parecchio. Con un'IA senza accesso al web,
-la stessa istruzione è inutile: l'IA simulerà la verifica ma
-inventerà anche quella.
+Alcune IA hanno accesso al web in tempo reale: ChatGPT con ricerca web,
+Claude con web search, Gemini, Perplexity. Con queste puoi aggiungere al
+prompt *"verifica ogni DOI su doi.org prima di darmelo, e scarta quello
+che non risolve"*: il tasso di citazioni inventate cala parecchio. Con
+un'IA senza accesso al web la stessa istruzione è inutile: simulerà la
+verifica e inventerà anche quella.
 :::
 
 ## Quattro stili bibliografici
 
-In università italiana ne girano principalmente quattro, a seconda
-del campo. Mappa breve.
+In un'università italiana girano principalmente quattro stili, a seconda
+del campo. Se il relatore non specifica, chiediglielo: una riga di mail
+risolve. Altrimenti segui la convenzione del dipartimento o sfoglia due o
+tre tesi recenti che ha seguito.
 
-**APA** (American Psychological Association). Scienze sociali e
-umane: psicologia, sociologia, economia, scienze dell'educazione.
-Citazione nel testo `(Autore, anno)`, bibliografia finale ordinata
-per cognome dell'autore.
+<Collapsible title="I quattro stili in breve">
 
-**MLA** (Modern Language Association). Umanistica anglosassone:
-letterature, lingue, studi culturali. Citazione nel testo
-`(Autore, pagina)`, niente anno. La bibliografia si chiama "Works
-Cited".
+**APA**: scienze sociali e umane (psicologia, sociologia, economia,
+educazione). Nel testo `(Autore, anno)`, bibliografia ordinata per
+cognome.
 
-**Chicago** (note + bibliografia). Storia, alcune umanistiche
-italiane. Note a piè di pagina con citazione completa la prima
-volta, abbreviata le successive. Bibliografia finale a parte.
+**MLA**: umanistica anglosassone (letterature, lingue, studi culturali).
+Nel testo `(Autore, pagina)`, bibliografia chiamata "Works Cited".
 
-**ISO 690** (con le sue varianti europee). Scienze tecniche e tesi
-in italiano, spesso in ingegneria e in alcuni dipartimenti di
-scienze. Riferimenti numerati `[1], [2], ...` nel testo,
-bibliografia in fondo nello stesso ordine.
+**Chicago**: storia e alcune umanistiche italiane. Note a piè di pagina
+con citazione completa la prima volta, abbreviata le successive.
 
-Se il relatore non specifica, chiediglielo: una riga di mail risolve.
-In assenza di indicazione, segui la convenzione del dipartimento.
-Economia, psicologia, sociologia di solito APA. Letterature anglo,
-lingue MLA. Storia e umanistica italiana Chicago. Ingegneria e
-scienze tecniche ISO 690. In dubbio, sfoglia due o tre tesi recenti
-che il tuo relatore ha seguito (chiedi alla segreteria didattica) e
-usa lo stile che hanno usato loro.
+**ISO 690**: scienze tecniche e tesi di ingegneria. Riferimenti numerati
+`[1], [2], ...` nel testo, bibliografia nello stesso ordine.
 
-Per qualunque di questi quattro, l'IA è un buon **formattatore**:
-le dai i dati grezzi (autore, titolo, anno, pagine, journal) e le
-chiedi *"formattami queste cinque voci in stile Chicago"*. Il
-risultato è di solito accettabile. Quello che non è un buon
-formattatore è la sua memoria delle regole esatte di ogni stile:
-ogni versione ha aggiornamenti, e l'IA può sbagliare un dettaglio
-(virgola al posto del punto, corsivo sul titolo del journal invece
-che del libro). Per controllare se la formattazione è corretta usa
-una guida ufficiale (Purdue OWL è il riferimento gratuito più solido
-in inglese) o, meglio, un gestore bibliografico come **Zotero**
-(gratis, open source). In pratica: installi l'app desktop, aggiungi
-l'estensione browser, e quando sei sulla pagina di un paper clicchi
-un'icona che importa autore, titolo, anno, journal, DOI in un colpo.
-Da lì formatti in qualunque stile (APA, MLA, Chicago, ISO 690) senza
-chiedere niente all'IA. Sincronizzazione cloud gratuita con account,
-plugin per Word e Google Docs.
+</Collapsible>
+
+Per qualunque stile l'IA è un buon **formattatore**: le dai i dati grezzi
+(autore, titolo, anno, pagine, journal) e chiedi *"formattami queste
+cinque voci in stile Chicago"*. Non è affidabile sulla memoria delle
+regole esatte: può sbagliare un dettaglio (una virgola al posto del
+punto, il corsivo sul titolo sbagliato). Per controllare usa una guida
+ufficiale (Purdue OWL è il riferimento gratuito più solido in inglese) o,
+meglio, **Zotero**, gratuito e open source. Installi l'app e l'estensione
+del browser, e dalla pagina di un paper importi autore, titolo, anno,
+journal e DOI con un clic. Poi formatti in qualunque stile senza chiedere
+niente all'IA.
 
 ## Fonte accademica vera o blog mascherato
 
-Quando chiedi all'IA "trovami fonti su X", oltre all'invenzione
-c'è la confusione di registro: ti propone come fonti accademiche
-cose che hanno apparenza accademica ma non lo sono.
+Quando chiedi all'IA "trovami fonti su X", oltre all'invenzione c'è la
+confusione di registro: ti propone come accademiche cose che ne hanno
+solo l'apparenza. Tre casi tipici:
 
 Tre casi tipici:
 
@@ -181,10 +159,10 @@ Tre casi tipici:
 - <Def explanation="Bozza di un articolo accademico messa online prima della peer review. Può essere modificata o ritirata, ma fa risparmiare i mesi di attesa della pubblicazione su rivista.">preprint</Def> su SSRN o ResearchGate non ancora pubblicati su una
   rivista, che possono essere modificati o ritirati.
 
-Niente di tutto questo è "spazzatura": un buon blog di un dottorando
-può essere informato, un preprint può essere un lavoro serio in
-attesa di pubblicazione. Ma usarli in tesi come se fossero
-peer-reviewed è un errore di registro che il relatore segna subito.
+Niente di tutto questo è spazzatura: un buon blog può essere informato,
+un preprint può essere un lavoro serio in attesa di pubblicazione. Ma
+usarli in tesi come se fossero peer-reviewed è un errore che il relatore
+segna subito.
 
 Tre filtri pratici per distinguere.
 
@@ -207,47 +185,37 @@ Due filtri su tre superati: la fonte è probabilmente solida. Zero
 filtri su tre: stai citando un blog, non un paper.
 
 :::note[Fonti istituzionali: caso a parte]
-Report di Banca d'Italia, OECD, ISTAT, Eurostat, World Bank non
-passano i tre filtri sopra: non sono peer-reviewed, raramente hanno
-DOI, l'editore è un'istituzione e non una university press. Eppure
-sono fonti autorevoli, soprattutto in economia, scienze sociali,
-politiche pubbliche. Si citano in bibliografia con autore =
-istituzione (es. *Banca d'Italia*), anno, titolo del report, URL
-stabile. In tesi quantitative e di scienze sociali sono benvenute;
-spesso si tengono in una sezione "Fonti istituzionali" separata
-dalla letteratura accademica. Vanno citate come fonti istituzionali e valutate per l'autorevolezza
-dell'ente.
+Report di Banca d'Italia, OECD, ISTAT, Eurostat, World Bank non passano i
+tre filtri: non sono peer-reviewed, raramente hanno DOI, l'editore è
+un'istituzione. Eppure sono fonti autorevoli, soprattutto in economia e
+scienze sociali. Si citano con autore = istituzione (per esempio *Banca
+d'Italia*), anno, titolo del report e URL stabile, spesso in una sezione
+"Fonti istituzionali" separata dalla letteratura accademica, e si
+valutano per l'autorevolezza dell'ente.
 :::
 
-:::tip[NotebookLM e simili: bibliografia chiusa]
-**NotebookLM** è uno strumento Google pensato apposta per lavorare
-su una bibliografia che hai già. Carichi i PDF dei paper che hai
-selezionato (o le pagine di libri, articoli, dispense), e l'IA
-risponde **solo** sulla base di quei documenti. Niente *world
-knowledge*, niente citazioni inventate: per costruzione, se un
-contenuto non sta nei documenti caricati, l'IA non lo propone come
-risposta.
+<Collapsible title="NotebookLM e simili: lavorare su una bibliografia chiusa">
 
-È il modo più sicuro di lavorare quando la bibliografia è
-definita: tesi su un autore specifico di cui hai già i venti
-articoli chiave, capitolo basato su una rosa di paper noti, ricerca
-in cui hai già fatto la selezione delle fonti. La limitazione è
-strutturale: devi avere già i paper. NotebookLM non li scopre per
-te: sostituisce la fase di sintesi, non quella di scoperta delle fonti.
+**NotebookLM** è uno strumento Google pensato per lavorare su una
+bibliografia che hai già. Carichi i PDF dei paper che hai selezionato e
+l'IA risponde **solo** sulla base di quei documenti, citando da quale
+paper ha preso ogni frase. Per costruzione non propone contenuti che non
+stanno nei documenti caricati, quindi niente citazioni inventate.
 
-Strumenti simili: **Claude Projects** (carichi PDF in un progetto e
-Claude risponde basandosi su quelli), **Custom GPTs** con knowledge
-base (uguale lato ChatGPT). NotebookLM è il più specializzato per
-bibliografia: cita automaticamente la fonte dentro ogni risposta,
-mostrando da quale paper ha preso ciascuna frase. Per una tesi su
-una rosa chiusa di paper, è il più solido. Per uso più generale
-(brainstorming, scrittura), Projects e Custom GPTs sono più
-flessibili. Lo stesso vincolo di [*Ricerca per il
-lavoro*](/it/at-work/research-for-work/) sui documenti aziendali
-vale qui: prima di caricare PDF di paper a pagamento o materiali con
-copyright, verifica che la piattaforma sia adeguata e che non stai
-violando i termini di licenza della rivista.
-:::
+È il modo più sicuro di lavorare quando la bibliografia è definita: una
+tesi su un autore di cui hai già i venti articoli chiave, un capitolo
+basato su una rosa di paper noti. La limitazione è strutturale: i paper
+devi averli già. NotebookLM sostituisce la fase di sintesi, non quella di
+scoperta delle fonti.
+
+Strumenti simili sono i **Projects** di Claude e di ChatGPT, e i Custom
+GPT con knowledge base: più flessibili per brainstorming e scrittura, ma
+meno specializzati nel citare la fonte. Vale il vincolo di [*Ricerca per
+il lavoro*](/it/at-work/research-for-work/): prima di caricare PDF a
+pagamento o materiali con copyright, verifica che la piattaforma sia
+adeguata e che tu non violi la licenza della rivista.
+
+</Collapsible>
 
 ## Tre paper su tassazione e consumi alimentari
 
@@ -266,46 +234,39 @@ formattate bene, in stile APA, complete di DOI.
 3. **Cawley, J., Frisvold, D., Hill, A. & Jones, D. (2019).** The impact of the Philadelphia beverage tax on purchases and consumption by adults and children. *Journal of Health Economics*, 67, 102225. https://doi.org/10.1016/j.jhealeco.2019.102225`}
 />
 
-Lo studente apre `doi.org` e prova i tre DOI. Il primo non risolve:
-pagina di errore, articolo inesistente. Il secondo risolve, ma apre
-un paper su tutt'altro tema, qualcosa sulle auto elettriche e gli
-incentivi pubblici in Norvegia. Il terzo risolve correttamente e
-apre proprio l'articolo di Cawley et al. 2019 sulla *Philadelphia
-beverage tax*, che parla davvero di tassazione sui consumi
-alimentari. Due delle tre citazioni sono inventate: una con DOI
-fasullo, una con un DOI che porta da un'altra parte.
+Lo studente apre `doi.org` e prova i tre DOI. Il primo non risolve. Il
+secondo apre un paper su tutt'altro tema, le auto elettriche e gli
+incentivi pubblici in Norvegia. Il terzo apre proprio l'articolo di
+Cawley et al. 2019 sulla *Philadelphia beverage tax*. Due citazioni su
+tre sono inventate: una con DOI fasullo, una con un DOI che porta da
+un'altra parte.
 
-La mossa successiva, da incollare nella stessa chat: *"Ho verificato.
-Il primo DOI non risolve, il secondo apre un paper su tutt'altro
-argomento. Lavoriamo solo sul terzo, Cawley et al. 2019. Aggiungimi
-tre paper recenti che citino o estendano quello di Cawley, e questa
-volta dammi DOI verificabili oppure dimmi se non li hai con
-sicurezza."* Da qui la conversazione si riallinea: l'IA ha un punto
-di ancoraggio reale (un paper verificato) e un'uscita di sicurezza
-esplicita (può dire "non ho fonti recenti affidabili"). È lo stesso
-pattern già visto in [*Ricerca per il lavoro*](/it/at-work/research-for-work/):
-dai all'IA un'uscita per ammettere il limite, e inventa di meno.
+La mossa successiva, da incollare nella stessa chat: *"Ho verificato. Il
+primo DOI non risolve, il secondo apre un paper su tutt'altro argomento.
+Lavoriamo solo sul terzo, Cawley et al. 2019. Aggiungimi tre paper
+recenti che lo citino o lo estendano, e dammi DOI verificabili oppure
+dimmi se non li hai con sicurezza."* L'IA ha ora un punto di ancoraggio
+reale e un'uscita di sicurezza esplicita: può dire "non ho fonti recenti
+affidabili". È lo stesso pattern di [*Ricerca per il
+lavoro*](/it/at-work/research-for-work/): dai all'IA un'uscita per
+ammettere il limite, e inventa di meno.
 
 ## Cosa NON fare
 
-**Non consegnare al relatore la bibliografia senza aver verificato
-ogni DOI.** In trenta secondi ne prende uno a caso, cerca, e ti
-smaschera. Aprire dieci link su `doi.org` ti costa due minuti, ed
-è la differenza fra una tesi consegnabile e una figura imbarazzante
-in corso di stesura.
+**Non consegnare la bibliografia senza aver verificato ogni DOI.** Il
+relatore ne prende uno a caso e ti smaschera. Aprire dieci link su
+`doi.org` costa due minuti.
 
 **Non usare "trova paper recenti" come fonte primaria.** Per ricerche
 vere si parte da Google Scholar o dal database della tua università
-(Scopus, JSTOR, ProQuest, MLA International Bibliography a seconda
-del campo), non dall'IA. L'IA va benissimo come secondo passaggio,
-quando hai già un nucleo di paper e vuoi formattare, sintetizzare,
-o cercare connessioni.
+(Scopus, JSTOR, ProQuest, a seconda del campo). L'IA va bene come secondo
+passaggio, quando hai già un nucleo di paper e vuoi formattare,
+sintetizzare o cercare connessioni.
 
-**Non fidarti dell'IA quando dice "questo paper sostiene X".** Anche
-se il DOI risolve al paper giusto, l'IA può attribuire al paper una
-tesi che il paper non sostiene. Verifica leggendo almeno
-l'abstract; per i paper che entreranno davvero in bibliografia,
-leggi il paper.
+**Non fidarti dell'IA quando dice "questo paper sostiene X".** Anche se
+il DOI risolve al paper giusto, può attribuirgli una tesi che non
+sostiene. Leggi almeno l'abstract e, per i paper che entrano in
+bibliografia, il paper.
 
 ## Verifica cosa hai capito
 

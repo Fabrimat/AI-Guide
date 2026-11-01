@@ -9,6 +9,8 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import SpotTheError from '../../../../components/SpotTheError.astro';
+import Collapsible from '../../../../components/Collapsible.astro';
 
 <LessonSummary>
 
@@ -20,18 +22,17 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 </LessonSummary>
 
-La traduzione è una di quelle cose dove l'IA "sembra perfetta" e
-invece può essere subdola. Una traduzione sbagliata di un verso di
-Catullo, o di un articolo di *Le Monde*, non si vede a colpo
-d'occhio: si vede solo se la confronti con altre traduzioni, con il
-testo originale, o con un dizionario. La fluidità della risposta non
-ti dice niente sulla sua aderenza al testo.
+La traduzione è una di quelle cose dove l'IA "sembra perfetta" e invece
+può essere subdola. Una traduzione sbagliata di un verso di Catullo o di
+un articolo di *Le Monde* non si vede a colpo d'occhio: si vede solo se
+la confronti con il testo originale, con altre traduzioni o con un
+dizionario. La fluidità della risposta non ti dice niente sulla sua
+aderenza al testo.
 
-Questa lezione mostra come usare l'IA come **aiuto** alla traduzione,
-non come sostituto. Vale per chi studia lingue moderne (inglese,
-francese, spagnolo, tedesco), per chi fa classici (latino, greco), per
-letterature comparate, per <Def explanation="Studio rigoroso dei testi antichi: ricostruire l'originale dalle copie, datarli, attribuirli, interpretarne il lessico storico. È la disciplina che dice 'questo verso è di Catullo, e qui sta il problema testuale'.">filologia</Def>. La meccanica è la stessa: la
-traduzione è uno strumento di apprendimento, non un oggetto finito da
+Questa lezione mostra come usare l'IA come **aiuto** alla traduzione.
+Vale per chi studia lingue moderne, per chi fa classici (latino, greco),
+per letterature comparate, per <Def explanation="Studio rigoroso dei testi antichi: ricostruire l'originale dalle copie, datarli, attribuirli, interpretarne il lessico storico. È la disciplina che dice 'questo verso è di Catullo, e qui sta il problema testuale'.">filologia</Def>.
+La traduzione è uno strumento di apprendimento, non un oggetto finito da
 incollare nel compito.
 
 ## Il pattern delle tre versioni
@@ -50,13 +51,12 @@ periodo lungo:
   che traduzione, utile per capire dove si può "rompere" il testo
   senza perderlo.
 
-La differenza fra le tre ti mostra cosa "perdi" nella traduzione, ed
-è il vero apprendimento. Chi traduce sul serio non sceglie la
-migliore: ricompone una versione propria leggendo le tre. Chi sta
-studiando una lingua usa le tre versioni per far emergere strutture
-grammaticali che una traduzione sola nasconde (un participio
-francese che diventa subordinata in italiano idiomatico, un
-ablativo latino che si scioglie in una frase intera).
+La differenza fra le tre ti mostra cosa "perdi" nella traduzione, ed è il
+vero apprendimento. Chi traduce sul serio ricompone una versione propria
+leggendo le tre. Chi studia una lingua usa le tre versioni per far
+emergere strutture che una traduzione sola nasconde (un participio
+francese che diventa subordinata in italiano, un ablativo latino che si
+scioglie in una frase intera).
 
 Il prompt base, da adattare:
 
@@ -64,21 +64,18 @@ Il prompt base, da adattare:
 > idiomatica, una libera. Per ciascuna spiegami in una riga la
 > scelta principale che hai fatto."*
 
-La riga di spiegazione conta quanto le traduzioni: è dove l'IA ti
-fa vedere la sua mossa. Se le tre versioni ti tornano molto simili
-fra loro, il testo è "trasparente" fra le due lingue (poca densità
-sintattica, lessico vicino): non un problema, è informazione. Se
-invece sospetti pigrizia, chiedi esplicitamente *"forza le
-differenze, anche estremizza"*.
+La riga di spiegazione conta quanto le traduzioni: è dove l'IA ti fa
+vedere la sua mossa. Se le tre versioni ti tornano molto simili, il testo
+è "trasparente" fra le due lingue, ed è un'informazione. Se sospetti
+pigrizia, chiedi *"forza le differenze, anche estremizza"*.
 
 ## Glosse e note storiche
 
-Per testi che richiedono comprensione storica (latino, greco,
-italiano antico, francese antico, inglese antico) una traduzione
-moderna non basta. Una parola può non avere equivalente, oppure
-averlo ma con un significato storico diverso. *Onesto* in Machiavelli
-non significa quello che significa oggi. *Patroni* in un contesto
-romano non è il "padrone" del lessico moderno.
+Per testi che richiedono comprensione storica (latino, greco, italiano
+antico) una traduzione moderna non basta: una parola può avere un
+significato storico diverso. *Onesto* in Machiavelli non significa quello
+che significa oggi. *Patroni* in un contesto romano non è il "padrone" del
+lessico moderno.
 
 La mossa è chiedere all'IA di **affiancare la traduzione con glosse**:
 parole o concetti che il lettore moderno non riconosce, spiegati in
@@ -88,82 +85,63 @@ due righe. Tipo:
 > *mos maiorum*, affianca una glossa di due righe sul valore storico
 > nel contesto romano del I secolo a.C."*
 
-Cautela importante. Le glosse storiche sono uno dei punti dove l'IA
-inventa più volentieri: date sbagliate, attribuzioni a autori
-inesistenti, etimologie pasticciate. È il limite
-strutturale di un modello che ha letto molto ma non interroga un
-database mentre risponde. Verifica almeno una glossa su due con una
-fonte enciclopedica seria, e dai priorità alle più rischiose: nomi
-propri, date, titoli di opere, etimologie. Le definizioni generiche
-di concetti noti puoi verificarle per ultime. **Treccani** per
-l'italiano e i concetti storici (gratis online), **Oxford Classical
-Dictionary** per i classici (la tua biblioteca quasi certamente ha
-l'accesso).
-
-La verifica costa due minuti per glossa, e ti salva da fare
-affermazioni sicure in una tesina su cose che l'IA si è inventata.
+Cautela importante: le glosse storiche sono uno dei punti dove l'IA
+inventa più volentieri, con date sbagliate, attribuzioni a autori
+inesistenti, etimologie pasticciate. Verifica almeno una glossa su due con
+una fonte enciclopedica seria, dando priorità alle più rischiose: nomi
+propri, date, titoli di opere, etimologie. **Treccani** per l'italiano e i
+concetti storici (gratis online), **Oxford Classical Dictionary** per i
+classici (la tua biblioteca quasi certamente ha l'accesso). La verifica
+costa due minuti per glossa e ti salva da affermazioni sicure in una
+tesina su cose che l'IA si è inventata.
 
 :::tip[Senza accesso a enciclopedie a pagamento]
-Se la tua università non ha accesso a Oxford Classical Dictionary o
-ad altre enciclopedie commerciali, le alternative gratuite ci sono.
-**Perseus Digital Library** (perseus.tufts.edu) per greco e latino:
-testi originali, dizionari, lemmi cliccabili. **Stanford Encyclopedia
-of Philosophy** (plato.stanford.edu) per filosofia antica e moderna,
-articoli scritti da specialisti. Wikipedia in inglese e francese è
-spesso più densa di quella italiana per i classici. Per il latino
-classico, **Castiglioni-Mariotti**; per il greco, **Rocci** o LSJ
-(Liddell-Scott-Jones, su Perseus).
+Se la tua università non ha Oxford Classical Dictionary, le alternative
+gratuite ci sono: **Perseus Digital Library** (perseus.tufts.edu) per
+greco e latino, con testi originali e dizionari; **Stanford Encyclopedia
+of Philosophy** (plato.stanford.edu) per la filosofia; per il latino
+classico **Castiglioni-Mariotti**, per il greco **Rocci** o LSJ.
 :::
 
 ## Confronto fra edizioni
 
-Per uno studente di letterature comparate o di classici, leggere due
-traduzioni dello stesso testo dice spesso più del testo originale. Le
-scelte di un traduttore (cosa rende, cosa sacrifica, dove modernizza,
-dove lascia stridere l'antico) sono una mappa del suo taglio
-critico.
+Leggere due traduzioni dello stesso testo dice spesso più del testo
+originale: le scelte di un traduttore (cosa rende, cosa sacrifica, dove
+modernizza) sono una mappa del suo taglio critico.
 
-L'IA accelera la mappatura. Pattern: dai all'IA due traduzioni dello
-stesso passo e chiedile di mappare le differenze. Esempio reale e
-verificabile: l'*Iliade* tradotta da Vincenzo Monti nel 1810 e da Rosa
-Calzecchi Onesti nel 1950. Il prompt:
+L'IA accelera la mappatura: dalle due traduzioni dello stesso passo e
+chiedile di mappare le differenze. Un esempio verificabile è l'*Iliade*
+tradotta da Vincenzo Monti nel 1810 e da Rosa Calzecchi Onesti nel 1950.
+Il prompt:
 
 > *"Ti incollo due traduzioni italiane dei primi dieci versi
 > dell'*Iliade*: la prima è di Vincenzo Monti (1810), la seconda di
 > Rosa Calzecchi Onesti (1950). Quali sono le tre differenze più
 > importanti, e cosa rivelano sul taglio di ciascun traduttore?"*
 
-L'IA risponde con un confronto strutturato: registro alto e
-neoclassico in Monti vs aderenza letterale e secchezza moderna in
-Calzecchi Onesti, scelte lessicali specifiche (epiteti omerici resi
-in modo diverso), ritmo del verso.
+L'IA risponde con un confronto strutturato: registro alto e neoclassico in
+Monti contro aderenza letterale e secchezza moderna in Calzecchi Onesti,
+scelte lessicali (epiteti omerici resi in modo diverso) e ritmo del verso.
 
-Incolla sempre i passi che vuoi confrontare, dieci-trenta versi o
-righe per parte. Per opere molto note (*Iliade*, *Divina Commedia*,
-Shakespeare) l'IA ha pezzi a memoria ma sbaglia spesso le citazioni
-esatte: si inventa un emistichio, attribuisce un verso a una scena
-diversa. Per opere moderne o di nicchia, incollare è obbligatorio.
-L'IA non sostituisce la lettura: ti dà la **mappa delle differenze**,
-che tu poi approfondisci leggendo i passi. Stesso pattern funziona
-per *Moby Dick* in italiano (Cesare Pavese, 1932 vs Ottavio Fatica,
-2015), o per qualsiasi classico con due traduzioni distanti nel
-tempo.
+Incolla sempre i passi da confrontare, dieci-trenta versi per parte. Per
+opere molto note (*Iliade*, *Divina Commedia*, Shakespeare) l'IA ha pezzi
+a memoria ma sbaglia spesso le citazioni esatte: si inventa un emistichio
+o attribuisce un verso a una scena diversa. L'IA non sostituisce la
+lettura: ti dà la **mappa delle differenze**, che poi approfondisci
+leggendo i passi. Lo stesso pattern funziona per *Moby Dick* in italiano
+(Cesare Pavese, 1932 contro Ottavio Fatica, 2015) o per qualsiasi classico
+con due traduzioni distanti nel tempo.
 
-Per chi fa lingue moderne il pattern vale uguale: due traduzioni
-italiane di un romanzo di Houellebecq, due edizioni di un saggio di
-Sontag, due versioni della stessa poesia di Auden. Se di un testo
-esiste una sola traduzione italiana, confronta quella con una
-traduzione in un'altra lingua europea (francese, inglese, tedesco se
-le conosci), oppure con il testo originale anche se la lingua la
-mastichi a metà: certi snodi si vedono lo stesso.
+Per le lingue moderne il pattern vale uguale: due traduzioni italiane di
+un romanzo di Houellebecq, due versioni della stessa poesia di Auden. Se
+esiste una sola traduzione italiana, confrontala con una in un'altra
+lingua europea che conosci, o con l'originale anche se lo mastichi a metà:
+certi snodi si vedono lo stesso.
 
 ## Registri formale e informale
 
-Per studenti di lingue moderne, la stessa frase in due registri è
-uno degli esercizi più utili. Esempio classico: una mail al
-professore.
-
-Prompt:
+Per studenti di lingue moderne, la stessa frase in due registri è uno
+degli esercizi più utili. Esempio classico: una mail al professore.
 
 > *"Devo scrivere a un professore in inglese per chiedere un
 > appuntamento. Dammi due versioni della stessa mail: una formale
@@ -171,11 +149,10 @@ Prompt:
 > informale (l'ho già incontrato, rapporto cordiale). Sottolinea le
 > tre differenze che fanno il registro."*
 
-Vedi dove cambia: saluto (*Dear Professor Smith* vs *Hi Prof*),
-vocabolario (*I would like to* vs *I wanted to ask*, *kindly* vs
-*could you*), sintassi (subordinate complete vs frasi spezzate),
-contrazioni (*I would* vs *I'd*). E impari a calibrare in base al
-contesto.
+Vedi dove cambia: saluto (*Dear Professor Smith* contro *Hi Prof*),
+vocabolario (*I would like to* contro *I wanted to ask*), sintassi
+(subordinate complete contro frasi spezzate), contrazioni (*I would*
+contro *I'd*). E impari a calibrare in base al contesto.
 
 Funziona anche al contrario, per controllare la naturalezza: dai una
 frase tua all'IA e chiedi se suona da madrelingua o da manuale.
@@ -184,19 +161,20 @@ frase tua all'IA e chiedi se suona da madrelingua o da manuale.
 > trentenni, o suona da manuale di scuola? Se è la seconda, dimmi
 > dove zoppica."*
 
-Importante: dichiara sempre la **variante regionale** su cui stai
-lavorando. Spagnolo iberico o latinoamericano (e di quale paese)?
-Portoghese europeo o brasiliano? Inglese britannico, americano, o
-australiano? L'IA non lo indovina, e mescola: ti propone un *coger*
-neutro che in Argentina è volgare, o un *takeaway* britannico in una
-mail diretta a un'università di Boston.
+Dichiara sempre la **variante regionale** su cui lavori: spagnolo iberico
+o latinoamericano, portoghese europeo o brasiliano, inglese britannico o
+americano. L'IA non lo indovina e mescola: ti propone un *coger* neutro
+che in Argentina è volgare, o un *takeaway* britannico in una mail a
+un'università di Boston.
 
 ## Catullo, tre versioni e due glosse
 
-Studente di Lettere classiche, sta lavorando sul primo verso del
-*Carme 5* di Catullo (I secolo a.C., il poeta <Def explanation="Movimento poetico latino del I secolo a.C. (Catullo è il più famoso): poesia breve, lirica, personale, in opposizione all'epica civile romana tradizionale.">neoterico</Def> più famoso):
+Una studentessa di Lettere classiche lavora sul primo verso del *Carme 5*
+di Catullo (I secolo a.C., il poeta <Def explanation="Movimento poetico latino del I secolo a.C. (Catullo è il più famoso): poesia breve, lirica, personale, in opposizione all'epica civile romana tradizionale.">neoterico</Def> più famoso):
 *Vivamus, mea Lesbia, atque amemus*. Vuole capire le scelte dei
 traduttori e il peso storico dei due verbi.
+
+<Collapsible title="Vedi la risposta completa dell'IA">
 
 <ChatDemo
   user={`Traducimi questo verso di Catullo in italiano in tre versioni: letterale, idiomatica, libera. Poi affianca due glosse storiche brevi sui termini "vivamus" e "amemus" nel contesto poetico di Catullo (poesia neoterica, I secolo a.C.).
@@ -215,50 +193,60 @@ Verso: Vivamus, mea Lesbia, atque amemus.`}
 **Glossa su *amemus***: l'interpretazione è meno univoca. Letteralmente "amiamo" come congiuntivo esortativo, in parallelo con *vivamus*. Alcuni filologi però leggono *amemus* come imperativo collettivo che ingloba Lesbia in una scelta di vita condivisa, più che come semplice invito a un atto. La differenza pesa sulla traduzione: "amiamoci" (atto reciproco) vs "amiamo" (modo di stare al mondo). È una sfumatura su cui le edizioni critiche divergono.`}
 />
 
-Da notare: delle due glosse, una è solida e verificabile (quella su
-*vivamus* nel quadro neoterico/epicureo) e l'altra ha un'incertezza
-che l'IA dichiara esplicitamente (la sfumatura su *amemus*). Quella dichiarazione di incertezza è il
-segno buono: ti dice dove c'è dibattito, e dove devi controllare tu
-prima di sostenere una lettura. La glossa sul *mos maiorum*, prima
-di citarla in una tesina, la verifichi su Treccani.
+</Collapsible>
 
-:::caution[Quando l'IA non dichiara incertezza ma sbaglia]
-Il segno buono è quando l'IA segnala dove c'è dibattito (come la
-glossa su *amemus*). Il problema è quando *non* lo fa e sbaglia
-comunque: non sei ancora esperto e non hai il segnale per
-fermarti. Tre contromisure: chiedi sempre da quale fonte (autore,
-manuale, dizionario) prende la glossa, poi verifica la fonte; chiedi
-la stessa glossa a una seconda IA (Claude vs ChatGPT vs Gemini) e
-confronta; per ogni glossa che entrerà in una tesina, la verifica
-enciclopedica non è opzionale.
+Delle due glosse, una è solida e verificabile (*vivamus* nel quadro
+neoterico ed epicureo) e l'altra ha un'incertezza che l'IA dichiara
+(la sfumatura su *amemus*). Quella dichiarazione è il segno buono: ti dice
+dove c'è dibattito e dove devi controllare tu prima di sostenere una
+lettura. La glossa sul *mos maiorum*, prima di citarla in una tesina, la
+verifichi su Treccani.
+
+Il caso peggiore è quando l'IA non dichiara incertezza e sbaglia comunque.
+Prova a trovare gli errori in questa risposta.
+
+<SpotTheError
+  prompt="Che cosa significa «mos maiorum» e perché conta nelle poesie di Catullo?"
+  sentences={[
+    { text: "Mos maiorum significa «il costume degli antenati»: l'insieme di norme non scritte ereditate dalle generazioni precedenti." },
+    { text: "Era la base dell'educazione civica romana, fatta di servizio pubblico, disciplina e rispetto dell'autorità." },
+    { text: "L'espressione è stata coniata da Catullo nel I secolo a.C. per ironizzare sulla vecchia aristocrazia.", wrong: true, why: "L'espressione circolava già prima di Catullo ed è comune nella prosa del suo tempo, per esempio in Cicerone. Catullo la richiama, non la inventa." },
+    { text: "I poeti neoterici, Catullo compreso, rivendicavano una vita privata e amorosa in opposizione a quell'ideale." },
+    { text: "Catullo, senatore di Verona, fu tra i difensori più convinti del mos maiorum.", wrong: true, why: "Catullo era un poeta di origine veronese, non un senatore, e nei suoi versi prende le distanze da quell'ideale civico." },
+  ]}
+/>
+
+Un errore così passa liscio: la risposta è fluida e le frasi sbagliate
+suonano come le altre. Controllare la glossa su Treccani o su un
+dizionario di antichità prende due minuti.
+
+:::caution[Come ridurre il rischio]
+Tre contromisure: chiedi da quale fonte (autore, manuale, dizionario)
+prende la glossa e verifica la fonte; chiedi la stessa glossa a una
+seconda IA e confronta; per ogni glossa che entrerà in una tesina, la
+verifica enciclopedica non è opzionale.
 :::
 
-:::caution[Trabocchetti linguistici]
-Tre tipi di trappola che l'IA prende spesso, e su cui devi vigilare
-tu.
+<Collapsible title="Tre trabocchetti linguistici da tenere d'occhio">
 
-**Falsi amici.** Italiano *attualmente* non vuol dire inglese
-*actually* (che significa "in realtà"). Tedesco *Gift* significa
-"veleno", non "regalo" come in inglese. Spagnolo *embarazada* è
-"incinta", non "imbarazzata". L'IA traduce parola per parola e
-incespica spesso. Se traduci verso una lingua che conosci poco,
-controlla i termini-chiave su un dizionario serio (Treccani,
-Larousse, Duden, Oxford).
+**Falsi amici.** Italiano *attualmente* non vuol dire inglese *actually*
+("in realtà"). Tedesco *Gift* è "veleno", non "regalo". Spagnolo
+*embarazada* è "incinta", non "imbarazzata". L'IA traduce parola per
+parola e incespica spesso: se traduci verso una lingua che conosci poco,
+controlla i termini chiave su un dizionario serio (Treccani, Larousse,
+Duden, Oxford).
 
-**Registri storici.** Un'espressione italiana del Cinquecento non
-significa quello che la stessa espressione significa oggi. *Onesto*
-in Machiavelli copre un campo semantico che oggi diremmo "decoroso,
-appropriato al ruolo", non "che non mente". Stesso problema con
-inglese antico (Chaucer), francese medievale, qualsiasi testo che
-ha più di due-tre secoli.
+**Registri storici.** *Onesto* in Machiavelli copre un campo semantico che
+oggi diremmo "decoroso, appropriato al ruolo", non "che non mente". Lo
+stesso vale per inglese antico (Chaucer), francese medievale, qualsiasi
+testo con più di due o tre secoli.
 
-**Dialetti e varianti regionali.** Spagnolo iberico vs
-latinoamericano. Portoghese europeo vs brasiliano. Inglese
-britannico vs americano vs australiano. Tedesco standard vs
-austriaco vs svizzero. Dichiara sempre all'IA la variante: se non
-gliela dici, mescola, e ti ritrovi una mail "neutra" che in un
-paese specifico suona strana.
-:::
+**Dialetti e varianti regionali.** Spagnolo iberico o latinoamericano,
+portoghese europeo o brasiliano, tedesco standard, austriaco o svizzero.
+Dichiara la variante: se non la dici, l'IA mescola e ti ritrovi una mail
+"neutra" che in un paese specifico suona strana.
+
+</Collapsible>
 
 :::danger[L'IA in una verifica di traduzione è plagio]
 In un esame, compito di traduzione, o prova di interpretariato
@@ -278,27 +266,20 @@ modulo.
 
 ## Cosa NON fare
 
-**Non consegnare in una verifica di traduzione una traduzione
-dell'IA.** È plagio, e cade sotto le stesse sanzioni di qualsiasi
-altro plagio.
 
-**Non studiare un testo su una sola versione di traduzione.** Tutta
-questa lezione è sul confronto: tre tagli per la stessa frase, due
-edizioni a confronto, due registri. Una traduzione sola ti nasconde
-le scelte che il traduttore ha fatto, e ti dà la falsa sicurezza che
-"il testo dice questo".
+**Non studiare un testo su una sola versione di traduzione.** Una
+traduzione sola ti nasconde le scelte del traduttore e ti dà la falsa
+sicurezza che "il testo dice questo".
 
-**Non fidarti delle glosse storiche senza una verifica
-enciclopedica.** Sono il punto in cui l'IA inventa di più: date,
-attribuzioni, etimologie. Treccani, Oxford Classical Dictionary, o
-una storia di riferimento del tuo campo: due minuti per glossa, e
-non firmi un'invenzione.
+**Non fidarti delle glosse storiche senza una verifica enciclopedica.**
+Sono il punto in cui l'IA inventa di più. Due minuti per glossa, e non
+firmi un'invenzione.
 
-**Non usare l'IA per tradurre verso una lingua che non conosci
-affatto.** Se devi mandare una mail in russo e non sai una parola di
-russo, l'IA ti restituisce una mail di registro sbagliato senza che
-tu te ne accorga. Per usi che contano (lettera ufficiale,
-candidatura, pubblicazione), fai sempre rivedere a un madrelingua.
+**Non usare l'IA per tradurre verso una lingua che non conosci affatto.**
+Se devi mandare una mail in russo e non sai una parola di russo, ti
+restituisce un registro sbagliato senza che tu te ne accorga. Per usi che
+contano (lettera ufficiale, candidatura, pubblicazione) fai rivedere il
+testo a un madrelingua.
 
 ## Verifica cosa hai capito
 
