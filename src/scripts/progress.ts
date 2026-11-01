@@ -34,6 +34,10 @@ interface PageRecord {
   scrolledToEnd: boolean;
   read: boolean;
   buttons?: Record<string, number>;
+  // Additive fields (never bump `version`: load() resets on mismatch).
+  // Legacy records lack them: fall back to `readAt ?? lastVisit`.
+  readAt?: string;
+  reviewedAt?: string;
 }
 
 interface ProgressState {
@@ -43,7 +47,7 @@ interface ProgressState {
   pages: Record<string, PageRecord>;
 }
 
-const STORAGE_KEY = 'aiguide:progress:v1';
+import { PROGRESS_KEY as STORAGE_KEY } from './storage-keys';
 const READ_TIME_MS = 15_000;
 const READ_SCROLL_RATIO = 0.8;
 const TICK_INTERVAL_MS = 5_000;
@@ -156,6 +160,7 @@ function flushTimeAndScroll(url: string) {
 
   if (justBecameRead) {
     page.read = true;
+    page.readAt = new Date().toISOString();
   }
 
   state.pages[url] = page;

@@ -218,6 +218,13 @@ export interface UIStrings {
   footerCopyright: (year: number) => string;
   footerLocation: string;
   footerVatLabel: string;
+
+  // --- F1: progress & review ---
+  // --- end F1 ---
+  // --- F2: lesson widgets ---
+  // --- end F2 ---
+  // --- F3: journal, plan prompt, Def ---
+  // --- end F3 ---
 }
 
 const it: UIStrings = {
@@ -437,6 +444,13 @@ Poi fammi una sola domanda per controllare se ho capito e aspetta la mia rispost
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
   footerLocation: 'Gent, Belgio',
   footerVatLabel: 'P.IVA',
+
+  // --- F1: progress & review ---
+  // --- end F1 ---
+  // --- F2: lesson widgets ---
+  // --- end F2 ---
+  // --- F3: journal, plan prompt, Def ---
+  // --- end F3 ---
 };
 
 const en: UIStrings = {
@@ -656,6 +670,13 @@ Then ask me one single question to check I understood, and wait for my answer. I
   footerCopyright: (year) => `© ${year} Fabrizio La Rosa`,
   footerLocation: 'Ghent, Belgium',
   footerVatLabel: 'VAT',
+
+  // --- F1: progress & review ---
+  // --- end F1 ---
+  // --- F2: lesson widgets ---
+  // --- end F2 ---
+  // --- F3: journal, plan prompt, Def ---
+  // --- end F3 ---
 };
 
 const STRINGS: Record<Locale, UIStrings> = { it, en };

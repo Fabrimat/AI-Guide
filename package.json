@@ -10,7 +10,8 @@
     "build": "astro build",
     "postbuild": "node scripts/generate-bulk-manifest.mjs && node scripts/generate-llms-txt.mjs && node scripts/generate-embeddings.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.38.0",
@@ -20,7 +21,11 @@
     "sharp": "^0.34.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.3",
     "@vite-pwa/astro": "^1.2.0",
+    "typescript": "^6.0.3",
     "workbox-expiration": "^7.4.0",
     "workbox-precaching": "^7.4.0",
     "workbox-routing": "^7.4.0",

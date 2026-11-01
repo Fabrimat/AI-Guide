@@ -661,6 +661,15 @@ import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
 <ObfuscatedEmail user="ai-guide" domain="larosa.work" />
 ```
 
+<!-- F1 catalog entries (progress & review) -->
+<!-- end F1 -->
+
+<!-- F2 catalog entries (lesson widgets) -->
+<!-- end F2 -->
+
+<!-- F3 catalog entries (journal, plan prompt) -->
+<!-- end F3 -->
+
 ## Content plan
 
 The editorial roadmap lives in **`CONTENT.md`** at the root: planned modules, status

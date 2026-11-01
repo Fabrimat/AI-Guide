@@ -53,7 +53,7 @@ const ui = t(Astro.currentLocale);
 </div>
 
 <script>
-  const STORAGE_KEY = 'aiguide:progress:v1';
+  import { PROGRESS_KEY as STORAGE_KEY, clearReaderData } from '../scripts/storage-keys';
 
   // Locales the site is currently translated into. Mirrors `locales` in
   // astro.config.mjs and SUPPORTED in src/pages/index.astro.
@@ -182,11 +182,9 @@ const ui = t(Astro.currentLocale);
   }
 
   function doReset(card: HTMLElement) {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      /* ignore */
-    }
+    // Clears progress plus every other reader-data key (answers, notes,
+    // local AI chat history); keeps preferences.
+    clearReaderData();
     card.setAttribute('hidden', '');
     // Notifica il tracker (in src/scripts/progress.ts) che lo stato è stato
     // svuotato, così aggiorna il sidebar (rimuove i checkmark).

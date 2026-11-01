@@ -9,3 +9,6 @@
 
 /aiguide-bulk-manifest.json
   Cache-Control: public, max-age=0, must-revalidate
+
+/skills/*
+  Content-Type: text/plain; charset=utf-8
