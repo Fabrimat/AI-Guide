@@ -11,9 +11,9 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 <LessonSummary>
 
-- Il materiale di un corso non è un singolo PDF: è un mix di voce del prof, slide, manuale, appunti tuoi. La sfida non è riassumerne uno, è comporli.
+- Il materiale di un corso non è un singolo PDF: è un mix di voce del prof, slide, manuale, appunti tuoi. La sfida è comporli, non riassumerne uno.
 - Per la voce del prof: trascrizione automatica (Whisper, Otter, Tactiq, Apple Voice Memos). Per le slide e gli appunti scritti a mano: foto. Per il manuale: paragrafo incollato o pagine fotografate.
-- L'output che cerchi non è un riassunto, è una **mappa di studio** che tiene insieme i pezzi e ti dice da dove viene cosa.
+- L'output che ti serve è una **mappa di studio**: tiene insieme i pezzi e ti dice da dove viene cosa.
 - Quando il corso accumula materiale nel tempo, sposta tutto in un Progetto (Claude Project, Custom GPT, Gemini Gem) così non ricarichi ogni volta.
 - Registrare il prof è giuridicamente delicato in molti paesi. Buona pratica: chiedere all'inizio del corso.
 
@@ -21,17 +21,17 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 Hai il materiale, ma è ovunque. La voce del prof è in un audio del
 cellulare, le slide in un PDF scaricato dal portale, il capitolo nel
-manuale di carta, gli appunti tuoi in un quaderno. Nessuna delle tre
+manuale di carta, gli appunti tuoi in un quaderno. Nessuna di queste
 fonti dice esattamente la stessa cosa: il prof in aula enfatizza
 punti che le slide tagliano e che il manuale espande, le slide sono
 ossa nude, il manuale è ricco ma generico.
 
-La sfida quando ti siedi a studiare non è riassumerne una. È
+Quando ti siedi a studiare, la sfida è
 **comporle**: tenere insieme i pezzi, capire dove parlano della stessa
 cosa e dove invece divergono. In [*Riassumere un documento
 lungo*](/it/everyday-use/summarize-a-long-document/) hai visto come
 ottenere un riassunto affidabile da un singolo testo. Qui il problema
-è diverso: non un riassunto, una mappa di studio che ti serve da bussola.
+è diverso: ti serve una mappa di studio che faccia da bussola.
 
 ## Caso 1: la voce del prof
 
@@ -107,9 +107,9 @@ questo:
 > Per ogni voce della mappa, dimmi da quale fonte viene, con tag
 > `[Prof]`, `[Manuale]`, `[Slide]`."*
 
-Quello che chiedi all'IA è un lavoro diverso dal riassunto. Non una
-compressione di ciascuna fonte, ma una struttura unificata
-dell'argomento, in cui ogni voce porta in chiaro da dove arriva. È la
+Quello che chiedi all'IA è un lavoro diverso dal riassunto: una
+struttura unificata dell'argomento, in cui ogni voce dice da dove
+arriva, invece di una compressione per ciascuna fonte. È la
 differenza fra tre riassunti staccati e una mappa con i fili che li
 collegano.
 
@@ -214,11 +214,9 @@ Tre osservazioni utili per lo studio:
 />
 
 Tre cose da notare. La mappa è breve, cinque sezioni con due o tre
-sotto-voci ciascuna: una scaletta che puoi appendere mentalmente, non
-un riassunto integrale. I tag tracciano la fonte, così sai senza
-riaprire i file da dove viene cosa. Le osservazioni finali sono il
-valore aggiunto del passaggio: ti dicono *cosa fare* con la mappa,
-non ripetono cosa contiene.
+sotto-voci ciascuna: una scaletta che puoi tenere a mente. I tag
+tracciano la fonte, così sai senza riaprire i file da dove viene
+cosa. Le osservazioni finali ti dicono *cosa fare* con la mappa.
 
 Una nota pratica sull'audio: con la trascrizione in mano puoi chiedere
 all'IA una ricerca puntuale dentro ("in che minuto della trascrizione

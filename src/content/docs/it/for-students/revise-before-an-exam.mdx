@@ -13,7 +13,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 - Studiare e ripassare sono due lavori diversi. Studiare = capire. Ripassare = simulare la verifica finché la risposta non viene fluida.
 - Tre tecniche: **orale simulato** con prof che ti incalza una domanda alla volta, **scritto con correzione** sul passaggio in cui sbagli, **mappe e flashcards** per fissare struttura e dettagli.
-- Il prompt portante dell'orale ha due specifiche non negoziabili: una domanda per volta e giudizio onesto sulla risposta. Senza, l'IA accetta vaghezze.
+- Il prompt portante dell'orale ha tre specifiche non negoziabili: una domanda per volta, giudizio onesto sulla risposta, niente voto finale finché non lo chiedi tu. Senza, l'IA accetta vaghezze.
 - Il rischio principale di questo metodo: l'IA che ti conferma. Va forzata a essere severa, e i punti chiave vanno controllati sul manuale.
 
 </LessonSummary>
@@ -172,7 +172,7 @@ Studente di filosofia teoretica, esame fra una settimana. Il prof è
 prevedibile, insiste su Heidegger e in particolare sul concetto di
 *aletheia*. Prima cosa: imposta il prompt portante della Tecnica 1
 con il programma del corso e parte la simulazione. L'IA fa la prima
-domanda, lo studente risponde. Il giro che esce.
+domanda, lo studente risponde. Ecco lo scambio.
 
 <ChatDemo
   user={`Per Heidegger l'aletheia è il concetto greco di verità. La parola significa letteralmente "non-nascondimento", e per Heidegger la verità non è la corrispondenza fra una proposizione e una cosa, ma il modo in cui l'essere si manifesta. La verità intesa come idea, in senso platonico, è una conseguenza di questo manifestarsi originario.`}
@@ -188,11 +188,11 @@ spezzato in preciso / impreciso, con la zona di imprecisione indicata
 al millimetro. La correzione non dice solo "no, è il contrario": ti
 dice *cosa avresti dovuto dire*, con la formulazione alternativa. E
 l'IA si ferma: non passa alla seconda domanda finché lo studente non
-lo chiede. La simulazione tiene.
+lo chiede.
 
-È la differenza fra usare l'IA come tutor di ripasso e come motore di
-domande in serie: il valore non è il numero di domande fatte, è il
-dettaglio della correzione su ciascuna.
+Così l'IA fa da tutor di ripasso e non da motore di domande in serie:
+il valore sta nel dettaglio della correzione su ciascuna risposta, più
+che nel numero di domande.
 
 :::caution[L'IA che ti conferma è il rischio]
 L'IA tende a dare ragione. Se rispondi qualcosa di vago ma che suona
@@ -220,8 +220,8 @@ candidato da verificare per primo sul manuale. Non è una garanzia
 rispetto a una sola fonte.
 :::
 
-Quando verificare sul manuale, in tempo reale o a fine sessione? Per
-le correzioni puntuali (una data, un nome, una citazione) ti
+Per verificare sul manuale, in tempo reale o a fine sessione, dipende dalla
+correzione. Per le correzioni puntuali (una data, un nome, una citazione) ti
 conviene appuntare al volo durante la sessione e verificare in blocco
 dopo. Per le correzioni concettuali grosse (una tesi attribuita a
 un autore al posto di un altro, una distinzione filosofica) ti
@@ -256,6 +256,6 @@ a fare previsioni.
 
 ## Cosa viene dopo
 
-Ripasso fissato. La prossima lezione cambia registro: la tesi, dove
+La prossima lezione cambia registro: la tesi, dove
 la posta in gioco non è un esame da venti minuti ma un lavoro lungo
 mesi, con un relatore al posto del commissario d'esame.

@@ -10,4 +10,6 @@ Question 4: the three filters to tell a real academic source from a dressed-up b
 
 Question 5: think about your thesis or a piece of work you're writing. Which of the three tools for a closed bibliography (NotebookLM, Claude Projects, Custom GPTs) feels most suited to your case, and why? Help me draft a first prompt to get started.
 
+If the person is stuck or answers "I don't know", don't give the answer right away: offer a small hint first and let them try again. Give the full answer only if they are still stuck after the hint or ask for it again. If an answer is vague, ask for a concrete example before judging it. Keep each piece of feedback within four lines and never preview the later questions.
+
 At the end of the round: say thanks and close. If the person wants to dig into a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

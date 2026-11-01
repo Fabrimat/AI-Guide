@@ -8,4 +8,6 @@ Question 3: to organize the material of an entire course (many lectures, many we
 
 Question 4: think of a course you're taking or took recently. You have an audio recording (even just imagined), slides, a textbook chapter, maybe your own notes. Try to build the request you'd make to your AI to get a study map of the first lecture of the course. I'll help you improve it.
 
+If the person is stuck or answers "I don't know", don't give the answer right away: offer a small hint first and let them try again. Give the full answer only if they are still stuck after the hint or ask for it again. If an answer is vague, ask for a concrete example before judging it. Keep each piece of feedback within four lines and never preview the later questions.
+
 At the end of the round: thank them and close. If the person wants to dig deeper into a weak spot, offer a mini follow-up (max 80 words). Don't add unsolicited advice.

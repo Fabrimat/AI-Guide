@@ -11,9 +11,9 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 <LessonSummary>
 
-- Course material isn't a single PDF: it's a mix of the professor's voice, slides, textbook, your own notes. The challenge isn't summarizing one piece, it's composing them.
+- Course material isn't a single PDF: it's a mix of the professor's voice, slides, textbook, your own notes. The challenge is composing them, not summarizing one piece.
 - For the professor's voice: automatic transcription (Whisper, Otter, Tactiq, Apple Voice Memos). For slides and handwritten notes: photos. For the textbook: a paragraph pasted in or pages photographed.
-- The output you want isn't a summary, it's a **study map** that holds the pieces together and tells you where each thing comes from.
+- The output you want is a **study map**: it holds the pieces together and tells you where each thing comes from.
 - When a course accumulates material over time, move everything into a Project (Claude Project, Custom GPT, Gemini Gem) so you don't reload it every time.
 - Recording a professor is legally delicate in many countries. Good practice: ask at the start of the course.
 
@@ -22,18 +22,18 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 You have the material, but it's everywhere. The professor's voice is
 in an audio file on your phone, the slides are in a PDF downloaded
 from the portal, the chapter is in the paper textbook, your own notes
-are in a notebook. None of the three sources says exactly the same
+are in a notebook. None of these sources says exactly the same
 thing: the professor in class emphasizes points that the slides cut
 and the textbook expands, the slides are bare bones, the textbook is
 rich but generic.
 
-The challenge when you sit down to study isn't summarizing any one of
-them. It's **composing them**: holding the pieces together,
+When you sit down to study, the challenge is
+**composing them**: holding the pieces together,
 understanding where they talk about the same thing and where they
 diverge. In [*Summarize a long
 document*](/en/everyday-use/summarize-a-long-document/) you saw how
 to get a reliable summary from a single text. Here the problem is
-different: not a summary, a study map that works as your compass.
+different: you need a study map that works as your compass.
 
 ## Case 1: the professor's voice
 
@@ -108,9 +108,9 @@ The core prompt is this:
 > treat at all. For each entry in the map, tell me which source it
 > comes from, with tags `[Prof]`, `[Textbook]`, `[Slides]`."*
 
-What you're asking the AI to do is different from summarizing. Not a
-compression of each source, but a unified structure of the topic, in
-which each entry makes clear where it comes from. It's the difference
+What you're asking the AI to do is different from summarizing: a
+unified structure of the topic, in which each entry says where it
+comes from, instead of a compression of each source. It's the difference
 between three separate summaries and a map with the threads that
 connect them.
 
@@ -143,7 +143,7 @@ build your exam answer on, yes.
 
 When the material from a single course piles up over time (ten sets
 of slides, ten batches of notes, two textbooks, a few lecture
-recordings) reloading everything in every chat is a pain. The right
+recordings) reloading everything in every chat is a chore. The right
 tool is the **Project**: you'll find it on Claude as "Projects", on
 ChatGPT as "Custom GPTs", on Gemini as "Gems". We covered it in
 [*Reuse context with
@@ -216,11 +216,10 @@ Three useful observations for study:
 />
 
 Three things to notice. The map is short, five sections with two or
-three sub-entries each: an outline you can hang in your mind, not a
-full summary. The tags track the source, so you know without
-reopening the files where each piece comes from. The final
-observations are the added value of this step: they tell you *what
-to do* with the map, they don't repeat what it contains.
+three sub-entries each: an outline you can keep in your head. The tags track the
+source, so you know without reopening the files where each piece
+comes from. The final observations tell you *what to do* with the
+map.
 
 A practical note on the audio: once you have the transcript, you can
 ask the AI for a targeted lookup inside it ("at what minute of the

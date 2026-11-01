@@ -13,7 +13,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 
 - Studying and revising are two different jobs. Studying = understanding. Revising = simulating the test until the answer comes out fluently.
 - Three techniques: **simulated oral exam** with a professor pressing you one question at a time, **written test with correction** on the step where you went wrong, **mind maps and flashcards** to fix structure and details.
-- The core prompt for the oral exam has two non-negotiable specifications: one question at a time, and an honest verdict on the answer. Without them, AI accepts vagueness.
+- The core prompt for the oral exam has three non-negotiable specifications: one question at a time, an honest verdict on the answer, no final grade until you ask for it. Without them, AI accepts vagueness.
 - The main risk of this method: AI that confirms you. It has to be forced to be strict, and the key points must be checked against the textbook.
 
 </LessonSummary>
@@ -47,7 +47,7 @@ The central move of revision. The core prompt:
 > have wanted to hear. Don't move to the final grade until I ask you
 > to."*
 
-Three specifications are what matters. **One question at a time**:
+Three specifications make the difference. **One question at a time**:
 without this, AI fires four questions in a block, you answer
 sketchily, and you lose the pressure of the face-to-face. **Honest
 verdict on every answer**: by default AI wants to please, and without
@@ -177,7 +177,7 @@ Student of theoretical philosophy, exam in a week. The professor is
 predictable, insists on Heidegger and in particular on the concept of
 *aletheia*. First thing: set up the core prompt of Technique 1 with
 the course syllabus and the simulation starts. AI asks the first
-question, the student answers. The exchange that follows.
+question, the student answers. Here is the exchange.
 
 <ChatDemo
   user={`For Heidegger, aletheia is the Greek concept of truth. The word literally means "unconcealment", and for Heidegger truth is not the correspondence between a proposition and a thing, but the way being manifests itself. Truth understood as idea, in the Platonic sense, is a consequence of this originary manifestation.`}
@@ -193,18 +193,18 @@ it's split into accurate / imprecise, with the imprecise zone pointed
 out down to the millimeter. The correction doesn't just say "no, it's
 the opposite": it tells you *what you should have said*, with the
 alternative formulation. And AI stops: it doesn't move to the second
-question until the student asks. The simulation holds.
+question until the student asks.
 
-This is the difference between using AI as a revision tutor and as a
-serial question generator: the value isn't the number of questions
-asked, it's the detail of the correction on each one.
+That's what makes AI a revision tutor and not a serial question
+generator: the value is in the detail of the correction on each
+answer, more than in the number of questions.
 
 :::caution[AI that confirms you is the risk]
 AI tends to agree with you. If you answer something vague but that
 sounds "in the ballpark", the default response is "yes, you got the
 point", followed by an addition that fills in the gaps you left. You
 walk out of the questioning convinced you knew, but you knew vaguely:
-the pieces you were missing, it put them in.
+it supplied the pieces you were missing.
 
 Three countermeasures. The first: in the initial prompt, explicitly
 ask for a strict verdict, not an encouraging one (*"if I answer
@@ -225,8 +225,8 @@ guarantee (two AIs can hallucinate the same thing), but it raises the
 bar over a single source.
 :::
 
-When to verify against the textbook, in real time or at the end of
-the session? For pointwise corrections (a date, a name, a quote) it's
+Whether to verify against the textbook in real time or at the end of
+the session depends on the correction. For pointwise corrections (a date, a name, a quote) it's
 better to jot them down on the fly during the session and verify them
 in a block afterwards. For big conceptual corrections (a thesis
 attributed to one author instead of another, a philosophical
@@ -261,6 +261,6 @@ make predictions.
 
 ## What comes next
 
-Revision is set. The next lesson changes register: the thesis, where
+The next lesson changes register: the thesis, where
 what's at stake isn't a twenty-minute exam but a months-long project,
 with a supervisor in place of the exam committee.

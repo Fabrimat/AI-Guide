@@ -4,8 +4,10 @@ Question 1: the lesson sets the difference between studying and revising. In a f
 
 Question 2: the core prompt of the simulated oral exam has three specifications that make the difference between a good session and a useless one. What are they, and what goes wrong if one of them is missing?
 
-Question 3: the lesson's callout flags the main risk of the method: AI that confirms you. What are the three countermeasures, in order of importance? And why isn't the first one alone enough?
+Question 3: the lesson's callout flags the main risk of the method: AI that confirms you. What are the three countermeasures? Which one does the lesson call the most important, and why isn't one alone enough?
 
 Question 4: think of an exam you have to take in the next few weeks (or one you've already taken). Which combination of techniques would you use, and why? I'll help you set up the initial prompt of the simulated oral exam for your specific case.
+
+If the person is stuck or answers "I don't know", don't give the answer right away: offer a small hint first and let them try again. Give the full answer only if they are still stuck after the hint or ask for it again. If an answer is vague, ask for a concrete example before judging it. Keep each piece of feedback within four lines and never preview the later questions.
 
 At the end of the round: thank them and close. If the person wants to dig deeper into a weak point, offer a mini deep-dive (max 80 words). Don't add unsolicited advice.

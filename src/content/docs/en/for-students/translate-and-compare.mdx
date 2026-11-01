@@ -16,12 +16,12 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 - For historical texts, ask for glosses alongside the translation. Verify one gloss out of two on Treccani or the Oxford Classical Dictionary.
 - To study a literary text, compare two existing translations with AI's help: map the differences, then go and read the passages.
 - For modern languages, train register: same sentence in formal and informal, and declare which regional variant you're working in.
-- In a translation exam or assignment, AI is plagiarism. Always.
+- In a translation exam or assignment, AI is plagiarism.
 
 </LessonSummary>
 
-Translation is one of those things where AI "looks perfect" and is
-instead sneaky. A wrong translation of a line of Catullus, or of an
+Translation is one of those areas where AI "looks perfect" and can
+still be subtly wrong. A wrong translation of a line of Catullus, or of an
 article from *Le Monde*, isn't visible at a glance: you only see it
 when you compare it with other translations, with the original text,
 or with a dictionary. The fluency of the answer tells you nothing
@@ -68,8 +68,8 @@ The base prompt, to adapt:
 The line of explanation matters as much as the translations: it's
 where AI shows you its move. If the three versions come back very
 similar to one another, the text is "transparent" between the two
-languages (low syntactic density, close vocabulary): not a problem,
-it's information. If instead you suspect laziness, ask explicitly
+languages (low syntactic density, close vocabulary): that's not a problem, it's
+information. If instead you suspect laziness, ask explicitly
 *"push the differences, even take them to extremes"*.
 
 ## Glosses and historical notes
@@ -77,8 +77,8 @@ it's information. If instead you suspect laziness, ask explicitly
 For texts that need historical understanding (Latin, Greek, Old
 Italian, Old French, Old English) a modern translation isn't
 enough. A word may have no equivalent, or have one but with a
-different historical meaning. *Let* in Shakespeare doesn't mean
-"permit", it means "hinder": *"What lets but one may enter?"* in
+different historical meaning. *Let* in Shakespeare often means
+"hinder", not "permit": *"I'll make a ghost of him that lets me"* in
 *Hamlet* trips up a modern reader who only knows the current sense.
 *Patroni* in a Roman context isn't the "boss" of modern vocabulary.
 
@@ -92,7 +92,7 @@ two lines. Like:
 
 Important caution. Historical glosses are one of the points where
 AI invents most readily: wrong dates, attributions to authors who
-never existed, garbled etymologies. It's not malice, it's the
+never existed, garbled etymologies. It's the
 structural limit of a model that has read a lot but doesn't query a
 database while it responds. Verify at least one gloss out of two
 with a serious encyclopedic source, and prioritize the riskiest:
@@ -140,7 +140,9 @@ by Robert Fagles in 1990. The prompt:
 AI replies with a structured comparison: Lattimore's archaizing
 fidelity and metrical strictness vs Fagles's modern flow and
 performance-oriented rhythm, specific lexical choices (Homeric
-epithets rendered differently), the line's pacing. Always paste in
+epithets rendered differently), the line's pacing.
+
+Always paste in
 the passages you want to compare, ten to thirty lines per side. For
 very well-known works (*Iliad*, *Divine Comedy*, Shakespeare) AI
 has pieces from memory but often gets the exact citations wrong:
@@ -220,18 +222,18 @@ Line: Vivamus, mea Lesbia, atque amemus.`}
 **Gloss on *amemus***: the reading is less unanimous. Literally "let us love" as a hortatory subjunctive, parallel with *vivamus*. Some philologists, however, read *amemus* as a collective imperative that draws Lesbia into a shared choice of life, rather than as a simple invitation to an act. The difference weighs on the translation: "let us love each other" (reciprocal act) vs "let us love" (way of being in the world). It's a nuance critical editions diverge on.`}
 />
 
-Worth noting: the three translations show different choices, one
-gloss solid and verifiable (the one on *vivamus* in the Neoteric and
-Epicurean frame) and one with an uncertainty AI declares explicitly
-(the nuance on *amemus*). That declaration of uncertainty is the
+Worth noting: of the two glosses, one is solid and verifiable (the
+one on *vivamus* in the Neoteric and Epicurean frame) and the other
+carries an uncertainty AI declares explicitly (the nuance on
+*amemus*). That declaration of uncertainty is the
 good sign: it tells you where there's debate, and where you have to
 check yourself before backing a reading. The gloss on *mos maiorum*,
 before citing it in an essay, you check on Treccani.
 
 :::caution[When the AI doesn't flag uncertainty but is wrong]
 The good sign is when AI flags where there's debate (like the gloss
-on *amemus*). The problem is when it *doesn't*, and gets it wrong
-anyway: you aren't expert yet, and you don't have the signal to
+on *amemus*). The problem is when it *doesn't* and gets it wrong
+anyway: you aren't an expert yet, and you don't have the signal to
 stop. Three countermeasures: always ask which source (author,
 manual, dictionary) the gloss comes from, then check the source; ask
 the same gloss to a second AI (Claude vs ChatGPT vs Gemini) and
@@ -315,7 +317,6 @@ publication), always have a native speaker review it.
 
 ## What comes next
 
-For translations as for everything else, the background problem
-holds: AI can be convincing even when it's wrong. The next lesson
+With translations too, AI can be convincing even when it's wrong. The next lesson
 zooms in on this, in a study context: how to spot it when you DON'T
 already know the right answer.
