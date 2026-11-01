@@ -1,27 +1,27 @@
-Ho appena letto una lezione del manuale AI-Guide su come spiegare un concetto in cinque modi diversi (analogia quotidiana, registro tecnico, modalita' visiva, narrazione storica, piccola attivita' pratica). Il pattern e' chiedere all'IA tutte e cinque le versioni in un unico turno, poi sceglierne due o tre adatte al concetto e alla classe. Il senso e' che vedere la stessa idea attraverso piu' rappresentazioni aiuta tutti gli studenti: non cerco lo stile di apprendimento di ciascuno, che la ricerca non conferma.
+Ho appena letto una lezione del manuale AI-Guide su come spiegare un concetto in cinque modi diversi (analogia quotidiana, registro tecnico, modalità visiva, narrazione storica, piccola attività pratica). Il pattern è chiedere all'IA tutte e cinque le versioni in un unico turno, poi sceglierne due o tre adatte al concetto e alla classe. Il senso è che vedere la stessa idea attraverso più rappresentazioni aiuta tutti gli studenti: non cerco lo stile di apprendimento di ciascuno, che la ricerca non conferma.
 
 Voglio applicarlo a un concetto specifico che devo spiegare alla mia classe.
 
 Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
 
 1. Quale disciplina o materia insegni?
-2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio hanno secondo te?
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, università, formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio hanno secondo te?
 3. Quale concetto specifico vuoi spiegare? (Titolo, eventuale formula o definizione di partenza dal manuale, e in particolare: dove i ragazzi tipicamente si bloccano su questo concetto?)
-4. Hai un vincolo di tempo (quanti minuti puoi spendere su questa spiegazione nella lezione)? E ci sono analogie che gia' sai non funzioneranno per questa classe (esempi che non conoscerebbero, contesti culturali distanti)?
+4. Hai un vincolo di tempo (quanti minuti puoi spendere su questa spiegazione nella lezione)? E ci sono analogie che già sai non funzioneranno per questa classe (esempi che non conoscerebbero, contesti culturali distanti)?
 
 Dopo che ti ho risposto a tutte e quattro le domande, applica il pattern:
 
-A) Genera le cinque versioni della spiegazione (analogia quotidiana, registro tecnico, modalita' visiva descritta a parole, narrazione storica, piccola attivita' pratica). Ogni versione max 80 parole. Non scegliere tu quale e' meglio, mostra le cinque affiancate.
+A) Genera le cinque versioni della spiegazione (analogia quotidiana, registro tecnico, modalità visiva descritta a parole, narrazione storica, piccola attività pratica). Ogni versione max 80 parole. Non scegliere tu quale è meglio, mostra le cinque affiancate.
 
 B) Dopo che ho letto le cinque versioni, ti rispondo dicendoti su quali 2-3 vorrei concentrarmi, in base al concetto e alla mia classe. Tu allora le sviluppi nel dettaglio:
    - per l'analogia quotidiana: come introdurla in classe, parole esatte da usare, cosa fare se la classe non aggancia subito.
    - per il registro tecnico: come strutturare l'esposizione di 5-10 minuti, quali termini introdurre nell'ordine giusto.
-   - per la modalita' visiva: descrizione precisa dello schema da disegnare alla lavagna, con assi, etichette, ordine dei tratti.
-   - per la narrazione storica: i dati che cito (con avvertimento: questi dati vanno verificati prima di portarli in classe, ti dico quali sono i piu' delicati).
-   - per la piccola attivita' pratica: setup, materiali, consegna scritta agli studenti, output atteso, tempo, gestione classe.
+   - per la modalità visiva: descrizione precisa dello schema da disegnare alla lavagna, con assi, etichette, ordine dei tratti.
+   - per la narrazione storica: i dati che cito (con avvertimento: questi dati vanno verificati prima di portarli in classe, ti dico quali sono i più delicati).
+   - per la piccola attività pratica: setup, materiali, consegna scritta agli studenti, output atteso, tempo, gestione classe.
 
-C) Se in qualche passaggio ti servono informazioni che non ti ho dato (per esempio il manuale del corso, la struttura della lezione, il vocabolario gia' introdotto), chiedimele invece di inventare.
+C) Se in qualche passaggio ti servono informazioni che non ti ho dato (per esempio il manuale del corso, la struttura della lezione, il vocabolario già introdotto), chiedimele invece di inventare.
 
-Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostra una sola applicazione, calata sui dati che ti ho dato.
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilità. Mostra una sola applicazione, calata sui dati che ti ho dato.
 
-Se una delle quattro domande non mi e' chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.
+Se una delle quattro domande non mi è chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

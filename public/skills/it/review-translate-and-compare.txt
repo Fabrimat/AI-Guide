@@ -1,13 +1,13 @@
-Ciao! Facciamo un giro su quello che hai letto sulla pagina "Tradurre e confrontare testi" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa e' impreciso o incompleto) e passiamo alla prossima.
+Ciao! Facciamo un giro su quello che hai letto sulla pagina "Tradurre e confrontare testi" del manuale AI-Guide. Ti faccio quattro domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa è impreciso o incompleto) e passiamo alla prossima.
 
-Domanda 1: la lezione dice di chiedere sempre tre versioni di traduzione (letterale, idiomatica, libera), mai una sola. Spiega in poche righe perche': cosa ti mostra la differenza fra le tre che una versione sola nasconde? E come usi le tre versioni in pratica, sia se stai studiando una lingua sia se stai traducendo sul serio?
+Domanda 1: la lezione dice di chiedere sempre tre versioni di traduzione (letterale, idiomatica, libera), mai una sola. Spiega in poche righe perché: cosa ti mostra la differenza fra le tre che una versione sola nasconde? E come usi le tre versioni in pratica, sia se stai studiando una lingua sia se stai traducendo sul serio?
 
-Domanda 2: il pattern delle glosse storiche per testi che richiedono comprensione storica (latino, greco, italiano antico). Qual e' il rischio specifico delle glosse generate dall'IA, e qual e' la regola pratica della verifica? Quali glosse verifichi per prime, e con che fonti?
+Domanda 2: il pattern delle glosse storiche per testi che richiedono comprensione storica (latino, greco, italiano antico). Qual è il rischio specifico delle glosse generate dall'IA, e qual è la regola pratica della verifica? Quali glosse verifichi per prime, e con che fonti?
 
-Domanda 3: il confronto fra edizioni (es. Monti vs Calzecchi Onesti per l'Iliade, Pavese vs Fatica per Moby Dick). Cosa fa l'IA in questo pattern e cosa NON fa? Devi incollare i testi, o ti puoi fidare della sua memoria? Perche'?
+Domanda 3: il confronto fra edizioni (es. Monti vs Calzecchi Onesti per l'Iliade, Pavese vs Fatica per Moby Dick). Cosa fa l'IA in questo pattern e cosa NON fa? Devi incollare i testi, o ti puoi fidare della sua memoria? Perché?
 
-Domanda 4: pensa a un testo che stai studiando o traducendo (per un esame, una tesina, una lettura). Quale dei pattern della lezione applicheresti per primo, e perche'? Aiutami a impostare il prompt iniziale sul tuo caso specifico.
+Domanda 4: pensa a un testo che stai studiando o traducendo (per un esame, una tesina, una lettura). Quale dei pattern della lezione applicheresti per primo, e perché? Aiutami a impostare il prompt iniziale sul tuo caso specifico.
 
-Se la persona e' bloccata o risponde "non lo so", non dare subito la risposta: offri prima un indizio piccolo e falla riprovare. Dai la risposta completa solo se resta bloccata dopo l'indizio o se la chiede di nuovo. Se la risposta e' vaga, chiedi un esempio concreto prima di valutarla. Tieni ogni feedback entro quattro righe e non anticipare mai le domande successive.
+Se la persona è bloccata o risponde "non lo so", non dare subito la risposta: offri prima un indizio piccolo e falla riprovare. Dai la risposta completa solo se resta bloccata dopo l'indizio o se la chiede di nuovo. Se la risposta è vaga, chiedi un esempio concreto prima di valutarla. Tieni ogni feedback entro quattro righe e non anticipare mai le domande successive.
 
 Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.

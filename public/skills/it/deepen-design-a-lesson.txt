@@ -1,13 +1,13 @@
-Ho appena letto una lezione del manuale AI-Guide sul progettare una lezione. La tecnica proposta e' la scaletta in tre passaggi (obiettivo di apprendimento, gradazione degli stimoli, tempi realistici) seguita dalla critica della scaletta prima di scrivere i materiali, e dai materiali agganciati alla scaletta validata.
+Ho appena letto una lezione del manuale AI-Guide sul progettare una lezione. La tecnica proposta è la scaletta in tre passaggi (obiettivo di apprendimento, gradazione degli stimoli, tempi realistici) seguita dalla critica della scaletta prima di scrivere i materiali, e dai materiali agganciati alla scaletta validata.
 
 Voglio applicarla a una lezione che devo preparare per la mia classe.
 
 Prima di rispondere, fammi queste domande UNA ALLA VOLTA, aspettando la mia risposta prima di passare alla successiva:
 
 1. Quale disciplina o materia insegni?
-2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, universita', formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio hanno secondo te?
-3. Quanto dura la lezione che devo preparare e qual e' l'argomento? Se l'argomento e' parte di un'unita' didattica piu' ampia, dimmelo: ti serve per inquadrare l'obiettivo della singola lezione.
-4. C'e' qualcosa di specifico di questa classe che ti devo dire? (Per esempio: una difficolta' ricorrente, una preconoscenza che do per scontata, un vincolo logistico, un evento recente che potresti agganciare.)
+2. A che livello scolastico (primaria, secondaria di primo grado, secondaria di secondo grado, università, formazione adulti) e in quale classe specifica? Quanti studenti circa, e che livello medio hanno secondo te?
+3. Quanto dura la lezione che devo preparare e qual è l'argomento? Se l'argomento è parte di un'unità didattica più ampia, dimmelo: ti serve per inquadrare l'obiettivo della singola lezione.
+4. C'è qualcosa di specifico di questa classe che ti devo dire? (Per esempio: una difficoltà ricorrente, una preconoscenza che do per scontata, un vincolo logistico, un evento recente che potresti agganciare.)
 
 Dopo che ti ho risposto a tutte e quattro le domande, applica il metodo dei tre passaggi al mio caso specifico:
 
@@ -17,10 +17,10 @@ B) Una volta scelto l'obiettivo, mi proponi la struttura della lezione in fasi, 
 
 C) Mi chiedi conferma o aggiustamenti sulla struttura, poi assegni i tempi per fase tenendo conto del 25-30% di margine per gestione classe.
 
-D) Una volta che la scaletta e' validata, mi proponi una critica diretta della scaletta stessa (cosa manca, cosa e' troppo, dove la classe puo' perdersi). Niente complimenti.
+D) Una volta che la scaletta è validata, mi proponi una critica diretta della scaletta stessa (cosa manca, cosa è troppo, dove la classe può perdersi). Niente complimenti.
 
 E) Dopo che ho rivisto la scaletta sulla base della critica, generi un solo materiale alla volta che ti chiedo io (esercizio di apertura, scheda di applicazione, slide di sintesi, eccetera), sempre coerente con la scaletta validata.
 
-Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilita'. Mostrami una sola applicazione, calata sui dati che ti ho dato. Se in qualche passaggio ti servono informazioni che non ti ho dato, chiedimele invece di inventare.
+Sii concreta: niente template generici, niente "questo dipende dal tuo contesto", niente liste di possibilità. Mostrami una sola applicazione, calata sui dati che ti ho dato. Se in qualche passaggio ti servono informazioni che non ti ho dato, chiedimele invece di inventare.
 
-Se una delle quattro domande non mi e' chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.
+Se una delle quattro domande non mi è chiara o non so rispondere, proponimi due o tre opzioni tra cui scegliere invece di andare avanti a indovinare. Quando hai finito, chiedimi cosa vorrei rifinire e correggi di conseguenza.

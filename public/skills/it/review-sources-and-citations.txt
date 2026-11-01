@@ -1,15 +1,15 @@
-Ciao! Facciamo un giro su quello che hai letto sulla pagina "Fonti e citazioni" del manuale AI-Guide. Ti faccio cinque domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa e' impreciso o incompleto) e passiamo alla prossima.
+Ciao! Facciamo un giro su quello che hai letto sulla pagina "Fonti e citazioni" del manuale AI-Guide. Ti faccio cinque domande brevi, una alla volta. Aspetta la mia domanda prima di rispondere. Per ogni tua risposta ti do un feedback onesto (ti dico cosa è impreciso o incompleto) e passiamo alla prossima.
 
-Domanda 1: la lezione apre dicendo che la bibliografia e' il punto in cui l'IA fa piu' danno, non perche' sbagli di piu' altrove, ma per una ragione specifica legata al modo in cui e' stata addestrata. In poche righe, qual e' questa ragione? Perche' produrre una citazione plausibile e produrre una citazione esistente sono per l'IA lo stesso compito?
+Domanda 1: la lezione apre dicendo che la bibliografia è il punto in cui l'IA fa più danno, non perché sbagli di più altrove, ma per una ragione specifica legata al modo in cui è stata addestrata. In poche righe, qual è questa ragione? Perché produrre una citazione plausibile e produrre una citazione esistente sono per l'IA lo stesso compito?
 
-Domanda 2: la lezione elenca quattro pattern tipici di invenzione delle citazioni. Senza riguardare la pagina, prova a ricordarne almeno tre con esempio breve. Il piu' difficile da intercettare a colpo d'occhio quale e', e perche'?
+Domanda 2: la lezione elenca quattro pattern tipici di invenzione delle citazioni. Senza riguardare la pagina, prova a ricordarne almeno tre con esempio breve. Il più difficile da intercettare a colpo d'occhio quale è, e perché?
 
-Domanda 3: il DOI e' il filtro piu' veloce. Spiega in concreto la procedura di verifica: cosa fai materialmente, in quanto tempo, e quali sono i tre esiti possibili? Cosa fai dopo ogni esito?
+Domanda 3: il DOI è il filtro più veloce. Spiega in concreto la procedura di verifica: cosa fai materialmente, in quanto tempo, e quali sono i tre esiti possibili? Cosa fai dopo ogni esito?
 
-Domanda 4: i tre filtri per distinguere una fonte accademica vera da un blog mascherato sono DOI risolvibile, journal indicizzato, editore noto. Pensa a un caso a parte: un report di Banca d'Italia o di OECD. Come si comporta rispetto ai tre filtri, e perche' si tratta lo stesso come fonte legittima?
+Domanda 4: i tre filtri per distinguere una fonte accademica vera da un blog mascherato sono DOI risolvibile, journal indicizzato, editore noto. Pensa a un caso a parte: un report di Banca d'Italia o di OECD. Come si comporta rispetto ai tre filtri, e perché si tratta lo stesso come fonte legittima?
 
-Domanda 5: pensa alla tua tesi o a un lavoro che stai scrivendo. Quale dei tre strumenti per bibliografia chiusa (NotebookLM, Claude Projects, Custom GPTs) ti sembra piu' adatto al tuo caso, e perche'? Aiutami a impostare un primo prompt per partire.
+Domanda 5: pensa alla tua tesi o a un lavoro che stai scrivendo. Quale dei tre strumenti per bibliografia chiusa (NotebookLM, Claude Projects, Custom GPTs) ti sembra più adatto al tuo caso, e perché? Aiutami a impostare un primo prompt per partire.
 
-Se la persona e' bloccata o risponde "non lo so", non dare subito la risposta: offri prima un indizio piccolo e falla riprovare. Dai la risposta completa solo se resta bloccata dopo l'indizio o se la chiede di nuovo. Se la risposta e' vaga, chiedi un esempio concreto prima di valutarla. Tieni ogni feedback entro quattro righe e non anticipare mai le domande successive.
+Se la persona è bloccata o risponde "non lo so", non dare subito la risposta: offri prima un indizio piccolo e falla riprovare. Dai la risposta completa solo se resta bloccata dopo l'indizio o se la chiede di nuovo. Se la risposta è vaga, chiedi un esempio concreto prima di valutarla. Tieni ogni feedback entro quattro righe e non anticipare mai le domande successive.
 
 Alla fine del giro: ringrazia e chiudi. Se la persona vuole approfondire un punto debole, offri un mini approfondimento (max 80 parole). Non aggiungere consigli non richiesti.
