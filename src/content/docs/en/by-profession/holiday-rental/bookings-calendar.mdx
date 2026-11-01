@@ -1,0 +1,115 @@
+---
+title: The bookings and cleaning calendar
+description: A Google Sheets (or Excel) sheet with one row per booking, the nights calculation, a check for overlaps in the same room and the day's cleaning list. ChatGPT writes and explains the formulas, you paste them.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- The sheet lives in Google Sheets or Excel, not in ChatGPT: one row per booking, with the guest's initials instead of the name.
+- The number of nights is a subtraction between dates. The overlap check is a formula that counts bookings of the same room that overlap.
+- Before trusting a formula, test it on cases you know, including a departure and an arrival on the same day, which are allowed.
+- Guest registration is not done in the sheet or with the AI: it is done on the Alloggiati Web portal.
+
+</LessonSummary>
+
+Giulia has two rooms and a flat, bookings from two platforms and a few direct ones. The real risk is a double booking of the same room, which has already happened to her once. She wants a sheet that warns her and tells her, in the morning, which rooms to clean.
+
+You do not need to paste real bookings into ChatGPT. The columns and a few invented rows are enough: the formula it writes works for all rows.
+
+## The structure
+
+One row per booking, these columns. In the sheet the dates are real dates (not text) and the guest is marked with initials. The dates below are written the Italian way, day/month/year.
+
+| A: Room | B: Guest | C: Arrival | D: Departure | E: Nights | F: Channel | G: Paid | H: Check | I: Cleaning |
+|---|---|---|---|---|---|---|---|---|
+| Lavanda | M.R. | 10/06/2027 | 13/06/2027 | 3 | Booking | Yes | ok | Clean today |
+| Lavanda | K.S. | 13/06/2027 | 16/06/2027 | 3 | Airbnb | No | OVERLAP | Arrives today |
+| Lavanda | T.B. | 15/06/2027 | 18/06/2027 | 3 | Direct | No | OVERLAP | |
+| Gelsomino | A.F. | 11/06/2027 | 14/06/2027 | 3 | Booking | Yes | ok | |
+
+Column I is calculated as if today were 13 June 2027. The bookings are invented.
+
+For column G you can add a dropdown: select the cells, **Data**, **Data validation**, **Add rule**, criterion "Dropdown", values "Yes" and "No". Verified in November 2026 (the Italian labels are **Dati**, **Convalida dei dati**, **Aggiungi regola**).
+
+## The formulas
+
+These are for Google Sheets in English: English function names and a comma as separator. If your sheet is set to Italian, the function names and separator are different (`SE`, `CONTA.PIÙ.SE`, `;`): ask ChatGPT for the version for your language. Excel uses the same English form.
+
+**Nights**, in cell E2, then drag down:
+
+```text
+=D2-C2
+```
+
+Departure minus arrival: 13/06 minus 10/06 gives 3. If the cell shows a date instead of a number, change the format to number.
+
+**Overlap check**, in cell H2:
+
+```text
+=IF(COUNTIFS($A$2:$A$100,A2,$C$2:$C$100,"<"&D2,$D$2:$D$100,">"&C2)>1,"OVERLAP","ok")
+```
+
+It counts the rows of the same room (column A) that arrive before this row's departure and leave after its arrival. Every row counts itself, so a result above 1 means another booking overlaps. Try it on the sheet above:
+
+- Row 2 (Lavanda, 10-13/06): the rows with arrival before 13/06 and departure after 10/06 are only row 2 (row 3 arrives on the 13th, not before). Count 1, so "ok". A departure on the 13th and an arrival on the 13th in the same room are allowed.
+- Row 3 (Lavanda, 13-16/06): the rows with arrival before 16/06 and departure after 13/06 are rows 3 and 4. Count 2, so "OVERLAP".
+- Row 4 (Lavanda, 15-18/06): arrival before 18/06 and departure after 15/06: rows 3 and 4. Count 2, "OVERLAP".
+- Row 5 (Gelsomino): it is the only one of its room. Count 1, "ok".
+
+**Today's cleaning**, in cell I2:
+
+```text
+=IF(D2=TODAY(),"Clean today",IF(C2=TODAY(),"Arrives today",""))
+```
+
+If today is 13/06/2027, row 2 leaves today: "Clean today". Row 3 arrives today: "Arrives today". Together they tell Giulia that Lavanda has to be cleaned today, between the old guests leaving and the new ones arriving.
+
+## Colours and reminders
+
+To make problems visible: select A2:I100, **Format**, **Conditional formatting**, choose the custom formula rule. First rule, `=$H2="OVERLAP"`, light red fill. Second, `=$D2=TODAY()`, yellow fill for today's departures. The `$` before the column makes each row look at its own cell.
+
+<SelfCheck
+  id="holiday-rental-bookings-calendar-q1"
+  question="The overlap formula seems to be doing something odd. What do you paste into ChatGPT to get help?"
+  options={[
+    { text: "The whole sheet with real bookings, so it can see the problem.", why: "It is not needed, and it puts real guests' dates and initials in the chat." },
+    { text: "The formula, the error message or the wrong result, and three or four invented rows showing the case.", correct: true, why: "A small example is enough for a formula. Then test the fix on the same rows." },
+    { text: "Nothing: ChatGPT remembers the formulas from last time.", why: "It does not remember past chats. What you do not give it now, it does not know." },
+    { text: "The platforms' emails with the guests' data.", why: "They contain names, emails and phone numbers: data you do not paste." },
+  ]}
+/>
+
+## How to ask ChatGPT for the formula
+
+This is done with invented rows too:
+
+```text
+I have a Google Sheets file in English. Columns: A room, C arrival, D departure (real dates), from row 2. Write me the formula for column H that says "OVERLAP" if the same room has another overlapping booking. A departure and an arrival on the same day are not an overlap. Explain how it works and give me three cases to test it.
+```
+
+ChatGPT may also offer you an Excel file to download, if your plan allows it; otherwise it gives you the table to copy into the sheet. You paste the formulas yourself, and before using the sheet you test it on cases you know. When two bookings overlap, which one to move is your decision.
+
+## One thing the sheet does not do
+
+The sheet holds bookings, not document data. Reporting guests to the police headquarters (questura) has to be done within 24 hours of arrival and only on the **Alloggiati Web** portal, not in the sheet and not with an AI. It needs the data from guests' documents: that never goes into a chat.
+
+<LlmExercise
+  title="Your calendar with overlap check"
+  file="practice-holiday-rental-bookings-calendar.txt"
+  duration="20 min"
+  description="The AI guides you to build the sheet with nights, overlap check and today's cleaning, using invented bookings."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-holiday-rental-bookings-calendar.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

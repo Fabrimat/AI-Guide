@@ -1149,7 +1149,8 @@ Target: non-technical people who do the same hands-on work every week in a
 specific job. Persona-based structure: each chapter starts from a real weekly
 task, shows it from raw notes to the finished document, and gives step-by-step
 instructions on the tool that job really uses (Claude for the travel agency,
-Copilot for the public sector). Tool facts are dated ("verificato a novembre
+Copilot for the public sector, ChatGPT for holiday rentals, Gemini for the small shop).
+Tool facts are dated ("verificato a novembre
 2026") and written generically where they could not be verified. Design:
 `docs/superpowers/specs/2026-11-01-by-profession-design.md`.
 
@@ -1182,6 +1183,20 @@ note that the context is Italian public administration)
 - ✅ **Rispondere ai cittadini** (`by-profession/public-sector/citizen-replies`)
 - ✅ **Verbali e circolari** (`by-profession/public-sector/minutes-and-circulars`)
 - ✅ **Sistemare una lettera e verificare i fatti** (`by-profession/public-sector/fix-a-letter-check-facts`)
+
+**B&B e case vacanze** (tool: ChatGPT, plus Google Sheets or Excel)
+
+- ✅ **Prepara ChatGPT per il tuo B&B** (`by-profession/holiday-rental/start-here`)
+- ✅ **Messaggi agli ospiti, in ogni lingua** (`by-profession/holiday-rental/guest-messages`)
+- ✅ **La guida della casa da un modello** (`by-profession/holiday-rental/house-guide`)
+- ✅ **Il calendario di prenotazioni e pulizie** (`by-profession/holiday-rental/bookings-calendar`)
+
+**Negozio e bottega** (tool: Gemini, plus Google Sheets)
+
+- ✅ **Prepara Gemini per il tuo negozio** (`by-profession/small-shop/start-here`)
+- ✅ **Schede prodotto e post dalle tue note** (`by-profession/small-shop/product-descriptions`)
+- ✅ **Rispondere a clienti e fornitori** (`by-profession/small-shop/customer-and-supplier-emails`)
+- ✅ **Il foglio delle scorte** (`by-profession/small-shop/stock-sheet`)
 
 **Adding a profession** = a folder `by-profession/<profession>/` (IT + EN, plus
 `public/skills/<lang>/` files), a collapsible subgroup in the "By profession"

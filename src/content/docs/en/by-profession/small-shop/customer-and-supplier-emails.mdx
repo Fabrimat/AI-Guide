@@ -1,0 +1,112 @@
+---
+title: Replying to customers and suppliers
+description: A reply to a customer with a broken jar in the parcel and a quote request to a supplier, in four parts and in your own tone, without promises you cannot keep.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- A good reply to a customer says four things, in this order: what you wrote to us, what we are doing, what you need to do, by when.
+- Refunds, replacements and dates are your decisions and go into the request. Gemini must not decide them.
+- Before pasting the customer's email remove address, phone and order number, and put [CUSTOMER] in place of the name.
+- The same structure works for suppliers: what you ask, by when, what you need back.
+
+</LessonSummary>
+
+This lesson assumes you have [set up Gemini for your shop](/en/by-profession/small-shop/start-here/). The rules saved there (tone, no promises, no customer data) apply here too.
+
+At Bottega Fiordaliso an email arrives from a customer: the parcel with three jars came with one jam jar broken, and the other items sticky. She is disappointed and says so plainly. Paolo has already decided what to do: he sends a new jar at no cost. He needs a photo of the broken jar and of the packaging, and he ships within three working days of receiving it.
+
+## The customer's email, without data
+
+Before pasting, Paolo removes address, phone and order number and writes [CUSTOMER] in place of the name. For a text with a lot of data there is the [anonymizer](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice), which runs in the browser: the text does not leave your computer. What not to paste, in general, is in [Privacy and company data](/en/at-work/company-data-and-privacy/).
+
+Then he writes the request. First a weak one, then one that works.
+
+<PromptCompare
+  weak="Reply to this angry customer."
+  strong={`Write the reply to this customer email (I paste it below, without personal data). A broken jar arrived in a parcel.
+Facts to use, there are no others: we send a new jar at no cost. We need a photo of the broken jar and of the packaging, she can send it by replying to this email. We ship within three working days of receiving the photo.
+Structure: 1) what she wrote to us, 2) what we are doing, 3) what she needs to do, 4) by when.
+Friendly tone, formal "lei", a single sentence of apology, no padding. Do not promise arrival dates: the courier is not up to us. Do not offer discounts or refunds I did not write.`}
+  note="The second contains Paolo's decision, the facts and the limits. The first leaves Gemini free to offer refunds and dates."
+/>
+
+## What Gemini must not invent
+
+With the first prompt, Gemini may write "We will refund your whole order" or "the parcel will arrive by Friday". Kind sentences, but they bind you. That is why you supply the decision and spell out the ban on promising anything else.
+
+<SelfCheck
+  id="small-shop-customer-and-supplier-emails-q1"
+  question="Gemini's draft contains the sentence “Your new jar will reach you within two days”. What do you do?"
+  options={[
+    { text: "I leave it: it sounds reassuring.", why: "An arrival date depends on the courier. If it does not arrive, you promised something you do not control." },
+    { text: "I change it to \"We ship it within three working days of the photo\", which is what I can guarantee.", correct: true, why: "You promise only the part that depends on you, and you write it yourself." },
+    { text: "I ask Gemini to check the courier's delivery times.", why: "Gemini does not see your shipments and does not know the courier's times." },
+    { text: "I delete it and give no time at all.", why: "The customer wants to know by when: give the time you control." },
+  ]}
+/>
+
+<Collapsible title="Paolo's final reply">
+
+```text
+Dear [CUSTOMER],
+
+you wrote that one jam jar was broken in the parcel and that the other items arrived sticky. I am sorry for the trouble.
+
+We are sending you a new jar, at no cost.
+
+To do it we need one photo of the broken jar and of the packaging: you can simply reply to this email.
+
+We ship the new jar within three working days of receiving the photo.
+
+Kind regards
+Paolo
+Bottega Fiordaliso
+```
+
+</Collapsible>
+
+Paolo reads it all before sending, and puts the customer's name back by hand in place of the placeholder. The real email is in Italian; this is a translation.
+
+## To the supplier, with the same structure
+
+Paolo wants 24 jars of chestnut honey, 500 g, and needs to know price and timing. He writes to Gemini:
+
+```text
+Write a short email to one of our honey suppliers. I want a quote for 24 jars of chestnut honey, 500 g, and to know how many days you need to deliver them. Please reply by [DATE]. Friendly tone, formal "lei". Do not write figures: he gives me the price.
+```
+
+Gemini writes four lines: what you ask, the quantity, what you need back (price and timing), by when. To ask for a delivery to be moved the structure is the same: what is scheduled, what you ask (one more week), why, by when you need an answer.
+
+If you have confidential price agreements, leave [AGREED PRICE] in the draft and fill it in yourself afterwards.
+
+## Gemini inside Gmail
+
+Gemini in Gmail and the "Ask Gemini" side panel need a plan that includes them: if you have one you can use them. The method in this lesson works for everyone: you copy the text (already free of data) into the Gemini app, get the draft, copy it into the email and reread it.
+
+<LlmExercise
+  title="Reply to a customer and write to a supplier"
+  file="practice-small-shop-customer-and-supplier-emails.txt"
+  duration="15 min"
+  description="With an invented email, the AI guides you to write the four-part reply and a request to a supplier."
+/>
+
+## What comes next
+
+To keep track of what to order from suppliers there is [the stock sheet](/en/by-profession/small-shop/stock-sheet/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-small-shop-customer-and-supplier-emails.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

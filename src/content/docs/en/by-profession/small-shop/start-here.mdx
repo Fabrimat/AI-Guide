@@ -1,0 +1,112 @@
+---
+title: Set up Gemini for your shop
+description: You save your shop's instructions (products, tone, what never to promise) in Gemini once, as a skill or as a text to paste, and set the rule on customer data.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Gemini does not remember past chats: you save the shop's rules once, in a skill or in a text to paste at the start of a chat.
+- The instructions say what you sell, how you talk to customers and what never to promise (delivery dates, product properties).
+- A first name and the product ordered are fine when needed. Addresses, phone numbers, customer emails and suppliers' confidential prices stay out.
+- If Gemini keeps getting the same thing wrong, fix the saved instructions, not the single chat.
+
+</LessonSummary>
+
+You run a shop selling local products and gifts, with a small online shop and an Instagram page. You write product descriptions, answer customers, chase suppliers and check what is running out. The products change, while your way of talking and your rules stay. It pays to write them once and have Gemini read them in every chat.
+
+The general picture is in [Your work assistant](/en/by-profession/your-work-assistant/). Here we do it with Gemini, for a shop.
+
+Throughout the series we use an invented shop, **Bottega Fiordaliso**, run by Paolo: local food products and gift ideas. Customers, suppliers and orders are made up. The shop is Italian, so the examples use Italian products and customs.
+
+## Save the instructions as a skill
+
+Google is replacing Gems with **skills**. If you already have a Gem: from 17 November 2026, on personal Google accounts, Gems turn into skills and become read-only (you can open them, but not use or edit them). On 17 December 2026 they are removed from the Gemini apps. For work accounts (Workspace) the dates are later. So do not build anything new on a Gem.
+
+To create a skill, if your account offers it:
+
+1. In Gemini's left-hand menu click **Personalizza** (Customize), then **Skill**.
+2. Click **Crea** (Create), then **Crea manualmente** (Create manually).
+3. Give it a name (for example "Bottega Fiordaliso"), paste the instructions below and click **Crea**.
+
+Verified in November 2026 on the Italian interface; the English names may differ slightly. Google changes the names and positions of these entries often: if they differ, look in the customization menu for the ones about skills. With a free account it is not certain that creating one is available, and for under-18s the feature arrives later.
+
+## If you do not have skills
+
+The method that never breaks: a text of instructions in a Google Doc, which you copy and paste as the first message of every new chat. It takes ten seconds and works with any version of Gemini.
+
+Gemini also has memory: click your photo, then **Contesto personale** (Personal context), and turn on the switch under **Memoria** (Memory). It needs an adult personal account with activity saving on. It is meant for things about you, and it can keep what you write: if you use it, put no customer data in the chats. A wider picture is in [Privacy basics](/en/fundamentals/privacy-basics/).
+
+## Instructions for a shop
+
+A template to adapt. Short sentences, as if you were telling a new shop assistant.
+
+<Collapsible title="Ready-made instructions for Bottega Fiordaliso">
+
+```text
+You work with me, Paolo, owner of Bottega Fiordaliso, a small shop selling local food products and gift ideas, with an online shop and an Instagram page. We write in Italian.
+
+What you do: you help me write product descriptions, Instagram posts, replies to customers and emails to suppliers, and keep the stock sheet in order.
+
+Product categories: honey and preserves, pasta and flours, sweets, drinks, gift boxes.
+
+Tone with customers: friendly and direct, formal "lei", short sentences, like a small-town shopkeeper who knows his products. No slogans, no "unique experience", no strings of exclamation marks.
+
+Products: use only the information I give you. Never invent ingredients, origin, certifications (organic, DOP and the like), awards or health effects. If a fact is missing write [TO BE CONFIRMED] and at the end of the answer list what is missing.
+
+Deliveries and prices: never promise a delivery date, a refund or a discount that I did not write myself. You do not know the prices: do not invent figures.
+
+Customer data: use only the first name and what the reply needs. If I paste an address, phone number or email by mistake, warn me and do not use it.
+
+If information is missing, ask me before writing.
+```
+
+</Collapsible>
+
+## What not to paste
+
+The texts you write end up in the chats. For a shop there are two typical cases. Customer data: shipping address, phone, email, names tied to an order. And suppliers' confidential prices, if you prefer to keep them in your own sheet: in emails to a supplier you can write [AGREED PRICE] and fill it in yourself.
+
+For doubtful cases read [Privacy and company data](/en/at-work/company-data-and-privacy/). If you have a text full of data to clean up, [the anonymizer](/en/at-work/company-data-and-privacy/#how-to-anonymize-in-practice) runs in your browser.
+
+<SelfCheck
+  id="small-shop-start-here-q1"
+  question="A customer writes about a late order and the email contains her address, phone number and order number. What do you paste into Gemini?"
+  options={[
+    { text: "The whole email, so Gemini has the full picture.", why: "The address and phone are not needed to write the reply, and they would end up in the chat." },
+    { text: "The text without address and phone, with [CUSTOMER] in place of the name.", correct: true, why: "The reply needs the problem and the facts. The data to find the customer again stays in your own system." },
+    { text: "Only the address, because that is what Gemini has to check.", why: "Gemini does not track shipments, and the address is personal data." },
+    { text: "The whole email, then I delete the chat.", why: "Deleting the chat is not enough as a safeguard: better not to let the data in." },
+  ]}
+/>
+
+## Try it now
+
+Open a new chat (with the skill active, or paste the instructions text) and write: "Introduce yourself in three lines and tell me what you understood about my shop and what you are missing". If Gemini does not mention the tone or the categories, the instructions are too vague: add a sentence and try again.
+
+If after a few weeks you notice it always ends posts with an over-enthusiastic line, add one line: "No enthusiastic closing lines". It applies to all future chats.
+
+<LlmExercise
+  title="Write your shop's instructions"
+  file="practice-small-shop-start-here.txt"
+  duration="10-15 min"
+  description="The AI interviews you about your shop and hands you the instructions, ready to save in a skill or in a Doc."
+/>
+
+## What comes next
+
+With the instructions ready, the first concrete job is [product descriptions and posts](/en/by-profession/small-shop/product-descriptions/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-small-shop-start-here.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

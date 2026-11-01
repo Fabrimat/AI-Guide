@@ -1,0 +1,117 @@
+---
+title: Il calendario di prenotazioni e pulizie
+description: Un foglio Google Fogli (o Excel) con una riga per prenotazione, il calcolo delle notti, il controllo delle sovrapposizioni nella stessa camera e l'elenco delle pulizie del giorno. ChatGPT scrive e spiega le formule, tu le incolli.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Il foglio vive in Google Fogli o in Excel, non in ChatGPT: una riga per prenotazione, con iniziali dell'ospite al posto del nome.
+- Il numero di notti è una sottrazione fra date. Il controllo delle sovrapposizioni è una formula che conta le prenotazioni della stessa camera che si accavallano.
+- Prima di fidarti di una formula provala su casi che conosci, compresa una partenza e un arrivo nello stesso giorno, che sono ammessi.
+- La registrazione degli ospiti non si fa nel foglio né con l'IA: si fa sul portale Alloggiati Web.
+
+</LessonSummary>
+
+Giulia ha due camere e un appartamento, prenotazioni da due piattaforme e qualcuna diretta. Il rischio vero è la doppia prenotazione della stessa camera, che le è già capitata una volta. Vuole un foglio che la avvisi e che le dica, la mattina, quali camere sono da pulire.
+
+Non serve incollare in ChatGPT le prenotazioni vere. Gli bastano le colonne e qualche riga inventata: la formula che scrive vale per tutte le righe.
+
+## La struttura
+
+Una riga per prenotazione, queste colonne. Nel foglio le date sono vere date (non testo) e l'ospite è segnato con le iniziali.
+
+| A: Camera | B: Ospite | C: Arrivo | D: Partenza | E: Notti | F: Canale | G: Pagato | H: Controllo | I: Pulizia |
+|---|---|---|---|---|---|---|---|---|
+| Lavanda | M.R. | 10/06/2027 | 13/06/2027 | 3 | Booking | Sì | ok | Pulire oggi |
+| Lavanda | K.S. | 13/06/2027 | 16/06/2027 | 3 | Airbnb | No | SOVRAPPOSTA | Arriva oggi |
+| Lavanda | T.B. | 15/06/2027 | 18/06/2027 | 3 | Diretto | No | SOVRAPPOSTA | |
+| Gelsomino | A.F. | 11/06/2027 | 14/06/2027 | 3 | Booking | Sì | ok | |
+
+La colonna I è calcolata come se oggi fosse il 13 giugno 2027. Le prenotazioni sono inventate.
+
+Per la colonna G puoi mettere un menu a discesa: seleziona le celle, **Dati**, **Convalida dei dati**, **Aggiungi regola**, criterio "Menu a discesa", valori "Sì" e "No". Verificato a novembre 2026.
+
+## Le formule
+
+Sono per Google Fogli in italiano: nomi delle funzioni in italiano e il punto e virgola come separatore. Se una formula dà errore, prova a sostituire `;` con `,`. Excel in italiano usa la stessa forma.
+
+**Notti**, nella cella E2, poi trascina in basso:
+
+```text
+=D2-C2
+```
+
+Partenza meno arrivo: 13/06 meno 10/06 fa 3. Se la cella mostra una data invece di un numero, cambia il formato in numero.
+
+**Controllo sovrapposizioni**, nella cella H2:
+
+```text
+=SE(CONTA.PIÙ.SE($A$2:$A$100;A2;$C$2:$C$100;"<"&D2;$D$2:$D$100;">"&C2)>1;"SOVRAPPOSTA";"ok")
+```
+
+Conta le righe della stessa camera (colonna A) che arrivano prima della partenza di questa riga e partono dopo il suo arrivo. Ogni riga conta sé stessa, quindi un risultato maggiore di 1 vuol dire che c'è un'altra prenotazione che si accavalla. Provala sul foglio sopra:
+
+- Riga 2 (Lavanda, 10-13/06): le righe con arrivo prima del 13/06 e partenza dopo il 10/06 sono solo la 2 (la riga 3 arriva il 13, non prima). Conta 1, quindi "ok". Una partenza il 13 e un arrivo il 13 nella stessa camera sono ammessi.
+- Riga 3 (Lavanda, 13-16/06): le righe con arrivo prima del 16/06 e partenza dopo il 13/06 sono la 3 e la 4. Conta 2, quindi "SOVRAPPOSTA".
+- Riga 4 (Lavanda, 15-18/06): arrivo prima del 18/06 e partenza dopo il 15/06: la 3 e la 4. Conta 2, "SOVRAPPOSTA".
+- Riga 5 (Gelsomino): è l'unica della sua camera. Conta 1, "ok".
+
+Se la funzione `CONTA.PIÙ.SE` non viene riconosciuta nella tua versione, incolla l'errore in ChatGPT e chiedi la forma giusta per il tuo foglio.
+
+**Pulizia del giorno**, nella cella I2:
+
+```text
+=SE(D2=OGGI();"Pulire oggi";SE(C2=OGGI();"Arriva oggi";""))
+```
+
+Se oggi è il 13/06/2027, la riga 2 parte oggi: "Pulire oggi". La riga 3 arriva oggi: "Arriva oggi". Insieme dicono a Giulia che la Lavanda va pulita oggi, tra la partenza dei vecchi ospiti e l'arrivo dei nuovi.
+
+## Colori e promemoria
+
+Per rendere visibili i problemi: seleziona A2:I100, **Formato**, **Formattazione condizionale**, scegli la regola con formula personalizzata. Prima regola, `=$H2="SOVRAPPOSTA"`, riempimento rosso chiaro. Seconda, `=$D2=OGGI()`, riempimento giallo per le partenze di oggi. Il `$` davanti alla colonna fa guardare a ogni riga la propria cella.
+
+<SelfCheck
+  id="holiday-rental-bookings-calendar-q1"
+  question="La formula delle sovrapposizioni ti sembra fare qualcosa di strano. Cosa incolli a ChatGPT per farti aiutare?"
+  options={[
+    { text: "Tutto il foglio con le prenotazioni vere, così vede il problema.", why: "Non serve, e porta nella chat date e iniziali di ospiti veri." },
+    { text: "La formula, il messaggio di errore o il risultato sbagliato e tre o quattro righe inventate che mostrano il caso.", correct: true, why: "Alla formula basta un esempio piccolo. Prova poi la correzione sulle stesse righe." },
+    { text: "Niente: ChatGPT si ricorda le formule della lezione scorsa.", why: "Non ricorda le chat passate. Quello che non gli dai ora, non lo sa." },
+    { text: "Le email delle piattaforme con i dati degli ospiti.", why: "Contengono nomi, email e telefoni: dati che non si incollano." },
+  ]}
+/>
+
+## Come chiedere la formula a ChatGPT
+
+Anche questa si fa con righe inventate:
+
+```text
+Ho un foglio Google Fogli in italiano. Colonne: A camera, C arrivo, D partenza (date vere), dalla riga 2. Scrivimi la formula per la colonna H che dice "SOVRAPPOSTA" se la stessa camera ha un'altra prenotazione che si accavalla. Una partenza e un arrivo nello stesso giorno non sono una sovrapposizione. Spiegami come funziona e dammi tre casi per provarla.
+```
+
+ChatGPT può anche proporti un file Excel da scaricare, se il tuo piano lo permette; altrimenti ti dà la tabella da copiare nel foglio. Le formule le incolli tu, e prima di usare il foglio le provi sui casi che conosci. Tra due prenotazioni sovrapposte, la scelta su quale spostare è tua.
+
+## Una cosa che il foglio non fa
+
+Il foglio tiene le prenotazioni, non i dati dei documenti. La comunicazione degli ospiti alla questura va fatta entro 24 ore dall'arrivo e solo sul portale **Alloggiati Web**, non nel foglio e non con un'IA. Lì servono i dati dei documenti: quelli non finiscono mai in una chat.
+
+<LlmExercise
+  title="Il tuo calendario con controllo delle sovrapposizioni"
+  file="practice-holiday-rental-bookings-calendar.txt"
+  duration="20 min"
+  description="L'IA ti guida a costruire il foglio con notti, controllo delle sovrapposizioni e pulizie del giorno, usando prenotazioni inventate."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-holiday-rental-bookings-calendar.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

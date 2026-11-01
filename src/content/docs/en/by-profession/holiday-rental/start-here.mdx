@@ -1,0 +1,109 @@
+---
+title: Set up ChatGPT for your B&B
+description: You put your house facts, times and tone into ChatGPT once, and you decide what must never end up in the chat, starting with guests' documents.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- ChatGPT's instructions keep your house facts, times and tone together: you write them once and do not repeat them in every chat.
+- Where you put them depends on your plan: in a Project, in custom instructions or, if those are missing, in a document you paste at the start of a chat.
+- Codes, times and rules come from you. What ChatGPT does not know, it leaves in square brackets.
+- Guests' documents, photos of ID cards and booking exports are never pasted. Guest registration is done only on the official portal.
+
+</LessonSummary>
+
+Giulia runs **Casa del Glicine**, an invented B&B with two rooms and a small flat, in a town near a lake. She writes to guests from her phone between one breakfast and the next, often in the same half hour, and every time she retypes the same times and the same rules. ChatGPT can keep these things in mind for her, if she tells it once.
+
+If you want the general picture first, it is in [Your work assistant](/en/by-profession/your-work-assistant/). Here we do it for a holiday rental. The house is Italian, so the examples follow Italian rules.
+
+## Where you put the instructions
+
+ChatGPT's menus change often and I could not verify them one by one: if they do not match the ones below, look for the ones about instructions. There are three routes, from the most comfortable to the simplest.
+
+1. **A Project.** In the sidebar look for **Projects**. If it is there, create one (for example "Casa del Glicine"), look for the project instructions and paste the text below. Your plan may accept only a few files.
+2. **Custom instructions.** If Projects are not there, open the settings and look for the personalization section. The text applies to all your chats, so keep it short.
+3. **A document of your own.** If you find nothing, keep the text in a Google Docs file and paste it at the start of every B&B chat. It works on any plan.
+
+In every case, open the data section in the settings and check what you allow: the rule on what not to write applies whatever the setting.
+
+## Instructions for a B&B
+
+This is a template to adapt. You fill in the parts in square brackets with your real data.
+
+<Collapsible title="Ready-made instructions for Casa del Glicine">
+
+```text
+You work with me, Giulia, owner of Casa del Glicine, a B&B with two rooms (Lavanda and Gelsomino) and a flat (Orto), in a town near the lake. We write to guests in Italian, English, German and French.
+
+What you do: you help me write messages to guests, replies to reviews, the house guide, and build the bookings sheet.
+
+House facts (these are the facts, there are no others):
+- Check-in from 3 pm to 7 pm, check-out by 10 am.
+- Breakfast from 8 to 10 am, in the ground-floor room.
+- Free parking in the courtyard, two spaces.
+- Quiet after 10 pm.
+- I write the key box code and the Wi-Fi password myself: you leave [KEY BOX CODE] and [WIFI PASSWORD].
+
+Tone: friendly, direct, informal address unless I say otherwise. Short sentences. No "unforgettable experience" and the like.
+
+Rules: never invent times, prices, refunds, discounts or promises. If a piece of data is missing write [TO BE CONFIRMED] and at the end of the answer list what is missing. Do not decide what to offer an unhappy guest: you suggest, I decide.
+
+Listings: the CIN (Italian national identification code) must appear in every listing. You do not know it, leave [CIN].
+
+Guest data: use only the first name. If I paste a document, a card number or a phone number by mistake, warn me and do not use it.
+
+Translations: after every translation also write the back-translation into Italian.
+```
+
+</Collapsible>
+
+## What to upload and what not
+
+If your route accepts files, three are enough: a one-page **house sheet** (times, rules, how to get there), two or three **messages of yours** you liked, to show the tone, and the **text of the rules** you want to communicate. The more files you upload, the more likely ChatGPT is to pull the wrong piece.
+
+You never upload: guests' identity documents and photos of them, booking exports from Booking.com or Airbnb with names, emails and phone numbers, guest lists, IBANs or card numbers. The chat needs a first name, dates and the number of people.
+
+Guest registration is a different matter: it has to be sent to the police headquarters (questura) within 24 hours of arrival, and only through the **Alloggiati Web** portal of the State Police. ChatGPT has nothing to do with it and must not see that data. For doubtful cases read [Company data and privacy](/en/at-work/company-data-and-privacy/).
+
+<SelfCheck
+  id="holiday-rental-start-here-q1"
+  question="A guest sends you a photo of their ID card for check-in. What do you do with ChatGPT?"
+  options={[
+    { text: "I upload it to the chat and ask it to fill in the registration.", why: "Registration is done only on the official portal, and the document must not end up in the chat." },
+    { text: "I do not upload it. I use the Alloggiati Web portal and only write the first name and dates to ChatGPT.", correct: true, why: "The AI is for messages. You use the document's data yourself, on the portal." },
+    { text: "I blank out the name on the photo and upload it anyway.", why: "The number, date of birth and face are still there. It is not anonymized." },
+    { text: "I upload it only if the chat is not saved.", why: "The problem is the data itself, whatever your setting. Documents are not pasted." },
+  ]}
+/>
+
+## Try it now
+
+Open a chat with the instructions active and write: "Introduce yourself in three lines and tell me what you understood about Casa del Glicine and what you are missing". If ChatGPT does not mention the times or the tone, the instructions are too vague: add a sentence and try again.
+
+Then a test on the facts: ask "What time is check-out?". It must answer "by 10 am". If it gives a different time, or answers without asking when the data is not in the instructions, fix the text.
+
+<LlmExercise
+  title="Write your house instructions"
+  file="practice-holiday-rental-start-here.txt"
+  duration="10-15 min"
+  description="The AI interviews you about your house and hands you the instructions ready to paste."
+/>
+
+## What comes next
+
+With the instructions in place, the first real job is [guest messages, in any language](/en/by-profession/holiday-rental/guest-messages/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-holiday-rental-start-here.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

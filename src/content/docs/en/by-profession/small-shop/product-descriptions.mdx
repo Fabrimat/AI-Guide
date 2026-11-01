@@ -1,0 +1,100 @@
+---
+title: Product descriptions and posts from your notes
+description: From four lines of notes to a product card with a fixed template and an Instagram post, without Gemini inventing properties, certifications or health effects.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Gemini writes well from your notes, even rough ones. Without notes it invents: origin, ingredients, certifications.
+- A fixed card template (name, description, what we know, how to use it, storage) gives every card the same tone.
+- Reread every sentence looking for what you did not write: "organic", "artisan", awards, health effects.
+- If you write a post with a discount, the starting price is the lowest one applied in the previous 30 days.
+
+</LessonSummary>
+
+Paolo, from Bottega Fiordaliso, has just received the chestnut honey and has four lines of notes on his phone: "chestnut honey, 500 g, beekeeper from the valley, a bit bitter". The website needs a card and a post. This lesson assumes you have [set up Gemini for your shop](/en/by-profession/small-shop/start-here/): the saved instructions already say not to invent.
+
+## From notes to card
+
+Gemini does not know your honey. It knows how a product card is written, and it fills the gaps with what is plausible: that is why you declare the gaps. Compare two requests.
+
+<PromptCompare
+  weak="Write the product card for the chestnut honey."
+  strong={`Write the product card for the website, using the template below.
+My notes, there are no other facts: chestnut honey, 500 g jar, made by a beekeeper from our valley, strong and a bit bitter taste.
+Template: 1) name, 2) description in two or three sentences, 3) what we know (list of facts, only those from my notes), 4) how to use it, 5) storage.
+If a fact is missing (beekeeper's name, ingredients, storage) write [TO BE CONFIRMED]. Do not add certifications, awards or health effects.`}
+  note="The second gives the facts, the template and the ban on adding anything. The first leaves the filling to Gemini."
+/>
+
+The result, once clean, is a card with the name, two sentences on taste and on the beekeeper, the list of facts and, where a fact is missing, the placeholder. Paolo fills it in: the beekeeper's name and the storage come from the producer's label. Ingredients and allergens always come from the label, never from Gemini.
+
+<Collapsible title="The card template, to copy">
+
+```text
+Product name:
+Size:
+Description (two or three sentences, only things I wrote to you):
+What we know (list of facts from my notes):
+How to use it or what to pair it with:
+Storage:
+Ingredients and allergens: [from the producer's label]
+```
+
+</Collapsible>
+
+## Look for what you did not write
+
+Even with the right instructions, Gemini sometimes adds a sentence. This is the most important check in the lesson. Below, a card written without the ban: find the sentences Paolo never wrote in his notes.
+
+<SpotTheError
+  prompt="Write the product card from these notes: chestnut honey, 500 g, beekeeper from the valley, a bit bitter."
+  sentences={[
+    { text: "Bottega Fiordaliso's chestnut honey comes from a beekeeper in our valley." },
+    { text: "It has a strong taste, with a bitter note." },
+    { text: "It is organic and certified.", wrong: true, why: "It is not in the notes. Saying \"organic\" without a certification is false information about the product." },
+    { text: "It is good for coughs and strengthens the immune system.", wrong: true, why: "A health effect nobody wrote and that you cannot promise customers." },
+    { text: "It pairs well with aged cheeses and yogurt." },
+  ]}
+/>
+
+False or misleading information about a product is an unfair commercial practice under Italy's Consumer Code: the responsibility is yours, even when Gemini wrote the text. For the same reason, do not have it write customer reviews that do not exist.
+
+## The Instagram post
+
+From the finished card, ask for the post in one sentence:
+
+```text
+From the card above write a four-line Instagram post, friendly tone, no strings of exclamation marks. Use only facts from the card. Three hashtags at the end, no emoji.
+```
+
+Gemini answers with a short text saying what it is, where it comes from and how it tastes. You reread it with the same criterion: does every sentence rest on the notes?
+
+If the post announces a discount, add another check. When you announce a price reduction, the starting price you show (the crossed-out one) must be the lowest you applied to customers in the previous 30 days (art. 17-bis of the Consumer Code). It applies to goods, with some exceptions, for example certain perishable products. You write the price yourself, checking your own price list: Gemini does not know it. For doubts, ask your trade association or your accountant.
+
+<LlmExercise
+  title="A card and a post from your notes"
+  file="practice-small-shop-product-descriptions.txt"
+  duration="15 min"
+  description="With made-up notes on a product, the AI guides you from the card to the post and has you hunt for invented sentences."
+/>
+
+## What comes next
+
+With the products described, the next step is [replying to customers and suppliers](/en/by-profession/small-shop/customer-and-supplier-emails/).
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-small-shop-product-descriptions.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

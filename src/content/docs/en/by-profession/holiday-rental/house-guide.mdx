@@ -1,0 +1,118 @@
+---
+title: The house guide from a template
+description: You turn your scattered notes (Wi-Fi, heating, rubbish sorting, parking, pharmacy) into a tidy welcome guide, with a fixed template and a simple way to keep it up to date.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- The house guide is one document (Word or Google Docs) with sections that are always the same: the AI reorders your notes, it does not add to them.
+- What you do not know or what changes (rubbish collection days, pharmacy hours) stays in square brackets until you check it.
+- You write the Wi-Fi password and codes by hand in the document, not in the chat.
+- To keep it up to date: one file, the date of the last edit at the top, and a reminder every season.
+
+</LessonSummary>
+
+Guests ask the same questions every week: what is the Wi-Fi, how does the heating work, when is the rubbish collected. Giulia has all of it scattered across phone notes and old messages. A welcome guide of a page or two saves her half of her messages. ChatGPT can put it in order, but the facts stay hers.
+
+If you already have the [ChatGPT instructions for your B&B](/en/by-profession/holiday-rental/start-here/), keep them active. Otherwise paste your house facts at the start of the chat.
+
+## The starting notes
+
+These are Giulia's notes, as she typed them on her phone, messy on purpose:
+
+```text
+wifi: name Glicine_ospiti, password I write it
+heating: knob in the corridor, guests do not touch the boiler
+rubbish: wet waste, plastic, paper, glass, days to check on the council website
+parking: courtyard, two spaces, if full via del Prato
+pharmacy: in the square, hours to check
+quiet after 10 pm
+check-out by 10, keys in the box
+emergencies: my number [PHONE]
+```
+
+Notice the parts where Giulia did not write a fact: rubbish days, pharmacy hours. They are data that changes, and the AI cannot know them.
+
+## The fixed template
+
+The guide always has the same sections, in the same order. That way guests find what they need at once, and when something changes you know where to go.
+
+<Collapsible title="The guide template, to paste into ChatGPT">
+
+```text
+Reorder my notes into a welcome guide for guests, with these sections, in this order:
+
+1. Welcome (two friendly lines)
+2. Arrival and departure (times, keys)
+3. Wi-Fi
+4. Heating and air conditioning
+5. Rubbish (what to sort, days)
+6. Parking
+7. Pharmacy and nearby services
+8. House rules (quiet hours, smoking, outside visitors)
+9. If there is a problem (who to write to or call)
+
+Rules:
+- Use only the facts I give you. If a section has no data, write [TO BE CONFIRMED] and do not invent.
+- Leave passwords and codes as [WIFI PASSWORD], [KEY BOX CODE]: I write them myself.
+- Short sentences, friendly tone, informal address.
+- At the end list what is missing.
+```
+
+</Collapsible>
+
+Paste the template and the notes in the same chat. ChatGPT returns a text with the nine sections. Where data is missing you see `[TO BE CONFIRMED]` and, at the bottom, the list of what you must check: rubbish days on the council website, pharmacy hours from the pharmacy.
+
+## From text to document
+
+Copy the text into Word or Google Docs and do three things by hand:
+
+1. Fill the square brackets with real data: password, code, phone, rubbish days.
+2. Put the date of the last check at the top, for example "Updated June 2027".
+3. Check the layout: real headings, a little space. Then print a copy for each room or share the document link with guests, as you prefer.
+
+Information on obligations and taxes is not written by the AI. The amount of the tourist tax is decided by your own Comune (the local council): look at the council's website and write it yourself if you want it in the guide.
+
+<SelfCheck
+  id="holiday-rental-house-guide-q1"
+  question="Your notes say 'rubbish: wet waste, plastic, paper, glass'. ChatGPT writes in the guide 'Plastic is collected on Thursdays'. What do you do?"
+  options={[
+    { text: "I keep it: it sounds plausible and makes the guide more complete.", why: "The days were not in your notes: the AI invented them. A guest might put the bags out on the wrong day." },
+    { text: "I remove it and put [TO BE CONFIRMED], then check the days on the council website.", correct: true, why: "A piece of data that changes and that you do not know is checked at the source, and you write it yourself." },
+    { text: "I ask ChatGPT to double-check whether it is right.", why: "It has no access to your council's calendar: it would confirm what it wrote." },
+    { text: "I keep the sentence and add 'subject to change'.", why: "The disclaimer does not remove the error: the guest will still read an invented day." },
+  ]}
+/>
+
+## Keeping it up to date
+
+An old guide is worse than no guide. A few simple habits:
+
+- **One file.** A copy in Word and one in Docs are two guides that contradict each other. Pick one.
+- **A reminder at every change of season** to reread heating, rubbish, opening hours.
+- **When something changes,** fix the document, and tell ChatGPT in a new chat with just the new lines if you want the welcome message to use them.
+- **After a repeated question** from a guest ("where is the hair dryer?") add the line to the guide.
+
+Now and then paste the guide into ChatGPT with the request: "What might be unclear to a foreign guest reading this for the first time?". It points out ambiguous sentences, and you decide on the fixes.
+
+<LlmExercise
+  title="The guide for your house from your notes"
+  file="practice-holiday-rental-house-guide.txt"
+  duration="15-20 min"
+  description="With your notes (or invented ones), the AI guides you to build the guide in the fixed template, without inventing data."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-holiday-rental-house-guide.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

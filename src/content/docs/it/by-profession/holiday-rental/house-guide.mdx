@@ -1,0 +1,118 @@
+---
+title: La guida della casa da un modello
+description: Trasformi i tuoi appunti sparsi (Wi-Fi, riscaldamento, rifiuti, parcheggio, farmacia) in una guida di benvenuto ordinata, con un modello fisso e un modo semplice per tenerla aggiornata.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- La guida della casa è un solo documento (Word o Google Documenti) con sezioni sempre uguali: l'IA riordina i tuoi appunti, non ne aggiunge.
+- Quello che non sai o che cambia (giorni dei rifiuti, orari della farmacia) resta tra parentesi quadre finché lo controlli tu.
+- Password del Wi-Fi e codici li scrivi a mano nel documento, non nella chat.
+- Per tenerla aggiornata: un solo file, la data dell'ultima modifica in alto, e un promemoria ogni stagione.
+
+</LessonSummary>
+
+Gli ospiti fanno le stesse domande ogni settimana: com'è il Wi-Fi, come si accende il riscaldamento, quando passano i rifiuti. Giulia le ha tutte sparse in note sul telefono e messaggi vecchi. Una guida di benvenuto in una pagina o due le risparmia metà dei messaggi. ChatGPT può metterla in ordine, ma i fatti restano suoi.
+
+Se hai già le [istruzioni di ChatGPT per il B&B](/it/by-profession/holiday-rental/start-here/), tienile attive. Altrimenti incolla all'inizio della chat i fatti della casa.
+
+## Gli appunti di partenza
+
+Questi sono gli appunti di Giulia, come li ha scritti sul telefono, disordinati apposta:
+
+```text
+wifi: nome Glicine_ospiti, password la scrivo io
+riscaldamento: manopola nel corridoio, ospiti non toccare caldaia
+rifiuti: umido, plastica, carta, vetro, giorni da controllare sul sito del comune
+parcheggio: cortile, due posti, se pieno via del Prato
+farmacia: in piazza, orari da controllare
+silenzio dopo le 22
+check-out entro le 10, chiavi nella cassetta
+emergenze: numero mio [TELEFONO]
+```
+
+Nota le parti dove Giulia non ha scritto un fatto: giorni dei rifiuti, orari della farmacia. Sono dati che cambiano, e l'IA non può saperli.
+
+## Il modello fisso
+
+La guida ha sempre le stesse sezioni, nello stesso ordine. Così gli ospiti trovano subito quello che cercano e tu, quando cambi un dato, sai dove andare.
+
+<Collapsible title="Il modello della guida, da incollare in ChatGPT">
+
+```text
+Riordina i miei appunti in una guida di benvenuto per gli ospiti, con queste sezioni, in questo ordine:
+
+1. Benvenuto (due righe, cordiali)
+2. Arrivo e partenza (orari, chiavi)
+3. Wi-Fi
+4. Riscaldamento e aria condizionata
+5. Rifiuti (cosa si separa, giorni)
+6. Parcheggio
+7. Farmacia e servizi vicini
+8. Regole della casa (silenzio, fumo, ospiti esterni)
+9. Se c'è un problema (a chi scrivere o telefonare)
+
+Regole:
+- Usa solo i fatti che ti do. Se una sezione non ha dati, scrivi [DA CONFERMARE] e non inventare.
+- Password e codici lasciali come [PASSWORD WI-FI], [CODICE CASSETTA]: li scrivo io.
+- Frasi brevi, tono cordiale, dai del voi.
+- Alla fine elencami cosa manca.
+```
+
+</Collapsible>
+
+Incolla modello e appunti nella stessa chat. ChatGPT restituisce un testo con le nove sezioni. Dove mancano dati compare `[DA CONFERMARE]` e in fondo la lista di quello che devi controllare: giorni dei rifiuti sul sito del Comune, orari della farmacia dalla farmacia.
+
+## Dal testo al documento
+
+Copia il testo in Word o in Google Documenti e fai tre cose a mano:
+
+1. Compila le parentesi quadre con i dati veri: password, codice, telefono, giorni dei rifiuti.
+2. Metti in alto la data dell'ultimo controllo, per esempio "Aggiornata a giugno 2027".
+3. Controlla l'impaginazione: titoli veri, un po' di spazio. Poi stampa un esemplare per ogni camera o condividi il link del documento con gli ospiti, come preferisci.
+
+Le informazioni su obblighi e tasse non le scrive l'IA. L'importo dell'imposta di soggiorno lo decide il tuo Comune: guarda sul sito del Comune e scrivilo tu se vuoi metterlo nella guida.
+
+<SelfCheck
+  id="holiday-rental-house-guide-q1"
+  question="Nei tuoi appunti c'è scritto 'rifiuti: umido, plastica, carta, vetro'. ChatGPT scrive nella guida 'La plastica si ritira il giovedì'. Cosa fai?"
+  options={[
+    { text: "La tengo: sembra plausibile e fa una guida più completa.", why: "I giorni non erano nei tuoi appunti: l'IA li ha inventati. Un ospite potrebbe esporre i sacchetti il giorno sbagliato." },
+    { text: "La tolgo e metto [DA CONFERMARE], poi controllo i giorni sul sito del Comune.", correct: true, why: "Un dato che cambia e che non sai lo verifichi alla fonte e lo scrivi tu." },
+    { text: "Chiedo a ChatGPT di ricontrollare se è giusto.", why: "Non ha accesso al calendario del tuo Comune: confermerebbe quello che ha scritto." },
+    { text: "Lascio la frase e aggiungo 'salvo variazioni'.", why: "Il disclaimer non toglie l'errore: l'ospite leggerà comunque un giorno inventato." },
+  ]}
+/>
+
+## Tenerla aggiornata
+
+Una guida vecchia è peggio di nessuna guida. Qualche abitudine semplice:
+
+- **Un solo file.** Una copia in Word e una su Documenti sono due guide che si contraddicono. Scegline una.
+- **Un promemoria a ogni cambio di stagione** per rileggere riscaldamento, rifiuti, orari.
+- **Quando cambia qualcosa**, correggi il documento e poi dillo a ChatGPT in una chat nuova, con le sole righe nuove, se vuoi che il messaggio di benvenuto le usi.
+- **Dopo una domanda ripetuta** di un ospite ("dov'è il phon?") aggiungi la riga alla guida.
+
+Ogni tanto incolla la guida a ChatGPT con la richiesta: "Cosa potrebbe non essere chiaro a un ospite straniero che la legge la prima volta?". Ti segnala le frasi ambigue, e le correzioni le decidi tu.
+
+<LlmExercise
+  title="La guida della tua casa dai tuoi appunti"
+  file="practice-holiday-rental-house-guide.txt"
+  duration="15-20 min"
+  description="Con i tuoi appunti (o appunti inventati), l'IA ti guida a costruire la guida nel modello fisso, senza inventare dati."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-holiday-rental-house-guide.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

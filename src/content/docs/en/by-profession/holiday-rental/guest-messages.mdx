@@ -1,0 +1,107 @@
+---
+title: Guest messages, in any language
+description: From the pre-arrival message to a reply to a review that complains about noise, with ChatGPT translating and you checking facts, codes and promises.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Give ChatGPT the facts (dates, times, rules) and the tone. Codes and passwords come from you: the draft keeps placeholders.
+- To translate, ask for the translation and then the back-translation into your own language, in a new chat, to check the meaning held.
+- A critical review gets a calm reply, written for future guests, with no personal details. Refunds and promises are your decision, not the AI's.
+- Always reread the draft before sending: the AI tends to promise more than you would.
+
+</LessonSummary>
+
+This lesson starts from the instructions in [Set up ChatGPT for your B&B](/en/by-profession/holiday-rental/start-here/). If you do not have them, paste your house facts at the start of the chat.
+
+Giulia has a German family arriving at Casa del Glicine from 12 to 15 June. She has to write the pre-arrival message, then the instructions to get in. Meanwhile a three-star review has appeared on the booking site: lovely place, but you could hear the road at night. Giulia writes in Italian; the examples here are given in English.
+
+## The pre-arrival message
+
+Compare a weak request with one that works.
+
+<PromptCompare
+  weak="Write a message for guests who are arriving."
+  strong={`Write a welcome message for Anna and her family, who arrive at Casa del Glicine from 12 to 15 June.
+Facts to use, there are no others: check-in from 3 pm to 7 pm, if they arrive later they message me. Keys are in a box next to the door, I will send the code the day before (leave [KEY BOX CODE]). Free parking in the courtyard. If they have breakfast allergies they tell me by 9 June.
+Friendly tone, informal address, eight lines at most. Do not add services or rules I have not given you.`}
+  note="The second one holds the facts, the placeholder for the code and the length limit. The first leaves the AI to invent times and services."
+/>
+
+You do not write the key box code in the prompt: ChatGPT leaves the placeholder and you add it in the final message. The same goes for the Wi-Fi password. For the guest, use just the first name.
+
+## Translate and check
+
+Giulia asks for the German version and, right after, the back-translation into Italian. Better still, she opens a new chat and pastes only the German text with the request: "Translate it into Italian, faithfully, without improving it". A chat that has not seen the original cannot translate while remembering what you meant.
+
+The first sentence, in German:
+
+> Liebe Anna, wir freuen uns, euch vom 12. bis 15. Juni in der Casa del Glicine zu begrüßen. Der Check-in ist von 15 bis 19 Uhr.
+
+And the back-translation (here in English):
+
+> Dear Anna, we are happy to welcome you from 12 to 15 June at Casa del Glicine. Check-in is from 3 to 7 pm.
+
+Compare figures and dates first, then the tone: German `euch` is informal, and if you want the formal register ask for "Sie". If you do not read the language, the back-translation is your check, not a guarantee. For messages with important times or rules, keep sentences simple: they translate better.
+
+## Instructions to get in
+
+The same pattern works for the message the day before: times, key box, parking, who to write to if there is a problem. You list the facts, ask for a short text in your language and then in the languages you need. You add the code by hand, only in the final message.
+
+## The three-star review
+
+Giulia pastes the text of the review (it is already public, with no private data) and writes what she wants to say: thank you, the road is close, the back rooms are quieter, I offer earplugs. She does not write "offer a discount": she has not decided to.
+
+On Airbnb the public reply is written from your profile: **Reviews**, then **Reviews about you**, then **Leave public response**, and **Submit**. It shows up right away next to the review. Verified in November 2026 on Airbnb's help page. Booking.com lets you reply from the property's dashboard, with a check before publication.
+
+The reply is written for whoever reads it later, not to win over its author. Below is the AI's draft: find the sentences you should not send.
+
+<SpotTheError
+  prompt="Reply to the three-star review about the road noise."
+  sentences={[
+    { text: "Thank you for your stay and for your comments about our B&B." },
+    { text: "We are sorry you could hear the road at night." },
+    { text: "We will refund 20% of your stay for the inconvenience.", wrong: true, why: "You did not decide on a refund. The AI invented a financial commitment." },
+    { text: "The rooms at the back are quieter, and we offer earplugs to anyone who asks." },
+    { text: "We have already installed double glazing throughout the house.", wrong: true, why: "It is not among the facts you gave it. A false, public sentence that stays online." },
+    { text: "We hope to see you again soon." },
+  ]}
+/>
+
+Look at what happened: two sentences out of six were a promise Giulia never made. That is why the instructions say "do not decide what to offer".
+
+<Collapsible title="A reply template to adapt">
+
+```text
+Dear guest, thank you for your stay and for your comments.
+We are sorry you could hear the road at night. The rooms at the back are quieter: we are happy to offer them to anyone who asks, and we have earplugs available.
+We hope to see you again soon.
+Giulia, Casa del Glicine
+```
+
+</Collapsible>
+
+No guest name beyond the first name, no dates of birth, no point-by-point argument. If the review is unfair, stay courteous anyway: others will read it.
+
+<LlmExercise
+  title="A message and a reply, in two languages"
+  file="practice-holiday-rental-guest-messages.txt"
+  duration="15 min"
+  description="The AI guides you to write a welcome message, translate it with a back-translation check and reply to an invented critical review."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-holiday-rental-guest-messages.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask a few questions about the lesson, one at a time."
+/>

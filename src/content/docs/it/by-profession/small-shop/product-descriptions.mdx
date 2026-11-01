@@ -1,0 +1,100 @@
+---
+title: Schede prodotto e post dalle tue note
+description: Da quattro righe di appunti a una scheda prodotto con modello fisso e a un post per Instagram, senza che Gemini inventi proprietà, certificazioni o effetti sulla salute.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Gemini scrive bene partendo dai tuoi appunti, anche grezzi. Senza appunti inventa: origine, ingredienti, certificazioni.
+- Un modello fisso di scheda (nome, descrizione, cosa sappiamo, come si usa, conservazione) rende tutte le schede dello stesso tono.
+- Rileggi ogni frase cercando quello che non hai scritto tu: "biologico", "artigianale", premi, effetti sulla salute.
+- Se scrivi un post con uno sconto, il prezzo di partenza è il più basso applicato nei 30 giorni precedenti.
+
+</LessonSummary>
+
+Paolo, di Bottega Fiordaliso, ha appena ricevuto il miele di castagno e ha quattro righe di appunti sul telefono: "miele di castagno, 500 g, apicoltore della valle, un po' amaro". Sul sito servono una scheda e un post. Questa lezione presuppone di aver [preparato Gemini per il negozio](/it/by-profession/small-shop/start-here/): le istruzioni salvate dicono già di non inventare.
+
+## Dagli appunti alla scheda
+
+Gemini non conosce il tuo miele. Sa come si scrive una scheda, e riempie i vuoti con quello che è plausibile: per questo i vuoti li lasci dichiarati. Confronta due richieste.
+
+<PromptCompare
+  weak="Scrivi la scheda del miele di castagno."
+  strong={`Scrivi la scheda prodotto per il sito, usando il modello qui sotto.
+Appunti miei, non esistono altri fatti: miele di castagno, vasetto da 500 g, prodotto da un apicoltore della nostra valle, sapore deciso e un po' amaro.
+Modello: 1) nome, 2) descrizione in due o tre frasi, 3) cosa sappiamo (elenco di fatti, solo quelli dei miei appunti), 4) come si usa, 5) conservazione.
+Se un dato manca (nome dell'apicoltore, ingredienti, conservazione) scrivi [DA CONFERMARE]. Non aggiungere certificazioni, premi o effetti sulla salute.`}
+  note="Il secondo dà i fatti, il modello e il divieto di aggiungere altro. Il primo lascia a Gemini il compito di riempire."
+/>
+
+Il risultato, già pulito, è una scheda con il nome, due frasi sul sapore e sull'apicoltore, l'elenco dei fatti e, dove manca un dato, il segnaposto. Paolo lo riempie: il nome dell'apicoltore e la conservazione li prende dall'etichetta del produttore. Ingredienti e allergeni vengono sempre dall'etichetta, mai da Gemini.
+
+<Collapsible title="Il modello di scheda, da copiare">
+
+```text
+Nome del prodotto:
+Formato:
+Descrizione (due o tre frasi, solo cose che ti ho scritto):
+Cosa sappiamo (elenco di fatti dai miei appunti):
+Come si usa o come si abbina:
+Conservazione:
+Ingredienti e allergeni: [dall'etichetta del produttore]
+```
+
+</Collapsible>
+
+## Cerca quello che non hai scritto
+
+Anche con le istruzioni giuste, a volte Gemini aggiunge una frase. È il controllo più importante della lezione. Qui sotto una scheda scritta senza il divieto: trova le frasi che Paolo non aveva mai scritto negli appunti.
+
+<SpotTheError
+  prompt="Scrivi la scheda prodotto da queste note: miele di castagno, 500 g, apicoltore della valle, un po' amaro."
+  sentences={[
+    { text: "Il miele di castagno di Bottega Fiordaliso arriva da un apicoltore della nostra valle." },
+    { text: "Ha un gusto deciso, con una nota amarognola." },
+    { text: "È biologico e certificato.", wrong: true, why: "Negli appunti non c'è. Dire \"biologico\" senza certificazione è un'informazione falsa sul prodotto." },
+    { text: "Fa bene alla tosse e rinforza le difese.", wrong: true, why: "Un effetto sulla salute che nessuno ha scritto e che non puoi promettere ai clienti." },
+    { text: "Si abbina bene a formaggi stagionati e a yogurt." },
+  ]}
+/>
+
+Le informazioni false o fuorvianti su un prodotto sono pratiche commerciali scorrette secondo il Codice del Consumo: la responsabilità è tua, anche se il testo l'ha scritto Gemini. Per la stessa ragione non farti scrivere recensioni di clienti che non esistono.
+
+## Il post per Instagram
+
+Dalla scheda finita, chiedi il post in una frase:
+
+```text
+Dalla scheda qui sopra scrivi un post per Instagram di quattro righe, tono cordiale, senza punti esclamativi a raffica. Usa solo fatti della scheda. Tre hashtag alla fine, nessun emoji.
+```
+
+Gemini risponde con un testo corto, che dice cosa è, da dove viene e com'è il sapore. Lo rileggi con lo stesso criterio: ogni frase si regge sugli appunti?
+
+Se il post annuncia uno sconto, aggiungi un altro controllo. Quando comunichi una riduzione di prezzo, il prezzo di partenza che mostri (quello barrato) deve essere il più basso che hai applicato ai clienti nei 30 giorni precedenti (art. 17-bis del Codice del Consumo). Vale per i beni, con alcune eccezioni, per esempio certi prodotti deperibili. Il prezzo lo scrivi tu, controllando il tuo listino: Gemini non lo sa. Per i dubbi chiedi alla tua associazione di categoria o al commercialista.
+
+<LlmExercise
+  title="Una scheda e un post dai tuoi appunti"
+  file="practice-small-shop-product-descriptions.txt"
+  duration="15 min"
+  description="Con appunti inventati su un prodotto, l'IA ti guida dalla scheda al post e ti fa cercare le frasi inventate."
+/>
+
+## Cosa viene dopo
+
+Con i prodotti descritti, il passo successivo è [rispondere a clienti e fornitori](/it/by-profession/small-shop/customer-and-supplier-emails/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-small-shop-product-descriptions.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

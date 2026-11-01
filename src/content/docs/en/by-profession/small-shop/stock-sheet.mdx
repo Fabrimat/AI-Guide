@@ -1,0 +1,117 @@
+---
+title: The stock sheet
+description: A Google Sheets file with quantity, reorder threshold and a formula that flags "Reorder", then a filter to see what to order and a supplier email written by Gemini from the filtered rows.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- The stock sheet lives in Google Sheets, not in Gemini: Gemini does not know what you have in the stockroom unless you write it in that chat.
+- Basic columns: product, category, quantity, reorder threshold, supplier, status. The status is calculated with a formula.
+- With conditional formatting the "Reorder" rows colour themselves, and with a filter you see only those.
+- From a supplier's filtered rows Gemini writes the order email. You decide the quantities to order.
+
+</LessonSummary>
+
+Paolo, from Bottega Fiordaliso, checks stock by eye and sometimes finds out midweek that the chestnut honey has run out. With a well-made sheet, every Monday morning he knows what to order. Gemini can help him build it, but the sheet stays his.
+
+Gemini inside Google Sheets (the "Ask Gemini" panel) needs a plan that includes it: if you have one you can use it. Here we work in the Gemini app, copying and pasting, which works for everyone.
+
+The formulas use English names (`IF`, `COUNTIF`) and the comma as separator. If a formula gives an error, try replacing `,` with `;`: it depends on the language and settings of the sheet.
+
+First the data rule: stock numbers are not personal, but suppliers' confidential prices and customer data do not go into the chats, as explained in [Set up Gemini for your shop](/en/by-profession/small-shop/start-here/#what-not-to-paste).
+
+## Ask Gemini for the structure
+
+In the Gemini app write:
+
+```text
+Design a Google Sheets file for the stock of a food shop. Columns: product, category, quantity, reorder threshold, supplier, status. The status must say "Reorder" when the quantity is less than or equal to the threshold, otherwise "OK". Explain step by step how to do it, with the formulas for Google Sheets in English.
+```
+
+Gemini answers with a structure. Here it is, with four invented products:
+
+| A: Product | B: Category | C: Quantity | D: Threshold | E: Supplier | F: Status |
+|---|---|---|---|---|---|
+| Chestnut honey 500 g | Honey and preserves | 4 | 6 | Valley Apiary | Reorder |
+| Fig jam | Honey and preserves | 12 | 6 | Riva Preserves | OK |
+| Bronze-cut pasta 500 g | Pasta and flours | 6 | 6 | Moro Pasta Factory | Reorder |
+| Herbal amaro | Drinks | 9 | 5 | Alba Distillery | OK |
+
+Names and numbers are made up. You pick the threshold for each product: it is the quantity below which you want to order, taking into account how long the supplier needs.
+
+## The formulas, step by step
+
+1. Type the headers in row 1 and the data from row 2.
+2. In cell **F2** (Status) type:
+
+   ```text
+   =IF(A2="","",IF(C2<=D2,"Reorder","OK"))
+   ```
+
+   The formula says: if the product cell is empty, write nothing; otherwise, if the quantity is less than or equal to the threshold, "Reorder"; otherwise "OK". Press Enter and drag it down to the last row.
+3. Check it on one row: for the honey (C2 = 4, D2 = 6) 4 is less than 6, so "Reorder". For the pasta (6 and 6) it is equal, so "Reorder" as well. For the jam (12 and 6) it gives "OK".
+4. To know how many products need reordering, in a free cell type `=COUNTIF(F2:F200,"Reorder")`. With the four example products it gives 2.
+
+The symbol `<=` means "less than or equal to": with the threshold at 6, a quantity of 6 also triggers the reorder.
+
+## Colour the rows to reorder
+
+1. Select cells A2 to F200.
+2. In the **Format** menu click **Conditional formatting**: a panel opens on the right.
+3. In the conditions field choose the one with the custom formula (the exact name may change) and type `=$F2="Reorder"`. The `$` before the F makes every row look at its own Status column.
+4. Pick a fill colour, for example light yellow, and confirm.
+
+The path **Format** > **Conditional formatting** was verified in November 2026 on the Italian interface (**Formato** > **Formattazione condizionale**). The names of the other entries in the panel may change: look for the ones about a formula.
+
+## A filter for what to order this week
+
+Turn on a filter on the headers (look in the **Data** menu for the entry about filters or filter views). Then open the Status column menu and leave only "Reorder" ticked. The sheet shows only the rows you need. If you always order from the same suppliers, also filter the Supplier column, one supplier at a time.
+
+<SelfCheck
+  id="small-shop-stock-sheet-q1"
+  question="The sheet says “OK” for the fig jam, but you can see two jars on the shelf. What is going on?"
+  options={[
+    { text: "Gemini got the calculation wrong.", why: "Gemini does not calculate stock: the sheet's formula does, on the numbers you type." },
+    { text: "The quantity in the sheet is out of date: you fix it and the status changes by itself.", correct: true, why: "The status depends on what you type in C. If the number is old, the formula answers from the old number." },
+    { text: "The formula has to be rewritten every time.", why: "The formula recalculates by itself when you change a number." },
+    { text: "I ask Gemini to count the shelf.", why: "Gemini cannot see your shop." },
+  ]}
+/>
+
+## The order email to the supplier
+
+With the filter on one supplier, copy the visible rows: product, quantity, threshold. Paolo filtered "Valley Apiary", which has one row, the honey with 4 jars. He decides to order 24. He writes to Gemini:
+
+```text
+Write an order email to one of our honey suppliers, friendly tone, formal "lei". Order: 24 jars of chestnut honey, 500 g. We have 4 in stock. I ask for confirmation of the order and of the delivery time, by [DATE]. Do not write prices: I handle the agreements.
+```
+
+Gemini writes four lines: the order, the quantity, what you ask in reply, the deadline. You decide the quantities to order: Gemini does not know how much you sell. You reread the email and send it from your own address. Do not give Gemini the list with confidential prices.
+
+<Collapsible title="If the formula gives an error">
+
+Do not paste the sheet. Write to Gemini the formula, the error message and two sample rows: "This formula in Sheets gives me an error: `=IF(C2<=D2,"Reorder","OK")`. The cells are C2 = 4, D2 = 6. What is wrong?". The most frequent causes are the separator (`,` or `;`) and quotation marks pasted in a different form.
+
+</Collapsible>
+
+<LlmExercise
+  title="Build your own stock sheet"
+  file="practice-small-shop-stock-sheet.txt"
+  duration="20 min"
+  description="The AI guides you to build the sheet with formula and colour, using invented products, up to the order email."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the ideas"
+  file="review-small-shop-stock-sheet.txt"
+  duration="5 min"
+  description="Paste the text into your AI. It will ask you a few questions about the lesson, one at a time."
+/>

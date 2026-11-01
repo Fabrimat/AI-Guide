@@ -1,0 +1,117 @@
+---
+title: Il foglio delle scorte
+description: Un foglio Google Fogli con quantità, soglia di riordino e una formula che segna "Da riordinare", poi un filtro per vedere cosa ordinare e un'email al fornitore scritta da Gemini dalle righe filtrate.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Il foglio delle scorte vive in Google Fogli, non in Gemini: Gemini non sa cosa hai in magazzino, a meno che tu glielo scriva in quella chat.
+- Colonne base: prodotto, categoria, quantità, soglia di riordino, fornitore, stato. Lo stato si calcola con una formula.
+- Con la formattazione condizionale le righe "Da riordinare" si colorano da sole, e con un filtro vedi solo quelle.
+- Dalle righe filtrate di un fornitore Gemini scrive l'email d'ordine. Le quantità da ordinare le decidi tu.
+
+</LessonSummary>
+
+Paolo, di Bottega Fiordaliso, controlla le scorte a occhio e ogni tanto scopre a metà settimana che il miele di castagno è finito. Con un foglio di calcolo ben fatto, ogni lunedì mattina sa cosa ordinare. Gemini può aiutarlo a costruirlo, ma il foglio resta suo.
+
+Gemini dentro Google Fogli (il pannello "Chiedi a Gemini") richiede un piano che lo includa: se ce l'hai puoi usarlo. Qui lavoriamo nell'app di Gemini, copiando e incollando, che funziona per tutti.
+
+Le formule usano i nomi italiani (`SE`, `CONTA.SE`) e il punto e virgola come separatore. Se la formula dà errore, prova a sostituire `;` con `,`: dipende dalla lingua e dalle impostazioni del foglio.
+
+Prima di tutto la regola dei dati: i numeri di magazzino non sono personali, ma i prezzi riservati dei fornitori e i dati dei clienti non vanno nelle chat, come spiegato in [Prepara Gemini per il tuo negozio](/it/by-profession/small-shop/start-here/#cosa-non-incollare).
+
+## Chiedi la struttura a Gemini
+
+Nell'app di Gemini scrivi:
+
+```text
+Progettami un foglio Google Fogli per le scorte di un negozio di prodotti alimentari. Colonne: prodotto, categoria, quantità, soglia di riordino, fornitore, stato. Lo stato deve dire "Da riordinare" quando la quantità è minore o uguale alla soglia, altrimenti "Ok". Spiegami passo passo come fare, con le formule per Google Fogli in italiano.
+```
+
+Gemini risponde con una struttura. Eccola, con quattro prodotti inventati:
+
+| A: Prodotto | B: Categoria | C: Quantità | D: Soglia | E: Fornitore | F: Stato |
+|---|---|---|---|---|---|
+| Miele di castagno 500 g | Miele e conserve | 4 | 6 | Apiario della valle | Da riordinare |
+| Marmellata di fichi | Miele e conserve | 12 | 6 | Conserve Riva | Ok |
+| Pasta trafilata 500 g | Pasta e farine | 6 | 6 | Pastificio Moro | Da riordinare |
+| Amaro alle erbe | Bevande | 9 | 5 | Distilleria Alba | Ok |
+
+Nomi e numeri sono di fantasia. La soglia la scegli tu per ogni prodotto: è la quantità sotto cui vuoi ordinare, tenendo conto di quanto ci mette il fornitore.
+
+## Le formule, passo passo
+
+1. Scrivi le intestazioni nella riga 1 e i dati dalla riga 2.
+2. Nella cella **F2** (Stato) scrivi:
+
+   ```text
+   =SE(A2="";"";SE(C2<=D2;"Da riordinare";"Ok"))
+   ```
+
+   La formula dice: se la cella del prodotto è vuota, non scrivere niente; altrimenti, se la quantità è minore o uguale alla soglia, "Da riordinare"; altrimenti "Ok". Premi Invio e trascinala in basso fino all'ultima riga.
+3. Controllala su una riga: per il miele (C2 = 4, D2 = 6) 4 è minore di 6, quindi "Da riordinare". Per la pasta (6 e 6) è uguale, quindi "Da riordinare" anche lei. Per la marmellata (12 e 6) dà "Ok".
+4. Per sapere quanti prodotti sono da riordinare, in una cella libera scrivi `=CONTA.SE(F2:F200;"Da riordinare")`. Con i quattro prodotti di esempio dà 2.
+
+Il simbolo `<=` vuol dire "minore o uguale": con la soglia a 6, anche una quantità di 6 fa scattare il riordino.
+
+## Colora le righe da riordinare
+
+1. Seleziona le celle da A2 a F200.
+2. Nel menu **Formato** clicca **Formattazione condizionale**: si apre un pannello a destra.
+3. Nel campo delle condizioni scegli quella con la formula personalizzata (il nome esatto può cambiare) e scrivi `=$F2="Da riordinare"`. Il `$` davanti alla F fa guardare a ogni riga la propria colonna Stato.
+4. Scegli un colore di riempimento, per esempio giallo chiaro, e conferma.
+
+Verificato a novembre 2026 per il percorso **Formato** > **Formattazione condizionale**. I nomi delle altre voci del pannello possono cambiare: cerca quelle che parlano di formula.
+
+## Un filtro per cosa ordinare questa settimana
+
+Attiva un filtro sulle intestazioni (cerca nel menu **Dati** la voce sui filtri o sulle visualizzazioni filtro). Poi apri il menu della colonna Stato e lascia spuntato solo "Da riordinare". Il foglio mostra solo le righe che servono. Se ordini sempre dagli stessi fornitori, filtra anche la colonna Fornitore, un fornitore alla volta.
+
+<SelfCheck
+  id="small-shop-stock-sheet-q1"
+  question="Il foglio dice «Ok» per la marmellata di fichi, ma sullo scaffale ne vedi due vasetti. Cosa succede?"
+  options={[
+    { text: "Gemini ha sbagliato il calcolo.", why: "Gemini non calcola le scorte: lo fa la formula del foglio, sui numeri che ci scrivi." },
+    { text: "La quantità nel foglio non è aggiornata: la correggi e lo stato cambia da solo.", correct: true, why: "Lo stato dipende da quanto scrivi in C. Se il numero è vecchio, la formula risponde in base al numero vecchio." },
+    { text: "La formula va riscritta ogni volta.", why: "La formula si ricalcola da sola quando cambi un numero." },
+    { text: "Chiedo a Gemini di contare lo scaffale.", why: "Gemini non vede il tuo negozio." },
+  ]}
+/>
+
+## L'email d'ordine al fornitore
+
+Con il filtro attivo su un fornitore, copia le righe visibili: prodotto, quantità, soglia. Paolo ha filtrato "Apiario della valle", che ha una sola riga, il miele con 4 vasetti. Decide lui di ordinarne 24. Scrive a Gemini:
+
+```text
+Scrivi un'email d'ordine a un nostro fornitore di miele, tono cordiale, diamo del lei. Ordine: 24 vasetti di miele di castagno da 500 g. Ne abbiamo 4 in magazzino. Chiedo conferma dell'ordine e dei tempi di consegna, entro [DATA]. Non scrivere prezzi: gli accordi li ho io.
+```
+
+Gemini scrive quattro righe: l'ordine, la quantità, cosa chiedi in risposta, la scadenza. Le quantità da ordinare le decidi tu: Gemini non sa quanto vendi. Rileggi l'email e la mandi dal tuo indirizzo. Non dare a Gemini l'elenco con prezzi riservati.
+
+<Collapsible title="Se la formula dà errore">
+
+Non incollare il foglio. Scrivi a Gemini la formula, il messaggio di errore e due righe di esempio: "Questa formula in Fogli mi dà un errore: `=SE(C2<=D2;"Da riordinare";"Ok")`. Le celle sono C2 = 4, D2 = 6. Cosa non va?". Le cause più frequenti sono il separatore (`;` o `,`) e le virgolette copiate in modo diverso.
+
+</Collapsible>
+
+<LlmExercise
+  title="Costruisci il tuo foglio delle scorte"
+  file="practice-small-shop-stock-sheet.txt"
+  duration="20 min"
+  description="L'IA ti guida a costruire il foglio con formula e colore, usando prodotti inventati, fino all'email d'ordine."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-small-shop-stock-sheet.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

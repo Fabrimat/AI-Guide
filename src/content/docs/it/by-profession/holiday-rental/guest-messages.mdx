@@ -1,0 +1,107 @@
+---
+title: Messaggi agli ospiti, in ogni lingua
+description: Dal messaggio prima dell'arrivo alla risposta a una recensione che si lamenta del rumore, con ChatGPT che traduce e tu che controlli fatti, codici e promesse.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SpotTheError from '../../../../../components/SpotTheError.astro';
+
+<LessonSummary>
+
+- Dai a ChatGPT i fatti (date, orari, regole) e il tono. Codici e password li scrivi tu: nella bozza restano segnaposto.
+- Per tradurre, chiedi la traduzione e poi la traduzione di ritorno in italiano, in una chat nuova, per controllare che il senso sia rimasto.
+- Alla recensione critica si risponde con calma, per i futuri ospiti, senza dettagli personali. Rimborsi e promesse li decidi tu, non l'IA.
+- Rileggi sempre la bozza prima di inviarla: l'IA tende a promettere più di quanto vorresti.
+
+</LessonSummary>
+
+Questa lezione parte dalle istruzioni di [Prepara ChatGPT per il tuo B&B](/it/by-profession/holiday-rental/start-here/). Se non le hai, incolla i fatti della casa all'inizio della chat.
+
+Giulia ha una famiglia tedesca in arrivo a Casa del Glicine dal 12 al 15 giugno. Deve scrivere il messaggio prima dell'arrivo, poi le istruzioni per entrare. Intanto, sul sito di prenotazione, è comparsa una recensione da tre stelle: bel posto, ma la notte si sentiva la strada.
+
+## Il messaggio prima dell'arrivo
+
+Confronta una richiesta debole con una che funziona.
+
+<PromptCompare
+  weak="Scrivi un messaggio per degli ospiti che arrivano."
+  strong={`Scrivi un messaggio di benvenuto per Anna e la sua famiglia, che arrivano a Casa del Glicine dal 12 al 15 giugno.
+Fatti da usare, non ce ne sono altri: check-in dalle 15 alle 19, se arrivano dopo mi scrivono. Chiavi in una cassetta accanto alla porta, il codice lo mando io il giorno prima (lascia [CODICE CASSETTA]). Parcheggio gratuito nel cortile. Se hanno allergie per la colazione, me lo dicono entro il 9 giugno.
+Tono cordiale, dai del voi, massimo otto righe. Non aggiungere servizi o regole che non ti ho dato.`}
+  note="Il secondo contiene i fatti, il segnaposto per il codice e il limite di lunghezza. Il primo lascia all'IA l'invenzione di orari e servizi."
+/>
+
+Il codice della cassetta non lo scrivi nel prompt: ChatGPT lascia il segnaposto e lo inserisci tu nel messaggio finale. Vale anche per la password del Wi-Fi. Per il nome usa il solo nome di battesimo.
+
+## Tradurre e controllare
+
+Giulia chiede la versione tedesca e, subito dopo, la traduzione di ritorno in italiano. Meglio ancora, apre una chat nuova e incolla solo il testo tedesco con la richiesta: "Traducilo in italiano, fedele, senza migliorarlo". Se la chat nuova non ha visto l'originale, non può tradurre ricordando cosa intendevi.
+
+La prima frase, in tedesco:
+
+> Liebe Anna, wir freuen uns, euch vom 12. bis 15. Juni in der Casa del Glicine zu begrüßen. Der Check-in ist von 15 bis 19 Uhr.
+
+E la traduzione di ritorno:
+
+> Cara Anna, siamo felici di accogliervi dal 12 al 15 giugno a Casa del Glicine. Il check-in è dalle 15 alle 19.
+
+Confronta cifre e date, poi il tono: il "tu" tedesco (`euch`) è più informale del "voi" italiano, e se vuoi il registro formale chiedi di usare "Sie". Se non leggi la lingua, la traduzione di ritorno è il tuo controllo, non una garanzia. Per i messaggi con orari o regole importanti, tieni frasi semplici: si traducono meglio.
+
+## Le istruzioni per entrare
+
+Lo stesso schema vale per il messaggio del giorno prima: orari, cassetta, parcheggio, a chi scrivere se c'è un problema. Elenca tu i fatti, chiedi un testo breve in italiano e poi nelle lingue che servono. Il codice lo aggiungi a mano, solo nel messaggio finale.
+
+## La recensione da tre stelle
+
+Giulia incolla il testo della recensione (è già pubblico, non contiene dati riservati) e scrive cosa vuole dire: grazie, la strada è vicina, le camere sul retro sono più tranquille, offro i tappi per le orecchie. Non scrive "offri uno sconto": non ha deciso di farlo.
+
+Su Airbnb la risposta pubblica si scrive dal profilo: **Reviews**, poi **Reviews about you**, poi **Leave public response**, e **Submit**. Compare subito accanto alla recensione. Verificato a novembre 2026 nella guida in inglese di Airbnb: in italiano le voci possono avere un nome diverso, cerca quelle che parlano di recensioni e di risposta pubblica. Booking.com permette di rispondere dal pannello della struttura, con un controllo prima della pubblicazione.
+
+La risposta si scrive per chi leggerà dopo, non per convincere l'autore. Qui sotto, la bozza dell'IA: trova le frasi che non dovresti mandare.
+
+<SpotTheError
+  prompt="Rispondi alla recensione di tre stelle sul rumore della strada."
+  sentences={[
+    { text: "Grazie per il vostro soggiorno e per i commenti sul nostro B&B." },
+    { text: "Ci dispiace che la notte abbiate sentito il rumore della strada." },
+    { text: "Vi rimborseremo il 20% del soggiorno per il disagio.", wrong: true, why: "Il rimborso non l'hai deciso tu. L'IA ha inventato un impegno economico." },
+    { text: "Le camere sul retro sono più tranquille, e a chi lo chiede offriamo i tappi per le orecchie." },
+    { text: "Abbiamo già installato doppi vetri in tutta la casa.", wrong: true, why: "Non risulta dai fatti che le hai dati. Una frase falsa, pubblica, che resta." },
+    { text: "Speriamo di rivedervi presto." },
+  ]}
+/>
+
+Guarda cosa è successo: due frasi su sei erano una promessa che Giulia non ha mai fatto. Per questo nelle istruzioni c'è "non decidere tu cosa offrire".
+
+<Collapsible title="Un modello di risposta da adattare">
+
+```text
+Gentile ospite, grazie per il vostro soggiorno e per i commenti.
+Ci dispiace che la notte abbiate sentito la strada. Le camere sul retro sono più tranquille: a chi lo chiede le proponiamo con piacere, e abbiamo a disposizione i tappi per le orecchie.
+Speriamo di rivedervi presto.
+Giulia, Casa del Glicine
+```
+
+</Collapsible>
+
+Niente nomi dell'ospite oltre al nome di battesimo, niente date di nascita, niente discussione punto per punto. Se la recensione è ingiusta, resta cortese lo stesso: la leggeranno altri.
+
+<LlmExercise
+  title="Un messaggio e una risposta, in due lingue"
+  file="practice-holiday-rental-guest-messages.txt"
+  duration="15 min"
+  description="L'IA ti guida a scrivere un messaggio di benvenuto, a tradurlo con controllo di ritorno e a rispondere a una recensione critica inventata."
+/>
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-holiday-rental-guest-messages.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

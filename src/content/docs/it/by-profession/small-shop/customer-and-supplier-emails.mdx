@@ -1,0 +1,112 @@
+---
+title: Rispondere a clienti e fornitori
+description: Una risposta a una cliente con un vasetto rotto nel pacco e una richiesta di preventivo a un fornitore, in quattro parti e nel tuo tono, senza promesse che non puoi mantenere.
+livello: principiante
+prerequisiti: [ask-well, company-data-and-privacy]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import PromptCompare from '../../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Una buona risposta a un cliente dice quattro cose, in quest'ordine: cosa ci hai scritto, cosa facciamo, cosa devi fare tu, entro quando.
+- Rimborsi, sostituzioni e date li decidi tu e li scrivi nella richiesta. Gemini non deve deciderli.
+- Prima di incollare la mail della cliente togli indirizzo, telefono e numero d'ordine, e metti [CLIENTE] al posto del nome.
+- La stessa struttura serve per i fornitori: cosa chiedi, per quando, cosa ti serve in risposta.
+
+</LessonSummary>
+
+Questa lezione presuppone di aver [preparato Gemini per il negozio](/it/by-profession/small-shop/start-here/). Le regole salvate lì (tono, niente promesse, niente dati dei clienti) valgono anche qui.
+
+A Bottega Fiordaliso arriva una mail di una cliente: il pacco con tre vasetti è arrivato con un vasetto di marmellata rotto, e le altre cose sporche. È delusa e lo scrive senza giri. Paolo ha già deciso cosa fare: manda un vasetto nuovo senza costi. Gli serve una foto del vasetto rotto e dell'imballaggio, e spedisce entro tre giorni lavorativi da quando la riceve.
+
+## La mail della cliente, senza dati
+
+Prima di incollare, Paolo toglie indirizzo, telefono e numero d'ordine e scrive [CLIENTE] al posto del nome. Per un testo con molti dati c'è l'[anonimizzatore](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica), che lavora nel browser: il testo non esce dal tuo computer. Cosa non incollare, in generale, è in [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+Poi scrive la richiesta. Prima una debole, poi una che funziona.
+
+<PromptCompare
+  weak="Rispondi a questa cliente arrabbiata."
+  strong={`Scrivi la risposta a questa mail di una cliente (te la incollo sotto, senza dati personali). È arrivato un vasetto rotto in un pacco.
+Fatti da usare, non ne esistono altri: mandiamo un vasetto nuovo senza costi. Ci serve una foto del vasetto rotto e dell'imballaggio, la può mandare rispondendo a questa mail. Spediamo entro tre giorni lavorativi da quando riceviamo la foto.
+Struttura: 1) cosa ci ha scritto, 2) cosa facciamo, 3) cosa deve fare lei, 4) entro quando.
+Tono cordiale, diamo del lei, una sola frase di scuse, niente giri di parole. Non promettere date di arrivo: il corriere non dipende da noi. Non offrire sconti o rimborsi che non ho scritto.`}
+  note="Il secondo contiene la decisione di Paolo, i fatti e i confini. Il primo lascia a Gemini la libertà di offrire rimborsi e date."
+/>
+
+## Quello che Gemini non deve inventare
+
+Con il primo prompt, Gemini può scrivere "Le rimborseremo l'intero ordine" o "il pacco arriverà entro venerdì". Frasi gentili, ma ti vincolano. Per questo la decisione la metti tu e il divieto di promettere altro lo scrivi esplicitamente.
+
+<SelfCheck
+  id="small-shop-customer-and-supplier-emails-q1"
+  question="Nella bozza di Gemini c'è la frase «Il vasetto nuovo le arriverà entro due giorni». Cosa fai?"
+  options={[
+    { text: "La lascio: suona rassicurante.", why: "Una data di arrivo dipende dal corriere. Se non arriva, hai promesso qualcosa che non controlli." },
+    { text: "La cambio in \"Lo spediamo entro tre giorni lavorativi dalla foto\", che è quello che posso garantire.", correct: true, why: "Prometti solo la parte che dipende da te, e la scrivi tu." },
+    { text: "Chiedo a Gemini di controllare i tempi del corriere.", why: "Gemini non vede le tue spedizioni e non conosce i tempi del corriere." },
+    { text: "La tolgo e non scrivo nessun tempo.", why: "La cliente vuole sapere entro quando: dai il tempo che controlli tu." },
+  ]}
+/>
+
+<Collapsible title="La risposta finale di Paolo">
+
+```text
+Gentile [CLIENTE],
+
+ci ha scritto che nel pacco c'era un vasetto di marmellata rotto e che le altre cose sono arrivate sporche. Mi dispiace per il disagio.
+
+Le mandiamo un vasetto nuovo, senza costi.
+
+Per farlo ci serve una foto del vasetto rotto e dell'imballaggio: le basta rispondere a questa mail.
+
+Spediamo il vasetto nuovo entro tre giorni lavorativi da quando riceviamo la foto.
+
+Cordiali saluti
+Paolo
+Bottega Fiordaliso
+```
+
+</Collapsible>
+
+Paolo legge tutto prima di mandarla, e il nome della cliente lo rimette a mano al posto del segnaposto.
+
+## Al fornitore, con la stessa struttura
+
+Paolo vuole 24 vasetti di miele di castagno da 500 g e deve sapere prezzo e tempi. Scrive a Gemini:
+
+```text
+Scrivi una email breve a un nostro fornitore di miele. Voglio un preventivo per 24 vasetti di miele di castagno da 500 g e sapere in quanti giorni potete consegnarli. Rispondete entro [DATA]. Tono cordiale, diamo del lei. Non scrivere cifre: il prezzo me lo dà lui.
+```
+
+Gemini scrive quattro righe: cosa chiedi, la quantità, cosa ti serve in risposta (prezzo e tempi), entro quando. Per chiedere uno slittamento di una consegna la struttura è la stessa: cosa è in programma, cosa chiedi (una settimana in più), perché, entro quando mi serve una risposta.
+
+Se hai accordi di prezzo riservati, nella bozza lascia [PREZZO CONCORDATO] e riempilo tu dopo.
+
+## Gemini dentro Gmail
+
+Gemini in Gmail e il pannello laterale "Chiedi a Gemini" richiedono un piano che li includa: se ce l'hai puoi usarli. Il metodo di questa lezione funziona per tutti: copi il testo (già senza dati) nell'app di Gemini, ricevi la bozza, la copi nella mail e la rileggi.
+
+<LlmExercise
+  title="Rispondi a una cliente e scrivi a un fornitore"
+  file="practice-small-shop-customer-and-supplier-emails.txt"
+  duration="15 min"
+  description="Con una mail inventata, l'IA ti guida a scrivere la risposta in quattro parti e una richiesta a un fornitore."
+/>
+
+## Cosa viene dopo
+
+Per tenere sotto controllo cosa ordinare ai fornitori c'è [il foglio delle scorte](/it/by-profession/small-shop/stock-sheet/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-small-shop-customer-and-supplier-emails.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

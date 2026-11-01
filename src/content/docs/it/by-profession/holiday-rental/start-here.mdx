@@ -1,0 +1,109 @@
+---
+title: Prepara ChatGPT per il tuo B&B
+description: Metti in ChatGPT le informazioni della tua casa, gli orari e il tuo tono una volta sola, e decidi cosa non deve mai finire nella chat, a partire dai documenti degli ospiti.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Le istruzioni di ChatGPT tengono insieme i fatti della casa, gli orari e il tuo tono: li scrivi una volta e non li ripeti in ogni chat.
+- Dove metterle dipende dal tuo piano: in un Progetto, nelle istruzioni personalizzate o, se mancano, in un documento da incollare a inizio chat.
+- Codici, orari e regole li scrivi tu. Quello che non sai, ChatGPT lo lascia tra parentesi quadre.
+- Documenti degli ospiti, foto di carte d'identità ed esportazioni delle prenotazioni non si incollano mai. La registrazione degli ospiti si fa solo sul portale ufficiale.
+
+</LessonSummary>
+
+Giulia gestisce **Casa del Glicine**, un B&B inventato con due camere e un piccolo appartamento, in un paese vicino a un lago. Scrive agli ospiti dal telefono tra una colazione e l'altra, spesso nella stessa mezz'ora, e ogni volta ricopia gli stessi orari e le stesse regole. ChatGPT può tenere a mente queste cose al posto suo, se glielo dice una volta.
+
+Se vuoi prima il quadro generale, lo trovi in [Il tuo assistente di mestiere](/it/by-profession/your-work-assistant/). Qui lo facciamo per una casa vacanze.
+
+## Dove metti le istruzioni
+
+Le voci di ChatGPT cambiano spesso e non ho potuto verificarle una per una: se non coincidono con quelle qui sotto, cerca quelle che parlano di istruzioni. Le strade sono tre, dalla più comoda alla più semplice.
+
+1. **Un Progetto.** Nella barra laterale cerca **Progetti**. Se c'è, creane uno (per esempio "Casa del Glicine"), cerca le istruzioni del progetto e incolla il testo qui sotto. Può essere che il tuo piano ammetta pochi file.
+2. **Le istruzioni personalizzate.** Se i Progetti non ci sono, apri le impostazioni e cerca la sezione di personalizzazione. Qui il testo vale per tutte le tue chat, quindi tienilo breve.
+3. **Un documento tuo.** Se non trovi niente, tieni il testo in un Google Documenti e incollalo all'inizio di ogni chat sul B&B. Funziona su qualsiasi piano.
+
+In tutti i casi, apri nelle impostazioni la voce sui dati e controlla cosa permetti: la regola su cosa non scrivere vale comunque, qualunque sia l'impostazione.
+
+## Le istruzioni per un B&B
+
+Sono un modello da adattare. Le parti tra parentesi quadre le compili tu, con i tuoi dati veri.
+
+<Collapsible title="Istruzioni pronte per Casa del Glicine">
+
+```text
+Lavori con me, Giulia, titolare di Casa del Glicine, un B&B con due camere (Lavanda e Gelsomino) e un appartamento (Orto), in un paese vicino al lago. Scriviamo agli ospiti in italiano, inglese, tedesco e francese.
+
+Cosa fai: mi aiuti a scrivere messaggi agli ospiti, risposte alle recensioni, la guida della casa e a costruire il foglio delle prenotazioni.
+
+Fatti della casa (sono questi, non ce ne sono altri):
+- Check-in dalle 15 alle 19, check-out entro le 10.
+- Colazione dalle 8 alle 10, nella sala al piano terra.
+- Parcheggio gratuito nel cortile, due posti.
+- Silenzio dopo le 22.
+- Il codice della cassetta delle chiavi e la password del Wi-Fi li scrivo io: tu lasci [CODICE CASSETTA] e [PASSWORD WI-FI].
+
+Tono: cordiale, diretto, dai del voi se non ti dico altro. Frasi brevi. Niente "esperienza indimenticabile" e simili.
+
+Regole: non inventare mai orari, prezzi, rimborsi, sconti o promesse. Se manca un dato scrivi [DA CONFERMARE] e a fine risposta elencami cosa manca. Non decidere tu cosa offrire a un ospite scontento: proponi, decido io.
+
+Annunci: il CIN deve comparire in ogni annuncio. Non lo conosci, lascia [CIN].
+
+Dati degli ospiti: usa solo il nome di battesimo. Se ti incollo per sbaglio un documento, un numero di carta o di telefono, avvisami e non usarlo.
+
+Traduzioni: dopo ogni traduzione scrivi anche la traduzione di ritorno in italiano.
+```
+
+</Collapsible>
+
+## Cosa caricare e cosa no
+
+Se la tua strada ammette file, tre bastano: una **scheda della casa** di una pagina (orari, regole, come si arriva), due o tre **messaggi tuoi** che ti sono piaciuti per far capire il tono, e il **testo delle regole** che vuoi comunicare. Più file carichi, più cresce il rischio che ChatGPT peschi il pezzo sbagliato.
+
+Non carichi mai: documenti d'identità degli ospiti e loro foto, esportazioni delle prenotazioni da Booking.com o Airbnb con nomi, email e telefoni, elenchi di ospiti, IBAN o numeri di carta. Alla chat servono nome di battesimo, date e numero di persone.
+
+La registrazione degli ospiti è un'altra cosa: va comunicata alla questura entro 24 ore dall'arrivo, e solo tramite il portale **Alloggiati Web** della Polizia di Stato. ChatGPT non c'entra e non deve vedere quei dati. Per i casi dubbi leggi [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/).
+
+<SelfCheck
+  id="holiday-rental-start-here-q1"
+  question="Un ospite ti manda la foto della carta d'identità per il check-in. Come ti comporti con ChatGPT?"
+  options={[
+    { text: "La carico in chat e chiedo di compilare la registrazione.", why: "La registrazione si fa solo sul portale ufficiale, e il documento non deve finire nella chat." },
+    { text: "Non la carico. Uso il portale Alloggiati Web e a ChatGPT scrivo solo il nome di battesimo e le date.", correct: true, why: "L'IA serve per i messaggi. I dati del documento li usi tu, sul portale." },
+    { text: "Cancello il nome dalla foto e la carico lo stesso.", why: "Restano numero, data di nascita e foto del volto. Non è anonimizzata." },
+    { text: "La carico solo se la chat non viene salvata.", why: "Il problema è il dato in sé, qualunque impostazione tu abbia. I documenti non si incollano." },
+  ]}
+/>
+
+## Prova subito
+
+Apri una chat con le istruzioni attive e scrivi: "Presentati in tre righe e dimmi cosa hai capito di Casa del Glicine e cosa ti manca". Se ChatGPT non cita gli orari o il tono, le istruzioni sono troppo vaghe: aggiungi una frase e riprova.
+
+Poi un test sui fatti: chiedi "A che ora è il check-out?". Deve rispondere "entro le 10". Se risponde con un orario diverso, o se risponde senza chiederti niente quando il dato non è nelle istruzioni, correggi il testo.
+
+<LlmExercise
+  title="Scrivi le istruzioni della tua casa"
+  file="practice-holiday-rental-start-here.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sulla tua casa e ti consegna le istruzioni pronte da incollare."
+/>
+
+## Cosa viene dopo
+
+Con le istruzioni a posto, il primo lavoro concreto sono [i messaggi agli ospiti, in ogni lingua](/it/by-profession/holiday-rental/guest-messages/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-holiday-rental-start-here.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>

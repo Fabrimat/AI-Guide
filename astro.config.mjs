@@ -169,6 +169,28 @@ export default defineConfig({
                 { slug: 'by-profession/public-sector/fix-a-letter-check-facts' },
               ],
             },
+            {
+              label: 'Holiday rentals',
+              translations: { it: 'B&B e case vacanze' },
+              collapsed: true,
+              items: [
+                { slug: 'by-profession/holiday-rental/start-here' },
+                { slug: 'by-profession/holiday-rental/guest-messages' },
+                { slug: 'by-profession/holiday-rental/house-guide' },
+                { slug: 'by-profession/holiday-rental/bookings-calendar' },
+              ],
+            },
+            {
+              label: 'Small shop',
+              translations: { it: 'Negozio e bottega' },
+              collapsed: true,
+              items: [
+                { slug: 'by-profession/small-shop/start-here' },
+                { slug: 'by-profession/small-shop/product-descriptions' },
+                { slug: 'by-profession/small-shop/customer-and-supplier-emails' },
+                { slug: 'by-profession/small-shop/stock-sheet' },
+              ],
+            },
           ],
         },
         {

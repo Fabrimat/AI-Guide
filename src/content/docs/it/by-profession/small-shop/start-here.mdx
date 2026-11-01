@@ -1,0 +1,112 @@
+---
+title: Prepara Gemini per il tuo negozio
+description: Salvi in Gemini le istruzioni del tuo negozio (prodotti, tono, cosa non promettere) una volta sola, con una skill o con un testo da incollare, e fissi la regola sui dati dei clienti.
+livello: principiante
+prerequisiti: [ask-well]
+---
+
+import LlmExercise from '../../../../../components/LlmExercise.astro';
+import LessonSummary from '../../../../../components/LessonSummary.astro';
+import Collapsible from '../../../../../components/Collapsible.astro';
+import SelfCheck from '../../../../../components/SelfCheck.astro';
+
+<LessonSummary>
+
+- Gemini non ricorda le chat passate: le regole del negozio le salvi una volta, in una skill o in un testo da incollare a inizio chat.
+- Le istruzioni dicono cosa vendi, come parli ai clienti e cosa non promettere mai (date di consegna, proprietà dei prodotti).
+- Nome di battesimo e prodotto ordinato vanno bene se servono. Indirizzi, telefoni, email dei clienti e prezzi riservati dei fornitori restano fuori.
+- Se Gemini sbaglia sempre allo stesso modo, correggi le istruzioni salvate, non la singola chat.
+
+</LessonSummary>
+
+Hai un negozio di prodotti del territorio e regali, con un piccolo negozio online e una pagina Instagram. Scrivi schede prodotto, rispondi ai clienti, rincorri i fornitori e controlli cosa sta finendo. Cambiano i prodotti, restano il tuo modo di parlare e le tue regole. Conviene scriverle una volta e farle leggere a Gemini a ogni chat.
+
+Il quadro generale è in [Il tuo assistente di mestiere](/it/by-profession/your-work-assistant/). Qui lo facciamo con Gemini, per un negozio.
+
+Per tutta la serie usiamo un negozio inventato, **Bottega Fiordaliso**, gestito da Paolo: prodotti alimentari locali e idee regalo. Clienti, fornitori e ordini sono di fantasia.
+
+## Salva le istruzioni come skill
+
+Google sta sostituendo i Gem con le **skill**. Se hai già un Gem: dal 17 novembre 2026, sugli account Google personali, i Gem diventano skill e restano in sola lettura (li apri, ma non li usi né li modifichi). Il 17 dicembre 2026 vengono rimossi dalle app di Gemini. Per gli account di lavoro (Workspace) le date sono più avanti. Quindi non costruire niente di nuovo su un Gem.
+
+Per creare una skill, se il tuo account la offre:
+
+1. Nel menu a sinistra di Gemini clicca **Personalizza**, poi **Skill**.
+2. Clicca **Crea**, poi **Crea manualmente**.
+3. Dai un nome (per esempio "Bottega Fiordaliso"), incolla le istruzioni che trovi sotto e clicca **Crea**.
+
+Verificato a novembre 2026. Google cambia spesso nomi e posizioni delle voci: se non coincidono, cerca nel menu di personalizzazione quelle che parlano di skill. Con un account gratuito non è certo che la creazione sia disponibile, e per i minorenni la funzione arriva più tardi.
+
+## Se non hai le skill
+
+Il metodo che non si rompe mai: un testo di istruzioni in un Google Documento, che copi e incolli come primo messaggio di ogni chat nuova. Costa dieci secondi e funziona con qualsiasi versione di Gemini.
+
+C'è anche la memoria di Gemini: clicca la tua foto, poi **Contesto personale**, e attiva l'interruttore sotto **Memoria**. Serve un account personale maggiorenne con il salvataggio dell'attività attivo. È pensata per le cose tue, e può conservare quello che scrivi: se la usi, nelle chat non mettere dati di clienti. Un quadro più ampio è in [Privacy di base](/it/fundamentals/privacy-basics/).
+
+## Le istruzioni per un negozio
+
+Sono un modello da adattare. Frasi corte, come se le dicessi a un commesso nuovo.
+
+<Collapsible title="Istruzioni pronte per Bottega Fiordaliso">
+
+```text
+Lavori con me, Paolo, titolare di Bottega Fiordaliso, un piccolo negozio di prodotti alimentari locali e idee regalo, con un negozio online e una pagina Instagram. Scriviamo in italiano.
+
+Cosa fai: mi aiuti a scrivere schede prodotto, post per Instagram, risposte ai clienti e email ai fornitori, e a tenere in ordine il foglio delle scorte.
+
+Categorie dei prodotti: miele e conserve, pasta e farine, dolci, bevande, confezioni regalo.
+
+Tono verso i clienti: cordiale e diretto, diamo del lei, frasi brevi, da negoziante di paese che conosce i suoi prodotti. Niente slogan, niente "esperienza unica", niente punti esclamativi a raffica.
+
+Prodotti: usa solo le informazioni che ti do io. Non inventare mai ingredienti, origine, certificazioni (biologico, DOP e simili), premi o effetti sulla salute. Se un dato manca scrivi [DA CONFERMARE] e a fine risposta elencami cosa manca.
+
+Consegne e prezzi: non promettere mai una data di consegna, un rimborso o uno sconto che non ti ho scritto io. Non conosci i prezzi: non inventare cifre.
+
+Dati dei clienti: usa solo il nome di battesimo e quello che serve alla risposta. Se ti incollo per sbaglio indirizzo, telefono o email, avvisami e non usarli.
+
+Se mancano informazioni, chiedimele prima di scrivere.
+```
+
+</Collapsible>
+
+## Cosa non incollare
+
+Nelle chat finiscono i testi che scrivi. Per un negozio i casi tipici sono due. I dati dei clienti: indirizzo di spedizione, telefono, email, nomi con l'ordine collegato. E i prezzi riservati dei fornitori, se preferisci non farli uscire dal tuo foglio: nelle email a un fornitore puoi scrivere [PREZZO CONCORDATO] e riempirlo tu.
+
+Per i casi dubbi leggi [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/). Se hai un testo pieno di dati da ripulire, [l'anonimizzatore](/it/at-work/company-data-and-privacy/#come-anonimizzare-in-pratica) lavora nel tuo browser.
+
+<SelfCheck
+  id="small-shop-start-here-q1"
+  question="Una cliente ti scrive per un ordine arrivato in ritardo e nella mail ci sono indirizzo, telefono e numero d'ordine. Cosa incolli in Gemini?"
+  options={[
+    { text: "Tutta la mail, così Gemini ha il quadro completo.", why: "Indirizzo e telefono non servono per scrivere la risposta e finirebbero nella chat." },
+    { text: "Il testo senza indirizzo e telefono, con [CLIENTE] al posto del nome.", correct: true, why: "Per la risposta servono il problema e i fatti. I dati per ritrovare la cliente restano nel tuo gestionale." },
+    { text: "Solo l'indirizzo, perché è quello che Gemini deve controllare.", why: "Gemini non controlla le spedizioni e l'indirizzo è un dato personale." },
+    { text: "Tutta la mail, ma poi cancello la chat.", why: "Cancellare la chat non basta come garanzia: meglio non far entrare il dato." },
+  ]}
+/>
+
+## Prova subito
+
+Apri una chat nuova (con la skill attiva, oppure incolla il testo delle istruzioni) e scrivi: "Presentati in tre righe e dimmi cosa hai capito del mio negozio e cosa ti manca". Se Gemini non cita il tono o le categorie, le istruzioni sono troppo vaghe: aggiungi una frase e riprova.
+
+Se dopo qualche settimana noti che chiude sempre i post con una frase troppo entusiasta, aggiungi una riga: "Niente frasi finali di entusiasmo". Vale per tutte le chat future.
+
+<LlmExercise
+  title="Scrivi le istruzioni del tuo negozio"
+  file="practice-small-shop-start-here.txt"
+  duration="10-15 min"
+  description="L'IA ti intervista sul tuo negozio e ti consegna le istruzioni pronte da salvare in una skill o in un Documento."
+/>
+
+## Cosa viene dopo
+
+Con le istruzioni pronte, il primo lavoro concreto sono [le schede prodotto e i post](/it/by-profession/small-shop/product-descriptions/).
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le idee"
+  file="review-small-shop-start-here.txt"
+  duration="5 min"
+  description="Incolla il testo nella tua IA. Ti farà alcune domande sulla lezione, una alla volta."
+/>
