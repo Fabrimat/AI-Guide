@@ -21,6 +21,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { MODULES as SHARED_MODULES } from '../src/i18n/modules.mjs';
 
 export const SITE = 'https://ai-guide.larosa.work';
 
@@ -32,16 +33,12 @@ export const SITE = 'https://ai-guide.larosa.work';
 // across both.
 const DOCS_DIR = path.resolve(process.cwd(), 'src', 'content', 'docs', 'en');
 
-// Order and labels of the modules surfaced in the index. Keep in sync
-// with the sidebar in `astro.config.mjs`. Skip placeholder modules
-// (going-deeper) until they have published lessons, since listing only
-// "Soon" entries would be noise.
+// Order and labels of the modules surfaced in the index. The module list
+// (dirs, order, labels) comes from `src/i18n/modules.mjs`, shared with the
+// progress page and the Head section labels.
 const MODULES = [
   { dir: null,            slug: 'start-here', label: 'Start here' },
-  { dir: 'fundamentals',  label: 'Fundamentals' },
-  { dir: 'everyday-use',  label: 'Everyday use' },
-  { dir: 'at-work',       label: 'At work' },
-  { dir: 'for-students',  label: 'For students' },
+  ...SHARED_MODULES.map((m) => ({ dir: m.dir, label: m.label.en })),
 ];
 
 const REFERENCE = [

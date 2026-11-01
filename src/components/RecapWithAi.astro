@@ -12,11 +12,21 @@
  * Se l'utente non ha ancora completato nessuna lezione, il bottone è
  * disabilitato e la card mostra una riga di stato che lo spiega.
  *
+ * Il prompt include, per ogni lezione letta, il riassunto preso da
+ * `/recap/<locale>.json` (generato a build time dai `<LessonSummary>`),
+ * una riga di livello dedotta dal `livello` delle lezioni e gli appunti
+ * del diario (`aiguide:journal:v1`) se presenti. Logica condivisa con
+ * `<ReviewToday>` in `src/scripts/recap-prompt.ts`.
+ *
  * Da posizionare su pagine di orientamento (homepage, `start-here`) e
  * a fine modulo. Niente prop, si include come `<RecapWithAi />`.
  */
 import { t } from '../i18n/ui';
+import { promptAttrs } from '../scripts/recap-prompt';
 const ui = t(Astro.currentLocale);
+// Per-instance id suffix: several cards can live on the same page.
+const uid = Math.random().toString(36).slice(2, 8);
+const titleId = `recap-dialog-title-${uid}`;
 ---
 
 <div
@@ -28,9 +38,7 @@ const ui = t(Astro.currentLocale);
   data-i18n-copied={ui.recapCopied}
   data-i18n-copy={ui.recapCopy}
   data-i18n-error={ui.recapCopyError}
-  data-i18n-prompt-intro={ui.recapPromptIntro}
-  data-i18n-prompt-instructions={ui.recapPromptInstructions}
-  data-i18n-unmapped={ui.recapUnmappedConcepts}
+  {...promptAttrs(ui)}
   hidden
 >
   <header>
@@ -51,9 +59,9 @@ const ui = t(Astro.currentLocale);
   <dialog
     class="recap-dialog"
     data-recap-dialog
-    aria-labelledby="recap-dialog-title"
+    aria-labelledby={titleId}
   >
-    <h4 id="recap-dialog-title">{ui.recapDialogTitle}</h4>
+    <h4 id={titleId}>{ui.recapDialogTitle}</h4>
     <p class="recap-dialog-hint">{ui.recapDialogHint}</p>
     <pre class="recap-output" data-recap-output></pre>
     <div class="recap-dialog-actions">
@@ -78,168 +86,16 @@ const ui = t(Astro.currentLocale);
 
 <script>
   import { track } from '../scripts/analytics';
-
-  const STORAGE_KEY = 'aiguide:progress:v1';
-
-  // Mirror di astro.config.mjs > locales e di src/pages/index.astro.
-  const LOCALES = ['en', 'it'];
-  const LOCALE_RE = /^\/([a-z]{2})\//;
-
-  type Lesson = { url: string; title: string };
-
-  function humanize(title: string): string {
-    return title.replace(/\s*\|\s*AI-Guide\s*$/, '').trim();
-  }
-
-  function detectCurrentLocale(): string | null {
-    const m = window.location.pathname.match(LOCALE_RE);
-    return m && LOCALES.indexOf(m[1]) !== -1 ? m[1] : null;
-  }
-
-  function rewriteToLocale(url: string, locale: string | null): string {
-    if (!locale) return url;
-    return url.replace(LOCALE_RE, `/${locale}/`);
-  }
-
-  function loadCompletedLessons(): Lesson[] {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return [];
-      const state = JSON.parse(raw);
-      if (!state?.pages) return [];
-
-      // Re-route every completed lesson URL to the locale of the current
-      // page. If the same lesson was completed in multiple locales, dedupe:
-      // the user reads the recap in one language at a time, so showing
-      // each lesson twice would be noise. The summary lookup later keys
-      // on the rewritten URL, so the prompt also speaks the right language.
-      const currentLocale = detectCurrentLocale();
-      const titleMap = (window as any).__AIGUIDE_TITLES__ as
-        | Record<string, string>
-        | undefined;
-      const seen = new Set<string>();
-      const completed: Lesson[] = [];
-
-      for (const url in state.pages) {
-        // Only pages inside a module (locale + module + slug). Excludes
-        // homepage `/it/` and orientation pages like `/en/start-here/`.
-        const parts = url.split('/').filter(Boolean);
-        if (parts.length < 3) continue;
-        if (LOCALES.indexOf(parts[0]) === -1) continue;
-        const page = state.pages[url];
-        if (!page?.read || !page.title) continue;
-
-        const targetUrl = rewriteToLocale(url, currentLocale);
-        if (seen.has(targetUrl)) continue;
-        seen.add(targetUrl);
-
-        // Title preference: build-time map first (always localized),
-        // then the title saved in localStorage for the localized URL,
-        // then the title actually read (last-resort fallback).
-        const buildTitle = titleMap?.[targetUrl];
-        const localizedTitle = state.pages[targetUrl]?.title;
-        completed.push({
-          url: targetUrl,
-          title: humanize(buildTitle || localizedTitle || page.title),
-        });
-      }
-      return completed;
-    } catch {
-      return [];
-    }
-  }
-
-  // Concetti chiave per lezione (URL → bullet list dei punti coperti).
-  // Indicizzato per locale (it/en) per restare coerente con la lingua
-  // dell'utente. Quando aggiungi una lezione nuova, aggiungi una voce
-  // QUI per ogni locale tradotto. Le lezioni non mappate vengono
-  // elencate solo per titolo (degradation graceful).
-  const LESSON_SUMMARIES: Record<string, string> = {
-    '/it/fundamentals/what-is-ai/': `  - L'IA è un'etichetta che mette insieme cose molto diverse fra loro.
-  - Due grandi famiglie: IA che fanno una cosa sola (filtro antispam, Siri, autocomplete) e IA che parlano (ChatGPT, Claude, Gemini).
-  - Quattro miti chiariti: non pensa come una persona, non è sempre giusta, non vuole niente, non è magica.
-  - "I miei dati dove vanno" è un tema separato dal "il programma non ha intenzioni": riguarda l'azienda dietro l'IA.`,
-
-    '/it/fundamentals/what-is-a-prompt/': `  - Il prompt è quello che scrivi all'IA per ottenere una risposta.
-  - Modello mentale: stai scrivendo a una persona competente che non sa nulla di te.
-  - Quattro ingredienti di un prompt chiaro: cosa vuoi, contesto, destinatario, formato.
-  - L'IA non è Google: per "fai X per me" il prompt chiaro fa la differenza.
-  - Non esistono "prompt magici": si itera, l'IA non si offende.`,
-
-    '/it/fundamentals/first-conversation/': `  - Tre IA principali per cominciare: ChatGPT, Claude, Gemini (per la prima volta una vale l'altra).
-  - UX di base: barra di scrittura, risposta una parola alla volta, conversazioni salvate nell'account.
-  - Recovery se qualcosa non va: troppo lunga, non capisci, off-topic → chiedere all'IA di aggiustare.
-  - Niente è irreversibile: si può sempre ricominciare, l'IA non si offende.`,
-
-    '/it/fundamentals/how-ai-understands/': `  - Meccanismo "una parola alla volta": l'IA prevede la parola successiva, ripetuto.
-  - Allenata leggendo enormi quantità di testo (centinaia di miliardi di parole, in larga parte da fonti pubbliche).
-  - Non memorizza i testi: ha imparato schemi (la "musica" del linguaggio), ricostruisce ogni volta.
-  - Tre conseguenze: non conosce le cose recenti, più contesto = meglio, memoria solo dentro la stessa chat.
-  - Esiste un limite alla "finestra di contesto" in chat molto lunghe.
-  - Termine tecnico per queste IA: LLM (Large Language Model).`,
-
-    '/it/fundamentals/when-to-trust-it/': `  - "Allucinazione": l'IA produce testo che suona vero ma non si basa su nulla di reale.
-  - Per come è fatta non si rende conto di inventare: sceglie sempre la parola più probabile.
-  - Va bene per: spiegare concetti generali, riformulare testi dati, generare strutture, brainstorming, traduzioni.
-  - Va male per: fatti specifici verificabili, cose recenti, conti complicati, casi specifici dell'utente, consulenza medica/legale/finanziaria.
-  - Tre mosse di verifica a sforzo crescente: motore di ricerca, chiedere la fonte e cercarla, persona competente per decisioni importanti.
-  - Mentalità: assistente brillante ma incostante. In dubbio, verifica.`,
-
-    '/en/fundamentals/what-is-ai/': `  - "AI" is a label that lumps together very different things.
-  - Two big families: single-task AI (spam filter, Siri, autocomplete) and conversational AI (ChatGPT, Claude, Gemini).
-  - Four myths debunked: it doesn't think like a person, it isn't always right, it doesn't want anything, it isn't magic.
-  - "Where does my data go" is a separate concern from "the program has no intentions": it's about the company behind the AI.`,
-
-    '/en/fundamentals/what-is-a-prompt/': `  - A prompt is what you write to the AI to get a response.
-  - Mental model: you're writing to a competent person who knows nothing about you.
-  - Four ingredients of a clear prompt: what you want, context, audience, format.
-  - The AI isn't Google: for "do X for me" tasks, a clear prompt makes the difference.
-  - There are no "magic prompts": iterate, the AI doesn't take offense.`,
-
-    '/en/fundamentals/first-conversation/': `  - Three main AIs to start with: ChatGPT, Claude, Gemini (for the first time, one is as good as the other).
-  - Basic UX: text input, response one word at a time, conversations saved to your account.
-  - Recovery if something goes wrong: too long, you don't understand, off-topic → ask the AI to adjust.
-  - Nothing is irreversible: you can always start over, the AI doesn't take offense.`,
-
-    '/en/fundamentals/how-ai-understands/': `  - "One word at a time" mechanism: the AI predicts the next word, repeated.
-  - Trained by reading enormous amounts of text (hundreds of billions of words, largely from public sources).
-  - It doesn't store the texts: it learned patterns (the "music" of language), and rebuilds every time.
-  - Three consequences: no real-time knowledge, more context = better, memory only within the same chat.
-  - There is a "context window" limit in very long chats.
-  - Technical term for these AIs: LLM (Large Language Model).`,
-
-    '/en/fundamentals/when-to-trust-it/': `  - "Hallucination": the AI produces text that sounds true but isn't grounded in anything real.
-  - By design, it doesn't realize it's making things up: it always picks the most probable word.
-  - Good for: explaining general concepts, rephrasing text you provide, generating structures, brainstorming, translations.
-  - Bad for: specific verifiable facts, recent events, complex math, your own specific case, medical/legal/financial advice.
-  - Three verification moves with increasing effort: a search engine, asking for sources and looking them up, a competent person for important decisions.
-  - Mindset: brilliant but inconsistent assistant. When in doubt, verify.`,
-  };
-
-  function buildPrompt(root: HTMLElement, lessons: Lesson[]): string {
-    const intro = root.dataset.i18nPromptIntro || '';
-    const instructions = root.dataset.i18nPromptInstructions || '';
-    const unmapped = root.dataset.i18nUnmapped || '';
-
-    const sections = lessons
-      .map((l) => {
-        const summary = LESSON_SUMMARIES[l.url];
-        if (summary) {
-          return `**${l.title}**\n${summary}`;
-        }
-        return `**${l.title}**\n  ${unmapped}`;
-      })
-      .join('\n\n');
-
-    return `${intro}
-
-${sections}
-
-${instructions}`;
-  }
+  import {
+    buildRecapPrompt,
+    detectCurrentLocale,
+    fetchRecapData,
+    loadReadLessons,
+    readPromptStrings,
+  } from '../scripts/recap-prompt';
 
   function applyState(root: HTMLElement) {
-    const lessons = loadCompletedLessons();
+    const lessons = loadReadLessons();
     const status = root.querySelector<HTMLElement>('[data-recap-status]');
     const btn = root.querySelector<HTMLButtonElement>('[data-recap-generate]');
     if (!status || !btn) return;
@@ -270,11 +126,16 @@ ${instructions}`;
 
     if (!generateBtn || !dialog || !output || !copyBtn || !closeBtn) return;
 
-    generateBtn.addEventListener('click', () => {
-      const lessons = loadCompletedLessons();
+    generateBtn.addEventListener('click', async () => {
+      const lessons = loadReadLessons();
       if (lessons.length === 0) return;
       track('recap_generate', { lessons: lessons.length });
-      output.textContent = buildPrompt(root, lessons);
+      generateBtn.disabled = true;
+      // Summaries come from the build-time JSON; if the fetch fails the
+      // prompt falls back to titles only.
+      const data = await fetchRecapData(detectCurrentLocale() || 'en');
+      generateBtn.disabled = false;
+      output.textContent = buildRecapPrompt(readPromptStrings(root), lessons, data);
       if (typeof dialog.showModal === 'function') {
         dialog.showModal();
       }

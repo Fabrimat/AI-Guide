@@ -382,9 +382,16 @@ dedicated to the Glossary page where the full list appears with the
 "Explain it better with your AI" prompt).
 
 Behavior:
-- desktop hover and keyboard focus: popover opens via CSS.
+- hover opens the popover only on devices with `@media (hover: hover)`
+  (a touch tap never leaves a sticky hover); keyboard focus
+  (`:focus-visible`) opens it too.
 - click / tap: persistent toggle (stays open until the user clicks
-  outside or presses Escape).
+  outside, taps the term again or presses Escape).
+- Escape closes the popover even when it was opened by hover or focus
+  (`is-dismissed` class, cleared when the pointer leaves or focus moves:
+  WCAG 1.4.13).
+- On narrow screens the popover is shifted horizontally (`--def-shift`)
+  to stay inside the viewport. Ids are per-instance unique.
 
 A11y: the term is a `<button>` (natively focusable), with
 `aria-expanded` kept in sync and `aria-describedby` linking to the
@@ -422,6 +429,15 @@ When 0 lessons have been completed the button is disabled and
 a status line explains it ("Complete at least one lesson…"). It reacts
 to the `aiguide:progress-cleared` event to refresh itself when the user
 clears their progress.
+
+The prompt carries, for each read lesson, its title and the bullets of its
+`<LessonSummary>`, fetched on click from `/recap/<locale>.json` (built by
+`src/pages/recap/[locale].json.ts`, in the PWA bulk manifest, never in the
+Workbox precache; if the fetch fails, titles only). One line sets the
+difficulty from the lessons' `livello` (no selector), and notes the reader
+saved in the journal (`aiguide:journal:v1`) for those lessons are added as
+"what I noted while practicing". Prompt-building lives in
+`src/scripts/recap-prompt.ts`, shared with `<ReviewToday>`.
 
 Meant for orientation and end-of-module pages. No props, included
 as `<RecapWithAi />`.
@@ -471,6 +487,15 @@ Two variants, chosen with `variant`:
 The mechanism (downloadable file + copy + open) is identical in both
 variants. Convention: review files are named
 `review-<slug-lezione>.txt`. Visible labels are in `src/i18n/ui.ts`.
+
+**Practice journal** (`practice` variant only): under the buttons, a
+collapsed `<details>` "Una cosa che ho notato" / "One thing I noticed" with a
+textarea (max 500 characters), autosaved (debounced) to
+`localStorage['aiguide:journal:v1']` (`JOURNAL_KEY`), shape
+`Record<lessonPath, Record<exerciseFile, { text, updatedAt }>>` with
+`lessonPath` = `location.pathname` with a trailing slash. Empty text deletes
+the entry. Restored on load and after view transitions; the note says it
+stays only in this browser. The Recap reads this shape, keep it stable.
 
 | Prop          | Type                          | Default      | Notes                                                                              |
 |---------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
@@ -662,12 +687,231 @@ import ObfuscatedEmail from '../../../components/ObfuscatedEmail.astro';
 ```
 
 <!-- F1 catalog entries (progress & review) -->
+### `<ReviewToday>`
+
+Spaced-review card ("Today, review N lessons"). A read lesson is due again
+1 day, then 4 days, then 14 days after its last anchor
+(`reviewedAt ?? readAt ?? lastVisit`); the number of reviews already done is
+`reviewStep` in the progress record. The card lists the due lessons (with
+links) and generates the same Socratic prompt as `<RecapWithAi>`, but only on
+those lessons (shared code in `src/scripts/recap-prompt.ts`). When the reader
+copies the prompt, the card dispatches `aiguide:mark-reviewed` with the
+lesson paths; `progress.ts` (the only writer of the progress key) sets
+`reviewedAt` and increments `reviewStep`. Hidden when nothing is due.
+
+Placed on `start-here`, right after `<Resume />`. No props.
+
+```mdx
+import ReviewToday from '../../../components/ReviewToday.astro';
+
+<ReviewToday />
+```
+
+### `<ProgressOverview>`
+
+Body of the "Your progress" page (`/it/progress/`, `/en/progress/`, no
+`livello`, so it does not count as a lesson). Per module (order and labels from
+`src/i18n/modules.mjs`, the single source of truth also used by `llms.txt` and
+the Head section labels): lessons read out of total, with links, and for each
+lesson the bullets of its `<LessonSummary>`. Lessons, titles and summaries come
+from `src/lib/lesson-data.ts` at build time (the same data as
+`dist/recap/<locale>.json`); the client script only adds the read state from
+`localStorage` and a "Print or save as PDF" button (`window.print()`). The
+`@media print` CSS hides header, sidebar, footer and the local AI launcher.
+No props.
+
+```mdx
+import ProgressOverview from '../../../components/ProgressOverview.astro';
+
+<ProgressOverview />
+```
+
 <!-- end F1 -->
 
 <!-- F2 catalog entries (lesson widgets) -->
+
+### `<SelfCheck>`
+
+One single-choice question for the reader to test themselves. Clicking an
+option shows correct/incorrect plus the `why` of that option (in an
+`aria-live` region); the reader can retry or ask for the correct answer.
+The result is stored in `localStorage` under `SELFCHECK_KEY`
+(`aiguide:selfcheck:v1`, `Record<id, { correct, at, path }>`, cleared by
+`clearReaderData()`); on the next visit a discreet line shows "you answered
+this on ...". Options stay active, so answering again is the retry. Several
+per page work. Without JS: question and options as a list, answers in a
+native `<details>`. Use at most two widgets per lesson.
+
+| Prop          | Type                                              | Default | Notes                                                        |
+|---------------|---------------------------------------------------|---------|--------------------------------------------------------------|
+| `id`          | `string`                                          | —       | required, stable and unique per page (storage key)           |
+| `question`    | `string`                                          | —       | required                                                     |
+| `options`     | `{ text: string; correct?: boolean; why: string }[]` | —    | required, at least one `correct: true` (build fails otherwise) |
+| `explanation` | `string`                                          | —       | optional, shown after the reader answers                     |
+
+```mdx
+import SelfCheck from '../../../../components/SelfCheck.astro';
+
+<SelfCheck
+  id="what-is-ai-q1"
+  question="Cosa fa un modello linguistico quando risponde?"
+  options={[
+    { text: "Cerca in un archivio di fatti.", why: "Non consulta un archivio: genera testo." },
+    { text: "Prevede il testo plausibile.", correct: true, why: "Esatto." },
+  ]}
+  explanation="Per questo va controllato quando i fatti contano."
+/>
+```
+
+### `<SpotTheError>`
+
+An AI answer split into sentences. The reader toggles the sentences they
+suspect (buttons with `aria-pressed`), presses "Check" and sees which wrong
+sentences they found (with the `why`), which they missed, and which were
+false alarms, plus a summary line. Nothing is stored. Without JS: the answer
+as a list, the solution in a `<details>`.
+
+| Prop        | Type                                              | Default                | Notes                                  |
+|-------------|---------------------------------------------------|------------------------|----------------------------------------|
+| `sentences` | `{ text: string; wrong?: boolean; why?: string }[]` | —                    | required, in reading order             |
+| `prompt`    | `string`                                          | —                      | optional, the user question shown above |
+| `title`     | `string`                                          | `ui.spotDefaultTitle`  | optional                               |
+
+```mdx
+import SpotTheError from '../../../../components/SpotTheError.astro';
+
+<SpotTheError
+  prompt="In che anno è caduto il Muro di Berlino?"
+  sentences={[
+    { text: "Il Muro è caduto il 9 novembre 1989." },
+    { text: "Lo abbatté l'esercito francese.", wrong: true, why: "Cadde per la pressione popolare." },
+  ]}
+/>
+```
+
+### `<PredictThenReveal>`
+
+"Predict first, then look". Shows the user message and a textarea ("what do
+you expect the AI to answer?", never stored). "Reveal the answer" unhides a
+`<ChatDemo>` with the same `user`/`ai` (it starts by itself when it becomes
+visible, via its `IntersectionObserver`) and shows a "Compare: what did you
+get right, what surprised you?" line. Revealing works without typing. The
+`ai` string supports the same inline markdown as `<ChatDemo>`. Without JS the
+conversation is shown already revealed.
+
+| Prop     | Type     | Default            | Notes                                                |
+|----------|----------|--------------------|------------------------------------------------------|
+| `user`   | `string` | —                  | required: the user's message                         |
+| `ai`     | `string` | —                  | required: the AI's response                          |
+| `prompt` | `string` | `ui.predictLabel`  | optional, replaces the question above the textarea   |
+
+```mdx
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
+
+<PredictThenReveal
+  user="Spiegami cos'è un buco nero in due frasi."
+  ai="Un buco nero è una regione dello spaziotempo dove la gravità è così forte che nulla può sfuggire."
+/>
+```
+
+### `<PromptCompare>`
+
+A weak prompt and its rebuilt version side by side (stacked on mobile) as
+plain text blocks, each with a "Copy" button (Clipboard API with a
+fallback, `aria-live` "Copied"). An optional note explains the difference,
+either through the `note` prop or as a markdown slot (blank lines around
+the inner markdown, as in `<LessonSummary>`). Several per page work.
+
+| Prop          | Type     | Default                    | Notes                                    |
+|---------------|----------|----------------------------|------------------------------------------|
+| `weak`        | `string` | —                          | required                                 |
+| `strong`      | `string` | —                          | required (use a template literal for multiple lines) |
+| `weakLabel`   | `string` | `ui.compareWeakLabel`      | optional                                 |
+| `strongLabel` | `string` | `ui.compareStrongLabel`    | optional                                 |
+| `note`        | `string` | —                          | optional, plain text; the slot also works |
+
+```mdx
+import PromptCompare from '../../../../components/PromptCompare.astro';
+
+<PromptCompare
+  weak="Scrivi una mail."
+  strong={`Scrivi una mail di 5 righe a un cliente che ha ricevuto la merce in ritardo.
+Tono cordiale e diretto, una sola scusa, proponi il 10% di sconto.`}
+  note="Il secondo dice a chi scrivi, quanto e cosa proporre."
+/>
+```
+
+### `<Anonymizer>`
+
+A local tool to strip personal data before pasting text into an AI. The
+reader pastes text; it automatically replaces emails, phone numbers
+(Italian and international), IBANs, Italian codice fiscale, card-like digit
+sequences and, optionally (checkbox), every other number. A "words to
+replace" field (comma separated names, companies, places) turns each word
+into `[NOME 1]`, `[NOME 2]`..., consistently. Output field, copy button and a
+count per type. A caution note, always visible, lists what it does NOT catch
+(names not listed, addresses, indirect details, images/attachments) and
+states that nothing leaves the browser. Nothing is stored. Placeholders are
+localized (`ui.anonPh*`). Logic in `src/scripts/anonymize.ts`.
+
+No props. Included as `<Anonymizer />`.
+
+```mdx
+import Anonymizer from '../../../../components/Anonymizer.astro';
+
+<Anonymizer />
+```
+
+### `<Collapsible>`
+
+Thin wrapper over native `<details>`/`<summary>` to shorten a lesson in
+place (long examples, side notes). Collapsed by default, works without JS.
+Quieter than `<LessonSummary>`: no colored fill, just a chevron line and a
+thin rule on the left of the body. The body is a markdown slot: keep blank
+lines around the inner markdown.
+
+| Prop    | Type      | Default | Notes                    |
+|---------|-----------|---------|--------------------------|
+| `title` | `string`  | —       | required, the summary line |
+| `open`  | `boolean` | `false` | optional, start expanded |
+
+```mdx
+import Collapsible from '../../../../components/Collapsible.astro';
+
+<Collapsible title="L'esempio completo">
+
+Testo, liste, **grassetto**.
+
+</Collapsible>
+```
+
 <!-- end F2 -->
 
 <!-- F3 catalog entries (journal, plan prompt) -->
+### `<StudyPlanPrompt>`
+
+Card for orientation pages (placed once at the end of `start-here`). The
+reader picks a path (Fondamenti, Uso quotidiano, Sul lavoro, Per studenti, Per
+docenti, Per chi vuole di più), a pace (one lesson a day / three a week /
+weekends only) and optionally minutes per session; the card assembles a
+plain-text prompt (live preview + copy button) asking their own AI to build a
+study calendar with lesson titles and links, then check in with them. No
+backend, nothing stored. Without JS the card stays hidden.
+
+Lesson lists: ordered slugs live in the `PATHS` constant inside the
+component (the sidebar order in `astro.config.mjs` is not readable at
+runtime); titles come from the content collection in the page's locale and
+links are absolute (`https://ai-guide.larosa.work/<locale>/...`). When a
+lesson is added to a module, add its slug to `PATHS` too.
+
+No props. Included as `<StudyPlanPrompt />`.
+
+```mdx
+import StudyPlanPrompt from '../../../components/StudyPlanPrompt.astro';
+
+<StudyPlanPrompt />
+```
+
 <!-- end F3 -->
 
 ## Content plan

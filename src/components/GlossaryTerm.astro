@@ -20,12 +20,14 @@ import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
 
 const { name } = Astro.props;
-const slug = name
+const rawSlug = name
   .toLowerCase()
   .normalize('NFD')
   .replace(/[\u0300-\u036f]/g, '')
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/^-+|-+$/g, '');
+// A name with no latin letters/digits would slugify to '' (an `id=""`).
+const slug = rawSlug || `term-${crypto.randomUUID().slice(0, 8)}`;
 
 // Pre-render the prompt and feedback strings server-side per locale,
 // then ship them to the client via data-* attributes.
@@ -52,6 +54,8 @@ const prompt = ui.glossaryPrompt(name);
 <script>
   import { track } from '../scripts/analytics';
 
+  const labelTimers = new WeakMap<HTMLElement, number>();
+
   function init() {
     document
       .querySelectorAll<HTMLButtonElement>('button[data-glossary-prompt]')
@@ -74,9 +78,14 @@ const prompt = ui.glossaryPrompt(name);
           } catch {
             btn.textContent = error;
           }
-          window.setTimeout(() => {
-            btn.textContent = original;
-          }, 3000);
+          const prev = labelTimers.get(btn);
+          if (prev) window.clearTimeout(prev);
+          labelTimers.set(
+            btn,
+            window.setTimeout(() => {
+              btn.textContent = original;
+            }, 3000),
+          );
         });
       });
   }

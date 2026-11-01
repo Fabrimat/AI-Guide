@@ -12,10 +12,17 @@
  * con link, estendere in futuro con uno slot dedicato.
  *
  * Comportamento:
- *  - hover (desktop): popover via CSS :hover, niente JS richiesto.
- *  - click / tap (mobile): toggle `is-open`, persiste finché l'utente
- *    clicca fuori o preme Escape.
- *  - focus da tastiera: popover via `:focus-within`, accessibile.
+ *  - hover (solo dispositivi con `@media (hover: hover)`): popover via CSS
+ *    :hover. Sui dispositivi touch il hover non apre nulla, così un tap
+ *    non lascia un popover "incollato".
+ *  - click / tap: toggle `is-open`, persiste finché l'utente clicca
+ *    fuori o preme Escape. Un secondo tap lo chiude.
+ *  - focus da tastiera: popover via `:focus-visible`, accessibile.
+ *  - Escape chiude anche il popover aperto da hover o focus (classe
+ *    `is-dismissed`, tolta quando il puntatore esce o il focus si sposta):
+ *    WCAG 1.4.13.
+ *  - su schermi stretti il popover viene spostato in orizzontale (variabile
+ *    `--def-shift`) per restare dentro la viewport.
  *
  * A11y: il termine è reso come `<button>` (nativamente focusable e
  * keyboard-friendly), con `aria-expanded` e `aria-describedby` che
@@ -27,9 +34,10 @@ interface Props {
 
 const { explanation } = Astro.props;
 
-// Id univoco per `aria-describedby`. Non serve determinismo cross-build
-// perché l'associazione vive solo dentro la stessa pagina.
-const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
+// Id univoco per istanza per `aria-describedby` (più <Def> sulla stessa
+// pagina non devono mai condividere l'id). Non serve determinismo
+// cross-build perché l'associazione vive solo dentro la stessa pagina.
+const popoverId = `def-${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
 ---
 
 <span class="def-wrap" data-def-wrap>
@@ -61,10 +69,22 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
         const willOpen = !wrap.classList.contains('is-open');
         closeAll();
         if (willOpen) {
+          wrap.classList.remove('is-dismissed');
           wrap.classList.add('is-open');
           btn.setAttribute('aria-expanded', 'true');
+          position(wrap);
+        } else {
+          // Keep it closed even while the pointer still hovers the term.
+          wrap.classList.add('is-dismissed');
         }
       });
+
+      // Hover / keyboard focus open the popover via CSS: here we only
+      // re-arm after an Escape and keep the popover inside the viewport.
+      wrap.addEventListener('mouseenter', () => position(wrap));
+      wrap.addEventListener('mouseleave', () => wrap.classList.remove('is-dismissed'));
+      btn.addEventListener('focus', () => position(wrap));
+      btn.addEventListener('blur', () => wrap.classList.remove('is-dismissed'));
     });
   }
 
@@ -76,6 +96,33 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
         const btn = wrap.querySelector<HTMLButtonElement>('[data-def-term]');
         if (btn) btn.setAttribute('aria-expanded', 'false');
       });
+  }
+
+  // Escape: close everything, including popovers opened by hover/focus.
+  function dismissAll() {
+    document.querySelectorAll<HTMLElement>('[data-def-wrap]').forEach((wrap) => {
+      const shown =
+        wrap.classList.contains('is-open') ||
+        wrap.matches(':hover') ||
+        wrap.querySelector('[data-def-term]:focus-visible') !== null;
+      if (shown) wrap.classList.add('is-dismissed');
+    });
+    closeAll();
+  }
+
+  // Shift the popover horizontally so it stays inside the viewport.
+  function position(wrap: HTMLElement) {
+    const pop = wrap.querySelector<HTMLElement>('.def-pop');
+    if (!pop) return;
+    pop.style.setProperty('--def-shift', '0px');
+    const margin = 8;
+    const vw = document.documentElement.clientWidth;
+    const rect = pop.getBoundingClientRect();
+    if (rect.width === 0) return; // not displayed
+    let shift = 0;
+    if (rect.right > vw - margin) shift = vw - margin - rect.right;
+    if (rect.left + shift < margin) shift = margin - rect.left;
+    pop.style.setProperty('--def-shift', `${Math.round(shift)}px`);
   }
 
   // I listener globali vanno attaccati una sola volta per sessione,
@@ -93,7 +140,7 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeAll();
+      if (event.key === 'Escape') dismissAll();
     });
   }
 
@@ -137,7 +184,7 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
   .def-pop {
     position: absolute;
     top: calc(100% + 8px);
-    left: 0;
+    left: var(--def-shift, 0px);
     z-index: 20;
 
     min-width: 180px;
@@ -180,7 +227,8 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     content: '';
     position: absolute;
     top: -5px;
-    left: 1rem;
+    /* Counter the horizontal shift so the arrow still points at the term. */
+    left: clamp(0.5rem, calc(1rem - var(--def-shift, 0px)), calc(100% - 1.5rem));
     width: 10px;
     height: 10px;
     background: var(--aig-elevated-bg);
@@ -189,9 +237,23 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
     transform: rotate(45deg);
   }
 
-  .def-wrap:hover .def-pop,
+  /* Hover opens only on devices that really hover: on touch a tap would
+     otherwise leave a sticky :hover and the second tap could not close. */
+  @media (hover: hover) {
+    .def-wrap:hover .def-pop {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+
+      @starting-style {
+        opacity: 0;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
   .def-wrap.is-open .def-pop,
-  .def-wrap:focus-within .def-pop {
+  .def-wrap:has(:where(.def-term:focus-visible)) .def-pop {
     display: block;
     opacity: 1;
     transform: translateY(0);
@@ -203,6 +265,13 @@ const popoverId = `def-${Math.random().toString(36).slice(2, 10)}`;
       opacity: 0;
       transform: translateY(-2px);
     }
+  }
+
+  /* Escape / second click: wins over hover, focus and is-open
+     (WCAG 1.4.13, dismissable). Cleared on pointer leave / blur. */
+  .def-wrap.is-dismissed .def-pop {
+    display: none;
+    opacity: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {

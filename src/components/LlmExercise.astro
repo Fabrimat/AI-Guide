@@ -23,6 +23,10 @@
  *     description="Breve descrizione opzionale"
  *     variant="practice"  // oppure "review", default "practice"
  *   />
+ *
+ * Solo la variante practice ha un diario: un <details> chiuso "Una cosa
+ * che ho notato" con una textarea (max 500 caratteri), salvata con
+ * debounce in localStorage (JOURNAL_KEY). Testo vuoto = voce cancellata.
  */
 interface Props {
   title: string;
@@ -84,10 +88,120 @@ const { icon, badge, durationSuffix } = labels[variant];
       {ui.llmExerciseOpen}
     </a>
   </div>
+
+  {variant === 'practice' && (
+    <details class="journal" data-journal data-journal-file={file}>
+      <summary>{ui.journalSummary}</summary>
+      <div class="journal-body">
+        <textarea
+          rows="3"
+          maxlength="500"
+          aria-label={ui.journalSummary}
+          placeholder={ui.journalPlaceholder}
+          data-journal-input
+        ></textarea>
+        <p class="journal-note">{ui.journalPrivacy}</p>
+      </div>
+    </details>
+  )}
 </aside>
 
 <script>
   import { track } from '../scripts/analytics';
+  import { JOURNAL_KEY } from '../scripts/storage-keys';
+
+  // ----- Practice journal -----
+  // Shape: Record<lessonPath, Record<exerciseFile, { text, updatedAt }>>.
+  // Empty text deletes the entry (and the lesson bucket when it empties).
+  type JournalEntry = { text: string; updatedAt: string };
+  type Journal = Record<string, Record<string, JournalEntry>>;
+
+  function lessonPath(): string {
+    const p = location.pathname;
+    return p.endsWith('/') ? p : `${p}/`;
+  }
+
+  function readJournal(): Journal {
+    try {
+      const raw = localStorage.getItem(JOURNAL_KEY);
+      const parsed = raw ? JSON.parse(raw) : {};
+      return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveJournalEntry(file: string, text: string) {
+    try {
+      const journal = readJournal();
+      const path = lessonPath();
+      const bucket = journal[path] ?? {};
+      if (text.trim()) {
+        bucket[file] = { text: text.slice(0, 500), updatedAt: new Date().toISOString() };
+        journal[path] = bucket;
+      } else {
+        delete bucket[file];
+        if (Object.keys(bucket).length) journal[path] = bucket;
+        else delete journal[path];
+      }
+      if (Object.keys(journal).length) {
+        localStorage.setItem(JOURNAL_KEY, JSON.stringify(journal));
+      } else {
+        localStorage.removeItem(JOURNAL_KEY);
+      }
+    } catch {
+      /* storage unavailable or full: the note just isn't saved */
+    }
+  }
+
+  const pendingSaves = new Map<HTMLTextAreaElement, number>();
+
+  function flushJournal() {
+    pendingSaves.forEach((timer, area) => {
+      window.clearTimeout(timer);
+      const file = area.closest<HTMLElement>('[data-journal]')?.dataset.journalFile;
+      if (file) saveJournalEntry(file, area.value);
+    });
+    pendingSaves.clear();
+  }
+
+  function initJournals() {
+    document.querySelectorAll<HTMLElement>('[data-journal]').forEach((box) => {
+      if (box.dataset.journalWired === 'true') return;
+      box.dataset.journalWired = 'true';
+      const file = box.dataset.journalFile || '';
+      const area = box.querySelector<HTMLTextAreaElement>('[data-journal-input]');
+      if (!file || !area) return;
+
+      const saved = readJournal()[lessonPath()]?.[file];
+      if (saved?.text) {
+        area.value = saved.text;
+        (box as HTMLDetailsElement).open = true;
+      }
+
+      area.addEventListener('input', () => {
+        const prev = pendingSaves.get(area);
+        if (prev) window.clearTimeout(prev);
+        pendingSaves.set(
+          area,
+          window.setTimeout(() => {
+            pendingSaves.delete(area);
+            saveJournalEntry(file, area.value);
+          }, 500),
+        );
+      });
+      area.addEventListener('blur', flushJournal);
+    });
+  }
+
+  document.addEventListener('astro:before-swap', flushJournal);
+  window.addEventListener('pagehide', flushJournal);
+  initJournals();
+  document.addEventListener('astro:page-load', initJournals);
+
+  // One reset timer per copy button, so rapid clicks don't restore the
+  // label early.
+  const labelTimers = new WeakMap<HTMLElement, number>();
 
   document.addEventListener('click', async (event) => {
     const target = event.target;
@@ -119,9 +233,14 @@ const { icon, badge, durationSuffix } = labels[variant];
       console.error('[LlmExercise] copy failed:', err);
       target.textContent = error;
     } finally {
-      window.setTimeout(() => {
-        target.textContent = original;
-      }, 2000);
+      const prev = labelTimers.get(target);
+      if (prev) window.clearTimeout(prev);
+      labelTimers.set(
+        target,
+        window.setTimeout(() => {
+          target.textContent = original;
+        }, 2000),
+      );
     }
   });
 
@@ -220,6 +339,48 @@ const { icon, badge, durationSuffix } = labels[variant];
   }
   .btn-ghost {
     background: transparent;
+  }
+
+  /* ----- practice journal ----- */
+  .journal {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .journal summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sl-color-accent-high);
+  }
+  .journal summary:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.2rem;
+  }
+  .journal-body {
+    margin-top: 0.5rem;
+  }
+  .journal textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    resize: vertical;
+  }
+  .journal textarea:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+  .journal-note {
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
   }
 
   /* ----- variant="review" -----

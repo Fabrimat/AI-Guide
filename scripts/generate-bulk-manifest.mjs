@@ -3,7 +3,8 @@
 // Postbuild: walk dist/ and emit dist/aiguide-bulk-manifest.json.
 // The list contains every URL the SW must download after the user
 // installs the PWA: every lesson HTML, every skill .txt, all of
-// /pagefind/. Excludes the offline pages (already in the Workbox
+// /pagefind/, and /recap/<locale>.json (lesson summaries for the Recap).
+// Excludes the offline pages (already in the Workbox
 // precache), the home and 404, sourcemaps, and SA proxy assets.
 
 import fs from 'node:fs/promises';
@@ -45,6 +46,10 @@ function isSkillFile(absPath) {
       || absPath.replace(/\\/g, '/').match(/^dist\/skills\/(en|it)\/.+\.txt$/) !== null;
 }
 
+function isRecapData(absPath) {
+  return /(^|\/)dist\/recap\/(en|it)\.json$/.test(absPath.replace(/\\/g, '/'));
+}
+
 function isPagefindFile(absPath) {
   return absPath.replace(/\\/g, '/').includes('/dist/pagefind/')
       || absPath.replace(/\\/g, '/').startsWith('dist/pagefind/');
@@ -54,7 +59,7 @@ async function main() {
   const all = await walk(DIST);
   const urls = new Set();
   for (const f of all) {
-    if (isLessonHtml(f) || isSkillFile(f) || isPagefindFile(f)) {
+    if (isLessonHtml(f) || isSkillFile(f) || isRecapData(f) || isPagefindFile(f)) {
       urls.add(toUrl(f));
     }
   }

@@ -1,0 +1,395 @@
+---
+/**
+ * SelfCheck: una domanda a scelta singola per mettersi alla prova.
+ * Il lettore clicca un'opzione e vede subito se è giusta, con il perché
+ * di quella opzione. Può riprovare o chiedere la risposta giusta.
+ *
+ * Il risultato (giusto/sbagliato, data, pagina) resta nel localStorage del
+ * browser (SELFCHECK_KEY), mai inviato altrove: alla visita successiva
+ * compare discreto sopra la domanda.
+ *
+ * Senza JS: domanda e opzioni come elenco, risposte in un <details>.
+ *
+ *   <SelfCheck
+ *     id="what-is-ai-q1"
+ *     question="..."
+ *     options={[
+ *       { text: '...', correct: true, why: '...' },
+ *       { text: '...', why: '...' },
+ *     ]}
+ *     explanation="..."
+ *   />
+ */
+export interface SelfCheckOption {
+  text: string;
+  correct?: boolean;
+  why: string;
+}
+
+interface Props {
+  id: string;
+  question: string;
+  options: SelfCheckOption[];
+  explanation?: string;
+}
+
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const { id, question, options, explanation } = Astro.props;
+
+if (!options.some((o) => o.correct)) {
+  throw new Error(`<SelfCheck id="${id}">: at least one option needs correct: true`);
+}
+const uid = Math.random().toString(36).slice(2, 8);
+const questionId = `sc-q-${uid}`;
+---
+
+<section
+  class="selfcheck not-content"
+  data-selfcheck
+  data-id={id}
+  data-locale={Astro.currentLocale ?? 'en'}
+  data-i18n-correct={ui.selfCheckCorrect}
+  data-i18n-incorrect={ui.selfCheckIncorrect}
+  data-i18n-right={ui.selfCheckRightAnswerLabel}
+  data-i18n-prev-correct={ui.selfCheckPrevCorrect('{date}')}
+  data-i18n-prev-wrong={ui.selfCheckPrevWrong('{date}')}
+>
+  <span class="sc-badge">{ui.selfCheckBadge}</span>
+  <p class="sc-question" id={questionId}>{question}</p>
+
+  <p class="sc-previous" data-previous hidden></p>
+
+  <ul class="sc-options" role="group" aria-labelledby={questionId}>
+    {options.map((option, i) => (
+      <li>
+        <button
+          type="button"
+          class="sc-option"
+          data-index={i}
+          data-correct={option.correct ? 'true' : 'false'}
+          data-why={option.why}
+        >
+          {option.text}
+        </button>
+      </li>
+    ))}
+  </ul>
+
+  <div class="sc-feedback" data-feedback aria-live="polite"></div>
+  {explanation && <p class="sc-explanation" data-explanation hidden>{explanation}</p>}
+
+  <div class="sc-actions" data-actions hidden>
+    <button type="button" class="sc-btn sc-btn-ghost" data-action="retry">{ui.selfCheckRetry}</button>
+    <button type="button" class="sc-btn sc-btn-ghost" data-action="show" hidden>{ui.selfCheckShowAnswer}</button>
+  </div>
+
+  <details class="sc-nojs">
+    <summary>{ui.selfCheckNoJsSummary}</summary>
+    <ul>
+      {options.map((option) => (
+        <li>
+          <strong>{option.text}</strong>
+          ({option.correct ? ui.selfCheckNoJsCorrectMark : ui.selfCheckNoJsWrongMark}):
+          {option.why}
+        </li>
+      ))}
+    </ul>
+    {explanation && <p>{explanation}</p>}
+  </details>
+</section>
+
+<script>
+  import { SELFCHECK_KEY } from '../scripts/storage-keys';
+
+  type Result = { correct: boolean; at: string; path: string };
+
+  function readAll(): Record<string, Result> {
+    try {
+      const raw = localStorage.getItem(SELFCHECK_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function save(id: string, result: Result) {
+    try {
+      const all = readAll();
+      all[id] = result;
+      localStorage.setItem(SELFCHECK_KEY, JSON.stringify(all));
+    } catch {
+      /* storage unavailable or full: the widget still works, just not remembered */
+    }
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-selfcheck]').forEach((root) => {
+      if (root.dataset.scWired === 'true') return;
+      root.dataset.scWired = 'true';
+      root.classList.add('is-ready');
+
+      const id = root.dataset.id || '';
+      const options = Array.from(root.querySelectorAll<HTMLButtonElement>('.sc-option'));
+      const feedback = root.querySelector<HTMLElement>('[data-feedback]')!;
+      const explanation = root.querySelector<HTMLElement>('[data-explanation]');
+      const previous = root.querySelector<HTMLElement>('[data-previous]')!;
+      const actions = root.querySelector<HTMLElement>('[data-actions]')!;
+      const showBtn = root.querySelector<HTMLButtonElement>('[data-action="show"]')!;
+
+      const showFeedback = (ok: boolean, why: string) => {
+        feedback.className = `sc-feedback ${ok ? 'is-correct' : 'is-wrong'}`;
+        feedback.replaceChildren();
+        const head = document.createElement('strong');
+        head.textContent = (ok ? root.dataset.i18nCorrect : root.dataset.i18nIncorrect) || '';
+        feedback.append(head, ' ', why);
+      };
+
+      const reset = () => {
+        for (const opt of options) {
+          opt.disabled = false;
+          opt.classList.remove('is-correct', 'is-wrong', 'is-picked');
+        }
+        feedback.className = 'sc-feedback';
+        feedback.replaceChildren();
+        if (explanation) explanation.hidden = true;
+        actions.hidden = true;
+        showBtn.hidden = true;
+        options[0]?.focus();
+      };
+
+      const lock = () => {
+        for (const opt of options) opt.disabled = true;
+        actions.hidden = false;
+      };
+
+      // Previous result, shown quietly. Options stay active: answering
+      // again is the retry.
+      const prev = readAll()[id];
+      if (prev && typeof prev.correct === 'boolean' && prev.at) {
+        const date = new Date(prev.at).toLocaleDateString(root.dataset.locale || undefined, {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        });
+        const tpl = (prev.correct ? root.dataset.i18nPrevCorrect : root.dataset.i18nPrevWrong) || '';
+        previous.textContent = tpl.replace('{date}', date);
+        previous.hidden = false;
+      }
+
+      options.forEach((opt) => {
+        opt.addEventListener('click', () => {
+          const ok = opt.dataset.correct === 'true';
+          opt.classList.add('is-picked', ok ? 'is-correct' : 'is-wrong');
+          showFeedback(ok, opt.dataset.why || '');
+          if (explanation) explanation.hidden = false;
+          showBtn.hidden = ok;
+          lock();
+          previous.hidden = true;
+          save(id, { correct: ok, at: new Date().toISOString(), path: location.pathname });
+        });
+      });
+
+      root.querySelector('[data-action="retry"]')!.addEventListener('click', reset);
+
+      showBtn.addEventListener('click', () => {
+        const right = options.find((o) => o.dataset.correct === 'true');
+        if (!right) return;
+        right.classList.add('is-correct');
+        feedback.className = 'sc-feedback is-correct';
+        feedback.replaceChildren();
+        const head = document.createElement('strong');
+        head.textContent = `${root.dataset.i18nRight || ''}: `;
+        feedback.append(head, right.textContent?.trim() || '', '. ', right.dataset.why || '');
+        showBtn.hidden = true;
+      });
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .selfcheck {
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.25rem 1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .sc-badge {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .sc-question {
+    margin: 0.3rem 0 0.8rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    line-height: 1.5;
+  }
+
+  .sc-previous {
+    margin: -0.4rem 0 0.8rem;
+    font-size: 0.82rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sc-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sc-options li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .sc-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.6rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.6rem;
+    cursor: pointer;
+  }
+
+  .sc-option:hover:not(:disabled) {
+    background: var(--aig-hover-wash);
+    border-color: var(--sl-color-accent);
+  }
+
+  .sc-option:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .sc-option:disabled {
+    cursor: default;
+    color: var(--sl-color-text);
+  }
+
+  .sc-option.is-correct {
+    background: var(--aig-success-bg);
+    border-color: var(--aig-success-border);
+    color: var(--aig-success-text);
+  }
+
+  .sc-option.is-wrong {
+    background: var(--aig-danger-bg);
+    border-color: var(--aig-danger-border);
+    color: var(--aig-danger-text);
+  }
+
+  .sc-feedback:empty {
+    display: none;
+  }
+
+  .sc-feedback {
+    margin-top: 0.8rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    border-left: 3px solid var(--sl-color-hairline);
+    background: var(--aig-elevated-bg-warm);
+    color: var(--sl-color-text);
+  }
+
+  .sc-feedback.is-correct {
+    border-left-color: var(--aig-success-border);
+  }
+
+  .sc-feedback.is-wrong {
+    border-left-color: var(--aig-danger-border);
+  }
+
+  .sc-explanation {
+    margin: 0.7rem 0 0;
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-2, var(--sl-color-text));
+    line-height: 1.55;
+  }
+
+  .sc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .sc-actions[hidden],
+  .sc-btn[hidden],
+  .sc-previous[hidden],
+  .sc-explanation[hidden] {
+    display: none;
+  }
+
+  .sc-btn {
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+  }
+
+  .sc-btn:hover {
+    background: var(--aig-hover-wash);
+  }
+
+  .sc-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  /* No JS: plain list, answers in the <details>. */
+  .selfcheck:not(.is-ready) .sc-option {
+    pointer-events: none;
+    border-color: transparent;
+    background: transparent;
+    padding-left: 0;
+  }
+
+  .selfcheck:not(.is-ready) .sc-options {
+    list-style: disc;
+    padding-left: 1.2rem;
+  }
+
+  .selfcheck:not(.is-ready) .sc-options li {
+    display: list-item;
+  }
+
+  .sc-nojs {
+    display: none;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .selfcheck:not(.is-ready) .sc-nojs {
+    display: block;
+  }
+</style>

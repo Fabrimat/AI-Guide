@@ -1,0 +1,320 @@
+---
+/**
+ * ProgressOverview: pagina "I tuoi progressi". Per ogni modulo mostra
+ * quante lezioni hai letto su quante, con i link, e per ogni lezione i
+ * punti chiave presi dal suo `<LessonSummary>`.
+ *
+ * Moduli e ordine: `src/i18n/modules.mjs`. Lezioni, titoli e riassunti:
+ * `src/lib/lesson-data.ts` (stessi dati di `/recap/<locale>.json`),
+ * risolti a build time, quindi l'elenco si legge anche senza JS. Lo
+ * script client aggiunge solo lo stato di lettura (da `localStorage`,
+ * chiave `aiguide:progress:v1`) e il bottone "Stampa".
+ *
+ * Il CSS `@media print` nasconde il contorno del sito (header, sidebar,
+ * footer, assistente locale) e stampa i riassunti dei moduli in modo
+ * pulito: serve come foglio da salvare in PDF. Niente prop.
+ */
+import { t } from '../i18n/ui';
+import { MODULES } from '../i18n/modules.mjs';
+import { getLessonData } from '../lib/lesson-data';
+
+const ui = t(Astro.currentLocale);
+const locale: 'it' | 'en' = Astro.currentLocale === 'it' ? 'it' : 'en';
+const lessons = await getLessonData(locale);
+const modules = MODULES.map((m) => ({
+  dir: m.dir,
+  label: m.label[locale],
+  lessons: lessons.filter((l) => l.module === m.dir),
+})).filter((m) => m.lessons.length > 0);
+---
+
+<div
+  class="progress-overview not-content"
+  data-progress-overview
+  data-i18n-read-of={ui.progressReadOf}
+  data-i18n-read={ui.progressReadMark}
+  data-i18n-not-read={ui.progressNotReadMark}
+>
+  <p class="po-intro">{ui.progressIntro}</p>
+
+  <div class="po-toolbar">
+    <button type="button" class="po-print" data-po-print hidden>
+      {ui.progressPrint}
+    </button>
+  </div>
+
+  <noscript>
+    <p class="po-nojs">{ui.progressNeedsJs}</p>
+  </noscript>
+
+  {
+    modules.map((m) => (
+      <section class="po-module" data-po-module>
+        <h2 class="po-module-title">{m.label}</h2>
+        <p
+          class="po-count"
+          data-po-count
+          data-total={m.lessons.length}
+          aria-live="polite"
+        />
+        <ol class="po-lessons">
+          {m.lessons.map((l) => (
+            <li class="po-lesson" data-po-lesson data-path={l.path}>
+              <div class="po-lesson-head">
+                <a href={l.path}>{l.title}</a>
+                <span class="po-status" data-po-status />
+              </div>
+              {l.summary.length > 0 ? (
+                <ul class="po-summary">
+                  {l.summary.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="po-no-summary">{ui.progressNoSummary}</p>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+</div>
+
+<script>
+  import { loadReadLessons } from '../scripts/recap-prompt';
+
+  function apply(root: HTMLElement) {
+    const read = new Set(loadReadLessons().map((l) => l.url));
+    const labelRead = root.dataset.i18nRead || '';
+    const labelNotRead = root.dataset.i18nNotRead || '';
+    const template = root.dataset.i18nReadOf || '';
+
+    root.querySelectorAll<HTMLElement>('[data-po-module]').forEach((mod) => {
+      const items = mod.querySelectorAll<HTMLElement>('[data-po-lesson]');
+      let done = 0;
+      items.forEach((item) => {
+        const isRead = read.has(item.dataset.path || '');
+        if (isRead) done += 1;
+        item.toggleAttribute('data-read', isRead);
+        const status = item.querySelector<HTMLElement>('[data-po-status]');
+        if (status) status.textContent = isRead ? labelRead : labelNotRead;
+      });
+      const count = mod.querySelector<HTMLElement>('[data-po-count]');
+      if (count) {
+        count.textContent = template
+          .replace('{read}', String(done))
+          .replace('{total}', String(items.length));
+      }
+    });
+  }
+
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-progress-overview]')
+      .forEach((root) => {
+        if (root.dataset.poWired !== 'true') {
+          root.dataset.poWired = 'true';
+          const printBtn = root.querySelector<HTMLButtonElement>('[data-po-print]');
+          if (printBtn) {
+            printBtn.hidden = false;
+            printBtn.addEventListener('click', () => window.print());
+          }
+        }
+        apply(root);
+      });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+  window.addEventListener('aiguide:progress-cleared', () => {
+    document
+      .querySelectorAll<HTMLElement>('[data-progress-overview]')
+      .forEach(apply);
+  });
+</script>
+
+<style>
+  .progress-overview {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .po-intro {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+    line-height: 1.6;
+  }
+
+  .po-toolbar {
+    margin-bottom: 1.5rem;
+  }
+
+  .po-print {
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sl-color-accent);
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  .po-print[hidden] {
+    display: none;
+  }
+
+  .po-print:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .po-print:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .po-nojs {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .po-module {
+    margin: 0 0 1.75rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    break-inside: avoid-page;
+  }
+
+  .po-module-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .po-count {
+    margin: 0.15rem 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .po-lessons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .po-lesson-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .po-lesson-head a {
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+  }
+
+  .po-status {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--sl-color-gray-3);
+  }
+
+  .po-lesson[data-read] .po-status {
+    color: var(--sl-color-text-accent);
+  }
+
+  .po-lesson[data-read] .po-status::before {
+    content: '✓ ';
+  }
+
+  .po-summary {
+    margin: 0.35rem 0 0;
+    padding-inline-start: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .po-summary li {
+    margin: 0.15rem 0;
+  }
+
+  .po-no-summary {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+</style>
+
+<style is:global>
+  /* Print: only the module summaries, no site chrome. */
+  @media print {
+    header.header,
+    .header,
+    .sidebar,
+    .sidebar-pane,
+    #starlight__sidebar,
+    .mobile-preferences,
+    mobile-starlight-toc,
+    starlight-menu-button,
+    footer,
+    local-ai,
+    .pagination-links,
+    .po-toolbar {
+      display: none !important;
+    }
+
+    .main-pane,
+    .main-frame,
+    .content-panel,
+    .sl-container,
+    .sl-markdown-content {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+      width: auto !important;
+    }
+
+    html,
+    body {
+      background: Canvas !important;
+      color: CanvasText !important;
+    }
+
+    .progress-overview {
+      max-width: none;
+    }
+
+    .progress-overview .po-module {
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid GrayText;
+      border-radius: 0;
+      padding: 0 0 0.75rem;
+      break-inside: avoid-page;
+    }
+
+    .progress-overview,
+    .progress-overview a,
+    .progress-overview .po-count,
+    .progress-overview .po-status,
+    .progress-overview .po-intro {
+      color: CanvasText !important;
+    }
+
+    .progress-overview a {
+      text-decoration: none;
+    }
+  }
+</style>

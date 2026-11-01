@@ -17,6 +17,9 @@
  */
 import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
+// Per-instance id suffix: several cards can live on the same page.
+const uid = Math.random().toString(36).slice(2, 8);
+const titleId = `resume-confirm-title-${uid}`;
 ---
 
 <div
@@ -38,8 +41,8 @@ const ui = t(Astro.currentLocale);
     </button>
   </div>
 
-  <dialog class="resume-confirm" data-resume-confirm aria-labelledby="resume-confirm-title">
-    <h2 id="resume-confirm-title">{ui.resumeConfirmTitle}</h2>
+  <dialog class="resume-confirm" data-resume-confirm aria-labelledby={titleId}>
+    <h2 id={titleId}>{ui.resumeConfirmTitle}</h2>
     <p>{ui.resumeConfirmBody}</p>
     <div class="resume-confirm-actions">
       <button type="button" class="btn-cancel" data-resume-cancel>
@@ -192,18 +195,19 @@ const ui = t(Astro.currentLocale);
   }
 
   function init() {
-    const card = document.querySelector<HTMLElement>('[data-resume-card]');
-    if (!card) return;
+    document
+      .querySelectorAll<HTMLElement>('[data-resume-card]')
+      .forEach((card) => {
+        // Listener attaccati una sola volta per istanza di card.
+        // Su initial load, init() gira due volte (script bundle + astro:page-load):
+        // senza questa guardia, il click "Cancella progressi" aprirebbe due modali.
+        if (card.dataset.resumeWired !== 'true') {
+          card.dataset.resumeWired = 'true';
+          wire(card);
+        }
 
-    // Listener attaccati una sola volta per istanza di card.
-    // Su initial load, init() gira due volte (script bundle + astro:page-load):
-    // senza questa guardia, il click "Cancella progressi" aprirebbe due modali.
-    if (card.dataset.resumeWired !== 'true') {
-      card.dataset.resumeWired = 'true';
-      wire(card);
-    }
-
-    applyVisibility(card);
+        applyVisibility(card);
+      });
   }
 
   init();

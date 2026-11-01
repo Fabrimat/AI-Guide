@@ -191,6 +191,11 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Your progress',
+          translations: { it: 'I tuoi progressi' },
+          slug: 'progress',
+        },
+        {
           label: 'Glossary',
           translations: { it: 'Glossario' },
           slug: 'glossary',

@@ -1,0 +1,215 @@
+---
+/**
+ * PredictThenReveal: prima prevedi, poi guarda. Mostra il messaggio
+ * dell'utente, chiede al lettore cosa si aspetta che risponda l'IA
+ * (testo non salvato) e, al click su "Mostra la risposta", fa partire un
+ * <ChatDemo> con la stessa conversazione. Rivelare funziona anche senza
+ * aver scritto niente.
+ *
+ * Il ChatDemo è renderizzato nascosto lato server e parte da solo quando
+ * diventa visibile (usa un IntersectionObserver). Senza JS il widget
+ * mostra la conversazione già svelata.
+ *
+ *   <PredictThenReveal
+ *     user="Spiegami cos'è un buco nero in due frasi."
+ *     ai="Un buco nero è..."
+ *   />
+ *
+ * `prompt` (opzionale) sostituisce la domanda sopra il campo di testo.
+ */
+import ChatDemo from './ChatDemo.astro';
+import { t } from '../i18n/ui';
+
+interface Props {
+  user: string;
+  ai: string;
+  prompt?: string;
+}
+
+const ui = t(Astro.currentLocale);
+const { user, ai, prompt = ui.predictLabel } = Astro.props;
+const uid = Math.random().toString(36).slice(2, 8);
+const fieldId = `ptr-${uid}`;
+---
+
+<section
+  class="ptr not-content"
+  data-ptr
+  data-i18n-compare={ui.predictCompare}
+>
+  <span class="ptr-badge">{ui.predictBadge}</span>
+
+  <div class="ptr-message">
+    <span class="ptr-label">{ui.predictQuestionLabel}</span>
+    <p>{user}</p>
+  </div>
+
+  <div class="ptr-predict" data-predict>
+    <label class="ptr-question" for={fieldId}>{prompt}</label>
+    <textarea id={fieldId} rows="3" placeholder={ui.predictPlaceholder}></textarea>
+    <button type="button" class="ptr-btn" data-action="reveal">{ui.predictReveal}</button>
+  </div>
+
+  <div class="ptr-chat" data-chat hidden>
+    <ChatDemo user={user} ai={ai} />
+  </div>
+
+  <p class="ptr-compare" data-compare role="status"></p>
+</section>
+
+<noscript>
+  <style is:inline>
+    .ptr [data-chat] {
+      display: block !important;
+    }
+    .ptr [data-predict] {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<script>
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-ptr]').forEach((root) => {
+      if (root.dataset.ptrWired === 'true') return;
+      root.dataset.ptrWired = 'true';
+
+      const btn = root.querySelector<HTMLButtonElement>('[data-action="reveal"]')!;
+      const chat = root.querySelector<HTMLElement>('[data-chat]')!;
+      const compare = root.querySelector<HTMLElement>('[data-compare]')!;
+
+      btn.addEventListener('click', () => {
+        // Unhiding is enough: ChatDemo's IntersectionObserver sees the
+        // element enter the viewport and starts the playback.
+        chat.hidden = false;
+        btn.hidden = true;
+        compare.textContent = root.dataset.i18nCompare || '';
+      });
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .ptr {
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.25rem 1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .ptr-badge {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .ptr-message {
+    padding: 0.6rem 0.85rem;
+    background: var(--sl-color-accent-low);
+    border-radius: 0.75rem;
+  }
+
+  .ptr-message p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+  }
+
+  .ptr-label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .ptr-predict {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+
+  .ptr-question {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+  }
+
+  .ptr-predict textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    resize: vertical;
+  }
+
+  .ptr-predict textarea:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+
+  .ptr-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border: 1px solid var(--sl-color-accent);
+  }
+
+  .ptr-btn:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .ptr-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .ptr-btn[hidden],
+  .ptr-chat[hidden] {
+    display: none;
+  }
+
+  .ptr-chat :global(.chat-demo) {
+    margin: 0.9rem 0 0;
+  }
+
+  .ptr-compare {
+    margin: 0.8rem 0 0;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--sl-color-text);
+  }
+
+  .ptr-compare:empty {
+    display: none;
+  }
+</style>

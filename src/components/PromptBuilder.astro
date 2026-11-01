@@ -12,6 +12,10 @@
  */
 import { t } from '../i18n/ui';
 const ui = t(Astro.currentLocale);
+
+// Per-instance suffix so several builders on one page never share ids
+// (label `for` associations stay correct).
+const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
 ---
 
 <section
@@ -35,35 +39,35 @@ const ui = t(Astro.currentLocale);
   <div class="pb-grid">
     <div class="pb-fields">
       <div class="pb-field">
-        <label for="pb-task">
+        <label for={`pb-task-${uid}`}>
           {ui.builderTaskLabel}
           <span class="pb-example">{ui.builderTaskExample}</span>
         </label>
-        <textarea id="pb-task" data-field="task" rows="2"></textarea>
+        <textarea id={`pb-task-${uid}`} data-field="task" rows="2"></textarea>
       </div>
 
       <div class="pb-field">
-        <label for="pb-context">
+        <label for={`pb-context-${uid}`}>
           {ui.builderContextLabel}
           <span class="pb-example">{ui.builderContextExample}</span>
         </label>
-        <textarea id="pb-context" data-field="context" rows="2"></textarea>
+        <textarea id={`pb-context-${uid}`} data-field="context" rows="2"></textarea>
       </div>
 
       <div class="pb-field">
-        <label for="pb-audience">
+        <label for={`pb-audience-${uid}`}>
           {ui.builderAudienceLabel}
           <span class="pb-example">{ui.builderAudienceExample}</span>
         </label>
-        <textarea id="pb-audience" data-field="audience" rows="1"></textarea>
+        <textarea id={`pb-audience-${uid}`} data-field="audience" rows="1"></textarea>
       </div>
 
       <div class="pb-field">
-        <label for="pb-format">
+        <label for={`pb-format-${uid}`}>
           {ui.builderFormatLabel}
           <span class="pb-example">{ui.builderFormatExample}</span>
         </label>
-        <textarea id="pb-format" data-field="format" rows="1"></textarea>
+        <textarea id={`pb-format-${uid}`} data-field="format" rows="1"></textarea>
       </div>
     </div>
 
@@ -127,6 +131,8 @@ const ui = t(Astro.currentLocale);
     preview.textContent = text || root.dataset.i18nPlaceholder || '';
   }
 
+  const labelTimers = new WeakMap<HTMLElement, number>();
+
   function init() {
     document
       .querySelectorAll<HTMLElement>('[data-prompt-builder]')
@@ -173,9 +179,14 @@ const ui = t(Astro.currentLocale);
             } catch {
               btn.textContent = error;
             }
-            window.setTimeout(() => {
-              btn.textContent = original;
-            }, 2000);
+            const prev = labelTimers.get(btn);
+            if (prev) window.clearTimeout(prev);
+            labelTimers.set(
+              btn,
+              window.setTimeout(() => {
+                btn.textContent = original;
+              }, 2000),
+            );
           }
         });
 

@@ -1,0 +1,427 @@
+---
+/**
+ * StudyPlanPrompt: la lettrice sceglie un percorso, un ritmo e (se vuole)
+ * i minuti per sessione; il componente assembla un testo da incollare nella
+ * propria IA, che costruisce un calendario di studio con titoli e link delle
+ * lezioni e poi fa da tutor. Nessun backend: il testo si copia e basta.
+ *
+ * Elenco lezioni: l'ordine della sidebar vive in `astro.config.mjs` e non è
+ * leggibile a runtime, quindi qui sotto c'è una piccola lista ordinata
+ * (`PATHS`). Opzione più semplice e robusta: se una lezione viene aggiunta a
+ * un modulo, va aggiunta anche qui (lo slug mancante nella collection viene
+ * ignorato, così un refuso non rompe la build). I titoli vengono letti dalla
+ * content collection nella lingua della pagina; con fallback sullo slug.
+ */
+import { getCollection } from 'astro:content';
+import { t, getLocale } from '../i18n/ui';
+
+const ui = t(Astro.currentLocale);
+const locale = getLocale(Astro.currentLocale);
+
+// Same order as the sidebar in astro.config.mjs.
+const PATHS = {
+  fundamentals: [
+    'what-is-ai',
+    'what-is-a-prompt',
+    'first-conversation',
+    'how-ai-understands',
+    'when-to-trust-it',
+    'privacy-basics',
+  ],
+  'everyday-use': [
+    'ask-well',
+    'iterate-the-conversation',
+    'understand-something-complex',
+    'summarize-a-long-document',
+    'learn-something-new',
+    'write-better',
+    'images-and-files',
+    'what-not-to-do',
+  ],
+  'at-work': [
+    'hard-emails',
+    'draft-professional-documents',
+    'prepare-a-meeting',
+    'slides-and-presentations',
+    'data-and-tables',
+    'research-for-work',
+    'ai-as-thinking-partner',
+    'reuse-context-with-projects',
+    'company-data-and-privacy',
+  ],
+  'for-students': [
+    'study-a-new-topic',
+    'notes-from-lectures',
+    'revise-before-an-exam',
+    'write-a-thesis',
+    'sources-and-citations',
+    'translate-and-compare',
+    'when-ai-tricks-you',
+    'ethics-of-studying',
+  ],
+  'for-teachers': [
+    'design-a-lesson',
+    'explain-in-five-ways',
+    'differentiated-materials',
+    'inclusive-materials',
+    'generate-assessment-questions',
+    'grading-with-criteria',
+    'emails-to-families',
+    'when-students-use-ai',
+    'ethics-of-teaching',
+  ],
+  'going-deeper': [
+    'what-is-an-api',
+    'from-chats-to-apis',
+    'choose-the-model',
+    'context-in-tokens',
+    'system-prompts-and-roles',
+    'tool-use-and-structured-output',
+    'rag',
+    'prompt-injection',
+    'agents',
+    'mcp-and-integrations',
+    'evals',
+    'costs-and-caching',
+    'privacy-in-apis',
+    'mini-project',
+  ],
+} as const;
+
+type PathId = keyof typeof PATHS;
+const pathIds = Object.keys(PATHS) as PathId[];
+
+const docs = await getCollection('docs');
+const titleById = new Map(docs.map((d) => [d.id, d.data.title]));
+const site = Astro.site ?? new URL('https://ai-guide.larosa.work');
+
+// Per path: the prompt's first block (intro + lesson list), built here so
+// the client only has to append pace, minutes and closing.
+const lessonsBlock: Record<string, string> = {};
+for (const id of pathIds) {
+  const lines: string[] = [];
+  PATHS[id].forEach((slug) => {
+    const title = titleById.get(`${locale}/${id}/${slug}`);
+    if (!title) return;
+    const url = new URL(`/${locale}/${id}/${slug}/`, site).href;
+    lines.push(`${lines.length + 1}. ${title}: ${url}`);
+  });
+  lessonsBlock[id] =
+    `${ui.planPromptIntro(ui.planPaths[id])}\n\n${ui.planPromptLessons}\n${lines.join('\n')}`;
+}
+
+const paceIds = ['daily', 'weekly', 'weekend'] as const;
+const config = {
+  lessons: lessonsBlock,
+  pace: ui.planPromptPace,
+  minutes: ui.planPromptMinutes,
+  closing: ui.planPromptClosing,
+};
+
+const uid = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
+---
+
+<section
+  class="study-plan not-content"
+  data-study-plan
+  data-config={JSON.stringify(config)}
+  data-i18n-copied={ui.planCopied}
+  data-i18n-error={ui.planError}
+  hidden
+>
+  <header>
+    <span class="sp-badge">{ui.planBadge}</span>
+    <h3>{ui.planTitle}</h3>
+  </header>
+
+  <p class="sp-hint">{ui.planHint}</p>
+
+  <div class="sp-fields">
+    <div class="sp-field">
+      <label for={`sp-path-${uid}`}>{ui.planPathLabel}</label>
+      <select id={`sp-path-${uid}`} data-sp-path>
+        {pathIds.map((id) => <option value={id}>{ui.planPaths[id]}</option>)}
+      </select>
+    </div>
+
+    <fieldset class="sp-field sp-pace">
+      <legend>{ui.planPaceLabel}</legend>
+      {
+        paceIds.map((id, i) => (
+          <label class="sp-radio">
+            <input type="radio" name={`sp-pace-${uid}`} value={id} checked={i === 0} data-sp-pace />
+            <span>{ui.planPaces[id]}</span>
+          </label>
+        ))
+      }
+    </fieldset>
+
+    <div class="sp-field">
+      <label for={`sp-minutes-${uid}`}>{ui.planMinutesLabel}</label>
+      <input
+        id={`sp-minutes-${uid}`}
+        type="number"
+        inputmode="numeric"
+        min="5"
+        max="240"
+        step="5"
+        placeholder={ui.planMinutesPlaceholder}
+        data-sp-minutes
+      />
+    </div>
+  </div>
+
+  <div class="sp-preview-wrap">
+    <span class="sp-preview-label">{ui.planPreviewLabel}</span>
+    <pre class="sp-preview" data-sp-preview></pre>
+  </div>
+
+  <div class="sp-actions">
+    <button type="button" class="sp-btn" data-sp-copy aria-live="polite">{ui.planCopy}</button>
+  </div>
+</section>
+
+<script>
+  type Config = {
+    lessons: Record<string, string>;
+    pace: Record<string, string>;
+    minutes: string;
+    closing: string;
+  };
+
+  const labelTimers = new WeakMap<HTMLElement, number>();
+
+  function build(root: HTMLElement, cfg: Config): string {
+    const path = root.querySelector<HTMLSelectElement>('[data-sp-path]')?.value ?? '';
+    const pace =
+      root.querySelector<HTMLInputElement>('[data-sp-pace]:checked')?.value ?? 'daily';
+    const raw = root.querySelector<HTMLInputElement>('[data-sp-minutes]')?.value ?? '';
+    const minutes = Math.round(Number(raw));
+    const parts = [cfg.lessons[path] ?? '', cfg.pace[pace] ?? ''];
+    if (Number.isFinite(minutes) && minutes > 0) {
+      parts.push(cfg.minutes.replace('{n}', String(Math.min(minutes, 600))));
+    }
+    parts.push(cfg.closing);
+    // Pace + minutes belong together on one paragraph.
+    return [parts[0], parts.slice(1, -1).join(' '), parts[parts.length - 1]]
+      .filter(Boolean)
+      .join('\n\n');
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-study-plan]').forEach((root) => {
+      if (root.dataset.spWired === 'true') return;
+      root.dataset.spWired = 'true';
+
+      let cfg: Config;
+      try {
+        cfg = JSON.parse(root.dataset.config || '{}');
+      } catch {
+        return;
+      }
+      const preview = root.querySelector<HTMLElement>('[data-sp-preview]');
+      const copyBtn = root.querySelector<HTMLButtonElement>('[data-sp-copy]');
+      if (!preview || !copyBtn) return;
+
+      const update = () => {
+        preview.textContent = build(root, cfg);
+      };
+      root.addEventListener('input', update);
+      root.addEventListener('change', update);
+
+      copyBtn.addEventListener('click', async () => {
+        const original = (copyBtn.dataset.label ??= copyBtn.textContent ?? '');
+        try {
+          await navigator.clipboard.writeText(build(root, cfg));
+          copyBtn.textContent = root.dataset.i18nCopied || '';
+        } catch {
+          copyBtn.textContent = root.dataset.i18nError || '';
+        }
+        const prev = labelTimers.get(copyBtn);
+        if (prev) window.clearTimeout(prev);
+        labelTimers.set(
+          copyBtn,
+          window.setTimeout(() => {
+            copyBtn.textContent = original;
+          }, 2000),
+        );
+      });
+
+      update();
+      // Needs JS (clipboard + live preview): stays hidden without it.
+      root.hidden = false;
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .study-plan {
+    margin: 1.75rem 0;
+    padding: 1.25rem 1.25rem 1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .study-plan[hidden] {
+    display: none;
+  }
+
+  .study-plan header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .sp-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .study-plan h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .sp-hint {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .sp-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .sp-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .sp-field > label,
+  .sp-field > legend {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    padding: 0;
+  }
+
+  .sp-field select,
+  .sp-field input[type='number'] {
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    max-width: 18rem;
+  }
+
+  .sp-field select:focus,
+  .sp-field input[type='number']:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+
+  .sp-pace {
+    gap: 0.35rem;
+  }
+
+  .sp-radio {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--sl-color-text);
+    cursor: pointer;
+  }
+
+  .sp-radio input {
+    accent-color: var(--sl-color-accent);
+    margin: 0;
+  }
+
+  .sp-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1.1rem;
+    min-width: 0;
+  }
+
+  .sp-preview-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sp-preview {
+    margin: 0;
+    padding: 0.75rem 0.85rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 1px dashed var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    font-family: var(--sl-font);
+    font-size: 0.85rem;
+    color: var(--sl-color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 16rem;
+    overflow: auto;
+    line-height: 1.5;
+  }
+
+  .sp-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .sp-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border: 1px solid var(--sl-color-accent);
+  }
+
+  .sp-btn:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .sp-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+</style>

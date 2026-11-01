@@ -1,0 +1,237 @@
+---
+/**
+ * PromptCompare: due prompt affiancati, quello debole e quello
+ * ricostruito, come blocchi di testo semplice con un bottone "Copia" per
+ * ciascuno. Sotto, una nota opzionale sulla differenza (prop `note` oppure
+ * slot con markdown).
+ *
+ *   <PromptCompare
+ *     weak="Scrivi una mail."
+ *     strong={`Scrivi una mail di 5 righe a...`}
+ *     note="Il secondo dice a chi scrivi, perché e che tono usare."
+ *   />
+ *
+ * Su schermi stretti le colonne si impilano. Senza JS i blocchi restano
+ * leggibili e selezionabili, i bottoni Copia non compaiono.
+ */
+interface Props {
+  weak: string;
+  strong: string;
+  weakLabel?: string;
+  strongLabel?: string;
+  note?: string;
+}
+
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const {
+  weak,
+  strong,
+  weakLabel = ui.compareWeakLabel,
+  strongLabel = ui.compareStrongLabel,
+  note,
+} = Astro.props;
+
+const hasSlot = Astro.slots.has('default');
+const slotHtml = hasSlot ? await Astro.slots.render('default') : '';
+const columns = [
+  { key: 'weak', label: weakLabel, text: weak },
+  { key: 'strong', label: strongLabel, text: strong },
+];
+---
+
+<section
+  class="pcompare not-content"
+  data-pcompare
+  data-i18n-copied={ui.compareCopied}
+  data-i18n-error={ui.compareCopyError}
+>
+  <div class="pc-grid">
+    {columns.map((col) => (
+      <div class={`pc-col pc-${col.key}`}>
+        <div class="pc-head">
+          <span class="pc-label">{col.label}</span>
+          <button
+            type="button"
+            class="pc-copy"
+            data-copy
+            aria-label={ui.compareCopyAria(col.label)}
+            hidden
+          >
+            {ui.compareCopy}
+          </button>
+        </div>
+        <pre class="pc-text" data-text>{col.text}</pre>
+        <p class="pc-status" data-status aria-live="polite"></p>
+      </div>
+    ))}
+  </div>
+
+  {(note || hasSlot) && (
+    <div class="pc-note">
+      <span class="pc-note-label">{ui.compareNoteLabel}</span>
+      {note && <p>{note}</p>}
+      {hasSlot && <div class="pc-note-body" set:html={slotHtml} />}
+    </div>
+  )}
+</section>
+
+<script>
+  import { copyText } from '../scripts/copy-text';
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-pcompare]').forEach((root) => {
+      if (root.dataset.pcWired === 'true') return;
+      root.dataset.pcWired = 'true';
+
+      root.querySelectorAll<HTMLElement>('.pc-col').forEach((col) => {
+        const btn = col.querySelector<HTMLButtonElement>('[data-copy]')!;
+        const text = col.querySelector<HTMLElement>('[data-text]')!;
+        const status = col.querySelector<HTMLElement>('[data-status]')!;
+        btn.hidden = false;
+        let timer = 0;
+        btn.addEventListener('click', async () => {
+          const ok = await copyText(text.textContent || '');
+          status.textContent = (ok ? root.dataset.i18nCopied : root.dataset.i18nError) || '';
+          window.clearTimeout(timer);
+          timer = window.setTimeout(() => {
+            status.textContent = '';
+          }, 2500);
+        });
+      });
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .pcompare {
+    margin: 1.75rem 0;
+  }
+
+  .pc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .pc-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0.8rem 0.9rem 0.6rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.85rem;
+    border-top-width: 3px;
+  }
+
+  .pc-weak {
+    border-top-color: var(--aig-caution-border);
+  }
+
+  .pc-strong {
+    border-top-color: var(--aig-success-border);
+  }
+
+  .pc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pc-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .pc-copy {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+  }
+
+  .pc-copy[hidden] {
+    display: none;
+  }
+
+  .pc-copy:hover {
+    background: var(--aig-hover-wash);
+  }
+
+  .pc-copy:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .pc-text {
+    flex: 1;
+    margin: 0;
+    padding: 0.65rem 0.8rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 1px dashed var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    font-family: var(--sl-font);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .pc-status {
+    min-height: 1.2rem;
+    margin: 0.35rem 0 0;
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .pc-note {
+    margin-top: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    border-left: 3px solid var(--sl-color-accent);
+    background: var(--aig-elevated-bg-warm);
+    border-radius: 0 0.6rem 0.6rem 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .pc-note-label {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .pc-note p,
+  .pc-note-body :global(p) {
+    margin: 0.3rem 0 0;
+  }
+
+  .pc-note-label + p,
+  .pc-note-label + .pc-note-body :global(p:first-child) {
+    margin-top: 0;
+  }
+
+  @media (max-width: 720px) {
+    .pc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

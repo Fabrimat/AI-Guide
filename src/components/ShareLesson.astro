@@ -145,6 +145,10 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
     track('share_click', { network: el.dataset.shareNetwork || '' });
   });
 
+  // One pending reset timer per status element: a second click clears the
+  // previous timer so it can't wipe the new message early.
+  const resetTimers = new WeakMap<HTMLElement, number>();
+
   function init() {
     document
       .querySelectorAll<HTMLButtonElement>('button[data-share-copy]')
@@ -172,12 +176,18 @@ const emailHref = `mailto:?subject=${emailSubject}&body=${encUrl}`;
               status.classList.add('is-error');
             }
           }
-          window.setTimeout(() => {
-            if (status) {
-              status.textContent = '';
-              status.classList.remove('is-error');
-            }
-          }, 2000);
+          if (status) {
+            const prev = resetTimers.get(status);
+            if (prev) window.clearTimeout(prev);
+            resetTimers.set(
+              status,
+              window.setTimeout(() => {
+                status.textContent = '';
+                status.classList.remove('is-error');
+                resetTimers.delete(status);
+              }, 2000),
+            );
+          }
         });
       });
   }

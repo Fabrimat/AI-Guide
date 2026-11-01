@@ -1,0 +1,391 @@
+---
+/**
+ * Anonymizer: il lettore incolla un testo, lo strumento sostituisce i dati
+ * personali più ovvi e restituisce una versione ripulita da dare all'IA.
+ * Tutto avviene nel browser: il testo non viene inviato, non viene salvato,
+ * non passa da nessun analytics.
+ *
+ * Sostituisce in automatico email, telefoni, IBAN, codici fiscali, numeri
+ * di carta e (opzionale) tutti gli altri numeri. In più, un elenco di
+ * parole indicate dal lettore (nomi, aziende, luoghi) diventa [NOME 1],
+ * [NOME 2]... sempre uguale per la stessa parola.
+ *
+ * La logica vive in `src/scripts/anonymize.ts`. La nota su cosa NON trova
+ * è sempre visibile: è la parte più importante del widget.
+ *
+ * Nessuna prop: `<Anonymizer />`.
+ */
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const uid = Math.random().toString(36).slice(2, 8);
+const ids = {
+  input: `anon-in-${uid}`,
+  terms: `anon-terms-${uid}`,
+  termsHint: `anon-terms-hint-${uid}`,
+  numbers: `anon-nums-${uid}`,
+  output: `anon-out-${uid}`,
+};
+const kinds = [
+  ['email', ui.anonKindEmail],
+  ['phone', ui.anonKindPhone],
+  ['iban', ui.anonKindIban],
+  ['cf', ui.anonKindCf],
+  ['card', ui.anonKindCard],
+  ['number', ui.anonKindNumber],
+  ['name', ui.anonKindName],
+];
+---
+
+<section
+  class="anon not-content"
+  data-anon
+  data-i18n-copied={ui.anonCopied}
+  data-i18n-error={ui.anonCopyError}
+  data-i18n-none={ui.anonCountsNone}
+  data-ph-email={ui.anonPhEmail}
+  data-ph-phone={ui.anonPhPhone}
+  data-ph-iban={ui.anonPhIban}
+  data-ph-cf={ui.anonPhCf}
+  data-ph-card={ui.anonPhCard}
+  data-ph-number={ui.anonPhNumber}
+  data-ph-name={ui.anonPhName}
+  data-kinds={JSON.stringify(Object.fromEntries(kinds))}
+>
+  <span class="an-badge">{ui.anonBadge}</span>
+  <h3 class="an-title">{ui.anonTitle}</h3>
+  <p class="an-intro">{ui.anonIntro}</p>
+
+  <div class="an-note" role="note">
+    <strong class="an-note-title">{ui.anonNoteTitle}</strong>
+    <p>{ui.anonNoteIntro}</p>
+    <ul>
+      {ui.anonNoteItems.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="an-note-local">{ui.anonNoteLocal}</p>
+  </div>
+
+  <p class="an-nojs">{ui.anonNoJs}</p>
+
+  <div class="an-tool">
+    <div class="an-field">
+      <label for={ids.input}>{ui.anonInputLabel}</label>
+      <textarea
+        id={ids.input}
+        data-input
+        rows="7"
+        placeholder={ui.anonInputPlaceholder}
+        spellcheck="false"
+        autocomplete="off"
+      ></textarea>
+    </div>
+
+    <div class="an-field">
+      <label for={ids.terms}>{ui.anonTermsLabel}</label>
+      <input
+        type="text"
+        id={ids.terms}
+        data-terms
+        placeholder={ui.anonTermsPlaceholder}
+        aria-describedby={ids.termsHint}
+        spellcheck="false"
+        autocomplete="off"
+      />
+      <span class="an-hint" id={ids.termsHint}>{ui.anonTermsHint}</span>
+    </div>
+
+    <label class="an-check" for={ids.numbers}>
+      <input type="checkbox" id={ids.numbers} data-all-numbers />
+      <span>{ui.anonAllNumbers}</span>
+    </label>
+
+    <div class="an-field">
+      <label for={ids.output}>{ui.anonOutputLabel}</label>
+      <textarea id={ids.output} data-output rows="7" readonly></textarea>
+    </div>
+
+    <div class="an-actions">
+      <button type="button" class="an-btn" data-copy disabled>{ui.anonCopy}</button>
+      <span class="an-status" data-status aria-live="polite"></span>
+    </div>
+
+    <div class="an-counts">
+      <span class="an-counts-title">{ui.anonCountsTitle}</span>
+      <p data-counts role="status">{ui.anonCountsNone}</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { anonymize, parseTerms } from '../scripts/anonymize';
+  import { copyText } from '../scripts/copy-text';
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-anon]').forEach((root) => {
+      if (root.dataset.anonWired === 'true') return;
+      root.dataset.anonWired = 'true';
+      root.classList.add('is-ready');
+
+      const input = root.querySelector<HTMLTextAreaElement>('[data-input]')!;
+      const terms = root.querySelector<HTMLInputElement>('[data-terms]')!;
+      const allNumbers = root.querySelector<HTMLInputElement>('[data-all-numbers]')!;
+      const output = root.querySelector<HTMLTextAreaElement>('[data-output]')!;
+      const copyBtn = root.querySelector<HTMLButtonElement>('[data-copy]')!;
+      const status = root.querySelector<HTMLElement>('[data-status]')!;
+      const counts = root.querySelector<HTMLElement>('[data-counts]')!;
+      const d = root.dataset;
+      const kindLabels: Record<string, string> = JSON.parse(d.kinds || '{}');
+      const placeholders = {
+        email: d.phEmail || '[EMAIL]',
+        phone: d.phPhone || '[PHONE]',
+        iban: d.phIban || '[IBAN]',
+        cf: d.phCf || '[CF]',
+        card: d.phCard || '[CARD]',
+        number: d.phNumber || '[NUMBER]',
+        name: d.phName || '[NAME {n}]',
+      };
+
+      let countsTimer = 0;
+      const run = () => {
+        const result = anonymize(input.value, {
+          terms: parseTerms(terms.value),
+          allNumbers: allNumbers.checked,
+          placeholders,
+        });
+        output.value = result.text;
+        copyBtn.disabled = result.text.length === 0;
+
+        // Counts update a moment after typing stops, so the live region
+        // does not chatter on every keystroke.
+        window.clearTimeout(countsTimer);
+        countsTimer = window.setTimeout(() => {
+          const parts = Object.entries(result.counts)
+            .filter(([, n]) => n > 0)
+            .map(([kind, n]) => `${kindLabels[kind] ?? kind}: ${n}`);
+          counts.textContent = parts.length ? parts.join(' · ') : d.i18nNone || '';
+        }, 400);
+      };
+
+      input.addEventListener('input', run);
+      terms.addEventListener('input', run);
+      allNumbers.addEventListener('change', run);
+
+      let statusTimer = 0;
+      copyBtn.addEventListener('click', async () => {
+        const ok = await copyText(output.value);
+        status.textContent = (ok ? d.i18nCopied : d.i18nError) || '';
+        window.clearTimeout(statusTimer);
+        statusTimer = window.setTimeout(() => {
+          status.textContent = '';
+        }, 2500);
+      });
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .anon {
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.25rem 1.1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .an-badge {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .an-title {
+    margin: 0.2rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .an-intro {
+    margin: 0.35rem 0 0.9rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .an-note {
+    margin-bottom: 1.1rem;
+    padding: 0.75rem 0.95rem;
+    background: var(--aig-caution-bg);
+    border: 1px solid var(--aig-caution-border);
+    border-radius: 0.7rem;
+    color: var(--aig-caution-text);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .an-note-title {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .an-note p {
+    margin: 0.2rem 0;
+  }
+
+  .an-note ul {
+    margin: 0.3rem 0;
+    padding-left: 1.2rem;
+  }
+
+  .an-note li {
+    margin: 0.15rem 0;
+  }
+
+  .an-note-local {
+    font-weight: 600;
+  }
+
+  .an-nojs {
+    display: none;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .anon:not(.is-ready) .an-nojs {
+    display: block;
+  }
+
+  .anon:not(.is-ready) .an-tool {
+    display: none;
+  }
+
+  .an-tool {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .an-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .an-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+  }
+
+  .an-hint {
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+    line-height: 1.45;
+  }
+
+  .an-field textarea,
+  .an-field input[type='text'] {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.65rem;
+  }
+
+  .an-field textarea {
+    resize: vertical;
+  }
+
+  .an-field textarea[readonly] {
+    background: var(--sl-color-bg-inline-code);
+    border-style: dashed;
+  }
+
+  .an-field textarea:focus,
+  .an-field input[type='text']:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+    border-color: var(--sl-color-accent);
+  }
+
+  .an-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--sl-color-text);
+    cursor: pointer;
+  }
+
+  .an-check input {
+    margin-top: 0.2rem;
+    accent-color: var(--sl-color-accent);
+  }
+
+  .an-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .an-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border: 1px solid var(--sl-color-accent);
+  }
+
+  .an-btn:hover:not(:disabled) {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .an-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .an-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .an-status {
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .an-counts-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .an-counts p {
+    margin: 0.2rem 0 0;
+    font-size: 0.9rem;
+    color: var(--sl-color-text);
+  }
+</style>

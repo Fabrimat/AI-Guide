@@ -1,0 +1,345 @@
+---
+/**
+ * ReviewToday: ripasso a intervalli ("Oggi, ripassa N lezioni").
+ *
+ * Una lezione letta torna "da ripassare" dopo 1, poi 4, poi 14 giorni
+ * dall'ultimo riferimento (`reviewedAt ?? readAt ?? lastVisit`). Il
+ * numero di ripassi già fatti è `reviewStep` nel record di progresso.
+ *
+ * La card elenca le lezioni in scadenza (con link) e genera lo stesso
+ * prompt socratico di `<RecapWithAi>`, ma solo su quelle (logica condivisa
+ * in `src/scripts/recap-prompt.ts`). Quando il lettore COPIA il prompt,
+ * la card manda l'evento `aiguide:mark-reviewed` con i percorsi: la scrittura
+ * in localStorage la fa `progress.ts` (unico writer del progresso).
+ *
+ * Si nasconde da sola se non c'è niente da ripassare. Da mettere sulle
+ * pagine di orientamento, subito dopo `<Resume />`. Niente prop.
+ */
+import { t } from '../i18n/ui';
+import { promptAttrs } from '../scripts/recap-prompt';
+const ui = t(Astro.currentLocale);
+// Per-instance id suffix: several cards can live on the same page.
+const uid = Math.random().toString(36).slice(2, 8);
+const titleId = `review-dialog-title-${uid}`;
+const headingId = `review-heading-${uid}`;
+---
+
+<section
+  class="review-today not-content"
+  data-review
+  aria-labelledby={headingId}
+  data-i18n-due-one={ui.reviewDueOne}
+  data-i18n-due-many-template={ui.reviewDueMany(0).replace('0', '__N__')}
+  data-i18n-copied={ui.recapCopied}
+  data-i18n-error={ui.recapCopyError}
+  {...promptAttrs(ui)}
+  hidden
+>
+  <header>
+    <span class="review-badge">{ui.reviewTodayBadge}</span>
+    <h3 id={headingId} data-review-heading>{ui.reviewTitle}</h3>
+  </header>
+
+  <p class="review-desc">{ui.reviewDesc}</p>
+
+  <ul class="review-list" data-review-list aria-label={ui.reviewListAria}></ul>
+
+  <div class="review-actions">
+    <button type="button" class="review-btn" data-review-generate>
+      {ui.reviewGenerate}
+    </button>
+  </div>
+
+  <dialog class="review-dialog" data-review-dialog aria-labelledby={titleId}>
+    <h4 id={titleId}>{ui.reviewDialogTitle}</h4>
+    <p class="review-dialog-hint">{ui.reviewDialogHint}</p>
+    <pre class="review-output" data-review-output></pre>
+    <div class="review-dialog-actions">
+      <button
+        type="button"
+        class="review-btn review-btn-primary"
+        data-review-copy
+        aria-live="polite"
+      >
+        {ui.recapCopy}
+      </button>
+      <button type="button" class="review-btn review-btn-ghost" data-review-close>
+        {ui.recapClose}
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  import {
+    buildRecapPrompt,
+    detectCurrentLocale,
+    dueLessons,
+    fetchRecapData,
+    loadReadLessons,
+    readPromptStrings,
+    type ReadLesson,
+  } from '../scripts/recap-prompt';
+
+  // Lessons the prompt was built for, kept until the dialog closes so the
+  // card does not disappear under the reader's hands after copying.
+  const pending = new WeakMap<HTMLElement, ReadLesson[]>();
+
+  function render(root: HTMLElement) {
+    const due = dueLessons(loadReadLessons());
+    const list = root.querySelector<HTMLElement>('[data-review-list]');
+    const heading = root.querySelector<HTMLElement>('[data-review-heading]');
+    if (!list || !heading) return;
+
+    if (due.length === 0) {
+      root.setAttribute('hidden', '');
+      list.replaceChildren();
+      return;
+    }
+
+    heading.textContent =
+      due.length === 1
+        ? root.dataset.i18nDueOne || ''
+        : (root.dataset.i18nDueManyTemplate || '').replace(
+            '__N__',
+            String(due.length),
+          );
+
+    list.replaceChildren(
+      ...due.map((l) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = l.url;
+        a.textContent = l.title;
+        li.appendChild(a);
+        return li;
+      }),
+    );
+    root.removeAttribute('hidden');
+  }
+
+  function wire(root: HTMLElement) {
+    const generateBtn = root.querySelector<HTMLButtonElement>(
+      '[data-review-generate]',
+    );
+    const dialog = root.querySelector<HTMLDialogElement>('[data-review-dialog]');
+    const output = root.querySelector<HTMLElement>('[data-review-output]');
+    const copyBtn = root.querySelector<HTMLButtonElement>('[data-review-copy]');
+    const closeBtn = root.querySelector<HTMLButtonElement>('[data-review-close]');
+    if (!generateBtn || !dialog || !output || !copyBtn || !closeBtn) return;
+
+    generateBtn.addEventListener('click', async () => {
+      const due = dueLessons(loadReadLessons());
+      if (due.length === 0) return;
+      generateBtn.disabled = true;
+      const data = await fetchRecapData(detectCurrentLocale() || 'en');
+      generateBtn.disabled = false;
+      pending.set(root, due);
+      output.textContent = buildRecapPrompt(readPromptStrings(root), due, data);
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+    });
+
+    closeBtn.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    // Refresh the list after the dialog closes (reviewed lessons drop out).
+    dialog.addEventListener('close', () => render(root));
+
+    copyBtn.addEventListener('click', async () => {
+      const text = output.textContent || '';
+      if (!text) return;
+      const original = (copyBtn.dataset.label ??= copyBtn.textContent ?? '');
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = root.dataset.i18nCopied || '';
+        const lessons = pending.get(root) ?? [];
+        const paths = lessons.flatMap((l) => l.keys);
+        if (paths.length > 0) {
+          window.dispatchEvent(
+            new CustomEvent('aiguide:mark-reviewed', { detail: { paths } }),
+          );
+          pending.delete(root);
+        }
+      } catch {
+        copyBtn.textContent = root.dataset.i18nError || '';
+      }
+      window.setTimeout(() => {
+        copyBtn.textContent = original;
+      }, 2000);
+    });
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-review]').forEach((root) => {
+      if (root.dataset.reviewWired !== 'true') {
+        root.dataset.reviewWired = 'true';
+        wire(root);
+      }
+      render(root);
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+  window.addEventListener('aiguide:progress-cleared', () => {
+    document.querySelectorAll<HTMLElement>('[data-review]').forEach(render);
+  });
+</script>
+
+<style>
+  .review-today {
+    margin: 1.75rem auto;
+    padding: 1.25rem 1.25rem 1rem;
+    max-width: 900px;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .review-today[hidden] {
+    display: none;
+  }
+
+  .review-today header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .review-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .review-today h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .review-desc {
+    margin: 0.25rem 0 0.5rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .review-list {
+    margin: 0 0 0.9rem;
+    padding-inline-start: 1.2rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .review-list a {
+    color: var(--sl-color-text-accent);
+  }
+
+  .review-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sl-color-accent);
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  .review-btn:hover:not(:disabled) {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .review-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .review-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .review-dialog {
+    margin: auto;
+    padding: 1.5rem;
+    max-width: 36rem;
+    width: calc(100% - 2rem);
+    background: var(--aig-elevated-bg);
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow: 0 12px 36px rgba(var(--aig-shadow-color), 0.18);
+    font-family: var(--sl-font);
+  }
+
+  .review-dialog::backdrop {
+    background: var(--aig-scrim);
+  }
+
+  .review-dialog h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .review-dialog-hint {
+    margin: 0 0 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .review-output {
+    margin: 0 0 1rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--sl-color-bg-inline-code);
+    border: 1px dashed var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    font-family: var(--sl-font);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .review-dialog-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .review-btn-ghost {
+    background: transparent;
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-hairline);
+  }
+
+  .review-btn-ghost:hover {
+    background: var(--aig-hover-wash);
+  }
+</style>

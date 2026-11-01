@@ -1,0 +1,112 @@
+---
+/**
+ * Collapsible: sottile wrapper sul <details>/<summary> nativo, per
+ * accorciare una lezione "sul posto" (esempi lunghi, approfondimenti).
+ * Chiuso di default, funziona senza JS, accessibile da tastiera.
+ * Visivamente più silenzioso di <LessonSummary>: nessun riempimento
+ * colorato, solo una riga con chevron e un filo a sinistra.
+ *
+ * Uso (in un .mdx), con righe vuote attorno al markdown interno:
+ *   <Collapsible title="L'esempio completo">
+ *
+ *   Testo, liste, **grassetto**...
+ *
+ *   </Collapsible>
+ */
+interface Props {
+  title: string;
+  open?: boolean;
+}
+
+const { title, open = false } = Astro.props;
+---
+
+<details class="aig-collapsible not-content" open={open}>
+  <summary>
+    <span class="aig-collapsible-chevron" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 4 10 8 6 12"></polyline>
+      </svg>
+    </span>
+    <span class="aig-collapsible-title">{title}</span>
+  </summary>
+  <div class="aig-collapsible-body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .aig-collapsible {
+    margin: 1.25rem 0;
+    border-top: 1px solid var(--sl-color-hairline);
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+
+  .aig-collapsible summary {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.15rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--sl-color-text);
+    user-select: none;
+  }
+
+  .aig-collapsible summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .aig-collapsible summary::marker {
+    content: '';
+  }
+
+  .aig-collapsible summary:hover .aig-collapsible-title {
+    color: var(--sl-color-accent-high);
+  }
+
+  .aig-collapsible summary:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.3rem;
+  }
+
+  .aig-collapsible-chevron {
+    display: inline-flex;
+    color: var(--sl-color-accent);
+    transition: transform 0.2s ease;
+  }
+
+  .aig-collapsible[open] .aig-collapsible-chevron {
+    transform: rotate(90deg);
+  }
+
+  .aig-collapsible-body {
+    margin: 0 0 1rem 0.5rem;
+    padding: 0.1rem 0 0.1rem 1rem;
+    border-left: 2px solid var(--sl-color-hairline);
+    font-size: 0.95rem;
+  }
+
+  .aig-collapsible-body > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .aig-collapsible-body > :global(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .aig-collapsible-body :global(p),
+  .aig-collapsible-body :global(ul),
+  .aig-collapsible-body :global(ol) {
+    margin: 0.6rem 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aig-collapsible-chevron {
+      transition: none;
+    }
+  }
+</style>

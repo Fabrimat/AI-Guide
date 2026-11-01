@@ -1,0 +1,416 @@
+---
+/**
+ * SpotTheError: una risposta dell'IA divisa in frasi. Il lettore segna
+ * quelle che sospetta siano sbagliate, poi preme "Controlla": si vede
+ * quali errori ha trovato (con il perché), quali gli sono sfuggiti e
+ * quali erano falsi allarmi. Niente viene salvato.
+ *
+ * Senza JS: la risposta come elenco, la soluzione in un <details>.
+ *
+ *   <SpotTheError
+ *     prompt="In che anno è caduto il Muro di Berlino?"
+ *     sentences={[
+ *       { text: 'Il Muro di Berlino è caduto nel 1989.' },
+ *       { text: 'Fu abbattuto dall'esercito francese.', wrong: true,
+ *         why: 'Cadde per la pressione popolare, non per un intervento militare.' },
+ *     ]}
+ *   />
+ */
+export interface SpotSentence {
+  text: string;
+  wrong?: boolean;
+  why?: string;
+}
+
+interface Props {
+  sentences: SpotSentence[];
+  prompt?: string;
+  title?: string;
+}
+
+import { t } from '../i18n/ui';
+const ui = t(Astro.currentLocale);
+const { sentences, prompt, title = ui.spotDefaultTitle } = Astro.props;
+const wrongOnes = sentences.filter((s) => s.wrong);
+---
+
+<section
+  class="spot not-content"
+  data-spot
+  data-i18n-found={ui.spotFound}
+  data-i18n-missed={ui.spotMissed}
+  data-i18n-false-alarm={ui.spotFalseAlarm}
+  data-i18n-summary={ui.spotSummary}
+  data-i18n-summary-none={ui.spotSummaryNone}
+>
+  <span class="spot-badge">{ui.spotBadge}</span>
+  <h3 class="spot-title">{title}</h3>
+  <p class="spot-hint">{ui.spotHint}</p>
+
+  {prompt && (
+    <div class="spot-prompt">
+      <span class="spot-label">{ui.spotPromptLabel}</span>
+      <p>{prompt}</p>
+    </div>
+  )}
+
+  <span class="spot-label">{ui.spotAnswerLabel}</span>
+  <ul class="spot-list">
+    {sentences.map((s) => (
+      <li class="spot-item" data-wrong={s.wrong ? 'true' : 'false'}>
+        <button type="button" class="spot-sentence" aria-pressed="false">{s.text}</button>
+        <p class="spot-verdict" hidden>
+          <strong class="spot-verdict-label"></strong>
+          {s.why && <span class="spot-why"> {s.why}</span>}
+        </p>
+      </li>
+    ))}
+  </ul>
+
+  <div class="spot-actions" data-actions hidden>
+    <button type="button" class="spot-btn spot-btn-primary" data-action="check">{ui.spotCheck}</button>
+    <button type="button" class="spot-btn spot-btn-ghost" data-action="reset" hidden>{ui.spotReset}</button>
+  </div>
+
+  <p class="spot-summary" data-summary role="status"></p>
+
+  <details class="spot-nojs">
+    <summary>{ui.spotNoJsTitle}</summary>
+    {wrongOnes.length === 0 ? (
+      <p>{ui.spotNoJsNone}</p>
+    ) : (
+      <ul>
+        {wrongOnes.map((s) => (
+          <li><strong>{s.text}</strong>{s.why ? ` ${s.why}` : ''}</li>
+        ))}
+      </ul>
+    )}
+  </details>
+</section>
+
+<script>
+  function init() {
+    document.querySelectorAll<HTMLElement>('[data-spot]').forEach((root) => {
+      if (root.dataset.spotWired === 'true') return;
+      root.dataset.spotWired = 'true';
+      root.classList.add('is-ready');
+
+      const items = Array.from(root.querySelectorAll<HTMLElement>('.spot-item'));
+      const actions = root.querySelector<HTMLElement>('[data-actions]')!;
+      const checkBtn = root.querySelector<HTMLButtonElement>('[data-action="check"]')!;
+      const resetBtn = root.querySelector<HTMLButtonElement>('[data-action="reset"]')!;
+      const summary = root.querySelector<HTMLElement>('[data-summary]')!;
+      actions.hidden = false;
+
+      const buttonOf = (item: HTMLElement) =>
+        item.querySelector<HTMLButtonElement>('.spot-sentence')!;
+
+      items.forEach((item) => {
+        const btn = buttonOf(item);
+        btn.addEventListener('click', () => {
+          const pressed = btn.getAttribute('aria-pressed') === 'true';
+          btn.setAttribute('aria-pressed', String(!pressed));
+        });
+      });
+
+      checkBtn.addEventListener('click', () => {
+        let found = 0;
+        let total = 0;
+        let falseAlarms = 0;
+        for (const item of items) {
+          const btn = buttonOf(item);
+          const wrong = item.dataset.wrong === 'true';
+          const pressed = btn.getAttribute('aria-pressed') === 'true';
+          const verdict = item.querySelector<HTMLElement>('.spot-verdict')!;
+          const label = verdict.querySelector<HTMLElement>('.spot-verdict-label')!;
+          btn.disabled = true;
+          let state = '';
+          if (wrong) {
+            total += 1;
+            if (pressed) {
+              found += 1;
+              state = 'found';
+              label.textContent = root.dataset.i18nFound || '';
+            } else {
+              state = 'missed';
+              label.textContent = root.dataset.i18nMissed || '';
+            }
+          } else if (pressed) {
+            falseAlarms += 1;
+            state = 'false-alarm';
+            label.textContent = root.dataset.i18nFalseAlarm || '';
+          }
+          if (state) {
+            item.dataset.state = state;
+            verdict.hidden = false;
+          }
+        }
+        summary.textContent = formatSummary(root, found, total, falseAlarms);
+        checkBtn.hidden = true;
+        resetBtn.hidden = false;
+        resetBtn.focus();
+      });
+
+      resetBtn.addEventListener('click', () => {
+        for (const item of items) {
+          const btn = buttonOf(item);
+          btn.disabled = false;
+          btn.setAttribute('aria-pressed', 'false');
+          item.removeAttribute('data-state');
+          item.querySelector<HTMLElement>('.spot-verdict')!.hidden = true;
+        }
+        summary.textContent = '';
+        checkBtn.hidden = false;
+        resetBtn.hidden = true;
+        buttonOf(items[0]).focus();
+      });
+    });
+  }
+
+  function formatSummary(root: HTMLElement, found: number, total: number, falseAlarms: number): string {
+    const tpl = root.dataset.i18nSummary || '';
+    const none = root.dataset.i18nSummaryNone || '';
+    if (total === 0) {
+      return none.replace('{fa}', String(falseAlarms));
+    }
+    return tpl
+      .replace('{found}', String(found))
+      .replace('{total}', String(total))
+      .replace('{fa}', String(falseAlarms));
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .spot {
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.25rem 1rem;
+    background: var(--aig-elevated-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 0 rgba(var(--aig-shadow-color), 0.04),
+      0 6px 18px rgba(var(--aig-shadow-color), 0.05);
+  }
+
+  .spot-badge {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-accent-high);
+  }
+
+  .spot-title {
+    margin: 0.2rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+  }
+
+  .spot-hint {
+    margin: 0.3rem 0 1rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .spot-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sl-color-gray-3);
+  }
+
+  .spot-prompt {
+    margin-bottom: 1rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--sl-color-accent-low);
+    border-radius: 0.75rem;
+  }
+
+  .spot-prompt p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+  }
+
+  .spot-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .spot-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  .spot-sentence {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.6rem;
+    cursor: pointer;
+  }
+
+  .spot-sentence:hover:not(:disabled) {
+    border-color: var(--sl-color-accent);
+  }
+
+  .spot-sentence:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .spot-sentence[aria-pressed='true'] {
+    background: var(--sl-color-accent-low);
+    border-color: var(--sl-color-accent);
+    box-shadow: inset 3px 0 0 var(--sl-color-accent);
+  }
+
+  .spot-sentence:disabled {
+    cursor: default;
+    color: var(--sl-color-text);
+  }
+
+  .spot-verdict {
+    margin: 0.3rem 0 0.2rem 0.4rem;
+    padding-left: 0.7rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    border-left: 3px solid var(--sl-color-hairline);
+    color: var(--sl-color-text);
+  }
+
+  .spot-verdict[hidden] {
+    display: none;
+  }
+
+  .spot-item[data-state='found'] .spot-sentence {
+    background: var(--aig-success-bg);
+    border-color: var(--aig-success-border);
+    color: var(--aig-success-text);
+    box-shadow: none;
+  }
+
+  .spot-item[data-state='found'] .spot-verdict {
+    border-left-color: var(--aig-success-border);
+  }
+
+  .spot-item[data-state='missed'] .spot-sentence {
+    background: var(--aig-danger-bg);
+    border-color: var(--aig-danger-border);
+    color: var(--aig-danger-text);
+    box-shadow: none;
+  }
+
+  .spot-item[data-state='missed'] .spot-verdict {
+    border-left-color: var(--aig-danger-border);
+  }
+
+  .spot-item[data-state='false-alarm'] .spot-sentence {
+    background: var(--aig-caution-bg);
+    border-color: var(--aig-caution-border);
+    color: var(--aig-caution-text);
+    box-shadow: none;
+  }
+
+  .spot-item[data-state='false-alarm'] .spot-verdict {
+    border-left-color: var(--aig-caution-border);
+  }
+
+  .spot-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .spot-actions[hidden],
+  .spot-btn[hidden] {
+    display: none;
+  }
+
+  .spot-btn {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .spot-btn:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .spot-btn-primary {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+    border-color: var(--sl-color-accent);
+  }
+
+  .spot-btn-primary:hover {
+    background: var(--sl-color-accent-high);
+    border-color: var(--sl-color-accent-high);
+  }
+
+  .spot-btn-ghost {
+    background: transparent;
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-hairline);
+  }
+
+  .spot-btn-ghost:hover {
+    background: var(--aig-hover-wash);
+  }
+
+  .spot-summary {
+    margin: 0.8rem 0 0;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--sl-color-text);
+  }
+
+  .spot-summary:empty {
+    display: none;
+  }
+
+  /* No JS: sentences as a plain list, solution in the <details>. */
+  .spot:not(.is-ready) .spot-sentence {
+    pointer-events: none;
+    border-color: transparent;
+    background: transparent;
+    padding-left: 0;
+  }
+
+  .spot-nojs {
+    display: none;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .spot:not(.is-ready) .spot-nojs {
+    display: block;
+  }
+</style>

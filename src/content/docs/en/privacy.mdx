@@ -90,15 +90,30 @@ Details in [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolic
 
 AI-Guide uses `localStorage` to remember which lessons you've started
 or finished, how long you've spent on them, and your last position in
-the manual. That data powers the "Pick up where you left off" and
-"Recap with your AI" features.
+the manual. That data powers the "Pick up where you left off",
+"Recap with your AI" and "Review today" features and the "Your
+progress" page. For spaced review it also keeps when you last
+reviewed a lesson and how many times you have.
+
+These stay on your browser in the same way:
+
+- the result of the self-check questions in lessons (right or wrong,
+  and the date, not the answer you picked);
+- the notes you write under exercises in the "One thing I noticed"
+  field. The recap prompt includes them only when you generate it and
+  paste it into your own AI.
+
+The text you paste into the anonymizer and the predictions you type
+before seeing an answer are not saved anywhere.
 
 **It never leaves your browser.** It doesn't reach me, or any third
 party, or any external service. It lives in `localStorage` and that's
 it.
 
 You can clear it at any time with the "Clear progress" button at the
-bottom of the "Pick up" card on the homepage.
+bottom of the "Pick up" card on the homepage: it deletes progress,
+results, notes and the local assistant's history, and keeps only your
+preferences (theme, assisted reading, local model consent).
 
 ## The local AI assistant
 

@@ -15,6 +15,11 @@
  *  - read (true se >= 15s + scrolledToEnd, su pagine "leggibili")
  *  - buttons (conteggio click su Copia / Scarica / Apri / Riavvia /
  *    Prossima lezione)
+ *  - readAt (quando la pagina è diventata "letta")
+ *  - reviewedAt / reviewStep (ripasso a intervalli: ultima volta che il
+ *    lettore ha copiato il prompt di `<ReviewToday>` e quante volte è
+ *    successo; scritti SOLO da qui, in risposta all'evento
+ *    `aiguide:mark-reviewed`)
  *
  * Stato globale:
  *  - lastVisitAt
@@ -38,6 +43,7 @@ interface PageRecord {
   // Legacy records lack them: fall back to `readAt ?? lastVisit`.
   readAt?: string;
   reviewedAt?: string;
+  reviewStep?: number;
 }
 
 interface ProgressState {
@@ -230,6 +236,88 @@ function syncSidebarCompletion() {
       link.classList.remove('lesson-completed');
     }
   });
+  syncModuleCounters();
+}
+
+/**
+ * Piccolo contatore "3/7" in ogni gruppo-modulo del sidebar: lezioni
+ * completate (`a.lesson-completed`) su lezioni totali del gruppo. I
+ * segnaposto "Presto" (link `#` o `aria-disabled`) non contano. Idempotente:
+ * riusa lo `<span data-module-progress>` se c'è già.
+ */
+function syncModuleCounters() {
+  const template: string =
+    (window as any).__AIGUIDE_MODULE_PROGRESS_ARIA__ ||
+    '{done} / {total}';
+  const groups = document.querySelectorAll<HTMLDetailsElement>(
+    'nav.sidebar details',
+  );
+  groups.forEach((details) => {
+    // Solo i gruppi di primo livello (i moduli).
+    if (details.parentElement?.closest('details')) return;
+    const summary = details.querySelector<HTMLElement>(':scope > summary');
+    if (!summary) return;
+
+    const links = Array.from(
+      details.querySelectorAll<HTMLAnchorElement>('a[href]'),
+    ).filter((a) => {
+      const href = a.getAttribute('href') ?? '';
+      return (
+        href !== '' &&
+        !href.startsWith('#') &&
+        a.getAttribute('aria-disabled') !== 'true'
+      );
+    });
+
+    let badge = summary.querySelector<HTMLElement>('[data-module-progress]');
+    if (links.length === 0) {
+      badge?.remove();
+      return;
+    }
+    const done = links.filter((a) =>
+      a.classList.contains('lesson-completed'),
+    ).length;
+
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.setAttribute('data-module-progress', '');
+      badge.setAttribute('role', 'img');
+      const caret = summary.querySelector('svg');
+      if (caret) summary.insertBefore(badge, caret);
+      else summary.appendChild(badge);
+    }
+    badge.textContent = `${done}/${links.length}`;
+    badge.setAttribute(
+      'aria-label',
+      template
+        .replace('{done}', String(done))
+        .replace('{total}', String(links.length)),
+    );
+    if (done === links.length) badge.setAttribute('data-complete', '');
+    else badge.removeAttribute('data-complete');
+  });
+}
+
+/**
+ * `<ReviewToday>` manda `aiguide:mark-reviewed` quando il lettore copia il
+ * prompt di ripasso. Questo è l'unico punto che scrive `reviewedAt` e
+ * `reviewStep` (la regola: solo progress.ts scrive PROGRESS_KEY).
+ */
+function onMarkReviewed(event: Event) {
+  const paths = (event as CustomEvent<{ paths?: unknown }>).detail?.paths;
+  if (!Array.isArray(paths) || paths.length === 0) return;
+  const state = load();
+  const now = new Date().toISOString();
+  let changed = false;
+  for (const path of paths) {
+    if (typeof path !== 'string') continue;
+    const page = state.pages[path];
+    if (!page) continue;
+    page.reviewedAt = now;
+    page.reviewStep = (Number.isFinite(page.reviewStep) ? page.reviewStep! : 0) + 1;
+    changed = true;
+  }
+  if (changed) save(state);
 }
 
 function setupForCurrentPage() {
@@ -319,3 +407,4 @@ document.addEventListener('astro:before-swap', () => {
 // Quando l'utente clicca "Cancella progressi" nel widget Resume, lo stato
 // torna a zero: aggiorna il sidebar di conseguenza.
 window.addEventListener('aiguide:progress-cleared', syncSidebarCompletion);
+window.addEventListener('aiguide:mark-reviewed', onMarkReviewed);

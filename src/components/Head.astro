@@ -39,6 +39,8 @@
 import Default from '@astrojs/starlight/components/Head.astro';
 import { ClientRouter } from 'astro:transitions';
 import { getCollection } from 'astro:content';
+import { MODULES } from '../i18n/modules.mjs';
+import { t } from '../i18n/ui';
 
 const entries = await getCollection('docs');
 const titleMap: Record<string, string> = {};
@@ -80,6 +82,8 @@ const pageTitle = data?.title ?? 'AI-Guide';
 const pageDescription =
   data?.description ?? "Learn how to use AI, from the basics to advanced.";
 
+const moduleProgressAria = t(currentLocale).moduleProgressAria;
+
 const SITE_NAME = 'AI-Guide';
 const SITE_URL = 'https://ai-guide.larosa.work/';
 const OG_IMAGE = 'https://ai-guide.larosa.work/og-image.png';
@@ -98,13 +102,11 @@ const educationalLevel = data?.livello ? livelloToSchema[data.livello] : undefin
 
 // Nome del modulo (Fundamentals / Everyday use / At work) per
 // article:section + articleSection del JSON-LD. Derivato dal path:
-// /en/fundamentals/foo/ → "Fundamentals". start-here/glossary/about
-// sono pagine singole, non hanno una "section" sopra di loro.
-const sectionLabels: Record<string, { en: string; it: string }> = {
-  fundamentals: { en: 'Fundamentals', it: 'Fondamenti' },
-  'everyday-use': { en: 'Everyday use', it: 'Uso quotidiano' },
-  'at-work': { en: 'At work', it: 'Sul lavoro' },
-};
+// /en/fundamentals/foo/ → "Fundamentals". L'elenco dei moduli è in
+// `src/i18n/modules.mjs`. start-here/glossary/about sono pagine singole, non hanno una "section" sopra di loro.
+const sectionLabels: Record<string, { en: string; it: string }> = Object.fromEntries(
+  MODULES.map((m) => [m.dir, m.label]),
+);
 const sectionMatch = Astro.url.pathname.match(/^\/(?:en|it)\/([^/]+)\//);
 const sectionKey = sectionMatch?.[1];
 const articleSection =
@@ -186,9 +188,28 @@ const websiteJsonLd = {
   }
 </script>
 
-<script is:inline define:vars={{ titleMap }}>
+<script is:inline define:vars={{ titleMap, moduleProgressAria }}>
   window.__AIGUIDE_TITLES__ = titleMap;
+  // Template for the per-module "3/7" counter in the sidebar
+  // (see `syncSidebarCompletion()` in `src/scripts/progress.ts`).
+  window.__AIGUIDE_MODULE_PROGRESS_ARIA__ = moduleProgressAria;
 </script>
+
+<style is:inline>
+  /* Per-module progress counter injected into sidebar group summaries. */
+  nav.sidebar [data-module-progress] {
+    margin-inline-start: auto;
+    padding-inline-start: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+  nav.sidebar [data-module-progress][data-complete] {
+    color: var(--sl-color-text-accent);
+  }
+</style>
 
 <Default><slot /></Default>
 
