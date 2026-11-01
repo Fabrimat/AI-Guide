@@ -14,22 +14,22 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.38.0",
-    "@fontsource-variable/outfit": "^5.2.8",
-    "@huggingface/transformers": "^4.2.0",
-    "astro": "^6.0.0",
-    "sharp": "^0.34.0"
+    "@astrojs/starlight": "^0.42.8",
+    "@fontsource-variable/outfit": "^5.3.0",
+    "@huggingface/transformers": "^4.3.2",
+    "astro": "^7.4.4",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@emnapi/core": "^1.11.3",
     "@emnapi/runtime": "^1.11.3",
-    "@vite-pwa/astro": "^1.2.0",
+    "@vite-pwa/astro": "^2.0.0",
     "typescript": "^6.0.3",
-    "workbox-expiration": "^7.4.0",
-    "workbox-precaching": "^7.4.0",
-    "workbox-routing": "^7.4.0",
-    "workbox-strategies": "^7.4.0",
-    "workbox-window": "^7.4.0"
+    "workbox-expiration": "^7.4.1",
+    "workbox-precaching": "^7.4.1",
+    "workbox-routing": "^7.4.1",
+    "workbox-strategies": "^7.4.1",
+    "workbox-window": "^7.4.1"
   }
 }

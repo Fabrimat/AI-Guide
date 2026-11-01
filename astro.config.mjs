@@ -2,7 +2,7 @@
 import { execSync } from 'node:child_process';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import AstroPWA from '@vite-pwa/astro';
+import { AstroPWAIntegration as AstroPWA } from '@vite-pwa/astro';
 
 // Build identity, iniettato in build come globali Vite. Servono al
 // Footer per mostrare "v <sha> · <build-time>". Su Netlify il clone è
@@ -52,6 +52,8 @@ export default defineConfig({
     starlight({
       title: 'AI-Guide',
       description: 'Learn how to use AI, from the basics to advanced.',
+      // Il progetto ha una sua pagina 404 (src/pages/404.astro): evita la collisione di rotta.
+      disable404Route: true,
 
       // --- Localizzazione ---
       // Tutte le lingue hanno prefisso URL uniforme: /en/..., /it/..., etc.
@@ -98,7 +100,7 @@ export default defineConfig({
         {
           label: 'Fundamentals',
           translations: { it: 'Fondamenti' },
-          autogenerate: { directory: 'fundamentals' },
+          items: [{ autogenerate: { directory: 'fundamentals' } }],
         },
         {
           // Lista manuale (non `autogenerate`) perché le lezioni non
@@ -244,9 +246,8 @@ export default defineConfig({
       customCss: ['./src/styles/custom.css'],
     }),
     AstroPWA({
-      strategies: 'injectManifest',
-      srcDir: 'src',
-      filename: 'sw.ts',
+      strategies: 'buildSW',
+      filename: 'sw.js',
       registerType: 'autoUpdate',
       injectRegister: false, // we register manually inside Head.astro
       manifest: {
@@ -266,13 +267,12 @@ export default defineConfig({
           { src: '/icons/pwa-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
-      injectManifest: {
+      buildSW: {
+        swSrc: 'src/sw.ts',
         globPatterns: [
           '**/*.{js,css,woff2,svg}',
-          '_astro/**/*',
+          '_astro/**/*.{webp,png,jpg,avif,gif}',
           'icons/*.png',
-          'favicon.svg',
-          'manifest.webmanifest',
           'en/offline/index.html',
           'it/offline/index.html',
         ],
