@@ -517,7 +517,7 @@ const aiHtml = renderInlineMarkdown(ai);
 
   .message-user .bubble {
     background: var(--sl-color-accent);
-    color: var(--sl-color-text-invert, #fff);
+    color: var(--aig-on-accent);
     border-bottom-right-radius: 0.25rem;
   }
 
@@ -533,6 +533,11 @@ const aiHtml = renderInlineMarkdown(ai);
     letter-spacing: 0.06em;
     opacity: 0.7;
     margin-bottom: 0.2rem;
+  }
+
+  /* Sul corallo l'opacità abbassa il contrasto sotto AA: etichetta piena. */
+  .message-user .label {
+    opacity: 1;
   }
 
   /* ----- Stacking ghost + visible nello stesso grid cell -----

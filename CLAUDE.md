@@ -250,6 +250,10 @@ Coral (`--sl-color-accent`) is identical in both themes: it's the site's thread 
 | `--aig-shadow-color`     | rgb triplet used in `rgba(var(--aig-shadow-color), X)` for box-shadows |
 | `--aig-scrim`            | backdrop of modal `<dialog>`s                      |
 | `--aig-hover-wash`       | hover wash on minimal / ghost buttons              |
+| `--aig-on-accent`        | text on coral fills (primary buttons, user chat bubble): indigo in light (4.9:1), chocolate in dark |
+| `--aig-accent-hover`     | hover background of coral buttons: lighter coral, keeps text contrast above AA |
+
+Coral buttons: `background: var(--sl-color-accent)`, `color: var(--aig-on-accent)`, hover `background: var(--aig-accent-hover)`. Never white text on coral (2.9:1, below AA).
 
 When adding a component with a "white" background or shadows, use these tokens, don't hardcode `#ffffff` or `rgba(42, 36, 71, X)`.
 

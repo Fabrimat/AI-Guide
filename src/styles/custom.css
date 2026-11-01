@@ -102,6 +102,9 @@
      - `--aig-scrim`: sfondo dei backdrop modali (Resume, Recap).
      - `--aig-hover-wash`: sfondo wash per hover su bottoni minimali. */
   --aig-elevated-bg: #ffffff;
+  /* Testo e hover sui riempimenti corallo (bottoni primari): indigo su corallo 4,9:1, hover più chiaro 6,3:1. */
+  --aig-on-accent: #2a2447;
+  --aig-accent-hover: #ea9580;
   --aig-elevated-bg-warm: #fffaf1;
   --aig-caution-bg: #fbe9c0;
   --aig-caution-border: #d4a248;
@@ -184,6 +187,8 @@
      card e popover si staccano senza dipendere dall'ombra (nera su
      cioccolato è poco visibile). */
   --aig-elevated-bg: #3a2a1e;
+  --aig-on-accent: #1c130d;
+  --aig-accent-hover: #f29a82;
   --aig-elevated-bg-warm: #402e20;
   --aig-caution-bg: #3a2a15;
   --aig-caution-border: #a77a2b;
@@ -369,12 +374,12 @@ nav.sidebar a.lesson-completed::after {
 
 .hero .actions .sl-link-button.primary {
   background: var(--sl-color-accent);
-  color: var(--sl-color-text-invert);
+  color: var(--aig-on-accent);
   border-color: var(--sl-color-accent);
 }
 
 .hero .actions .sl-link-button.primary:hover {
-  background: var(--sl-color-accent-high);
+  background: var(--aig-accent-hover);
   border-color: var(--sl-color-accent-high);
 }
 
