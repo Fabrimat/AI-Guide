@@ -7,6 +7,7 @@ prerequisiti: [from-chats-to-apis]
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
 <LessonSummary>
@@ -64,6 +65,16 @@ The practical consequence is that the conversation grows every turn. Each
 question and each answer get appended to the list you resend, and at some point
 a long chat hits the ceiling.
 
+<SelfCheck
+  id="context-in-tokens-q1"
+  question="After fifty turns of chat over the API, the call comes back with an input-too-long error. What happened?"
+  options={[
+    { text: "The context window is a running total: conversation, system prompt and attachments together went over the limit.", correct: true, why: "Right. The window isn't a per-message ceiling: it counts everything you resend on each call." },
+    { text: "The last message was too long on its own.", why: "The limit applies to the total you send, not to a single message." },
+    { text: "The model trimmed the oldest turns by itself.", why: "Over the API that doesn't happen: staying under the limit is on you. Automatic trimming is a behavior of chat products." },
+  ]}
+/>
+
 ## What happens when you overflow
 
 Over the API, if the input exceeds the window the call comes back with an
@@ -86,7 +97,7 @@ actually used in the `usage` field, split between input and output.
 
 ```python
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Explain what a token is."}],
 )
@@ -100,7 +111,7 @@ print(message.usage.input_tokens, message.usage.output_tokens)
 
 ```typescript
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   messages: [{ role: "user", content: "Explain what a token is." }],
 });

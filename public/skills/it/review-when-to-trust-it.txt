@@ -17,7 +17,7 @@ Lo studente dovrebbe aver capito che:
 - L'IA è generalmente affidabile per: spiegare concetti generali, riformulare testi che le dai, generare strutture (scalette, bozze), brainstorming, traduzioni fra lingue comuni.
 - L'IA tende a sbagliare con: fatti specifici verificabili (date, nomi, citazioni, fonti), cose recenti, conti complicati, cose specifiche del proprio caso (le mie email, la mia salute), consulenza medica/legale/finanziaria.
 - Per verificare, tre mosse a sforzo crescente: (1) per fatti puntuali, motore di ricerca; (2) per citazioni e fonti, chiedere la fonte e poi cercarla; (3) per decisioni importanti, parlare con una persona competente.
-- Mentalità: usare l'IA come "assistente brillante ma incostante". In dubbio, verifica: la verifica è veloce per quasi tutto.
+- Abitudine: usare l'IA come "assistente brillante ma incostante". In dubbio, verifica: la verifica è veloce per quasi tutto.
 
 
 Cosa fare

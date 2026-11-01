@@ -11,6 +11,8 @@ import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import RecapWithAi from '../../../../components/RecapWithAi.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -84,19 +86,30 @@ conversazione unica come la tua.
 :::
 
 Queste regole cambiano a seconda del piano che hai (il tipo di
-abbonamento). Lo leggi in alto nelle impostazioni del
-tuo account: "Free", "Plus", "Pro", "Team" e così via.
+abbonamento). Lo trovi nelle impostazioni o nel menu del tuo account:
+"Free", "Plus", "Pro", "Team" e così via.
 
 - **Piani gratuiti e consumer (ChatGPT Plus, Claude Pro, Gemini
   personale)**: anche se paghi un abbonamento come Plus o Pro, dal
-  punto di vista della privacy sei nella categoria "consumer". Di
-  default le conversazioni possono essere usate per allenamento, ma
-  puoi disattivare l'opzione nelle impostazioni.
+  punto di vista della privacy sei nella categoria "consumer". Le
+  conversazioni possono essere usate per allenamento se non disattivi
+  l'opzione nelle impostazioni (Claude te lo chiede nell'app).
 - **Piani aziendali (Team, Enterprise, Business)**: di default **non**
   vengono usate per allenare i modelli, e l'azienda si impegna
   contrattualmente con il tuo datore di lavoro.
 - **API per sviluppatori**: altre regole ancora, di solito nessun
   allenamento di default.
+
+<SelfCheck
+  id="privacy-basics-q1"
+  question="Paghi un abbonamento Plus o Pro a titolo personale. Cosa vale per le tue conversazioni?"
+  options={[
+    { text: "Sono protette come in un piano aziendale, perché paghi.", why: "Dal punto di vista della privacy resti nella categoria consumer: pagare un abbonamento personale non cambia le regole sull'allenamento." },
+    { text: "Possono essere usate per allenamento se non disattivi l'opzione nelle impostazioni.", correct: true, why: "Esatto. Le garanzie contrattuali dei piani Team ed Enterprise sono un'altra cosa." },
+    { text: "Non vengono mai conservate sui server dell'azienda.", why: "Restano salvate nel tuo account, e una copia può rimanere sui server anche dopo che le cancelli, per un periodo." },
+  ]}
+  explanation="Prima di incollare qualcosa di delicato, guarda che piano stai usando e cosa hai impostato."
+/>
 
 Se la cosa ti interessa davvero, cercala nelle impostazioni del prodotto
 che usi: la voce di solito si chiama "Controlli privacy", "Data controls"
@@ -135,34 +148,45 @@ e tu hai regalato meno. Funziona per mail di colleghi, bollette,
 referti sanitari, contratti.
 :::
 
+Prova qui sotto: incolla un testo di prova (non uno vero) e guarda cosa
+sparisce. Tutto avviene nel tuo browser, niente viene inviato altrove.
+
+<Anonymizer />
+
 ## Impostazioni che puoi cambiare
 
 Non devi fidarti a scatola chiusa: le IA serie ti danno controlli veri.
 
-- **Spegnere l'uso per allenamento.** Su ChatGPT: Impostazioni →
-  Controlli dati → disattiva "Migliora il modello per tutti". Su Claude:
-  Impostazioni → Privacy → controlla l'opzione per migliorare i modelli
-  ("Help improve Claude"). Su Gemini: Impostazioni → Attività → controlla l'opzione
-  "Attività delle app Gemini".
+- **Spegnere l'uso per allenamento.** Cerca nelle impostazioni privacy del
+  prodotto l'opzione sull'uso delle tue chat per migliorare il modello. Su
+  ChatGPT si chiama "Migliora il modello per tutti" (Impostazioni, Controlli
+  dati). Su Claude si chiama "Help improve Claude" (Impostazioni, Privacy). Su
+  Gemini è la cronologia attività, "Keep Activity" ("Attività delle app Gemini"
+  nelle versioni più vecchie): la spegni dalla pagina Attività. I nomi
+  cambiano spesso: se non li trovi, cerca "privacy" o "dati" nelle
+  impostazioni. Percorsi verificati a novembre 2026.
 - **Chat temporanee.** Una modalità "usa e getta" in cui la conversazione
-  non viene salvata e non viene usata per allenamento. ChatGPT la chiama
-  "Chat temporanea", altre piattaforme hanno equivalenti.
+  non compare nella cronologia e non viene usata per allenamento. ChatGPT la
+  chiama "Chat temporanea", Claude "Chat in incognito", Gemini "Chat
+  temporanea". Una copia può restare sui server per un breve periodo, per
+  motivi di sicurezza.
 - **Cancellare conversazioni o l'intera cronologia.** Sempre disponibile,
   dentro le impostazioni del tuo account.
 
-Disattivare l'uso per allenamento **non** cancella la conversazione. Il tuo testo resta comunque sui server dell'azienda per
-un periodo (tipicamente 30 giorni, anche dopo averla cancellata tu). È
-il tempo previsto per obblighi antifrode, risposta a eventuali
-ingiunzioni giudiziarie, e audit interni. Dopo quel periodo viene
-cancellato davvero.
+Disattivare l'uso per allenamento **non** cancella la conversazione. Il tuo
+testo può restare comunque sui server dell'azienda per un periodo. Per ChatGPT
+e Claude in genere parliamo di circa 30 giorni dopo la cancellazione, per
+Gemini di fino a 72 ore con la cronologia attività spenta. Servono per
+sicurezza, antifrode e obblighi di legge. Le conversazioni segnalate per motivi
+di sicurezza possono essere conservate più a lungo. I tempi esatti sono nella
+pagina privacy di ciascun servizio.
 
 :::tip[Come controllo di aver spento davvero l'allenamento]
 Dopo aver cambiato l'opzione, chiudi la pagina delle impostazioni e
 riaprila: se l'opzione è ancora disattivata, la modifica è salvata.
 Se torna attiva da sola, il salvataggio non è andato a buon fine
-(succede raramente). Come ulteriore verifica, ChatGPT mostra una
-piccola scritta accanto alla casella di testo quando sei in una chat
-che non verrà usata per allenamento.
+(succede raramente). In una Chat temporanea ChatGPT lo segnala con un avviso
+nella schermata.
 :::
 
 ## Un'abitudine, non una lista

@@ -7,7 +7,8 @@ sidebar:
   order: 5
 ---
 
-import ChatDemo from '../../../../components/ChatDemo.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import RecapWithAi from '../../../../components/RecapWithAi.astro';
@@ -40,8 +41,9 @@ con quello che è vero**.
 
 Un esempio classico: chiederle un riassunto di un libro che non esiste.
 
-<ChatDemo
+<PredictThenReveal
   user="Riassumimi 'L'orologiaio di Edimburgo' di Marco Castagnoli."
+  prompt="Il libro e l'autore sono inventati. Cosa ti aspetti che risponda l'IA?"
   ai={`"L'orologiaio di Edimburgo" è un romanzo storico di Marco Castagnoli pubblicato nel 2017. La storia segue Aldo Bensi, un giovane apprendista orologiaio italiano che si trasferisce a Edimburgo a inizio Novecento per studiare presso un maestro scozzese. Fra dialoghi appassionanti e vicissitudini personali, il libro esplora i temi del talento, della perseveranza e dell'identità.`}
 />
 
@@ -120,6 +122,27 @@ Tre mosse pratiche, in ordine di sforzo crescente.
 3. **Per le decisioni importanti**: l'IA ti aiuta a strutturare il
    pensiero, ti dà angolazioni diverse, ti scrive bozze. Per la decisione
    finale, parla con una persona competente.
+
+<SelfCheck
+  id="when-to-trust-it-q1"
+  question="L'IA ti dà una citazione con autore, titolo e anno, e la vuoi usare in una presentazione. Qual è la mossa giusta?"
+  options={[
+    { text: "Se suona precisa e ben formulata, usarla: gli errori si notano.", why: "L'IA sbaglia con lo stesso tono con cui ha ragione, quindi la precisione apparente non è una prova." },
+    { text: "Chiederle la fonte esatta e poi cercarla davvero: se non esiste, la citazione era inventata.", correct: true, why: "Esatto. Se la fonte esiste, leggila per vedere se dice davvero quello che ti è stato riportato." },
+    { text: "Chiederle se è sicura: se conferma, va bene.", why: "Può confermare con la stessa sicurezza anche una cosa inventata. Serve un controllo fuori dalla chat." },
+  ]}
+  explanation="Il controllo vero lo fai tu, con una ricerca o con una persona competente."
+/>
+
+Vuoi provare davvero a smascherare un errore? Nell'esercizio qui sotto l'IA
+ti mostra tre risposte, una con un fatto inventato, e tu devi scoprire quale.
+
+<LlmExercise
+  title="Trova l'allucinazione"
+  file="practice-spot-the-hallucination.txt"
+  duration="8-10 min"
+  description="L'IA ti presenta tre risposte, una con un fatto inventato. Tu scopri quale e come lo verificheresti."
+/>
 
 ## Un'abitudine più che una regola
 

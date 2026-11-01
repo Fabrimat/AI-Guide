@@ -8,13 +8,14 @@ prerequisiti: [from-chats-to-apis, system-prompts-and-roles]
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
 
 <LessonSummary>
 
 - Tool use (or function calling: same mechanism, two names) makes the model, instead of answering, ask you to run a function you described to it. The model runs nothing: it asks, you execute.
 - You describe each tool with a name, a description, and a JSON schema of its arguments. The model decides whether and which one to call, and with what values.
 - The loop runs over several turns: its call request, you execute and send back the result, it produces the final answer.
-- Structured output is the flip side: when you need data in a fixed shape (JSON), not an action. The portable trick is a single tool whose schema is the shape you want, forced with `tool_choice`.
+- Structured output is the flip side: when you need data in a fixed shape (JSON), not an action. The portable trick is a single tool whose schema is the shape you want, forced with `tool_choice`. On Claude there are also native structured outputs (`output_config.format` with a JSON schema), which guarantee valid JSON.
 - The model can get the arguments wrong or make them up: always validate them. And every tool you give it is one more capability, so one more surface for risk.
 
 </LessonSummary>
@@ -43,6 +44,12 @@ it's the text the model uses to figure out when that tool is the right one.
 An example. You give the model a single tool, `get_weather`, and ask it for the
 weather in Rome.
 
+<PredictThenReveal
+  user="What's the weather like in Rome?"
+  prompt="The model has the get_weather tool but no weather data. What do you expect it to reply on the first round?"
+  ai={`I won't give the final text yet. I'm asking you to run the get_weather tool with the argument city = "Rome".`}
+/>
+
 <Tabs syncKey="lang">
 <TabItem label="Python">
 
@@ -64,7 +71,7 @@ tools = [
 conversation = [{"role": "user", "content": "What's the weather in Rome?"}]
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=tools,
     messages=conversation,
@@ -80,7 +87,7 @@ conversation.append({"role": "user", "content": [
 ]})
 
 final = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=tools,
     messages=conversation,
@@ -110,7 +117,7 @@ const tools = [
 const conversation: any[] = [{ role: "user", content: "What's the weather in Rome?" }];
 
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   tools,
   messages: conversation,
@@ -129,7 +136,7 @@ if (block && block.type === "tool_use") {
   });
 
   const final = await client.messages.create({
-    model: "claude-sonnet-5",
+    model: "claude-sonnet-5-5",
     max_tokens: 1024,
     tools,
     messages: conversation,
@@ -157,7 +164,7 @@ data in a fixed shape. You need it when you want a JSON object your code reads
 directly, not a sentence you have to pull the fields out of with a fragile
 regex.
 
-The most portable way is a trick. Define a single tool whose schema is the
+The most portable way is a trick (below you'll see Claude's native alternative). Define a single tool whose schema is the
 shape you want, and force the model to call it with `tool_choice`. You run
 nothing: what you care about are the arguments the model filled in.
 
@@ -180,7 +187,7 @@ tools = [{
 }]
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=256,
     tools=tools,
     tool_choice={"type": "tool", "name": "save_contact"},  # force the call
@@ -211,7 +218,7 @@ const tools = [{
 }];
 
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 256,
   tools,
   tool_choice: { type: "tool", name: "save_contact" }, // force the call
@@ -229,12 +236,16 @@ if (block.type === "tool_use") console.log(block.input);
 Now `data` is an already-structured object, with the fields you asked for. No
 parsing of free text, no edge cases like "what if the email wraps to a new
 line". The JSON schema is also a contract: `required` says which fields must be
-there, the types say what to expect. For simple JSON there's also the shortcut
-from [System prompts and roles](/en/going-deeper/system-prompts-and-roles/):
-close with an assistant turn containing just `{`, on models that support it.
-It works, but a tool's schema
-is sturdier, because it declares the fields and types instead of hoping the
-model guesses the shape.
+there, the types say what to expect.
+
+:::note[Native structured output]
+On Claude there is also a direct route: you pass the schema in
+`output_config.format` with `type: "json_schema"` and the reply is valid JSON
+for that schema, with no fake tools. There are limits (for example
+`additionalProperties: false` is required and recursive schemas aren't
+allowed), so check the documentation. The `tool_choice` trick is still useful
+because it works on almost any provider.
+:::
 
 ## What to keep in mind
 

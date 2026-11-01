@@ -11,6 +11,7 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
 
 <LessonSummary>
 
@@ -45,6 +46,12 @@ word at a time, until it closes the answer.
 Seen from the outside it's an articulate answer. Seen from the inside
 it's the same choice repeated word after word: "Given all these words,
 which one makes the most sense to put now?"
+
+<PredictThenReveal
+  user="Complete the sentence with a single word: 'For breakfast I had bread and...'"
+  prompt="Which word does the AI pick, in your view? Think about how it reasons: the most probable, not the most original."
+  ai="butter."
+/>
 
 ## How it learned to guess well
 

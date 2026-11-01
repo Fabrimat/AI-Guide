@@ -12,6 +12,8 @@ import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import PromptBuilder from '../../../../components/PromptBuilder.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -96,6 +98,24 @@ quattro cose:
 
 Non servono sempre tutte e quattro. Il minimo che fa la differenza è **cosa
 vuoi**. Il resto è carburante che migliora la qualità.
+
+<PromptCompare
+  weak="Scrivi una mail al mio capo."
+  strong={`Scrivi una mail di 5 righe al mio capo per chiedergli un giorno di ferie venerdì 14.
+Tono cordiale e diretto. Ho già consegnato il report di questa settimana.
+Chiudi chiedendo una risposta entro mercoledì.`}
+  note="Il secondo prompt dice cosa vuoi (una richiesta di ferie), per chi (il capo, tono cordiale), il contesto (report consegnato) e il formato (5 righe, risposta entro mercoledì)."
+/>
+
+<SelfCheck
+  id="what-is-a-prompt-q1"
+  question="Sei di fretta e puoi scrivere una sola cosa in più nel tuo prompt. Quale conta di più?"
+  options={[
+    { text: "Cosa vuoi esattamente che l'IA faccia (spiega, riscrivi, elenca).", correct: true, why: "È il minimo che cambia la risposta: senza un obiettivo chiaro l'IA deve indovinare." },
+    { text: "Un'introduzione cortese per mettere l'IA di buon umore.", why: "L'IA non ha umore da conquistare: la cortesia non migliora la risposta." },
+    { text: "Una frase magica che sblocchi risposte migliori.", why: "Le formule magiche non esistono: serve chiarezza, non furbizia." },
+  ]}
+/>
 
 ## Quando il prompt non funziona
 

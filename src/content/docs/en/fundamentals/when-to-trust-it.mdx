@@ -7,7 +7,8 @@ sidebar:
   order: 5
 ---
 
-import ChatDemo from '../../../../components/ChatDemo.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import RecapWithAi from '../../../../components/RecapWithAi.astro';
@@ -40,8 +41,9 @@ what is true**.
 
 A classic example: asking it for a summary of a book that doesn't exist.
 
-<ChatDemo
+<PredictThenReveal
   user="Summarize 'The Edinburgh Watchmaker' by Mark Castagnoli for me."
+  prompt="The book and the author are made up. What do you expect the AI to answer?"
   ai={`"The Edinburgh Watchmaker" is a historical novel by Mark Castagnoli published in 2017. The story follows Aldo Bensi, a young Italian apprentice watchmaker who moves to Edinburgh in the early 1900s to study under a Scottish master. Through compelling dialogue and personal trials, the book explores themes of talent, perseverance and identity.`}
 />
 
@@ -117,6 +119,27 @@ Three practical moves, in order of effort.
 3. **For important decisions**: the AI helps you structure your
    thinking, gives you different angles, drafts texts for you. For the
    final decision, talk to a competent person.
+
+<SelfCheck
+  id="when-to-trust-it-q1"
+  question="The AI gives you a quote with author, title and year, and you want to use it in a presentation. What's the right move?"
+  options={[
+    { text: "If it sounds precise and well put, use it: mistakes are easy to spot.", why: "The AI is wrong with the same tone it has when it's right, so apparent precision is not proof." },
+    { text: "Ask it for the exact source and then actually look it up: if it doesn't exist, the quote was made up.", correct: true, why: "Right. If the source exists, read it to see whether it really says what you were told." },
+    { text: "Ask it whether it's sure: if it confirms, it's fine.", why: "It can confirm something made up with the same confidence. You need a check outside the chat." },
+  ]}
+  explanation="The real check is yours, with a search or a competent person."
+/>
+
+Want to actually try catching a mistake? In the exercise below the AI shows
+you three answers, one with an invented fact, and you have to find which.
+
+<LlmExercise
+  title="Spot the hallucination"
+  file="practice-spot-the-hallucination.txt"
+  duration="8-10 min"
+  description="The AI shows you three answers, one with an invented fact. You find which one and how you would verify it."
+/>
 
 ## A habit more than a rule
 

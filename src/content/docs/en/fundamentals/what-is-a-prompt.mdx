@@ -12,6 +12,8 @@ import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import PromptBuilder from '../../../../components/PromptBuilder.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PromptCompare from '../../../../components/PromptCompare.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 
 <LessonSummary>
 
@@ -99,6 +101,24 @@ four things:
 
 You don't always need all four. The minimum that makes a difference is
 **what you want**. The rest is fuel that improves the quality.
+
+<PromptCompare
+  weak="Write an email to my boss."
+  strong={`Write a 5-line email to my boss asking for a day off on Friday the 14th.
+Friendly, direct tone. I've already handed in this week's report.
+End by asking for a reply by Wednesday.`}
+  note="The second prompt says what you want (a day-off request), who it's for (the boss, friendly tone), the context (report handed in) and the format (5 lines, reply by Wednesday)."
+/>
+
+<SelfCheck
+  id="what-is-a-prompt-q1"
+  question="You're in a hurry and can add just one thing to your prompt. Which matters most?"
+  options={[
+    { text: "Exactly what you want the AI to do (explain, rewrite, list).", correct: true, why: "It's the minimum that changes the answer: without a clear goal the AI has to guess." },
+    { text: "A polite introduction to put the AI in a good mood.", why: "The AI has no mood to win over: politeness doesn't improve the answer." },
+    { text: "A magic phrase that unlocks better answers.", why: "Magic phrases don't exist: you need clarity, not cleverness." },
+  ]}
+/>
 
 ## When the prompt doesn't work
 

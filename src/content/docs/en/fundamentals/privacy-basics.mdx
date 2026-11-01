@@ -11,6 +11,8 @@ import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import RecapWithAi from '../../../../components/RecapWithAi.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
+import Anonymizer from '../../../../components/Anonymizer.astro';
 
 <LessonSummary>
 
@@ -83,18 +85,30 @@ page, lyrics of famous songs), not a unique conversation like yours.
 :::
 
 These rules change depending on the plan you're on (the type of
-subscription). You can see it at the top of your account
-settings: "Free", "Plus", "Pro", "Team", and so on.
+subscription). You'll find it in your account settings or menu:
+"Free", "Plus", "Pro", "Team", and so on.
 
 - **Free and consumer plans (ChatGPT Plus, Claude Pro, personal Gemini)**:
   even if you pay for a subscription like Plus or Pro, from a privacy
-  standpoint you're in the "consumer" bucket. By default, conversations
-  can be used for training, but you can turn that off in the settings.
+  standpoint you're in the "consumer" bucket. Conversations
+  can be used for training unless you turn the option off in the settings
+  (Claude asks you in the app).
 - **Business plans (Team, Enterprise, Business)**: by default they are
   **not** used to train models, and the company makes contractual
   commitments to your employer.
 - **Developer APIs**: different rules again, usually no training by
   default.
+
+<SelfCheck
+  id="privacy-basics-q1"
+  question="You pay for a personal Plus or Pro subscription. What applies to your conversations?"
+  options={[
+    { text: "They're protected like on a business plan, because you pay.", why: "From a privacy standpoint you stay in the consumer bucket: paying for a personal subscription doesn't change the training rules." },
+    { text: "They can be used for training unless you turn the option off in the settings.", correct: true, why: "Right. The contractual guarantees of Team and Enterprise plans are a different thing." },
+    { text: "They are never stored on the company's servers.", why: "They stay saved in your account, and a copy can remain on the servers for a while even after you delete them." },
+  ]}
+  explanation="Before pasting something sensitive, check which plan you're on and what you've set."
+/>
 
 If you really care, look for it in the settings of the product you use:
 the option is usually called "Data controls", "Privacy controls", or
@@ -132,33 +146,42 @@ The AI still follows the context, and you've given away less. Works
 for coworkers' emails, bills, medical reports, contracts.
 :::
 
+Try it below: paste a test text (not a real one) and see what disappears.
+Everything happens in your browser, nothing is sent anywhere.
+
+<Anonymizer />
+
 ## Settings you can change
 
 You don't have to trust blindly: serious AIs give you real controls.
 
-- **Turn off use for training.** On ChatGPT: Settings → Data controls →
-  turn off "Improve the model for everyone". On Claude:
-  Settings → Privacy → check the option to improve the models ("Help
-  improve Claude"). On
-  Gemini: Settings → Activity → check the "Gemini Apps Activity" option.
-- **Temporary chats.** A "throwaway" mode where the conversation isn't
-  saved and isn't used for training. ChatGPT calls it "Temporary chat";
-  other platforms have equivalents.
+- **Turn off use for training.** In the product's privacy settings, look for
+  the option about using your chats to improve the model. On ChatGPT it's
+  "Improve the model for everyone" (Settings, Data controls). On Claude it's
+  "Help improve Claude" (Settings, Privacy). On Gemini it's the activity
+  history, "Keep Activity" (called "Gemini Apps Activity" in older versions):
+  you turn it off from the Activity page. Names change often: if you can't
+  find them, search the settings for "privacy" or "data". Paths verified
+  November 2026.
+- **Temporary chats.** A "throwaway" mode where the conversation doesn't show
+  up in your history and isn't used for training. ChatGPT calls it "Temporary
+  Chat", Claude "Incognito chat", Gemini "Temporary chat". A copy may stay on
+  the servers for a short period, for safety reasons.
 - **Delete conversations or your whole history.** Always available, in
   your account settings.
 
-Turning off training **doesn't** delete the conversation. Your
-text still sits on the company's servers for a while (typically 30 days,
-even after you delete it yourself). That's the time required for
-fraud-prevention obligations, responding to legal subpoenas, and
-internal audits. After that period it actually gets deleted.
+Turning off training **doesn't** delete the conversation. Your text can still
+stay on the company's servers for a while. For ChatGPT and Claude it is usually
+about 30 days after you delete it, for Gemini up to 72 hours with activity
+history off. It serves safety, anti-fraud and legal obligations. Conversations
+flagged for safety reasons may be kept longer. Exact times are on each
+service's privacy page.
 
 :::tip[How do I check training is really off]
 After changing the option, close the settings page and reopen it: if
 the option is still off, the change was saved. If it flips back on by
-itself, the save didn't go through (it happens, rarely). As an extra
-check, ChatGPT shows a small note next to the input box when you're in
-a chat that won't be used for training.
+itself, the save didn't go through (it happens, rarely). In a Temporary
+Chat, ChatGPT shows a notice on screen.
 :::
 
 ## A habit, not a checklist

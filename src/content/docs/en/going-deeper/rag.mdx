@@ -88,7 +88,7 @@ context = "\n".join(p for p, _ in best)
 
 # generation: you pass ONLY the retrieved pieces
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=512,
     system="Answer only from the context provided. If it's not there, say so.",
     messages=[{"role": "user",
@@ -129,7 +129,7 @@ const context = best.map((m) => m.text).join("\n");
 
 // generation: you pass ONLY the retrieved pieces
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 512,
   system: "Answer only from the context provided. If it's not there, say so.",
   messages: [{ role: "user", content: `Context:\n${context}\n\nQuestion: ${question}` }],

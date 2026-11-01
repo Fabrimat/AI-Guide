@@ -17,7 +17,7 @@ Lo studente dovrebbe aver capito che:
 - Le regole cambiano per piano: piani gratuiti/consumer possono usare le conversazioni per allenamento (disattivabile nelle impostazioni); piani aziendali (Team/Enterprise/Business) di default non lo fanno.
 - Cose da non dare mai in pasto a un'IA pubblica: dati di persone che non sei tu, documenti sensibili di altri (referti medici, atti legali di parenti), segreti professionali, credenziali (password, chiavi, PIN).
 - Esistono controlli reali: spegnere l'uso per allenamento, usare chat temporanee, cancellare conversazioni. Ma spegnere l'allenamento non cancella la conversazione: il testo resta sui server (tipicamente 30 giorni) per ragioni di audit.
-- Mentalità: trattare l'IA come un collega fidato di cui non conosci tutta la catena informativa. Prima di darle qualcosa di delicato, fermarsi un secondo e chiedersi se serve davvero.
+- Abitudine: trattare l'IA come un collega fidato di cui non conosci tutta la catena informativa. Prima di darle qualcosa di delicato, fermarsi un secondo e chiedersi se serve davvero.
 
 
 Cosa fare

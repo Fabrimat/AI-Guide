@@ -70,7 +70,7 @@ import anthropic
 client = anthropic.Anthropic()  # legge la chiave da ANTHROPIC_API_KEY
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[
         {"role": "user", "content": "Spiegami cos'è un'API in due frasi."},
@@ -89,7 +89,7 @@ import Anthropic from "@anthropic-ai/sdk";
 const client = new Anthropic(); // legge la chiave da ANTHROPIC_API_KEY
 
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   messages: [
     { role: "user", content: "Spiegami cos'è un'API in due frasi." },
@@ -180,8 +180,8 @@ per sviluppatori.
 Pagare ChatGPT Plus o Claude Pro ti dà la chat, non il credito API.
 L'API si paga a consumo, in base ai token che entrano e che escono a
 ogni chiamata. Pochi centesimi per le prove, ma su volumi grandi
-conviene tenerlo d'occhio. Come stimarlo e ridurlo è il tema di *Costi e
-prompt caching*.
+conviene tenerlo d'occhio. Come stimarlo e ridurlo è il tema di [*Costi e
+prompt caching*](/it/going-deeper/costs-and-caching/).
 :::
 
 ## Verifica cosa hai capito

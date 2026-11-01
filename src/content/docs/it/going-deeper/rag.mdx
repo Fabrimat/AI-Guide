@@ -88,7 +88,7 @@ contesto = "\n".join(p for p, _ in migliori)
 
 # generazione: passi SOLO i pezzi recuperati
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=512,
     system="Rispondi solo in base al contesto fornito. Se non c'è, dillo.",
     messages=[{"role": "user",
@@ -129,7 +129,7 @@ const contesto = migliori.map((m) => m.testo).join("\n");
 
 // generazione: passi SOLO i pezzi recuperati
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 512,
   system: "Rispondi solo in base al contesto fornito. Se non c'è, dillo.",
   messages: [{ role: "user", content: `Contesto:\n${contesto}\n\nDomanda: ${domanda}` }],

@@ -11,6 +11,7 @@ import ChatDemo from '../../../../components/ChatDemo.astro';
 import Def from '../../../../components/Def.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
 
 <LessonSummary>
 
@@ -45,6 +46,12 @@ terza. Una parola alla volta, fino a chiudere la risposta.
 Vista dall'esterno è una risposta articolata. Vista dall'interno è la
 stessa scelta ripetuta una parola dopo l'altra: "Date tutte queste parole,
 qual è quella che ha più senso mettere ora?"
+
+<PredictThenReveal
+  user="Completa la frase con una parola sola: 'Per colazione ho mangiato pane e...'"
+  prompt="Quale parola sceglie l'IA, secondo te? Pensa a come ragiona: la più probabile, non la più originale."
+  ai="marmellata."
+/>
 
 ## Come ha imparato a indovinare bene
 

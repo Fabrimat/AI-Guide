@@ -7,6 +7,7 @@ prerequisiti: [from-chats-to-apis]
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import LessonSummary from '../../../../components/LessonSummary.astro';
+import SelfCheck from '../../../../components/SelfCheck.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
 
 <LessonSummary>
@@ -66,6 +67,16 @@ La conseguenza pratica è che la conversazione cresce a ogni turno. Ogni
 domanda e ogni risposta si aggiungono alla lista che rimandi, e a un certo
 punto una chat lunga tocca il soffitto.
 
+<SelfCheck
+  id="context-in-tokens-q1"
+  question="Dopo cinquanta turni di chat via API, la chiamata torna con un errore di input troppo lungo. Cosa è successo?"
+  options={[
+    { text: "La finestra di contesto è un totale corrente: conversazione, system prompt e allegati insieme hanno superato il limite.", correct: true, why: "Esatto. La finestra non è un tetto per messaggio: conta tutto quello che rimandi a ogni chiamata." },
+    { text: "L'ultimo messaggio era troppo lungo da solo.", why: "Il limite riguarda il totale di ciò che invii, non il singolo messaggio." },
+    { text: "Il modello ha tagliato da solo i turni più vecchi.", why: "Via API non succede: sei tu a dover stare sotto il limite. Il taglio automatico è un comportamento dei prodotti di chat." },
+  ]}
+/>
+
 ## Cosa succede quando sfori
 
 Via API, se l'input supera la finestra la chiamata torna con un errore, non
@@ -88,7 +99,7 @@ davvero usati nel campo `usage`, diviso fra ingresso e uscita.
 
 ```python
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Spiegami cos'è un token."}],
 )
@@ -102,7 +113,7 @@ print(message.usage.input_tokens, message.usage.output_tokens)
 
 ```typescript
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   messages: [{ role: "user", content: "Spiegami cos'è un token." }],
 });

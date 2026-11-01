@@ -17,7 +17,7 @@ The student should have understood that:
 - Rules change by plan: free/consumer plans can use conversations for training (turn-offable in settings); business plans (Team/Enterprise/Business) don't by default.
 - Things never to give a public AI: data about people other than yourself, sensitive documents of others (medical reports, legal documents of relatives), professional secrets, credentials (passwords, keys, PINs).
 - Real controls exist: turn off use for training, use temporary chats, delete conversations. But turning off training doesn't delete the conversation: the text stays on the servers (typically 30 days) for audit reasons.
-- Mindset: treat AI like a trusted colleague whose full information chain you don't know. Before handing over something sensitive, pause for a second and ask whether you actually need to.
+- Habit: treat AI like a trusted colleague whose full information chain you don't know. Before handing over something sensitive, pause for a second and ask whether you actually need to.
 
 
 What to do

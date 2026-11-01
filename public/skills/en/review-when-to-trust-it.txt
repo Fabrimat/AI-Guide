@@ -17,7 +17,7 @@ The student should have understood that:
 - The AI is generally reliable for: explaining general concepts, reworking texts you give it, generating structures (outlines, drafts), brainstorming, translating between common languages.
 - The AI tends to slip up with: specific verifiable facts (dates, names, quotes, sources), recent things, tricky math, things specific to your case (my emails, my health), medical/legal/financial advice.
 - To verify, three moves with increasing effort: (1) for specific facts, a search engine; (2) for quotes and sources, ask for the source then look it up; (3) for important decisions, talk to a competent person.
-- Mindset: use the AI as a "brilliant but inconsistent assistant". When in doubt, verify: verifying is fast for almost everything.
+- Habit: use the AI as a "brilliant but inconsistent assistant". When in doubt, verify: verifying is fast for almost everything.
 
 
 What to do

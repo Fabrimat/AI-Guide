@@ -8,13 +8,14 @@ prerequisiti: [from-chats-to-apis, system-prompts-and-roles]
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import LessonSummary from '../../../../components/LessonSummary.astro';
 import LlmExercise from '../../../../components/LlmExercise.astro';
+import PredictThenReveal from '../../../../components/PredictThenReveal.astro';
 
 <LessonSummary>
 
 - Il tool use (o function calling: stesso meccanismo, due nomi) fa sì che il modello, invece di rispondere, ti chieda di eseguire una funzione che gli hai descritto tu. Il modello non esegue niente: chiede, esegui tu.
 - Ogni strumento lo descrivi con nome, descrizione e uno schema JSON degli argomenti. Il modello decide se e quale chiamare, e con quali valori.
 - Il giro è a più turni: la sua richiesta di chiamata, tu esegui e gli rimandi il risultato, lui produce la risposta finale.
-- L'output strutturato è l'altra faccia: quando ti serve un dato in una forma fissa (JSON), non un'azione. Il trucco portabile è un solo strumento il cui schema è la forma che vuoi, forzato con `tool_choice`.
+- L'output strutturato è l'altra faccia: quando ti serve un dato in una forma fissa (JSON), non un'azione. Il trucco portabile è un solo strumento il cui schema è la forma che vuoi, forzato con `tool_choice`. Su Claude esiste anche l'output strutturato nativo (`output_config.format` con uno schema JSON), che garantisce un JSON valido.
 - Il modello può sbagliare o inventare gli argomenti: validali sempre. E ogni strumento che gli dai è una capacità in più, quindi anche una superficie di rischio in più.
 
 </LessonSummary>
@@ -43,6 +44,12 @@ il testo con cui il modello capisce quando quello strumento è quello giusto.
 Un esempio. Dai al modello un solo strumento, `get_weather`, e gli chiedi il
 meteo di Roma.
 
+<PredictThenReveal
+  user="Che tempo fa a Roma?"
+  prompt="Il modello ha lo strumento get_weather ma nessun dato sul meteo. Cosa ti aspetti che risponda, al primo giro?"
+  ai={`Non rispondo ancora con il testo finale. Ti chiedo di eseguire lo strumento get_weather con l'argomento city = "Roma".`}
+/>
+
 <Tabs syncKey="lang">
 <TabItem label="Python">
 
@@ -64,7 +71,7 @@ tools = [
 conversazione = [{"role": "user", "content": "Che tempo fa a Roma?"}]
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=tools,
     messages=conversazione,
@@ -80,7 +87,7 @@ conversazione.append({"role": "user", "content": [
 ]})
 
 finale = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=1024,
     tools=tools,
     messages=conversazione,
@@ -110,7 +117,7 @@ const tools = [
 const conversazione: any[] = [{ role: "user", content: "Che tempo fa a Roma?" }];
 
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 1024,
   tools,
   messages: conversazione,
@@ -129,7 +136,7 @@ if (blocco && blocco.type === "tool_use") {
   });
 
   const finale = await client.messages.create({
-    model: "claude-sonnet-5",
+    model: "claude-sonnet-5-5",
     max_tokens: 1024,
     tools,
     messages: conversazione,
@@ -158,7 +165,7 @@ dato in una forma fissa. Ti serve quando vuoi un oggetto JSON che il tuo codice
 legge direttamente, non una frase da cui estrarre i campi con una regex
 fragile.
 
-Il modo più portabile è un trucco. Definisci un solo strumento il cui schema è
+Il modo più portabile è un trucco (più sotto vedi l'alternativa nativa di Claude). Definisci un solo strumento il cui schema è
 la forma che vuoi, e forzi il modello a chiamarlo con `tool_choice`. Non esegui
 niente: quello che ti interessa sono gli argomenti che il modello ha riempito.
 
@@ -181,7 +188,7 @@ tools = [{
 }]
 
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=256,
     tools=tools,
     tool_choice={"type": "tool", "name": "salva_contatto"},  # forza la chiamata
@@ -212,7 +219,7 @@ const tools = [{
 }];
 
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 256,
   tools,
   tool_choice: { type: "tool", name: "salva_contatto" }, // forza la chiamata
@@ -230,12 +237,16 @@ if (blocco.type === "tool_use") console.log(blocco.input);
 Ora `dati` è un oggetto già strutturato, con i campi che hai chiesto. Niente
 parsing del testo libero, niente casi limite del tipo «e se la mail va a capo».
 Lo schema JSON è anche un contratto: `required` dice quali campi devono
-esserci, i tipi dicono cosa aspettarti. Per un JSON semplice esiste anche la
-scorciatoia vista in [System prompt e
-ruoli](/it/going-deeper/system-prompts-and-roles/): chiudere con un turno
-assistant che contiene `{`, sui modelli che la supportano. Funziona, ma lo schema di uno strumento è più
-solido, perché dichiara i campi e i tipi invece di sperare che il modello
-indovini la forma.
+esserci, i tipi dicono cosa aspettarti.
+
+:::note[Output strutturato nativo]
+Su Claude esiste anche una via diretta: passi lo schema in
+`output_config.format` con `type: "json_schema"` e la risposta è un JSON valido
+secondo quello schema, senza strumenti finti. Ci sono limiti (per esempio
+`additionalProperties: false` obbligatorio e niente schemi ricorsivi),
+controllali nella documentazione. Il trucco con `tool_choice` resta utile
+perché funziona su quasi ogni provider.
+:::
 
 ## Cosa tenere a mente
 

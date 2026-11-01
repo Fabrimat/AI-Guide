@@ -51,7 +51,7 @@ regole vanno nel system prompt, il singolo ticket va nel messaggio user.
 
 ```python
 message = client.messages.create(
-    model="claude-sonnet-5",
+    model="claude-sonnet-5-5",
     max_tokens=16,
     system="Classifichi ticket in una di: fatturazione, tecnico, altro. Rispondi con una sola parola, minuscola.",
     messages=[
@@ -67,7 +67,7 @@ print(message.content[0].text)  # -> fatturazione
 
 ```typescript
 const message = await client.messages.create({
-  model: "claude-sonnet-5",
+  model: "claude-sonnet-5-5",
   max_tokens: 16,
   system: "Classifichi ticket in una di: fatturazione, tecnico, altro. Rispondi con una sola parola, minuscola.",
   messages: [
@@ -114,15 +114,15 @@ Un system prompt pesa sui token, come hai visto in
 [*Il contesto in token*](/it/going-deeper/context-in-tokens/). Lo rimandi a
 ogni chiamata, quindi un system prompt gonfio lo paghi a ogni turno. È anche
 la cosa che tipicamente si mette in cache per non ripagarla ogni volta, ed è
-il tema di *Costi e prompt caching*.
+il tema di [*Costi e prompt caching*](/it/going-deeper/costs-and-caching/).
 
-:::tip[Guidare l'inizio della risposta]
-Su alcuni modelli Anthropic puoi mettere in fondo alla lista un turno
-`assistant` parziale per forzare come inizia la risposta (controlla nella
-documentazione se il modello che usi lo supporta). Se chiudi con un messaggio assistant che
-contiene solo `{`, il modello riparte da lì e continua il JSON, invece di
-aprire con una frase di cortesia. È un modo semplice per inchiodare il
-formato senza scrivere regole lunghe.
+:::tip[Guidare la forma della risposta]
+Per far partire la risposta nel formato giusto, descrivilo nel system prompt
+con un esempio ("rispondi solo con un oggetto JSON, per esempio `{"esito": "ok"}`").
+Se ti serve un JSON garantito valido, usa l'output strutturato, che vedi in
+[*Tool use e output strutturato*](/it/going-deeper/tool-use-and-structured-output/).
+Il vecchio trucco di chiudere la lista con un turno `assistant` parziale non
+funziona più sui modelli Claude recenti: l'API risponde con un errore.
 :::
 
 :::caution[Il system prompt non è una barriera di sicurezza]
