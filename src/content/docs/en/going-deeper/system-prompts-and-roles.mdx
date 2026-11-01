@@ -15,7 +15,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 - The roles (system, user, assistant) label who said what, so the model tells your instructions from the user's input and from its own past replies.
 - Keep instructions and data separate: the rules in the system prompt, the text to work on in the user message. Don't concatenate the two.
 - On Anthropic the system prompt is a separate parameter (`system`), not a message; on OpenAI it's the first message with the system role. Same idea, different place.
-- The system prompt is not a security wall: it's a strong steer, not a barrier. You resend it on every call, so it weighs on tokens and on the bill.
+- The system prompt steers the model hard, but it's not a security barrier. You resend it on every call, so it weighs on tokens and on the bill.
 
 </LessonSummary>
 
@@ -118,8 +118,9 @@ thing you typically cache so you don't pay for it again each time, and that's
 the topic of *Costs and prompt caching*.
 
 :::tip[Steering the start of the reply]
-On Anthropic you can put a partial `assistant` turn at the end of the list to
-force how the reply begins. If you close with an assistant message containing
+On some Anthropic models you can put a partial `assistant` turn at the end of
+the list to force how the reply begins (check the docs to see whether the
+model you use supports it). If you close with an assistant message containing
 just `{`, the model picks up from there and continues the JSON, instead of
 opening with a courtesy sentence. It's a simple way to nail the format without
 writing long rules.

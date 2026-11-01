@@ -231,7 +231,8 @@ parsing of free text, no edge cases like "what if the email wraps to a new
 line". The JSON schema is also a contract: `required` says which fields must be
 there, the types say what to expect. For simple JSON there's also the shortcut
 from [System prompts and roles](/en/going-deeper/system-prompts-and-roles/):
-close with an assistant turn containing just `{`. It works, but a tool's schema
+close with an assistant turn containing just `{`, on models that support it.
+It works, but a tool's schema
 is sturdier, because it declares the fields and types instead of hoping the
 model guesses the shape.
 

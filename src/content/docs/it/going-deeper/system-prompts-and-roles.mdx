@@ -15,7 +15,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 - I ruoli (system, user, assistant) etichettano chi ha detto cosa, così il modello distingue le tue istruzioni dall'input dell'utente e dalle proprie risposte passate.
 - Tieni separate le istruzioni dai dati: le regole nel system prompt, il testo da lavorare nel messaggio user. Non concatenare i due.
 - Su Anthropic il system prompt è un parametro a parte (`system`), non un messaggio; su OpenAI è il primo messaggio con ruolo system. Stessa idea, posto diverso.
-- Il system prompt non è un muro di sicurezza: è uno sterzo forte, non una barriera. Lo rimandi a ogni chiamata, quindi pesa sui token e sul conto.
+- Il system prompt orienta con forza il modello, ma non è una barriera di sicurezza. Lo rimandi a ogni chiamata, quindi pesa sui token e sul conto.
 
 </LessonSummary>
 
@@ -118,8 +118,9 @@ la cosa che tipicamente si mette in cache per non ripagarla ogni volta, ed è
 il tema di *Costi e prompt caching*.
 
 :::tip[Guidare l'inizio della risposta]
-Su Anthropic puoi mettere in fondo alla lista un turno `assistant` parziale
-per forzare come inizia la risposta. Se chiudi con un messaggio assistant che
+Su alcuni modelli Anthropic puoi mettere in fondo alla lista un turno
+`assistant` parziale per forzare come inizia la risposta (controlla nella
+documentazione se il modello che usi lo supporta). Se chiudi con un messaggio assistant che
 contiene solo `{`, il modello riparte da lì e continua il JSON, invece di
 aprire con una frase di cortesia. È un modo semplice per inchiodare il
 formato senza scrivere regole lunghe.

@@ -57,10 +57,9 @@ vectors, so retrieval finds the meaning, not the exact string.
 
 ## A minimal example
 
-The heart of retrieval is simpler than it looks. The part that matters: given
-the embeddings of the pieces and the one for the question, cosine similarity and
-picking the top k. In production you'd use a real vector store; here, the bare
-logic.
+The heart of retrieval is simpler than it looks: cosine similarity between the
+embeddings of the pieces and the one for the question, then picking the top k.
+In production you'd use a real vector store; here is the bare logic.
 
 <Tabs syncKey="lang">
 <TabItem label="Python">

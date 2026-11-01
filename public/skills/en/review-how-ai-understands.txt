@@ -27,7 +27,7 @@ What to do
 
 2. Ask one question at a time, waiting for the answer before moving to the next. The four questions are progressive:
    1. Basic mechanism: "In two simple sentences, how does the AI write an answer when you ask it a question?"
-   2. Patterns vs memory: "Explain to me why the AI can do a good general summary of a topic but can get a specific detail wrong, like a date or the exact title of a book."
+   2. Patterns vs memory, in your own field: "Think of a topic you know well (your job, a hobby). What do you expect the AI to say well about it, and where might it get a detail wrong, like a date or the exact title of a book? Why?"
    3. Practical consequence: "You're having a very long conversation with the AI about a project. At some point you notice it 'forgets' things you told it an hour ago. Knowing how it works, why does this happen and what can you do?"
    4. Demystification: "A friend tells you: 'these AIs really think, they've understood things, they've become intelligent'. What do you reply, knowing how they actually work?"
 
@@ -43,6 +43,7 @@ Constraints
 
 - One question at a time, never all of them together.
 - Don't reveal the answer until the student has tried.
+- If the student says "I don't know" or asks you for the answer right away, give a hint or a smaller question first. If they are still stuck after a second try, explain the answer simply and move on.
 - Never judgmental tone.
 - Maximum 4 questions, don't add more.
 - No technical jargon in your explanations: remember they are a beginner.

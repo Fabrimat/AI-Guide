@@ -19,13 +19,11 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 </LessonSummary>
 
 There's no best model in the abstract: there's the right one for what
-you have to do, with the constraints you have. It sounds obvious and
-almost nobody
-applies it: the most common question ("which one is strongest?") starts
-on the wrong foot. A classification task doesn't need the most powerful
-model on the market, it needs the cheapest one that gets it right. This
-lesson doesn't tell you which model to pick: it gives you the axes to
-decide on, which stay valid even when the new one ships next month.
+you have to do, with the constraints you have. Almost nobody applies it:
+the most common question ("which one is strongest?") starts on the wrong
+foot. A classification task needs the cheapest model that gets it right,
+not the most powerful one on the market. This lesson gives you the axes
+to decide on, which stay valid even when a new model ships next month.
 
 ## The families
 
@@ -48,14 +46,13 @@ Better to decide on the axes that matter.
 
 When the three sit this close, two concrete things decide it. What counts
 is where your infrastructure already is, and how each one performs on a
-case you've actually tested. There's no absolute winner to name.
+case you've actually tested.
 
 ## The criteria that matter
 
 **Capability the task needs.** This is the first filter. Top models earn
 their keep on complex reasoning, difficult coding problems, ambiguous
-tasks. To classify,
-extract fields, or route between one case and another, a small, fast
+tasks. To classify, extract fields, or route between one case and another, a small, fast
 model costs a fraction and is more than enough. The common mistake is
 using the most powerful model for everything: you pay ten times over for
 work the small one did fine.
@@ -135,8 +132,8 @@ not that it costs nothing. You pay for the hardware (a serious GPU) or a
 service that hosts it for you, plus the work of running and updating it.
 It's worth it when data can't leave your infrastructure, or when volume
 makes per-token pricing more expensive than hosting. A third case is when
-you want to adapt the model to your own data. For most projects, a closed API costs
-less effort for the same result.
+you want to adapt the model to your own data. For most projects, a closed
+API costs less effort for the same result.
 :::
 
 :::tip[Don't chain yourself to a provider, but don't abstract too early]

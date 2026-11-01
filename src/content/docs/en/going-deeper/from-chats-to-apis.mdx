@@ -11,7 +11,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 <LessonSummary>
 
 - The API is the same model you use in the chat, reached from your own code. The product around it (history, memory, file uploads, a hidden system prompt) disappears: you build that part yourself.
-- Every call is **stateless**. The model doesn't remember the previous call: you resend the whole conversation each time. That's the biggest shift in mindset.
+- Every call is **stateless**. The model doesn't remember the previous call: you resend the whole conversation each time. That's the biggest difference from the chat.
 - The first call is eight lines: the client with your key, the model, `max_tokens`, the list of messages with roles, the response to read.
 - The API is worth it when you repeat the same operation at volume, when you wire the model into a tool of your own, or when you need control (system prompt, structured output, tools). For exploration and one-off use, the chat is more convenient.
 - The API bill is separate from your chat subscription: you pay per token, as you go.
@@ -151,9 +151,7 @@ practice it's worth it when:
 
 The chat stays the right choice for the opposite: exploring a new
 problem or a one-off job. It also wins when you want the product's
-features for free: uploads, web, memory, an interface anyone can use. The
-API isn't "better" than the chat: it's a different tool, for a different
-kind of work.
+features for free: uploads, web, memory, an interface anyone can use.
 
 ## What you need to get started
 

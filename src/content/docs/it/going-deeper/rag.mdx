@@ -57,10 +57,9 @@ vicini, quindi il recupero trova il senso, non la stringa esatta.
 
 ## Un esempio minimo
 
-Il cuore del recupero è più semplice di quanto sembri. La parte che conta: dati
-gli embedding dei pezzi e quello della domanda, la similarità del coseno e la
-scelta dei primi k. In produzione useresti un vector store vero; qui la logica
-nuda.
+Il cuore del recupero è più semplice di quanto sembri: la similarità del coseno
+tra gli embedding dei pezzi e quello della domanda, e la scelta dei primi k.
+In produzione useresti un vector store vero; qui c'è la logica nuda.
 
 <Tabs syncKey="lang">
 <TabItem label="Python">

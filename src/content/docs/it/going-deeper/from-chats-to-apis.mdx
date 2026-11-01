@@ -11,7 +11,7 @@ import LlmExercise from '../../../../components/LlmExercise.astro';
 <LessonSummary>
 
 - L'API è lo stesso modello che usi nella chat, ma lo raggiungi dal tuo codice. Il prodotto intorno (cronologia, memoria, upload dei file, system prompt nascosto) sparisce: quello lo costruisci tu.
-- Ogni chiamata è **senza stato**. Il modello non ricorda la chiamata di prima: la conversazione la rimandi tu ogni volta, per intero. È il cambio di mentalità più grosso.
+- Ogni chiamata è **senza stato**. Il modello non ricorda la chiamata di prima: la conversazione la rimandi tu ogni volta, per intero. È la differenza più grossa rispetto alla chat.
 - La prima chiamata sono otto righe: il client con la tua chiave, il modello, `max_tokens`, la lista di messaggi con i ruoli, la risposta da leggere.
 - L'API conviene quando ripeti la stessa operazione a volume, quando la integri in uno strumento tuo, o quando ti serve controllo (system prompt, output strutturato, strumenti). Per l'esplorazione e l'uso una tantum la chat resta più comoda.
 - Il conto dell'API è separato dall'abbonamento della chat: si paga a consumo, per token.
@@ -156,8 +156,7 @@ conviene quando:
 La chat resta la scelta giusta per l'opposto: esplorare un problema
 nuovo, un lavoro una tantum, o quando vuoi gratis le funzioni del
 prodotto (upload, web, memoria, un'interfaccia usabile anche da chi non
-programma). L'API non è "meglio" della chat: è un altro strumento, per
-un altro tipo di lavoro.
+programma).
 
 ## Cosa ti serve per partire
 
