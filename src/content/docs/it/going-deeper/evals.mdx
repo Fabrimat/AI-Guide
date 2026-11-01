@@ -1,0 +1,195 @@
+---
+title: "Evals: come capire se funziona"
+description: "Come testare una funzione basata su un LLM: un piccolo set di casi reali, controlli automatici e giudice, e il confronto prima/dopo ogni modifica."
+livello: avanzato
+prerequisiti: [system-prompts-and-roles, tool-use-and-structured-output]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- «Mi è sembrato andare bene su tre prove» non è un test. L'output cambia da una chiamata all'altra, e tre esempi scelti a mano sono quelli che già funzionano.
+- Un <Def explanation="Insieme di casi di prova con l'esito atteso o i criteri per giudicarlo, su cui rilanci il tuo prompt a ogni modifica.">eval set</Def> parte piccolo: 20-50 casi presi dal tuo uso reale, con i casi limite e gli errori che hai già visto.
+- Scegli il controllo più economico che regge: esatto o strutturato dove puoi, regole dove l'esito è verificabile, giudice LLM con rubrica dove serve giudicare un testo, revisione umana per tarare il resto.
+- Il valore sta nel confronto: stesso set prima e dopo un cambio di prompt o di modello, per accorgerti di cosa hai rotto.
+- Il set va in git insieme al prompt. Ogni errore trovato in produzione diventa un caso nuovo.
+
+</LessonSummary>
+
+Hai scritto un prompt che estrae i dati da email di clienti, o che classifica ticket di assistenza. Lo provi su tre esempi, funziona, lo metti in produzione. Dopo due settimane qualcuno cambia una riga del system prompt per sistemare un caso e nessuno sa cosa ha rotto negli altri. Un eval è il modo di saperlo prima.
+
+## Perché tre prove non bastano
+
+Il modello è non deterministico: la stessa richiesta può dare risposte diverse, e un esempio che oggi passa può fallire domani. In più, i tre esempi con cui provi di solito sono quelli che hai in mente mentre scrivi il prompt, cioè i più facili. I guasti stanno nei casi a cui non hai pensato: l'email scritta male, il ticket in due lingue, il campo che manca.
+
+Un eval è un test automatico per una funzione che non ha un'unica risposta giusta. Ha la stessa forma di un test di codice: input, risultato atteso (o criterio), un punteggio. Cambia solo che il confronto non sempre è un `==`.
+
+## Costruire il set dai casi veri
+
+Parti dai dati reali, non da esempi inventati. Se la funzione esiste già, prendi 20-50 input veri e anonimizzali. Se non esiste, scrivili a mano pensando a come li scriverebbero le persone, con i loro errori di battitura.
+
+Il mix conta più del numero:
+
+- i casi tipici, la maggioranza, per sapere che il caso comune regge;
+- i casi limite: input vuoto, molto lungo, in un'altra lingua, ambiguo, con dati mancanti;
+- gli errori già visti: ogni volta che la funzione sbaglia su un input vero, aggiungilo al set con la risposta corretta;
+- qualche input a cui il sistema deve rifiutare di rispondere o lasciare il campo vuoto, non solo quelli a cui deve rispondere.
+
+Ogni caso ha l'input e l'esito atteso: un valore preciso, un insieme di campi, oppure una regola («non deve citare prezzi»). Venti casi scelti bene battono duecento presi a caso.
+
+## Che tipo di controllo usare
+
+Parti dal più semplice che funziona e sali solo se serve.
+
+**Controllo esatto o strutturato.** Se l'output è un'etichetta, un numero o un JSON (come nell'[output strutturato](/it/going-deeper/tool-use-and-structured-output/)), confronti direttamente: la categoria è quella attesa? I campi `email` e `nome` coincidono? È il controllo migliore: veloce, gratis, senza ambiguità. Se puoi ridurre l'output a questa forma, fallo.
+
+**Controllo a regole.** Per un testo libero puoi comunque verificare proprietà misurabili: contiene la parola richiesta, resta sotto le 100 parole, è JSON valido, non contiene un indirizzo email, rispetta la lingua della domanda. Sono controlli parziali, ma economici e deterministici.
+
+**LLM come giudice.** Quando la qualità non si misura con una regola (il riassunto è fedele? il tono è giusto?) puoi far giudicare un altro modello. Gli dai la risposta, l'eventuale risposta di riferimento e una rubrica con criteri espliciti e una scala corta, per esempio «pass/fail» più una riga di motivazione. Regole pratiche: un criterio per volta, nessun voto da 1 a 10 senza descrivere cosa significa ogni livello, e chiedi la motivazione prima del verdetto.
+
+Il giudice sbaglia anche lui. Tende a preferire le risposte lunghe, può favorire lo stile del proprio modello, e a volte promuove un testo che suona bene ma è sbagliato. Prima di fidarti, controlla a mano un campione dei suoi verdetti e verifica che concordi con te. Se non concorda, correggi la rubrica, non il modello.
+
+**Revisione umana.** Resta il riferimento. Non la fai su tutto a ogni modifica: la usi per costruire le risposte attese, per tarare il giudice e per guardare ogni tanto un campione di output reali.
+
+## Misurare prima e dopo
+
+Un punteggio assoluto dice poco. Il valore sta nel confronto: tieni fisso il set, cambia una cosa (una frase del prompt, il modello, la temperatura) e rilancia. Il confronto ti dice quali casi sono migliorati e, soprattutto, quali sono peggiorati. Questa è la <Def explanation="Un caso che prima funzionava e dopo una modifica non funziona più.">regressione</Def>: sistemi l'email scritta male e rompi quella in inglese.
+
+Due accorgimenti. Guarda i singoli casi che cambiano esito, non solo la percentuale: 24 su 25 contro 23 su 25 è un caso solo, può essere rumore. E se l'output varia molto da una chiamata all'altra, ripeti ogni caso più volte oppure abbassa la temperatura. Cambiare modello (vedi [Scegliere il modello](/it/going-deeper/choose-the-model/)) è il momento in cui l'eval serve di più: è l'unico modo di sapere se un modello più piccolo regge il tuo caso.
+
+## Un runner minimo
+
+Il codice sotto prende un piccolo set per una classificazione di ticket, lancia il prompt su ogni caso e applica un controllo esatto. In più c'è una funzione giudice opzionale per le risposte in testo libero. Assume `client` creato come nella [prima lezione del modulo](/it/going-deeper/from-chats-to-apis/).
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import json
+
+SYSTEM = "Classifica il ticket come: fatturazione, tecnico, altro. Rispondi solo con l'etichetta."
+
+# Di solito sta in un file versionato, es. evals/ticket.jsonl
+dataset = [
+    {"input": "Non riesco ad accedere al mio account", "expected": "tecnico"},
+    {"input": "Mi avete addebitato due volte", "expected": "fatturazione"},
+    {"input": "Orari di apertura?", "expected": "altro"},
+    {"input": "", "expected": "altro"},  # caso limite: input vuoto
+]
+
+def run(prompt_input: str) -> str:
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=20,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": prompt_input or "(vuoto)"}],
+    )
+    return msg.content[0].text.strip().lower()
+
+def judge(question: str, answer: str) -> bool:
+    """Opzionale: giudice LLM con rubrica, per testo libero."""
+    rubric = (
+        "Rispondi solo PASS o FAIL. PASS se la risposta è educata, "
+        "non promette rimborsi e risponde alla domanda."
+    )
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=10,
+        system=rubric,
+        messages=[{"role": "user", "content": f"Domanda: {question}\nRisposta: {answer}"}],
+    )
+    return msg.content[0].text.strip().upper().startswith("PASS")
+
+passed = 0
+for case in dataset:
+    got = run(case["input"])
+    ok = got == case["expected"]  # controllo esatto
+    passed += ok
+    if not ok:
+        print("FAIL", json.dumps(case, ensure_ascii=False), "->", got)
+
+print(f"{passed}/{len(dataset)} passati")
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const SYSTEM =
+  "Classifica il ticket come: fatturazione, tecnico, altro. Rispondi solo con l'etichetta.";
+
+// Di solito sta in un file versionato, es. evals/ticket.jsonl
+const dataset = [
+  { input: "Non riesco ad accedere al mio account", expected: "tecnico" },
+  { input: "Mi avete addebitato due volte", expected: "fatturazione" },
+  { input: "Orari di apertura?", expected: "altro" },
+  { input: "", expected: "altro" }, // caso limite: input vuoto
+];
+
+async function run(input: string): Promise<string> {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 20,
+    system: SYSTEM,
+    messages: [{ role: "user", content: input || "(vuoto)" }],
+  });
+  const b = msg.content[0];
+  return b.type === "text" ? b.text.trim().toLowerCase() : "";
+}
+
+// Opzionale: giudice LLM con rubrica, per testo libero.
+async function judge(question: string, answer: string): Promise<boolean> {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 10,
+    system:
+      "Rispondi solo PASS o FAIL. PASS se la risposta è educata, " +
+      "non promette rimborsi e risponde alla domanda.",
+    messages: [{ role: "user", content: `Domanda: ${question}\nRisposta: ${answer}` }],
+  });
+  const b = msg.content[0];
+  return b.type === "text" && b.text.trim().toUpperCase().startsWith("PASS");
+}
+
+let passed = 0;
+for (const c of dataset) {
+  const got = await run(c.input);
+  const ok = got === c.expected; // controllo esatto
+  if (ok) passed++;
+  else console.log("FAIL", JSON.stringify(c), "->", got);
+}
+console.log(`${passed}/${dataset.length} passati`);
+```
+
+</TabItem>
+</Tabs>
+
+`judge` non viene chiamato nel ciclo: lo usi al posto del confronto esatto quando la risposta è testo libero. Per il confronto prima/dopo salva l'elenco dei casi passati a ogni esecuzione (anche un semplice file JSON per commit) e confrontalo con quello precedente.
+
+## Tenere il set vivo
+
+Metti il set in git accanto al prompt, nello stesso repository. Un cambio di prompt e il suo risultato sull'eval viaggiano nella stessa pull request, così chi rivede vede cosa è migliorato e cosa no. Quando trovi un errore in produzione, la prima cosa è aggiungerlo come caso nuovo, poi correggere il prompt: il set cresce con i guasti veri.
+
+Tieni distinti il set di sviluppo e quello di verifica. Se ritocchi il prompt guardando sempre gli stessi 30 casi, finisci per adattarlo a quelli. Riserva una decina di casi che non guardi mentre modifichi, e usali solo per il controllo finale.
+
+:::caution[Un eval piccolo non è una garanzia]
+Venti o cinquanta casi ti dicono se hai rotto qualcosa di ovvio, non che il sistema è corretto su ogni input. Se l'errore costa caro (soldi, salute, decisioni su persone), serve più di un eval automatico, a partire da una revisione umana sui casi a rischio.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-evals.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Misurare se la funzione funziona ti dice anche se puoi permetterti un modello più piccolo. Il passo successivo è il costo: da dove arriva e come ridurlo senza perdere qualità. È [la prossima lezione](/it/going-deeper/costs-and-caching/).

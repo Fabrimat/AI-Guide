@@ -1,0 +1,232 @@
+---
+title: "Agents"
+description: "A model calling tools in a loop until the goal is met: how an agent works, when it's actually worth it, what can go wrong, and which limits to put on it."
+livello: avanzato
+prerequisiti: [tool-use-and-structured-output, prompt-injection]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- An agent is a model running in a loop: it decides, calls a tool, reads the result, and repeats until it thinks the goal is met. The loop is your code, a few dozen lines.
+- Start with the simplest thing: a single call, then a chain of fixed steps. Move to an agent only when the steps to take depend on what you find along the way.
+- Four typical problems: loops that never end, errors that pile up step after step, costs that grow with every round, actions that can't be undone.
+- The defenses are few and concrete: a cap on steps, human approval for consequential actions, tools with minimal permissions, a log of everything.
+- Every tool result is untrusted text that enters the agent's prompt: the security story is the one in [Prompt injection](/en/going-deeper/prompt-injection/), with higher stakes.
+
+</LessonSummary>
+
+In the lesson on [tool use](/en/going-deeper/tool-use-and-structured-output/)
+you saw one round trip: the model asks for a tool, you run it, it answers. At
+the end I told you that in a real case this becomes a loop. An agent is exactly
+that loop, left running for several rounds. Everything else is
+built around that loop.
+
+## What an agent is
+
+An <Def explanation="A program in which a model picks its own next steps by calling tools, until it decides it's done or hits a limit.">agent</Def>
+is a model that calls tools in a loop until the goal is met. You give it a goal
+("find out why order 4471 is late and tell me what to do") and a set of tools.
+It decides which one to use first, looks at what comes back, and decides the
+next step. Nobody wrote the sequence in advance.
+
+The loop has three moves that repeat. **Plan**: the model reasons about what's
+missing to reach the goal. **Act**: it asks for a tool. **Observe**: you run it
+and send back the result, which becomes part of the conversation. Then it starts
+over, and the loop ends when the model answers without asking for another tool
+(`stop_reason` is `end_turn`) or when you stop it.
+
+## A loop in a few lines
+
+This is a complete agent for an order assistant. It has two tools: one that
+reads (`lookup_order`) and one with real consequences (`refund_order`). The
+`lookup_order` and `refund_order` functions are yours, I'm not writing them
+here.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()
+MAX_STEPS = 8
+NEEDS_APPROVAL = {"refund_order"}  # consequential actions
+
+tools = [
+    {"name": "lookup_order",
+     "description": "Returns the status and details of an order given its id.",
+     "input_schema": {"type": "object",
+                      "properties": {"id": {"type": "string"}},
+                      "required": ["id"]}},
+    {"name": "refund_order",
+     "description": "Refunds an order. Irreversible action.",
+     "input_schema": {"type": "object",
+                      "properties": {"id": {"type": "string"}},
+                      "required": ["id"]}},
+]
+functions = {"lookup_order": lookup_order, "refund_order": refund_order}
+
+messages = [{"role": "user", "content": "Order 4471 is late: sort it out."}]
+
+for step in range(MAX_STEPS):
+    response = client.messages.create(
+        model="claude-sonnet-5-5", max_tokens=1024,
+        tools=tools, messages=messages,
+    )
+    messages.append({"role": "assistant", "content": response.content})
+
+    if response.stop_reason != "tool_use":  # the model is done
+        print(response.content[0].text)
+        break
+
+    results = []
+    for block in response.content:
+        if block.type != "tool_use":
+            continue
+        print(f"[step {step}] {block.name}({block.input})")  # log
+        if block.name in NEEDS_APPROVAL and input("Proceed? [y/N] ") != "y":
+            outcome, is_error = "The user denied the action.", True
+        else:
+            outcome, is_error = str(functions[block.name](**block.input)), False
+        results.append({"type": "tool_result", "tool_use_id": block.id,
+                        "content": outcome, "is_error": is_error})
+    messages.append({"role": "user", "content": results})
+else:
+    print("Stopped: step limit reached.")
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+import * as readline from "node:readline/promises";
+
+const client = new Anthropic();
+const MAX_STEPS = 8;
+const NEEDS_APPROVAL = new Set(["refund_order"]); // consequential actions
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+const tools: Anthropic.Tool[] = [
+  { name: "lookup_order",
+    description: "Returns the status and details of an order given its id.",
+    input_schema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
+  { name: "refund_order",
+    description: "Refunds an order. Irreversible action.",
+    input_schema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
+];
+const functions: Record<string, (args: any) => Promise<string>> = { lookup_order, refund_order };
+
+const messages: Anthropic.MessageParam[] = [
+  { role: "user", content: "Order 4471 is late: sort it out." },
+];
+
+let done = false;
+for (let step = 0; step < MAX_STEPS && !done; step++) {
+  const response = await client.messages.create({
+    model: "claude-sonnet-5-5", max_tokens: 1024, tools, messages,
+  });
+  messages.push({ role: "assistant", content: response.content });
+
+  if (response.stop_reason !== "tool_use") { // the model is done
+    const text = response.content.find((b) => b.type === "text");
+    if (text && text.type === "text") console.log(text.text);
+    done = true;
+    break;
+  }
+
+  const results: Anthropic.ToolResultBlockParam[] = [];
+  for (const block of response.content) {
+    if (block.type !== "tool_use") continue;
+    console.log(`[step ${step}]`, block.name, block.input); // log
+    let outcome: string, isError = false;
+    if (NEEDS_APPROVAL.has(block.name) && (await rl.question("Proceed? [y/N] ")) !== "y") {
+      outcome = "The user denied the action."; isError = true;
+    } else {
+      outcome = await functions[block.name](block.input);
+    }
+    results.push({ type: "tool_result", tool_use_id: block.id, content: outcome, is_error: isError });
+  }
+  messages.push({ role: "user", content: results });
+}
+if (!done) console.log("Stopped: step limit reached.");
+rl.close();
+```
+
+</TabItem>
+</Tabs>
+
+The loop already has three defenses. `MAX_STEPS` keeps it from running forever.
+The `print` is a minimal log of what the agent did. And the refund goes through
+a human confirmation: if you refuse, the model gets an error and can explain
+what would have happened or suggest an alternative.
+
+## When you need an agent (and when you don't)
+
+Before building an agent, climb the ladder from the bottom rung and stop as soon
+as it works.
+
+- **A single call.** Summarize a text, classify an email, extract fields from an invoice. If one well-written prompt is enough, you're done.
+- **A chain of fixed steps (a workflow).** First you extract the data, then you check it, then you write the reply: you decide the sequence and the code runs it the same way every time. It's predictable, cheaper, and easier to test.
+- **An agent.** You need one when the steps aren't known in advance: they depend on what you find. Working out why a test fails, reconstructing an order's history, searching several sources until the answer holds up.
+
+The price of flexibility is predictability. A workflow always takes the same
+path, an agent can take a different one on every run, which makes it harder to
+test and harder to explain when it gets something wrong. If you can draw the
+steps on paper before you start, you probably need a workflow.
+
+## How it goes wrong
+
+Agents fail in recurring ways, and it's worth knowing them before putting one
+into production.
+
+- **Loops.** The agent repeats the same tool with the same arguments because the result doesn't convince it, and never gets out. Without a cap on steps it runs until you run out of money or tokens.
+- **Compounding errors.** Each step has a small chance of going wrong, and a mistake at step three contaminates every step from four on, because the model builds on the previous result. The longer the task, the higher the risk that the final outcome is wrong in a plausible way.
+- **Cost.** On every round you resend the whole conversation, which grows with the tool results. Ten rounds don't cost ten times one call, they cost more, for the reason you saw in [Context in tokens](/en/going-deeper/context-in-tokens/).
+- **Irreversible actions.** Sending an email, deleting a file, refunding a customer: if the agent gets it wrong here, there is no button to go back.
+
+## The defenses
+
+Each of these measures is small and you can apply it from day one.
+
+- **A cap on steps** (and, if needed, on the token budget). When it triggers, the agent stops and tells you where it got to, instead of pushing on.
+- **Human approval for consequential actions.** Reads run on their own, irreversible writes wait for a yes. It's the rule to apply first.
+- **Tools with minimal permissions.** If the agent only needs to read orders, its database access is read-only. What it can't do, it won't do even when it errs or gets tricked.
+- **A complete log.** Record every call, arguments and result. When an agent does something odd, the log is the only way to see which step it went off track at.
+
+:::caution[The agent reads untrusted text]
+Every tool result (a web page, an email, a ticket) enters the prompt, and the
+model might treat it as an instruction. With a single round the damage is
+limited; with an agent that has tools with real effects, malicious text can push
+it into using them. Reread [Prompt injection and
+safety](/en/going-deeper/prompt-injection/): minimal permissions and human
+approval are your defenses here too, and in an agent they matter more.
+:::
+
+:::tip[Start with a narrow task]
+An agent with three tools and a precise goal is more reliable than one with
+thirty tools and a vague goal. Add capabilities one at a time, and only after
+the logs show the agent uses the ones it already has well.
+:::
+
+## Check what you've understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-agents.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+An agent is only as useful as the tools it has, and so far you've written and
+wired every tool by hand. There is an open standard for connecting models and
+tools without redoing the integration each time: it's [the next
+lesson](/en/going-deeper/mcp-and-integrations/), on MCP.

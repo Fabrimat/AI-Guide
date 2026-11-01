@@ -980,6 +980,11 @@ the module stays a single block of 13 entries until the first 3-4
 lessons are written; if it grows, consider splitting it into "Core APIs" +
 "Beyond APIs".
 
+0. ✍️ **Cos'è un'API in cinque minuti** (`going-deeper/what-is-an-api`)
+   Drafted IT + EN (2026-11-01). Bridge lesson, first in the module, level
+   `intermedio`, no prereq: request/response, endpoint, API key as a secret,
+   JSON, status codes 200/400/401/429/500, rate limit, token billing.
+   `from-chats-to-apis` now lists it as prerequisite.
 1. ✍️ **Dalle chat alle API** (`going-deeper/from-chats-to-apis`)
    Drafted IT + EN (2026-07-24). Opens the technical module and shifts the
    register (developer audience, direct tone). Three sections: what actually
@@ -1081,13 +1086,45 @@ lessons are written; if it grows, consider splitting it into "Core APIs" +
    overlap), `:::caution` that retrieval is the bottleneck + retrieved text is a
    prompt-injection vector. Forward refs to L3/M3L8 as real links, L7/L9 by name
    (italic). End-of-lesson check-in. Prereq `[from-chats-to-apis, context-in-tokens]`.
-7. 🆕 **Agenti** (`going-deeper/agents`): a realistic overview, not hype.
-8. 🆕 **MCP e integrazioni** (`going-deeper/mcp-and-integrations`): emerging standards.
-9. 🆕 **Prompt injection e sicurezza** (`going-deeper/prompt-injection`): user input, jailbreaks, practical defenses.
-10. 🆕 **Evals** (`going-deeper/evals`): how to test whether your AI system works.
-11. 🆕 **Costi e prompt caching** (`going-deeper/costs-and-caching`): optimization patterns.
-12. 🆕 **Privacy e dati nelle API** (`going-deeper/privacy-in-apis`).
-13. 🆕 **Mini progetto end-to-end** (`going-deeper/mini-project`): putting together what's been covered.
+7. ✍️ **Prompt injection e sicurezza** (`going-deeper/prompt-injection`)
+   Drafted IT + EN (2026-11-01), placed right after RAG. Direct vs indirect
+   injection (indirect-injection `<ChatDemo>`), jailbreaks, why the system prompt
+   is not a barrier, tool/agent risks (exfiltration, unwanted actions), defenses
+   (label untrusted data, least privilege, human confirmation, allowlist output
+   validation, no secrets in prompts, logging, adversarial tests), honest "no
+   complete fix" `:::caution`. Tabbed Python + TS. Check-in forbids ready-made
+   attack texts. Prereq `[system-prompts-and-roles, tool-use-and-structured-output, rag]`.
+8. ✍️ **Agenti** (`going-deeper/agents`)
+   Drafted IT + EN (2026-11-01). Realistic, no hype: an agent is a model calling
+   tools in a loop (plan, act, observe). Tool-loop snippet with `MAX_STEPS`, a
+   log and human approval for the consequential tool. Ladder single call, then
+   fixed workflow, then agent. Four failure modes, four defenses. Prereq
+   `[tool-use-and-structured-output, prompt-injection]`.
+9. ✍️ **MCP e integrazioni** (`going-deeper/mcp-and-integrations`)
+   Drafted IT + EN (2026-11-01). Open standard, server/client/host, tools /
+   resources / prompts, N×M to N+M, local (stdio) vs remote, minimal server with
+   the v2 SDKs (TS in beta, `:::note` to check the docs), trust and permissions.
+   Prereq `[tool-use-and-structured-output, agents]`.
+10. ✍️ **Evals** (`going-deeper/evals`)
+   Drafted IT + EN (2026-11-01). 20-50 real cases incl. edge cases and past
+   failures; checks from cheapest up (exact/structured, rules, LLM judge with
+   rubric and calibration, human review); before/after and regressions; set in
+   git. Minimal runner in Python + TS. Prereq `[system-prompts-and-roles, tool-use-and-structured-output]`.
+11. ✍️ **Costi e prompt caching** (`going-deeper/costs-and-caching`)
+   Drafted IT + EN (2026-11-01). Where cost comes from, levers (smallest model
+   that passes evals, less context, `max_tokens`, Batch API, caching),
+   `cache_control` on a stable prefix, measuring with `usage` fields. No price
+   figures. Prereq `[context-in-tokens, choose-the-model]`.
+12. ✍️ **Privacy e dati nelle API** (`going-deeper/privacy-in-apis`)
+   Drafted IT + EN (2026-11-01). API vs consumer terms (hedged, "read the
+   provider's terms"), minimisation and pseudonymisation with a redact/restore
+   snippet (regex limits stated), GDPR in plain words (not legal advice), logs
+   as personal data, key handling. Prereq `[from-chats-to-apis, prompt-injection]`.
+13. ✍️ **Mini progetto end-to-end** (`going-deeper/mini-project`)
+   Drafted IT + EN (2026-11-01). Module closer: "ask your documents" assistant
+   in seven steps (model, system prompt, keyword retrieval, structured answer
+   with sources, injection guard, 10-case eval, caching) plus an 8-item
+   checklist. Prereq `[rag, evals, costs-and-caching]`.
 
 **Decisions settled 2026-07-24** (with L1-L2): example stack = **both,
 tabbed Python + TypeScript** (Starlight `<Tabs syncKey="lang">`, no new
@@ -1096,7 +1133,7 @@ kept short, concepts explained around them, not full build-along tutorials).
 Still open for L6: RAG as conceptual explanation vs a code walkthrough (decide
 when writing it).
 
-**Current status**: 6 of 13 drafted (L1-L2 on 2026-07-24, L3-L4 and L5-L6 on
+**Current status**: all 14 drafted (bridge lesson + 13; L7-L13 and the bridge on 2026-11-01). Earlier: 6 of 13 drafted (L1-L2 on 2026-07-24, L3-L4 and L5-L6 on
 2026-07-27, IT + EN). Sidebar entries 1-6 unlocked in `astro.config.mjs`; the
 "Per chi vuole di più" / "For people who want more" cards on the homepage and
 start-here (IT + EN) activated and pointing to L1 (done at L1, not re-touched);

@@ -1,0 +1,157 @@
+---
+title: "Costs and prompt caching"
+description: "Where the cost of a model call comes from and how to reduce it: a smaller model, shorter context, batch processing and prompt caching."
+livello: avanzato
+prerequisiti: [context-in-tokens, choose-the-model]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- You pay per token, and output tokens cost more than input tokens. But most of the bill is usually the input tokens you resend on every call.
+- A conversation resends the whole history each turn, so the cost of a turn grows with the length of the chat. Long system prompts and attached documents are paid for every time.
+- The levers, in typical order of impact: the smallest model that passes your evals, less context, a cap on output, batch processing for non-urgent jobs, prompt caching.
+- With prompt caching you mark a stable prefix with `cache_control`: later reads cost a fraction of normal input. Always put the part that does not change first and the variable part last.
+- Measure with the `usage` fields in the response, not by feel. For prices and caching details, always check the provider's documentation.
+
+</LessonSummary>
+
+A prototype that costs a few cents a day can become a budget line when it goes from ten to ten thousand users. Before switching provider or dropping a feature, it pays to understand where the cost comes from, because the big items are almost always few and can be reduced without touching quality.
+
+## Where the cost comes from
+
+Every call is billed in tokens (see [Context in tokens](/en/going-deeper/context-in-tokens/)), counted separately for what you send and what the model writes. The price per output token is higher than for input. This leads to a wrong intuition: "long answers are the problem". Sometimes they are, but often the input dominates.
+
+There are three reasons, all consequences of the API having no memory (as in the [first lesson of the module](/en/going-deeper/from-chats-to-apis/)):
+
+- **The history is resent every turn.** At the tenth message you also send the previous nine and their replies. The cumulative cost of a chat grows faster than linearly with the number of turns.
+- **The system prompt always travels.** If it is 3,000 tokens of instructions and rules, you pay for them on every single call, for every user.
+- **Attached or retrieved documents.** A 40-page contract pasted into the prompt, or ten pieces from [RAG](/en/going-deeper/rag/), stay in the context for the whole conversation.
+
+Tool definitions (see [Tool use](/en/going-deeper/tool-use-and-structured-output/)) count too: they enter the input on every call.
+
+## The levers
+
+**The smallest model that passes your evals.** This is the biggest lever, because the price difference between model tiers is significant. Do not pick by gut feeling: run your [eval set](/en/going-deeper/evals/) on the smaller model and see what you lose. If the cases pass, you have cut the per-call cost without touching anything else. Revisit the choice when new models come out.
+
+**Less context.** Cut what the model does not use: redundant instructions, excess examples, tools that are not needed for that feature. For long chats, summarize or drop old turns instead of resending them in full. In RAG, pass fewer pieces, but the right ones.
+
+**A cap on output.** A low `max_tokens` where the answer is short by nature (a label, a small JSON) and an explicit instruction on length ("in three lines"). It also protects you from cases where the model rambles.
+
+**Batch processing for non-urgent jobs.** If you need to classify ten thousand tickets from yesterday, you do not need the answer in two seconds. Anthropic offers a Batch API: you send many requests together, the result arrives asynchronously within a maximum time stated in the documentation, at a reduced cost compared with normal calls. It suits overnight processing, archive analysis, evaluations. It does not suit a real-time chat.
+
+**Prompt caching.** This is the most specific lever, and it deserves its own section.
+
+## Prompt caching
+
+When part of the prompt is identical across consecutive calls (the long system prompt, a hundred-page manual, the tool definitions), the model reprocesses it from scratch every time. With <Def explanation="A mechanism where the provider keeps the processing of a prompt prefix for a short time, so later calls with the same prefix read it back instead of reprocessing it.">prompt caching</Def> you tell the provider to remember that prefix: the first call writes it to the cache, later calls read it, and reads are billed at a fraction of the normal input price. Latency usually drops too.
+
+On Anthropic you do it by marking a block with `cache_control`. Everything in the prompt up to that block, in the order it is read (tools, then system prompt, then messages), becomes the cached prefix.
+
+Things to know, to verify in the official documentation because they change over time:
+
+- **The cache has a short life.** By default it lasts a few minutes and is refreshed on every read: if calls keep coming, it stays warm; if too much time passes, it expires and the next call rewrites the cache. Longer-lived options also exist, with a different write cost.
+- **Writing costs a bit more than reading, and more than normal input.** The gain comes from repeated reads: with a single call, caching does not pay off.
+- **There is a minimum length.** Below a certain number of tokens (it varies by model) the prefix is not cached. Check the threshold for the model you use.
+- **The prefix must be identical, byte for byte.** Changing one word before the cache point is enough to prevent a read.
+
+This has a practical consequence for prompt structure. Order the content from most stable to most variable: fixed instructions and documents first, then the history, the user's question last. If you put a date or a session id at the top, every call has a different prefix and you save nothing.
+
+## Measuring with `usage`
+
+Every response reports how many tokens it used. With caching on, three fields tell you what happened: `input_tokens` (the uncached part), `cache_creation_input_tokens` (written to the cache in this call) and `cache_read_input_tokens` (read from the cache). On the first call you will see the creation, from the second on the reads.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+MANUAL = open("manual.txt", encoding="utf-8").read()  # long, stable text
+
+def ask(question: str):
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=512,
+        system=[
+            {
+                "type": "text",
+                "text": "Answer using only the manual below.\n\n" + MANUAL,
+                "cache_control": {"type": "ephemeral"},  # end of the cached prefix
+            }
+        ],
+        messages=[{"role": "user", "content": question}],  # variable part, last
+    )
+    u = msg.usage
+    print(
+        "uncached:", u.input_tokens,
+        "| written to cache:", u.cache_creation_input_tokens,
+        "| read from cache:", u.cache_read_input_tokens,
+    )
+    return msg.content[0].text
+
+ask("How do I reset my password?")  # first call: writes the cache
+ask("How long is the warranty?")    # second: reads the cache
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import { readFileSync } from "node:fs";
+
+const MANUAL = readFileSync("manual.txt", "utf-8"); // long, stable text
+
+async function ask(question: string) {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 512,
+    system: [
+      {
+        type: "text",
+        text: "Answer using only the manual below.\n\n" + MANUAL,
+        cache_control: { type: "ephemeral" }, // end of the cached prefix
+      },
+    ],
+    messages: [{ role: "user", content: question }], // variable part, last
+  });
+  const u = msg.usage;
+  console.log(
+    "uncached:", u.input_tokens,
+    "| written to cache:", u.cache_creation_input_tokens,
+    "| read from cache:", u.cache_read_input_tokens,
+  );
+  const b = msg.content[0];
+  return b.type === "text" ? b.text : "";
+}
+
+await ask("How do I reset my password?"); // first call: writes the cache
+await ask("How long is the warranty?");   // second: reads the cache
+```
+
+</TabItem>
+</Tabs>
+
+If `cache_read_input_tokens` stays at zero on the second call, something in the prefix changed, the text is under the minimum threshold, or the cache expired between the two calls. Start there.
+
+Logging these fields on every call, together with the model used, is how you answer the questions that matter: what does a typical request cost? how much of the input comes from the cache? which feature weighs most on the bill?
+
+:::note[Prices and details: check the docs]
+This lesson gives no figures because they change. Cache lifetime, minimum threshold, write and read multipliers, the batch discount and per-model prices are in Anthropic's pricing page and in its prompt caching documentation. Check them before doing the math.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-costs-and-caching.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Cutting cost often means sending less data, which opens a different question: what data are you sending, and to whom? That is [the next lesson, on privacy in APIs](/en/going-deeper/privacy-in-apis/).

@@ -1,0 +1,157 @@
+---
+title: "Costi e prompt caching"
+description: "Da dove arriva il costo di una chiamata al modello e come ridurlo: modello più piccolo, contesto più corto, batch e prompt caching."
+livello: avanzato
+prerequisiti: [context-in-tokens, choose-the-model]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- Paghi a token, e i token di output costano più di quelli di input. Ma il grosso del conto, di solito, sono i token di input che rimandi a ogni chiamata.
+- Una conversazione rimanda tutta la cronologia a ogni turno, quindi il costo di un turno cresce con la lunghezza della chat. System prompt lunghi e documenti allegati si pagano ogni volta.
+- Le leve, in ordine di impatto tipico: il modello più piccolo che passa i tuoi eval, meno contesto, un tetto all'output, il batch per i lavori non urgenti, il prompt caching.
+- Con il prompt caching marchi un prefisso stabile con `cache_control`: le letture successive costano una frazione dell'input normale. Metti sempre la parte che non cambia all'inizio, quella variabile in fondo.
+- Misura sui campi `usage` della risposta, non a sensazione. Per i prezzi e i dettagli del caching guarda sempre la documentazione del provider.
+
+</LessonSummary>
+
+Un prototipo che costa pochi centesimi al giorno può diventare una voce di bilancio quando passa da dieci a diecimila utenti. Prima di cambiare provider o rinunciare a una funzione, conviene capire da dove viene il costo, perché quasi sempre le voci grosse sono poche e si possono ridurre senza toccare la qualità.
+
+## Da dove arriva il costo
+
+Ogni chiamata si paga in token (vedi [Il contesto in token](/it/going-deeper/context-in-tokens/)), contati separatamente per ciò che mandi e ciò che il modello scrive. Il prezzo per token di output è più alto di quello di input. Questo porta a un'intuizione sbagliata: «le risposte lunghe sono il problema». A volte sì, ma spesso è l'input a dominare.
+
+Ci sono tre ragioni, tutte conseguenza del fatto che l'API non ha memoria (come nella [prima lezione del modulo](/it/going-deeper/from-chats-to-apis/)):
+
+- **La cronologia si rimanda a ogni turno.** Al decimo messaggio mandi anche i nove precedenti e le relative risposte. Il costo cumulativo di una chat cresce più che linearmente con il numero di turni.
+- **Il system prompt viaggia sempre.** Se sono 3.000 token di istruzioni e regole, li paghi a ogni singola chiamata, per ogni utente.
+- **I documenti allegati o recuperati.** Un contratto da 40 pagine incollato nel prompt, o dieci pezzi di [RAG](/it/going-deeper/rag/), restano nel contesto per tutta la conversazione.
+
+Anche le definizioni degli strumenti (vedi [Tool use](/it/going-deeper/tool-use-and-structured-output/)) contano: entrano nell'input a ogni chiamata.
+
+## Le leve
+
+**Il modello più piccolo che passa i tuoi eval.** È la leva più grande, perché la differenza di prezzo tra le fasce di modelli è significativa. Non scegliere a intuito: lancia il tuo [eval set](/it/going-deeper/evals/) sul modello piccolo e guarda cosa perdi. Se i casi passano, hai ridotto il costo di chiamata senza toccare altro. Rivedi la scelta quando escono modelli nuovi.
+
+**Meno contesto.** Taglia ciò che il modello non usa: istruzioni ridondanti, esempi in eccesso, strumenti che non servono in quella funzione. Per le chat lunghe, riassumi o scarta i turni vecchi invece di rimandarli per intero. Nel RAG, passa meno pezzi, ma quelli giusti.
+
+**Un tetto all'output.** `max_tokens` basso dove la risposta è breve per natura (un'etichetta, un JSON piccolo) e un'istruzione esplicita sulla lunghezza («in tre righe»). Proteggi anche dai casi in cui il modello si dilunga.
+
+**Batch per i lavori non urgenti.** Se devi classificare diecimila ticket di ieri, non serve la risposta in due secondi. Anthropic offre una Batch API: mandi molte richieste insieme, il risultato arriva in modo asincrono, entro un tempo massimo che dichiara la documentazione, a un costo ridotto rispetto alle chiamate normali. Va bene per elaborazioni notturne, analisi di archivi, valutazioni. Non per una chat in tempo reale.
+
+**Prompt caching.** È la leva più specifica, e merita una sezione a parte.
+
+## Prompt caching
+
+Quando una parte del prompt è identica tra chiamate successive (il system prompt lungo, un manuale di cento pagine, le definizioni degli strumenti), il modello ogni volta la rielabora da capo. Con il <Def explanation="Meccanismo con cui il provider conserva per poco tempo l'elaborazione di un prefisso del prompt, così le chiamate successive con lo stesso prefisso lo rileggono invece di rielaborarlo.">prompt caching</Def> dici al provider di ricordare quel prefisso: la prima chiamata lo scrive in cache, le successive lo leggono, e le letture si pagano una frazione del prezzo normale di input. Anche la latenza di solito cala.
+
+Su Anthropic si fa marcando un blocco con `cache_control`. Tutto il prompt fino a quel blocco, nell'ordine in cui viene letto (strumenti, poi system prompt, poi messaggi), diventa il prefisso in cache.
+
+Cose da sapere, da verificare nella documentazione ufficiale perché cambiano nel tempo:
+
+- **La cache ha una vita breve.** Di default dura pochi minuti e si rinnova a ogni lettura: se le chiamate si susseguono, resta calda; se passa troppo tempo, scade e la chiamata successiva riscrive la cache. Esistono anche opzioni a durata più lunga, con un costo di scrittura diverso.
+- **La scrittura costa un po' di più della lettura, e di più di un input normale.** Il guadagno arriva dalle letture ripetute: con una sola chiamata il caching non conviene.
+- **C'è una lunghezza minima.** Sotto un certo numero di token (varia per modello) il prefisso non viene messo in cache. Controlla la soglia per il modello che usi.
+- **Il prefisso deve essere identico, byte per byte.** Basta cambiare una parola prima del punto di cache perché la lettura non scatti.
+
+Per la struttura del prompt questo ha una conseguenza pratica. Ordina il contenuto dal più stabile al più variabile: prima le istruzioni e i documenti fissi, poi la cronologia, in fondo la domanda dell'utente. Se metti in cima una data o un id sessione, ogni chiamata ha un prefisso diverso e non risparmi niente.
+
+## Misurare con `usage`
+
+Ogni risposta riporta quanti token ha usato. Con il caching attivo, tre campi raccontano cosa è successo: `input_tokens` (la parte non in cache), `cache_creation_input_tokens` (scritti in cache in questa chiamata) e `cache_read_input_tokens` (letti dalla cache). Alla prima chiamata vedrai la creazione, dalla seconda in poi le letture.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+MANUALE = open("manuale.txt", encoding="utf-8").read()  # testo lungo e stabile
+
+def chiedi(domanda: str):
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=512,
+        system=[
+            {
+                "type": "text",
+                "text": "Rispondi usando solo il manuale qui sotto.\n\n" + MANUALE,
+                "cache_control": {"type": "ephemeral"},  # fine del prefisso in cache
+            }
+        ],
+        messages=[{"role": "user", "content": domanda}],  # parte variabile, in fondo
+    )
+    u = msg.usage
+    print(
+        "non in cache:", u.input_tokens,
+        "| scritti in cache:", u.cache_creation_input_tokens,
+        "| letti da cache:", u.cache_read_input_tokens,
+    )
+    return msg.content[0].text
+
+chiedi("Come si reimposta la password?")  # prima chiamata: scrive la cache
+chiedi("Quanto dura la garanzia?")        # seconda: legge la cache
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import { readFileSync } from "node:fs";
+
+const MANUALE = readFileSync("manuale.txt", "utf-8"); // testo lungo e stabile
+
+async function chiedi(domanda: string) {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 512,
+    system: [
+      {
+        type: "text",
+        text: "Rispondi usando solo il manuale qui sotto.\n\n" + MANUALE,
+        cache_control: { type: "ephemeral" }, // fine del prefisso in cache
+      },
+    ],
+    messages: [{ role: "user", content: domanda }], // parte variabile, in fondo
+  });
+  const u = msg.usage;
+  console.log(
+    "non in cache:", u.input_tokens,
+    "| scritti in cache:", u.cache_creation_input_tokens,
+    "| letti da cache:", u.cache_read_input_tokens,
+  );
+  const b = msg.content[0];
+  return b.type === "text" ? b.text : "";
+}
+
+await chiedi("Come si reimposta la password?"); // prima chiamata: scrive la cache
+await chiedi("Quanto dura la garanzia?");       // seconda: legge la cache
+```
+
+</TabItem>
+</Tabs>
+
+Se `cache_read_input_tokens` resta a zero alla seconda chiamata, qualcosa nel prefisso è cambiato, il testo è sotto la soglia minima, o la cache è scaduta tra le due chiamate. Parti da lì.
+
+Loggare questi campi per ogni chiamata, insieme al modello usato, è il modo per rispondere alle domande che contano: quanto costa una richiesta tipica? quanta parte dell'input arriva dalla cache? quale funzione pesa di più sul conto?
+
+:::note[Prezzi e dettagli: guarda la documentazione]
+Questa lezione non riporta cifre perché cambiano. Durata della cache, soglia minima, moltiplicatori di scrittura e lettura, sconto del batch e prezzi per modello stanno nella pagina prezzi e nella documentazione sul prompt caching di Anthropic. Controllali prima di fare i conti.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-costs-and-caching.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Ridurre il costo spesso significa mandare meno dati, e questo apre una domanda diversa: che dati stai mandando, e a chi? È [la prossima lezione, sulla privacy nelle API](/it/going-deeper/privacy-in-apis/).

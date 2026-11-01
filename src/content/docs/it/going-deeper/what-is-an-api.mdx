@@ -1,0 +1,134 @@
+---
+title: Cos'è un'API in cinque minuti
+description: "Richiesta e risposta, endpoint, chiave API, JSON, codici di stato, rate limit e conto a token: il minimo da sapere sulle API prima di usare un modello dal tuo codice."
+livello: intermedio
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- Un'API è un modo per far parlare due programmi: tu mandi una richiesta a un indirizzo preciso, il servizio ti restituisce una risposta.
+- La chiave API è una password di fatturazione. Tienila fuori dal codice che condividi, dalle chat e da qualsiasi repository.
+- I dati viaggiano in JSON: coppie nome-valore tra parentesi graffe. Se sai leggere un elenco di impostazioni, sai leggere JSON.
+- Il numero di stato ti dice com'è andata: 200 tutto bene, 400 hai sbagliato la richiesta, 401 la chiave non va, 429 vai troppo veloce, 500 il problema è dall'altra parte.
+- Con i modelli IA paghi a consumo, in base ai token mandati e ricevuti, e ogni servizio limita quante richieste puoi fare al minuto.
+
+</LessonSummary>
+
+Finora hai usato l'IA da una chat: scrivi, premi invio, leggi. Questa
+lezione serve a chi vuole fare lo stesso da un programma, ma non ha mai
+lavorato con le API. Non devi saper programmare per seguirla. Ti dà le
+parole giuste per capire le lezioni successive del modulo.
+
+## Cos'è un'API
+
+Un'<Def explanation="Application Programming Interface: l'insieme di richieste che un servizio accetta da altri programmi, con le risposte che restituisce.">API</Def>
+è la porta con cui un servizio si lascia usare da altri programmi. Funziona
+come il menu di un ristorante: non entri in cucina, scegli un piatto dalla
+lista, ordini nel formato previsto e ti arriva quello che hai ordinato. Se
+chiedi un piatto che non c'è, il cameriere te lo dice.
+
+Il meccanismo è sempre lo stesso: una **richiesta** (cosa vuoi e con quali
+dati) e una **risposta** (cosa ti torna indietro). Quando scrivi nella
+chat di un'IA, dietro le quinte il sito fa esattamente questo con il
+modello. Con l'API la richiesta la scrivi tu.
+
+## Endpoint
+
+L'<Def explanation="L'indirizzo web preciso a cui mandi una richiesta, uno per ogni operazione che il servizio offre.">endpoint</Def>
+è l'indirizzo a cui mandi la richiesta. Ogni operazione ha il suo, come ogni
+piatto ha la sua riga nel menu. Per esempio, per far rispondere un modello
+Claude l'indirizzo è:
+
+```text
+https://api.anthropic.com/v1/messages
+```
+
+In pratica quasi sempre userai una libreria ufficiale che compone
+l'indirizzo per te, come vedrai in
+[*Dalle chat alle API*](/it/going-deeper/from-chats-to-apis/). Sapere che
+esiste ti serve per leggere la documentazione e i messaggi di errore.
+
+## La chiave API
+
+Il servizio deve sapere chi sei e a chi addebitare il conto. Lo fa con una
+**chiave API**: una stringa lunga che mandi insieme a ogni richiesta.
+
+:::caution[La chiave è un segreto]
+Chi ha la tua chiave può usare il servizio a nome tuo, e il conto arriva a
+te. Non incollarla in codice che condividi, in uno screenshot, in una chat
+con un'IA o in un repository pubblico. Tienila in una variabile d'ambiente
+e, se pensi che sia finita in mano ad altri, revocala dal pannello del
+servizio e creane una nuova.
+:::
+
+## JSON, il formato dei dati
+
+Richieste e risposte viaggiano quasi sempre in
+<Def explanation="JavaScript Object Notation: un formato di testo per i dati, fatto di coppie nome-valore tra parentesi graffe e liste tra parentesi quadre.">JSON</Def>.
+È testo con una struttura semplice. Una richiesta a un modello, ridotta
+all'osso, può essere questa:
+
+```json
+{
+  "model": "claude-sonnet-5-5",
+  "max_tokens": 200,
+  "messages": [
+    { "role": "user", "content": "Che ore sono a Tokyo se a Roma sono le 9?" }
+  ]
+}
+```
+
+Le graffe racchiudono un oggetto, cioè una serie di coppie nome-valore. Le
+quadre racchiudono una lista, qui di messaggi. Le virgolette dicono che un
+valore è testo, i numeri stanno senza. La risposta ha la stessa forma, con
+dentro il testo generato dal modello.
+
+## I codici di stato
+
+Ogni risposta arriva con un numero che riassume l'esito. Non devi
+impararli tutti, bastano questi:
+
+- **200**: è andata bene, la risposta contiene quello che volevi.
+- **400**: la richiesta è sbagliata, per esempio manca un campo o il JSON è rotto. Correggi la richiesta, rimandarla uguale non serve.
+- **401**: la chiave manca o non è valida. Controlla di averla passata e che sia quella giusta.
+- **429**: hai fatto troppe richieste in poco tempo. Aspetta qualche secondo e riprova.
+- **500** (e simili): il problema è dal lato del servizio. Riprova dopo un po'.
+
+Quando qualcosa non funziona, il numero è il primo indizio: dice se
+l'errore è tuo (le cifre che iniziano per 4) o del servizio (quelle che
+iniziano per 5).
+
+## Rate limit e conto a token
+
+Due concetti che incontri subito con i modelli IA.
+
+Il <Def explanation="Il numero massimo di richieste, o di token, che il servizio accetta da te in un intervallo di tempo, di solito un minuto.">rate limit</Def>
+è il tetto di richieste che puoi fare in un intervallo di tempo. Se lo
+superi ricevi un 429. Serve a proteggere il servizio, e di solito sale
+man mano che usi e paghi di più.
+
+Il conto è a **token**, non a richiesta. Un token è un pezzetto di testo,
+grosso modo una sillaba o una parola corta, e paghi sia quelli che mandi sia
+quelli che ricevi. Una richiesta lunga costa più di una breve, anche se è
+una sola. Come funzionano i token lo vedi in
+[*Il contesto in token*](/it/going-deeper/context-in-tokens/).
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare le basi"
+  file="review-what-is-an-api.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Ora hai il vocabolario. Il passo successivo è la prima chiamata vera a un
+modello, in Python e TypeScript: è il tema di
+[*Dalle chat alle API*](/it/going-deeper/from-chats-to-apis/).

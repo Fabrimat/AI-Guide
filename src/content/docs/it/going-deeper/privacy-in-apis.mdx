@@ -1,0 +1,221 @@
+---
+title: "Privacy e dati nelle API"
+description: "Cosa cambia per i dati quando passi dalla chat alle API: condizioni commerciali, minimizzazione dei dati personali, basi del GDPR, log e chiavi segrete."
+livello: avanzato
+prerequisiti: [from-chats-to-apis, prompt-injection]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- Le API di solito hanno condizioni diverse dalle chat consumer: contratto commerciale, regole sull'addestramento e tempi di conservazione propri. Le leggi dal contratto e dalla documentazione attuale del fornitore, non da questa pagina.
+- Il dato più sicuro è quello che non parte: togli o sostituisci i dati personali prima di costruire la richiesta, e ripristinali nella risposta solo se servono.
+- Con il GDPR in gioco ti servono tre cose chiare: una base giuridica per trattare i dati, un accordo di trattamento (DPA) con il fornitore, e sapere dove i dati vengono elaborati.
+- I log delle tue richieste contengono gli stessi dati che hai tolto dalla chiamata: tratta anche quelli con minimizzazione, accessi limitati e una scadenza.
+- La chiave API è una credenziale: variabile d'ambiente o gestore di segreti, mai nel codice, mai nel browser, ruotala se trapela.
+
+</LessonSummary>
+
+Quando usi una chat, i tuoi dati finiscono dentro un prodotto con le sue regole.
+Quando chiami un'API, i dati finiscono dentro il tuo sistema, e il fornitore del
+modello diventa un tuo subfornitore. Cambia chi ha la responsabilità: ora sei tu
+a decidere cosa spedire, cosa registrare e a chi spiegarlo. Questa pagina non è
+una consulenza legale: per un trattamento reale di dati personali parla con chi
+si occupa di protezione dei dati nella tua organizzazione.
+
+Se ti serve il quadro di base, [Quello che condividi quando usi l'IA](/it/fundamentals/privacy-basics/)
+e [Privacy e dati aziendali](/it/at-work/company-data-and-privacy/) partono dal
+lato dell'utente. Qui parliamo del lato di chi costruisce.
+
+## Come cambiano le regole con le API
+
+Le chat consumer e le API sono di solito prodotti diversi, con condizioni
+diverse. Le aree da controllare sono tre, e per ciascuna la risposta sta nei
+termini del fornitore, non nella tua memoria.
+
+- **Addestramento.** I fornitori in genere trattano i dati arrivati dall'API in modo diverso da quelli delle chat consumer, e per le API commerciali l'impostazione di partenza è spesso che gli input non vengano usati per addestrare i modelli. Spesso, non sempre: dipende dal fornitore, dal piano e da eventuali opzioni che hai attivato.
+- **Conservazione.** Gli input e gli output possono restare sui server del fornitore per un periodo, per esempio per controllare abusi. La durata cambia da fornitore a fornitore e può cambiare nel tempo. Alcuni offrono accordi con conservazione ridotta o nulla per casi che lo richiedono.
+- **Contratto.** L'uso commerciale ha termini commerciali: ruoli delle parti, sicurezza, subfornitori, cosa succede se c'è una violazione dei dati.
+
+Prima di mandare dati reali, leggi la pagina ufficiale sui dati e la privacy del
+fornitore e i suoi termini commerciali. Per Anthropic, trovi i documenti
+nell'area legale e nella documentazione per sviluppatori. Se una condizione ti
+serve per una decisione (un contratto, un audit), salvane una copia con la data:
+le pagine cambiano.
+
+:::note[Chat e API non sono la stessa cosa nemmeno dentro lo stesso fornitore]
+Un account chat e una chiave API possono avere regole diverse sullo stesso
+modello. Se la tua azienda ha approvato uno strumento, controlla che
+l'approvazione valga anche per il canale che stai usando.
+:::
+
+## Mandare meno dati
+
+La protezione migliore è non mandare quello che il modello non deve vedere. Il
+principio si chiama <Def explanation="Trattare solo i dati personali necessari allo scopo, e nessuno in più. È uno dei principi del GDPR.">minimizzazione dei dati</Def>
+e in pratica si traduce in tre mosse.
+
+**Chiediti se il dato serve.** Per riassumere un'email di reclamo al modello
+non serve l'indirizzo del cliente. Per classificare un ticket non serve il suo
+nome.
+
+**Rimuovi.** Se il dato non serve, taglialo prima di costruire la richiesta.
+
+**Sostituisci.** Se serve la struttura ma non l'identità, sostituisci il dato
+con un segnaposto (`[EMAIL_1]`, `[TEL_1]`) e tieni la tabella di corrispondenza
+sul tuo lato. Questa si chiama <Def explanation="Sostituire i dati che identificano una persona con un codice, conservando la tabella di corrispondenza separata. Il dato resta personale per il GDPR, ma il rischio cala.">pseudonimizzazione</Def>.
+Il modello lavora sul testo con i segnaposto, e tu rimetti i valori veri nella
+risposta, se servono.
+
+Ecco una versione magra che sostituisce email e numeri di telefono.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import re
+
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+TELEFONO = re.compile(r"(?<!\w)\+?\d[\d\s().-]{7,}\d")
+
+def redigi(testo):
+    mappa = {}
+
+    def sostituisci(tipo, regex, t):
+        def f(m):
+            chiave = f"[{tipo}_{len(mappa) + 1}]"
+            mappa[chiave] = m.group(0)
+            return chiave
+        return regex.sub(f, t)
+
+    testo = sostituisci("EMAIL", EMAIL, testo)
+    testo = sostituisci("TEL", TELEFONO, testo)
+    return testo, mappa
+
+def ripristina(testo, mappa):
+    for chiave, valore in mappa.items():
+        testo = testo.replace(chiave, valore)
+    return testo
+
+pulito, mappa = redigi("Scrivi a mario.rossi@example.com o chiama +39 333 123 4567.")
+print(pulito)  # Scrivi a [EMAIL_1] o chiama [TEL_2].
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+const TELEFONO = /(?<!\w)\+?\d[\d\s().-]{7,}\d/g;
+
+function redigi(testo: string): { pulito: string; mappa: Map<string, string> } {
+  const mappa = new Map<string, string>();
+  const sostituisci = (tipo: string, regex: RegExp, t: string) =>
+    t.replace(regex, (originale) => {
+      const chiave = `[${tipo}_${mappa.size + 1}]`;
+      mappa.set(chiave, originale);
+      return chiave;
+    });
+
+  let pulito = sostituisci("EMAIL", EMAIL, testo);
+  pulito = sostituisci("TEL", TELEFONO, pulito);
+  return { pulito, mappa };
+}
+
+function ripristina(testo: string, mappa: Map<string, string>): string {
+  for (const [chiave, valore] of mappa) testo = testo.replaceAll(chiave, valore);
+  return testo;
+}
+
+const { pulito, mappa } = redigi("Scrivi a mario.rossi@example.com o chiama +39 333 123 4567.");
+console.log(pulito); // Scrivi a [EMAIL_1] o chiama [TEL_2].
+```
+
+</TabItem>
+</Tabs>
+
+Mandi `pulito` al modello, e quando arriva la risposta chiami `ripristina`
+sullo stesso `mappa`. Le espressioni regolari prendono i formati più comuni e
+niente altro: nomi, indirizzi, codici fiscali e IBAN restano dove sono. Per
+dati sensibili veri serve uno strumento di rilevamento più serio, e comunque
+un controllo a campione di cosa esce davvero dal tuo sistema.
+
+## Il GDPR in parole semplici
+
+Se tratti dati di persone nell'Unione europea, vale il GDPR, anche se sei un
+piccolo progetto. Tre concetti ti riguardano subito.
+
+**Base giuridica.** Per trattare dati personali ti serve un motivo riconosciuto
+dalla legge: il consenso della persona, un contratto, un obbligo di legge, un
+interesse legittimo e così via. Non basta che «tanto è utile». La base giuridica
+va scelta prima, e spesso decide cosa puoi fare e come informare le persone.
+
+**Accordo di trattamento.** Quando mandi dati personali a un fornitore che li
+elabora per tuo conto, il fornitore è un responsabile del trattamento e serve un
+<Def explanation="Data Processing Agreement: il contratto che regola cosa il fornitore può fare con i dati che gli affidi, con quali garanzie di sicurezza e quali subfornitori.">DPA</Def>.
+I principali fornitori di API ne mettono uno a disposizione, spesso incorporato
+nei termini commerciali. Verifica che esista e che sia attivo per il tuo
+account.
+
+**Dove vengono elaborati i dati.** Se i server del fornitore sono fuori dallo
+Spazio economico europeo, il trasferimento ha regole sue, con strumenti come le
+clausole contrattuali standard. Chiedi al fornitore in quali regioni elabora i
+dati e se esistono opzioni per restare in regioni precise. Le risposte
+cambiano per fornitore e per piano.
+
+Questa pagina non è consulenza legale. Per un caso reale, soprattutto se ci sono
+dati sanitari, di minori o di dipendenti, coinvolgi chi si occupa di privacy
+nella tua organizzazione. Se sei un'azienda con un DPO, parti da lì.
+
+## Log: sono anch'essi dati personali
+
+Loggare i prompt aiuta a capire cosa non funziona e a misurare la qualità, come
+vedrai in [Evals: come capire se funziona](/it/going-deeper/evals/). Ma un
+log che contiene le richieste degli utenti contiene i loro dati, e allora valgono
+le stesse regole: ti serve una base giuridica, un accesso limitato e un
+tempo di conservazione.
+
+- **Logga dopo la redazione.** Registra la versione pulita del prompt, non l'originale.
+- **Logga i metadati prima del contenuto.** Modello, token usati, durata, esito: spesso bastano a diagnosticare, senza testo.
+- **Limita chi legge.** I log non sono una cartella condivisa da tutto il team.
+- **Dai una scadenza.** Un log senza data di cancellazione diventa un archivio di dati personali che nessuno ha deciso di tenere.
+- **Controlla gli strumenti intorno.** Il tracciamento degli errori, la telemetria e gli strumenti di osservabilità ricevono spesso il testo delle richieste. Sono altri destinatari dei dati.
+
+## Gestire la chiave API
+
+La chiave API apre il tuo account: chi la ha può fare richieste a tuo nome e a
+tue spese, e per l'API le richieste passano per il tuo contratto e i tuoi dati.
+L'avviso base è in [Dalle chat alle API](/it/going-deeper/from-chats-to-apis/). Qui
+le pratiche da aggiungere quando il progetto cresce.
+
+- **Fuori dal codice.** Variabile d'ambiente o gestore di segreti del tuo cloud. Mai nel repository, nemmeno in uno privato, e mai in un file `.env` committato.
+- **Fuori dal browser.** Se la chiamata parte da una pagina web, la chiave è visibile a chiunque apra gli strumenti di sviluppo. Le richieste passano da un tuo server, che tiene la chiave.
+- **Una chiave per ambiente.** Sviluppo e produzione hanno chiavi separate, così puoi revocarne una senza fermare l'altra.
+- **Ruotala.** Se pensi che sia trapelata, revocala subito e creane una nuova. Se l'hai committata per errore, cancellare il commit non basta: la chiave va considerata compromessa.
+- **Guarda l'uso.** Un picco di richieste che non spieghi è il primo segnale di una chiave rubata.
+
+Quanto al contenuto che arriva dai tuoi utenti e passa per il modello, il
+rischio non è solo di privacy: un testo ostile può spingere il modello a
+rivelare quello che ha nel contesto. Il tema è in [Prompt injection e sicurezza](/it/going-deeper/prompt-injection/), e la
+regola utile qui è di non mettere nel prompt dati che l'utente non dovrebbe
+poter leggere.
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-privacy-in-apis.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Hai visto i pezzi che servono per costruire con attenzione ai dati. L'ultima
+lezione del modulo li mette insieme in un piccolo assistente funzionante:
+[Mini progetto end-to-end](/it/going-deeper/mini-project/).

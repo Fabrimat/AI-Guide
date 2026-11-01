@@ -1,0 +1,231 @@
+---
+title: "Agenti"
+description: "Un modello che chiama strumenti in un ciclo finché l'obiettivo è raggiunto: come funziona un agente, quando conviene davvero, cosa può andare storto e quali limiti mettergli."
+livello: avanzato
+prerequisiti: [tool-use-and-structured-output, prompt-injection]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- Un agente è un modello che gira in un ciclo: decide, chiama uno strumento, legge il risultato, e ripete finché ritiene l'obiettivo raggiunto. Il ciclo è codice tuo, poche decine di righe.
+- Parti dalla soluzione più semplice: una chiamata sola, poi una catena di passi fissi. Passa a un agente solo quando i passi da fare dipendono da ciò che si scopre strada facendo.
+- I problemi tipici sono quattro: cicli che non finiscono, errori che si accumulano passo dopo passo, costi che crescono a ogni giro, azioni che non si possono annullare.
+- Le difese sono poche e concrete: un tetto ai passi, l'approvazione umana per le azioni con conseguenze, strumenti con i permessi minimi, un log di tutto.
+- Ogni risultato di uno strumento è testo non fidato che entra nel prompt dell'agente: la sicurezza è quella di [Prompt injection](/it/going-deeper/prompt-injection/), con la posta più alta.
+
+</LessonSummary>
+
+Nella lezione sul [tool use](/it/going-deeper/tool-use-and-structured-output/)
+hai visto un giro: il modello chiede uno strumento, tu lo esegui, lui risponde.
+Alla fine ti ho detto che in un caso reale diventa un ciclo. Un agente è
+esattamente quel ciclo, lasciato andare avanti per più giri. Tutto il resto
+si costruisce attorno a quel ciclo.
+
+## Cos'è un agente
+
+Un <Def explanation="Un programma in cui un modello sceglie da solo i passi successivi, chiamando strumenti, finché decide di aver finito o raggiunge un limite.">agente</Def>
+è un modello che chiama strumenti in un ciclo finché l'obiettivo è raggiunto. Tu
+gli dai un obiettivo («scopri perché l'ordine 4471 è in ritardo e dimmi cosa
+fare») e un insieme di strumenti. Lui decide quale usare per primo, guarda cosa
+torna, decide il passo dopo. Nessuno ha scritto in anticipo la sequenza.
+
+Il ciclo ha tre mosse che si ripetono. **Pianifica**: il modello ragiona su cosa
+manca per arrivare all'obiettivo. **Agisce**: chiede uno strumento. **Osserva**:
+tu esegui e gli rimandi il risultato, che diventa parte della conversazione. Poi
+si ricomincia, e il ciclo si ferma quando il modello risponde senza chiedere
+altri strumenti (`stop_reason` vale `end_turn`) o quando lo fermi tu.
+
+## Un ciclo in poche righe
+
+Questo è un agente completo per un assistente ordini. Ha due strumenti: uno che
+legge (`cerca_ordine`) e uno con conseguenze reali (`rimborsa_ordine`). Le
+funzioni `cerca_ordine` e `rimborsa_ordine` sono tue, qui non le scrivo.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()
+MAX_PASSI = 8
+RICHIEDONO_OK = {"rimborsa_ordine"}  # azioni con conseguenze
+
+tools = [
+    {"name": "cerca_ordine",
+     "description": "Restituisce stato e dettagli di un ordine dato il suo id.",
+     "input_schema": {"type": "object",
+                      "properties": {"id": {"type": "string"}},
+                      "required": ["id"]}},
+    {"name": "rimborsa_ordine",
+     "description": "Rimborsa un ordine. Azione irreversibile.",
+     "input_schema": {"type": "object",
+                      "properties": {"id": {"type": "string"}},
+                      "required": ["id"]}},
+]
+funzioni = {"cerca_ordine": cerca_ordine, "rimborsa_ordine": rimborsa_ordine}
+
+messages = [{"role": "user", "content": "L'ordine 4471 è in ritardo: sistemalo."}]
+
+for passo in range(MAX_PASSI):
+    risposta = client.messages.create(
+        model="claude-sonnet-5-5", max_tokens=1024,
+        tools=tools, messages=messages,
+    )
+    messages.append({"role": "assistant", "content": risposta.content})
+
+    if risposta.stop_reason != "tool_use":  # il modello ha finito
+        print(risposta.content[0].text)
+        break
+
+    risultati = []
+    for blocco in risposta.content:
+        if blocco.type != "tool_use":
+            continue
+        print(f"[passo {passo}] {blocco.name}({blocco.input})")  # log
+        if blocco.name in RICHIEDONO_OK and input("Procedo? [s/N] ") != "s":
+            esito, errore = "L'utente ha negato l'azione.", True
+        else:
+            esito, errore = str(funzioni[blocco.name](**blocco.input)), False
+        risultati.append({"type": "tool_result", "tool_use_id": blocco.id,
+                          "content": esito, "is_error": errore})
+    messages.append({"role": "user", "content": risultati})
+else:
+    print("Fermato: raggiunto il limite di passi.")
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+import * as readline from "node:readline/promises";
+
+const client = new Anthropic();
+const MAX_PASSI = 8;
+const RICHIEDONO_OK = new Set(["rimborsa_ordine"]); // azioni con conseguenze
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+const tools: Anthropic.Tool[] = [
+  { name: "cerca_ordine",
+    description: "Restituisce stato e dettagli di un ordine dato il suo id.",
+    input_schema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
+  { name: "rimborsa_ordine",
+    description: "Rimborsa un ordine. Azione irreversibile.",
+    input_schema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
+];
+const funzioni: Record<string, (args: any) => Promise<string>> = { cerca_ordine, rimborsa_ordine };
+
+const messages: Anthropic.MessageParam[] = [
+  { role: "user", content: "L'ordine 4471 è in ritardo: sistemalo." },
+];
+
+let finito = false;
+for (let passo = 0; passo < MAX_PASSI && !finito; passo++) {
+  const risposta = await client.messages.create({
+    model: "claude-sonnet-5-5", max_tokens: 1024, tools, messages,
+  });
+  messages.push({ role: "assistant", content: risposta.content });
+
+  if (risposta.stop_reason !== "tool_use") { // il modello ha finito
+    const testo = risposta.content.find((b) => b.type === "text");
+    if (testo && testo.type === "text") console.log(testo.text);
+    finito = true;
+    break;
+  }
+
+  const risultati: Anthropic.ToolResultBlockParam[] = [];
+  for (const blocco of risposta.content) {
+    if (blocco.type !== "tool_use") continue;
+    console.log(`[passo ${passo}]`, blocco.name, blocco.input); // log
+    let esito: string, errore = false;
+    if (RICHIEDONO_OK.has(blocco.name) && (await rl.question("Procedo? [s/N] ")) !== "s") {
+      esito = "L'utente ha negato l'azione."; errore = true;
+    } else {
+      esito = await funzioni[blocco.name](blocco.input);
+    }
+    risultati.push({ type: "tool_result", tool_use_id: blocco.id, content: esito, is_error: errore });
+  }
+  messages.push({ role: "user", content: risultati });
+}
+if (!finito) console.log("Fermato: raggiunto il limite di passi.");
+rl.close();
+```
+
+</TabItem>
+</Tabs>
+
+Nel ciclo ci sono già tre difese. `MAX_PASSI` impedisce che giri per sempre. Il
+`print` è un log minimo di cosa ha fatto l'agente. E il rimborso passa da una
+conferma umana: se rifiuti, il modello riceve un errore e può spiegarti cosa
+sarebbe successo o proporre un'alternativa.
+
+## Quando serve un agente (e quando no)
+
+Prima di costruire un agente, sali la scala dal gradino più basso e fermati
+appena funziona.
+
+- **Una chiamata sola.** Riassumere un testo, classificare un'email, estrarre campi da una fattura. Se basta un prompt ben scritto, finisce qui.
+- **Una catena di passi fissi (workflow).** Prima estrai i dati, poi li controlli, poi scrivi la risposta: la sequenza la decidi tu e il codice la esegue sempre uguale. È prevedibile, più economica e si testa meglio.
+- **Un agente.** Serve quando i passi da fare non si conoscono in anticipo: dipendono da cosa trovi. Capire perché un test fallisce, ricostruire la storia di un ordine, cercare in più fonti finché la risposta regge.
+
+Il prezzo della flessibilità è la prevedibilità. Un workflow fa sempre lo stesso
+percorso, un agente può farne uno diverso a ogni esecuzione, e per questo è più
+difficile da testare e da spiegare quando sbaglia. Se riesci a disegnare i passi
+su un foglio prima di cominciare, probabilmente ti serve un workflow.
+
+## Come va storto
+
+Gli agenti falliscono in modi ricorrenti, e conviene conoscerli prima di
+metterne uno in produzione.
+
+- **Cicli.** L'agente ripete lo stesso strumento con gli stessi argomenti perché il risultato non lo convince, e non ne esce. Senza un tetto ai passi gira finché non finisci i soldi o i token.
+- **Errori che si compongono.** Ogni passo ha una piccola probabilità di sbagliare, e uno sbaglio al passo tre inquina i passi dal quattro in poi, perché il modello costruisce sul risultato precedente. Più il compito è lungo, più cresce il rischio che l'esito finale sia sbagliato in modo plausibile.
+- **Costo.** A ogni giro rimandi tutta la conversazione, che si allunga con i risultati degli strumenti. Dieci giri non costano dieci volte una chiamata, costano di più, per il motivo visto in [Il contesto in token](/it/going-deeper/context-in-tokens/).
+- **Azioni irreversibili.** Mandare una mail, cancellare un file, rimborsare un cliente: se l'agente sbaglia qui, non c'è un tasto per tornare indietro.
+
+## Le difese
+
+Ognuna di queste misure è piccola e si applica dal primo giorno.
+
+- **Tetto ai passi** (e, se serve, al budget di token). Quando scatta, l'agente si ferma e ti dice dov'è arrivato, invece di insistere.
+- **Approvazione umana per le azioni con conseguenze.** Le letture girano da sole, le scritture irreversibili aspettano un sì. È la regola da applicare per prima.
+- **Strumenti con i permessi minimi.** Se l'agente deve solo leggere ordini, il suo accesso al database è in sola lettura. Quello che non può fare non lo farà nemmeno quando sbaglia o viene ingannato.
+- **Log completo.** Registra ogni chiamata, argomenti e risultato. Quando un agente fa qualcosa di strano, il log è l'unico modo per capire in quale passo è andato fuori strada.
+
+:::caution[L'agente legge testo non fidato]
+Ogni risultato di uno strumento (una pagina web, un'email, un ticket) entra nel
+prompt, e il modello potrebbe trattarlo come un'istruzione. Con un solo giro il
+danno è limitato; con un agente che ha strumenti con effetti reali, un testo
+malevolo può spingerlo a usarli. Rileggi [Prompt injection e
+sicurezza](/it/going-deeper/prompt-injection/): i permessi minimi e
+l'approvazione umana sono le tue difese anche qui, e in un agente contano di più.
+:::
+
+:::tip[Parti da un compito stretto]
+Un agente con tre strumenti e un obiettivo preciso è più affidabile di uno con
+trenta strumenti e un obiettivo vago. Aggiungi capacità una alla volta, e solo
+dopo aver visto dai log che l'agente sa usare bene quelle che ha già.
+:::
+
+## Verifica cosa hai capito
+
+<LlmExercise
+  variant="review"
+  title="Quattro domande per fissare il metodo"
+  file="review-agents.txt"
+  duration="5-7 min"
+  description="Incolla il testo nella tua IA. Ti farà quattro domande progressive sulla lezione, una alla volta, e ti darà feedback."
+/>
+
+## Cosa viene dopo
+
+Un agente è utile quanto gli strumenti che ha, e ogni strumento finora l'hai
+scritto e collegato a mano. Esiste uno standard aperto per collegare modelli e
+strumenti senza rifare l'integrazione ogni volta: è [la prossima
+lezione](/it/going-deeper/mcp-and-integrations/), su MCP.

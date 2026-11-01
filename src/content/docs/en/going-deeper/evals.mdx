@@ -1,0 +1,195 @@
+---
+title: "Evals: knowing whether it works"
+description: "How to test an LLM-based feature: a small set of real cases, automatic checks and a judge, and a before/after comparison on every change."
+livello: avanzato
+prerequisiti: [system-prompts-and-roles, tool-use-and-structured-output]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- "It looked fine on three tries" is not a test. Output changes from call to call, and three hand-picked examples are the ones that already work.
+- An <Def explanation="A set of test cases with the expected outcome or the criteria to judge it, which you rerun your prompt against after every change.">eval set</Def> starts small: 20-50 cases taken from real use, including edge cases and the failures you have already seen.
+- Pick the cheapest check that holds: exact or structured where you can, rules where the outcome is verifiable, an LLM judge with a rubric where you need to grade text, human review to calibrate the rest.
+- The value is in the comparison: the same set before and after a prompt or model change, so you notice what you broke.
+- The set lives in git next to the prompt. Every failure found in production becomes a new case.
+
+</LessonSummary>
+
+You wrote a prompt that extracts data from customer emails, or classifies support tickets. You try it on three examples, it works, you ship it. Two weeks later someone edits one line of the system prompt to fix one case, and nobody knows what that broke in the others. An eval is how you find out beforehand.
+
+## Why three tries are not enough
+
+The model is non-deterministic: the same request can produce different answers, and an example that passes today can fail tomorrow. On top of that, the three examples you try are usually the ones in your head while writing the prompt, which means the easy ones. Failures live in the cases you did not think of: the badly written email, the ticket in two languages, the missing field.
+
+An eval is an automatic test for a function that has no single right answer. It has the same shape as a code test: input, expected result (or criterion), a score. The only difference is that the comparison is not always `==`.
+
+## Building the set from real cases
+
+Start from real data, not invented examples. If the feature already exists, take 20-50 real inputs and anonymize them. If it does not, write them by hand thinking about how people would actually type them, typos included.
+
+The mix matters more than the count:
+
+- typical cases, the majority, to know the common path holds;
+- edge cases: empty input, very long, in another language, ambiguous, with missing data;
+- failures you have already seen: every time the feature gets a real input wrong, add it to the set with the correct answer;
+- a few inputs the system should decline to answer or leave blank, not only ones it should answer.
+
+Each case has an input and an expected outcome: a precise value, a set of fields, or a rule ("must not mention prices"). Twenty well-chosen cases beat two hundred random ones.
+
+## Which kind of check to use
+
+Start with the simplest one that works and move up only when needed.
+
+**Exact or structured check.** If the output is a label, a number or JSON (as in [structured output](/en/going-deeper/tool-use-and-structured-output/)), you compare directly: is the category the expected one? Do the `email` and `name` fields match? This is the best check: fast, free, unambiguous. If you can reduce the output to this form, do it.
+
+**Rule-based check.** For free text you can still verify measurable properties: it contains the required word, stays under 100 words, is valid JSON, contains no email address, matches the language of the question. These are partial checks, but cheap and deterministic.
+
+**LLM as judge.** When quality cannot be measured with a rule (is the summary faithful? is the tone right?) you can have another model grade it. You give it the answer, the reference answer if you have one, and a rubric with explicit criteria and a short scale, for example "pass/fail" plus one line of reasoning. Practical rules: one criterion at a time, no 1-to-10 score without describing what each level means, and ask for the reasoning before the verdict.
+
+The judge makes mistakes too. It tends to prefer longer answers, may favor the style of its own model, and sometimes passes text that sounds good but is wrong. Before trusting it, check a sample of its verdicts by hand and confirm it agrees with you. If it does not, fix the rubric, not the model.
+
+**Human review.** This stays the reference. You do not do it on everything at every change: you use it to build the expected answers, to calibrate the judge, and to look at a sample of real outputs from time to time.
+
+## Measuring before and after
+
+An absolute score says little. The value is in the comparison: keep the set fixed, change one thing (a sentence in the prompt, the model, the temperature) and rerun. The comparison tells you which cases improved and, above all, which got worse. That is a <Def explanation="A case that used to work and no longer works after a change.">regression</Def>: you fix the badly written email and break the one in English.
+
+Two precautions. Look at the individual cases that flip, not only the percentage: 24 out of 25 versus 23 out of 25 is a single case, it may be noise. And if output varies a lot between calls, run each case several times or lower the temperature. Switching model (see [Choose the model](/en/going-deeper/choose-the-model/)) is when an eval matters most: it is the only way to know whether a smaller model holds up on your case.
+
+## A minimal runner
+
+The code below takes a small set for ticket classification, runs the prompt on each case and applies an exact check. There is also an optional judge function for free-text answers. It assumes `client` was created as in the [first lesson of the module](/en/going-deeper/from-chats-to-apis/).
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import json
+
+SYSTEM = "Classify the ticket as: billing, technical, other. Reply with the label only."
+
+# Usually lives in a versioned file, e.g. evals/ticket.jsonl
+dataset = [
+    {"input": "I can't log in to my account", "expected": "technical"},
+    {"input": "You charged me twice", "expected": "billing"},
+    {"input": "What are your opening hours?", "expected": "other"},
+    {"input": "", "expected": "other"},  # edge case: empty input
+]
+
+def run(prompt_input: str) -> str:
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=20,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": prompt_input or "(empty)"}],
+    )
+    return msg.content[0].text.strip().lower()
+
+def judge(question: str, answer: str) -> bool:
+    """Optional: LLM judge with a rubric, for free text."""
+    rubric = (
+        "Reply with PASS or FAIL only. PASS if the answer is polite, "
+        "promises no refunds and answers the question."
+    )
+    msg = client.messages.create(
+        model="claude-sonnet-5-5",
+        max_tokens=10,
+        system=rubric,
+        messages=[{"role": "user", "content": f"Question: {question}\nAnswer: {answer}"}],
+    )
+    return msg.content[0].text.strip().upper().startswith("PASS")
+
+passed = 0
+for case in dataset:
+    got = run(case["input"])
+    ok = got == case["expected"]  # exact check
+    passed += ok
+    if not ok:
+        print("FAIL", json.dumps(case), "->", got)
+
+print(f"{passed}/{len(dataset)} passed")
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const SYSTEM =
+  "Classify the ticket as: billing, technical, other. Reply with the label only.";
+
+// Usually lives in a versioned file, e.g. evals/ticket.jsonl
+const dataset = [
+  { input: "I can't log in to my account", expected: "technical" },
+  { input: "You charged me twice", expected: "billing" },
+  { input: "What are your opening hours?", expected: "other" },
+  { input: "", expected: "other" }, // edge case: empty input
+];
+
+async function run(input: string): Promise<string> {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 20,
+    system: SYSTEM,
+    messages: [{ role: "user", content: input || "(empty)" }],
+  });
+  const b = msg.content[0];
+  return b.type === "text" ? b.text.trim().toLowerCase() : "";
+}
+
+// Optional: LLM judge with a rubric, for free text.
+async function judge(question: string, answer: string): Promise<boolean> {
+  const msg = await client.messages.create({
+    model: "claude-sonnet-5-5",
+    max_tokens: 10,
+    system:
+      "Reply with PASS or FAIL only. PASS if the answer is polite, " +
+      "promises no refunds and answers the question.",
+    messages: [{ role: "user", content: `Question: ${question}\nAnswer: ${answer}` }],
+  });
+  const b = msg.content[0];
+  return b.type === "text" && b.text.trim().toUpperCase().startsWith("PASS");
+}
+
+let passed = 0;
+for (const c of dataset) {
+  const got = await run(c.input);
+  const ok = got === c.expected; // exact check
+  if (ok) passed++;
+  else console.log("FAIL", JSON.stringify(c), "->", got);
+}
+console.log(`${passed}/${dataset.length} passed`);
+```
+
+</TabItem>
+</Tabs>
+
+`judge` is not called in the loop: you use it instead of the exact comparison when the answer is free text. For the before/after comparison, save the list of passed cases on every run (even a plain JSON file per commit) and diff it against the previous one.
+
+## Keeping the set alive
+
+Put the set in git next to the prompt, in the same repository. A prompt change and its eval result travel in the same pull request, so the reviewer sees what improved and what did not. When you find a failure in production, the first move is to add it as a new case, then fix the prompt: the set grows with real failures.
+
+Keep the development set and the check set apart. If you keep tweaking the prompt while looking at the same 30 cases, you end up fitting it to them. Reserve about ten cases you do not look at while editing, and use them only for the final check.
+
+:::caution[A small eval is not a guarantee]
+Twenty or fifty cases tell you whether you broke something obvious, not that the system is correct on every input. If a mistake is expensive (money, health, decisions about people), you need more than an automatic eval, starting with human review of the risky cases.
+:::
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-evals.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Measuring whether the feature works also tells you whether you can afford a smaller model. The next step is cost: where it comes from and how to cut it without losing quality. That is [the next lesson](/en/going-deeper/costs-and-caching/).

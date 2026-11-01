@@ -1,0 +1,133 @@
+---
+title: What an API is, in five minutes
+description: "Request and response, endpoint, API key, JSON, status codes, rate limits and token billing: the minimum to know about APIs before you use a model from your own code."
+livello: intermedio
+---
+
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- An API is a way for two programs to talk: you send a request to a specific address, the service sends back a response.
+- The API key is a billing password. Keep it out of any code you share, out of chats, and out of any repository.
+- Data travels as JSON: name-value pairs between curly braces. If you can read a list of settings, you can read JSON.
+- The status number tells you how it went: 200 all good, 400 your request is wrong, 401 the key is bad, 429 you're going too fast, 500 the problem is on the other side.
+- With AI models you pay as you go, based on the tokens you send and receive, and every service caps how many requests you can make per minute.
+
+</LessonSummary>
+
+So far you've used AI through a chat: type, press enter, read. This lesson
+is for people who want to do the same from a program but have never worked
+with APIs. You don't need to write code to follow it. It gives you the
+vocabulary for the rest of the module.
+
+## What an API is
+
+An <Def explanation="Application Programming Interface: the set of requests a service accepts from other programs, with the responses it returns.">API</Def>
+is the door a service opens so other programs can use it. It works like a
+restaurant menu: you don't walk into the kitchen, you pick a dish from the
+list, order in the expected format, and what you ordered arrives. If you ask
+for a dish that isn't on the menu, the waiter tells you.
+
+The mechanism is always the same: a **request** (what you want and with
+what data) and a **response** (what comes back). When you type into an AI
+chat, the site does exactly this with the model behind the scenes. With the
+API, you write the request yourself.
+
+## Endpoint
+
+The <Def explanation="The exact web address you send a request to, one for each operation the service offers.">endpoint</Def>
+is the address you send the request to. Each operation has its own, like
+each dish has its own line on the menu. For example, to get a Claude model
+to answer, the address is:
+
+```text
+https://api.anthropic.com/v1/messages
+```
+
+In practice you'll almost always use an official library that builds the
+address for you, as you'll see in
+[*From chats to APIs*](/en/going-deeper/from-chats-to-apis/). Knowing it
+exists helps you read the documentation and the error messages.
+
+## The API key
+
+The service needs to know who you are and who to bill. It does that with an
+**API key**: a long string you send along with every request.
+
+:::caution[The key is a secret]
+Whoever has your key can use the service as you, and the bill comes to you.
+Don't paste it into code you share, a screenshot, a chat with an AI, or a
+public repository. Keep it in an environment variable, and if you think it
+reached someone else, revoke it from the service's dashboard and create a
+new one.
+:::
+
+## JSON, the data format
+
+Requests and responses almost always travel as
+<Def explanation="JavaScript Object Notation: a text format for data, made of name-value pairs between curly braces and lists between square brackets.">JSON</Def>.
+It's text with a simple structure. A request to a model, stripped to the
+bone, can look like this:
+
+```json
+{
+  "model": "claude-sonnet-5-5",
+  "max_tokens": 200,
+  "messages": [
+    { "role": "user", "content": "What time is it in Tokyo if it's 9 in Rome?" }
+  ]
+}
+```
+
+Curly braces wrap an object, a set of name-value pairs. Square brackets wrap
+a list, here a list of messages. Quotation marks mean a value is text,
+numbers go without. The response has the same shape, with the text the
+model generated inside.
+
+## Status codes
+
+Every response comes with a number that sums up the outcome. You don't need
+to learn them all, these are enough:
+
+- **200**: it worked, the response holds what you wanted.
+- **400**: the request is wrong, for example a field is missing or the JSON is broken. Fix the request, resending it unchanged won't help.
+- **401**: the key is missing or invalid. Check that you passed it and that it's the right one.
+- **429**: you made too many requests in a short time. Wait a few seconds and retry.
+- **500** (and similar): the problem is on the service's side. Try again in a bit.
+
+When something fails, the number is the first clue: it tells you whether the
+error is yours (codes starting with 4) or the service's (starting with 5).
+
+## Rate limits and token billing
+
+Two concepts you'll meet right away with AI models.
+
+A <Def explanation="The maximum number of requests, or tokens, the service accepts from you in a time window, usually a minute.">rate limit</Def>
+is the cap on requests you can make in a time window. If you go over it you
+get a 429. It protects the service, and it usually goes up as you use and
+pay more.
+
+Billing is per **token**, not per request. A token is a small piece of
+text, roughly a syllable or a short word, and you pay for both the ones you
+send and the ones you receive. A long request costs more than a short one,
+even if it's a single call. You'll see how tokens work in
+[*Context in tokens*](/en/going-deeper/context-in-tokens/).
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the basics"
+  file="review-what-is-an-api.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+Now you have the vocabulary. The next step is the first real call to a
+model, in Python and TypeScript: that's the topic of
+[*From chats to APIs*](/en/going-deeper/from-chats-to-apis/).

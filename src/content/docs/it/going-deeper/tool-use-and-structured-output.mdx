@@ -242,7 +242,7 @@ indovini la forma.
 - **Valida sempre gli argomenti.** Il modello riempie lo schema, ma può sbagliare un valore o inventarlo. Lo schema garantisce la forma, non che il contenuto sia giusto: tratta gli argomenti come input non fidato.
 - **Puoi forzare o lasciar scegliere.** Con `tool_choice` obblighi il modello a usare un tool, utile per l'estrazione; senza, decide lui se e quale chiamare, utile quando alcune domande non richiedono strumenti.
 - **Gli strumenti costano token.** Le definizioni entrano nella finestra a ogni chiamata, come hai visto in [Il contesto in token](/it/going-deeper/context-in-tokens/). Molti strumenti descritti a lungo pesano: tienili essenziali.
-- **Uno strumento è una capacità, quindi un rischio.** Se un tool scrive su un database o manda una mail, un input malevolo che convince il modello a chiamarlo nel modo sbagliato diventa un problema di sicurezza. È il tema di *Prompt injection e sicurezza*.
+- **Uno strumento è una capacità, quindi un rischio.** Se un tool scrive su un database o manda una mail, un input malevolo che convince il modello a chiamarlo nel modo sbagliato diventa un problema di sicurezza. È il tema di [*Prompt injection e sicurezza*](/it/going-deeper/prompt-injection/).
 
 :::tip[La descrizione dello strumento è l'interfaccia]
 Il modello sceglie quale strumento usare leggendo nome e descrizione, non il

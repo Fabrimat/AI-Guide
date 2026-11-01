@@ -1,0 +1,218 @@
+---
+title: "Privacy and data in APIs"
+description: "What changes for your data when you move from chat to the API: commercial terms, minimizing personal data, GDPR basics, logs and secret keys."
+livello: avanzato
+prerequisiti: [from-chats-to-apis, prompt-injection]
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import LessonSummary from '../../../../components/LessonSummary.astro';
+import LlmExercise from '../../../../components/LlmExercise.astro';
+import Def from '../../../../components/Def.astro';
+
+<LessonSummary>
+
+- APIs usually come with different terms from consumer chat apps: a commercial contract, their own rules on training, and their own retention periods. Read them in the provider's current contract and docs, not on this page.
+- The safest data is the data that never leaves: strip or replace personal data before you build the request, and restore it in the answer only if you need it.
+- With GDPR in play you need three things clear: a legal basis for processing the data, a data processing agreement (DPA) with the provider, and where the data is processed.
+- The logs of your own requests hold the same data you took out of the call: minimize them too, limit access, and give them an expiry.
+- The API key is a credential: environment variable or secrets manager, never in the code, never in the browser, rotate it if it leaks.
+
+</LessonSummary>
+
+When you use a chat app, your data goes into a product with its own rules. When
+you call an API, your data goes into your own system, and the model provider
+becomes one of your subcontractors. Responsibility shifts: you decide what to
+send, what to record and who to explain it to. This page is not legal advice: for
+real processing of personal data, talk to whoever handles data protection in your
+organization.
+
+If you need the basics first, [What you share when you use AI](/en/fundamentals/privacy-basics/)
+and [Company data and privacy](/en/at-work/company-data-and-privacy/) start from
+the user's side. Here we cover the builder's side.
+
+## How the rules change with APIs
+
+Consumer chat apps and APIs are usually separate products with separate terms.
+There are three areas to check, and for each one the answer lives in the
+provider's terms, not in your memory.
+
+- **Training.** Providers generally treat API data differently from consumer chat data, and for commercial APIs the default is often that inputs are not used to train models. Often, not always: it depends on the provider, the plan, and any options you have switched on.
+- **Retention.** Inputs and outputs may stay on the provider's servers for a period, for example to check for abuse. The length varies by provider and can change over time. Some offer agreements with reduced or zero retention for cases that need it.
+- **Contract.** Commercial use comes with commercial terms: the roles of each party, security, subprocessors, what happens after a data breach.
+
+Before you send real data, read the provider's official data and privacy page
+and its commercial terms. For Anthropic, the documents live in the legal area
+and in the developer documentation. If a condition matters for a decision (a
+contract, an audit), save a dated copy: these pages change.
+
+:::note[Chat and API are not the same thing even within one provider]
+A chat account and an API key can have different rules on the same model. If your
+company has approved a tool, check that the approval covers the channel you are
+actually using.
+:::
+
+## Send less data
+
+The best protection is not sending what the model doesn't need to see. The
+principle is called <Def explanation="Processing only the personal data needed for the purpose, and no more. It is one of the GDPR principles.">data minimization</Def>
+and in practice it comes down to three moves.
+
+**Ask whether the data is needed.** To summarize a complaint email, the model
+doesn't need the customer's address. To classify a ticket, it doesn't need the
+name.
+
+**Remove.** If the data isn't needed, cut it before you build the request.
+
+**Replace.** If you need the structure but not the identity, swap the data for a
+placeholder (`[EMAIL_1]`, `[TEL_1]`) and keep the mapping table on your side. This
+is called <Def explanation="Replacing data that identifies a person with a code, keeping the mapping table separate. The data still counts as personal under GDPR, but the risk drops.">pseudonymisation</Def>.
+The model works on text with placeholders, and you put the real values back into
+the answer if needed.
+
+Here is a lean version that replaces emails and phone numbers.
+
+<Tabs syncKey="lang">
+<TabItem label="Python">
+
+```python
+import re
+
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+PHONE = re.compile(r"(?<!\w)\+?\d[\d\s().-]{7,}\d")
+
+def redact(text):
+    mapping = {}
+
+    def replace(kind, regex, t):
+        def f(m):
+            key = f"[{kind}_{len(mapping) + 1}]"
+            mapping[key] = m.group(0)
+            return key
+        return regex.sub(f, t)
+
+    text = replace("EMAIL", EMAIL, text)
+    text = replace("TEL", PHONE, text)
+    return text, mapping
+
+def restore(text, mapping):
+    for key, value in mapping.items():
+        text = text.replace(key, value)
+    return text
+
+clean, mapping = redact("Write to mario.rossi@example.com or call +39 333 123 4567.")
+print(clean)  # Write to [EMAIL_1] or call [TEL_2].
+```
+
+</TabItem>
+<TabItem label="TypeScript">
+
+```typescript
+const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/g;
+const PHONE = /(?<!\w)\+?\d[\d\s().-]{7,}\d/g;
+
+function redact(text: string): { clean: string; mapping: Map<string, string> } {
+  const mapping = new Map<string, string>();
+  const replace = (kind: string, regex: RegExp, t: string) =>
+    t.replace(regex, (original) => {
+      const key = `[${kind}_${mapping.size + 1}]`;
+      mapping.set(key, original);
+      return key;
+    });
+
+  let clean = replace("EMAIL", EMAIL, text);
+  clean = replace("TEL", PHONE, clean);
+  return { clean, mapping };
+}
+
+function restore(text: string, mapping: Map<string, string>): string {
+  for (const [key, value] of mapping) text = text.replaceAll(key, value);
+  return text;
+}
+
+const { clean, mapping } = redact("Write to mario.rossi@example.com or call +39 333 123 4567.");
+console.log(clean); // Write to [EMAIL_1] or call [TEL_2].
+```
+
+</TabItem>
+</Tabs>
+
+You send `clean` to the model, and when the answer comes back you call `restore`
+with the same `mapping`. The regular expressions catch the most common formats
+and nothing else: names, addresses, tax codes and IBANs stay where they are. For
+genuinely sensitive data you need a more serious detection tool, and in any case a
+spot check of what actually leaves your system.
+
+## GDPR in plain words
+
+If you process data about people in the European Union, the GDPR applies, even to
+a small project. Three concepts matter right away.
+
+**Legal basis.** To process personal data you need a reason the law recognizes:
+the person's consent, a contract, a legal obligation, a legitimate interest, and
+so on. "It's useful anyway" is not one. You pick the legal basis up front, and it
+often decides what you can do and how you inform people.
+
+**Data processing agreement.** When you send personal data to a provider that
+processes it on your behalf, the provider is a processor and you need a
+<Def explanation="Data Processing Agreement: the contract that sets what the provider may do with the data you entrust to it, with which security guarantees and which subprocessors.">DPA</Def>.
+The main API providers make one available, often built into the commercial
+terms. Check that one exists and that it is active for your account.
+
+**Where the data is processed.** If the provider's servers are outside the
+European Economic Area, the transfer has its own rules, with tools such as
+standard contractual clauses. Ask the provider in which regions it processes the
+data and whether options exist to stay in specific regions. The answers differ by
+provider and by plan.
+
+This page is not legal advice. For a real case, especially one involving health
+data, minors or employees, bring in whoever handles privacy in your
+organization. If your company has a DPO, start there.
+
+## Logs are personal data too
+
+Logging prompts helps you see what's failing and measure quality, as you will see
+in [Evals: knowing whether it works](/en/going-deeper/evals/). But a log that holds
+your users' requests holds their data, so the same rules apply: you need a legal
+basis, limited access, and a retention period.
+
+- **Log after redaction.** Record the clean version of the prompt, not the original.
+- **Log metadata before content.** Model, tokens used, duration, outcome: often enough to diagnose, with no text at all.
+- **Limit who reads.** Logs are not a folder shared with the whole team.
+- **Set an expiry.** A log with no deletion date becomes an archive of personal data nobody decided to keep.
+- **Check the tools around it.** Error tracking, telemetry and observability tools often receive the request text. They are additional recipients of the data.
+
+## Handling the API key
+
+The API key opens your account: whoever holds it can make requests in your name
+and at your expense, and for the API those requests run under your contract and
+your data. The basic warning is in [From chats to APIs](/en/going-deeper/from-chats-to-apis/).
+Here are the practices to add as the project grows.
+
+- **Outside the code.** Environment variable or your cloud's secrets manager. Never in the repository, not even a private one, and never in a committed `.env` file.
+- **Outside the browser.** If the call starts from a web page, the key is visible to anyone who opens the developer tools. Requests go through a server of yours that holds the key.
+- **One key per environment.** Development and production get separate keys, so you can revoke one without stopping the other.
+- **Rotate it.** If you think it leaked, revoke it right away and create a new one. If you committed it by mistake, deleting the commit isn't enough: treat the key as compromised.
+- **Watch usage.** A spike in requests you can't explain is the first sign of a stolen key.
+
+As for content that comes from your users and passes through the model, the
+risk isn't only privacy: hostile text can push the model to reveal what it holds
+in its context. The topic is covered in [Prompt injection and safety](/en/going-deeper/prompt-injection/), and the
+useful rule here is not to put data in the prompt that the user shouldn't be able
+to read.
+
+## Check what you understood
+
+<LlmExercise
+  variant="review"
+  title="Four questions to lock in the method"
+  file="review-privacy-in-apis.txt"
+  duration="5-7 min"
+  description="Paste the text into your AI. It will ask you four progressive questions about the lesson, one at a time, and give you feedback."
+/>
+
+## What comes next
+
+You now have the pieces for building with care for data. The last lesson of the
+module puts them together in a small working assistant:
+[A mini end-to-end project](/en/going-deeper/mini-project/).

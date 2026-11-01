@@ -169,66 +169,25 @@ export default defineConfig({
         },
         {
           // Modulo 6 (Per chi vuole di più) — in corso (6/13). Pubblico
-          // tecnico. Lasciato come unico blocco da 13 voci per ora; se il
+          // tecnico. Lasciato come unico blocco da 14 voci per ora; se il
           // modulo crescerà, valutare lo split in "Core APIs" + "Beyond APIs".
           label: 'Going deeper',
           translations: { it: 'Per chi vuole di più' },
           items: [
+            { slug: 'going-deeper/what-is-an-api' },
             { slug: 'going-deeper/from-chats-to-apis' },
             { slug: 'going-deeper/choose-the-model' },
             { slug: 'going-deeper/context-in-tokens' },
             { slug: 'going-deeper/system-prompts-and-roles' },
             { slug: 'going-deeper/tool-use-and-structured-output' },
             { slug: 'going-deeper/rag' },
-            {
-              label: 'Agents',
-              translations: { it: 'Agenti' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'MCP and integrations',
-              translations: { it: 'MCP e integrazioni' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Prompt injection and safety',
-              translations: { it: 'Prompt injection e sicurezza' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Evals',
-              translations: { it: 'Evals' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Costs and prompt caching',
-              translations: { it: 'Costi e prompt caching' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'Privacy in APIs',
-              translations: { it: 'Privacy e dati nelle API' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
-            {
-              label: 'A mini end-to-end project',
-              translations: { it: 'Mini progetto end-to-end' },
-              link: '#',
-              badge: { text: { en: 'Soon', it: 'Presto' }, variant: 'default' },
-              attrs: { 'aria-disabled': 'true', tabindex: -1 },
-            },
+            { slug: 'going-deeper/prompt-injection' },
+            { slug: 'going-deeper/agents' },
+            { slug: 'going-deeper/mcp-and-integrations' },
+            { slug: 'going-deeper/evals' },
+            { slug: 'going-deeper/costs-and-caching' },
+            { slug: 'going-deeper/privacy-in-apis' },
+            { slug: 'going-deeper/mini-project' },
           ],
         },
         {

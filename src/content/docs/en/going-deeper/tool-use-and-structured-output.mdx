@@ -241,7 +241,7 @@ model guesses the shape.
 - **Always validate the arguments.** The model fills the schema, but it can get a value wrong or invent it. The schema guarantees the shape, not that the content is right: treat the arguments as untrusted input.
 - **You can force or let it choose.** With `tool_choice` you make the model use a tool, handy for extraction; without it, the model decides whether and which to call, handy when some questions need no tool.
 - **Tools cost tokens.** The definitions go into the window on every call, as you saw in [Context and tokens](/en/going-deeper/context-in-tokens/). Many tools described at length add up: keep them lean.
-- **A tool is a capability, so a risk.** If a tool writes to a database or sends an email, a malicious input that talks the model into calling it the wrong way becomes a security problem. That's the topic of *Prompt injection and safety*.
+- **A tool is a capability, so a risk.** If a tool writes to a database or sends an email, a malicious input that talks the model into calling it the wrong way becomes a security problem. That's the topic of [*Prompt injection and safety*](/en/going-deeper/prompt-injection/).
 
 :::tip[The tool description is the interface]
 The model picks which tool to use by reading the name and description, not your
