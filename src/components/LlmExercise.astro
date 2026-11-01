@@ -74,7 +74,7 @@ const { icon, badge, durationSuffix } = labels[variant];
   <p class="howto" set:html={ui.llmExerciseHowTo}></p>
 
   <div class="actions">
-    <button type="button" class="btn btn-primary" data-copy-src={fileUrl}>
+    <button type="button" class="btn btn-primary" data-copy-src={fileUrl} aria-live="polite">
       {ui.llmExerciseCopy}
     </button>
     <a class="btn" href={fileUrl} download>
@@ -101,7 +101,8 @@ const { icon, badge, durationSuffix } = labels[variant];
     const wrapper = target.closest<HTMLElement>('.llm-exercise');
     const copied = wrapper?.dataset.i18nCopied || '';
     const error = wrapper?.dataset.i18nError || '';
-    const original = target.textContent ?? '';
+    // Etichetta originale salvata una sola volta (click ripetuti).
+    const original = (target.dataset.label ??= target.textContent ?? '');
 
     track('exercise_copy', {
       file: wrapper?.dataset.file || '',

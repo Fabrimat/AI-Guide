@@ -43,6 +43,7 @@ const prompt = ui.glossaryPrompt(name);
     data-glossary-prompt={prompt}
     data-i18n-copied={ui.glossaryCopied}
     data-i18n-error={ui.glossaryError}
+    aria-live="polite"
   >
     {ui.glossaryButton}
   </button>
@@ -63,7 +64,8 @@ const prompt = ui.glossaryPrompt(name);
           if (!prompt) return;
           const term = btn.closest<HTMLElement>('.glossary-term')?.dataset.term || '';
           track('glossary_explain', { term });
-          const original = btn.textContent ?? '';
+          // Etichetta originale salvata una sola volta (click ripetuti).
+          const original = (btn.dataset.label ??= btn.textContent ?? '');
           const copied = btn.dataset.i18nCopied || '';
           const error = btn.dataset.i18nError || '';
           try {

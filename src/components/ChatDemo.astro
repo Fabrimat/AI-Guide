@@ -206,6 +206,7 @@ const aiHtml = renderInlineMarkdown(ai);
     skipBtn: HTMLButtonElement | null;
     running = false;
     cancelled = false;
+    runId = 0;
     reducedMotion: boolean;
     observer: IntersectionObserver | null = null;
 
@@ -297,49 +298,56 @@ const aiHtml = renderInlineMarkdown(ai);
       if (this.running) return;
       this.running = true;
       this.cancelled = false;
+      // Ogni run ha un id: se l'utente preme Riavvia mentre un vecchio run
+      // dorme (pausa "thinking" o loopDelay), quello si accorge di essere
+      // stato superato e si ferma, invece di girare in parallelo al nuovo.
+      const runId = ++this.runId;
+      const dead = () => this.cancelled || runId !== this.runId;
       this.setSkipVisible(true);
 
       this.prime();
 
       // Piccolo delay per dare percezione del "before" stabile.
       await this.sleep(180);
-      if (this.cancelled) return this.finish();
+      if (dead()) return this.finish(runId);
 
       // 1. Typewriter sul messaggio utente (con caret attivo).
       const userContent = this.userMsg.querySelector('.text-content') as HTMLElement;
       const userCaret = this.userMsg.querySelector('.caret') as HTMLElement;
       userCaret.classList.add('is-active');
-      await this.typeUser(userContent, this.userText);
-      if (this.cancelled) return this.finish();
+      await this.typeUser(userContent, this.userText, dead);
+      if (dead()) return this.finish(runId);
       userCaret.classList.remove('is-active');
 
       // 2. Pausa breve: messaggio "inviato".
       await this.sleep(380);
-      if (this.cancelled) return this.finish();
+      if (dead()) return this.finish(runId);
 
       // 3. Pausa "thinking": i dots dell'IA continuano ad animarsi.
       await this.sleep(this.thinkingTime);
-      if (this.cancelled) return this.finish();
+      if (dead()) return this.finish(runId);
 
       // 4. Nascondi i dots, abilita caret IA, typewriter sulla risposta.
       const aiCaret = this.aiMsg.querySelector('.caret') as HTMLElement;
       const aiThinking = this.aiMsg.querySelector('[data-thinking]') as HTMLElement;
       aiThinking.classList.add('is-hidden');
       aiCaret.classList.add('is-active');
-      await this.typeAi();
-      if (this.cancelled) return this.finish();
+      await this.typeAi(dead);
+      if (dead()) return this.finish(runId);
       aiCaret.classList.remove('is-active');
 
       this.running = false;
       this.setSkipVisible(false);
 
-      if (this.loop && !this.cancelled) {
+      if (this.loop && !dead()) {
         await this.sleep(this.loopDelay);
-        if (!this.cancelled) void this.play();
+        if (!dead()) void this.play();
       }
     }
 
-    finish() {
+    finish(runId: number) {
+      // Un run superato non deve toccare lo stato del run nuovo.
+      if (runId !== this.runId) return;
       this.running = false;
       this.setSkipVisible(false);
     }
@@ -363,10 +371,10 @@ const aiHtml = renderInlineMarkdown(ai);
       this.skipBtn.hidden = !visible;
     }
 
-    async typeUser(el: HTMLElement, text: string) {
+    async typeUser(el: HTMLElement, text: string, dead: () => boolean) {
       el.textContent = '';
       for (let i = 0; i < text.length; i++) {
-        if (this.cancelled) return;
+        if (dead()) return;
         el.textContent = text.slice(0, i + 1);
         await this.sleep(this.typingSpeed);
       }
@@ -380,9 +388,9 @@ const aiHtml = renderInlineMarkdown(ai);
      * restano vuoti. I tag di mezzo (strong, em, a, code) restano al
      * loro posto, solo il loro contenuto testuale appare a poco a poco.
      */
-    async typeAi() {
+    async typeAi(dead: () => boolean) {
       for (let i = 1; i <= this.aiTotalChars; i++) {
-        if (this.cancelled) return;
+        if (dead()) return;
         this.revealAi(i);
         await this.sleep(this.typingSpeed);
       }

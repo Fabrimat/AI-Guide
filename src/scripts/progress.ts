@@ -12,14 +12,14 @@
  *    un titolo umano)
  *  - timeSpentMs (tempo cumulato a tab attiva)
  *  - scrolledToEnd (true se l'utente ha scrollato >= 80%)
- *  - read (true se >= 30s + scrolledToEnd, su pagine "leggibili")
+ *  - read (true se >= 15s + scrolledToEnd, su pagine "leggibili")
  *  - buttons (conteggio click su Copia / Scarica / Apri / Riavvia /
  *    Prossima lezione)
  *
  * Stato globale:
  *  - lastVisitAt
  *  - lastUrl (l'ultima pagina "leggibile" che l'utente ha LASCIATO,
- *    aggiornato in pagehide/before-swap, NON al momento dell'arrivo —
+ *    aggiornato in pagehide/before-swap, NON al momento dell'arrivo,
  *    altrimenti `<Resume>` punterebbe sempre alla pagina corrente)
  */
 
@@ -49,6 +49,8 @@ const READ_SCROLL_RATIO = 0.8;
 const TICK_INTERVAL_MS = 5_000;
 
 let pageActiveSince: number | null = null;
+let lastSetupUrl: string | null = null;
+let lastSetupAt = 0;
 let perPageTeardown: (() => void) | null = null;
 
 function defaults(): ProgressState {
@@ -240,7 +242,13 @@ function setupForCurrentPage() {
 
   const url = window.location.pathname;
   const title = document.title;
-  recordVisit(url, title);
+  // Al primo caricamento questa funzione parte due volte (esecuzione dello
+  // script + `astro:page-load`): evita di contare la visita due volte.
+  const now = Date.now();
+  const isDuplicateSetup = url === lastSetupUrl && now - lastSetupAt < 1500;
+  lastSetupUrl = url;
+  lastSetupAt = now;
+  if (!isDuplicateSetup) recordVisit(url, title);
   syncSidebarCompletion();
 
   pageActiveSince =

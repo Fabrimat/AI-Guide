@@ -237,43 +237,47 @@ const it: UIStrings = {
   recapBadge: '🎓 Ripasso con la tua IA',
   recapTitle: 'Trasforma la tua IA in un tutor',
   recapDesc:
-    'Generiamo un prompt che fa diventare la tua IA un tutor delle lezioni che hai completato. Ti farà domande socratiche per rievocare quello che hai imparato.',
+    'Genera un prompt che trasforma la tua IA in un tutor sulle lezioni che hai completato. Ti fa una domanda alla volta per aiutarti a ricordare quello che hai imparato.',
   recapEmpty: 'Completa almeno una lezione per attivare il ripasso.',
   recapCountOne: '1 lezione completata finora.',
   recapCountMany: (n) => `${n} lezioni completate finora.`,
   recapGenerate: 'Genera prompt di ripasso',
   recapDialogTitle: 'Ecco il tuo prompt di ripasso',
   recapDialogHint:
-    'Copialo e incollalo nella tua IA. Si calibrerà sulle lezioni che hai effettivamente completato.',
+    'Copialo e incollalo nella tua IA. Parlerà solo delle lezioni che hai completato.',
   recapCopy: 'Copia il prompt',
   recapClose: 'Chiudi',
   recapCopied: '✅ Copiato!',
   recapCopyError: '❌ Errore, riprova',
   recapPromptIntro:
-    'Sei un tutor amichevole. Sto studiando il manuale AI-Guide e ho completato queste lezioni, di cui ti elenco i concetti chiave:',
-  recapPromptInstructions: `Aiutami a fare un ripasso usando il metodo socratico. Fammi domande progressive che mi obblighino a rievocare e collegare i concetti delle diverse lezioni. Una domanda alla volta. Per ogni mia risposta, dammi un feedback breve (cosa ho centrato, cosa potrei precisare) e poi passa alla prossima.
+    'Sei un tutor paziente. Sto studiando il manuale AI-Guide e ho completato queste lezioni. Per ognuna ti elenco i concetti chiave:',
+  recapPromptInstructions: `Fammi ripassare con il metodo socratico. Fammi una domanda alla volta e aspetta la mia risposta prima di andare avanti. Non anticipare mai la risposta.
 
-Mescola le domande fra le lezioni che ho fatto, non procedere strettamente in ordine. Inserisci almeno una domanda di "applicazione" (es. uno scenario realistico in cui devo decidere cosa fare con l'IA) verso metà ripasso.
+Se sbaglio o non so rispondere, dammi prima un indizio e lasciami riprovare. Solo dopo un secondo tentativo spiegami la risposta giusta.
 
-Alla fine fai una sintesi in tre punti: cosa ho ben presente, cosa vale la pena ripassare, e una piccola sfida pratica per la prossima conversazione con un'IA.
+Dopo ogni mia risposta dimmi cosa ho centrato e cosa posso precisare, in due frasi al massimo, poi passa alla domanda successiva. Parti dalle domande più facili e falle crescere di difficoltà. Mescola le lezioni, senza seguire l'ordine. Verso metà ripasso inserisci una domanda di applicazione: un caso realistico in cui devo decidere cosa fare con l'IA. In tutto, al massimo otto domande.
 
-Tono incoraggiante, mai da esame. Niente gergo nelle tue spiegazioni: ricorda che sono alle prime armi.`,
-  recapUnmappedConcepts: '(concetti non mappati)',
+Alla fine fai un bilancio in tre punti: cosa ricordo bene, cosa conviene ripassare e una piccola prova pratica per la mia prossima conversazione con un'IA.
+
+Tono incoraggiante, senza voti. Parla in modo semplice e senza gergo: sono alle prime armi. Se non sei sicuro di un'informazione sulle lezioni, dillo invece di inventare.
+
+Comincia ora con la prima domanda.`,
+  recapUnmappedConcepts: '(riassunto non disponibile: parti dal titolo e chiedimi cosa ricordo)',
 
   glossaryButton: 'Approfondisci con la tua IA',
   glossaryCopied: '✅ Prompt copiato! Incollalo nella tua IA',
   glossaryError: '❌ Errore, riprova',
   glossaryPrompt: (term) =>
-    `Sei un tutor amichevole di un manuale di IA per principianti. Spiegami con parole semplici cosa significa "${term}" nel contesto delle IA conversazionali (ChatGPT, Claude, Gemini). Usa un esempio concreto preso dalla vita di tutti i giorni. Tono incoraggiante, niente gergo. Massimo 200 parole.
+    `Sei un tutor paziente di un manuale di IA per principianti. Spiegami con parole semplici cosa significa "${term}" parlando di IA conversazionali (ChatGPT, Claude, Gemini). Usa un esempio concreto della vita di tutti i giorni, in al massimo 150 parole. Niente gergo: se usi un termine tecnico, spiegalo subito.
 
-Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con la stessa accessibilità.`,
+Poi fammi una sola domanda per controllare se ho capito e aspetta la mia risposta. Se sbaglio, dammi un indizio prima di dirmi la soluzione. Se ho capito, chiedimi se voglio un esempio più difficile.`,
 
   practiceBadge: 'Esercizio con la tua IA',
   reviewBadge: 'Verifica con la tua IA',
   practiceDuration: 'di esercizio',
   reviewDuration: 'di verifica',
   llmExerciseHowTo:
-    "Copia il testo qui sotto e incollalo nella tua IA preferita (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong> o un'altra). In alternativa scarica il file e dallo all'IA come allegato.",
+    "Premi «Copia il testo» e incollalo nella tua IA preferita (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong> o un'altra). In alternativa scarica il file e daglielo come allegato.",
   llmExerciseCopy: 'Copia il testo',
   llmExerciseDownload: 'Scarica',
   llmExerciseOpen: 'Apri',
@@ -320,7 +324,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   localAiTierBetter: 'Migliore',
   localAiTierBest: 'Massimo',
   localAiDescLight: 'Risposte molto semplici e limitate',
-  localAiDescBetter: 'Risposte migliori, italiano piu accurato',
+  localAiDescBetter: 'Risposte più solide e più dettagliate',
   localAiDescBest: 'Le risposte migliori',
   localAiConfirmDelete: 'Conferma eliminazione',
 
@@ -377,7 +381,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   builderBadge: '🛠️ Costruisci il tuo prompt',
   builderTitle: 'Mettiti alla prova: scrivi un prompt che funziona',
   builderHint:
-    "Compila i quattro campi qui sotto pensando a una richiesta vera che vuoi fare a un'IA. Mentre scrivi vedi il prompt prendere forma a destra. Quando sei pronto, copialo e incollalo nella tua IA preferita.",
+    "Compila i quattro campi pensando a una richiesta vera che vuoi fare a un'IA. Mentre scrivi, il prompt prende forma nell'anteprima. Quando è pronto, copialo e incollalo nella tua IA preferita.",
   builderTaskLabel: "1. Cosa vuoi che l'IA faccia?",
   builderTaskExample:
     'es. "scrivimi una mail al mio capo per chiedere tre giorni di ferie"',
@@ -390,7 +394,7 @@ Se dopo ho domande di approfondimento, lasciami chiederle e rispondi sempre con 
   builderFormatExample:
     'es. "una mail breve, tono professionale ma cordiale, max 100 parole"',
   builderPreviewLabel: 'Prompt generato',
-  builderPlaceholder: 'Compila i campi a sinistra e il prompt apparirà qui.',
+  builderPlaceholder: 'Compila i campi e il prompt apparirà qui.',
   builderCopy: 'Copia il prompt',
   builderReset: 'Ripulisci tutto',
   builderCopied: '✅ Copiato!',
@@ -452,43 +456,47 @@ const en: UIStrings = {
   recapBadge: '🎓 Recap with your AI',
   recapTitle: 'Turn your AI into a tutor',
   recapDesc:
-    "We'll generate a prompt that turns your AI into a tutor for the lessons you've completed. It will ask Socratic questions to help you recall what you learned.",
+    "Generate a prompt that turns your AI into a tutor on the lessons you've completed. It asks you one question at a time to help you recall what you learned.",
   recapEmpty: 'Complete at least one lesson to enable the recap.',
   recapCountOne: '1 lesson completed so far.',
   recapCountMany: (n) => `${n} lessons completed so far.`,
   recapGenerate: 'Generate recap prompt',
   recapDialogTitle: 'Here is your recap prompt',
   recapDialogHint:
-    "Copy it and paste it into your AI. It will tune itself to the lessons you've actually completed.",
+    "Copy it and paste it into your AI. It will only talk about the lessons you've completed.",
   recapCopy: 'Copy prompt',
   recapClose: 'Close',
   recapCopied: '✅ Copied!',
   recapCopyError: '❌ Error, please retry',
   recapPromptIntro:
-    "You are a friendly tutor. I'm studying the AI-Guide manual and I've completed these lessons. Here are the key concepts for each:",
-  recapPromptInstructions: `Help me review using the Socratic method. Ask me progressive questions that force me to recall and connect concepts across the different lessons. One question at a time. After each of my answers, give me brief feedback (what I got right, what I could sharpen) then move to the next.
+    "You are a patient tutor. I'm studying the AI-Guide manual and I've completed these lessons. For each one, here are the key concepts:",
+  recapPromptInstructions: `Help me review using the Socratic method. Ask me one question at a time and wait for my answer before moving on. Never give the answer ahead of time.
 
-Mix questions across the lessons I've done, don't go strictly in order. Include at least one "application" question (e.g. a realistic scenario where I have to decide what to do with an AI) around the middle of the recap.
+If I get it wrong or don't know, give me a hint first and let me try again. Only after a second attempt, explain the right answer.
 
-At the end, give a three-point summary: what I have well in mind, what is worth reviewing, and a small practical challenge for my next conversation with an AI.
+After each answer, tell me what I got right and what I could sharpen, in two sentences at most, then move to the next question. Start with the easier questions and make them harder as we go. Mix the lessons, don't follow their order. Around the middle, include an application question: a realistic case where I have to decide what to do with an AI. Ask at most eight questions in total.
 
-Encouraging tone, never exam-like. No jargon in your explanations: remember I'm a beginner.`,
-  recapUnmappedConcepts: '(concepts not mapped yet)',
+At the end, give me a three-point wrap-up: what I remember well, what is worth reviewing, and a small practical task for my next conversation with an AI.
+
+Encouraging tone, no grades. Keep it simple and jargon-free: I'm a beginner. If you're unsure about something in the lessons, say so instead of making it up.
+
+Start now with the first question.`,
+  recapUnmappedConcepts: '(summary not available: start from the title and ask me what I remember)',
 
   glossaryButton: 'Go deeper with your AI',
   glossaryCopied: '✅ Prompt copied! Paste it into your AI',
   glossaryError: '❌ Error, please retry',
   glossaryPrompt: (term) =>
-    `You are a friendly tutor for a beginner-level AI manual. Explain to me in simple words what "${term}" means in the context of conversational AIs (ChatGPT, Claude, Gemini). Use a concrete example from everyday life. Encouraging tone, no jargon. Maximum 200 words.
+    `You are a patient tutor for a beginner-level AI manual. Explain in simple words what "${term}" means when talking about conversational AIs (ChatGPT, Claude, Gemini). Use a concrete example from everyday life, in 150 words at most. No jargon: if you use a technical term, explain it right away.
 
-If I have follow-up questions afterwards, let me ask them and keep the same accessible style in your answers.`,
+Then ask me one single question to check I understood, and wait for my answer. If I get it wrong, give me a hint before telling me the solution. If I got it, ask whether I want a harder example.`,
 
   practiceBadge: 'Exercise with your AI',
   reviewBadge: 'Check-in with your AI',
   practiceDuration: 'of practice',
   reviewDuration: 'of check-in',
   llmExerciseHowTo:
-    'Copy the text below and paste it into your favourite AI (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>, or another). Or download the file and give it to your AI as an attachment.',
+    'Press "Copy the text" and paste it into your favourite AI (<strong>Claude</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong>, or another). Or download the file and give it to your AI as an attachment.',
   llmExerciseCopy: 'Copy the text',
   llmExerciseDownload: 'Download',
   llmExerciseOpen: 'Open',
@@ -535,7 +543,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   localAiTierBetter: 'Better',
   localAiTierBest: 'Best',
   localAiDescLight: 'Very simple, limited answers',
-  localAiDescBetter: 'Stronger, more detailed answers',
+  localAiDescBetter: 'Stronger and more detailed answers',
   localAiDescBest: 'The best answers',
   localAiConfirmDelete: 'Confirm delete',
 
@@ -592,7 +600,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   builderBadge: '🛠️ Build your prompt',
   builderTitle: 'Give it a go: write a prompt that works',
   builderHint:
-    "Fill in the four fields below thinking of a real request you want to make to an AI. As you type, watch the prompt take shape on the right. When you're ready, copy it and paste it into your favourite AI.",
+    "Fill in the four fields thinking of a real request you want to make to an AI. As you type, the prompt takes shape in the preview. When it's ready, copy it and paste it into your favourite AI.",
   builderTaskLabel: '1. What do you want the AI to do?',
   builderTaskExample:
     'e.g. "write me an email to my manager asking for three days off"',
@@ -605,7 +613,7 @@ If I have follow-up questions afterwards, let me ask them and keep the same acce
   builderFormatExample:
     'e.g. "a short email, professional but friendly tone, max 100 words"',
   builderPreviewLabel: 'Generated prompt',
-  builderPlaceholder: 'Fill in the fields on the left and the prompt will appear here.',
+  builderPlaceholder: 'Fill in the fields and the prompt will appear here.',
   builderCopy: 'Copy prompt',
   builderReset: 'Clear everything',
   builderCopied: '✅ Copied!',

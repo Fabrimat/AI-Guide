@@ -69,12 +69,12 @@ const ui = t(Astro.currentLocale);
 
     <div class="pb-preview-wrap">
       <span class="pb-preview-label">{ui.builderPreviewLabel}</span>
-      <pre class="pb-preview" data-preview aria-live="polite">{ui.builderPlaceholder}</pre>
+      <pre class="pb-preview" data-preview>{ui.builderPlaceholder}</pre>
     </div>
   </div>
 
   <div class="pb-actions">
-    <button type="button" class="pb-btn pb-btn-primary" data-action="copy">
+    <button type="button" class="pb-btn pb-btn-primary" data-action="copy" aria-live="polite">
       {ui.builderCopy}
     </button>
     <button type="button" class="pb-btn pb-btn-ghost" data-action="reset">
@@ -163,7 +163,7 @@ const ui = t(Astro.currentLocale);
             if (!text) return;
             const btn = target.closest<HTMLButtonElement>('button[data-action="copy"]');
             if (!btn) return;
-            const original = btn.textContent ?? '';
+            const original = (btn.dataset.label ??= btn.textContent ?? '');
             const copied = root.dataset.i18nCopied || '';
             const error = root.dataset.i18nError || '';
             track('prompt_builder_copy');

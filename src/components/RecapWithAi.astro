@@ -61,6 +61,7 @@ const ui = t(Astro.currentLocale);
         type="button"
         class="recap-btn recap-btn-primary"
         data-recap-copy
+        aria-live="polite"
       >
         {ui.recapCopy}
       </button>
@@ -173,7 +174,7 @@ const ui = t(Astro.currentLocale);
     '/it/fundamentals/how-ai-understands/': `  - Meccanismo "una parola alla volta": l'IA prevede la parola successiva, ripetuto.
   - Allenata leggendo enormi quantità di testo (centinaia di miliardi di parole, in larga parte da fonti pubbliche).
   - Non memorizza i testi: ha imparato schemi (la "musica" del linguaggio), ricostruisce ogni volta.
-  - Tre conseguenze: non sa stima, più contesto = meglio, memoria solo dentro la stessa chat.
+  - Tre conseguenze: non conosce le cose recenti, più contesto = meglio, memoria solo dentro la stessa chat.
   - Esiste un limite alla "finestra di contesto" in chat molto lunghe.
   - Termine tecnico per queste IA: LLM (Large Language Model).`,
 
@@ -288,7 +289,9 @@ ${instructions}`;
     copyBtn.addEventListener('click', async () => {
       const text = output.textContent || '';
       if (!text) return;
-      const original = copyBtn.textContent ?? '';
+      // Salva l'etichetta originale una volta sola: con click ripetuti
+      // entro il timeout `textContent` sarebbe già "Copiato!".
+      const original = (copyBtn.dataset.label ??= copyBtn.textContent ?? '');
       const copied = root.dataset.i18nCopied || '';
       const error = root.dataset.i18nError || '';
       try {
