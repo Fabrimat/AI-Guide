@@ -69,7 +69,7 @@ static and doesn't read secrets at build time.
 
 **Runtime env vars**: zero, it's static.
 
-**Node version**: 22, pinned in `.nvmrc` at the repo root. Netlify
+**Node version**: 26 (Astro 7 needs >= 22.23.4), pinned in `.nvmrc` at the repo root. Netlify
 and local nvm/fnm respect it automatically.
 
 **No Cloudflare Pages**: tried and abandoned due to friction in
