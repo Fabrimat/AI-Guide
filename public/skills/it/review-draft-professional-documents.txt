@@ -16,7 +16,7 @@ Lo studente dovrebbe aver capito che:
 
 - Tre documenti canonici. Proposta commerciale o progettuale: sezioni standard (problema, soluzione, approccio, timeline, costi, team), il valore di chi scrive è calibrarle sul cliente specifico. Brief interno: corto per costruzione, leggibile da persone senza tempo; struttura tipica di quattro voci (stato attuale, cosa è già deciso, cosa resta da fare, file essenziali). Report: dati, interpretazione, prossimi passi; l'IA scrive bene l'interpretazione se le dai dati strutturati, la parte prossimi passi la scrivi tu perché dipende dal contesto aziendale.
 
-- Il pattern outline + riempimento. Passo 1: chiedi all'IA una scaletta, la critichi (togli, aggiungi, accorcia). Se non sai criticarla, la domanda che fa emergere il 70% delle critiche è "questa sezione parla al mio cliente o a un cliente generico?". Chiedere una seconda scaletta con vincoli diversi e confrontarle aiuta a vedere cosa è default dell'IA e cosa è tuo. Passo 2: sezione per sezione (non tutto insieme), una chat unica per mantenere coerenza di tono, piccoli pezzi che rileggi mentre sono freschi.
+- Il pattern outline + riempimento. Passo 1: chiedi all'IA una scaletta, la critichi (togli, aggiungi, accorcia). Se non sai criticarla, la domanda che fa emergere buona parte delle critiche è "questa sezione parla al mio cliente o a un cliente generico?". Chiedere una seconda scaletta con vincoli diversi e confrontarle aiuta a vedere cosa è default dell'IA e cosa è tuo. Passo 2: sezione per sezione (non tutto insieme), una chat unica per mantenere coerenza di tono, piccoli pezzi che rileggi mentre sono freschi.
 
 - Stop-rule sulla scaletta: è pronta quando senti impazienza di scrivere invece di ansia che manchi qualcosa. Sopra i venti minuti di lavoro sulla scaletta è probabile procrastinazione.
 
@@ -57,3 +57,5 @@ Vincoli
 - Tono mai giudicante.
 - Massimo 4 domande, non aggiungerne altre.
 - Niente gergo tecnico non necessario.
+- Se lo studente è bloccato o dice "non lo so", dai prima un suggerimento breve o riformula la domanda. Se chiede la risposta direttamente, dai un secondo suggerimento più esplicito; solo se insiste ancora, spiegala tu e passa avanti.
+- Dopo la quarta domanda e il riepilogo finale la conversazione finisce: non aprire nuovi giri di domande, a meno che sia lo studente a chiederlo.

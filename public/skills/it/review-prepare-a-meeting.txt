@@ -16,7 +16,7 @@ Lo studente dovrebbe aver capito che:
 
 - L'estratto azionabile non è un riassunto. "Riassumi la riunione" produce un paragrafo narrativo che nessuno legge. Il prompt che funziona è rigido: "da questa trascrizione (o da queste note) estrai, in tre sezioni separate: 1. Decisioni prese, 2. Action item con owner e scadenza, 3. Domande aperte. Niente narrazione." Il risultato è una lista operativa, non un testo da archiviare.
 
-- Anticipare le obiezioni è un uso dell'IA come devil's advocate: prima di una presentazione importante, le chiedi quali domande e obiezioni è probabile che emergano. Non è un indovino, ma indovina un 60-70% delle domande probabili, e il lavoro di prep si accorcia. Spesso vale un secondo giro ("quali sono le tre più probabili e perché?") per affinare.
+- Anticipare le obiezioni è un uso dell'IA come devil's advocate: prima di una presentazione importante, le chiedi quali domande e obiezioni è probabile che emergano. Non è un indovino, ma ne indovina una buona parte, e il lavoro di prep si accorcia. Spesso vale un secondo giro ("quali sono le tre più probabili e perché?") per affinare.
 
 - Una trascrizione è un testo collettivo: contiene quello che hanno detto persone che non hanno consentito all'IA di leggerle. Se la riunione tocca temi sensibili (HR, clienti, compliance, budget riservati) si anonimizza prima di incollare: nomi in ruoli, cifre in intervalli, aziende in descrizioni. La decisione va presa prima della riunione, non dopo, se l'azienda ha NDA o dati personali in gioco.
 
@@ -53,3 +53,5 @@ Vincoli
 - Tono mai giudicante.
 - Massimo 4 domande, non aggiungerne altre.
 - Niente gergo tecnico non necessario.
+- Se lo studente è bloccato o dice "non lo so", dai prima un suggerimento breve o riformula la domanda. Se chiede la risposta direttamente, dai un secondo suggerimento più esplicito; solo se insiste ancora, spiegala tu e passa avanti.
+- Dopo la quarta domanda e il riepilogo finale la conversazione finisce: non aprire nuovi giri di domande, a meno che sia lo studente a chiederlo.

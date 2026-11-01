@@ -55,3 +55,5 @@ Constraints
 - Tone never judging.
 - Maximum 4 questions, don't add more.
 - No unnecessary technical jargon.
+- If the student is stuck or says "I don't know", give a short hint or rephrase the question first. If they ask for the answer outright, give a second, more explicit hint; only if they still insist, explain it yourself and move on.
+- After the fourth question and the final wrap-up the conversation ends: don't start new rounds of questions unless the student asks.
