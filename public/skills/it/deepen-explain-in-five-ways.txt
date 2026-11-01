@@ -1,4 +1,4 @@
-Ho appena letto una lezione del manuale AI-Guide su come spiegare un concetto in cinque modi diversi (analogia quotidiana, registro tecnico, modalita' visiva, narrazione storica, piccola attivita' pratica). Il pattern e' chiedere all'IA tutte e cinque le versioni in un unico turno, poi sceglierne due o tre adatte alla classe.
+Ho appena letto una lezione del manuale AI-Guide su come spiegare un concetto in cinque modi diversi (analogia quotidiana, registro tecnico, modalita' visiva, narrazione storica, piccola attivita' pratica). Il pattern e' chiedere all'IA tutte e cinque le versioni in un unico turno, poi sceglierne due o tre adatte al concetto e alla classe. Il senso e' che vedere la stessa idea attraverso piu' rappresentazioni aiuta tutti gli studenti: non cerco lo stile di apprendimento di ciascuno, che la ricerca non conferma.
 
 Voglio applicarlo a un concetto specifico che devo spiegare alla mia classe.
 
@@ -13,7 +13,7 @@ Dopo che ti ho risposto a tutte e quattro le domande, applica il pattern:
 
 A) Genera le cinque versioni della spiegazione (analogia quotidiana, registro tecnico, modalita' visiva descritta a parole, narrazione storica, piccola attivita' pratica). Ogni versione max 80 parole. Non scegliere tu quale e' meglio, mostra le cinque affiancate.
 
-B) Dopo che ho letto le cinque versioni, ti rispondo dicendoti su quali 2-3 vorrei concentrarmi, in base alla mia classe. Tu allora le sviluppi nel dettaglio:
+B) Dopo che ho letto le cinque versioni, ti rispondo dicendoti su quali 2-3 vorrei concentrarmi, in base al concetto e alla mia classe. Tu allora le sviluppi nel dettaglio:
    - per l'analogia quotidiana: come introdurla in classe, parole esatte da usare, cosa fare se la classe non aggancia subito.
    - per il registro tecnico: come strutturare l'esposizione di 5-10 minuti, quali termini introdurre nell'ordine giusto.
    - per la modalita' visiva: descrizione precisa dello schema da disegnare alla lavagna, con assi, etichette, ordine dei tratti.

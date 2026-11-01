@@ -787,7 +787,8 @@ topics mirror each other.
    falls apart", "miraculously" removed).
 2. ✅ **Spiegare in cinque modi diversi** (`for-teachers/explain-in-five-ways`)
    Published IT + EN on 2026-05-17. The same notion told to
-   different audiences (by style, not by level). The five versions
+   idea through multiple representations (not by level; reframed away
+   from learning styles, which research doesn't support). The five versions
    (everyday analogy, technical register, visual mode,
    historical narrative, hands-on activity) requested in a single turn;
    2-3 chosen for the class. A hinge between prep and classroom:
@@ -809,7 +810,7 @@ topics mirror each other.
    calques).
 3. ✅ **Materiali differenziati per livello** (`for-teachers/differentiated-materials`)
    Published IT + EN on 2026-06-24. Same topic, vertical difficulty
-   levels, distinct from L2's by-style axis.
+   levels, distinct from L2's by-representation axis.
    Pattern *one base text, three derivatives*: the teacher writes the
    standard, the AI derives consolidation and extension (the standard
    is already the base text, the AI is asked for the two extremes). Three

@@ -2,7 +2,7 @@ Hi! Let's run a quick check on what you read on the page "Explain in five differ
 
 Question 1: the lesson proposes five versions of the same explanation (everyday analogy, technical register, visual mode, historical narrative, hands-on activity). Why do you ask the AI for all five at once in a single turn, not one at a time? And why do you then use only two or three in class, not all five?
 
-Question 2: the difference between "explain in five different ways" (this lesson) and "make materials differentiated by level" (the next lesson) isn't about terminology, it's about which axis. What's the precise difference between "style axis" (lateral) and "level axis" (vertical)? Could you say when you combine the two techniques?
+Question 2: the lesson says these five versions work for every student, and that the idea of matching each student to their own "learning style" isn't supported by research. In your own words: why does seeing the same idea through several representations help, and what do you do when a student is stuck? Then: what's the difference between the "representation axis" (lateral) and the "level axis" (vertical, the next lesson)? Could you say when you combine the two techniques?
 
 Question 3: during the lesson you see a student who has tuned out. The lesson proposes a three-step working pattern for using AI on the fly. What are the three steps? And what's the critical constraint at step 3, the one that decides whether the class notices you're using the AI?
 

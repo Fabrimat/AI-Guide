@@ -1,4 +1,4 @@
-I've just read a lesson from the AI-Guide handbook on explaining a concept in five different ways (everyday analogy, technical register, visual mode, historical narrative, small hands-on activity). The pattern is to ask the AI for all five versions in a single turn, then pick two or three suited to the class.
+I've just read a lesson from the AI-Guide handbook on explaining a concept in five different ways (everyday analogy, technical register, visual mode, historical narrative, small hands-on activity). The pattern is to ask the AI for all five versions in a single turn, then pick two or three suited to the concept and the class. The point is that seeing the same idea through several representations helps every student: I'm not looking for each student's learning style, which research doesn't support.
 
 I want to apply it to a specific concept I have to explain to my class.
 
@@ -13,7 +13,7 @@ After I've answered all four questions, apply the pattern:
 
 A) Generate the five versions of the explanation (everyday analogy, technical register, visual mode described in words, historical narrative, small hands-on activity). Each version max 80 words. Don't pick the best one for me, show the five side by side.
 
-B) After I've read the five versions, I'll reply telling you which 2-3 I'd like to focus on, based on my class. You then develop them in detail:
+B) After I've read the five versions, I'll reply telling you which 2-3 I'd like to focus on, based on the concept and my class. You then develop them in detail:
    - for the everyday analogy: how to introduce it in class, the exact words to use, what to do if the class doesn't grab on right away.
    - for the technical register: how to structure a 5-10 minute exposition, which terms to introduce in what order.
    - for the visual mode: a precise description of the schema to draw on the board, with axes, labels, the order of strokes.
